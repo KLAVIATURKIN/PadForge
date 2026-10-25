@@ -4291,4 +4291,97 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="About_X1nputDesc" xml:space="preserve"><value>Az Xbox impulzusravasz 9 bájtos jelentése és annak írási útvonala, készítette: araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>A PS5 haptikus PCM-formátuma (előjeles 16 bit, 3 kHz), amely eldöntötte az előjeles 8 bites Bluetooth-haptika kódolásának kérdését. AGPL-3.0, kizárólag dokumentációként olvasva, a program nem tartalmaz AGPL-kódot.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Billentyűzetképernyők</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Rajzol a Logitech GamePanel billentyűzeteibe és a Mad Catz S.T.R.I.K.E. 7 beépített képernyőire, valamint egy telefonra a Logitech Arx Control segítségével: a profilt, egy órát, a játékidőt, egy stopperórát, egy képet vagy egy DualShock 4 vagy DualSense fénysáv színét. A képernyők melletti billentyűk gombokká válnak a Billentyűzetképernyő-gombok sorban.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Billentyűzetképernyők vezérlése</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Rajzol a Logitech G15, G15 v2, G510, G13, Z-10, GamePanel és G19 képernyőjére, az Arx Control alkalmazásra és a Mad Catz S.T.R.I.K.E. 7-re. Amíg a Logitech Gaming Software fut, a PadForge azon keresztül rajzol. Nélküle a PadForge HID-en át írja a monokróm képernyőket, és a WinUSB-t a G19 képernyőinterfészéhez köti. A kikapcsolás visszaadja a G19 képernyőjét a Windowsnak.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monokróm képernyő…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Színes képernyő…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll letöltése</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Letölti a Mad Catz S.T.R.I.K.E. 7 SDK-ját az AIDA64 szerveréről, ellenőrzi a ismert SHA-256 értékkel, és csak a 64 bites Strike7API.dll fájlt tartja meg a PadForge ideiglenes mappájában.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll kiválasztása…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 futtatókörnyezet telepítése</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Letölti a Microsoft Visual C++ 2008 SP1 Redistributable csomagját 64 bites Windowshoz, amelyre a Strike7API.dll-nek szüksége van, ellenőrzi rajta a Microsoft aláírását, majd telepíti.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Könyvtárak (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Monokróm képernyő</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Színes képernyő</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Ki</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Stopperóra</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Fénysáv színe</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>ki</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>a Logitech Gaming Software-en keresztül</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>közvetlenül itt: {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>a WinUSB kötése a G19 képernyőjéhez</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>a G19 képernyője másik illesztőprogramot használ ({0}), ezért indítsa el a Logitech Gaming Software-t</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 vagy újabb szükséges</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>indítsa el a Logitech Gaming Software-t</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>várakozás egy Arx Control alkalmazást futtató telefonra</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>telefonon</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>Strike7API.dll szükséges, ezért töltse le, vagy válasszon egy másolatot</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>a letöltött Strike7API.dll megváltozott, ezért töltse le újra</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>a Microsoft Visual C++ 2008 futtatókörnyezete szükséges</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>a Strike7API.dll nem töltődött be</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>indítsa el az S.T.R.I.K.E. 7 szoftverét</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>válassza ki a PadForge-ot a V.E.N.O.M. képernyőn</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>a V.E.N.O.M. képernyőn</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>nincs képernyő</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, várakozás fénysáv színére</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nincs kép kiválasztva</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Billentyűzetképernyő-gombok</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>{0}. képernyőgomb</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applet-gomb</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Képernyő balra</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Képernyő jobbra</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Képernyő OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Képernyő mégse</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Képernyő fel</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Képernyő le</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Képernyő menü</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Képernyő beállítások</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>A PadForge nem jelenít meg semmit, és az appletje elhagyja a képernyőt. A Logitech Gaming Software alatt a képernyőgombok csak akkor érik el a PadForge-ot, amíg az appletje előtérben van, ezért másik módra van szükségük.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>A képernyő az aktív profil nevét mutatja, és követ minden profilváltást.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>A képernyő az aktív profil helyét mutatja a profillistában. Az Alapértelmezett profil száma 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>A képernyő az aktív profil saját képét mutatja, vagy a nevét, ha nincs képe. Minden profilnak saját képe van.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>A képernyő a napszakot mutatja.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>A képernyő az aktív profil bekapcsolása óta eltelt órákat és perceket mutatja. A játék programjához kötött profil a játék indulásakor kapcsol be, ezért a számláló az adott munkamenetet méri. Az Alapértelmezett profil alatt a motor indításától számol.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>A képernyő egy Ön által választott képet mutat, eredeti méretében. A képernyőnél nagyobb kép esetén a képernyő méretű ablakot mutat, amelyet a Billentyűzetképernyő-kép pásztázása makró mozgat. Az S.T.R.I.K.E. 7-en a képernyőn végighúzott ujj is mozgatja.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>A képernyő a stopperórát mutatja, amelyet a Stopperóra makró elindít, szüneteltet és visszaállít. Minden képernyő ugyanazt a stopperórát mutatja.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>A képernyő a legalacsonyabb foglalatban lévő DualShock 4 vagy DualSense fénysávjának színét mutatja. A monokróm képernyő a fényerőt pontmintával jeleníti meg. Amíg nem érkezik szín a fénysávhoz, a PadForge nem jelenít meg semmit.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Képek (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Minden fájl (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Pásztázás</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Pásztázás X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Pásztázás Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} beállítva: {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>A Mad Catz S.T.R.I.K.E. 7 SDK-jának letöltése…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>Az S.T.R.I.K.E. 7 mostantól ezt tölti be: {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>A Microsoft Visual C++ 2008 futtatókörnyezetének letöltése és telepítése…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>A S.T.R.I.K.E. 7 SDK letöltése nem egyezik az ismert SHA-256 értékkel, ezért semmi sem maradt meg belőle.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>A Visual C++ 2008 futtatókörnyezet a telepítő lefutása után is hiányzik.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Billentyűzetképernyő megjelenítése</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Képeket játszik le a kiválasztott fajtájú összes billentyűzetképernyőn, majd minden képernyőt visszaállít a saját módjára.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} képeinek megjelenítése: {1} × {2} ms, ismétlések száma: {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>A képek a képernyőhöz igazodnak: monokróm képernyőn 160 × 43 fekete-fehér képpont, a G19-én 320 × 240, az Arx Control és az S.T.R.I.K.E. 7 esetén 480 × 320. A legrövidebb képkockaidő egy tizedmásodperc.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Billentyűzetképernyő módja</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>A billentyűzetképernyő egy fajtáját másik módra állítja, és megtartja a képernyő beállításaként.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} mutatja: {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>A mód addig marad, amíg egy másik makró vagy a képernyő párbeszédpanelje meg nem változtatja.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopperóra</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Elindítja vagy szünetelteti, illetve visszaállítja a stopperórát, amelyet a Stopperóra módú billentyűzetképernyők mutatnak.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Stopperóra indítása vagy szüneteltetése</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Stopperóra visszaállítása</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>A visszaállítás leállítja a stopperórát, és nullára állítja. A Stopperóra módú összes billentyűzetképernyő ugyanazt a stopperórát mutatja.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Billentyűzetképernyő-kép pásztázása</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Térképhez a képernyőnél nagyobb kép fölött mozgatja az egyes billentyűzetképernyők ablakát.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Képek pásztázása: {0}, {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Minden olyan képernyőfajtát mozgat, amely önmagánál nagyobb kiválasztott képet mutat. Az ablak megáll a kép szélein.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Képernyő</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Művelet</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Irány</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Lépés</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

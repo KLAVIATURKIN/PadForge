@@ -4291,4 +4291,97 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox ఇంపల్స్-ట్రిగ్గర్ 9-బైట్ రిపోర్ట్ మరియు దాని రైట్ మార్గం, araghon007 ద్వారా. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 హాప్టిక్ PCM ఫార్మాట్, 3 kHz వద్ద సంతకం ఉన్న 16-బిట్, ఇది సంతకం ఉన్న 8-బిట్ Bluetooth హాప్టిక్స్ ఎన్కోడింగ్ను నిర్ణయించింది. AGPL-3.0, డాక్యుమెంటేషన్గా మాత్రమే చదవబడింది, AGPL కోడ్ ఏదీ పంపిణీ చేయబడదు.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్లు</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech GamePanel కీబోర్డులలోని స్క్రీన్లపై, Mad Catz S.T.R.I.K.E. 7 మీద, అలాగే Logitech Arx Control ద్వారా ఫోన్ మీద గీస్తుంది: ప్రొఫైల్, గడియారం, ఆట సమయం, స్టాప్వాచ్, చిత్రం, లేదా DualShock 4 లేదా DualSense లైట్ బార్ రంగు. ఆ స్క్రీన్ల పక్కన ఉన్న కీలు కీబోర్డ్ స్క్రీన్ కీలు వరుసలో బటన్లు అవుతాయి.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్లను నడిపించు</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, G19 స్క్రీన్ల మీద, Arx Control మీద, Mad Catz S.T.R.I.K.E. 7 మీద గీస్తుంది. Logitech Gaming Software నడుస్తున్నప్పుడు PadForge దాని ద్వారా గీస్తుంది. అది లేకపోతే PadForge మోనోక్రోమ్ స్క్రీన్లకు HID ద్వారా రాస్తుంది మరియు G19 స్క్రీన్ ఇంటర్ఫేస్కు WinUSB బైండ్ చేస్తుంది. దీన్ని ఆపివేస్తే G19 స్క్రీన్ మళ్ళీ Windows కు వెళ్తుంది.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>మోనోక్రోమ్ స్క్రీన్…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>రంగు స్క్రీన్…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll డౌన్లోడ్ చేయి</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mad Catz వారి S.T.R.I.K.E. 7 SDK ను AIDA64 సర్వర్ నుండి డౌన్లోడ్ చేసి, తెలిసిన SHA-256 తో సరిచూసి, 64-బిట్ Strike7API.dll ను మాత్రమే PadForge తాత్కాలిక ఫోల్డర్లో ఉంచుతుంది.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll ఎంచుకోండి…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 రన్టైమ్ ఇన్స్టాల్ చేయి</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>64-బిట్ Windows కోసం Microsoft Visual C++ 2008 SP1 Redistributable ను డౌన్లోడ్ చేస్తుంది, ఇది Strike7API.dll కు అవసరం. దానిపై Microsoft సంతకాన్ని తనిఖీ చేసి ఇన్స్టాల్ చేస్తుంది.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|లైబ్రరీలు (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>మోనోక్రోమ్ స్క్రీన్</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>రంగు స్క్రీన్</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>ఆఫ్</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>స్టాప్వాచ్</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>లైట్ బార్ రంగు</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>ఆఫ్</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software ద్వారా</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>{0} మీద నేరుగా</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>G19 స్క్రీన్కు WinUSB బైండ్ చేస్తోంది</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19 స్క్రీన్ మరో డ్రైవర్ ({0}) మీద ఉంది, కాబట్టి Logitech Gaming Software ప్రారంభించండి</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 లేదా తర్వాతి వెర్షన్ అవసరం</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software ప్రారంభించండి</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>Arx Control ఉన్న ఫోన్ కోసం వేచి ఉంది</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>ఫోన్ మీద</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>Strike7API.dll అవసరం, కాబట్టి దాన్ని డౌన్లోడ్ చేయండి లేదా ఒక కాపీని ఎంచుకోండి</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>డౌన్లోడ్ చేసిన Strike7API.dll మారింది, కాబట్టి మళ్ళీ డౌన్లోడ్ చేయండి</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>Microsoft Visual C++ 2008 రన్టైమ్ అవసరం</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll లోడ్ కాలేదు</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>S.T.R.I.K.E. 7 సాఫ్ట్వేర్ ప్రారంభించండి</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. స్క్రీన్లో PadForge ఎంచుకోండి</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. స్క్రీన్ మీద</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>స్క్రీన్ కనబడలేదు</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, లైట్ బార్ రంగు కోసం వేచి ఉంది</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, చిత్రం ఎంచుకోలేదు</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్ కీలు</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>స్క్రీన్ కీ {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>యాప్లెట్ కీ</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>స్క్రీన్ ఎడమ</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>స్క్రీన్ కుడి</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>స్క్రీన్ OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>స్క్రీన్ రద్దు</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>స్క్రీన్ పైకి</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>స్క్రీన్ కిందికి</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>స్క్రీన్ మెను</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>స్క్రీన్ సెట్టింగులు</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge ఏమీ చూపదు, దాని యాప్లెట్ స్క్రీన్ నుండి వెళ్ళిపోతుంది. Logitech Gaming Software కింద స్క్రీన్ కీలు PadForge కు చేరేది దాని యాప్లెట్ ముందున్నప్పుడు మాత్రమే, కాబట్టి వాటికి మరో మోడ్ కావాలి.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>స్క్రీన్ చురుకైన ప్రొఫైల్ పేరును చూపుతుంది మరియు ప్రతి ప్రొఫైల్ మార్పును అనుసరిస్తుంది.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>స్క్రీన్ ప్రొఫైల్ జాబితాలో చురుకైన ప్రొఫైల్ స్థానాన్ని చూపుతుంది. డిఫాల్ట్ ప్రొఫైల్ 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>స్క్రీన్ చురుకైన ప్రొఫైల్ స్వంత చిత్రాన్ని చూపుతుంది, అది లేకపోతే దాని పేరును చూపుతుంది. ప్రతి ప్రొఫైల్ తన స్వంత చిత్రాన్ని ఉంచుకుంటుంది.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>స్క్రీన్ రోజులోని సమయాన్ని చూపుతుంది.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>చురుకైన ప్రొఫైల్ మారినప్పటి నుండి గడిచిన గంటలు, నిమిషాలను స్క్రీన్ చూపుతుంది. ఆటకు చెందిన ప్రోగ్రామ్తో ముడిపడిన ప్రొఫైల్ ఆట మొదలైనప్పుడు అమల్లోకి వస్తుంది, కాబట్టి లెక్క ఆ సెషన్దే. డిఫాల్ట్ ప్రొఫైల్లో ఇంజిన్ ప్రారంభం నుండి లెక్కిస్తుంది.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>స్క్రీన్ మీరు ఎంచుకున్న చిత్రాన్ని దాని స్వంత పరిమాణంలో చూపుతుంది. స్క్రీన్ కంటే పెద్ద చిత్రం విషయంలో స్క్రీన్ పరిమాణంలో ఒక విండో కనిపిస్తుంది, దాన్ని కీబోర్డ్ స్క్రీన్ చిత్రాన్ని పాన్ చేయి మాక్రో కదిలిస్తుంది. S.T.R.I.K.E. 7 మీద స్క్రీన్ అంతటా వేలిని లాగినా అది కదులుతుంది.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>స్టాప్వాచ్ మాక్రో ప్రారంభించే, పాజ్ చేసే, రీసెట్ చేసే స్టాప్వాచ్ను స్క్రీన్ చూపుతుంది. అన్ని స్క్రీన్లు ఒకే స్టాప్వాచ్ను చూపుతాయి.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>స్క్రీన్ అతి తక్కువ స్లాట్లోని DualShock 4 లేదా DualSense లైట్ బార్ రంగును చూపుతుంది. మోనోక్రోమ్ స్క్రీన్ దాని ప్రకాశాన్ని చుక్కల నమూనాగా చూపుతుంది. లైట్ బార్కు రంగు చేరే వరకు PadForge ఏమీ చూపదు.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>చిత్రాలు (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|అన్ని ఫైళ్లు (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>పాన్</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>పాన్ X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>పాన్ Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} {1} కు సెట్ చేయబడింది.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mad Catz S.T.R.I.K.E. 7 SDK డౌన్లోడ్ చేస్తోంది…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 ఇప్పుడు {0} లోడ్ చేస్తుంది.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsoft Visual C++ 2008 రన్టైమ్ డౌన్లోడ్ చేసి ఇన్స్టాల్ చేస్తోంది…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK డౌన్లోడ్ తెలిసిన SHA-256 తో సరిపోలలేదు, కాబట్టి దాని నుండి ఏదీ ఉంచబడలేదు.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>ఇన్స్టాలర్ నడిచిన తర్వాత కూడా Visual C++ 2008 రన్టైమ్ ఇంకా లేదు.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్ చూపు</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>ఎంచుకున్న రకంలోని ప్రతి కీబోర్డ్ స్క్రీన్ మీద చిత్రాలను ప్లే చేసి, తర్వాత ప్రతి స్క్రీన్ను దాని స్వంత మోడ్కు తిరిగి పంపుతుంది.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} చిత్రాలు చూపు: {1} × {2} ms, పునరావృత సంఖ్య {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>చిత్రాలు స్క్రీన్కు సరిపోయేలా మార్చబడతాయి: మోనోక్రోమ్ స్క్రీన్లో 160 × 43 నలుపు-తెలుపు పిక్సెల్లు, G19 స్క్రీన్లో 320 × 240, Arx Control మరియు S.T.R.I.K.E. 7 కు 480 × 320. ఫ్రేమ్ సమయం కనీసం సెకనులో పదో వంతు.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్ మోడ్</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ఒక రకం కీబోర్డ్ స్క్రీన్ను మరో మోడ్కు మారుస్తుంది మరియు దాన్ని ఆ స్క్రీన్ సెట్టింగ్గా ఉంచుతుంది.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} చూపుతుంది</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>మరో మాక్రో లేదా స్క్రీన్ డైలాగ్ మార్చే వరకు మోడ్ అలాగే ఉంటుంది.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>స్టాప్వాచ్</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్లు స్టాప్వాచ్ మోడ్లో చూపే స్టాప్వాచ్ను ప్రారంభిస్తుంది లేదా పాజ్ చేస్తుంది, లేదా రీసెట్ చేస్తుంది.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>స్టాప్వాచ్ ప్రారంభించు లేదా పాజ్ చేయి</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>స్టాప్వాచ్ రీసెట్ చేయి</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>రీసెట్ స్టాప్వాచ్ను ఆపి సున్నాకు తిరిగి పెడుతుంది. స్టాప్వాచ్ మోడ్లోని ప్రతి కీబోర్డ్ స్క్రీన్ ఒకే స్టాప్వాచ్ను చూపుతుంది.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>కీబోర్డ్ స్క్రీన్ చిత్రాన్ని పాన్ చేయి</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>స్క్రీన్ కంటే పెద్ద చిత్రం మీద ప్రతి కీబోర్డ్ స్క్రీన్ విండోను కదిలిస్తుంది, ఉదాహరణకు మ్యాప్ కోసం.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>చిత్రాలను {0} బై {1} px పాన్ చేయి</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>తన కంటే పెద్ద ఎంచుకున్న చిత్రాన్ని చూపే ప్రతి రకం స్క్రీన్ను కదిలిస్తుంది. విండో చిత్రం అంచుల వద్ద ఆగుతుంది.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>స్క్రీన్</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>చర్య</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>దిశ</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>అడుగు</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

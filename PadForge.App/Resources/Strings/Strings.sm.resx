@@ -1048,4 +1048,28 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Filifili le Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Faʻapipiʻi le Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Tape</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Lanu o le lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>tape</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>e ala i le Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>tuʻusaʻo i le {0}</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>e manaʻomia le Logitech Gaming Software 8.52 pe sili atu</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>amata le Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>o loʻo faʻatali mo se telefoni e iai le Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>i luga o se telefoni</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>e manaʻomia le runtime Visual C++ 2008 a Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>amata le polokalame a le S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, o loʻo faʻatali mo se lanu o le lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, e leai se ata ua filifilia</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Ata (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Faila uma (*.*)|*.*</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>Ua setiina le {0} i le {1}.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>E faʻaali e le {0} le {1}</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

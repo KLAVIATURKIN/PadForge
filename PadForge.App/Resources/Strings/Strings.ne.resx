@@ -4291,4 +4291,97 @@ PadForge ले तिनलाई अहिले अनइन्स्टल �
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox इम्पल्स-ट्रिगरको 9-बाइट रिपोर्ट र यसको लेखन मार्ग, araghon007 द्वारा। MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 ह्याप्टिक PCM ढाँचा, 3 kHz मा चिन्हयुक्त 16-बिट, जसबाट चिन्हयुक्त 8-बिट Bluetooth ह्याप्टिक्स एन्कोडिङ निश्चित भयो। AGPL-3.0, कागजातका रूपमा मात्र पढिएको, कुनै AGPL कोड समावेश छैन।</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>किबोर्ड स्क्रिनहरू</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech का GamePanel किबोर्डहरू र Mad Catz S.T.R.I.K.E. 7 मा बनेका स्क्रिनहरूमा, र Logitech Arx Control मार्फत फोनमा देखाउँछ: प्रोफाइल, घडी, खेल समय, स्टपवाच, चित्र, वा DualShock 4 वा DualSense को लाइटबारको रङ। ती स्क्रिनछेउका कुञ्जीहरू किबोर्ड स्क्रिन कुञ्जीहरू पङ्क्तिमा बटन बन्छन्।</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>किबोर्ड स्क्रिनहरू चलाउनुहोस्</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel र G19 स्क्रिनहरूमा, Arx Control मा, र Mad Catz S.T.R.I.K.E. 7 मा देखाउँछ। Logitech Gaming Software चलिरहेको बेला PadForge ले त्यसैमार्फत देखाउँछ। त्यो नभए PadForge ले मोनोक्रोम स्क्रिनहरूमा HID मार्फत लेख्छ र G19 को स्क्रिन इन्टरफेसमा WinUSB बाइन्ड गर्छ। यसलाई बन्द गर्दा G19 को स्क्रिन Windows लाई फिर्ता दिइन्छ।</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>मोनोक्रोम स्क्रिन…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>रङ्गीन स्क्रिन…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll डाउनलोड गर्नुहोस्</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>AIDA64 को सर्भरबाट Mad Catz को S.T.R.I.K.E. 7 SDK डाउनलोड गर्छ, यसको ज्ञात SHA-256 सँग जाँच गर्छ, र 64-बिट Strike7API.dll मात्र PadForge को अस्थायी फोल्डरमा राख्छ।</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll छान्नुहोस्…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 रनटाइम स्थापना गर्नुहोस्</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Strike7API.dll लाई चाहिने, 64-बिट Windows का लागि Microsoft को Visual C++ 2008 SP1 Redistributable डाउनलोड गर्छ, त्यसमा Microsoft को हस्ताक्षर जाँच गर्छ, र स्थापना गर्छ।</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|लाइब्रेरीहरू (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>मोनोक्रोम स्क्रिन</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>रङ्गीन स्क्रिन</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>बन्द</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>स्टपवाच</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>लाइटबारको रङ</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>बन्द</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software मार्फत</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>सिधै {0} मा</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>G19 को स्क्रिनमा WinUSB बाइन्ड गर्दै</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19 को स्क्रिन अर्को ड्राइभर ({0}) मा छ, त्यसैले Logitech Gaming Software सुरु गर्नुहोस्</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 वा त्यसपछिको संस्करण चाहिन्छ</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software सुरु गर्नुहोस्</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>Arx Control भएको फोनको प्रतीक्षा गर्दै</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>फोनमा</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>Strike7API.dll चाहिन्छ, त्यसैले डाउनलोड गर्नुहोस् वा एउटा प्रति छान्नुहोस्</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>डाउनलोड गरिएको Strike7API.dll परिवर्तन भएको छ, त्यसैले फेरि डाउनलोड गर्नुहोस्</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>Microsoft को Visual C++ 2008 रनटाइम चाहिन्छ</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll लोड भएन</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>S.T.R.I.K.E. 7 सफ्टवेयर सुरु गर्नुहोस्</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. स्क्रिनमा PadForge छान्नुहोस्</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. स्क्रिनमा</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>कुनै स्क्रिन भेटिएन</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, लाइटबारको रङको प्रतीक्षा गर्दै</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, कुनै चित्र छानिएको छैन</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>किबोर्ड स्क्रिन कुञ्जीहरू</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>स्क्रिन कुञ्जी {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>एप्लेट कुञ्जी</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>स्क्रिन बायाँ</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>स्क्रिन दायाँ</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>स्क्रिन OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>स्क्रिन रद्द</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>स्क्रिन माथि</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>स्क्रिन तल</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>स्क्रिन मेनु</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>स्क्रिन सेटिङहरू</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge ले केही देखाउँदैन, र यसको एप्लेट स्क्रिनबाट हट्छ। Logitech Gaming Software अन्तर्गत स्क्रिन कुञ्जीहरू PadForge सम्म तब मात्र पुग्छन् जब यसको एप्लेट अगाडि हुन्छ, त्यसैले तिनलाई अर्को मोड चाहिन्छ।</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>स्क्रिनले सक्रिय प्रोफाइलको नाम देखाउँछ र प्रत्येक प्रोफाइल परिवर्तनलाई पछ्याउँछ।</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>स्क्रिनले प्रोफाइल सूचीमा सक्रिय प्रोफाइलको स्थान देखाउँछ। पूर्वनिर्धारित प्रोफाइल 0 हो।</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>स्क्रिनले सक्रिय प्रोफाइलको आफ्नै चित्र देखाउँछ, चित्र नभए यसको नाम। प्रत्येक प्रोफाइलले आफ्नै चित्र राख्छ।</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>स्क्रिनले दिनको समय देखाउँछ।</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>स्क्रिनले सक्रिय प्रोफाइल लागू भएदेखिका घण्टा र मिनेट देखाउँछ। कुनै खेलको प्रोग्रामसँग जोडिएको प्रोफाइल खेल सुरु हुँदा लागू हुन्छ, त्यसैले गणना त्यही सत्रको हुन्छ। पूर्वनिर्धारित प्रोफाइलमा यो इन्जिन सुरु भएदेखि गनिन्छ।</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>स्क्रिनले तपाईंले छानेको चित्र यसको आफ्नै आकारमा देखाउँछ। स्क्रिनभन्दा ठूलो चित्रमा स्क्रिनकै आकारको एउटा झ्याल देखिन्छ, जसलाई “किबोर्ड स्क्रिन चित्र सार्नुहोस्” म्याक्रोले सार्छ। S.T.R.I.K.E. 7 मा स्क्रिनमा औँला घिसार्दा पनि यो सर्छ।</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>स्क्रिनले स्टपवाच देखाउँछ, जसलाई स्टपवाच म्याक्रोले सुरु गर्छ, रोक्छ र रिसेट गर्छ। हरेक स्क्रिनले एउटै स्टपवाच देखाउँछ।</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>स्क्रिनले सबैभन्दा सानो नम्बरको स्लटमा रहेको DualShock 4 वा DualSense को लाइटबारको रङ देखाउँछ। मोनोक्रोम स्क्रिनले यसको चमक थोप्लाको ढाँचाका रूपमा देखाउँछ। लाइटबारमा कुनै रङ नपुगेसम्म PadForge ले केही देखाउँदैन।</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>चित्रहरू (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|सबै फाइलहरू (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>सराइ</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>सराइ X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>सराइ Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} {1} मा सेट भयो।</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mad Catz को S.T.R.I.K.E. 7 SDK डाउनलोड हुँदैछ…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 ले अब {0} लोड गर्छ।</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsoft को Visual C++ 2008 रनटाइम डाउनलोड र स्थापना हुँदैछ…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK डाउनलोड यसको ज्ञात SHA-256 सँग मेल खाँदैन, त्यसैले त्यसबाट केही पनि राखिएन।</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>स्थापनाकर्ता चलेपछि पनि Visual C++ 2008 रनटाइम अझै छैन।</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>किबोर्ड स्क्रिन देखाउनुहोस्</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>छानिएको प्रकारका हरेक किबोर्ड स्क्रिनमा तस्बिरहरू चलाउँछ, त्यसपछि हरेक स्क्रिनलाई यसको आफ्नै मोडमा फर्काउँछ।</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} तस्बिरहरू देखाउनुहोस्: {1} × {2} ms, दोहोराइ संख्या {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>तस्बिरहरू स्क्रिनअनुसार मिलाइन्छन्: मोनोक्रोम स्क्रिनमा 160 × 43 कालो-सेतो पिक्सेल, G19 मा 320 × 240, र Arx Control तथा S.T.R.I.K.E. 7 मा 480 × 320। सेकेन्डको दशौँ भाग सबैभन्दा छोटो फ्रेम समय हो।</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>किबोर्ड स्क्रिन मोड</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>किबोर्ड स्क्रिनको एउटा प्रकारलाई अर्को मोडमा बदल्छ र त्यसलाई त्यो स्क्रिनको सेटिङका रूपमा राख्छ।</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} ले {1} देखाउँछ</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>अर्को म्याक्रो वा स्क्रिनको संवादले नबदलेसम्म मोड यस्तै रहन्छ।</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>स्टपवाच</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>स्टपवाच मोडका किबोर्ड स्क्रिनहरूले देखाउने स्टपवाच सुरु गर्छ वा रोक्छ, वा रिसेट गर्छ।</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>स्टपवाच सुरु वा रोक्नुहोस्</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>स्टपवाच रिसेट गर्नुहोस्</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>रिसेटले स्टपवाच रोक्छ र शून्यमा फर्काउँछ। स्टपवाच मोडका सबै किबोर्ड स्क्रिनले एउटै स्टपवाच देखाउँछन्।</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>किबोर्ड स्क्रिन चित्र सार्नुहोस्</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>स्क्रिनभन्दा ठूलो चित्रमाथि हरेक किबोर्ड स्क्रिनको झ्याल सार्छ, जस्तै नक्साका लागि।</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>तस्बिरहरू {0}, {1} px सार्नुहोस्</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>आफूभन्दा ठूलो छानिएको चित्र देखाउने हरेक प्रकारको स्क्रिनलाई सार्छ। झ्याल चित्रको किनारमा रोकिन्छ।</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>स्क्रिन</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>कार्य</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>दिशा</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>चरण</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

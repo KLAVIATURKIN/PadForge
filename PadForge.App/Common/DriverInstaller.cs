@@ -139,6 +139,14 @@ namespace PadForge.Common
         /// location. The detail is the folder, and the output is the end of
         /// what steamcmd printed.</summary>
         SteamVrDidNotLand,
+
+        /// <summary>The S.T.R.I.K.E. 7 SDK download, or the library in it,
+        /// does not match its known SHA-256 (#519).</summary>
+        Strike7SdkHashMismatch,
+
+        /// <summary>The Visual C++ 2008 runtime is still missing after its
+        /// installer ran (#519).</summary>
+        Vc2008RuntimeMissing,
     }
 
     /// <summary>
@@ -1977,6 +1985,110 @@ namespace PadForge.Common
 
         // ─────────────────────────────────────────────
         //  What the test host never does
+        // ─────────────────────────────────────────────
+        //  Mad Catz S.T.R.I.K.E. 7 (issue #519)
+        // ─────────────────────────────────────────────
+
+        /// <summary>Mad Catz's SDK, strike7_api 1.1, on the server AIDA64's
+        /// support points its users at for Strike7API.dll.</summary>
+        internal const string Strike7SdkUrl = "https://download.aida64.com/users/strike7_api_1_1.zip";
+
+        /// <summary>The SDK zip's SHA-256, 6,972,426 bytes.</summary>
+        internal const string Strike7SdkSha256 = "A54950780B23196659D063643B8D787B5EFA08EB93098354D66FC8C2F591108D";
+
+        /// <summary>The one file PadForge keeps from the SDK.</summary>
+        internal const string Strike7SdkLibraryEntry = "STRIKE7 API V1_1/API/x64/Strike7API.dll";
+
+        /// <summary>Microsoft's Visual C++ 2008 SP1 redistributable for x64,
+        /// which Strike7API.dll links (MSVCR90 and MSVCP90, bound through its
+        /// manifest to Microsoft.VC90.CRT).</summary>
+        internal const string Vc2008RedistUrl =
+            "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe";
+
+        /// <summary>
+        /// Downloads Mad Catz's SDK, checks it against its SHA-256, and keeps
+        /// only the x64 library, itself checked against its own SHA-256, at
+        /// <paramref name="target"/> under the temp folder. PadForge never
+        /// ships the library. Runs on a worker thread.
+        /// </summary>
+        public static void InstallStrike7Library(string target, string librarySha256)
+        {
+            string staging = Path.Combine(Path.GetTempPath(), "PadForge_Strike7", Guid.NewGuid().ToString("N"));
+            try
+            {
+                Directory.CreateDirectory(staging);
+                using var http = PadForge.Engine.Common.OutboundNetworkGate.NewHttpClient();
+                http.DefaultRequestHeaders.UserAgent.ParseAdd("PadForge");
+                http.Timeout = TimeSpan.FromMinutes(10);
+
+                string zip = Path.Combine(staging, "strike7_api_1_1.zip");
+                Download(http, Strike7SdkUrl, zip);
+                if (!string.Equals(Sha256Hex(zip), Strike7SdkSha256, StringComparison.OrdinalIgnoreCase))
+                    throw new DriverCheckException(DriverCheckFailure.Strike7SdkHashMismatch,
+                        "The downloaded S.T.R.I.K.E. 7 SDK does not match its known SHA-256.");
+
+                string extracted = Path.Combine(staging, "Strike7API.dll");
+                using (var archive = System.IO.Compression.ZipFile.OpenRead(zip))
+                {
+                    var entry = archive.GetEntry(Strike7SdkLibraryEntry)
+                        ?? throw new DriverCheckException(DriverCheckFailure.Strike7SdkHashMismatch,
+                            "The S.T.R.I.K.E. 7 SDK holds no " + Strike7SdkLibraryEntry + ".");
+                    System.IO.Compression.ZipFileExtensions.ExtractToFile(entry, extracted, overwrite: true);
+                }
+                if (!string.Equals(Sha256Hex(extracted), librarySha256, StringComparison.OrdinalIgnoreCase))
+                    throw new DriverCheckException(DriverCheckFailure.Strike7SdkHashMismatch,
+                        "The S.T.R.I.K.E. 7 library in the SDK does not match its known SHA-256.");
+                Directory.CreateDirectory(Path.GetDirectoryName(target));
+                File.Copy(extracted, target, overwrite: true);
+            }
+            finally
+            {
+                CleanupTempDir(staging);
+            }
+        }
+
+        /// <summary>
+        /// Downloads Microsoft's Visual C++ 2008 SP1 redistributable for x64,
+        /// checks its Microsoft signature, and runs it quietly
+        /// (<c>/q</c>, the switch Microsoft's own deployment notes for the
+        /// 2008 package give). The 2008 package takes no /norestart, and 3010
+        /// is a restart owed, which IsVcRedistSuccess counts as installed.
+        /// Done means the runtime is in the side-by-side store afterward.
+        /// Runs on a worker thread.
+        /// </summary>
+        public static void InstallVc2008Runtime()
+        {
+            bool installerMayStillRun = false;
+            string staging = Path.Combine(Path.GetTempPath(), "PadForge_Vc2008", Guid.NewGuid().ToString("N"));
+            try
+            {
+                Directory.CreateDirectory(staging);
+                using var http = PadForge.Engine.Common.OutboundNetworkGate.NewHttpClient();
+                http.DefaultRequestHeaders.UserAgent.ParseAdd("PadForge");
+                http.Timeout = TimeSpan.FromMinutes(10);
+
+                string redist = Path.Combine(staging, "vcredist_x64.exe");
+                Download(http, Vc2008RedistUrl, redist);
+                if (!IsSignedByMicrosoft(redist))
+                    throw new DriverCheckException(DriverCheckFailure.VcRedistUnsigned,
+                        "The Visual C++ 2008 Redistributable download is not signed by Microsoft.");
+                int? exit = RunElevated(redist, "/q", out bool untracked);
+                if (exit == null)
+                {
+                    installerMayStillRun = true;
+                    throw InstallerFailedException.NoExitCode(untracked);
+                }
+                if (!IsVcRedistSuccess(exit.Value)) throw new InstallerFailedException(exit.Value);
+                if (!PadForge.Engine.Common.MadCatz.Strike7Library.IsVc2008RuntimeInstalled())
+                    throw new DriverCheckException(DriverCheckFailure.Vc2008RuntimeMissing,
+                        "The Visual C++ 2008 runtime is still missing after its installer ran.");
+            }
+            finally
+            {
+                if (!installerMayStillRun) CleanupTempDir(staging);
+            }
+        }
+
         // ─────────────────────────────────────────────
 
         /// <summary>Test seam: set by the test assembly for the life of its

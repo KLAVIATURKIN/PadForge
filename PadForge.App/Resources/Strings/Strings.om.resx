@@ -1714,4 +1714,58 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Iskiriinii kiiboordii</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Iskiriinii kiiboordii hojjechiisi</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Iskiriinii halluu tokkoo…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Iskiriinii halluu…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll buufadhu</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll filadhu…</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Iskiriinii halluu tokkoo</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Iskiriinii halluu</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Halluu lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>cufaa</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>karaa Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>kallattiin {0} irratti</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 yookiin isa booda barbaachisa</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software jalqabsiisi</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>bilbila Arx Control qabu eeggachaa jira</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>bilbila irratti</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll fe'amuu hin dandeenye</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>sooftiweerii S.T.R.I.K.E. 7 jalqabsiisi</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>iskiriinii V.E.N.O.M. irratti PadForge filadhu</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>iskiriinii V.E.N.O.M. irratti</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>iskiriiniin hin argamne</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, halluu lightbar eeggachaa jira</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, suuraan hin filatamne</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Furtuuwwan iskiriinii kiiboordii</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Furtuu iskiriinii {0}</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Iskiriinii bitaa</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Iskiriinii mirga</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Iskiriinii OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Iskiriinii dhiisi</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Iskiriinii ol</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Iskiriinii gadi</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Iskiriinii baafata</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Iskiriinii qindaa'ina</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Iskiriiniin maqaa piroofaayilii hojii irra jiruu agarsiisa, jijjiirraa piroofaayilii hundas hordofa.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Iskiriiniin suuraa piroofaayilii hojii irra jiruu agarsiisa, yoo suuraa hin qabaanne immoo maqaa isaa. Piroofaayiliin tokkoon tokkoon suuraa mataa isaa qaba.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Iskiriiniin yeroo guyyaa agarsiisa.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Fakkiiwwan (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Faayiloota hunda (*.*)|*.*</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>SDK S.T.R.I.K.E. 7 kan Mad Catz buufachaa jira…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 amma {0} fe'a.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Iskiriinii kiiboordii agarsiisi</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} suuraa agarsiisi: {1} × {2} ms, lakkoofsa irra deebii {3}</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Haala iskiriinii kiiboordii</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} agarsiisa</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Iskiriinii</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Gocha</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Kallattii</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Tarkaanfii</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

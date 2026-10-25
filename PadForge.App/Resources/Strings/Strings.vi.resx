@@ -4291,4 +4291,97 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="About_X1nputDesc" xml:space="preserve"><value>Report 9 byte của cò xung lực Xbox và đường ghi của nó, của araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Định dạng PCM xúc giác của PS5, 16-bit có dấu ở 3 kHz, cơ sở để xác định cách mã hóa xúc giác Bluetooth 8-bit có dấu. AGPL-3.0, chỉ được đọc làm tài liệu, không có mã AGPL nào được phát hành kèm.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Màn hình bàn phím</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Vẽ lên các màn hình tích hợp trong bàn phím GamePanel của Logitech và Mad Catz S.T.R.I.K.E. 7, cũng như trên điện thoại qua Logitech Arx Control: hồ sơ, đồng hồ, thời gian chơi, đồng hồ bấm giờ, một hình ảnh, hoặc màu thanh đèn của tay cầm DualShock 4 hoặc DualSense. Các phím cạnh những màn hình này trở thành nút trên hàng Phím màn hình bàn phím.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Điều khiển màn hình bàn phím</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Vẽ lên màn hình của Logitech G15, G15 v2, G510, G13, Z-10, GamePanel và G19, lên Arx Control, và lên Mad Catz S.T.R.I.K.E. 7. Khi Logitech Gaming Software đang chạy, PadForge vẽ thông qua nó. Nếu không có, PadForge ghi vào các màn hình đơn sắc qua HID và gắn WinUSB vào giao diện màn hình của G19. Tắt tùy chọn này sẽ trả màn hình của G19 lại cho Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Màn hình đơn sắc…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Màn hình màu…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Tải xuống Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Tải xuống SDK S.T.R.I.K.E. 7 của Mad Catz từ máy chủ của AIDA64, kiểm tra với SHA-256 đã biết của nó, và chỉ giữ lại Strike7API.dll 64 bit trong thư mục tạm của PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Chọn Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Cài đặt runtime Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Tải xuống Visual C++ 2008 SP1 Redistributable của Microsoft cho Windows 64 bit, thứ mà Strike7API.dll cần, kiểm tra chữ ký của Microsoft trên đó, rồi cài đặt.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Thư viện (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Màn hình đơn sắc</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Màn hình màu</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Tắt</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Đồng hồ bấm giờ</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Màu thanh đèn</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>tắt</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>thông qua Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>trực tiếp trên {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>đang gắn WinUSB vào màn hình của G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>màn hình của G19 đang dùng trình điều khiển khác ({0}), hãy khởi động Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>cần Logitech Gaming Software 8.52 trở lên</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>hãy khởi động Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>đang chờ điện thoại có Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>trên điện thoại</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>cần Strike7API.dll, hãy tải xuống hoặc chọn một bản sao</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll đã tải xuống bị thay đổi, hãy tải xuống lại</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>cần runtime Visual C++ 2008 của Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>không tải được Strike7API.dll</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>hãy khởi động phần mềm S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>hãy chọn PadForge trên màn hình V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>trên màn hình V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>không tìm thấy màn hình</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, đang chờ màu thanh đèn</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, chưa chọn hình</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Phím màn hình bàn phím</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Phím màn hình {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Phím applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Màn hình Trái</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Màn hình Phải</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Màn hình OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Màn hình Hủy</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Màn hình Lên</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Màn hình Xuống</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Màn hình Menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Màn hình Thiết lập</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge không hiển thị gì và applet của nó rời khỏi màn hình. Khi dùng Logitech Gaming Software, các phím màn hình chỉ đến được PadForge lúc applet của nó đang ở phía trước, nên cần chọn chế độ khác.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Màn hình hiển thị tên của hồ sơ đang hoạt động và thay đổi theo mỗi lần chuyển hồ sơ.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Màn hình hiển thị vị trí của hồ sơ đang hoạt động trong danh sách hồ sơ. Hồ sơ Mặc định là 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Màn hình hiển thị hình riêng của hồ sơ đang hoạt động, hoặc tên của nó nếu không có hình. Mỗi hồ sơ giữ hình riêng của mình.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Màn hình hiển thị giờ trong ngày.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Màn hình hiển thị số giờ và phút kể từ khi hồ sơ đang hoạt động được chuyển sang. Hồ sơ gắn với chương trình của một trò chơi sẽ được chuyển sang khi trò chơi bắt đầu, nên số đếm là của phiên đó. Với hồ sơ Mặc định, số đếm tính từ lúc engine khởi động.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Màn hình hiển thị một hình bạn chọn, theo kích thước gốc của nó. Hình lớn hơn màn hình sẽ hiển thị một khung có kích thước bằng màn hình, và macro Dịch hình màn hình bàn phím di chuyển khung đó. Trên S.T.R.I.K.E. 7, kéo ngón tay trên màn hình cũng di chuyển khung.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Màn hình hiển thị đồng hồ bấm giờ, do macro Đồng hồ bấm giờ bắt đầu, tạm dừng và đặt lại. Mọi màn hình đều hiển thị cùng một đồng hồ bấm giờ.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Màn hình hiển thị màu thanh đèn của DualShock 4 hoặc DualSense ở khe thấp nhất. Màn hình đơn sắc hiển thị độ sáng của nó bằng một mẫu chấm. Cho đến khi có màu truyền đến thanh đèn, PadForge không hiển thị gì.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Hình (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tất cả tệp (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Dịch khung</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Dịch khung X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Dịch khung Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>Đã đặt {0} thành {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Đang tải xuống SDK S.T.R.I.K.E. 7 của Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 hiện tải {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Đang tải xuống và cài đặt runtime Visual C++ 2008 của Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Bản tải xuống SDK S.T.R.I.K.E. 7 không khớp với SHA-256 đã biết, nên không giữ lại gì từ nó.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Runtime Visual C++ 2008 vẫn còn thiếu sau khi trình cài đặt của nó đã chạy.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Hiện màn hình bàn phím</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Phát các hình trên mọi màn hình bàn phím thuộc loại đã chọn, rồi đưa mỗi màn hình về chế độ riêng của nó.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Hiện hình {0}: {1} × {2} ms, số lần lặp {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Hình được vừa khít với màn hình: 160 × 43 pixel đen trắng trên màn hình đơn sắc, 320 × 240 trên màn hình của G19, và 480 × 320 cho Arx Control và S.T.R.I.K.E. 7. Thời gian khung hình ngắn nhất là một phần mười giây.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Chế độ màn hình bàn phím</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Chuyển một loại màn hình bàn phím sang chế độ khác và giữ nó làm thiết lập của màn hình đó.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} hiển thị {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Chế độ được giữ cho đến khi một macro khác hoặc hộp thoại của màn hình thay đổi nó.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Đồng hồ bấm giờ</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Bắt đầu hoặc tạm dừng, hoặc đặt lại đồng hồ bấm giờ mà các màn hình bàn phím ở chế độ Đồng hồ bấm giờ hiển thị.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Bắt đầu hoặc tạm dừng đồng hồ bấm giờ</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Đặt lại đồng hồ bấm giờ</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Đặt lại sẽ dừng đồng hồ bấm giờ và đưa về không. Mọi màn hình bàn phím ở chế độ Đồng hồ bấm giờ đều hiển thị cùng một đồng hồ bấm giờ.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Dịch hình màn hình bàn phím</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Di chuyển khung của mỗi màn hình bàn phím trên một hình lớn hơn màn hình, chẳng hạn một bản đồ.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Dịch hình theo {0} và {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Di chuyển mọi loại màn hình đang hiển thị một hình đã chọn lớn hơn chính nó. Khung dừng ở mép hình.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Màn hình</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Hành động</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Hướng</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Bước</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

@@ -4217,4 +4217,97 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="About_X1nputDesc" xml:space="preserve"><value>Raporti 9-bajtësh i këmbëzave impulsive të Xbox dhe rruga e shkrimit të tij, nga araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Formati PCM haptik i PS5, 16-bit me shenjë në 3 kHz, që vendosi kodimin haptik Bluetooth 8-bit me shenjë. AGPL-3.0, lexuar vetëm si dokumentim, nuk përfshihet kod AGPL.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ekranet e tastierës</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Vizaton në ekranet e integruara në tastierat GamePanel të Logitech dhe në Mad Catz S.T.R.I.K.E. 7, si dhe në një telefon përmes Logitech Arx Control: profilin, orën, kohën e lojës, një kronometër, një imazh ose ngjyrën e shiritit të dritës të një kontrolluesi DualShock 4 ose DualSense. Tastet pranë këtyre ekraneve bëhen butona në rreshtin Tastet e ekranit të tastierës.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Drejto ekranet e tastierës</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Vizaton në ekranet e Logitech G15, G15 v2, G510, G13, Z-10, GamePanel dhe G19, në Arx Control dhe në Mad Catz S.T.R.I.K.E. 7. Kur Logitech Gaming Software është në punë, PadForge vizaton përmes tij. Pa të, PadForge shkruan ekranet monokrome përmes HID dhe lidh WinUSB me ndërfaqen e ekranit të G19. Kur çaktivizohet, ekrani i G19 i kthehet Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Ekrani monokrom…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Ekrani me ngjyra…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Shkarko Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Shkarkon SDK-në e S.T.R.I.K.E. 7 të Mad Catz nga serveri i AIDA64, e kontrollon me SHA-256 e saj të njohur dhe ruan vetëm Strike7API.dll 64-bit në dosjen e përkohshme të PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Zgjidh Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Instalo Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Shkarkon Visual C++ 2008 SP1 Redistributable të Microsoft për Windows 64-bit, që e kërkon Strike7API.dll, kontrollon nënshkrimin e Microsoft mbi të dhe e instalon.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Bibliotekat (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Ekrani monokrom</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Ekrani me ngjyra</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Fikur</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Kronometër</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Ngjyra e shiritit të dritës</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>fikur</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>përmes Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>drejtpërdrejt në {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>po lidhet WinUSB me ekranin e G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>ekrani i G19 është në një drajver tjetër ({0}), prandaj nisni Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>kërkon Logitech Gaming Software 8.52 ose më të ri</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>nisni Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>në pritje të një telefoni me Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>në një telefon</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>kërkon Strike7API.dll, prandaj shkarkojeni ose zgjidhni një kopje</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll i shkarkuar ka ndryshuar, prandaj shkarkojeni përsëri</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>kërkon runtime-in Visual C++ 2008 të Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll nuk u ngarkua</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>nisni softuerin S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>zgjidhni PadForge në ekranin V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>në ekranin V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>nuk u gjet asnjë ekran</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, në pritje të një ngjyre të shiritit të dritës</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nuk është zgjedhur asnjë imazh</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tastet e ekranit të tastierës</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tasti {0} i ekranit</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tasti Applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekrani majtas</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Ekrani djathtas</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Ekrani OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Ekrani anulo</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Ekrani lart</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Ekrani poshtë</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Ekrani meny</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Ekrani cilësime</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge nuk shfaq asgjë dhe applet-i i tij largohet nga ekrani. Me Logitech Gaming Software, tastet e ekranit arrijnë te PadForge vetëm kur applet-i i tij është përpara, prandaj kërkojnë një mënyrë tjetër.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ekrani shfaq emrin e profilit aktiv dhe e ndjek çdo ndërrim profili.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ekrani shfaq vendin e profilit aktiv në listën e profileve. Profili Parazgjedhje është 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Ekrani shfaq imazhin e vetë profilit aktiv, ose emrin e tij kur nuk ka imazh. Çdo profil mban imazhin e vet.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ekrani shfaq orën e ditës.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ekrani shfaq orët dhe minutat që nga hyrja në fuqi e profilit aktiv. Një profil i lidhur me programin e një loje hyn në fuqi kur nis loja, prandaj numërimi është ai i sesionit. Nën profilin Parazgjedhje numëron nga nisja e motorit.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ekrani shfaq një imazh që zgjidhni, në madhësinë e tij. Një imazh më i madh se ekrani shfaq një dritare sa ekrani, që e lëviz makroja Lëviz imazhin e ekranit të tastierës. Në S.T.R.I.K.E. 7, një gisht i zvarritur mbi ekran e lëviz gjithashtu.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ekrani shfaq kronometrin, që e nis, e ndalon pak dhe e rivendos makroja Kronometër. Çdo ekran shfaq të njëjtin kronometër.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekrani shfaq ngjyrën e shiritit të dritës të DualShock 4 ose DualSense në slotin më të ulët. Një ekran monokrom e shfaq shkëlqimin si model pikash. Deri sa një ngjyrë të arrijë te një shirit drite, PadForge nuk shfaq asgjë.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Imazhet (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Të gjithë skedarët (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Lëviz</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Lëviz X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Lëviz Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} u caktua në {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Po shkarkohet SDK-ja e S.T.R.I.K.E. 7 e Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 tani ngarkon {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Po shkarkohet dhe instalohet runtime-i Visual C++ 2008 i Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Shkarkimi i SDK-së së S.T.R.I.K.E. 7 nuk përputhet me SHA-256 e saj të njohur, prandaj nuk u ruajt asgjë prej tij.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Runtime-i Visual C++ 2008 mungon ende pas ekzekutimit të instaluesit të tij.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Shfaq ekranin e tastierës</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Luan imazhe në çdo ekran tastiere të llojit të zgjedhur, pastaj kthen çdo ekran në mënyrën e vet.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Shfaq {0} imazhe: {1} × {2} ms, numri i përsëritjeve {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Imazhet përshtaten me ekranin: 160 me 43 piksel bardh e zi në një ekran monokrom, 320 me 240 në atë të G19 dhe 480 me 320 për Arx Control dhe S.T.R.I.K.E. 7. Një e dhjeta e sekondës është koha më e shkurtër e kuadrit.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mënyra e ekranit të tastierës</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Kalon një lloj ekrani tastiere në një mënyrë tjetër dhe e ruan si cilësim të atij ekrani.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} shfaq {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mënyra mbetet derisa e ndryshon një makro tjetër ose dialogu i ekranit.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Kronometër</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Nis ose ndalon pak kronometrin, ose e rivendos, që e shfaqin ekranet e tastierës në mënyrën Kronometër.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Nis ose ndalo kronometrin</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Rivendos kronometrin</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Rivendosja e ndalon kronometrin dhe e kthen në zero. Çdo ekran tastiere në mënyrën Kronometër shfaq të njëjtin kronometër.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Lëviz imazhin e ekranit të tastierës</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Lëviz dritaren e çdo ekrani tastiere mbi një imazh më të madh se ekrani, për një hartë.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Lëviz imazhet me {0} dhe {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Lëviz çdo lloj ekrani që shfaq një imazh të zgjedhur më të madh se vetja. Dritarja ndalon te skajet e imazhit.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ekrani</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Veprimi</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Drejtimi</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Hapi</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

@@ -1,0 +1,103 @@
+<ui:FluentWindow AutomationProperties.IsDialog="True" x:Class="PadForge.Views.KeyboardScreenDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:strings="clr-namespace:PadForge.Resources.Strings"
+        xmlns:reset="clr-namespace:PadForge.Controls"
+        xmlns:common="clr-namespace:PadForge.Common"
+        ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
+        Width="540" SizeToContent="Height"
+        MinHeight="200"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False">
+
+    <!-- What one kind of keyboard screen shows (issue #519): the mode, a
+         preview drawn the way the screen draws it, and the picture choices
+         the mode takes, the Dreamcast Screen dialog's shape. -->
+    <Grid common:InitialFocus.First="True" Margin="20,18,20,18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <Rectangle Width="3" Height="14" RadiusX="1.5" RadiusY="1.5"
+                       Fill="{DynamicResource EmberBrush}"
+                       VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBlock x:Name="TitleText" FontFamily="{StaticResource DisplayFontFamily}"
+                       FontWeight="SemiBold" FontSize="15"
+                       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                       VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" x:Name="DetailText" Margin="0,0,0,10" TextWrapping="Wrap"
+                   FontFamily="{StaticResource TelemetryFontFamily}" FontSize="12"
+                   Foreground="{DynamicResource ColdBrush}"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock VerticalAlignment="Center" Margin="0,0,8,0" MinWidth="60"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                       Text="{Binding DreamcastScreen_Mode_Label, Source={x:Static strings:Strings.Instance}}"/>
+            <ComboBox x:Name="ModeBox" MinWidth="220" SelectionChanged="ModeBox_SelectionChanged"
+                      AutomationProperties.Name="{Binding DreamcastScreen_Mode_Label, Source={x:Static strings:Strings.Instance}}"/>
+            <reset:SettingResetButton Click="ResetMode_Click" Tag="" Visibility="{Binding Visibility, ElementName=ModeBox}" IsEnabled="{Binding IsEnabled, ElementName=ModeBox}" SettingLabel="{Binding DreamcastScreen_Mode_Label, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_?dialog_KeyboardScreenModeBox_13110"/>
+        </StackPanel>
+
+        <!-- The screen at its own pixels, scaled to fit the dialog. -->
+        <Border Grid.Row="3" x:Name="PreviewFrame" HorizontalAlignment="Left" Padding="6" CornerRadius="4" Margin="0,0,0,10"
+                Background="#FF101010" BorderBrush="{DynamicResource ControlStrokeColorDefaultBrush}" BorderThickness="1">
+            <Image AutomationProperties.Name="{Binding Pad_Tab_Preview, Source={x:Static strings:Strings.Instance}}" FlowDirection="LeftToRight"
+                   x:Name="PreviewImage" Stretch="Uniform"/>
+        </Border>
+
+        <TextBlock Grid.Row="4" x:Name="HintText" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,10"
+                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+
+        <WrapPanel Grid.Row="5" Orientation="Horizontal">
+            <Button x:Name="ChoosePictureButton" Padding="8,4" Margin="0,0,8,6"
+                    Content="{Binding DreamcastScreen_ChoosePicture, Source={x:Static strings:Strings.Instance}}"
+                    Click="ChoosePicture_Click"/>
+            <reset:SettingResetButton Click="ResetPicture_Click" Margin="0,0,8,6" Visibility="{Binding Visibility, ElementName=ChoosePictureButton}" SettingLabel="{Binding DreamcastScreen_Mode_Picture, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_?dialog_KeyboardScreenPicture_13111"/>
+            <Button x:Name="ChooseProfilePictureButton" Padding="8,4" Margin="0,0,8,6" MaxWidth="460"
+                    Click="ChooseProfilePicture_Click"/>
+            <Button x:Name="RemoveProfilePictureButton" Padding="8,4" Margin="0,0,8,6"
+                    Content="{Binding DreamcastScreen_RemoveProfilePicture, Source={x:Static strings:Strings.Instance}}"
+                    Click="RemoveProfilePicture_Click"/>
+        </WrapPanel>
+
+        <!-- Where the screen's window sits on a picture larger than the
+             screen, in the picture's pixels. The Pan macro moves it too. -->
+        <StackPanel Grid.Row="6" x:Name="PanRow" Orientation="Horizontal" Margin="0,0,0,6">
+            <TextBlock VerticalAlignment="Center" Margin="0,0,8,0" MinWidth="60"
+                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                       Text="{Binding KeyboardScreen_Pan_Label, Source={x:Static strings:Strings.Instance}}"/>
+            <TextBlock VerticalAlignment="Center" Margin="0,0,4,0" Text="X"
+                       Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
+            <TextBox x:Name="PanXBox" Width="70" VerticalAlignment="Center" LostFocus="PanBox_LostFocus"
+                     AutomationProperties.Name="{Binding KeyboardScreen_PanX, Source={x:Static strings:Strings.Instance}}"/>
+            <TextBlock VerticalAlignment="Center" Margin="10,0,4,0" Text="Y"
+                       Foreground="{DynamicResource TextFillColorTertiaryBrush}"/>
+            <TextBox x:Name="PanYBox" Width="70" VerticalAlignment="Center" LostFocus="PanBox_LostFocus"
+                     AutomationProperties.Name="{Binding KeyboardScreen_PanY, Source={x:Static strings:Strings.Instance}}"/>
+            <reset:SettingResetButton Click="ResetPan_Click" SettingLabel="{Binding KeyboardScreen_Pan_Label, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_?dialog_KeyboardScreenPan_13112"/>
+        </StackPanel>
+
+        <!-- Footer band (#175 dialog language): Save is the dialog's primary
+             affirmative and wears the ember accent. -->
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+            <Button Content="{Binding Common_Save, Source={x:Static strings:Strings.Instance}}" MinWidth="90" Margin="0,0,8,0"
+                    IsDefault="True" Click="SaveButton_Click"
+                    Style="{StaticResource EmberAccentButton}"/>
+            <Button Content="{Binding Common_Cancel, Source={x:Static strings:Strings.Instance}}" MinWidth="90"
+                    IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</ui:FluentWindow>

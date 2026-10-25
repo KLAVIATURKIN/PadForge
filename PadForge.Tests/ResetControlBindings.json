@@ -1252,5 +1252,59 @@
     "Id": "Reset_MappingItem_MotionDeadzone_4646",
     "Owner": "PadForge.ViewModels.MappingItem",
     "Property": "MotionDeadzone"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_ScreenKind_13101",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "ScreenKind"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_ScreenFrames_13102",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "ScreenFrames"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_ScreenFrameMs_13103",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "ScreenFrameMs"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_ScreenRepeat_13104",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "ScreenRepeat"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_ScreenMode_13105",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "ScreenMode"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_StopwatchAction_13106",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "StopwatchAction"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_PanDirection_13107",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "PanDirection"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_PanStep_13108",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "PanStep"
+  },
+  {
+    "File": "PadForge.App/Views/SettingsPage.xaml",
+    "Id": "Reset_SettingsViewModel_KeyboardScreensEnabled_13109",
+    "Owner": "PadForge.ViewModels.SettingsViewModel",
+    "Property": "KeyboardScreensEnabled"
   }
 ]

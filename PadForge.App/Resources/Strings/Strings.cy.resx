@@ -4242,4 +4242,97 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="About_X1nputDesc" xml:space="preserve"><value>Adroddiad 9-beit sbardun impulse Xbox a'i lwybr ysgrifennu, gan araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Fformat PCM haptig PS5, 16-did gydag arwydd ar 3 kHz, a setlodd amgodio haptig Bluetooth 8-did gydag arwydd. AGPL-3.0, wedi'i ddarllen fel dogfennaeth yn unig, ni ddosberthir cod AGPL.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Sgriniau Bysellfwrdd</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Yn tynnu ar y sgriniau sydd wedi'u hadeiladu i mewn i fysellfyrddau GamePanel Logitech a'r Mad Catz S.T.R.I.K.E. 7, ac ar ffôn drwy Logitech Arx Control: y proffil, cloc, amser chwarae, stopwats, llun, neu liw bar golau DualShock 4 neu DualSense. Mae'r bysellau wrth ymyl y sgriniau hynny'n dod yn fotymau ar res Bysellau Sgrin Bysellfwrdd.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Rheoli Sgriniau Bysellfwrdd</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Yn tynnu ar sgriniau'r Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, a G19, ar Arx Control, ac ar y Mad Catz S.T.R.I.K.E. 7. Tra bydd Logitech Gaming Software yn rhedeg, mae PadForge yn tynnu drwyddo. Hebddo, mae PadForge yn ysgrifennu i'r sgriniau unlliw dros HID ac yn rhwymo WinUSB i ryngwyneb sgrin y G19. Mae diffodd hyn yn rhoi sgrin y G19 yn ôl i Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Sgrin Unlliw…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Sgrin Lliw…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Lawrlwytho Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Yn lawrlwytho SDK S.T.R.I.K.E. 7 Mad Catz o weinydd AIDA64, yn ei wirio yn erbyn ei SHA-256 hysbys, ac yn cadw'r Strike7API.dll 64-did yn unig yn ffolder dros dro PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Dewis Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Gosod Amser Rhedeg Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Yn lawrlwytho Visual C++ 2008 SP1 Redistributable Microsoft ar gyfer Windows 64-did, y mae Strike7API.dll ei angen, yn gwirio llofnod Microsoft arno, ac yn ei osod.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Llyfrgelloedd (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Sgrin Unlliw</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Sgrin Lliw</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>I ffwrdd</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Stopwats</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Lliw'r Bar Golau</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>i ffwrdd</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>drwy Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>yn uniongyrchol ar y {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>yn rhwymo WinUSB i sgrin y G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>mae sgrin y G19 ar yrrwr arall ({0}), felly dechreuwch Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>mae angen Logitech Gaming Software 8.52 neu ddiweddarach</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>dechreuwch Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>yn aros am ffôn gydag Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>ar ffôn</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>mae angen Strike7API.dll, felly lawrlwythwch ef neu dewiswch gopi</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>mae'r Strike7API.dll a lawrlwythwyd wedi newid, felly lawrlwythwch ef eto</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>mae angen amser rhedeg Visual C++ 2008 Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>ni lwythodd Strike7API.dll</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>dechreuwch feddalwedd S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>dewiswch PadForge ar sgrin V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>ar sgrin V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>heb ddod o hyd i sgrin</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, yn aros am liw bar golau</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, heb ddewis llun</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Bysellau Sgrin Bysellfwrdd</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Bysell Sgrin {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Bysell Applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Sgrin I'r Chwith</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Sgrin I'r Dde</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Sgrin OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Sgrin Diddymu</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Sgrin I Fyny</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Sgrin I Lawr</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Dewislen Sgrin</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Gosodiadau Sgrin</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>Nid yw PadForge yn dangos dim, ac mae ei applet yn gadael y sgrin. Dan Logitech Gaming Software, dim ond tra bydd ei applet o'r tu blaen y mae bysellau'r sgrin yn cyrraedd PadForge, felly mae angen modd arall arnynt.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Mae'r sgrin yn dangos enw'r proffil gweithredol ac yn dilyn pob newid proffil.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Mae'r sgrin yn dangos safle'r proffil gweithredol yn y rhestr proffiliau. Rhif y proffil Rhagosodedig yw 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Mae'r sgrin yn dangos llun y proffil gweithredol ei hun, neu ei enw os nad oes ganddo un. Mae pob proffil yn cadw ei lun ei hun.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Mae'r sgrin yn dangos yr amser o'r dydd.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Mae'r sgrin yn dangos yr oriau a'r munudau ers i'r proffil gweithredol ddod i rym. Mae proffil sydd wedi'i glymu wrth raglen gêm yn dod i rym pan fydd y gêm yn dechrau, felly'r sesiwn honno yw'r cyfrif. Dan y proffil Rhagosodedig, mae'n cyfrif o ddechrau'r injan.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Mae'r sgrin yn dangos llun a ddewiswch, ar ei faint ei hun. Mae llun sy'n fwy na'r sgrin yn dangos ffenestr o faint y sgrin, a symudir gan facro Panio Llun Sgrin Bysellfwrdd. Ar y S.T.R.I.K.E. 7, mae bys a lusgir ar draws y sgrin yn ei symud hefyd.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Mae'r sgrin yn dangos y stopwats, y mae'r macro Stopwats yn ei gychwyn, ei oedi a'i ailosod. Mae pob sgrin yn dangos yr un stopwats.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Mae'r sgrin yn dangos lliw'r bar golau ar y DualShock 4 neu'r DualSense yn y slot isaf. Mae sgrin unlliw yn dangos ei ddisgleirdeb fel patrwm dotiau. Nes bydd lliw yn cyrraedd bar golau, nid yw PadForge yn dangos dim.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Lluniau (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Pob Ffeil (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Panio</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Panio X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Panio Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>Gosodwyd {0} i {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Yn lawrlwytho SDK S.T.R.I.K.E. 7 Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>Mae'r S.T.R.I.K.E. 7 bellach yn llwytho {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Yn lawrlwytho ac yn gosod amser rhedeg Visual C++ 2008 Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Nid yw lawrlwythiad SDK S.T.R.I.K.E. 7 yn cyfateb i'w SHA-256 hysbys, felly ni chadwyd dim ohono.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Mae amser rhedeg Visual C++ 2008 yn dal ar goll ar ôl i'w osodwr redeg.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Dangos Sgrin Bysellfwrdd</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Yn chwarae lluniau ar bob sgrin bysellfwrdd o'r math a ddewiswyd, yna'n dychwelyd pob sgrin i'w modd ei hun.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Dangos lluniau {0}: {1} × {2} ms, cyfrif ailadrodd {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Caiff lluniau eu ffitio i'r sgrin: 160 wrth 43 picsel du a gwyn ar sgrin unlliw, 320 wrth 240 ar un y G19, a 480 wrth 320 ar gyfer Arx Control a'r S.T.R.I.K.E. 7. Un rhan o ddeg o eiliad yw'r amser ffrâm byrraf.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Modd Sgrin Bysellfwrdd</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Yn newid math o sgrin bysellfwrdd i fodd arall ac yn ei gadw fel gosodiad y sgrin honno.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>Mae {0} yn dangos {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mae'r modd yn aros nes i facro arall neu ddeialog y sgrin ei newid.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwats</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Yn cychwyn neu'n oedi, neu'n ailosod, y stopwats y mae sgriniau bysellfwrdd yn y modd Stopwats yn ei ddangos.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Cychwyn neu Oedi'r Stopwats</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Ailosod y Stopwats</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Mae ailosod yn atal y stopwats ac yn ei osod yn ôl i sero. Mae pob sgrin bysellfwrdd yn y modd Stopwats yn dangos yr un stopwats.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Panio Llun Sgrin Bysellfwrdd</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Yn symud ffenestr pob sgrin bysellfwrdd dros lun sy'n fwy na'r sgrin, ar gyfer map.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Panio lluniau {0} wrth {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Yn symud pob math o sgrin sy'n dangos llun a ddewiswyd sy'n fwy na hi ei hun. Mae'r ffenestr yn stopio ar ymylon y llun.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Sgrin</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Gweithred</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Cyfeiriad</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Cam</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

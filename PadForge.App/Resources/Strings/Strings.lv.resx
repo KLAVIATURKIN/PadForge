@@ -4291,4 +4291,97 @@ Vai vēlaties, lai PadForge tos tagad atinstalē? Tam nepieciešamas paaugstinā
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox impulsa mēlīšu 9 baitu ziņojums un tā rakstīšanas ceļš, autors araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 haptiskais PCM formāts, 16 bitu ar zīmi pie 3 kHz, kas noteica 8 bitu Bluetooth haptikas kodējumu ar zīmi. AGPL-3.0, izmantots tikai kā dokumentācija, AGPL kods netiek izplatīts.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Tastatūras ekrāni</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Zīmē uz ekrāniem, kas iebūvēti Logitech GamePanel tastatūrās un Mad Catz S.T.R.I.K.E. 7, kā arī tālrunī, izmantojot Logitech Arx Control: profils, pulkstenis, spēles laiks, hronometrs, attēls vai DualShock 4 vai DualSense gaismas joslas krāsa. Taustiņi pie šiem ekrāniem kļūst par pogām rindā Tastatūras ekrāna taustiņi.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Vadīt tastatūras ekrānus</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Zīmē uz Logitech G15, G15 v2, G510, G13, Z-10, GamePanel un G19 ekrāniem, uz Arx Control un uz Mad Catz S.T.R.I.K.E. 7. Kamēr darbojas Logitech Gaming Software, PadForge zīmē ar tās starpniecību. Bez tās PadForge raksta uz melnbaltajiem ekrāniem pa HID un piesaista WinUSB G19 ekrāna interfeisam. Izslēdzot šo opciju, G19 ekrāns tiek atdots Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Melnbaltais ekrāns…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Krāsu ekrāns…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Lejupielādēt Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Lejupielādē Mad Catz S.T.R.I.K.E. 7 SDK no AIDA64 servera, pārbauda to pēc zināmā SHA-256 un PadForge pagaidu mapē saglabā tikai 64 bitu Strike7API.dll.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Izvēlēties Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Instalēt Visual C++ 2008 izpildlaiku</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Lejupielādē Microsoft Visual C++ 2008 SP1 Redistributable 64 bitu Windows, kas nepieciešams Strike7API.dll, pārbauda tā Microsoft parakstu un instalē to.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Bibliotēkas (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Melnbaltais ekrāns</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Krāsu ekrāns</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Izslēgts</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Hronometrs</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Gaismas joslas krāsa</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>izslēgts</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>izmantojot Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>tieši uz {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>notiek WinUSB piesaiste G19 ekrānam</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19 ekrānam ir cits draiveris ({0}), tāpēc palaidiet Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>nepieciešama Logitech Gaming Software 8.52 vai jaunāka versija</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>palaidiet Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>gaida tālruni ar Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>tālrunī</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>nepieciešams Strike7API.dll, tāpēc lejupielādējiet to vai izvēlieties kopiju</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>lejupielādētais Strike7API.dll ir mainījies, tāpēc lejupielādējiet to vēlreiz</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>nepieciešams Microsoft Visual C++ 2008 izpildlaiks</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll neielādējās</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>palaidiet S.T.R.I.K.E. 7 programmatūru</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>izvēlieties PadForge V.E.N.O.M. ekrānā</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. ekrānā</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ekrāns nav atrasts</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, gaida gaismas joslas krāsu</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, attēls nav izvēlēts</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tastatūras ekrāna taustiņi</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Ekrāna taustiņš {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Sīklietotnes taustiņš</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekrāns: pa kreisi</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Ekrāns: pa labi</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Ekrāns: OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Ekrāns: atcelt</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Ekrāns: augšup</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Ekrāns: lejup</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Ekrāns: izvēlne</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Ekrāns: iestatījumi</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge neko nerāda, un tā sīklietotne pazūd no ekrāna. Ar Logitech Gaming Software ekrāna taustiņi sasniedz PadForge tikai tad, kad tā sīklietotne ir priekšplānā, tāpēc tiem nepieciešams cits režīms.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ekrāns rāda aktīvā profila nosaukumu un mainās līdz ar katru profila pārslēgšanu.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ekrāns rāda aktīvā profila vietu profilu sarakstā. Noklusējuma profila numurs ir 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Ekrāns rāda aktīvā profila attēlu vai tā nosaukumu, ja attēla nav. Katram profilam ir savs attēls.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ekrāns rāda diennakts laiku.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ekrāns rāda stundas un minūtes kopš aktīvā profila ieslēgšanās. Ar spēles programmu saistīts profils ieslēdzas, kad spēle startē, tāpēc skaitītājs rāda šo sesiju. Noklusējuma profilā tas skaita no dzinēja startēšanas.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ekrāns rāda jūsu izvēlēto attēlu tā īstajā izmērā. Ja attēls ir lielāks par ekrānu, tiek rādīts ekrāna lieluma logs, ko pārvieto makross Pārvietot tastatūras ekrāna attēlu. Uz S.T.R.I.K.E. 7 to pārvieto arī ar pirkstu, velkot pāri ekrānam.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ekrāns rāda hronometru, ko startē, pauzē un atiestata makross Hronometrs. Visi ekrāni rāda vienu un to pašu hronometru.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekrāns rāda gaismas joslas krāsu uz DualShock 4 vai DualSense ar zemāko slota numuru. Melnbaltais ekrāns rāda tās spilgtumu kā punktu rakstu. Kamēr krāsa nav sasniegusi gaismas joslu, PadForge neko nerāda.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Attēli (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Visi faili (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Pārvietot</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Pārvietot X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Pārvietot Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} iestatīts: {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Notiek Mad Catz S.T.R.I.K.E. 7 SDK lejupielāde…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 tagad ielādē {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Notiek Microsoft Visual C++ 2008 izpildlaika lejupielāde un instalēšana…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK lejupielāde neatbilst zināmajam SHA-256, tāpēc nekas no tās netika saglabāts.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Pēc instalētāja darbības Visual C++ 2008 izpildlaika joprojām nav.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Rādīt tastatūras ekrānu</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Atskaņo attēlus visos izvēlētā veida tastatūras ekrānos, pēc tam katram ekrānam atgriež tā paša režīmu.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Rādīt {0} attēlus: {1} × {2} ms, atkārtojumu skaits {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Attēli tiek pielāgoti ekrānam: 160 × 43 melnbalti pikseļi melnbaltajā ekrānā, 320 × 240 G19 ekrānā un 480 × 320 Arx Control un S.T.R.I.K.E. 7. Īsākais kadra ilgums ir desmitdaļa sekundes.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Tastatūras ekrāna režīms</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Pārslēdz tastatūras ekrāna veidu uz citu režīmu un saglabā to kā šī ekrāna iestatījumu.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} rāda: {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Režīms paliek, līdz to maina cits makross vai ekrāna dialoglodziņš.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Hronometrs</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Startē vai pauzē, vai atiestata hronometru, ko rāda tastatūras ekrāni Hronometra režīmā.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Startēt vai pauzēt hronometru</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Atiestatīt hronometru</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Atiestatīšana aptur hronometru un iestata to atpakaļ uz nulli. Visi tastatūras ekrāni Hronometra režīmā rāda vienu un to pašu hronometru.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Pārvietot tastatūras ekrāna attēlu</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Pārvieto katra tastatūras ekrāna logu pa attēlu, kas ir lielāks par ekrānu, piemēram, kartei.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Pārvietot attēlus: {0} × {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Pārvieto katru ekrāna veidu, kas rāda izvēlētu attēlu, lielāku par pašu ekrānu. Logs apstājas pie attēla malām.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ekrāns</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Darbība</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Virziens</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Solis</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

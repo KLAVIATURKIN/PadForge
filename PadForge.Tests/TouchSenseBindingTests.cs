@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using PadForge.Common.Input;
+using PadForge.Common.Input.KeyboardScreens;
 using PadForge.Common.Input.Peripherals;
 using PadForge.Services;
 using Xunit;
@@ -303,9 +304,10 @@ namespace PadForge.Tests
         /// <summary>The opt-in bind is reached only through the confirm
         /// that states what the switch takes: the dialog shows the cost
         /// text of the offer's own kind, and a "no" leaves before
-        /// anything is bound. The only other call of the bind is the
+        /// anything is bound. The only other calls of the bind are the
         /// automatic binder's, which never plans a TouchSense mouse (the
-        /// test above).</summary>
+        /// test above), and the keyboard screens' (#519), which binds the
+        /// G19's screen interface alone.</summary>
         [Fact]
         public void TheBinding_IsMadeOnlyBehindTheConfirmThatStatesItsCost()
         {
@@ -332,13 +334,27 @@ namespace PadForge.Tests
             // The request reaches the method from the page's button and from nowhere else.
             Assert.Equal(1, window.Split("SwitchDriverAsync(bind: true)").Length - 1);
 
-            // Every call of the bind in the app: this one and the automatic binder's.
+            // Every call of the bind in the app: this one, the automatic
+            // binder's and the G19 screen's.
             var callers = Sources("PadForge.App")
                 .Select(file => (File: Path.GetFileName(file), Calls: File.ReadAllText(file).Split("VendorUsbDriverInstaller.Bind(").Length - 1))
                 .Where(c => c.Calls > 0)
                 .OrderBy(c => c.File, StringComparer.Ordinal)
                 .ToArray();
-            Assert.Equal(new[] { ("MainWindow.xaml.cs", 1), ("VendorUsbBindingService.cs", 1) }, callers);
+            Assert.Equal(new[] { ("G19UsbScreen.cs", 1), ("MainWindow.xaml.cs", 1), ("VendorUsbBindingService.cs", 1) }, callers);
+
+            // The G19 screen binds interface 0 of 046D:C229 alone, from the
+            // bind's own default drivers (none and HidUsb), only while LGS
+            // is away, and is no opt-in of the confirm's kinds.
+            string g19 = AuditDelta20261002Tests.RepoText("PadForge.App", "Common", "Input", "KeyboardScreens", "G19UsbScreen.cs");
+            Assert.Contains("private const ushort Vid = KeyboardScreenDevices.LogitechVid;", g19);
+            Assert.Contains("private const ushort Pid = KeyboardScreenDevices.G19;", g19);
+            Assert.Contains("n.Vid == Vid && n.Pid == Pid && n.Interface == 0", g19);
+            Assert.Contains("if (!mayBind || now < _nextBind) return;", g19);
+            Assert.Contains("VendorUsbDriverInstaller.Bind(plan, node.InstanceId, nodes, _log, CancellationToken.None);", g19);
+            Assert.DoesNotContain("OptIn", g19);
+            Assert.DoesNotContain(TouchSenseProtocol.Mice, m => m.VendorId == KeyboardScreenDevices.LogitechVid
+                && m.ProductId == KeyboardScreenDevices.G19);
 
             string binder = AuditDelta20261002Tests.RepoText("PadForge.App", "Common", "Input", "VendorUsbBindingService.cs");
             Assert.Contains("if (VendorUsbDriverInstaller.Plan(node) is { } plan)", binder);

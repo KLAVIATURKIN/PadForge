@@ -38,6 +38,7 @@ namespace PadForge.Common
             InputDeviceType.WebMenus => "\uF0E2",        // GridView, a deck of tiles (#471)
             InputDeviceType.PeripheralLighting => "\uE781", // the Lighting tab's glyph (#494)
             InputDeviceType.PeripheralHaptics => "\uE877",  // the Force Feedback tab's glyph (#494)
+            InputDeviceType.KeyboardScreenKeys => "\uE765", // KeyboardClassic: the keys sit on a keyboard (#519)
             _ => "\uE7FC"                                // Game
         };
     }

@@ -658,4 +658,20 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Tāmateʻi</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Lanu ʻo e lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>kuo tāmateʻi</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>fakafou ʻi he Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>kamataʻi ʻa e Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>ʻoku tatali ki ha telefoni ʻoku ʻi ai ʻa e Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>ʻi ha telefoni</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>kamataʻi ʻa e polokalama S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ʻoku tatali ki ha lanu ʻo e lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ʻoku teʻeki fili ha fakatātā</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

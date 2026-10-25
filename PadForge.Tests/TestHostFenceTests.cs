@@ -175,6 +175,10 @@ namespace PadForge.Tests
         private const string LogiLed = Services + "LogiLedEngineNative.cs";
         private const string Sensa = Services + "SensaHapticsService.cs";
         private const string GKeys = "PadForge.Engine/Common/Logitech/LogitechGKeySource.cs";
+        private const string LgsLcd = "PadForge.Engine/Common/Logitech/LogitechLcdLibrary.cs";
+        private const string LgsArx = "PadForge.Engine/Common/Logitech/LogitechArxLibrary.cs";
+        private const string Strike7 = "PadForge.Engine/Common/MadCatz/Strike7Library.cs";
+        private const string G19Screen = Input + "KeyboardScreens/G19UsbScreen.cs";
         private const string LinkServerFile = "PadForge.Engine/RemoteLink/LinkServer.cs";
         private const string Krpc = "PadForge.Engine/RemoteLink/Dht/UdpKrpcTransport.cs";
         private const string Stun = "PadForge.Engine/RemoteLink/StunClient.cs";
@@ -312,6 +316,7 @@ namespace PadForge.Tests
             new object[] { Input + "WinScard.cs", "public static string ReadUid(string reader)", "if (DirectDeviceAccess.RefusesAll) return null;" },
             new object[] { Input + "XboxGipGuideLedWriter.cs", "private bool OpenInterface()", "if (DirectDeviceAccess.Refuses(" },
             new object[] { Input + "XboxImpulseHidWriter.cs", "private static SafeFileHandle CreateFileSafe(", "if (DirectDeviceAccess.Refuses(path)) return new SafeFileHandle(new IntPtr(-1), true);" },
+            new object[] { G19Screen, "private bool Open(string path)", "if (DirectDeviceAccess.Refuses(path)) return false;" },
             new object[] { DeviceAccess, "internal static bool Refuses(string path)", "OffLimitsForTest && IsDevicePath(path);" },
             new object[] { DeviceAccess, "internal static bool RefusesAll", "OffLimitsForTest;" },
 
@@ -450,6 +455,9 @@ namespace PadForge.Tests
 
             // The programs other vendors run on the PC.
             new object[] { GKeys, "public bool Start()", VendorRefuses + ")", "NativeLibrary.TryLoad(" },
+            new object[] { LgsLcd, "public static LogitechLcdLibrary TryLoad(out string reason)", VendorRefuses + ")", "NativeLibrary.TryLoad(" },
+            new object[] { LgsArx, "public static LogitechArxLibrary TryLoad(out string reason)", VendorRefuses + ")", "NativeLibrary.TryLoad(" },
+            new object[] { Strike7, "public static Strike7Library TryLoad(string path, out string reason)", VendorRefuses + ")", "NativeLibrary.TryLoad(" },
 
             // What is sent beyond this PC.
             new object[] { Stun, "public static async Task<IPEndPoint> QueryAsync(", RefusesHost + " return null;", "Dns.GetHostAddressesAsync(" },
@@ -567,6 +575,7 @@ namespace PadForge.Tests
                 "PadForge.App/Common/Input/BluetoothLinkHelper.cs",
                 "PadForge.App/Common/Input/Ds3DirectService.cs",
                 "PadForge.App/Common/Input/HapticToneService.cs",
+                "PadForge.App/Common/Input/KeyboardScreens/G19UsbScreen.cs",
                 "PadForge.App/Common/Input/Peripherals/TouchSenseWinUsb.cs",
                 "PadForge.App/Common/Input/PlayStationEffectWriter.cs",
                 "PadForge.App/Common/Input/PsMoveDirectService.cs",
@@ -639,14 +648,18 @@ namespace PadForge.Tests
         }
 
         /// <summary>A library of another vendor's is loaded by its path in
-        /// four places. Logitech's two ask the vendor gate. The two VR
-        /// runtimes ask theirs (VrRuntimeOffLimitsTests).</summary>
+        /// seven places. Logitech's four and Mad Catz's one (#519) ask the
+        /// vendor gate. The two VR runtimes ask theirs
+        /// (VrRuntimeOffLimitsTests).</summary>
         [Fact]
         public void EveryLibraryLoadedByPath_IsOnTheList()
             => Assert.Equal(Map(
                 ("PadForge.App/Common/Input/OpenVrConsumerService.cs", 1),
                 (LogiLed, 1),
                 (GKeys, 1),
+                (LgsLcd, 1),
+                (LgsArx, 1),
+                (Strike7, 1),
                 ("PadForge.Engine/Common/OpenXr/OpenXrSession.cs", 1)),
                 FenceSource.Census(@"NativeLibrary\.(Try)?Load\(|\bLoadLibrary(Ex)?[AW]?\(", callsOnly: true));
 

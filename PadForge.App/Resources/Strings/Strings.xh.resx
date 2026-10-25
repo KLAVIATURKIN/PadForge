@@ -1474,4 +1474,39 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Izikrini zekhibhodi</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Lawula izikrini zekhibhodi</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Isikrini esimnyama nesimhlophe…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Isikrini esinemibala…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Khuphela i-Strike7API.dll</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Khetha i-Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Faka i-Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Iilayibrari (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Isikrini esimnyama nesimhlophe</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Isikrini esinemibala</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Cimile</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Umbala we-lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>cimile</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>nge-Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>qalisa i-Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>kwifowuni</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>qalisa isoftware ye-S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>khetha i-PadForge kwisikrini se-V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>kwisikrini se-V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>akukho sikrini sifunyenweyo</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, akukho mfanekiso ukhethiweyo</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Amaqhosha esikrini sekhibhodi</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Iqhosha lesikrini {0}</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Isikrini sibonisa ixesha losuku.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Imifanekiso (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Zonke iifayile (*.*)|*.*</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Bonisa isikrini sekhibhodi</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Isikrini</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Isenzo</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Inyathelo</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

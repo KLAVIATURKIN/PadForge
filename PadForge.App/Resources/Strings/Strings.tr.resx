@@ -4291,4 +4291,97 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox Impulse tetiği 9 baytlık raporu ve yazma yolu. Geliştiren: araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>İşaretli 8 bit Bluetooth haptik kodlamasını netleştiren, işaretli 16 bit ve 3 kHz örneklemeli PS5 haptik PCM biçimi. AGPL-3.0, yalnızca belge olarak okundu, hiçbir AGPL kodu dağıtılmıyor.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Klavye Ekranları</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech'in GamePanel klavyelerinin ve Mad Catz S.T.R.I.K.E. 7'nin yerleşik ekranlarına ve Logitech Arx Control üzerinden bir telefona çizim yapar: profil, saat, oyun süresi, kronometre, bir resim ya da bir DualShock 4 veya DualSense ışık çubuğunun rengi. Bu ekranların yanındaki tuşlar, Klavye Ekran Tuşları satırında düğme olur.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Klavye ekranlarına çiz</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel ve G19 ekranlarına, Arx Control'e ve Mad Catz S.T.R.I.K.E. 7'ye çizer. Logitech Gaming Software çalışırken PadForge çizimi onun üzerinden yapar. O yokken PadForge tek renkli ekranlara HID üzerinden yazar ve WinUSB'yi G19'un ekran arayüzüne bağlar. Bunu kapatmak G19'un ekranını Windows'a geri verir.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Tek renkli ekran…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Renkli ekran…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll dosyasını indir</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mad Catz'in S.T.R.I.K.E. 7 SDK'sını AIDA64'ün sunucusundan indirir, bilinen SHA-256 değeriyle karşılaştırır ve yalnızca 64 bit Strike7API.dll dosyasını PadForge'un geçici klasöründe tutar.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll seç…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 çalışma zamanını kur</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Strike7API.dll'nin gerek duyduğu, 64 bit Windows için Microsoft'un Visual C++ 2008 SP1 Redistributable paketini indirir, Microsoft imzasını denetler ve kurar.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Kitaplıklar (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Tek renkli ekran</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Renkli ekran</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Kapalı</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Kronometre</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Işık çubuğu rengi</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>kapalı</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software üzerinden</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>doğrudan {0} üzerinde</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>WinUSB, G19'un ekranına bağlanıyor</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19'un ekranı başka bir sürücüde ({0}), bu yüzden Logitech Gaming Software'i başlatın</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 veya üstünü gerektirir</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software'i başlatın</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>Arx Control'lü bir telefon bekleniyor</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>telefonda</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>Strike7API.dll gerekli, indirin ya da bir kopyasını seçin</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>indirilen Strike7API.dll değişmiş, yeniden indirin</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>Microsoft'un Visual C++ 2008 çalışma zamanı gerekli</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll yüklenemedi</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>S.T.R.I.K.E. 7 yazılımını başlatın</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. ekranında PadForge'u seçin</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. ekranında</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ekran bulunamadı</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ışık çubuğu rengi bekleniyor</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, resim seçilmedi</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Klavye Ekran Tuşları</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Ekran tuşu {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applet tuşu</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekran sol</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Ekran sağ</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Ekran Tamam</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Ekran İptal</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Ekran yukarı</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Ekran aşağı</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Ekran menüsü</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Ekran ayarları</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge hiçbir şey göstermez ve uygulaması ekrandan çekilir. Logitech Gaming Software altında ekran tuşları PadForge'a yalnızca uygulaması öndeyken ulaşır, bu yüzden başka bir mod gerekir.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ekran, etkin profilin adını gösterir ve her profil değişimini izler.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ekran, etkin profilin profil listesindeki sırasını gösterir. Varsayılan profil 0'dır.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Ekran etkin profilin kendi resmini, resmi yoksa adını gösterir. Her profil kendi resmini saklar.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ekran günün saatini gösterir.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ekran, etkin profilin devreye girmesinden bu yana geçen saat ve dakikayı gösterir. Bir oyunun programına bağlı profil oyun başlayınca devreye girer, yani sayaç o oturumu sayar. Varsayılan profilde sayaç altyapının başlangıcından itibaren işler.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ekran, seçtiğiniz bir resmi kendi boyutunda gösterir. Ekrandan büyük bir resimde ekran boyutunda bir pencere görünür ve bu pencereyi Klavye ekranı resmini kaydır makrosu hareket ettirir. S.T.R.I.K.E. 7'de ekranda gezdirilen bir parmak da onu hareket ettirir.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ekran, Kronometre makrosunun başlattığı, duraklattığı ve sıfırladığı kronometreyi gösterir. Her ekran aynı kronometreyi gösterir.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekran, en düşük yuvadaki DualShock 4 veya DualSense'in ışık çubuğunun rengini gösterir. Tek renkli ekran parlaklığı nokta deseni olarak gösterir. Bir ışık çubuğuna renk ulaşana kadar PadForge hiçbir şey göstermez.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Resimler (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tüm Dosyalar (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Kaydır</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Kaydır X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Kaydır Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} şuna ayarlandı: {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mad Catz'in S.T.R.I.K.E. 7 SDK'sı indiriliyor…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 artık {0} dosyasını yüklüyor.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsoft'un Visual C++ 2008 çalışma zamanı indirilip kuruluyor…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK indirmesi bilinen SHA-256 değeriyle eşleşmedi, bu yüzden ondan hiçbir şey saklanmadı.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 çalışma zamanı, kurucusu çalıştıktan sonra da eksik.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Klavye ekranını göster</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Seçilen türdeki her klavye ekranında resimleri oynatır, sonra her ekranı kendi moduna döndürür.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} resimlerini göster: {1} × {2} ms, yineleme sayısı {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Resimler ekrana sığdırılır: tek renkli ekranda 160 × 43 siyah beyaz piksel, G19'unkinde 320 × 240, Arx Control ve S.T.R.I.K.E. 7 için 480 × 320. En kısa kare süresi saniyenin onda biridir.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Klavye ekranı modu</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Bir tür klavye ekranını başka bir moda geçirir ve bunu o ekranın ayarı olarak saklar.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} şunu gösterir: {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mod, başka bir makro ya da ekranın iletişim kutusu değiştirene kadar kalır.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Kronometre</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Kronometre modundaki klavye ekranlarının gösterdiği kronometreyi başlatır, duraklatır ya da sıfırlar.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Kronometreyi başlat veya duraklat</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Kronometreyi sıfırla</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Sıfırlama kronometreyi durdurur ve sıfıra getirir. Kronometre modundaki her klavye ekranı aynı kronometreyi gösterir.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Klavye ekranı resmini kaydır</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Her klavye ekranının penceresini, ekrandan büyük bir resmin (örneğin bir haritanın) üzerinde hareket ettirir.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Resimleri {0}, {1} px kaydır</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Kendisinden büyük seçili bir resim gösteren her ekran türünü hareket ettirir. Pencere resmin kenarlarında durur.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ekran</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Eylem</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Yön</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Adım</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

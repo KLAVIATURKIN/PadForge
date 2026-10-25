@@ -4263,4 +4263,97 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox bultzada-katuen 9 byteko txostena eta bere idazketa-bidea, egilea: araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5-en PCM formatu haptikoa, 16 biteko zeinuduna 3 kHz-tan, zeinak Bluetooth bidezko zeinudun 8 biteko kodeketa haptikoa argitu zuen. AGPL-3.0, dokumentazio gisa soilik irakurria, ez da AGPL koderik banatzen.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Teklatuko pantailak</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech-en GamePanel teklatuen eta Mad Catz S.T.R.I.K.E. 7 teklatuaren pantailetan marrazten du, baita telefono batean ere Logitech Arx Control bidez: profila, erlojua, jolas-denbora, kronometroa, irudi bat edo DualShock 4 edo DualSense kontrolagailu baten argi-barraren kolorea. Pantaila horien ondoko teklak botoi bihurtzen dira Teklatuko pantailen teklak errenkadan.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kontrolatu teklatuko pantailak</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel eta G19 pantailetan, Arx Control-en eta Mad Catz S.T.R.I.K.E. 7 teklatuan marrazten du. Logitech Gaming Software martxan dagoen bitartean, PadForge-k horren bidez marrazten du. Hori gabe, PadForge-k pantaila monokromoetan HID bidez idazten du eta WinUSB lotzen dio G19ren pantaila-interfazeari. Hau desaktibatzean, G19ren pantaila Windows-i itzultzen zaio.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Pantaila monokromoa…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Kolore-pantaila…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Deskargatu Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mad Catz-en S.T.R.I.K.E. 7 SDK AIDA64-ren zerbitzaritik deskargatzen du, ezagutzen duen SHA-256 balioarekin alderatzen du eta 64 biteko Strike7API.dll bakarrik gordetzen du PadForge-ren aldi baterako karpetan.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Aukeratu Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Instalatu Visual C++ 2008 exekuzio-ingurunea</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Microsoft-en Visual C++ 2008 SP1 Redistributable deskargatzen du 64 biteko Windows sistemarako, Strike7API.dll-k behar duena, Microsoft-en sinadura egiaztatzen du eta instalatzen du.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Liburutegiak (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Pantaila monokromoa</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Kolore-pantaila</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Desaktibatuta</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Kronometroa</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Argi-barraren kolorea</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>desaktibatuta</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software bidez</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>zuzenean hemen: {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>WinUSB G19ren pantailari lotzen</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19ren pantaila beste kontrolatzaile batean dago ({0}), beraz abiarazi Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 edo berriagoa behar du</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>abiarazi Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>Arx Control duen telefono baten zain</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>telefono batean</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>Strike7API.dll behar du, beraz deskargatu edo aukeratu kopia bat</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>deskargatutako Strike7API.dll aldatu da, beraz deskargatu berriro</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>Microsoft-en Visual C++ 2008 exekuzio-ingurunea behar du</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll ez da kargatu</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>abiarazi S.T.R.I.K.E. 7 softwarea</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>aukeratu PadForge V.E.N.O.M. pantailan</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. pantailan</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ez da pantailarik aurkitu</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, argi-barraren kolorearen zain</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, irudirik aukeratu gabe</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Teklatuko pantailen teklak</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Pantailako tekla {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Appleten tekla</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Pantailako ezkerra</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Pantailako eskuina</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Pantailako OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Pantailako utzi</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Pantailako gora</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Pantailako behera</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Pantailako menua</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Pantailako ezarpenak</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge-k ez du ezer erakusten, eta bere appleta pantailatik ateratzen da. Logitech Gaming Software erabiltzean, pantailako teklak PadForge-ra iristen dira bere appleta aurrean dagoenean soilik, beraz beste modu bat behar dute.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Pantailak profil aktiboaren izena erakusten du eta profil-aldaketa bakoitzari jarraitzen dio.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Pantailak profil aktiboak profil-zerrendan duen lekua erakusten du. Profil lehenetsia 0 da.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Pantailak profil aktiboaren irudia erakusten du, edo haren izena, irudirik ez badu. Profil bakoitzak bere irudia gordetzen du.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Pantailak eguneko ordua erakusten du.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Pantailak profil aktiboa aktibatu zenetik igarotako orduak eta minutuak erakusten ditu. Jokoaren programari lotutako profila jokoa hasten denean aktibatzen da, beraz zenbaketa saio horren denbora da. Profil lehenetsiarekin, motorra abiarazi zenetik kontatzen da.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Pantailak zuk aukeratutako irudi bat erakusten du, bere tamainan. Pantaila baino handiagoa den irudi batek pantailaren tamainako leiho bat erakusten du, eta Mugitu teklatuko pantailaren irudia makroak mugitzen du. S.T.R.I.K.E. 7-n, pantailan zehar eramandako hatzak ere mugitzen du.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Pantailak kronometroa erakusten du, Kronometroa makroak abiarazi, pausatu eta berrezartzen duena. Pantaila guztiek kronometro bera erakusten dute.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Pantailak zirrikitu baxuenean dagoen DualShock 4 edo DualSense kontrolagailuaren argi-barraren kolorea erakusten du. Pantaila monokromo batek bere distira puntu-eredu gisa erakusten du. Kolorea argi-barra batera iritsi arte, PadForge-k ez du ezer erakusten.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Irudiak (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Fitxategi guztiak (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Desplazamendua</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>X desplazamendua</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Y desplazamendua</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} ezarrita: {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mad Catz-en S.T.R.I.K.E. 7 SDK deskargatzen…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7-k {0} kargatuko du orain.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsoft-en Visual C++ 2008 exekuzio-ingurunea deskargatzen eta instalatzen…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK deskargak ez dator bat ezagutzen duen SHA-256 balioarekin, beraz ez da ezer gorde.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 exekuzio-ingurunea falta da oraindik instalatzailea exekutatu ondoren.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Erakutsi teklatuko pantaila</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Aukeratutako motako teklatuko pantaila guztietan irudiak erreproduzitzen ditu, eta gero pantaila bakoitza bere modura itzultzen du.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Erakutsi {0} irudiak: {1} × {2} ms, errepikapenak: {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Irudiak pantailara egokitzen dira: 160 × 43 pixel zuri-beltzak pantaila monokromoan, 320 × 240 G19renean eta 480 × 320 Arx Control-en eta S.T.R.I.K.E. 7-n. Segundo-hamarren bat da irudi-denbora txikiena.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Teklatuko pantailaren modua</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Teklatuko pantaila mota bat beste modu batera aldatzen du eta pantaila horren ezarpen gisa gordetzen du.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} hau erakusten du: {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Modua beste makro batek edo pantailaren elkarrizketa-koadroak aldatu arte irauten du.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Kronometroa</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Kronometro moduko teklatuko pantailek erakusten duten kronometroa abiarazi edo pausatzen du, edo berrezartzen du.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Abiarazi edo pausatu kronometroa</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Berrezarri kronometroa</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Berrezartzeak kronometroa gelditzen du eta zerora itzultzen du. Kronometro moduko teklatuko pantaila guztiek kronometro bera erakusten dute.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Mugitu teklatuko pantailaren irudia</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Pantaila baino handiagoa den irudi baten gainean teklatuko pantaila bakoitzaren leihoa mugitzen du, esaterako mapa bat ikusteko.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Mugitu irudiak {0} × {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Aukeratutako irudi bat bera baino handiagoa erakusten duen pantaila mota guztiak mugitzen ditu. Leihoa irudiaren ertzetan gelditzen da.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Pantaila</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Ekintza</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Norabidea</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Urratsa</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

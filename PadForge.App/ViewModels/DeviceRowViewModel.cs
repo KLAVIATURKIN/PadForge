@@ -307,6 +307,7 @@ namespace PadForge.ViewModels
             "WebMenus" => Strings.Instance.DeviceType_WebMenus,
             "PeripheralHaptics" => Strings.Instance.DeviceType_PeripheralHaptics,
             "PeripheralLighting" => Strings.Instance.DeviceType_PeripheralLighting,
+            "KeyboardScreenKeys" => Strings.Instance.DeviceType_KeyboardScreenKeys,
             _ => Strings.Instance.DeviceType_Device
         };
 
@@ -752,6 +753,9 @@ namespace PadForge.ViewModels
              // section with toggles that could never do anything.
              || _devicePath.StartsWith("openxr://", StringComparison.Ordinal)
              || _devicePath.StartsWith("logigkeys://", StringComparison.Ordinal)
+             // The keyboard screen keys row (#519) gathers keys the screen
+             // engines read, the G-keys row's case.
+             || _devicePath.StartsWith("keyboardscreenkeys://", StringComparison.Ordinal)
              // An analog keyboard row (#468) reads the keyboard's vendor
              // collection. Cloaking it would hide the keyboard's analog
              // interface from its own vendor software, which Razer's needs
@@ -1156,7 +1160,7 @@ namespace PadForge.ViewModels
         /// a row has nothing to submit. A device on a linked PC is hardware
         /// and keeps the button: its row carries the remote device's own
         /// vendor id, product id and SDL GUID.</summary>
-        public bool ShowSubmitMapping => DeviceTypeKey != "Gamepad" && DeviceTypeKey != "Mouse" && DeviceTypeKey != "Keyboard" && DeviceTypeKey != "Touchpad" && DeviceTypeKey != "Tablet" && DeviceTypeKey != "Midi" && DeviceTypeKey != "Nfc" && DeviceTypeKey != "HeadsetMotion" && DeviceTypeKey != "Microphone" && DeviceTypeKey != "HandheldButtons" && DeviceTypeKey != "ConsumerControl" && DeviceTypeKey != "SystemMotion" && DeviceTypeKey != "HeadTracker" && DeviceTypeKey != "VrController" && DeviceTypeKey != "LogitechGKeys" && DeviceTypeKey != "AnalogKeyboard" && DeviceTypeKey != "WebMenus" && DeviceTypeKey != "PeripheralLighting" && DeviceTypeKey != "PeripheralHaptics";
+        public bool ShowSubmitMapping => DeviceTypeKey != "Gamepad" && DeviceTypeKey != "Mouse" && DeviceTypeKey != "Keyboard" && DeviceTypeKey != "Touchpad" && DeviceTypeKey != "Tablet" && DeviceTypeKey != "Midi" && DeviceTypeKey != "Nfc" && DeviceTypeKey != "HeadsetMotion" && DeviceTypeKey != "Microphone" && DeviceTypeKey != "HandheldButtons" && DeviceTypeKey != "ConsumerControl" && DeviceTypeKey != "SystemMotion" && DeviceTypeKey != "HeadTracker" && DeviceTypeKey != "VrController" && DeviceTypeKey != "LogitechGKeys" && DeviceTypeKey != "AnalogKeyboard" && DeviceTypeKey != "WebMenus" && DeviceTypeKey != "PeripheralLighting" && DeviceTypeKey != "PeripheralHaptics" && DeviceTypeKey != "KeyboardScreenKeys";
 
         /// <summary>True for an NFC reader (issue #150): shows the "Register/Manage
         /// NFC Tags" button, which opens the tap-to-name registration flow.

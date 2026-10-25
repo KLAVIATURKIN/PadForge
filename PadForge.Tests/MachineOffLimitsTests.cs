@@ -410,10 +410,11 @@ namespace PadForge.Tests
             Assert.StartsWith("The test host starts no process", refused.Message, StringComparison.Ordinal);
         }
 
-        /// <summary>Both downloads (the MIDI runtime with the Visual C++
-        /// Redistributable, and steamcmd) fail before a request is made. The
-        /// address here is no web address, and no client is handed over, so
-        /// a download that got through could reach nothing.</summary>
+        /// <summary>Every download (the MIDI runtime with the Visual C++
+        /// Redistributable, steamcmd, and the S.T.R.I.K.E. 7 SDK and Visual C++
+        /// 2008 runtime of #519) fails before a request is made. The address
+        /// here is no web address, and no client is handed over, so a download
+        /// that got through could reach nothing.</summary>
         [Fact]
         public void DriverInstaller_DownloadsNothing()
         {

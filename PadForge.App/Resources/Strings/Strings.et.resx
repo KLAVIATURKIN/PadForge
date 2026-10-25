@@ -4269,4 +4269,97 @@ Kas soovite, et PadForge need nüüd desinstalliks? Selleks on vaja kõrgendatud
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xboxi impulsspäästiku 9-baidine aruanne ja selle kirjutustee, autor araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 haptiline PCM-vorming, märgiga 16-bitine sagedusel 3 kHz, mis selgitas välja märgiga 8-bitise Bluetoothi haptika kodeeringu. AGPL-3.0, kasutatud ainult dokumentatsioonina, AGPL-koodi ei levitata.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Klaviatuuri ekraanid</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Joonistab Logitechi GamePanel-klaviatuuride ja Mad Catz S.T.R.I.K.E. 7 sisseehitatud ekraanidele ning telefonis rakenduse Logitech Arx Control kaudu: profiili, kella, mänguaega, stopperit, pilti või DualShock 4 või DualSense'i valgusriba värvi. Ekraanide kõrval olevatest klahvidest saavad nupud klaviatuuri ekraaniklahvide reas.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Juhi klaviatuuri ekraane</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Joonistab ekraanidele Logitech G15, G15 v2, G510, G13, Z-10, GamePanel ja G19, rakenduses Arx Control ning klaviatuuril Mad Catz S.T.R.I.K.E. 7. Kui Logitech Gaming Software töötab, joonistab PadForge selle kaudu. Ilma selleta kirjutab PadForge monokroomsetele ekraanidele HID kaudu ja seob WinUSB G19 ekraaniliidesega. Selle väljalülitamine annab G19 ekraani Windowsile tagasi.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monokroomne ekraan…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Värviekraan…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Laadi alla Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Laadib Mad Catzi S.T.R.I.K.E. 7 SDK AIDA64 serverist alla, kontrollib seda teadaoleva SHA-256 vastu ja säilitab PadForge'i ajutises kaustas ainult 64-bitise Strike7API.dll.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Vali Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Installi Visual C++ 2008 käituskeskkond</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Laadib alla Microsofti Visual C++ 2008 SP1 Redistributable'i 64-bitisele Windowsile, mida Strike7API.dll vajab, kontrollib selle Microsofti allkirja ja installib selle.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Teegid (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Monokroomne ekraan</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Värviekraan</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Väljas</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Stopper</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Valgusriba värv</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>väljas</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software'i kaudu</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>otse seadmel {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>seob WinUSB G19 ekraaniga</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19 ekraan kasutab teist draiverit ({0}), seega käivita Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>vajab Logitech Gaming Software'i versiooni 8.52 või uuemat</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>käivita Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>ootab telefoni rakendusega Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>telefonis</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>vajab faili Strike7API.dll, seega laadi see alla või vali koopia</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>allalaaditud Strike7API.dll on muutunud, seega laadi see uuesti alla</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>vajab Microsofti Visual C++ 2008 käituskeskkonda</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll ei laadunud</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>käivita S.T.R.I.K.E. 7 tarkvara</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>vali V.E.N.O.M. ekraanil PadForge</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. ekraanil</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ekraani ei leitud</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ootab valgusriba värvi</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, pilti pole valitud</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Klaviatuuri ekraaniklahvid</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Ekraaniklahv {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Apleti klahv</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekraan vasakule</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Ekraan paremale</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Ekraan OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Ekraan loobu</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Ekraan üles</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Ekraan alla</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Ekraan menüü</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Ekraan sätted</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge ei näita midagi ja selle aplett lahkub ekraanilt. Logitech Gaming Software'i all jõuavad ekraaniklahvid PadForge'ini ainult siis, kui selle aplett on ees, seega need vajavad teist režiimi.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ekraan näitab aktiivse profiili nime ja muutub iga profiilivahetusega.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ekraan näitab aktiivse profiili kohta profiililoendis. Profiil „Vaikimisi“ on 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Ekraan näitab aktiivse profiili enda pilti või selle puudumisel profiili nime. Igal profiilil on oma pilt.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ekraan näitab kellaaega.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ekraan näitab tunde ja minuteid sellest ajast, kui aktiivne profiil aktiveeriti. Mängu programmiga seotud profiil aktiveerub mängu käivitumisel, seega loendatakse seda seanssi. Profiili „Vaikimisi“ all loetakse mootori käivitumisest.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ekraan näitab valitud pilti selle enda suuruses. Ekraanist suurem pilt näitab ekraani suurust akent, mida liigutab makro „Nihuta klaviatuuri ekraani pilti“. S.T.R.I.K.E. 7 puhul liigutab seda ka ekraanil sõrmega lohistamine.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ekraan näitab stopperit, mida makro „Stopper“ käivitab, peatab ja lähtestab. Kõik ekraanid näitavad sama stopperit.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekraan näitab madalaima pesa DualShock 4 või DualSense'i valgusriba värvi. Monokroomne ekraan näitab selle heledust punktimustrina. Kuni värv valgusribani jõuab, ei näita PadForge midagi.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Pildid (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Kõik failid (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Nihe</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Nihe X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Nihe Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} määrati: {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Laaditakse alla Mad Catzi S.T.R.I.K.E. 7 SDK…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 laadib nüüd: {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Laaditakse alla ja installitakse Microsofti Visual C++ 2008 käituskeskkond…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK allalaadimine ei vasta teadaolevale SHA-256-le, seega midagi sellest ei säilitatud.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 käituskeskkond puudub ka pärast selle installeri käivitamist.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Kuva klaviatuuri ekraan</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Esitab valitud liiki iga klaviatuuri ekraanil pilte ja viib seejärel iga ekraani tagasi selle enda režiimi.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Kuva {0} pilte: {1} × {2} ms, korduste arv {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Pildid sobitatakse ekraanile: monokroomsel ekraanil 160 × 43 mustvalget pikslit, G19 ekraanil 320 × 240 ning rakenduse Arx Control ja S.T.R.I.K.E. 7 puhul 480 × 320. Lühim kaadri aeg on kümnendiksekund.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Klaviatuuri ekraani režiim</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Lülitab klaviatuuri ekraani liigi teise režiimi ja jätab selle ekraani sättena meelde.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} näitab: {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Režiim kehtib, kuni teine makro või ekraani dialoog seda muudab.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopper</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Käivitab või peatab või lähtestab stopperi, mida Stopper-režiimis klaviatuuri ekraanid näitavad.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Käivita või peata stopper</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Lähtesta stopper</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Lähtestamine peatab stopperi ja nullib selle. Kõik Stopper-režiimis klaviatuuri ekraanid näitavad sama stopperit.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Nihuta klaviatuuri ekraani pilti</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Liigutab iga klaviatuuri ekraani akent ekraanist suuremal pildil, näiteks kaardil.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Nihuta pilte: X {0}, Y {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Liigutab iga ekraaniliiki, mis näitab valitud, endast suuremat pilti. Aken peatub pildi servades.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ekraan</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Tegevus</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Suund</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Samm</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

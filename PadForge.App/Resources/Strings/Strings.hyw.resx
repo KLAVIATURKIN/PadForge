@@ -4226,4 +4226,97 @@
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox-ի թրթռացող ձգաններու 9-բայթանոց զեկոյցը եւ անոր գրառման ուղին, հեղինակ՝ araghon007։ MIT։</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5-ի հպական PCM ձեւաչափը՝ նշանով 16-բիթ, 3 kHz, որ որոշեց նշանով 8-բիթ Bluetooth հպական կոդաւորումը։ AGPL-3.0, կարդացուած միայն որպէս փաստաթղթաւորում, AGPL կոդ չի ներառուիր։</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ստեղնաշարի պաստառներ</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Կը գծէ Logitech-ի GamePanel ստեղնաշարերուն եւ Mad Catz S.T.R.I.K.E. 7-ի մէջ կառուցուած պաստառներուն վրայ, ինչպէս նաեւ հեռաձայնի մը վրայ՝ Logitech Arx Control-ի միջոցով։ Կը ցուցադրէ փրոֆիլը, ժամացոյց մը, խաղի ժամանակը, վայրկենաչափ մը, պատկեր մը կամ DualShock 4-ի կամ DualSense-ի լուսաշերտին գոյնը։ Այդ պաստառներուն քովի ստեղները կը դառնան կոճակներ «Ստեղնաշարի պաստառի ստեղներ» շարքին մէջ։</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Կառավարել ստեղնաշարի պաստառները</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Կը գծէ Logitech G15, G15 v2, G510, G13, Z-10, GamePanel եւ G19 պաստառներուն վրայ, Arx Control-ի վրայ եւ Mad Catz S.T.R.I.K.E. 7-ի վրայ։ Երբ Logitech Gaming Software-ը կ'աշխատի, PadForge-ը անոր միջոցով կը գծէ։ Առանց անոր՝ PadForge-ը միագոյն պաստառներուն կը գրէ HID-ի միջոցով եւ WinUSB-ը կը կապէ G19-ի պաստառի միջերեսին։ Ասիկա անջատելով՝ G19-ի պաստառը կը վերադառնայ Windows-ին։</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Միագոյն պաստառ…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Գունաւոր պաստառ…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Ներբեռնել Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Կը ներբեռնէ Mad Catz-ի S.T.R.I.K.E. 7 SDK-ն AIDA64-ի սպասարկիչէն, կը ստուգէ զայն իր ծանօթ SHA-256-ով եւ կը պահէ միայն 64-պիթնոց Strike7API.dll-ը PadForge-ի ժամանակաւոր թղթապանակին մէջ։</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Ընտրել Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Տեղադրել Visual C++ 2008 գործարկման միջավայրը</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Կը ներբեռնէ Microsoft-ի Visual C++ 2008 SP1 Redistributable-ը 64-պիթնոց Windows-ի համար, որուն պէտք ունի Strike7API.dll-ը, կը ստուգէ անոր վրայ Microsoft-ի ստորագրութիւնը եւ կը տեղադրէ զայն։</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Գրադարաններ (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Միագոյն պաստառ</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Գունաւոր պաստառ</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Անջատուած</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Վայրկենաչափ</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Լուսաշերտին գոյնը</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}՝ {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>անջատուած</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software-ի միջոցով</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>ուղղակի {0}-ին վրայ</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>WinUSB-ը կը կապուի G19-ի պաստառին</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19-ի պաստառը ուրիշ վարիչի վրայ է ({0}), ուստի գործարկեցէք Logitech Gaming Software-ը</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>կը պահանջէ Logitech Gaming Software 8.52 կամ աւելի նոր տարբերակ</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>գործարկեցէք Logitech Gaming Software-ը</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>կը սպասէ Arx Control-ով հեռաձայնի մը</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>հեռաձայնի մը վրայ</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>կը պահանջէ Strike7API.dll, ուստի ներբեռնեցէք զայն կամ ընտրեցէք պատճէն մը</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>ներբեռնուած Strike7API.dll-ը փոխուած է, ուստի ներբեռնեցէք զայն նորէն</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>կը պահանջէ Microsoft-ի Visual C++ 2008 գործարկման միջավայրը</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll-ը չբեռնուեցաւ</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>գործարկեցէք S.T.R.I.K.E. 7-ի ծրագիրը</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>ընտրեցէք PadForge-ը V.E.N.O.M. պաստառին վրայ</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. պաստառին վրայ</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>պաստառ չգտնուեցաւ</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, կը սպասէ լուսաշերտի գոյնի</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, պատկեր ընտրուած չէ</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ստեղնաշարի պաստառի ստեղներ</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Պաստառի ստեղն {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Ափլէթի ստեղն</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Պաստառ՝ ձախ</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Պաստառ՝ աջ</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Պաստառ՝ OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Պաստառ՝ խափանել</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Պաստառ՝ վեր</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Պաստառ՝ վար</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Պաստառ՝ ցանկ</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Պաստառ՝ կարգաւորումներ</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge-ը ոչինչ չի ցուցադրեր, եւ անոր ափլէթը կը հեռանայ պաստառէն։ Logitech Gaming Software-ի տակ պաստառի ստեղները PadForge-ին կը հասնին միայն այն ատեն, երբ անոր ափլէթը առջեւն է, ուստի անոնց համար ուրիշ եղանակ մը պէտք է։</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Պաստառը կը ցուցադրէ գործօն փրոֆիլին անունը եւ կը հետեւի փրոֆիլի ամէն փոփոխութեան։</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Պաստառը կը ցուցադրէ գործօն փրոֆիլին տեղը փրոֆիլներու ցանկին մէջ։ «Սկզբնական» փրոֆիլը 0 է։</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Պաստառը կը ցուցադրէ գործօն փրոֆիլին սեփական պատկերը, կամ անոր անունը, երբ պատկեր չունի։ Իւրաքանչիւր փրոֆիլ իր պատկերը կը պահէ։</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Պաստառը կը ցուցադրէ օրուան ժամը։</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Պաստառը կը ցուցադրէ գործօն փրոֆիլին միացումէն ի վեր անցած ժամերն ու վայրկեանները։ Խաղի մը ծրագրին կապուած փրոֆիլը կը միանայ, երբ խաղը սկսի, ուստի հաշիւը այդ նստաշրջանինն է։ «Սկզբնական» փրոֆիլին տակ հաշիւը կը սկսի շարժիչին մեկնարկէն։</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Պաստառը կը ցուցադրէ ձեր ընտրած պատկերը՝ իր սեփական չափով։ Պաստառէն մեծ պատկերի պարագային կ'երեւի պաստառի չափով պատուհան մը, որ «Տեղաշարժել ստեղնաշարի պաստառի պատկերը» մաքրօն կը շարժէ։ S.T.R.I.K.E. 7-ի վրայ պաստառին վրայով քաշուած մատը նոյնպէս կը շարժէ զայն։</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Պաստառը կը ցուցադրէ վայրկենաչափը, որ «Վայրկենաչափ» մաքրօն կը գործարկէ, կը դադրեցնէ եւ կը վերակայէ։ Բոլոր պաստառները նոյն վայրկենաչափը կը ցուցադրեն։</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Պաստառը կը ցուցադրէ ամենէն ցած թիւով խցիկին մէջ գտնուող DualShock 4-ի կամ DualSense-ի լուսաշերտին գոյնը։ Միագոյն պաստառը անոր պայծառութիւնը կը ցուցադրէ կէտերու նախշով։ Քանի դեռ գոյն մը չէ հասած լուսաշերտի մը, PadForge-ը ոչինչ չի ցուցադրեր։</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Պատկերներ (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Բոլոր նիշքերը (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Տեղաշարժ</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Տեղաշարժ X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Տեղաշարժ Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} սահմանուեցաւ՝ {1}։</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Կը ներբեռնուի Mad Catz-ի S.T.R.I.K.E. 7 SDK-ն…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7-ը այսուհետեւ կը բեռնէ՝ {0}։</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Կը ներբեռնուի եւ կը տեղադրուի Microsoft-ի Visual C++ 2008 գործարկման միջավայրը…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK-ի ներբեռնումը չի համապատասխաներ իր ծանօթ SHA-256-ին, ուստի անկէ ոչինչ պահուեցաւ։</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 գործարկման միջավայրը տակաւին կը պակսի, թէեւ անոր տեղադրիչը աշխատեցաւ։</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Ցուցադրել ստեղնաշարի պաստառ</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Նկարներ կը ցուցադրէ ընտրուած տեսակի բոլոր ստեղնաշարի պաստառներուն վրայ, ապա իւրաքանչիւր պաստառ կը վերադարձնէ իր եղանակին։</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Ցուցադրել {0} նկարներ՝ {1} × {2} ms, կրկնութիւններու թիւ՝ {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Նկարները կը յարմարցուին պաստառին։ Միագոյն պաստառի վրայ անոնք 160 × 43 սեւ ու ճերմակ փիքսէլ են, G19-ի պաստառին վրայ՝ 320 × 240, իսկ Arx Control-ի եւ S.T.R.I.K.E. 7-ի համար՝ 480 × 320։ Պատկերի ամենակարճ տեւողութիւնը երկվայրկեանի մէկ տասներորդն է։</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Ստեղնաշարի պաստառի եղանակ</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Ստեղնաշարի պաստառի տեսակ մը կ'անցընէ ուրիշ եղանակի եւ զայն կը պահէ իբրեւ այդ պաստառին կարգաւորումը։</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} կը ցուցադրէ՝ {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Եղանակը կը մնայ, մինչեւ որ ուրիշ մաքրօ մը կամ պաստառին պատուհանը զայն փոխէ։</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Վայրկենաչափ</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Կը գործարկէ կամ կը դադրեցնէ, կամ կը վերակայէ վայրկենաչափը, որ կը ցուցադրեն «Վայրկենաչափ» եղանակին մէջ գտնուող ստեղնաշարի պաստառները։</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Գործարկել կամ դադրեցնել վայրկենաչափը</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Վերակայել վայրկենաչափը</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Վերակայելը կը կեցնէ վայրկենաչափը եւ զայն կը դարձնէ զրոյի։ «Վայրկենաչափ» եղանակին մէջ գտնուող բոլոր ստեղնաշարի պաստառները նոյն վայրկենաչափը կը ցուցադրեն։</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Տեղաշարժել ստեղնաշարի պաստառի պատկերը</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Իւրաքանչիւր ստեղնաշարի պաստառի պատուհանը կը տեղաշարժէ պաստառէն մեծ պատկերի մը վրայով, օրինակ՝ քարտէսի մը համար։</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Տեղաշարժել նկարները՝ {0}, {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Կը տեղաշարժէ պաստառի իւրաքանչիւր տեսակ, որ իրմէ մեծ ընտրուած պատկեր մը կը ցուցադրէ։ Պատուհանը կը կենայ պատկերին եզրերուն վրայ։</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Պաստառ</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Գործողութիւն</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Ուղղութիւն</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Քայլ</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

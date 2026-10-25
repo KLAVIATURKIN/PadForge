@@ -4264,4 +4264,97 @@ Vuoi che PadForge li disinstalli ora? L'operazione richiede privilegi elevati e 
   <data name="About_X1nputDesc" xml:space="preserve"><value>Il report da 9 byte dei grilletti Impulse Xbox e il relativo percorso di scrittura, di araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Il formato PCM aptico della PS5, 16 bit con segno a 3 kHz, che ha chiarito la codifica aptica a 8 bit con segno via Bluetooth. AGPL-3.0, letto solo come documentazione, nessun codice AGPL distribuito.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Schermi della tastiera</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Disegna sugli schermi integrati nelle tastiere GamePanel di Logitech e nella Mad Catz S.T.R.I.K.E. 7, e su un telefono tramite Logitech Arx Control: il profilo, un orologio, il tempo di gioco, un cronometro, un'immagine o il colore della barra luminosa di un controller DualShock 4 o DualSense. I tasti accanto a questi schermi diventano pulsanti nella riga Tasti schermo tastiera.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Gestisci gli schermi della tastiera</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Disegna sugli schermi di Logitech G15, G15 v2, G510, G13, Z-10, GamePanel e G19, su Arx Control e sulla Mad Catz S.T.R.I.K.E. 7. Quando Logitech Gaming Software è in esecuzione, PadForge disegna tramite quest'ultimo. Senza di esso, PadForge scrive sugli schermi monocromatici via HID e associa WinUSB all'interfaccia dello schermo del G19. Disattivando questa opzione, lo schermo del G19 torna a Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Schermo monocromatico…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Schermo a colori…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Scarica Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Scarica l'SDK S.T.R.I.K.E. 7 di Mad Catz dal server di AIDA64, lo verifica con il suo SHA-256 noto e conserva solo Strike7API.dll a 64 bit nella cartella temporanea di PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Scegli Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Installa il runtime Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Scarica il Visual C++ 2008 SP1 Redistributable di Microsoft per Windows a 64 bit, necessario a Strike7API.dll, ne verifica la firma Microsoft e lo installa.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Librerie (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Schermo monocromatico</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Schermo a colori</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Disattivato</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Cronometro</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Colore della barra luminosa</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>disattivato</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>tramite Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>direttamente su {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>associazione di WinUSB allo schermo del G19 in corso</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>lo schermo del G19 usa un altro driver ({0}), quindi avvia Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>richiede Logitech Gaming Software 8.52 o successivo</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>avvia Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>in attesa di un telefono con Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>su un telefono</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>richiede Strike7API.dll: scaricalo o scegline una copia</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>il file Strike7API.dll scaricato è cambiato: scaricalo di nuovo</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>richiede il runtime Visual C++ 2008 di Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>impossibile caricare Strike7API.dll</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>avvia il software S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>seleziona PadForge sullo schermo V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>sullo schermo V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>nessuno schermo trovato</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, in attesa di un colore della barra luminosa</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nessuna immagine scelta</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tasti schermo tastiera</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tasto schermo {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tasto applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Schermo sinistra</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Schermo destra</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Schermo OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Schermo annulla</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Schermo su</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Schermo giù</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Schermo menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Schermo impostazioni</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge non mostra nulla e il suo applet lascia lo schermo. Con Logitech Gaming Software i tasti dello schermo raggiungono PadForge solo mentre il suo applet è in primo piano, quindi richiedono un'altra modalità.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Lo schermo mostra il nome del profilo attivo e segue ogni cambio di profilo.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Lo schermo mostra la posizione del profilo attivo nell'elenco dei profili. Il profilo Predefinito è 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Lo schermo mostra l'immagine del profilo attivo, o il suo nome se non ne ha una. Ogni profilo conserva la propria immagine.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Lo schermo mostra l'ora del giorno.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Lo schermo mostra le ore e i minuti trascorsi da quando è stato attivato il profilo corrente. Un profilo associato al programma di un gioco si attiva all'avvio del gioco, quindi il conteggio è quello di quella sessione. Con il profilo Predefinito il conteggio parte dall'avvio del motore.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Lo schermo mostra un'immagine a tua scelta, alle sue dimensioni. Un'immagine più grande dello schermo ne mostra una finestra della dimensione dello schermo, che la macro Sposta immagine dello schermo della tastiera muove. Sulla S.T.R.I.K.E. 7 la si muove anche trascinando un dito sullo schermo.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Lo schermo mostra il cronometro, che la macro Cronometro avvia, mette in pausa e azzera. Tutti gli schermi mostrano lo stesso cronometro.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Lo schermo mostra il colore della barra luminosa del DualShock 4 o DualSense nello slot più basso. Uno schermo monocromatico ne mostra la luminosità come un motivo di punti. Finché nessun colore raggiunge una barra luminosa, PadForge non mostra nulla.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Immagini (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tutti i file (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Sposta</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Sposta X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Sposta Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} impostato su {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Download dell'SDK S.T.R.I.K.E. 7 di Mad Catz in corso…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>La S.T.R.I.K.E. 7 ora carica {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Download e installazione del runtime Visual C++ 2008 di Microsoft in corso…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Il download dell'SDK S.T.R.I.K.E. 7 non corrisponde al suo SHA-256 noto, quindi nulla di ciò che contiene è stato conservato.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Il runtime Visual C++ 2008 risulta ancora mancante dopo l'esecuzione del suo programma di installazione.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Mostra schermo della tastiera</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Riproduce immagini su ogni schermo di tastiera del tipo scelto, poi riporta ogni schermo alla propria modalità.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Mostra immagini su {0}: {1} × {2} ms, ripetizioni {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Le immagini vengono adattate allo schermo: 160 per 43 pixel in bianco e nero su uno schermo monocromatico, 320 per 240 su quello del G19 e 480 per 320 per Arx Control e la S.T.R.I.K.E. 7. Un decimo di secondo è la durata minima per immagine.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Modalità schermo della tastiera</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Fa passare un tipo di schermo della tastiera a un'altra modalità e la conserva come impostazione di quello schermo.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} mostra {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>La modalità resta attiva finché un'altra macro o la finestra di dialogo dello schermo non la cambia.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Cronometro</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Avvia o mette in pausa, oppure azzera, il cronometro mostrato dagli schermi della tastiera in modalità Cronometro.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Avvia o metti in pausa il cronometro</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Azzera il cronometro</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>L'azzeramento ferma il cronometro e lo riporta a zero. Tutti gli schermi della tastiera in modalità Cronometro mostrano lo stesso cronometro.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Sposta immagine dello schermo della tastiera</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Sposta la finestra di ogni schermo della tastiera su un'immagine più grande dello schermo, ad esempio per una mappa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Sposta immagini di {0} per {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Sposta ogni tipo di schermo che mostra un'immagine scelta più grande di lui. La finestra si ferma ai bordi dell'immagine.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Schermo</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Azione</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direzione</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Passo</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

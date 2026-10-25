@@ -2750,6 +2750,154 @@
                                         </StackPanel>
                                     </Border>
 
+                                    <!-- Keyboard screen kind row (#519), shared by Show Keyboard
+                                         Screen and Keyboard Screen Mode: the kinds in their own
+                                         order, so the index is the kind. -->
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,6"
+                                                Visibility="{Binding IsKeyboardScreenKindType, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Macro_KeyboardScreen_Kind, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="80" Margin="0,0,8,0" TextWrapping="Wrap"/>
+                                        <ComboBox SelectedIndex="{Binding ScreenKindIndex, Mode=TwoWay}" Width="180" VerticalAlignment="Center"
+                                                  AutomationProperties.Name="{Binding Macro_KeyboardScreen_Kind, Source={x:Static strings:Strings.Instance}}">
+                                            <ComboBoxItem Content="{Binding KeyboardScreens_Kind_Monochrome, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding KeyboardScreens_Kind_Color, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding KeyboardScreens_Kind_Arx, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding KeyboardScreens_Kind_Strike7, Source={x:Static strings:Strings.Instance}}"/>
+                                        </ComboBox>
+                                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="ScreenKind" SettingLabel="{Binding Macro_KeyboardScreen_Kind, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_ScreenKind_13101"/>
+                                    </StackPanel>
+
+                                    <!-- Show Keyboard Screen card (#519): the Show Dreamcast
+                                         Screen card's shape, the pictures drawn as the kind's
+                                         screen draws them (click one to remove it). -->
+                                    <Border Style="{StaticResource CardBorder}" Margin="0,0,0,6"
+                                            Visibility="{Binding IsShowKeyboardScreenType, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding MacroAction_Type_ShowKeyboardScreen, Source={x:Static strings:Strings.Instance}}"
+                                                       FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Macro_Dreamcast_Pictures, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="80" Margin="0,0,8,0" TextWrapping="Wrap"/>
+                                                <Button Content="{Binding Macro_Dreamcast_AddPicture, Source={x:Static strings:Strings.Instance}}"
+                                                        Click="AddKeyboardScreenFrame_Click" Padding="8,2" VerticalAlignment="Center"
+                                                        IsEnabled="{Binding CanAddScreenFrame}"/>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="ScreenFrames" SettingLabel="{Binding Macro_Dreamcast_Pictures, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_ScreenFrames_13102" Margin="4,0,0,0"/>
+                                            </StackPanel>
+                                            <ItemsControl ItemsSource="{Binding ScreenFrameImages}" Margin="88,0,0,6">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <WrapPanel/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Button AutomationProperties.Name="{Binding Macro_Dreamcast_RemoveTooltip, Source={x:Static strings:Strings.Instance}}" Margin="0,0,6,6" Padding="2" Click="RemoveKeyboardScreenFrame_Click"
+                                                                ToolTip="{Binding Macro_Dreamcast_RemoveTooltip, Source={x:Static strings:Strings.Instance}}">
+                                                            <controls:DecorativeImage FlowDirection="LeftToRight" Source="{Binding}" MaxWidth="160" MaxHeight="108" Stretch="Uniform"
+                                                                   RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Macro_Dreamcast_FrameTime, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="80" Margin="0,0,8,0" TextWrapping="Wrap"/>
+                                                <TextBox Text="{Binding ScreenFrameMs, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                         Style="{StaticResource DzValueEdit}"/>
+                                                <TextBlock Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="{Binding Common_Ms, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="ScreenFrameMs" SettingLabel="{Binding Macro_Dreamcast_FrameTime, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_ScreenFrameMs_13103"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Macro_Dreamcast_Repeat, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="80" Margin="0,0,8,0" TextWrapping="Wrap"/>
+                                                <TextBox Text="{Binding ScreenRepeat, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                         Style="{StaticResource DzValueEdit}"/>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="ScreenRepeat" SettingLabel="{Binding Macro_Dreamcast_Repeat, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_ScreenRepeat_13104" Margin="4,0,0,0"/>
+                                            </StackPanel>
+                                            <TextBlock common:BidiText.Text="{Binding MacroAction_ShowKeyboardScreen_Hint, Source={x:Static strings:Strings.Instance}}"
+                                                       FontSize="11" TextWrapping="Wrap"
+                                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Keyboard Screen Mode card (#519): the modes in their own
+                                         order, so the index is the mode. -->
+                                    <Border Style="{StaticResource CardBorder}" Margin="0,0,0,6"
+                                            Visibility="{Binding IsKeyboardScreenModeType, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding DreamcastScreen_Mode_Label, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="80" Margin="0,0,8,0" TextWrapping="Wrap"/>
+                                                <ComboBox SelectedIndex="{Binding ScreenModeIndex, Mode=TwoWay}" Width="180" VerticalAlignment="Center"
+                                                          AutomationProperties.Name="{Binding DreamcastScreen_Mode_Label, Source={x:Static strings:Strings.Instance}}">
+                                                    <ComboBoxItem Content="{Binding KeyboardScreens_Mode_Off, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding DreamcastScreen_Mode_ProfileName, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding DreamcastScreen_Mode_ProfileNumber, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding DreamcastScreen_Mode_ProfilePicture, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding DreamcastScreen_Mode_Clock, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding DreamcastScreen_Mode_PlayTime, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding DreamcastScreen_Mode_Picture, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding KeyboardScreens_Mode_Stopwatch, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding KeyboardScreens_Mode_Lightbar, Source={x:Static strings:Strings.Instance}}"/>
+                                                </ComboBox>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="ScreenMode" SettingLabel="{Binding DreamcastScreen_Mode_Label, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_ScreenMode_13105"/>
+                                            </StackPanel>
+                                            <TextBlock common:BidiText.Text="{Binding MacroAction_KeyboardScreenMode_Hint, Source={x:Static strings:Strings.Instance}}"
+                                                       FontSize="11" TextWrapping="Wrap"
+                                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Stopwatch card (#519). -->
+                                    <Border Style="{StaticResource CardBorder}" Margin="0,0,0,6"
+                                            Visibility="{Binding IsStopwatchType, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Macro_Stopwatch_Action, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="80" Margin="0,0,8,0" TextWrapping="Wrap"/>
+                                                <ComboBox SelectedIndex="{Binding StopwatchActionIndex, Mode=TwoWay}" Width="180" VerticalAlignment="Center"
+                                                          AutomationProperties.Name="{Binding Macro_Stopwatch_Action, Source={x:Static strings:Strings.Instance}}">
+                                                    <ComboBoxItem Content="{Binding MacroAction_Stopwatch_StartPause, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding MacroAction_Stopwatch_Reset, Source={x:Static strings:Strings.Instance}}"/>
+                                                </ComboBox>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="StopwatchAction" SettingLabel="{Binding Macro_Stopwatch_Action, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_StopwatchAction_13106"/>
+                                            </StackPanel>
+                                            <TextBlock common:BidiText.Text="{Binding MacroAction_Stopwatch_Hint, Source={x:Static strings:Strings.Instance}}"
+                                                       FontSize="11" TextWrapping="Wrap"
+                                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Pan Keyboard Screen Picture card (#519). -->
+                                    <Border Style="{StaticResource CardBorder}" Margin="0,0,0,6"
+                                            Visibility="{Binding IsPanKeyboardScreenType, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Macro_Pan_Direction, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="80" Margin="0,0,8,0" TextWrapping="Wrap"/>
+                                                <ComboBox SelectedIndex="{Binding PanDirectionIndex, Mode=TwoWay}" Width="180" VerticalAlignment="Center"
+                                                          AutomationProperties.Name="{Binding Macro_Pan_Direction, Source={x:Static strings:Strings.Instance}}">
+                                                    <ComboBoxItem Content="{Binding Pad_ScrollLeft, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding Pad_ScrollRight, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding Pad_ScrollUp, Source={x:Static strings:Strings.Instance}}"/>
+                                                    <ComboBoxItem Content="{Binding Pad_ScrollDown, Source={x:Static strings:Strings.Instance}}"/>
+                                                </ComboBox>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="PanDirection" SettingLabel="{Binding Macro_Pan_Direction, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_PanDirection_13107"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Macro_Pan_Step, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="80" Margin="0,0,8,0" TextWrapping="Wrap"/>
+                                                <TextBox Text="{Binding PanStep, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+                                                         Style="{StaticResource DzValueEdit}"/>
+                                                <TextBlock Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="{Binding Common_Pixels, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="PanStep" SettingLabel="{Binding Macro_Pan_Step, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_PanStep_13108"/>
+                                            </StackPanel>
+                                            <TextBlock common:BidiText.Text="{Binding MacroAction_PanKeyboardScreen_Hint, Source={x:Static strings:Strings.Instance}}"
+                                                       FontSize="11" TextWrapping="Wrap"
+                                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </Border>
+
                                     <!-- Lightbar Color card (Reactive | Sticky) -->
                                     <Border Style="{StaticResource CardBorder}" Margin="0,0,0,6"
                                             Visibility="{Binding IsLightbarType, Converter={StaticResource BoolToVisibilityConverter}}">

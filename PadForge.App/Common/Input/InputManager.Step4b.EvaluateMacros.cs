@@ -2856,6 +2856,18 @@ namespace PadForge.Common.Input
         /// loops.</summary>
         internal static Action<int, string, int, int> MacroDreamcastSink = PadForge.Services.DreamcastScreenService.RequestShow;
 
+        /// <summary>Where the four keyboard screen actions go (#519): the
+        /// screen service's queue. Seams so a test can watch both dispatch
+        /// loops.</summary>
+        internal static Action<PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind, string, int, int> MacroKeyboardScreenShowSink
+            = PadForge.Services.KeyboardScreenService.RequestShow;
+        internal static Action<PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind, PadForge.Services.KeyboardScreenMode> MacroKeyboardScreenModeSink
+            = PadForge.Services.KeyboardScreenService.RequestMode;
+        internal static Action<PadForge.Services.KeyboardScreenStopwatchAction> MacroStopwatchSink
+            = PadForge.Services.KeyboardScreenService.RequestStopwatch;
+        internal static Action<PadForge.Services.KeyboardScreenPanDirection, int> MacroKeyboardScreenPanSink
+            = PadForge.Services.KeyboardScreenService.RequestPan;
+
         /// <summary>Executes a sequential (non-continuous) action with advance logic.</summary>
         private void ExecuteSequentialAction(ref Gamepad gp, MacroItem macro, MacroAction action)
         {
@@ -2967,6 +2979,30 @@ namespace PadForge.Common.Input
                     // then hands each port back to its own setting.
                     MacroDreamcastSink(macro.PadIndex, action.DreamcastFrames,
                         action.DreamcastFrameMs, action.DreamcastRepeat);
+                    AdvanceAction(macro);
+                    break;
+
+                case MacroActionType.ShowKeyboardScreen:
+                    // Keyboard screens (#519): single-frame fires, the
+                    // Dreamcast screen's shape. The screen service plays,
+                    // switches, times and pans on its own tick.
+                    MacroKeyboardScreenShowSink(action.ScreenKind, action.ScreenFrames,
+                        action.ScreenFrameMs, action.ScreenRepeat);
+                    AdvanceAction(macro);
+                    break;
+
+                case MacroActionType.KeyboardScreenMode:
+                    MacroKeyboardScreenModeSink(action.ScreenKind, action.ScreenMode);
+                    AdvanceAction(macro);
+                    break;
+
+                case MacroActionType.Stopwatch:
+                    MacroStopwatchSink(action.StopwatchAction);
+                    AdvanceAction(macro);
+                    break;
+
+                case MacroActionType.PanKeyboardScreen:
+                    MacroKeyboardScreenPanSink(action.PanDirection, action.PanStep);
                     AdvanceAction(macro);
                     break;
 
@@ -5306,6 +5342,30 @@ namespace PadForge.Common.Input
                     // slot's surface either, so it is the gamepad arm verbatim.
                     MacroDreamcastSink(macro.PadIndex, action.DreamcastFrames,
                         action.DreamcastFrameMs, action.DreamcastRepeat);
+                    AdvanceAction(macro);
+                    break;
+
+                case MacroActionType.ShowKeyboardScreen:
+                    // Keyboard screens (#519): single-frame fires, the
+                    // Dreamcast screen's shape. The screen service plays,
+                    // switches, times and pans on its own tick.
+                    MacroKeyboardScreenShowSink(action.ScreenKind, action.ScreenFrames,
+                        action.ScreenFrameMs, action.ScreenRepeat);
+                    AdvanceAction(macro);
+                    break;
+
+                case MacroActionType.KeyboardScreenMode:
+                    MacroKeyboardScreenModeSink(action.ScreenKind, action.ScreenMode);
+                    AdvanceAction(macro);
+                    break;
+
+                case MacroActionType.Stopwatch:
+                    MacroStopwatchSink(action.StopwatchAction);
+                    AdvanceAction(macro);
+                    break;
+
+                case MacroActionType.PanKeyboardScreen:
+                    MacroKeyboardScreenPanSink(action.PanDirection, action.PanStep);
                     AdvanceAction(macro);
                     break;
 

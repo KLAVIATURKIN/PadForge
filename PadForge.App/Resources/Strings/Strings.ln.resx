@@ -1521,4 +1521,54 @@ Olingi PadForge elongola yango sikoyo? Esengeli na ba droit ya administrateur mp
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ba écran ya clavier</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Salela ba écran ya clavier</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Écran monochrome…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Écran ya langi…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Pona Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Ba bibliothèque (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Écran monochrome</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Écran ya langi</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Ezimi</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Chronomètre</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Langi ya barre lumineuse</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>ezimi</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>na nzela ya Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>bandisa Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>ezali kozela telefone na Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>na telefone</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>bandisa logiciel ya S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>pona PadForge na écran V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>na écran V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>écran ezwami te</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ezali kozela langi ya barre lumineuse</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, elili eponami te</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ba touche ya écran ya clavier</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Touche ya écran {0}</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Écran lobɔkɔ ya mwasi</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Écran lobɔkɔ ya mobali</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Écran OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Écran kotika</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Écran likolo</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Écran nse</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Écran menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Écran paramètres</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Écran elakisaka nkombo ya profil oyo ezali kosala mpe elandaka mbongwana nyonso ya profil.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Écran elakisaka esika ya profil oyo ezali kosala na liste ya ba profil. Profil par défaut ezali 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Écran elakisaka elili ya profil oyo ezali kosala, to nkombo na yango soki ezali na elili te. Profil moko na moko ebombaka elili na yango moko.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Écran elakisaka ngonga.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Bilili (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Ba fichier nyonso (*.*)|*.*</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Lakisa écran ya clavier</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode ya écran ya clavier</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} elakisaka {1}</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Chronomètre</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Bandisa to telemisa chronomètre</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Zongisa chronomètre</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Écran</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

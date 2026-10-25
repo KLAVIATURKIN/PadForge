@@ -4257,4 +4257,97 @@
   <data name="About_X1nputDesc" xml:space="preserve"><value>ڕاپۆرتی 9 بایتیی تریگەری ئیمپاڵسی Xbox و ڕێڕەوی نووسینەکەی، لەلایەن araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>شێوازی PCM ی هاپتیکی PS5، 16-بیتی نیشانەدار بە 3 kHz، کە کۆدکردنی هاپتیکی Bluetooth ی 8-بیتی نیشانەداری یەکلا کردەوە. AGPL-3.0، تەنها وەک بەڵگەنامە خوێندراوەتەوە، هیچ کۆدێکی AGPL لەگەڵ بەرنامەکەدا نییە.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>شاشەکانی تەختەکلیل</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>لەسەر ئەو شاشانە دەکێشێت کە لەناو تەختەکلیلەکانی GamePanel ی Logitech و Mad Catz S.T.R.I.K.E. 7 دان، و لەسەر مۆبایل لە ڕێگەی Logitech Arx Control: پرۆفایل، کاتژمێر، کاتی یاریکردن، کاتپێو، وێنە، یان ڕەنگی شریتی ڕووناکیی DualShock 4 یان DualSense. کلیلەکانی تەنیشت ئەو شاشانە دەبنە دوگمە لە ڕیزی کلیلەکانی شاشەی تەختەکلیل.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>بەڕێوەبردنی شاشەکانی تەختەکلیل</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>لەسەر شاشەکانی Logitech G15، G15 v2، G510، G13، Z-10، GamePanel و G19، لەسەر Arx Control و لەسەر Mad Catz S.T.R.I.K.E. 7 دەکێشێت. کاتێک Logitech Gaming Software کاردەکات، PadForge لە ڕێگەی ئەوەوە دەکێشێت. بەبێ ئەو، PadForge شاشە یەکڕەنگەکان لە ڕێگەی HID دەنووسێت و WinUSB بە ڕووکاری شاشەی G19 دەبەستێتەوە. کوژاندنەوەی ئەمە شاشەی G19 دەداتەوە بە Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>شاشەی یەکڕەنگ…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>شاشەی ڕەنگاوڕەنگ…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>داگرتنی Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>SDK ی S.T.R.I.K.E. 7 ی Mad Catz لە ڕاژەکاری AIDA64 دادەگرێت، بە SHA-256 ناسراوەکەی دەیپشکنێت، و تەنها Strike7API.dll ی 64-bit لە بوخچەی کاتیی PadForge دەهێڵێتەوە.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>هەڵبژاردنی Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>دامەزراندنی ڕەنتایمی Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Visual C++ 2008 SP1 Redistributable ی Microsoft بۆ Windows ی 64-bit دادەگرێت، کە Strike7API.dll پێویستی پێیەتی، واژۆی Microsoft لەسەری دەپشکنێت و دایدەمەزرێنێت.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|کتێبخانەکان (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>شاشەی یەکڕەنگ</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>شاشەی ڕەنگاوڕەنگ</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>کوژاوە</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>کاتپێو</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>ڕەنگی شریتی ڕووناکی</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>کوژاوە</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>لە ڕێگەی Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>ڕاستەوخۆ لەسەر {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>بەستنەوەی WinUSB بە شاشەی G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>شاشەی G19 لەسەر درایڤەرێکی ترە ({0})، بۆیە Logitech Gaming Software دەست پێ بکە</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>پێویستی بە Logitech Gaming Software 8.52 یان نوێترە</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software دەست پێ بکە</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>چاوەڕوانی مۆبایلێک بە Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>لەسەر مۆبایل</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>پێویستی بە Strike7API.dll هەیە، بۆیە دایبگرە یان کۆپییەک هەڵبژێرە</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll ی داگیراو گۆڕاوە، بۆیە دووبارە دایبگرەوە</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>پێویستی بە ڕەنتایمی Visual C++ 2008 ی Microsoft هەیە</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll بار نەبوو</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>نەرمەکاڵای S.T.R.I.K.E. 7 دەست پێ بکە</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>PadForge لەسەر شاشەی V.E.N.O.M. هەڵبژێرە</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>لەسەر شاشەی V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>هیچ شاشەیەک نەدۆزرایەوە</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}، چاوەڕوانی ڕەنگی شریتی ڕووناکی</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}، هیچ وێنەیەک هەڵنەبژێردراوە</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>کلیلەکانی شاشەی تەختەکلیل</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>کلیلی شاشە {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>کلیلی ئەپلێت</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>چەپی شاشە</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>ڕاستی شاشە</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>OK ی شاشە</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>هەڵوەشاندنەوەی شاشە</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>سەرەوەی شاشە</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>خوارەوەی شاشە</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>مێنیوی شاشە</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>ڕێکخستنەکانی شاشە</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge هیچ پیشان نادات، و ئەپلێتەکەی شاشەکە جێدەهێڵێت. لەژێر Logitech Gaming Software کلیلەکانی شاشە تەنها کاتێک دەگەنە PadForge کە ئەپلێتەکەی لە پێشەوە بێت، بۆیە پێویستیان بە دۆخێکی ترە.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>شاشەکە ناوی پرۆفایلی چالاک پیشان دەدات و لەگەڵ هەر گۆڕینێکی پرۆفایل دەگۆڕێت.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>شاشەکە شوێنی پرۆفایلی چالاک لە لیستی پرۆفایلەکاندا پیشان دەدات. ژمارەی پرۆفایلی بنەڕەت 0 یە.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>شاشەکە وێنەی تایبەتی پرۆفایلی چالاک پیشان دەدات، یان ناوەکەی ئەگەر وێنەی نەبێت. هەر پرۆفایلێک وێنەی خۆی هەیە.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>شاشەکە کاتی ڕۆژ پیشان دەدات.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>شاشەکە ئەو کاتژمێر و خولەکانە پیشان دەدات کە لەوەتەی پرۆفایلی چالاک چالاک بووە تێپەڕیون. پرۆفایلێک کە بە بەرنامەی یارییەکەوە بەسترابێت کاتێک یارییەکە دەست پێدەکات چالاک دەبێت، بۆیە ژماردنەکە ئەو دانیشتنەیە. لەژێر پرۆفایلی بنەڕەت لە دەستپێکردنی بزوێنەرەکەوە دەژمێرێت.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>شاشەکە وێنەیەک کە تۆ هەڵیدەبژێریت بە قەبارەی خۆی پیشان دەدات. وێنەیەک کە لە شاشەکە گەورەتر بێت پەنجەرەیەک بە قەبارەی شاشەکە پیشان دەدات، کە ماکرۆی «جووڵاندنی وێنەی شاشەی تەختەکلیل» دەیجووڵێنێت. لەسەر S.T.R.I.K.E. 7 ڕاکێشانی پەنجە بەسەر شاشەکەدا ئەویش دەجووڵێنێت.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>شاشەکە کاتپێوەکە پیشان دەدات، کە ماکرۆی «کاتپێو» دەستی پێدەکات، ڕایدەگرێت و سفری دەکاتەوە. هەموو شاشەکان هەمان کاتپێو پیشان دەدەن.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>شاشەکە ڕەنگی شریتی ڕووناکیی DualShock 4 یان DualSense لە نزمترین شوێندا پیشان دەدات. شاشەی یەکڕەنگ ئاستی ڕووناکییەکەی وەک نەخشێکی خاڵ پیشان دەدات. تا ڕەنگێک نەگاتە شریتی ڕووناکی، PadForge هیچ پیشان نادات.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>وێنەکان (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|هەموو پەڕگەکان (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>جووڵاندن</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>جووڵاندنی X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>جووڵاندنی Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} دانرا بۆ {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>داگرتنی SDK ی S.T.R.I.K.E. 7 ی Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 ئێستا {0} بار دەکات.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>داگرتن و دامەزراندنی ڕەنتایمی Visual C++ 2008 ی Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>داگرتنی SDK ی S.T.R.I.K.E. 7 لەگەڵ SHA-256 ناسراوەکەی ناگونجێت، بۆیە هیچ شتێکی لێ هەڵنەگیرا.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>ڕەنتایمی Visual C++ 2008 هێشتا بوونی نییە دوای ئەوەی دامەزرێنەرەکەی کاری کرد.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>نیشاندانی شاشەی تەختەکلیل</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>وێنەکان لەسەر هەموو شاشەیەکی تەختەکلیلی جۆری هەڵبژێردراو پیشان دەدات، پاشان هەر شاشەیەک دەگەڕێنێتەوە بۆ دۆخی خۆی.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>نیشاندانی وێنەکانی {0}: {1} × {2} ms، ژمارەی دووبارەکردنەوە {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>وێنەکان لەگەڵ شاشەکە دەگونجێنرێن: 160 لە 43 پیکسڵی ڕەش و سپی لەسەر شاشەی یەکڕەنگ، 320 لە 240 لەسەر شاشەی G19، و 480 لە 320 بۆ Arx Control و S.T.R.I.K.E. 7. کورتترین ماوەی چوارچێوە یەک لە دەی چرکەیەکە.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>دۆخی شاشەی تەختەکلیل</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>جۆرێکی شاشەی تەختەکلیل دەگۆڕێت بۆ دۆخێکی تر و وەک ڕێکخستنی ئەو شاشەیە دەیهێڵێتەوە.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} پیشان دەدات</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>دۆخەکە دەمێنێتەوە تا ماکرۆیەکی تر یان دیالۆگی شاشەکە بیگۆڕێت.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>کاتپێو</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>ئەو کاتپێوە دەست پێدەکات یان ڕادەگرێت، یان سفری دەکاتەوە، کە شاشەکانی تەختەکلیل لە دۆخی کاتپێودا پیشانی دەدەن.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>دەستپێکردن یان ڕاگرتنی کاتپێو</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>سفرکردنەوەی کاتپێو</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>سفرکردنەوە کاتپێوەکە دەوەستێنێت و دەیگەڕێنێتەوە بۆ سفر. هەموو شاشەیەکی تەختەکلیل لە دۆخی کاتپێودا هەمان کاتپێو پیشان دەدات.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>جووڵاندنی وێنەی شاشەی تەختەکلیل</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>پەنجەرەی هەر شاشەیەکی تەختەکلیل بەسەر وێنەیەکی گەورەتر لە شاشەکەدا دەجووڵێنێت، بۆ نەخشە.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>جووڵاندنی وێنەکان بە {0} و {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>هەموو جۆرە شاشەیەک دەجووڵێنێت کە وێنەیەکی هەڵبژێردراوی گەورەتر لە خۆی پیشان دەدات. پەنجەرەکە لە لێوارەکانی وێنەکەدا دەوەستێت.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>شاشە</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>کردار</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>ئاراستە</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>هەنگاو</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

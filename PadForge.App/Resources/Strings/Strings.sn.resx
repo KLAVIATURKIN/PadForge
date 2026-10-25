@@ -1156,4 +1156,63 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Masikirini ekibhodhi</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Shandisa masikirini ekibhodhi</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Sikirini yeruvara rumwe…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Sikirini ine mavara…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Dhaunirodha Strike7API.dll</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Sarudza Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Isa Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Raibhurari (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Sikirini yeruvara rumwe</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Sikirini ine mavara</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Yakadzimwa</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Ruvara rwe-lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>yakadzimwa</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>kuburikidza neLogitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>zvakananga pa{0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>kubatanidza WinUSB nesikirini yeG19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>sikirini yeG19 iri pane imwe dhiraivha ({0}), saka vhura Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>inoda Logitech Gaming Software 8.52 kana pamusoro</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>vhura Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>kumirira foni ine Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>pafoni</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>inoda Strike7API.dll, saka idhaunirodhe kana kuti sarudza kopi</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll yakadhaunirodhwa yachinja, saka idhaunirodhe zvakare</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>inoda Visual C++ 2008 runtime yeMicrosoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll yaramba kuvhurika</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>vhura purogiramu yeS.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>sarudza PadForge pasikirini yeV.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>pasikirini yeV.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>hapana sikirini yawanikwa</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, kumirira ruvara rwe-lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, hapana mufananidzo wasarudzwa</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Makiyi esikirini yekibhodhi</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Kiyi yesikirini {0}</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Sikirini kuruboshwe</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Sikirini kurudyi</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Sikirini OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Sikirini kanzura</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Sikirini kumusoro</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Sikirini pasi</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Sikirini menyu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Sikirini masetingi</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Sikirini inoratidza zita repurofaira iri kushanda uye inotevera shanduko yega yega yepurofaira.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Sikirini inoratidza mufananidzo wepurofaira iri kushanda, kana zita rayo kana isina mufananidzo. Purofaira yega yega inochengeta mufananidzo wayo.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Sikirini inoratidza nguva iripo.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Mifananidzo (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Mafaira ese (*.*)|*.*</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Kudhaunirodha S.T.R.I.K.E. 7 SDK yeMad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 yava kushandisa {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Kudhaunirodha nekuisa Visual C++ 2008 runtime yeMicrosoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Zvakadhaunirodhwa zveS.T.R.I.K.E. 7 SDK hazvienderane ne-SHA-256 yazvo inozivikanwa, saka hapana chakachengetwa.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 runtime ichiri kushaikwa kunyange mushure mekunge installer yayo yashanda.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Ratidza sikirini yekibhodhi</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Sikirini</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Chiito</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

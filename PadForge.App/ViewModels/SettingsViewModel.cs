@@ -1413,6 +1413,78 @@ namespace PadForge.ViewModels
         /// base64 in image order, or null.</summary>
         public string DefaultProfileDreamcastPicture { get; set; }
 
+        private bool _keyboardScreensEnabled;
+
+        /// <summary>The keyboard screens (issue #519): the Logitech GamePanel
+        /// screens, Arx Control and the S.T.R.I.K.E. 7, the Bliss-Box switch's
+        /// neighbor and shape. Off until asked for, because it loads other
+        /// vendors' libraries and can bind WinUSB to a G19's screen
+        /// interface.</summary>
+        public bool KeyboardScreensEnabled
+        {
+            get => _keyboardScreensEnabled;
+            set
+            {
+                if (SetProperty(ref _keyboardScreensEnabled, value))
+                    PadForge.Common.Input.KeyboardScreensRuntime.Enabled = value;
+            }
+        }
+
+        private string _keyboardScreensStatus = string.Empty;
+
+        /// <summary>A line per kind of screen naming what draws it, pushed by
+        /// InputService. Empty while the feature is off, which collapses the
+        /// lines.</summary>
+        public string KeyboardScreensStatus
+        {
+            get => _keyboardScreensStatus;
+            set => SetProperty(ref _keyboardScreensStatus, value);
+        }
+
+        /// <summary>Each kind of keyboard screen's choices (#519). Changed on
+        /// the UI thread only.</summary>
+        public List<PadForge.Services.KeyboardScreenData> KeyboardScreens { get; set; } = new();
+
+        /// <summary>The Default profile's keyboard screen picture (#519), a
+        /// stored path, or null.</summary>
+        public string DefaultProfileKeyboardScreenPicture { get; set; }
+
+        /// <summary>A Strike7API.dll the user picked (#519), a stored path, or
+        /// null for the copy PadForge downloads.</summary>
+        public string Strike7LibraryPath { get; set; }
+
+        private CommunityToolkit.Mvvm.Input.RelayCommand<string> _configureKeyboardScreenCommand;
+        private RelayCommand _downloadStrike7LibraryCommand;
+        private RelayCommand _pickStrike7LibraryCommand;
+        private RelayCommand _installVc2008RuntimeCommand;
+
+        /// <summary>Opens the Keyboard Screen dialog for the kind its
+        /// parameter names (#519).</summary>
+        public CommunityToolkit.Mvvm.Input.RelayCommand<string> ConfigureKeyboardScreenCommand =>
+            _configureKeyboardScreenCommand ??= new CommunityToolkit.Mvvm.Input.RelayCommand<string>(
+                kind => ConfigureKeyboardScreenRequested?.Invoke(this, kind));
+
+        /// <summary>Downloads Mad Catz's SDK and keeps its x64 library (#519).</summary>
+        public RelayCommand DownloadStrike7LibraryCommand =>
+            _downloadStrike7LibraryCommand ??= new RelayCommand(
+                () => DownloadStrike7LibraryRequested?.Invoke(this, EventArgs.Empty));
+
+        /// <summary>Points PadForge at a Strike7API.dll the user has (#519).</summary>
+        public RelayCommand PickStrike7LibraryCommand =>
+            _pickStrike7LibraryCommand ??= new RelayCommand(
+                () => PickStrike7LibraryRequested?.Invoke(this, EventArgs.Empty));
+
+        /// <summary>Installs Microsoft's Visual C++ 2008 runtime, which the
+        /// S.T.R.I.K.E. 7 library links (#519).</summary>
+        public RelayCommand InstallVc2008RuntimeCommand =>
+            _installVc2008RuntimeCommand ??= new RelayCommand(
+                () => InstallVc2008RuntimeRequested?.Invoke(this, EventArgs.Empty));
+
+        public event EventHandler<string> ConfigureKeyboardScreenRequested;
+        public event EventHandler DownloadStrike7LibraryRequested;
+        public event EventHandler PickStrike7LibraryRequested;
+        public event EventHandler InstallVc2008RuntimeRequested;
+
         // ─────────────────────────────────────────────
         //  Community Configs (Steam Workshop, issue #9)
         // ─────────────────────────────────────────────

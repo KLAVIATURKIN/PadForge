@@ -1167,4 +1167,48 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Sikirini za kiibodi</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Sikirini yakuda ndi yoyera…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Sikirini ya mitundu…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Tsitsani Strike7API.dll</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Sankhani Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Sikirini yakuda ndi yoyera</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Sikirini ya mitundu</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Mtundu wa lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>kudzera mu Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>mwachindunji pa {0}</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>sikirini ya G19 ili pa dalaivala wina ({0}), choncho yambitsani Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>ikufuna Logitech Gaming Software 8.52 kapena yatsopano</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>yambitsani Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>ikudikira foni yokhala ndi Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>pa foni</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>yambitsani pulogalamu ya S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>sankhani PadForge pa sikirini ya V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>pa sikirini ya V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>palibe sikirini yomwe yapezeka</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ikudikira mtundu wa lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, palibe chithunzi chosankhidwa</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Makiyi a sikirini ya kiibodi</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Kiyi ya sikirini {0}</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Sikirini kumanzere</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Sikirini kumanja</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Sikirini OK</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Sikirini mmwamba</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Sikirini pansi</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Menyu ya sikirini</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Zokonda za sikirini</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Sikirini imaonetsa dzina la mbiri yomwe ikugwira ntchito, ndipo imasintha nthawi iliyonse mbiri ikasinthidwa.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Sikirini imaonetsa chithunzi cha mbiri yomwe ikugwira ntchito, kapena dzina lake ngati ilibe chithunzi. Mbiri iliyonse imasunga chithunzi chake.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Sikirini imaonetsa nthawi.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Zithunzi (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Mafayilo onse (*.*)|*.*</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Onetsani sikirini ya kiibodi</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} imaonetsa {1}</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Sikirini</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Kolowera</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

@@ -814,4 +814,39 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Keyboard ke screen</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Keyboard ke screen chalao</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll download karo</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll choose karo…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 Runtime install karo</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Band</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Lightbar ke rang</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>band</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software se</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>seedha {0} pe</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software chalu karo</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>phone pe</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>S.T.R.I.K.E. 7 software chalu karo</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. screen pe PadForge choose karo</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. screen pe</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>koi screen nahi mila</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Keyboard screen ke key</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Screen ke key {0}</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Screen Baaya</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Screen Daaya</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Screen Upar</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Screen Niche</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mad Catz ke S.T.R.I.K.E. 7 SDK download hoe raha hai…</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsoft ke Visual C++ 2008 runtime download aur install hoe raha hai…</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Keyboard screen dekhao</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Keyboard screen ke mode</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Stopwatch chalu ya pause karo</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Stopwatch reset karo</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Taraf</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

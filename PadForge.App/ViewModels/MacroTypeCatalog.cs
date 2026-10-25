@@ -143,6 +143,10 @@ namespace PadForge.ViewModels
                 Add(MacroActionType.GuideLedBrightness, S.MacroAction_Type_GuideLedBrightness, S.Macro_Cat_Leds, S.MacroAction_GuideLedBrightness_Tooltip);
                 Add(MacroActionType.SetChromaColor, S.MacroAction_Type_SetChromaColor, S.Macro_Cat_Leds, S.MacroAction_SetChromaColor_Tooltip);
                 Add(MacroActionType.ShowDreamcastScreen, S.MacroAction_Type_ShowDreamcastScreen, S.Macro_Cat_Leds, S.MacroAction_ShowDreamcastScreen_Tooltip);
+                Add(MacroActionType.ShowKeyboardScreen, S.MacroAction_Type_ShowKeyboardScreen, S.Macro_Cat_Leds, S.MacroAction_ShowKeyboardScreen_Tooltip);
+                Add(MacroActionType.KeyboardScreenMode, S.MacroAction_Type_KeyboardScreenMode, S.Macro_Cat_Leds, S.MacroAction_KeyboardScreenMode_Tooltip);
+                Add(MacroActionType.Stopwatch, S.MacroAction_Type_Stopwatch, S.Macro_Cat_Leds, S.MacroAction_Stopwatch_Tooltip);
+                Add(MacroActionType.PanKeyboardScreen, S.MacroAction_Type_PanKeyboardScreen, S.Macro_Cat_Leds, S.MacroAction_PanKeyboardScreen_Tooltip);
                 Add(MacroActionType.PlaySound, S.MacroAction_Type_PlaySound, S.Macro_Cat_Sound, S.MacroAction_PlaySound_Tooltip);
                 Add(MacroActionType.SoundStop, S.MacroAction_Type_SoundStop, S.Macro_Cat_Sound, S.MacroAction_SoundStop_Tooltip);
                 Add(MacroActionType.SystemVolume, S.Macro_SystemVolume, S.Macro_Cat_Sound, null);

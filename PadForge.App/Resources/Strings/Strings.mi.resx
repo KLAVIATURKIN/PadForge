@@ -1579,4 +1579,72 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ngā mata papapātuhi</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Whakahaere i ngā mata papapātuhi</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Ka tuhi ki ngā mata o Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, me G19, ki Arx Control, ki te Mad Catz S.T.R.I.K.E. 7 hoki. I a Logitech Gaming Software e rere ana, ka tuhi a PadForge mā reira. Ki te kore, ka tuhi a PadForge ki ngā mata tae kotahi mā HID, ā, ka here i a WinUSB ki te atanga mata o te G19. Mā te whakaweto i tēnei ka whakahokia te mata o te G19 ki a Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Mata tae kotahi…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Mata tae…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Tikiake Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Ka tikiake i te SDK S.T.R.I.K.E. 7 a Mad Catz i te tūmau o AIDA64, ka taki i a ia ki tōna SHA-256 e mōhiotia ana, ā, ka pupuri anake i te Strike7API.dll 64-bit ki te kōpaki rangitahi o PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Kōwhiri Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Ka tikiake i te Visual C++ 2008 SP1 Redistributable a Microsoft mō Windows 64-bit, e hiahiatia ana e Strike7API.dll, ka taki i te waitohu a Microsoft kei runga, ā, ka tāuta i a ia.</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Mata tae kotahi</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Mata tae</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Weto</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Tae lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>weto</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>mā Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>hāngai tonu ki te {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>e here ana i a WinUSB ki te mata o te G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>kei tētahi atu taraiwa te mata o te G19 ({0}), nō reira tīmatahia a Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>e hiahia ana ki Logitech Gaming Software 8.52, ki tētahi putanga hou ake rānei</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>tīmatahia a Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>e tatari ana ki tētahi waea me Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>kei tētahi waea</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>e hiahia ana ki Strike7API.dll, nō reira tikiakehia, kōwhiria rānei tētahi tārua</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>kua huri kē te Strike7API.dll i tikiakehia, nō reira tikiakehia anō</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>kāore i taea a Strike7API.dll te uta</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>tīmatahia te pūmanawa S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>kōwhiria a PadForge i te mata V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>kei te mata V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>kāore he mata i kitea</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, e tatari ana ki tētahi tae lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, kāore he pikitia i kōwhiria</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Pātuhi mata papapātuhi</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Pātuhi mata {0}</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Mata mauī</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Mata matau</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Mata OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Mata whakakore</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Mata runga</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Mata raro</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Mata tahua</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Mata tautuhinga</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ka whakaatu te mata i te ingoa o te kōtaha hohe, ā, ka whai i ia huringa kōtaha.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ka whakaatu te mata i te tūranga o te kōtaha hohe i te rārangi kōtaha. Ko te 0 te kōtaha Taunoa.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Ka whakaatu te mata i te pikitia ake o te kōtaha hohe, i tōna ingoa rānei ki te kore he pikitia. Kei ia kōtaha tōna ake pikitia.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ka whakaatu te mata i te wā o te rā.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ka whakaatu te mata i ngā hāora me ngā meneti mai i te hurihanga mai o te kōtaha hohe. Ka huri mai tētahi kōtaha e herea ana ki te papatono o tētahi kēmu ina tīmata te kēmu, nō reira ko taua wāhanga tākaro te tatau. I raro i te kōtaha Taunoa ka tatau mai i te tīmatanga o te pūkaha.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ka whakaatu te mata i te tae o te lightbar o te DualShock 4, o te DualSense rānei i te slot iti rawa. Ka whakaaturia e tētahi mata tae kotahi tōna brightness hei tauira ira. Kia tae rā anō tētahi tae ki tētahi lightbar, kāore a PadForge e whakaatu i tētahi mea.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Ngā pikitia (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Ngā kōnae katoa (*.*)|*.*</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>Kua tautuhia a {0} ki {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>E tikiake ana i te SDK S.T.R.I.K.E. 7 a Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>Ka uta te S.T.R.I.K.E. 7 i a {0} ināianei.</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Kāore te tikiake SDK S.T.R.I.K.E. 7 e ōrite ki tōna SHA-256 e mōhiotia ana, nō reira kāore tētahi mea i puritia.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Whakaatu mata papapātuhi</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Ka whakaatu i ngā pikitia ki ia mata papapātuhi o te momo kua kōwhiria, kātahi ka whakahoki i ia mata ki tōna ake aratau.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Aratau mata papapātuhi</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Ka huri i tētahi momo mata papapātuhi ki tētahi atu aratau, ā, ka pupuri i taua aratau hei tautuhinga mō taua mata.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>Ka whakaatu a {0} i {1}</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Ka nekehia te matapihi o ia mata papapātuhi ki runga i tētahi pikitia nui ake i te mata, mō tētahi mahere.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Ka nekehia ia momo mata e whakaatu ana i tētahi pikitia kua kōwhiria e nui ake ana i a ia anō. Ka tū te matapihi ki ngā tapa o te pikitia.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Mata</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Mahi</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Ahunga</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

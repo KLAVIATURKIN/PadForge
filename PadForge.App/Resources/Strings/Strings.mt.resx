@@ -4202,4 +4202,97 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="About_X1nputDesc" xml:space="preserve"><value>Ir-report ta' 9 bytes tal-impulse triggers tal-Xbox u t-triq tal-kitba tiegħu, minn araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Il-format PCM tal-haptics tal-PS5, 16-il bit b'sinjal f'3 kHz, li stabbilixxa l-kodifikazzjoni tal-haptics Bluetooth ta' 8 bits b'sinjal. AGPL-3.0, moqri biss bħala dokumentazzjoni, l-ebda kodiċi AGPL ma jiġi inkluż.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Skrins tat-tastiera</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Ipinġi fuq l-iskrins mibnija fit-tastieri GamePanel ta' Logitech u fil-Mad Catz S.T.R.I.K.E. 7, u fuq telefon permezz ta' Logitech Arx Control: il-profil, arloġġ, il-ħin tal-logħob, kronometru, stampa, jew il-kulur tal-lightbar ta' DualShock 4 jew DualSense. It-tasti ħdejn dawk l-iskrins isiru buttuni fir-ringiela Tasti tal-iskrin tat-tastiera.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Ħaddem l-iskrins tat-tastiera</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Ipinġi fuq l-iskrins tal-Logitech G15, G15 v2, G510, G13, Z-10, GamePanel u G19, fuq Arx Control, u fuq il-Mad Catz S.T.R.I.K.E. 7. Waqt li Logitech Gaming Software ikun qed jaħdem, PadForge jpinġi permezz tiegħu. Mingħajru, PadForge jikteb fuq l-iskrins monokromatiċi permezz ta' HID u jorbot WinUSB mal-interface tal-iskrin tal-G19. Meta titfi din l-għażla, l-iskrin tal-G19 jingħata lura lil Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Skrin monokromatiku…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Skrin bil-kulur…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Niżżel Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Iniżżel l-SDK tas-S.T.R.I.K.E. 7 ta' Mad Catz mis-server ta' AIDA64, jiċċekkjah mas-SHA-256 magħruf tiegħu, u jżomm biss il-Strike7API.dll ta' 64 bit fil-folder temporanju ta' PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Agħżel Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Installa r-runtime Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Iniżżel il-Visual C++ 2008 SP1 Redistributable ta' Microsoft għal Windows ta' 64 bit, li għandu bżonnu Strike7API.dll, jiċċekkja l-firma ta' Microsoft fuqu, u jinstallah.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Libreriji (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Skrin monokromatiku</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Skrin bil-kulur</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Mitfi</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Kronometru</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Kulur tal-lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>mitfi</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>permezz ta' Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>direttament fuq il-{0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>qed jorbot WinUSB mal-iskrin tal-G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>l-iskrin tal-G19 jinsab fuq driver ieħor ({0}), għalhekk ibda Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>jeħtieġ Logitech Gaming Software 8.52 jew aktar ġdid</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>ibda Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>qed jistenna telefon b'Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>fuq telefon</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>jeħtieġ Strike7API.dll, għalhekk niżżlu jew agħżel kopja</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>l-Strike7API.dll imniżżel inbidel, għalhekk erġa' niżżlu</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>jeħtieġ ir-runtime Visual C++ 2008 ta' Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll ma setax jitgħabba</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>ibda s-software tas-S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>agħżel PadForge fuq l-iskrin V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>fuq l-iskrin V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ebda skrin ma nstab</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, qed jistenna kulur tal-lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ebda stampa magħżula</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tasti tal-iskrin tat-tastiera</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tast tal-iskrin {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tast tal-applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skrin xellug</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Skrin lemin</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Skrin OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Skrin ikkanċella</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Skrin fuq</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Skrin isfel</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Skrin menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Skrin settings</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge ma juri xejn, u l-applet tiegħu joħroġ mill-iskrin. Taħt Logitech Gaming Software, it-tasti tal-iskrin jaslu għand PadForge biss meta l-applet tiegħu jkun quddiem, għalhekk jeħtieġu mod ieħor.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>L-iskrin juri l-isem tal-profil attiv u jsegwi kull bidla ta' profil.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>L-iskrin juri l-post tal-profil attiv fil-lista tal-profili. Il-profil Default huwa 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>L-iskrin juri l-istampa tal-profil attiv innifsu, jew ismu meta ma jkollux waħda. Kull profil iżomm l-istampa tiegħu.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>L-iskrin juri l-ħin tal-ġurnata.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>L-iskrin juri s-sigħat u l-minuti minn meta l-profil attiv daħal fis-seħħ. Profil marbut mal-programm ta' logħba jidħol fis-seħħ meta tibda l-logħba, għalhekk l-għadd huwa dik is-sessjoni. Taħt il-profil Default jgħodd mill-bidu tal-engine.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>L-iskrin juri stampa li tagħżel int, fid-daqs tagħha. Stampa akbar mill-iskrin turi tieqa daqs l-iskrin, li l-makro “Ċaqlaq l-istampa tal-iskrin tat-tastiera” iċaqlaqha. Fuq is-S.T.R.I.K.E. 7, saba' mkaxkar fuq l-iskrin iċaqlaqha wkoll.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>L-iskrin juri l-kronometru, li l-makro Kronometru jibdih, jagħmillu pawsa u jirrisettjah. Kull skrin juri l-istess kronometru.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>L-iskrin juri l-kulur tal-lightbar fuq id-DualShock 4 jew id-DualSense fis-slot bl-iżgħar numru. Skrin monokromatiku juri l-luminożità tiegħu bħala disinn ta' tikek. Sakemm kulur ma jasalx għand lightbar, PadForge ma juri xejn.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Stampi (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Il-fajls kollha (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Ċaqlaq</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Ċaqlaq X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Ċaqlaq Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} issettjat għal {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Qed jitniżżel l-SDK tas-S.T.R.I.K.E. 7 ta' Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>Is-S.T.R.I.K.E. 7 issa jgħabbi {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Qed jitniżżel u jiġi installat ir-runtime Visual C++ 2008 ta' Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Id-download tal-SDK tas-S.T.R.I.K.E. 7 ma jaqbilx mas-SHA-256 magħruf tiegħu, għalhekk ma nżamm xejn minnu.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Ir-runtime Visual C++ 2008 għadu nieqes wara li ħadem l-installer tiegħu.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Uri l-iskrin tat-tastiera</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Juri stampi fuq kull skrin tat-tastiera tat-tip magħżul, imbagħad jerġa' jpoġġi kull skrin fil-mod tiegħu.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Uri stampi ta' {0}: {1} × {2} ms, għadd ta' ripetizzjonijiet {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>L-istampi jiġu adattati għall-iskrin: 160 × 43 pixel iswed u abjad fuq skrin monokromatiku, 320 × 240 fuq dak tal-G19, u 480 × 320 għal Arx Control u s-S.T.R.I.K.E. 7. L-iqsar ħin tal-frejm huwa għaxar ta' sekonda.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mod tal-iskrin tat-tastiera</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Jaqleb tip ta' skrin tat-tastiera għal mod ieħor u jżommu bħala s-setting ta' dak l-iskrin.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} juri {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Il-mod jibqa' sakemm makro ieħor jew id-djalogu tal-iskrin ibiddlu.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Kronometru</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Jibda jew jagħmel pawsa, jew jirrisettja, il-kronometru li juru l-iskrins tat-tastiera fil-mod Kronometru.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Ibda jew agħmel pawsa lill-kronometru</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Irrisettja l-kronometru</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>“Irrisettja” jwaqqaf il-kronometru u jerġa' jpoġġih fuq żero. Kull skrin tat-tastiera fil-mod Kronometru juri l-istess kronometru.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Ċaqlaq l-istampa tal-iskrin tat-tastiera</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Iċaqlaq it-tieqa ta' kull skrin tat-tastiera fuq stampa akbar mill-iskrin, bħal għal mappa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Ċaqlaq l-istampi b'{0} u {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Iċaqlaq kull tip ta' skrin li juri stampa magħżula akbar minnu nnifsu. It-tieqa tieqaf fit-truf tal-istampa.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skrin</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Azzjoni</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direzzjoni</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Pass</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

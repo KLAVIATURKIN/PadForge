@@ -435,6 +435,59 @@
                 </StackPanel>
             </Border>
 
+            <!-- ═══ Keyboard Screens (issue #519) ═══
+                 Off by default. On, PadForge draws the Logitech GamePanel
+                 screens, Arx Control and the S.T.R.I.K.E. 7, a line per kind
+                 says what draws it, and each kind has its own dialog. -->
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <reset:GlyphText Text="&#xE765;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                   VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding Settings_KeyboardScreens_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding Settings_KeyboardScreens_Desc, Source={x:Static strings:Strings.Instance}}"
+                               Style="{StaticResource CardDescription}" Margin="0,0,0,12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <CheckBox VerticalAlignment="Center" Content="{Binding Settings_KeyboardScreens, Source={x:Static strings:Strings.Instance}}"
+                                  x:Name="KeyboardScreensEnableCheckBox"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  ToolTip="{Binding Settings_KeyboardScreensTooltip, Source={x:Static strings:Strings.Instance}}"
+                                  IsChecked="{Binding KeyboardScreensEnabled}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="KeyboardScreensEnabled" SettingLabel="{Binding Settings_KeyboardScreens, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_KeyboardScreensEnabled_13109"/>
+                    </StackPanel>
+                    <!-- A line per kind naming what draws it. Empty while the
+                         feature is off or the engine is stopped. -->
+                    <TextBlock common:LiveText.Polite="True" Text="{Binding KeyboardScreensStatus}"
+                               Visibility="{Binding KeyboardScreensStatus, Converter={StaticResource StringToVisibility}}"
+                               TextWrapping="Wrap" Margin="0,0,0,8"
+                               Foreground="{DynamicResource EmberBrush}"/>
+                    <WrapPanel Visibility="{Binding KeyboardScreensEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Button Content="{Binding KeyboardScreens_Configure_Monochrome, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding ConfigureKeyboardScreenCommand}" CommandParameter="Monochrome" Margin="0,0,8,6"/>
+                        <Button Content="{Binding KeyboardScreens_Configure_Color, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding ConfigureKeyboardScreenCommand}" CommandParameter="Color" Margin="0,0,8,6"/>
+                        <Button Content="{Binding KeyboardScreens_Configure_Arx, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding ConfigureKeyboardScreenCommand}" CommandParameter="Arx" Margin="0,0,8,6"/>
+                        <Button Content="{Binding KeyboardScreens_Configure_Strike7, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding ConfigureKeyboardScreenCommand}" CommandParameter="Strike7" Margin="0,0,8,6"/>
+                    </WrapPanel>
+                    <!-- The S.T.R.I.K.E. 7's library: Mad Catz's SDK fetched at
+                         the user's click, or a copy the user has, and the
+                         Visual C++ 2008 runtime it links. -->
+                    <WrapPanel Visibility="{Binding KeyboardScreensEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Button Content="{Binding KeyboardScreens_DownloadStrike7, Source={x:Static strings:Strings.Instance}}"
+                                ToolTip="{Binding KeyboardScreens_DownloadStrike7_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding DownloadStrike7LibraryCommand}" Margin="0,0,8,6"/>
+                        <Button Content="{Binding KeyboardScreens_PickStrike7, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding PickStrike7LibraryCommand}" Margin="0,0,8,6"/>
+                        <Button Content="{Binding KeyboardScreens_InstallVc2008, Source={x:Static strings:Strings.Instance}}"
+                                ToolTip="{Binding KeyboardScreens_InstallVc2008_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding InstallVc2008RuntimeCommand}" Margin="0,0,8,6"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
             <!-- ═══ Battery Alerts (#293) ═══ -->
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>

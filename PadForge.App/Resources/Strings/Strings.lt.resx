@@ -4266,4 +4266,97 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox impulsinių gaidukų 9 baitų ataskaita ir jos įrašymo kelias; autorius araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 haptikos PCM formatas, 16 bitų su ženklu, 3 kHz, kuris padėjo nustatyti 8 bitų su ženklu Bluetooth haptikos kodavimą. AGPL-3.0, skaityta tik kaip dokumentacija, jokio AGPL kodo neįtraukiama.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Klaviatūros ekranai</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Piešia „Logitech“ GamePanel klaviatūrų ir „Mad Catz“ S.T.R.I.K.E. 7 įmontuotuose ekranuose bei telefone per Logitech Arx Control: profilį, laikrodį, žaidimo laiką, chronometrą, paveikslėlį arba „DualShock 4“ ar „DualSense“ šviesos juostos spalvą. Šalia ekranų esantys klavišai tampa mygtukais eilutėje „Klaviatūros ekrano klavišai“.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Valdyti klaviatūros ekranus</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Piešia G15, G15 v2, G510, G13, Z-10, GamePanel ir G19 ekranuose, Arx Control bei „Mad Catz“ S.T.R.I.K.E. 7. Kai veikia „Logitech Gaming Software“, PadForge piešia per ją. Be jos PadForge vienspalvius ekranus valdo per HID, o WinUSB priskiria G19 ekrano sąsajai. Išjungus šią parinktį, G19 ekranas grąžinamas „Windows“.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Vienspalvis ekranas…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Spalvotas ekranas…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Atsisiųsti Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Atsisiunčia „Mad Catz“ S.T.R.I.K.E. 7 SDK iš AIDA64 serverio, patikrina pagal žinomą SHA-256 ir PadForge laikinajame aplanke palieka tik 64 bitų Strike7API.dll.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Pasirinkti Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Įdiegti „Visual C++ 2008“ vykdymo aplinką</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Atsisiunčia „Microsoft Visual C++ 2008 SP1 Redistributable“, skirtą 64 bitų „Windows“, kurio reikia Strike7API.dll, patikrina jo „Microsoft“ parašą ir jį įdiegia.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Bibliotekos (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Vienspalvis ekranas</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Spalvotas ekranas</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Išjungta</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Chronometras</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Šviesos juostos spalva</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>išjungta</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>per „Logitech Gaming Software“</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>tiesiogiai: {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>WinUSB priskiriamas G19 ekranui</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19 ekranas naudoja kitą tvarkyklę ({0}), todėl paleiskite „Logitech Gaming Software“</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>reikia „Logitech Gaming Software“ 8.52 ar naujesnės versijos</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>paleiskite „Logitech Gaming Software“</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>laukiama telefono su Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>telefone</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>reikia Strike7API.dll, todėl atsisiųskite arba pasirinkite jo kopiją</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>atsisiųstas Strike7API.dll pasikeitė, todėl atsisiųskite jį iš naujo</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>reikia „Microsoft Visual C++ 2008“ vykdymo aplinkos</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>nepavyko įkelti Strike7API.dll</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>paleiskite S.T.R.I.K.E. 7 programinę įrangą</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. ekrane pasirinkite PadForge</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. ekrane</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ekrano nerasta</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, laukiama šviesos juostos spalvos</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, paveikslėlis nepasirinktas</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Klaviatūros ekrano klavišai</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Ekrano klavišas {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Programėlės klavišas</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekranas: kairėn</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Ekranas: dešinėn</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Ekranas: gerai</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Ekranas: atšaukti</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Ekranas: aukštyn</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Ekranas: žemyn</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Ekranas: meniu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Ekranas: nustatymai</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge nieko nerodo, o jo programėlė palieka ekraną. Kai veikia „Logitech Gaming Software“, ekrano klavišai PadForge pasiekia tik tada, kai jo programėlė yra priekyje, todėl jiems reikia kito režimo.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ekrane rodomas aktyvaus profilio pavadinimas, jis atsinaujina kiekvieną kartą perjungus profilį.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ekrane rodoma aktyvaus profilio vieta profilių sąraše. Numatytasis profilis yra 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Ekrane rodomas aktyvaus profilio paveikslėlis arba, jei jo nėra, profilio pavadinimas. Kiekvienas profilis turi savo paveikslėlį.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ekrane rodomas paros laikas.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ekrane rodomos valandos ir minutės nuo to laiko, kai buvo perjungtas aktyvus profilis. Su žaidimo programa susietas profilis įsijungia, kai žaidimas paleidžiamas, todėl skaičiuojamas to seanso laikas. Esant numatytajam profiliui, skaičiuojama nuo PadForge modulio paleidimo.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ekrane rodomas jūsų pasirinktas paveikslėlis jo paties dydžiu. Jei paveikslėlis didesnis už ekraną, rodomas ekrano dydžio langas, kurį perkelia makrokomanda „Klaviatūros ekrano paveikslėlio panoravimas“. S.T.R.I.K.E. 7 ekrane jį perkelia ir per ekraną nutempiamas pirštas.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ekrane rodomas chronometras, kurį paleidžia, pristabdo ir nustato iš naujo makrokomanda „Chronometras“. Visi ekranai rodo tą patį chronometrą.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ekrane rodoma „DualShock 4“ ar „DualSense“ šviesos juostos spalva, kai valdiklis yra žemiausiame lizde. Vienspalvis ekranas rodo jos ryškumą taškų raštu. Kol spalva nepasiekia šviesos juostos, PadForge nieko nerodo.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Paveikslėliai (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Visi failai (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Panoravimas</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Panoravimas X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Panoravimas Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0}: nustatyta {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Atsisiunčiamas „Mad Catz“ S.T.R.I.K.E. 7 SDK…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 dabar įkelia {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Atsisiunčiama ir diegiama „Microsoft Visual C++ 2008“ vykdymo aplinka…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Atsisiųstas S.T.R.I.K.E. 7 SDK neatitinka žinomo SHA-256, todėl nieko iš jo neišsaugota.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Paleidus diegimo programą, „Visual C++ 2008“ vykdymo aplinkos vis dar nėra.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Rodyti klaviatūros ekraną</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Rodo paveikslėlius kiekviename pasirinkto tipo klaviatūros ekrane, paskui grąžina kiekvieną ekraną į jo paties režimą.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Rodyti {0} paveikslėlius: {1} × {2} ms, kartojimų skaičius {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Paveikslėliai pritaikomi ekranui: 160 × 43 nespalvotų taškų vienspalviame ekrane, 320 × 240 G19 ekrane ir 480 × 320 Arx Control bei S.T.R.I.K.E. 7 ekranuose. Trumpiausia kadro trukmė yra viena dešimtoji sekundės.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Klaviatūros ekrano režimas</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Perjungia klaviatūros ekrano tipą į kitą režimą ir išsaugo jį kaip to ekrano nustatymą.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0}: rodoma {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Režimas išlieka, kol jį pakeičia kita makrokomanda arba ekrano dialogas.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Chronometras</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Paleidžia, pristabdo arba nustato iš naujo chronometrą, kurį rodo chronometro režimu veikiantys klaviatūros ekranai.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Paleisti arba pristabdyti chronometrą</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Nustatyti chronometrą iš naujo</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Nustatymas iš naujo sustabdo chronometrą ir grąžina jį į nulį. Visi chronometro režimu veikiantys klaviatūros ekranai rodo tą patį chronometrą.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Klaviatūros ekrano paveikslėlio panoravimas</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Perkelia kiekvieno klaviatūros ekrano langą per paveikslėlį, didesnį už ekraną, pavyzdžiui, žemėlapį.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Panoruoti paveikslėlius {0} × {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Perkelia kiekvieno tipo ekraną, kuriame rodomas už jį didesnis pasirinktas paveikslėlis. Langas sustoja paveikslėlio kraštuose.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ekranas</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Veiksmas</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Kryptis</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Žingsnis</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

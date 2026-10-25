@@ -58,6 +58,28 @@ namespace PadForge.Views
         }
     }
 
+    public partial class KeyboardScreenDialog
+    {
+        /// <summary>Back to the light bar's color, the default (#519).</summary>
+        private void ResetMode_Click(object sender, RoutedEventArgs e)
+            => ModeBox.SelectedIndex = (int)PadForge.Services.KeyboardScreenData.DefaultMode;
+
+        /// <summary>No chosen picture, the default (#519).</summary>
+        private void ResetPicture_Click(object sender, RoutedEventArgs e)
+        {
+            _picture = null;
+            _panX = _panY = 0;
+            Refresh();
+        }
+
+        /// <summary>The window back at the picture's top left corner (#519).</summary>
+        private void ResetPan_Click(object sender, RoutedEventArgs e)
+        {
+            _panX = _panY = 0;
+            Refresh();
+        }
+    }
+
     public partial class BlissBoxPlayerDialog
     {
         /// <summary>Back to the port's own player number (#469).</summary>

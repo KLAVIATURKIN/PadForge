@@ -4261,4 +4261,97 @@ PadForge က ၎င်းတို့ကို ယခုပင် ဖြုတ�
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox impulse-trigger 9-byte report နှင့် ၎င်း၏ ရေးသွင်းလမ်းကြောင်း၊ ရေးသားသူ araghon007။ MIT။</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 ဟက်ပတစ် PCM ပုံစံ၊ 3 kHz တွင် signed 16-bit၊ ၎င်းက signed 8-bit Bluetooth ဟက်ပတစ် encoding ကို ဆုံးဖြတ်ပေးခဲ့သည်။ AGPL-3.0၊ စာရွက်စာတမ်းအဖြစ်သာ ဖတ်ရှုထားပြီး AGPL ကုဒ် မပါဝင်ပါ။</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>ကီးဘုတ် မျက်နှာပြင်များ</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech ၏ GamePanel ကီးဘုတ်များနှင့် Mad Catz S.T.R.I.K.E. 7 တွင် ပါဝင်သော မျက်နှာပြင်များပေါ်တွင်လည်းကောင်း၊ Logitech Arx Control မှတစ်ဆင့် ဖုန်းပေါ်တွင်လည်းကောင်း ပြသသည်- ပရိုဖိုင်၊ နာရီ၊ ကစားချိန်၊ စက္ကန့်တိုင်းနာရီ၊ ပုံ သို့မဟုတ် DualShock 4 သို့မဟုတ် DualSense ၏ အလင်းတန်း အရောင်။ ထိုမျက်နှာပြင်များဘေးရှိ ကီးများသည် ကီးဘုတ် မျက်နှာပြင် ကီးများ အတန်းရှိ ခလုတ်များ ဖြစ်လာသည်။</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>ကီးဘုတ် မျက်နှာပြင်များကို ထိန်းချုပ်ရန်</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15၊ G15 v2၊ G510၊ G13၊ Z-10၊ GamePanel နှင့် G19 မျက်နှာပြင်များ၊ Arx Control နှင့် Mad Catz S.T.R.I.K.E. 7 ပေါ်တွင် ပြသသည်။ Logitech Gaming Software ဖွင့်ထားစဉ် PadForge သည် ၎င်းမှတစ်ဆင့် ပြသသည်။ ၎င်းမရှိလျှင် PadForge သည် အဖြူအမည်း မျက်နှာပြင်များကို HID ဖြင့် ရေးပြီး G19 ၏ မျက်နှာပြင် အင်တာဖေ့စ်တွင် WinUSB ကို ချိတ်သည်။ ဤအရာကို ပိတ်လျှင် G19 ၏ မျက်နှာပြင်ကို Windows ထံ ပြန်ပေးသည်။</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>အဖြူအမည်း မျက်နှာပြင်…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>အရောင် မျက်နှာပြင်…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll ကို ဒေါင်းလုဒ်လုပ်ရန်</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mad Catz ၏ S.T.R.I.K.E. 7 SDK ကို AIDA64 ၏ ဆာဗာမှ ဒေါင်းလုဒ်လုပ်ပြီး သိရှိထားသော SHA-256 နှင့် တိုက်စစ်ကာ 64-bit Strike7API.dll တစ်ခုတည်းကိုသာ PadForge ၏ ယာယီဖိုလ်ဒါတွင် သိမ်းထားသည်။</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll ကို ရွေးရန်…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 ရန်တိုင်းကို ထည့်သွင်းရန်</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Strike7API.dll လိုအပ်သော 64-bit Windows အတွက် Microsoft ၏ Visual C++ 2008 SP1 Redistributable ကို ဒေါင်းလုဒ်လုပ်ပြီး ၎င်းပေါ်ရှိ Microsoft ၏ လက်မှတ်ကို စစ်ဆေးကာ ထည့်သွင်းသည်။</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|လိုက်ဘရရီများ (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>အဖြူအမည်း မျက်နှာပြင်</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>အရောင် မျက်နှာပြင်</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>ပိတ်</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>စက္ကန့်တိုင်းနာရီ</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>အလင်းတန်း အရောင်</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}- {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>ပိတ်ထားသည်</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software မှတစ်ဆင့်</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>{0} ပေါ်တွင် တိုက်ရိုက်</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>G19 ၏ မျက်နှာပြင်တွင် WinUSB ကို ချိတ်နေသည်</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19 ၏ မျက်နှာပြင်သည် အခြား ဒရိုက်ဗာ ({0}) ပေါ်တွင် ရှိနေသဖြင့် Logitech Gaming Software ကို စတင်ပါ</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 သို့မဟုတ် နောက်ပိုင်းဗားရှင်း လိုအပ်သည်</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software ကို စတင်ပါ</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>Arx Control ပါသော ဖုန်းကို စောင့်နေသည်</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>ဖုန်းပေါ်တွင်</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>Strike7API.dll လိုအပ်သဖြင့် ဒေါင်းလုဒ်လုပ်ပါ သို့မဟုတ် မိတ္တူတစ်ခု ရွေးပါ</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>ဒေါင်းလုဒ်လုပ်ထားသော Strike7API.dll ပြောင်းလဲသွားသဖြင့် ထပ်မံ ဒေါင်းလုဒ်လုပ်ပါ</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>Microsoft ၏ Visual C++ 2008 ရန်တိုင်း လိုအပ်သည်</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll ကို ဖွင့်၍ မရပါ</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>S.T.R.I.K.E. 7 ဆော့ဖ်ဝဲကို စတင်ပါ</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. မျက်နှာပြင်တွင် PadForge ကို ရွေးပါ</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. မျက်နှာပြင်ပေါ်တွင်</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>မျက်နှာပြင် မတွေ့ပါ</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}၊ အလင်းတန်း အရောင်ကို စောင့်နေသည်</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}၊ ပုံ မရွေးရသေးပါ</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>ကီးဘုတ် မျက်နှာပြင် ကီးများ</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>မျက်နှာပြင် ကီး {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>အက်ပလက် ကီး</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>မျက်နှာပြင် ဘယ်</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>မျက်နှာပြင် ညာ</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>မျက်နှာပြင် OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>မျက်နှာပြင် မလုပ်တော့</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>မျက်နှာပြင် အပေါ်</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>မျက်နှာပြင် အောက်</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>မျက်နှာပြင် မီနူး</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>မျက်နှာပြင် ဆက်တင်များ</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge သည် ဘာမျှ မပြဘဲ ၎င်း၏ အက်ပလက်သည် မျက်နှာပြင်မှ ထွက်သွားသည်။ Logitech Gaming Software အောက်တွင် မျက်နှာပြင် ကီးများသည် PadForge ၏ အက်ပလက် ရှေ့ဆုံးတွင် ရှိနေစဉ်သာ PadForge ထံ ရောက်သဖြင့် ၎င်းတို့အတွက် အခြား မုဒ်တစ်ခု လိုအပ်သည်။</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>မျက်နှာပြင်သည် အသုံးပြုနေသော ပရိုဖိုင်၏ အမည်ကို ပြပြီး ပရိုဖိုင်ပြောင်းတိုင်း လိုက်ပြောင်းသည်။</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>မျက်နှာပြင်သည် အသုံးပြုနေသော ပရိုဖိုင်၏ ပရိုဖိုင်စာရင်းရှိ နေရာကို ပြသည်။ မူလ ပရိုဖိုင်သည် 0 ဖြစ်သည်။</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>မျက်နှာပြင်သည် အသုံးပြုနေသော ပရိုဖိုင်၏ ကိုယ်ပိုင်ပုံကို ပြပြီး ပုံမရှိလျှင် ၎င်း၏ အမည်ကို ပြသည်။ ပရိုဖိုင်တိုင်းသည် ကိုယ်ပိုင်ပုံကို သိမ်းထားသည်။</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>မျက်နှာပြင်သည် လက်ရှိအချိန်ကို ပြသည်။</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>မျက်နှာပြင်သည် အသုံးပြုနေသော ပရိုဖိုင် ပြောင်းဝင်လာချိန်မှစ၍ နာရီနှင့် မိနစ်များကို ပြသည်။ ဂိမ်းပရိုဂရမ်နှင့် ချိတ်ထားသော ပရိုဖိုင်သည် ဂိမ်းစတင်သည့်အခါ ပြောင်းဝင်လာသဖြင့် ရေတွက်ချက်သည် ထိုကစားချိန်အတွက် ဖြစ်သည်။ မူလ ပရိုဖိုင်အောက်တွင် အင်ဂျင် စတင်ချိန်မှ ရေတွက်သည်။</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>မျက်နှာပြင်သည် သင်ရွေးသော ပုံကို ၎င်း၏ မူလအရွယ်အစားဖြင့် ပြသည်။ မျက်နှာပြင်ထက် ကြီးသော ပုံတွင် မျက်နှာပြင်အရွယ်ရှိ ဝင်းဒိုးတစ်ခုကို ပြပြီး ၎င်းကို “ကီးဘုတ် မျက်နှာပြင် ပုံကို ရွှေ့ကြည့်ရန်” မက်ခရိုက ရွှေ့သည်။ S.T.R.I.K.E. 7 တွင် မျက်နှာပြင်ပေါ် လက်ချောင်းဖြင့် ဆွဲလျှင်လည်း ၎င်းကို ရွှေ့သည်။</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>မျက်နှာပြင်သည် စက္ကန့်တိုင်းနာရီကို ပြသည်။ ၎င်းကို “စက္ကန့်တိုင်းနာရီ” မက်ခရိုက စတင်၊ ခေတ္တရပ်၊ ပြန်လည်သတ်မှတ်သည်။ မျက်နှာပြင်တိုင်းသည် တူညီသော စက္ကန့်တိုင်းနာရီကို ပြသည်။</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>မျက်နှာပြင်သည် နံပါတ်အငယ်ဆုံး ဆလော့ရှိ DualShock 4 သို့မဟုတ် DualSense ၏ အလင်းတန်း အရောင်ကို ပြသည်။ အဖြူအမည်း မျက်နှာပြင်သည် ၎င်း၏ အလင်းအားကို အစက်ပုံစံဖြင့် ပြသည်။ အလင်းတန်းသို့ အရောင်တစ်ခု မရောက်မချင်း PadForge သည် ဘာမျှ မပြပါ။</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>ပုံများ (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|ဖိုင်အားလုံး (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>ရွှေ့ကြည့်</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>ရွှေ့ကြည့် X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>ရွှေ့ကြည့် Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} ကို {1} သို့ သတ်မှတ်ပြီးပါပြီ။</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mad Catz ၏ S.T.R.I.K.E. 7 SDK ကို ဒေါင်းလုဒ်လုပ်နေသည်…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 သည် ယခု {0} ကို ဖွင့်သည်။</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsoft ၏ Visual C++ 2008 ရန်တိုင်းကို ဒေါင်းလုဒ်လုပ်ပြီး ထည့်သွင်းနေသည်…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK ဒေါင်းလုဒ်သည် သိရှိထားသော SHA-256 နှင့် မကိုက်ညီသဖြင့် ၎င်းမှ မည်သည့်အရာကိုမျှ မသိမ်းထားပါ။</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 ရန်တိုင်း၏ ထည့်သွင်းစနစ် လည်ပတ်ပြီးနောက်တွင်လည်း ရန်တိုင်း မရှိသေးပါ။</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>ကီးဘုတ် မျက်နှာပြင် ပြရန်</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>ရွေးထားသော အမျိုးအစား၏ ကီးဘုတ် မျက်နှာပြင်တိုင်းတွင် ပုံများကို ပြပြီးနောက် မျက်နှာပြင်တစ်ခုစီကို ၎င်း၏ ကိုယ်ပိုင် မုဒ်သို့ ပြန်ထားသည်။</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} ပုံများ ပြရန်- {1} × {2} ms၊ ထပ်ခါအကြိမ်ရေ {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>ပုံများကို မျက်နှာပြင်နှင့် အံကိုက်ဖြစ်အောင် ချိန်ညှိသည်- အဖြူအမည်း မျက်နှာပြင်တွင် 160 × 43 အဖြူအမည်း ပစ်ဇယ်၊ G19 တွင် 320 × 240၊ Arx Control နှင့် S.T.R.I.K.E. 7 အတွက် 480 × 320။ အတိုဆုံး ဖရိမ်အချိန်သည် စက္ကန့်၏ ဆယ်ပုံတစ်ပုံ ဖြစ်သည်။</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>ကီးဘုတ် မျက်နှာပြင် မုဒ်</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ကီးဘုတ် မျက်နှာပြင် အမျိုးအစားတစ်ခုကို အခြား မုဒ်သို့ ပြောင်းပြီး ၎င်းကို ထိုမျက်နှာပြင်၏ ဆက်တင်အဖြစ် သိမ်းထားသည်။</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} တွင် {1} ကို ပြသည်</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>အခြား မက်ခရို သို့မဟုတ် မျက်နှာပြင်၏ ဒိုင်ယာလော့က မပြောင်းမချင်း မုဒ်သည် ဆက်ရှိနေသည်။</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>စက္ကန့်တိုင်းနာရီ</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>စက္ကန့်တိုင်းနာရီ မုဒ်ရှိ ကီးဘုတ် မျက်နှာပြင်များ ပြသော စက္ကန့်တိုင်းနာရီကို စတင် သို့မဟုတ် ခေတ္တရပ်သည်၊ သို့မဟုတ် ပြန်လည်သတ်မှတ်သည်။</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>စက္ကန့်တိုင်းနာရီကို စတင် သို့မဟုတ် ခေတ္တရပ်ရန်</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>စက္ကန့်တိုင်းနာရီကို ပြန်လည်သတ်မှတ်ရန်</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>ပြန်လည်သတ်မှတ်ခြင်းသည် စက္ကန့်တိုင်းနာရီကို ရပ်ပြီး သုညသို့ ပြန်ထားသည်။ စက္ကန့်တိုင်းနာရီ မုဒ်ရှိ ကီးဘုတ် မျက်နှာပြင်တိုင်းသည် တူညီသော စက္ကန့်တိုင်းနာရီကို ပြသည်။</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>ကီးဘုတ် မျက်နှာပြင် ပုံကို ရွှေ့ကြည့်ရန်</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>မြေပုံကဲ့သို့ မျက်နှာပြင်ထက် ကြီးသော ပုံပေါ်တွင် ကီးဘုတ် မျက်နှာပြင်တစ်ခုစီ၏ ဝင်းဒိုးကို ရွှေ့သည်။</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>ပုံများကို {0}၊ {1} px ရွှေ့ကြည့်ရန်</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>မိမိထက် ကြီးသော ရွေးထားသည့် ပုံကို ပြနေသည့် မျက်နှာပြင် အမျိုးအစားတိုင်းကို ရွှေ့သည်။ ဝင်းဒိုးသည် ပုံ၏ အစွန်းများတွင် ရပ်သည်။</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>မျက်နှာပြင်</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>လုပ်ဆောင်ချက်</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>ဦးတည်ရာ</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>အဆင့်</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

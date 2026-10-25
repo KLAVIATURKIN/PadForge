@@ -4201,4 +4201,97 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="About_X1nputDesc" xml:space="preserve"><value>Ripoti ya baiti 9 ya kichochezi cha msukumo cha Xbox na njia yake ya kuandika, na araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Muundo wa PCM ya haptic ya PS5, biti 16 zenye ishara kwa 3 kHz, ulioamua usimbaji wa haptics wa Bluetooth wa biti 8 zenye ishara. AGPL-3.0, imesomwa kama nyaraka pekee, hakuna msimbo wa AGPL unaosafirishwa.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Skrini za Kibodi</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Huchora kwenye skrini zilizojengewa ndani ya kibodi za GamePanel za Logitech na Mad Catz S.T.R.I.K.E. 7, na kwenye simu kupitia Logitech Arx Control: wasifu, saa, muda wa kucheza, stopwatch, picha, au rangi ya lightbar ya DualShock 4 au DualSense. Vitufe vilivyo kando ya skrini hizo huwa vitufe vinavyoweza kuwekewa ramani kwenye safu ya Vitufe vya Skrini ya Kibodi.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Endesha Skrini za Kibodi</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Huchora kwenye skrini za Logitech G15, G15 v2, G510, G13, Z-10, GamePanel na G19, kwenye Arx Control, na kwenye Mad Catz S.T.R.I.K.E. 7. Logitech Gaming Software inapoendeshwa, PadForge huchora kupitia hiyo. Bila hiyo, PadForge huandika kwenye skrini za monochrome kupitia HID na kuunganisha WinUSB kwenye kiolesura cha skrini cha G19. Ukizima hii, skrini ya G19 hurudishwa kwa Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Skrini ya Monochrome…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Skrini ya Rangi…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Pakua Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Hupakua SDK ya Mad Catz ya S.T.R.I.K.E. 7 kutoka seva ya AIDA64, huilinganisha na SHA-256 yake inayojulikana, na kuhifadhi tu Strike7API.dll ya biti 64 kwenye folda ya muda ya PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Chagua Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Sakinisha Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Hupakua Visual C++ 2008 SP1 Redistributable ya Microsoft kwa Windows ya biti 64, ambayo Strike7API.dll inaihitaji, hukagua sahihi ya Microsoft juu yake, na kuisakinisha.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Maktaba (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Skrini ya Monochrome</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Skrini ya Rangi</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Imezimwa</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Rangi ya Lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>imezimwa</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>kupitia Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>moja kwa moja kwenye {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>inaunganisha WinUSB kwenye skrini ya G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>skrini ya G19 iko kwenye kiendeshi kingine ({0}), kwa hivyo anzisha Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>inahitaji Logitech Gaming Software 8.52 au mpya zaidi</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>anzisha Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>inasubiri simu yenye Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>kwenye simu</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>inahitaji Strike7API.dll, kwa hivyo ipakue au chagua nakala</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll iliyopakuliwa imebadilika, kwa hivyo ipakue tena</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>inahitaji runtime ya Visual C++ 2008 ya Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll haikupakia</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>anzisha programu ya S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>chagua PadForge kwenye skrini ya V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>kwenye skrini ya V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>hakuna skrini iliyopatikana</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, inasubiri rangi ya lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, hakuna picha iliyochaguliwa</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Vitufe vya Skrini ya Kibodi</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Kitufe cha Skrini {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Kitufe cha Applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skrini Kushoto</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Skrini Kulia</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Skrini OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Skrini Ghairi</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Skrini Juu</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Skrini Chini</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Skrini Menyu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Skrini Mipangilio</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge haonyeshi chochote, na applet yake huondoka kwenye skrini. Chini ya Logitech Gaming Software, vitufe vya skrini hufikia PadForge tu wakati applet yake iko mbele, kwa hivyo vinahitaji hali nyingine.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Skrini huonyesha jina la wasifu unaotumika na hufuata kila mabadiliko ya wasifu.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Skrini huonyesha nafasi ya wasifu unaotumika kwenye orodha ya wasifu. Wasifu Chaguomsingi ni 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Skrini huonyesha picha ya wasifu unaotumika yenyewe, au jina lake ikiwa haina picha. Kila wasifu huhifadhi picha yake.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Skrini huonyesha saa ya siku.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Skrini huonyesha saa na dakika tangu wasifu unaotumika ulipowashwa. Wasifu uliounganishwa na programu ya mchezo huwashwa mchezo unapoanza, kwa hivyo hesabu ni ya kipindi hicho. Chini ya wasifu Chaguomsingi, hesabu huanza injini inapoanza.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Skrini huonyesha picha unayochagua, kwa ukubwa wake. Picha kubwa kuliko skrini huonyesha dirisha lenye ukubwa wa skrini, ambalo makro ya Sogeza Picha ya Skrini ya Kibodi huliendesha. Kwenye S.T.R.I.K.E. 7, kidole kinachoburutwa kwenye skrini pia huisogeza.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Skrini huonyesha stopwatch, ambayo makro ya Stopwatch huanza, husitisha na kuweka upya. Kila skrini huonyesha stopwatch ile ile.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skrini huonyesha rangi ya lightbar ya DualShock 4 au DualSense iliyo kwenye nafasi ya chini kabisa. Skrini ya monochrome huonyesha mwangaza wake kama muundo wa nukta. Hadi rangi ifike kwenye lightbar, PadForge haonyeshi chochote.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Picha (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Faili Zote (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Sogeza</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Sogeza X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Sogeza Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} imewekwa kuwa {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Inapakua SDK ya Mad Catz ya S.T.R.I.K.E. 7…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 sasa inapakia {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Inapakua na kusakinisha runtime ya Visual C++ 2008 ya Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Upakuaji wa SDK ya S.T.R.I.K.E. 7 haulingani na SHA-256 yake inayojulikana, kwa hivyo hakuna kilichohifadhiwa kutoka kwake.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Runtime ya Visual C++ 2008 bado haipo baada ya kisakinishi chake kuendeshwa.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Onyesha Skrini ya Kibodi</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Huonyesha picha kwenye kila skrini ya kibodi ya aina iliyochaguliwa, kisha hurudisha kila skrini kwenye hali yake yenyewe.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Onyesha picha za {0}: {1} × {2} ms, idadi ya marudio {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Picha hurekebishwa ili ziingie kwenye skrini: pikseli 160 kwa 43 nyeusi na nyeupe kwenye skrini ya monochrome, 320 kwa 240 kwenye ya G19, na 480 kwa 320 kwa Arx Control na S.T.R.I.K.E. 7. Moja ya kumi ya sekunde ndiyo muda mfupi zaidi wa fremu.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Hali ya Skrini ya Kibodi</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Hubadilisha aina ya skrini ya kibodi kuwa hali nyingine na kuiweka kama mpangilio wa skrini hiyo.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} inaonyesha {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Hali hubaki hadi makro nyingine au kidirisha cha skrini kiibadilishe.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Huanzisha au husitisha, au huweka upya, stopwatch ambayo skrini za kibodi katika hali ya Stopwatch huonyesha.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Anzisha au Sitisha Stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Weka Upya Stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Kuweka upya husimamisha stopwatch na kuirudisha kuwa sifuri. Kila skrini ya kibodi katika hali ya Stopwatch huonyesha stopwatch ile ile.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Sogeza Picha ya Skrini ya Kibodi</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Husogeza dirisha la kila skrini ya kibodi juu ya picha kubwa kuliko skrini, kwa ajili ya ramani.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Sogeza picha {0} kwa {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Husogeza kila aina ya skrini inayoonyesha picha iliyochaguliwa kubwa kuliko yenyewe. Dirisha husimama kwenye kingo za picha.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skrini</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Kitendo</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Mwelekeo</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Hatua</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

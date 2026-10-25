@@ -2352,6 +2352,8 @@ namespace PadForge.Common
              // G-keys carry the Logitech software's own names, and the
              // fallback still says which key in which mode (#454).
              ud.CapType != InputDeviceType.LogitechGKeys &&
+             // The keyboard screen keys are named for the keys (#519).
+             ud.CapType != InputDeviceType.KeyboardScreenKeys &&
              // Analog keys are named for their legends (#468).
              ud.CapType != InputDeviceType.AnalogKeyboard &&
              ud.CapType != InputDeviceType.Tablet));

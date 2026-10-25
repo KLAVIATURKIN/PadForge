@@ -4257,4 +4257,97 @@
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox-ის იმპულსური ტრიგერის 9-ბაიტიანი ანგარიში და მისი ჩაწერის გზა, ავტორი araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5-ის ჰაპტიკური PCM ფორმატი, ნიშნიანი 16-ბიტიანი 3 kHz-ზე, რომელმაც ნიშნიანი 8-ბიტიანი Bluetooth ჰაპტიკის კოდირება დაადგინა. AGPL-3.0, წაკითხულია მხოლოდ როგორც დოკუმენტაცია, AGPL კოდი არ შედის.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>კლავიატურის ეკრანები</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>ხატავს Logitech-ის GamePanel კლავიატურებსა და Mad Catz S.T.R.I.K.E. 7-ში ჩაშენებულ ეკრანებზე და ტელეფონზე Logitech Arx Control-ის მეშვეობით: პროფილს, საათს, თამაშის დროს, წამზომს, სურათს ან DualShock 4-ის ან DualSense-ის შუქის ზოლის ფერს. ამ ეკრანების გვერდით მდებარე კლავიშები ღილაკებად იქცევა რიგში „კლავიატურის ეკრანის კლავიშები“.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>კლავიატურის ეკრანების მართვა</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>ხატავს Logitech G15, G15 v2, G510, G13, Z-10, GamePanel და G19 ეკრანებზე, Arx Control-ზე და Mad Catz S.T.R.I.K.E. 7-ზე. სანამ Logitech Gaming Software მუშაობს, PadForge მისი მეშვეობით ხატავს. მის გარეშე PadForge მონოქრომულ ეკრანებზე HID-ით წერს და G19-ის ეკრანის ინტერფეისს WinUSB-ს უკავშირებს. ამის გამორთვა G19-ის ეკრანს Windows-ს უბრუნებს.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>მონოქრომული ეკრანი…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>ფერადი ეკრანი…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll-ის ჩამოტვირთვა</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mad Catz-ის S.T.R.I.K.E. 7 SDK-ს ჩამოტვირთავს AIDA64-ის სერვერიდან, შეამოწმებს ცნობილ SHA-256-თან და PadForge-ის დროებით საქაღალდეში მხოლოდ 64-ბიტიან Strike7API.dll-ს შეინახავს.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll-ის არჩევა…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 გაშვების გარემოს დაყენება</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>ჩამოტვირთავს Microsoft-ის Visual C++ 2008 SP1 Redistributable-ს 64-ბიტიანი Windows-ისთვის, რომელიც Strike7API.dll-ს სჭირდება, შეამოწმებს მასზე Microsoft-ის ხელმოწერას და დააყენებს.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|ბიბლიოთეკები (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>მონოქრომული ეკრანი</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>ფერადი ეკრანი</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>გამორთულია</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>წამზომი</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>შუქის ზოლის ფერი</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>გამორთულია</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software-ის მეშვეობით</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>პირდაპირ {0}-ზე</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>G19-ის ეკრანის ინტერფეისთან WinUSB-ის დაკავშირება</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19-ის ეკრანი სხვა დრაივერზეა ({0}), ამიტომ გაუშვით Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>საჭიროა Logitech Gaming Software 8.52 ან უფრო ახალი</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>გაუშვით Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>ელოდება ტელეფონს Arx Control-ით</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>ტელეფონზე</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>საჭიროა Strike7API.dll, ამიტომ ჩამოტვირთეთ ან აირჩიეთ ასლი</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>ჩამოტვირთული Strike7API.dll შეიცვალა, ამიტომ ხელახლა ჩამოტვირთეთ</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>საჭიროა Microsoft-ის Visual C++ 2008 გაშვების გარემო</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll ვერ ჩაიტვირთა</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>გაუშვით S.T.R.I.K.E. 7-ის პროგრამა</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>აირჩიეთ PadForge V.E.N.O.M. ეკრანზე</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. ეკრანზე</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ეკრანი ვერ მოიძებნა</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ელოდება შუქის ზოლის ფერს</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, სურათი არჩეული არ არის</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>კლავიატურის ეკრანის კლავიშები</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>ეკრანის კლავიში {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>აპლეტის კლავიში</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>ეკრანის მარცხენა</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>ეკრანის მარჯვენა</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>ეკრანის OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>ეკრანის გაუქმება</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>ეკრანის ზევით</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>ეკრანის ქვევით</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>ეკრანის მენიუ</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>ეკრანის პარამეტრები</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge არაფერს აჩვენებს და მისი აპლეტი ეკრანიდან ქრება. Logitech Gaming Software-ის დროს ეკრანის კლავიშები PadForge-მდე მხოლოდ მაშინ აღწევს, როცა მისი აპლეტი წინა პლანზეა, ამიტომ მათ სხვა რეჟიმი სჭირდება.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>ეკრანი აჩვენებს აქტიური პროფილის სახელს და მიჰყვება პროფილის ყოველ გადართვას.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>ეკრანი აჩვენებს აქტიური პროფილის ადგილს პროფილების სიაში. ნაგულისხმევი პროფილი 0-ია.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>ეკრანი აჩვენებს აქტიური პროფილის საკუთარ სურათს, ხოლო თუ არ აქვს, მის სახელს. ყოველ პროფილს თავისი სურათი აქვს.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>ეკრანი აჩვენებს დღის დროს.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>ეკრანი აჩვენებს საათებსა და წუთებს აქტიური პროფილის ჩართვიდან. თამაშის პროგრამაზე მიბმული პროფილი თამაშის გაშვებისას ირთვება, ამიტომ ათვლა ამ სესიას ეხება. ნაგულისხმევი პროფილის დროს ათვლა ძრავის გაშვებიდან მიდის.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>ეკრანი აჩვენებს თქვენს მიერ არჩეულ სურათს მისივე ზომით. ეკრანზე დიდი სურათიდან ეკრანის ზომის ფანჯარა ჩანს, რომელსაც მაკრო „კლავიატურის ეკრანის სურათის გადაადგილება“ ამოძრავებს. S.T.R.I.K.E. 7-ზე მას ეკრანზე გადაჩოჩებული თითიც ამოძრავებს.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>ეკრანი აჩვენებს წამზომს, რომელსაც მაკრო „წამზომი“ იწყებს, აპაუზებს და ნულზე აბრუნებს. ყველა ეკრანი ერთსა და იმავე წამზომს აჩვენებს.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>ეკრანი აჩვენებს DualShock 4-ის ან DualSense-ის შუქის ზოლის ფერს ყველაზე დაბალ სლოტში. მონოქრომული ეკრანი მის სიკაშკაშეს წერტილოვანი ნიმუშით აჩვენებს. სანამ ფერი შუქის ზოლამდე არ მივა, PadForge არაფერს აჩვენებს.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>სურათები (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|ყველა ფაილი (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>გადაადგილება</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>გადაადგილება X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>გადაადგილება Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0}: დაყენებულია {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>მიმდინარეობს Mad Catz-ის S.T.R.I.K.E. 7 SDK-ს ჩამოტვირთვა…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 ახლა ტვირთავს {0}-ს.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>მიმდინარეობს Microsoft-ის Visual C++ 2008 გაშვების გარემოს ჩამოტვირთვა და დაყენება…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK-ს ჩამოტვირთვა არ ემთხვევა ცნობილ SHA-256-ს, ამიტომ მისგან არაფერი შენახულა.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 გაშვების გარემო ინსტალერის გაშვების შემდეგაც აკლია.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>კლავიატურის ეკრანის ჩვენება</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>აჩვენებს სურათებს არჩეული ტიპის ყველა კლავიატურის ეკრანზე, შემდეგ კი თითოეულ ეკრანს თავის რეჟიმს უბრუნებს.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} სურათების ჩვენება: {1} × {2} მწ, გამეორება {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>სურათები ეკრანს ერგება: 160 × 43 შავ-თეთრი პიქსელი მონოქრომულ ეკრანზე, 320 × 240 G19-ის ეკრანზე და 480 × 320 Arx Control-სა და S.T.R.I.K.E. 7-ზე. კადრის უმოკლესი დრო წამის მეათედია.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>კლავიატურის ეკრანის რეჟიმი</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>კლავიატურის ეკრანის ტიპს სხვა რეჟიმზე ცვლის და ამ ეკრანის პარამეტრად ინახავს.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} აჩვენებს: {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>რეჟიმი რჩება, სანამ სხვა მაკრო ან ეკრანის დიალოგი არ შეცვლის.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>წამზომი</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>იწყებს ან აპაუზებს, ან ნულზე აბრუნებს წამზომს, რომელსაც წამზომის რეჟიმში მყოფი კლავიატურის ეკრანები აჩვენებს.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>წამზომის დაწყება ან პაუზა</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>წამზომის განულება</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>განულება წამზომს აჩერებს და ნულზე აბრუნებს. წამზომის რეჟიმში მყოფი ყველა კლავიატურის ეკრანი ერთსა და იმავე წამზომს აჩვენებს.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>კლავიატურის ეკრანის სურათის გადაადგილება</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>კლავიატურის თითოეული ეკრანის ფანჯარას ეკრანზე დიდ სურათზე ამოძრავებს, მაგალითად რუკისთვის.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>სურათების გადაადგილება: {0} და {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ამოძრავებს ყველა ტიპის ეკრანს, რომელიც საკუთარ ზომაზე დიდ არჩეულ სურათს აჩვენებს. ფანჯარა სურათის კიდეებთან ჩერდება.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>ეკრანი</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>მოქმედება</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>მიმართულება</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>ნაბიჯი</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

@@ -1016,4 +1016,56 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Dagiti screen ti keyboard</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Usaren dagiti screen ti keyboard</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Screen a nangisit ken puraw…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Screen nga addaan kolor…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>I-download ti Strike7API.dll</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Pilien ti Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Ikabil ti Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Screen a nangisit ken puraw</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Screen nga addaan kolor</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Naiddep</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Kolor ti lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>naiddep</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>babaen ti Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>direkta iti {0}</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>kasapulan ti Logitech Gaming Software 8.52 wenno nabarbaro</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>lukatam ti Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>agur-uray iti telepono nga addaan Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>iti telepono</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>kasapulan ti Strike7API.dll, isu nga i-download wenno pilien ti kopia</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>kasapulan ti Visual C++ 2008 runtime ti Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>saan a nai-load ti Strike7API.dll</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>lukatam ti software ti S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>pilien ti PadForge iti screen ti V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>iti screen ti V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>awan ti nasarakan a screen</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, agur-uray iti kolor ti lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, awan ti napili a ladawan</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Dagiti key ti screen ti keyboard</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Key ti screen {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Key ti applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Screen kannigid</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Screen kannawan</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Screen ukasen</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Screen ngato</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Screen baba</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ipakpakita ti screen ti nagan ti aktibo a profile ken sumurot iti tunggal panagbaliw ti profile.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Ipakpakita ti screen ti bukod a ladawan ti aktibo a profile, wenno ti naganna no awan. Tunggal profile ket addaan iti bukodna a ladawan.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ipakpakita ti screen ti oras.</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} naikeddeng iti {1}.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Ipakita ti screen ti keyboard</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode ti screen ti keyboard</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>Ipakita ti {0} ti {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Agtalinaed ti mode agingga a baliwan ti sabali a macro wenno ti dialog ti screen.</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aksion</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direksion</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Addang</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

@@ -1763,4 +1763,74 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Efijerin'ny fitendry</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Ampiasao ny efijerin'ny fitendry</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Efijery mainty sy fotsy…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Efijery miloko…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Sintony ny Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Misintona ny SDK S.T.R.I.K.E. 7 an'ny Mad Catz avy amin'ny mpizara an'ny AIDA64, manamarina azy amin'ny SHA-256 fantatra, ary ny Strike7API.dll 64-bit ihany no tehirizina ao amin'ny lahatahiry vonjimaikan'ny PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Misafidiana Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Apetraho ny runtime Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Efijery mainty sy fotsy</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Efijery miloko</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Tsy miasa</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Lokon'ny lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>tsy miasa</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>amin'ny alalan'ny Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>mivantana eo amin'ny {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>mampifandray ny WinUSB amin'ny efijerin'ny G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>mampiasa pilote hafa ({0}) ny efijerin'ny G19, koa atombohy ny Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>mila Logitech Gaming Software 8.52 na vaovao kokoa</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>atombohy ny Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>miandry finday misy Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>amin'ny finday</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>mila Strike7API.dll, koa sintony izy na misafidiana dika iray</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>niova ny Strike7API.dll nosintonina, koa sintony indray</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>mila ny runtime Visual C++ 2008 an'ny Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>tsy nety nisokatra ny Strike7API.dll</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>atombohy ny rindrankajy S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>safidio ny PadForge eo amin'ny efijery V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>eo amin'ny efijery V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>tsy nahitana efijery</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, miandry lokon'ny lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, tsy misy sary nofidiana</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Bokotry ny efijerin'ny fitendry</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Bokotry ny efijery {0}</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Efijery havia</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Efijery havanana</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Efijery OK</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Efijery ambony</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Efijery ambany</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Efijery menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Efijery fikirakirana</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>Tsy mampiseho na inona na inona ny PadForge, ary miala amin'ny efijery ny applet-ny. Ao amin'ny Logitech Gaming Software, tonga any amin'ny PadForge ny bokotry ny efijery raha mbola eo aloha ny applet-ny ihany, koa mila mode hafa izy ireo.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Mampiseho ny anaran'ny profil mavitrika ny efijery ary manaraka ny fiovan'ny profil tsirairay.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Mampiseho ny laharan'ny profil mavitrika ao amin'ny lisitry ny profil ny efijery. 0 ny profil par défaut.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Mampiseho ny sarin'ny profil mavitrika ny efijery, na ny anarany raha tsy manana sary izy. Samy manana ny sariny ny profil tsirairay.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Mampiseho ny ora ny efijery.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Mampiseho ny lokon'ny lightbar amin'ny DualShock 4 na DualSense ao amin'ny slot ambany indrindra ny efijery. Ny efijery mainty sy fotsy dia mampiseho ny hazavany amin'ny alalan'ny teboka. Raha tsy mbola misy loko tonga amin'ny lightbar, dia tsy mampiseho na inona na inona ny PadForge.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Sary (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Rakitra rehetra (*.*)|*.*</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>Napetraka ho {1} ny {0}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Misintona ny SDK S.T.R.I.K.E. 7 an'ny Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>Mampiditra ny {0} izao ny S.T.R.I.K.E. 7.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Misintona sy mametraka ny runtime Visual C++ 2008 an'ny Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Tsy mifanaraka amin'ny SHA-256 fantatra ny SDK S.T.R.I.K.E. 7 nosintonina, koa tsy nisy notehirizina tamin'izany.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Mbola tsy eo ihany ny runtime Visual C++ 2008 na dia efa nandeha aza ny mpametraka azy.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Asehoy ny efijerin'ny fitendry</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Mampiseho sary amin'ny efijerin'ny fitendry rehetra amin'ilay karazana nofidiana, avy eo mamerina ny efijery tsirairay amin'ny mode-ny.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Asehoy ny sary amin'ny {0}: {1} × {2} ms, isan'ny famerenana {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Ampifanarahina amin'ny efijery ny sary: piksely mainty sy fotsy 160 amin'ny 43 amin'ny efijery mainty sy fotsy, 320 amin'ny 240 amin'ny an'ny G19, ary 480 amin'ny 320 ho an'ny Arx Control sy ny S.T.R.I.K.E. 7. Ampahafolon'ny segondra no fotoana fohy indrindra isaky ny sary.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode an'ny efijerin'ny fitendry</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Manova karazana efijerin'ny fitendry iray ho amin'ny mode hafa ary mitahiry izany ho fikirakirana an'io efijery io.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>Mampiseho {1} ny {0}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mijanona ny mode mandra-panovan'ny macro hafa na ny varavarankelin'ny efijery azy.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Efijery</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Hetsika</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Lalana</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

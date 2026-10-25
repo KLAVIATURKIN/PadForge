@@ -599,6 +599,11 @@ namespace PadForge
 
                 if (e.PropertyName == nameof(SettingsViewModel.FlydigiEnhancedProtocol))
                     Common.Input.InputManager.ApplyFlydigiEnhancedProtocol(_viewModel.Settings.FlydigiEnhancedProtocol);
+                // (#519) Off closes the keyboard screens' sessions and gives a
+                // G19 screen PadForge bound back to Windows, engine running or
+                // not.
+                if (e.PropertyName == nameof(SettingsViewModel.KeyboardScreensEnabled))
+                    _inputService?.KeyboardScreensSwitched(_viewModel.Settings.KeyboardScreensEnabled);
                 // (#439) Always Show in System Tray keeps the tray icon up while
                 // the window is open. Follow the toggle live, and leave the icon
                 // alone while the window is hidden in the tray, where it is
@@ -633,6 +638,7 @@ namespace PadForge
                      or nameof(SettingsViewModel.GKeysEnabled)
                      or nameof(SettingsViewModel.AnalogKeyboardsEnabled)
                      or nameof(SettingsViewModel.BlissBoxEnabled)
+                     or nameof(SettingsViewModel.KeyboardScreensEnabled)
                      or nameof(SettingsViewModel.Use2DControllerView)
                      or nameof(SettingsViewModel.EnableAutoProfileSwitching)
                      or nameof(SettingsViewModel.EnableCommunityConfigLookup)
@@ -864,6 +870,9 @@ namespace PadForge
                         () => Dispatcher.BeginInvoke(new Action(RefreshMidiServicesStatus))),
                     RefreshMidiServicesStatus);
             };
+
+            // The Keyboard Screens card (#519).
+            WireKeyboardScreens();
 
             // Wire device service events (assign to slot, hide, etc.).
             _deviceService.WireEvents();
@@ -7048,14 +7057,19 @@ namespace PadForge
             // localized name into the saved snapshot.
             string priorName = profile.Name;
             string priorPicture = profile.DreamcastPicture;
+            string priorScreenPicture = profile.KeyboardScreenPicture;
             try
             {
                 profile.Name = exportName;
                 // The Default profile's Dreamcast screen picture lives in the
                 // settings file (#469), not on its snapshot, so it rides the
-                // export the same way the name does, for the write only.
+                // export the same way the name does, for the write only. Its
+                // keyboard screen picture (#519) does the same.
                 if (selected.IsDefault)
+                {
                     profile.DreamcastPicture = _viewModel.Settings.DefaultProfileDreamcastPicture;
+                    profile.KeyboardScreenPicture = _viewModel.Settings.DefaultProfileKeyboardScreenPicture;
+                }
                 PadForge.Common.ProfileTransfer.Export(profile, dlg.FileName);
                 _viewModel.StatusText = string.Format(Strings.Instance.Status_ProfileExported_Format, exportName);
             }
@@ -7067,6 +7081,7 @@ namespace PadForge
             {
                 profile.Name = priorName;
                 profile.DreamcastPicture = priorPicture;
+                profile.KeyboardScreenPicture = priorScreenPicture;
             }
         }
 
@@ -9115,6 +9130,8 @@ namespace PadForge
                 DriverCheckFailure.SteamVrLocationIsDriveRoot => s.Status_SteamVRLocationIsDriveRoot,
                 DriverCheckFailure.SteamCmdTimedOut => s.Status_SteamCmdTimedOut,
                 DriverCheckFailure.SteamVrDidNotLand => string.Format(s.Status_SteamVRDidNotLand_Format, check.Detail, check.Output),
+                DriverCheckFailure.Strike7SdkHashMismatch => s.Status_Strike7SdkHashMismatch,
+                DriverCheckFailure.Vc2008RuntimeMissing => s.Status_Vc2008RuntimeMissing,
                 _ => check.Message,
             };
         }

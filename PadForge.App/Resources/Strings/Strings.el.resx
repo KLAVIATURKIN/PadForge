@@ -4291,4 +4291,97 @@
   <data name="About_X1nputDesc" xml:space="preserve"><value>Η αναφορά 9 byte των σκανδαλών ώθησης του Xbox και η διαδρομή εγγραφής της, του araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Η μορφή PCM απτικής ανάδρασης του PS5, προσημασμένη 16 bit στα 3 kHz, που καθόρισε την προσημασμένη κωδικοποίηση απτικής ανάδρασης 8 bit μέσω Bluetooth. AGPL-3.0, μελετήθηκε μόνο ως τεκμηρίωση, δεν διανέμεται κώδικας AGPL.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Οθόνες πληκτρολογίου</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Σχεδιάζει στις οθόνες που είναι ενσωματωμένες στα πληκτρολόγια GamePanel της Logitech και στο Mad Catz S.T.R.I.K.E. 7, καθώς και σε τηλέφωνο μέσω του Logitech Arx Control: το προφίλ, ένα ρολόι, τον χρόνο παιχνιδιού, ένα χρονόμετρο, μια εικόνα ή το χρώμα της φωτεινής μπάρας ενός DualShock 4 ή DualSense. Τα πλήκτρα δίπλα σε αυτές τις οθόνες γίνονται κουμπιά στη γραμμή «Πλήκτρα οθόνης πληκτρολογίου».</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Οδήγηση οθονών πληκτρολογίου</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Σχεδιάζει στις οθόνες των Logitech G15, G15 v2, G510, G13, Z-10, GamePanel και G19, στο Arx Control και στο Mad Catz S.T.R.I.K.E. 7. Όσο εκτελείται το Logitech Gaming Software, το PadForge σχεδιάζει μέσω αυτού. Χωρίς αυτό, το PadForge γράφει στις μονόχρωμες οθόνες μέσω HID και συνδέει το WinUSB στη διεπαφή οθόνης του G19. Η απενεργοποίηση αυτής της επιλογής επιστρέφει την οθόνη του G19 στα Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Μονόχρωμη οθόνη…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Έγχρωμη οθόνη…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Λήψη Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Κατεβάζει το SDK του S.T.R.I.K.E. 7 της Mad Catz από τον διακομιστή του AIDA64, το ελέγχει με το γνωστό SHA-256 και κρατά μόνο το 64-bit Strike7API.dll στον προσωρινό φάκελο του PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Επιλογή Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Εγκατάσταση περιβάλλοντος εκτέλεσης Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Κατεβάζει το Visual C++ 2008 SP1 Redistributable της Microsoft για Windows 64-bit, το οποίο χρειάζεται το Strike7API.dll, ελέγχει την υπογραφή της Microsoft σε αυτό και το εγκαθιστά.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Βιβλιοθήκες (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Μονόχρωμη οθόνη</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Έγχρωμη οθόνη</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Σβηστό</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Χρονόμετρο</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Χρώμα φωτεινής μπάρας</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>σβηστό</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>μέσω του Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>απευθείας στο {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>σύνδεση του WinUSB στην οθόνη του G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>η οθόνη του G19 χρησιμοποιεί άλλο πρόγραμμα οδήγησης ({0}), οπότε ξεκινήστε το Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>απαιτεί Logitech Gaming Software 8.52 ή νεότερο</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>ξεκινήστε το Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>αναμονή για τηλέφωνο με Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>σε τηλέφωνο</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>απαιτεί το Strike7API.dll, οπότε κατεβάστε το ή επιλέξτε ένα αντίγραφο</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>το Strike7API.dll που λήφθηκε έχει αλλάξει, οπότε κατεβάστε το ξανά</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>απαιτεί το περιβάλλον εκτέλεσης Visual C++ 2008 της Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>το Strike7API.dll δεν φορτώθηκε</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>ξεκινήστε το λογισμικό του S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>επιλέξτε το PadForge στην οθόνη V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>στην οθόνη V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>δεν βρέθηκε οθόνη</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, αναμονή για χρώμα φωτεινής μπάρας</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, δεν έχει επιλεγεί εικόνα</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Πλήκτρα οθόνης πληκτρολογίου</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Πλήκτρο οθόνης {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Πλήκτρο μικροεφαρμογής</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Αριστερά οθόνης</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Δεξιά οθόνης</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>OK οθόνης</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Ακύρωση οθόνης</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Πάνω οθόνης</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Κάτω οθόνης</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Μενού οθόνης</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Ρυθμίσεις οθόνης</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>Το PadForge δεν εμφανίζει τίποτα και η μικροεφαρμογή του φεύγει από την οθόνη. Με το Logitech Gaming Software, τα πλήκτρα της οθόνης φτάνουν στο PadForge μόνο όσο η μικροεφαρμογή του είναι μπροστά, οπότε χρειάζονται άλλη λειτουργία.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Η οθόνη δείχνει το όνομα του ενεργού προφίλ και ακολουθεί κάθε αλλαγή προφίλ.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Η οθόνη δείχνει τη θέση του ενεργού προφίλ στη λίστα προφίλ. Το προφίλ «Προεπιλεγμένο» είναι το 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Η οθόνη δείχνει την εικόνα του ενεργού προφίλ ή το όνομά του, όταν δεν έχει εικόνα. Κάθε προφίλ διατηρεί τη δική του εικόνα.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Η οθόνη δείχνει την ώρα της ημέρας.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Η οθόνη δείχνει τις ώρες και τα λεπτά από τη στιγμή που ενεργοποιήθηκε το ενεργό προφίλ. Ένα προφίλ συνδεδεμένο με το πρόγραμμα ενός παιχνιδιού ενεργοποιείται όταν ξεκινά το παιχνίδι, οπότε η μέτρηση αφορά εκείνη τη συνεδρία. Στο προφίλ «Προεπιλεγμένο» η μέτρηση ξεκινά από την εκκίνηση της μηχανής.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Η οθόνη δείχνει μια εικόνα της επιλογής σας, στο δικό της μέγεθος. Μια εικόνα μεγαλύτερη από την οθόνη εμφανίζεται μέσα από ένα παράθυρο στο μέγεθος της οθόνης, το οποίο μετακινεί η μακροεντολή «Μετακίνηση εικόνας οθόνης πληκτρολογίου». Στο S.T.R.I.K.E. 7 το μετακινεί και ένα δάχτυλο που σέρνεται στην οθόνη.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Η οθόνη δείχνει το χρονόμετρο, το οποίο η μακροεντολή «Χρονόμετρο» ξεκινά, διακόπτει και μηδενίζει. Όλες οι οθόνες δείχνουν το ίδιο χρονόμετρο.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Η οθόνη δείχνει το χρώμα της φωτεινής μπάρας του DualShock 4 ή DualSense στη χαμηλότερη υποδοχή. Μια μονόχρωμη οθόνη δείχνει τη φωτεινότητά της ως μοτίβο κουκκίδων. Μέχρι να φτάσει χρώμα σε φωτεινή μπάρα, το PadForge δεν δείχνει τίποτα.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Εικόνες (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Όλα τα αρχεία (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Μετακίνηση</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Μετακίνηση X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Μετακίνηση Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0}: ορίστηκε σε {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Λήψη του SDK του S.T.R.I.K.E. 7 της Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>Το S.T.R.I.K.E. 7 φορτώνει πλέον το {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Λήψη και εγκατάσταση του περιβάλλοντος εκτέλεσης Visual C++ 2008 της Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Η λήψη του SDK του S.T.R.I.K.E. 7 δεν ταιριάζει με το γνωστό SHA-256, οπότε δεν κρατήθηκε τίποτα από αυτήν.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Το περιβάλλον εκτέλεσης Visual C++ 2008 εξακολουθεί να λείπει μετά την εκτέλεση του προγράμματος εγκατάστασής του.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Εμφάνιση οθόνης πληκτρολογίου</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Αναπαράγει εικόνες σε κάθε οθόνη πληκτρολογίου του επιλεγμένου είδους και έπειτα επαναφέρει κάθε οθόνη στη δική της λειτουργία.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Εμφάνιση εικόνων {0}: {1} × {2} ms, πλήθος επαναλήψεων {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Οι εικόνες προσαρμόζονται στην οθόνη: 160 επί 43 ασπρόμαυρα εικονοστοιχεία σε μονόχρωμη οθόνη, 320 επί 240 στο G19 και 480 επί 320 για το Arx Control και το S.T.R.I.K.E. 7. Το ένα δέκατο του δευτερολέπτου είναι ο μικρότερος χρόνος καρέ.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Λειτουργία οθόνης πληκτρολογίου</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Αλλάζει ένα είδος οθόνης πληκτρολογίου σε άλλη λειτουργία και την κρατά ως ρύθμιση αυτής της οθόνης.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} δείχνει {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Η λειτουργία μένει μέχρι να την αλλάξει άλλη μακροεντολή ή το παράθυρο διαλόγου της οθόνης.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Χρονόμετρο</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Ξεκινά ή διακόπτει, ή μηδενίζει, το χρονόμετρο που δείχνουν οι οθόνες πληκτρολογίου στη λειτουργία Χρονόμετρο.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Έναρξη ή παύση χρονομέτρου</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Μηδενισμός χρονομέτρου</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Ο μηδενισμός σταματά το χρονόμετρο και το επαναφέρει στο μηδέν. Κάθε οθόνη πληκτρολογίου στη λειτουργία Χρονόμετρο δείχνει το ίδιο χρονόμετρο.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Μετακίνηση εικόνας οθόνης πληκτρολογίου</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Μετακινεί το παράθυρο κάθε οθόνης πληκτρολογίου πάνω σε μια εικόνα μεγαλύτερη από την οθόνη, για παράδειγμα έναν χάρτη.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Μετακίνηση εικόνων κατά {0} επί {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Μετακινεί κάθε είδος οθόνης που δείχνει επιλεγμένη εικόνα μεγαλύτερη από την ίδια. Το παράθυρο σταματά στα όρια της εικόνας.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Οθόνη</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Ενέργεια</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Κατεύθυνση</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Βήμα</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

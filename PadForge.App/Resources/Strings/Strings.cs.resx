@@ -4291,4 +4291,97 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="About_X1nputDesc" xml:space="preserve"><value>Devítibajtový report impulzních spouští Xbox a cesta jeho zápisu, autor araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Formát haptického PCM ovladače PS5, 16bitový se znaménkem při 3 kHz, podle kterého se ustálilo kódování haptiky přes Bluetooth jako 8bitové se znaménkem. AGPL-3.0, čteno jen jako dokumentace, žádný kód pod AGPL se nedodává.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Obrazovky klávesnice</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Kreslí na obrazovky zabudované do klávesnic Logitech GamePanel a Mad Catz S.T.R.I.K.E. 7 a na telefon přes Logitech Arx Control: profil, hodiny, herní dobu, stopky, obrázek nebo barvu světelného panelu ovladače DualShock 4 či DualSense. Klávesy vedle těchto obrazovek se stanou tlačítky v řádku Klávesy obrazovek klávesnice.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Ovládat obrazovky klávesnice</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Kreslí na obrazovky Logitech G15, G15 v2, G510, G13, Z-10, GamePanel a G19, na Arx Control a na Mad Catz S.T.R.I.K.E. 7. Když běží Logitech Gaming Software, PadForge kreslí přes něj. Bez něj PadForge zapisuje na monochromatické obrazovky přes HID a připojuje WinUSB k rozhraní obrazovky G19. Po vypnutí se obrazovka G19 vrátí Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monochromatická obrazovka…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Barevná obrazovka…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Stáhnout Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Stáhne sadu SDK pro Mad Catz S.T.R.I.K.E. 7 ze serveru AIDA64, ověří ji podle známého SHA-256 a v dočasné složce PadForge ponechá jen 64bitový Strike7API.dll.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Vybrat Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Nainstalovat běhové prostředí Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Stáhne Microsoft Visual C++ 2008 SP1 Redistributable pro 64bitové Windows, který Strike7API.dll potřebuje, ověří jeho podpis společnosti Microsoft a nainstaluje ho.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Knihovny (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Monochromatická obrazovka</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Barevná obrazovka</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Vypnuto</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Stopky</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Barva světelného panelu</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>vypnuto</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>přes Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>přímo na {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>připojuje se WinUSB k obrazovce G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>obrazovka G19 používá jiný ovladač ({0}), spusťte proto Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>vyžaduje Logitech Gaming Software 8.52 nebo novější</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>spusťte Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>čeká se na telefon s Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>na telefonu</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>vyžaduje Strike7API.dll, stáhněte ho nebo vyberte kopii</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>stažený Strike7API.dll se změnil, stáhněte ho znovu</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>vyžaduje běhové prostředí Microsoft Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll se nepodařilo načíst</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>spusťte software S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>vyberte PadForge na obrazovce V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>na obrazovce V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>žádná obrazovka nenalezena</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, čeká se na barvu světelného panelu</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nebyl vybrán žádný obrázek</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Klávesy obrazovek klávesnice</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Klávesa obrazovky {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Klávesa appletu</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Obrazovka vlevo</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Obrazovka vpravo</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Obrazovka OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Obrazovka Zrušit</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Obrazovka nahoru</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Obrazovka dolů</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Obrazovka Nabídka</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Obrazovka Nastavení</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge nezobrazuje nic a jeho applet obrazovku opustí. V Logitech Gaming Software se klávesy obrazovky dostanou do PadForge jen tehdy, když je jeho applet vpředu, proto potřebují jiný režim.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Obrazovka zobrazuje název aktivního profilu a mění se při každém přepnutí profilu.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Obrazovka zobrazuje pořadí aktivního profilu v seznamu profilů. Výchozí profil má číslo 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Obrazovka zobrazuje vlastní obrázek aktivního profilu, případně jeho název, pokud žádný obrázek nemá. Každý profil má svůj obrázek.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Obrazovka zobrazuje čas.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Obrazovka zobrazuje hodiny a minuty od přepnutí na aktivní profil. Profil svázaný s programem hry se přepne při spuštění hry, takže se počítá doba této relace. U výchozího profilu se počítá od spuštění enginu.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Obrazovka zobrazuje obrázek, který vyberete, v jeho vlastní velikosti. Obrázek větší než obrazovka se zobrazí jako výřez velikosti obrazovky, který posouvá makro Posunout obrázek na obrazovce klávesnice. Na S.T.R.I.K.E. 7 ho posouvá i prst tažený po obrazovce.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Obrazovka zobrazuje stopky, které makro Stopky spouští, pozastavuje a resetuje. Všechny obrazovky zobrazují stejné stopky.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Obrazovka zobrazuje barvu světelného panelu ovladače DualShock 4 nebo DualSense v nejnižším slotu. Monochromatická obrazovka zobrazuje jeho jas jako bodový vzor. Dokud barva nedorazí na světelný panel, PadForge nezobrazuje nic.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Obrázky (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Všechny soubory (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Posun</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Posun X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Posun Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} nastaveno na: {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Stahuje se sada SDK pro Mad Catz S.T.R.I.K.E. 7…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 nyní načítá {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Stahuje a instaluje se běhové prostředí Microsoft Visual C++ 2008…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Stažená sada SDK pro S.T.R.I.K.E. 7 neodpovídá známému SHA-256, proto nebylo nic z ní ponecháno.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Běhové prostředí Visual C++ 2008 po spuštění instalátoru stále chybí.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Zobrazit na obrazovce klávesnice</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Přehraje obrázky na každé obrazovce klávesnice vybraného druhu a poté vrátí každou obrazovku do jejího režimu.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Zobrazit obrázky ({0}): {1} × {2} ms, počet opakování {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Obrázky se přizpůsobí obrazovce: 160 × 43 černobílých pixelů na monochromatické obrazovce, 320 × 240 na obrazovce G19 a 480 × 320 pro Arx Control a S.T.R.I.K.E. 7. Nejkratší doba snímku je desetina sekundy.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Režim obrazovky klávesnice</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Přepne druh obrazovky klávesnice do jiného režimu a uloží ho jako nastavení této obrazovky.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} zobrazuje: {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Režim zůstane, dokud ho nezmění jiné makro nebo dialog obrazovky.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopky</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Spustí nebo pozastaví, případně resetuje stopky, které zobrazují obrazovky klávesnice v režimu Stopky.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Spustit nebo pozastavit stopky</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Resetovat stopky</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Reset zastaví stopky a nastaví je zpět na nulu. Všechny obrazovky klávesnice v režimu Stopky zobrazují stejné stopky.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Posunout obrázek na obrazovce klávesnice</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Posune výřez každé obrazovky klávesnice po obrázku větším než obrazovka, například po mapě.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Posunout obrázky o {0} × {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Posune každý druh obrazovky, který zobrazuje vybraný obrázek větší než on sám. Výřez se zastaví na okrajích obrázku.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Obrazovka</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Akce</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Směr</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Krok</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

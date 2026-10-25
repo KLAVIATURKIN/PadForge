@@ -914,4 +914,26 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Disekirini tsa keyboard</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Sekirini sa mmala…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Tlhopha Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Sekirini sa mmala</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Tima</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Mmala wa lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>ka Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>mo mogaleng</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>mo sekirining sa V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ga go na setshwantsho se se tlhophilweng</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Dikonopo tsa sekirini sa keyboard</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Konopo ya sekirini {0}</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Sekirini se bontsha nako ya letsatsi.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Ditshwantsho (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Difaele tsotlhe (*.*)|*.*</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Bontsha sekirini sa keyboard</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Sekirini</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

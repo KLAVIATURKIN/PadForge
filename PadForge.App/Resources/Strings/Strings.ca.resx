@@ -4271,4 +4271,97 @@ Vols que PadForge els desinstal·li ara? Cal elevar els permisos i pot trigar un
   <data name="About_X1nputDesc" xml:space="preserve"><value>L'informe de 9 bytes dels gallets d'impuls de Xbox i la seva ruta d'escriptura, d'araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>El format PCM hàptic de la PS5, de 16 bits amb signe a 3 kHz, que va resoldre la codificació hàptica de 8 bits amb signe per Bluetooth. AGPL-3.0, llegit només com a documentació, no s'hi inclou cap codi AGPL.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Pantalles del teclat</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Dibuixa a les pantalles integrades als teclats GamePanel de Logitech i al S.T.R.I.K.E. 7 de Mad Catz, i en un telèfon mitjançant Logitech Arx Control: el perfil, un rellotge, el temps de joc, un cronòmetre, una imatge o el color de la barra de llum d'un DualShock 4 o DualSense. Les tecles situades al costat d'aquestes pantalles esdevenen botons a la fila Tecles de pantalla del teclat.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Controla les pantalles del teclat</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Dibuixa a les pantalles del Logitech G15, G15 v2, G510, G13, Z-10, GamePanel i G19, a Arx Control i al S.T.R.I.K.E. 7 de Mad Catz. Mentre Logitech Gaming Software s'executa, PadForge dibuixa a través seu. Sense aquest programa, PadForge escriu a les pantalles monocromes per HID i vincula WinUSB a la interfície de pantalla de la G19. Si ho desactives, la pantalla de la G19 torna a Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Pantalla monocroma…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Pantalla en color…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Baixa Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Baixa el SDK del S.T.R.I.K.E. 7 de Mad Catz del servidor d'AIDA64, el comprova amb el seu SHA-256 conegut i només conserva el Strike7API.dll de 64 bits a la carpeta temporal de PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Tria Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Instal·la l'entorn d'execució de Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Baixa el Visual C++ 2008 SP1 Redistributable de Microsoft per a Windows de 64 bits, que Strike7API.dll necessita, en comprova la signatura de Microsoft i l'instal·la.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Biblioteques (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Pantalla monocroma</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Pantalla en color</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Desactivat</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Cronòmetre</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Color de la barra de llum</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>desactivat</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>a través de Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>directament a {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>vinculant WinUSB a la pantalla de la G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>la pantalla de la G19 usa un altre controlador ({0}), així que inicia Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>requereix Logitech Gaming Software 8.52 o posterior</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>inicia Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>esperant un telèfon amb Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>en un telèfon</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>requereix Strike7API.dll, així que baixa'l o tria'n una còpia</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>el Strike7API.dll baixat ha canviat, així que torna a baixar-lo</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>requereix l'entorn d'execució de Visual C++ 2008 de Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>no s'ha pogut carregar Strike7API.dll</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>inicia el programari del S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>tria PadForge a la pantalla V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>a la pantalla V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>no s'ha trobat cap pantalla</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, esperant un color de la barra de llum</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, cap imatge triada</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tecles de pantalla del teclat</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tecla de pantalla {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tecla d'applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Pantalla: esquerra</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Pantalla: dreta</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Pantalla: D'acord</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Pantalla: cancel·la</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Pantalla: amunt</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Pantalla: avall</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Pantalla: menú</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Pantalla: configuració</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge no mostra res i el seu applet deixa la pantalla. Amb Logitech Gaming Software, les tecles de la pantalla només arriben a PadForge mentre el seu applet és al davant, així que necessiten un altre mode.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>La pantalla mostra el nom del perfil actiu i s'actualitza a cada canvi de perfil.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>La pantalla mostra el lloc del perfil actiu a la llista de perfils. El perfil Per defecte és el 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>La pantalla mostra la imatge pròpia del perfil actiu, o el seu nom quan no en té. Cada perfil conserva la seva imatge.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>La pantalla mostra l'hora.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>La pantalla mostra les hores i els minuts des que es va activar el perfil actiu. Un perfil lligat al programa d'un joc s'activa quan el joc s'inicia, de manera que el comptador és el d'aquella sessió. Amb el perfil Per defecte, compta des de l'inici del motor.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>La pantalla mostra una imatge que tries, a la seva mida. Si la imatge és més gran que la pantalla, es mostra una finestra de la mida de la pantalla, que la macro Desplaça la imatge de la pantalla del teclat mou. Al S.T.R.I.K.E. 7, arrossegar un dit per la pantalla també la mou.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>La pantalla mostra el cronòmetre, que la macro Cronòmetre inicia, posa en pausa i restableix. Totes les pantalles mostren el mateix cronòmetre.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>La pantalla mostra el color de la barra de llum del DualShock 4 o DualSense de la ranura més baixa. Una pantalla monocroma en mostra la brillantor com a patró de punts. Fins que un color arriba a una barra de llum, PadForge no mostra res.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Imatges (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tots els fitxers (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Desplaçament</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Desplaçament X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Desplaçament Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} s'ha establert a {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>S'està baixant el SDK del S.T.R.I.K.E. 7 de Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>El S.T.R.I.K.E. 7 ara carrega {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>S'està baixant i instal·lant l'entorn d'execució de Visual C++ 2008 de Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>La baixada del SDK del S.T.R.I.K.E. 7 no coincideix amb el seu SHA-256 conegut, així que no se n'ha conservat res.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>L'entorn d'execució de Visual C++ 2008 continua sense estar instal·lat després d'executar-se el seu instal·lador.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Mostra la pantalla del teclat</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Reprodueix imatges a totes les pantalles del teclat del tipus triat i després retorna cada pantalla al seu propi mode.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Mostra imatges de {0}: {1} × {2} ms, repeticions {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Les imatges s'ajusten a la pantalla: 160 per 43 píxels en blanc i negre en una pantalla monocroma, 320 per 240 a la de la G19 i 480 per 320 per a Arx Control i el S.T.R.I.K.E. 7. Una dècima de segon és el temps mínim per imatge.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode de la pantalla del teclat</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Canvia un tipus de pantalla de teclat a un altre mode i el conserva com a configuració d'aquella pantalla.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} mostra {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>El mode es manté fins que una altra macro o el diàleg de la pantalla el canviï.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Cronòmetre</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Posa en marxa o en pausa, o restableix, el cronòmetre que mostren les pantalles del teclat en mode Cronòmetre.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Inicia o posa en pausa el cronòmetre</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Restableix el cronòmetre</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Restablir atura el cronòmetre i el torna a zero. Totes les pantalles del teclat en mode Cronòmetre mostren el mateix cronòmetre.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Desplaça la imatge de la pantalla del teclat</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Mou la finestra de cada pantalla del teclat sobre una imatge més gran que la pantalla, per a un mapa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Desplaça les imatges {0} per {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Mou tots els tipus de pantalla que mostren una imatge triada més gran que la pantalla. La finestra s'atura als límits de la imatge.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Pantalla</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Acció</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direcció</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Pas</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

@@ -1639,4 +1639,60 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Àwọn ìbòjú pátákó ìtẹ̀wé</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Ṣàkóso àwọn ìbòjú pátákó ìtẹ̀wé</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Ìbòjú dúdú àti funfun…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Ìbòjú aláwọ̀…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Ṣe ìgbàsílẹ̀ Strike7API.dll</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Yan Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Ìbòjú dúdú àti funfun</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Ìbòjú aláwọ̀</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Àwọ̀ lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>pa</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>nípasẹ̀ Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>tààrà lórí {0}</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>ìbòjú G19 wà lórí awakọ̀ míràn ({0}), nítorí náà ṣí Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>ó nílò Logitech Gaming Software 8.52 tàbí èyí tó tuntun jù</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>ṣí Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>ń dúró de fóònù tí ó ní Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>lórí fóònù</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>ó nílò Strike7API.dll, nítorí náà ṣe ìgbàsílẹ̀ rẹ̀ tàbí yan ẹ̀dà kan</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll tí a gbà sílẹ̀ ti yípadà, nítorí náà tún ṣe ìgbàsílẹ̀ rẹ̀</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>yan PadForge lórí ìbòjú V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>lórí ìbòjú V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>a kò rí ìbòjú kankan</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ń dúró de àwọ̀ lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, a kò tíì yan àwòrán</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Àwọn kọ́kọ́rọ́ ìbòjú pátákó ìtẹ̀wé</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Kọ́kọ́rọ́ ìbòjú {0}</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Òsì ìbòjú</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Ọ̀tún ìbòjú</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>OK ìbòjú</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Fagilé ìbòjú</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Òkè ìbòjú</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Ìsàlẹ̀ ìbòjú</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Àkójọ àṣàyàn ìbòjú</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Ètò ìbòjú</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ìbòjú náà ń fi orúkọ profaili tó ń ṣiṣẹ́ hàn, ó sì ń yípadà nígbàkúùgbà tí profaili bá yípadà.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ìbòjú náà ń fi ipò profaili tó ń ṣiṣẹ́ hàn nínú àkójọ profaili. Profaili Àìyípadà ni 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Ìbòjú náà ń fi àwòrán profaili tó ń ṣiṣẹ́ hàn, tàbí orúkọ rẹ̀ tí kò bá ní àwòrán. Profaili kọ̀ọ̀kan ní àwòrán tirẹ̀.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ìbòjú náà ń fi aago hàn.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Àwọn àwòrán (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Gbogbo fáìlì (*.*)|*.*</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>A ti yí {0} padà sí {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Ń ṣe ìgbàsílẹ̀ SDK S.T.R.I.K.E. 7 ti Mad Catz…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Ìgbàsílẹ̀ SDK S.T.R.I.K.E. 7 kò bá SHA-256 rẹ̀ tí a mọ̀ mu, nítorí náà a kò pa ohunkóhun mọ́ nínú rẹ̀.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Fi ìbòjú pátákó ìtẹ̀wé hàn</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Fi àwọn àwòrán {0} hàn: {1} × {2} ms, iye àtúnwí {3}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} ń fi {1} hàn</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ìbòjú</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Ìṣe</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Ìtọ́sọ́nà</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Ìgbésẹ̀</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

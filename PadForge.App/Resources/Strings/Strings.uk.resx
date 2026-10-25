@@ -4267,4 +4267,97 @@
   <data name="About_X1nputDesc" xml:space="preserve"><value>9-байтовий звіт імпульсних тригерів Xbox і шлях його запису, від araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Формат тактильного PCM для PS5, знаковий 16-бітний на 3 kHz, який визначив знакове 8-бітне кодування тактильного відгуку через Bluetooth. AGPL-3.0, використано лише як документацію, код під AGPL не постачається.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Екрани клавіатур</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Малює на екранах, вбудованих у клавіатури Logitech GamePanel і Mad Catz S.T.R.I.K.E. 7, а також на телефоні через Logitech Arx Control: профіль, годинник, час гри, секундомір, зображення або колір світлової панелі DualShock 4 чи DualSense. Клавіші поруч із цими екранами стають кнопками в рядку «Клавіші екранів клавіатур».</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Керувати екранами клавіатур</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Малює на екранах Logitech G15, G15 v2, G510, G13, Z-10, GamePanel і G19, на Arx Control та на Mad Catz S.T.R.I.K.E. 7. Поки працює Logitech Gaming Software, PadForge малює через нього. Без нього PadForge записує на монохромні екрани через HID і прив'язує WinUSB до інтерфейсу екрана G19. Якщо вимкнути цей параметр, екран G19 повертається Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Монохромний екран…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Кольоровий екран…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Завантажити Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Завантажує SDK Mad Catz для S.T.R.I.K.E. 7 із сервера AIDA64, звіряє його з відомою контрольною сумою SHA-256 і залишає лише 64-розрядний Strike7API.dll у тимчасовій папці PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Вибрати Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Установити Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Завантажує Microsoft Visual C++ 2008 SP1 Redistributable для 64-розрядної Windows, потрібний Strike7API.dll, перевіряє його підпис Microsoft і встановлює.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Бібліотеки (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Монохромний екран</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Кольоровий екран</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Вимкнено</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Секундомір</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Колір світлової панелі</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>вимкнено</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>через Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>безпосередньо на {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>прив'язування WinUSB до екрана G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>екран G19 працює з іншим драйвером ({0}), тому запустіть Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>потрібен Logitech Gaming Software 8.52 або новіший</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>запустіть Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>очікується телефон з Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>на телефоні</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>потрібен Strike7API.dll: завантажте його або виберіть копію</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>завантажений Strike7API.dll змінився, завантажте його знову</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>потрібне середовище виконання Microsoft Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll не вдалося завантажити</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>запустіть програму S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>виберіть PadForge на екрані V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>на екрані V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>екран не знайдено</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, очікується колір світлової панелі</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, зображення не вибрано</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Клавіші екранів клавіатур</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Клавіша екрана {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Клавіша аплетів</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Екран: вліво</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Екран: вправо</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Екран: OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Екран: скасувати</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Екран: вгору</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Екран: вниз</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Екран: меню</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Екран: налаштування</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge нічого не показує, а його аплет залишає екран. Під керуванням Logitech Gaming Software клавіші екрана доходять до PadForge, лише поки його аплет на передньому плані, тому їм потрібен інший режим.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Екран показує назву активного профілю та оновлюється після кожного перемикання профілю.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Екран показує місце активного профілю в списку профілів. Типовий профіль має номер 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Екран показує власне зображення активного профілю або його назву, якщо зображення немає. Кожен профіль зберігає власне зображення.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Екран показує поточний час.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Екран показує години й хвилини з моменту, коли активний профіль було ввімкнено. Профіль, прив'язаний до програми гри, вмикається під час запуску гри, тож відлік іде за цей сеанс. Під типовим профілем відлік іде від запуску рушія.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Екран показує вибране вами зображення в його власному розмірі. Якщо зображення більше за екран, видно вікно розміром з екран, яке переміщує макрос «Зсунути зображення на екрані клавіатури». На S.T.R.I.K.E. 7 його також переміщує палець, проведений по екрану.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Екран показує секундомір, який макрос «Секундомір» запускає, ставить на паузу та скидає. Усі екрани показують той самий секундомір.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Екран показує колір світлової панелі DualShock 4 або DualSense у слоті з найменшим номером. Монохромний екран показує її яскравість візерунком із точок. Доки колір не дійде до світлової панелі, PadForge нічого не показує.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Зображення (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Усі файли (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Зсув</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Зсув X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Зсув Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0}: вибрано {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Завантаження SDK Mad Catz для S.T.R.I.K.E. 7…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 тепер завантажує {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Завантаження та встановлення середовища виконання Microsoft Visual C++ 2008…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Завантажений SDK для S.T.R.I.K.E. 7 не збігається з відомою контрольною сумою SHA-256, тому нічого з нього не збережено.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Середовище виконання Visual C++ 2008 досі відсутнє після роботи його інсталятора.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Показати на екрані клавіатури</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Показує зображення на кожному екрані клавіатури вибраного типу, а потім повертає кожен екран до його режиму.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Показати зображення ({0}): {1} × {2} мс, повторень: {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Зображення підганяються під екран: 160 на 43 чорно-білих пікселі на монохромному екрані, 320 на 240 на екрані G19 і 480 на 320 для Arx Control та S.T.R.I.K.E. 7. Найкоротший час кадру становить одну десяту секунди.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Режим екрана клавіатури</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Перемикає екран клавіатури вибраного типу на інший режим і зберігає його як налаштування цього екрана.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} показує: {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Режим діє, доки його не змінить інший макрос або діалог екрана.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Секундомір</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Запускає чи ставить на паузу або скидає секундомір, який показують екрани клавіатур у режимі «Секундомір».</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Запустити або призупинити секундомір</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Скинути секундомір</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Скидання зупиняє секундомір і повертає його до нуля. Усі екрани клавіатур у режимі «Секундомір» показують той самий секундомір.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Зсунути зображення на екрані клавіатури</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Переміщує вікно кожного екрана клавіатури по зображенню, більшому за екран, наприклад по карті.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Зсув зображень: {0} і {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Переміщує кожен тип екрана, що показує вибране зображення, більше за себе. Вікно зупиняється на краях зображення.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Екран</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Дія</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Напрямок</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Крок</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

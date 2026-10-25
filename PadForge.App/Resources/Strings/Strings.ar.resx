@@ -4272,4 +4272,97 @@
   <data name="About_X1nputDesc" xml:space="preserve"><value>تقرير الأزندة النبضية في Xbox المكون من 9 بايتات ومسار كتابته، من إعداد araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>تنسيق PCM اللمسي في PS5، 16 بت مع الإشارة عند 3 kHz، وهو ما حسم الترميز ذا 8 بت مع الإشارة لردود الفعل اللمسية عبر Bluetooth. AGPL-3.0، تمت قراءته كتوثيق فقط، ولا يتضمن البرنامج أي شيفرة AGPL.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>شاشات لوحة المفاتيح</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>يرسم على الشاشات المدمجة في لوحات مفاتيح GamePanel من Logitech وعلى Mad Catz S.T.R.I.K.E. 7، وعلى هاتف عبر Logitech Arx Control: ملف التعريف أو الساعة أو مدة اللعب أو ساعة إيقاف أو صورة أو لون شريط الإضاءة في وحدة تحكم DualShock 4 أو DualSense. تصبح المفاتيح المجاورة لهذه الشاشات أزرارا في صف مفاتيح شاشة لوحة المفاتيح.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>تشغيل شاشات لوحة المفاتيح</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>يرسم على شاشات Logitech G15 وG15 v2 وG510 وG13 وZ-10 وGamePanel وG19، وعلى Arx Control، وعلى Mad Catz S.T.R.I.K.E. 7. أثناء تشغيل Logitech Gaming Software يرسم PadForge من خلاله. وبدونه يكتب PadForge على الشاشات أحادية اللون عبر HID ويربط WinUSB بواجهة شاشة G19. إيقاف هذا الخيار يعيد شاشة G19 إلى Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>شاشة أحادية اللون…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>شاشة ملونة…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>تنزيل Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>ينزّل SDK الخاص بـ Mad Catz S.T.R.I.K.E. 7 من خادم AIDA64، ويتحقق منه بقيمة SHA-256 المعروفة له، ولا يحتفظ إلا بملف Strike7API.dll بنظام 64 بت في المجلد المؤقت لـ PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>اختيار Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>تثبيت وقت تشغيل Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>ينزّل Visual C++ 2008 SP1 Redistributable من Microsoft لنظام Windows 64 بت، وهو ما يحتاج إليه Strike7API.dll، ويتحقق من توقيع Microsoft عليه ثم يثبته.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|المكتبات (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>شاشة أحادية اللون</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>شاشة ملونة</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>إيقاف</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>ساعة إيقاف</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>لون شريط الإضاءة</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>متوقف</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>عبر Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>مباشرة على {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>ربط WinUSB بشاشة G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>شاشة G19 تعمل ببرنامج تشغيل آخر ({0})، لذا شغّل Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>يتطلب Logitech Gaming Software الإصدار 8.52 أو أحدث</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>شغّل Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>في انتظار هاتف يحمل Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>على هاتف</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>يتطلب Strike7API.dll، لذا نزّله أو اختر نسخة منه</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>تغيّر ملف Strike7API.dll الذي تم تنزيله، لذا نزّله مرة أخرى</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>يتطلب وقت تشغيل Visual C++ 2008 من Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>تعذّر تحميل Strike7API.dll</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>شغّل برنامج S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>اختر PadForge على شاشة V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>على شاشة V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>لم يتم العثور على شاشة</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}، في انتظار لون شريط الإضاءة</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}، لم يتم اختيار صورة</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>مفاتيح شاشة لوحة المفاتيح</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>مفتاح الشاشة {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>مفتاح التطبيقات المصغرة</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>الشاشة: يسار</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>الشاشة: يمين</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>الشاشة: موافق</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>الشاشة: إلغاء</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>الشاشة: أعلى</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>الشاشة: أسفل</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>الشاشة: قائمة</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>الشاشة: الإعدادات</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>لا يعرض PadForge شيئا ويغادر تطبيقه المصغر الشاشة. في ظل Logitech Gaming Software لا تصل مفاتيح الشاشة إلى PadForge إلا عندما يكون تطبيقه المصغر في المقدمة، لذلك تحتاج إلى وضع آخر.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>تعرض الشاشة اسم ملف التعريف النشط وتتبع كل تبديل لملف التعريف.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>تعرض الشاشة موضع ملف التعريف النشط في قائمة ملفات التعريف. ملف التعريف الافتراضي هو 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>تعرض الشاشة صورة ملف التعريف النشط، أو اسمه إن لم تكن له صورة. يحتفظ كل ملف تعريف بصورته الخاصة.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>تعرض الشاشة الوقت من اليوم.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>تعرض الشاشة الساعات والدقائق منذ تفعيل ملف التعريف النشط. يتفعّل ملف التعريف المرتبط ببرنامج لعبة عند بدء اللعبة، لذا يكون العدّ لتلك الجلسة. في ملف التعريف الافتراضي يبدأ العدّ من بدء المحرك.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>تعرض الشاشة صورة تختارها بحجمها الأصلي. إذا كانت الصورة أكبر من الشاشة تُعرض نافذة بحجم الشاشة، ويحركها ماكرو تحريك صورة شاشة لوحة المفاتيح. وعلى S.T.R.I.K.E. 7 يحركها أيضا سحب الإصبع على الشاشة.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>تعرض الشاشة ساعة الإيقاف التي يبدأها ماكرو ساعة الإيقاف ويوقفها مؤقتا ويعيد ضبطها. تعرض كل الشاشات ساعة الإيقاف نفسها.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>تعرض الشاشة لون شريط الإضاءة في وحدة تحكم DualShock 4 أو DualSense في أدنى خانة. تعرض الشاشة أحادية اللون سطوعه بنمط من النقاط. إلى أن يصل لون إلى شريط إضاءة لا يعرض PadForge شيئا.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>الصور (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|جميع الملفات (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>تحريك</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>تحريك X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>تحريك Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>تم ضبط {0} على {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>جارٍ تنزيل SDK الخاص بـ Mad Catz S.T.R.I.K.E. 7…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>يحمّل S.T.R.I.K.E. 7 الآن {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>جارٍ تنزيل وقت تشغيل Visual C++ 2008 من Microsoft وتثبيته…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>لا يطابق تنزيل SDK الخاص بـ S.T.R.I.K.E. 7 قيمة SHA-256 المعروفة له، لذا لم يتم الاحتفاظ بأي شيء منه.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>لا يزال وقت تشغيل Visual C++ 2008 مفقودا بعد تشغيل برنامج التثبيت الخاص به.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>عرض شاشة لوحة المفاتيح</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>يشغّل صورا على كل شاشة لوحة مفاتيح من النوع المختار، ثم يعيد كل شاشة إلى وضعها الخاص.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>عرض صور {0}: {1} × {2} مللي ثانية، عدد التكرار {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>تُلاءم الصور مع الشاشة: 160 في 43 بكسل بالأبيض والأسود على الشاشة أحادية اللون، و320 في 240 على شاشة G19، و480 في 320 لـ Arx Control وS.T.R.I.K.E. 7. أقصر مدة للإطار هي عُشر الثانية.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>وضع شاشة لوحة المفاتيح</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>يبدّل نوعا من شاشات لوحة المفاتيح إلى وضع آخر ويحفظه كإعداد لتلك الشاشة.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>تعرض {0}: {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>يبقى الوضع حتى يغيّره ماكرو آخر أو مربع حوار الشاشة.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>ساعة إيقاف</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>يبدأ ساعة الإيقاف أو يوقفها مؤقتا، أو يعيد ضبطها، وهي الساعة التي تعرضها شاشات لوحة المفاتيح في وضع ساعة الإيقاف.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>بدء ساعة الإيقاف أو إيقافها مؤقتا</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>إعادة ضبط ساعة الإيقاف</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>تعيد إعادة الضبط ساعة الإيقاف إلى الصفر وتوقفها. تعرض كل شاشة لوحة مفاتيح في وضع ساعة الإيقاف الساعة نفسها.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>تحريك صورة شاشة لوحة المفاتيح</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>يحرك نافذة كل شاشة لوحة مفاتيح فوق صورة أكبر من الشاشة، لعرض خريطة مثلا.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>تحريك الصور بمقدار {0} × {1} بكسل</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>يحرك كل نوع من الشاشات يعرض صورة مختارة أكبر منه. تتوقف النافذة عند حواف الصورة.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>الشاشة</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>الإجراء</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>الاتجاه</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>الخطوة</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>بكسل</value></data>
 </root>

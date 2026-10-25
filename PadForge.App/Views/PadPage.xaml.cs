@@ -1367,6 +1367,48 @@ namespace PadForge.Views
             action.RemoveDreamcastFrame(index);
         }
 
+        /// <summary>Adds pictures to a Show Keyboard Screen action (#519),
+        /// each fitted to the action's kind of screen, the Show Dreamcast
+        /// Screen picker's shape.</summary>
+        private void AddKeyboardScreenFrame_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as FrameworkElement)?.DataContext is not PadForge.ViewModels.MacroAction action)
+                return;
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = PadForge.Resources.Strings.Strings.Instance.KeyboardScreen_PictureFilter,
+                Multiselect = true,
+            };
+            if (dialog.ShowDialog(Window.GetWindow(this)) != true) return;
+            bool failed = false;
+            foreach (var file in dialog.FileNames)
+            {
+                if (!action.CanAddScreenFrame) break;
+                string frame = null;
+                try { frame = PadForge.Services.KeyboardScreenService.ImportFrame(file, action.ScreenKind); }
+                catch { frame = null; }
+                if (frame == null) failed = true;
+                else action.AddScreenFrame(frame);
+            }
+            if (failed && Window.GetWindow(this)?.DataContext is PadForge.ViewModels.MainViewModel main)
+                main.SetStatus(PadForge.Resources.Strings.Strings.Instance.DreamcastScreen_ImportFailed, persist: true);
+        }
+
+        /// <summary>Removes the clicked picture from its Show Keyboard Screen
+        /// action.</summary>
+        private void RemoveKeyboardScreenFrame_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is not DependencyObject element) return;
+            DependencyObject parent = element;
+            while (parent != null && parent is not ItemsControl)
+                parent = System.Windows.Media.VisualTreeHelper.GetParent(parent);
+            if (parent is not ItemsControl items || items.DataContext is not PadForge.ViewModels.MacroAction action)
+                return;
+            var container = ItemsControl.ContainerFromElement(items, element);
+            int index = container == null ? -1 : items.ItemContainerGenerator.IndexFromContainer(container);
+            action.RemoveScreenFrame(index);
+        }
+
         /// <summary>Choose a sound for the Play Sound action card. When packages
         /// are added, the sounds inside them are offered directly. A filesystem
         /// browse is only needed for a package or loose file that hasn't been

@@ -141,6 +141,12 @@ namespace PadForge.Engine
         public const int PeripheralLighting = 40;
         public const int PeripheralHaptics = 41;
 
+        // The keys beside a keyboard's screen (issue #519): the four under a
+        // Logitech monochrome screen and its round applet key, and the G19's
+        // seven display keys and settings key, one fixed layout of 13
+        // buttons whichever engine reads them.
+        public const int KeyboardScreenKeys = 42;
+
         /// <summary>True when a row of this type answers a source whose
         /// DeviceGuid is empty, the "(Any Device)" wildcard that means
         /// whichever controller is assigned to the slot. Controllers,
@@ -158,12 +164,14 @@ namespace PadForge.Engine
         /// sub-state, and a zeroed trigger axis reads as half pull through
         /// the wildcard, so it stays out for the #431 reason. A Web Menus
         /// phone has no inputs at all, so the same zeroed axes keep it out,
-        /// and so do the lighting and haptic rows (#494).</summary>
+        /// and so do the lighting and haptic rows (#494). The keyboard
+        /// screen keys number their own 13 buttons from 0, the G-keys'
+        /// reason (#519).</summary>
         public static bool AnswersAnyDeviceSources(int capType) => capType switch
         {
             HeadTracker or Nfc or Microphone or HandheldButtons or ConsumerControl or Tablet
                 or VrController or LogitechGKeys or AnalogKeyboard or WebMenus
-                or PeripheralLighting or PeripheralHaptics => false,
+                or PeripheralLighting or PeripheralHaptics or KeyboardScreenKeys => false,
             _ => true,
         };
     }

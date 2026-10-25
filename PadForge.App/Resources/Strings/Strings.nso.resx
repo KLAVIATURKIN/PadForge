@@ -1004,4 +1004,47 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Disekirini tša khiipoto</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Laola disekirini tša khiipoto</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Sekirini sa mebala…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Kgetha Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Sekirini sa mebala</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>E timilwe</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Mmala wa lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>e timilwe</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>ka Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>thoma Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>e letile mogala wo o nago le Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>mogaleng</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>thoma lenaneo la S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>kgetha PadForge sekirining sa V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>sekirining sa V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ga go na sekirini se se hweditšwego</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, e letile mmala wa lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ga go seswantšho se se kgethilwego</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Dikhii tša sekirini sa khiipoto</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Khii ya sekirini {0}</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Sekirini: Lanngele</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Sekirini: Lagoja</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Sekirini: OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Sekirini: Khansela</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Sekirini: Godimo</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Sekirini: Fase</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Sekirini: Lelokelelo</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Sekirini: Dipeakanyo</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Sekirini se bontšha leina la profaele ye e šomago gomme se latela phetogo ye nngwe le ye nngwe ya profaele.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Sekirini se bontšha lefelo la profaele ye e šomago lelokelelong la diprofaele. Profaele ya Tlwaelo ke 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Sekirini se bontšha seswantšho sa profaele ye e šomago, goba leina la yona ge e se na sona. Profaele ye nngwe le ye nngwe e boloka seswantšho sa yona.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Sekirini se bontšha nako.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Diswantšho (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Difaele ka moka (*.*)|*.*</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Bontšha sekirini sa khiipoto</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mokgwa wa sekirini sa khiipoto</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Sekirini</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Kgato</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

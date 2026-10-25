@@ -2223,4 +2223,66 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Pantaya di teklado</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kontrolá pantayanan di teklado</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Pantaya blanku i pretu…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Pantaya di koló…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Deskargá Strike7API.dll</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Skohe Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Instalá Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Pantaya blanku i pretu</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Pantaya di koló</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Pagá</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Koló di lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>pagá</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>via Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>direktamente riba e {0}</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>mester Logitech Gaming Software 8.52 òf mas nobo</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>habri Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>ta warda un telefòn ku Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>riba un telefòn</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>mester Strike7API.dll, pues deskargá esaki òf skohe un kopia</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>e Strike7API.dll deskargá a kambia, pues deskargá esaki atrobe</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>mester e runtime di Visual C++ 2008 di Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll no a karga</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>habri e software di S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>skohe PadForge riba e pantaya V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>riba e pantaya V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>no a haña ningun pantaya</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ta warda un koló di lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, no a skohe ningun potrèt</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Teklanan di pantaya di teklado</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tekla di pantaya {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tekla di applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Pantaya robes</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Pantaya drechi</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Pantaya OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Pantaya kanselá</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Pantaya ariba</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Pantaya abou</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Pantaya menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Pantaya konfigurashon</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>E pantaya ta mustra e nòmber di e perfil aktivo i ta sigui kada kambio di perfil.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>E pantaya ta mustra e lugá di e perfil aktivo den e lista di perfil. E perfil Standard ta 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>E pantaya ta mustra e potrèt propio di e perfil aktivo, òf su nòmber si e no tin ningun. Kada perfil ta warda su mes potrèt.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>E pantaya ta mustra e ora di dia.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Potrètnan (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tur archivo (*.*)|*.*</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Ta deskargá e SDK di S.T.R.I.K.E. 7 di Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>E S.T.R.I.K.E. 7 awor ta karga {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Ta deskargá i instalá e runtime di Visual C++ 2008 di Microsoft…</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>E runtime di Visual C++ 2008 ainda ta falta despues ku su instaladó a kore.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Mustra pantaya di teklado</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Ta mustra potrètnan riba tur pantaya di teklado di e tipo skohí, despues ta bolbe kada pantaya na su mes modo.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Modo di pantaya di teklado</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} ta mustra {1}</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Pantaya</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Akshon</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direkshon</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Paso</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

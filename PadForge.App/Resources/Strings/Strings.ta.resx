@@ -4291,4 +4291,97 @@ PadForge இப்போதே அவற்றை நிறுவல் நீ�
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox இம்பல்ஸ்-டிரிகர் 9-பைட் ரிப்போர்ட்டும் அதன் எழுதும் பாதையும், araghon007 உருவாக்கியது. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 ஹாப்டிக் PCM வடிவம், 3 kHz-இல் குறியுள்ள 16-பிட், இதுவே குறியுள்ள 8-பிட் Bluetooth ஹாப்டிக்ஸ் என்கோடிங்கைத் தீர்மானித்தது. AGPL-3.0, ஆவணமாக மட்டுமே படிக்கப்பட்டது, AGPL குறியீடு எதுவும் சேர்க்கப்படவில்லை.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>விசைப்பலகைத் திரைகள்</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech-இன் GamePanel விசைப்பலகைகளிலும் Mad Catz S.T.R.I.K.E. 7-இலும் உள்ள திரைகளில், மேலும் Logitech Arx Control வழியாக ஒரு தொலைபேசியிலும் வரைகிறது: சுயவிவரம், கடிகாரம், விளையாடிய நேரம், ஸ்டாப்வாட்ச், ஒரு படம், அல்லது DualShock 4 அல்லது DualSense லைட்பாரின் நிறம். அந்தத் திரைகளுக்கு அருகிலுள்ள விசைகள் விசைப்பலகைத் திரை விசைகள் வரிசையில் பொத்தான்களாகின்றன.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>விசைப்பலகைத் திரைகளை இயக்கு</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel மற்றும் G19 திரைகளிலும், Arx Control-இலும், Mad Catz S.T.R.I.K.E. 7-இலும் வரைகிறது. Logitech Gaming Software இயங்கும்போது PadForge அதன் வழியாக வரைகிறது. அது இல்லாதபோது, PadForge ஒற்றை நிறத் திரைகளுக்கு HID வழியாக எழுதுகிறது, G19-இன் திரை இடைமுகத்துடன் WinUSB-ஐ இணைக்கிறது. இதை அணைத்தால் G19-இன் திரை Windows-க்குத் திரும்பக் கிடைக்கும்.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>ஒற்றை நிறத் திரை…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>வண்ணத் திரை…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll-ஐப் பதிவிறக்கு</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mad Catz-இன் S.T.R.I.K.E. 7 SDK-ஐ AIDA64-இன் சேவையகத்திலிருந்து பதிவிறக்கி, அறியப்பட்ட SHA-256-உடன் சரிபார்த்து, 64-பிட் Strike7API.dll-ஐ மட்டும் PadForge-இன் தற்காலிக கோப்புறையில் வைத்திருக்கும்.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll-ஐத் தேர்ந்தெடு…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 ரன்டைமை நிறுவு</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>64-பிட் Windows-க்கான Microsoft-இன் Visual C++ 2008 SP1 Redistributable-ஐப் பதிவிறக்கி, அதில் Microsoft-இன் கையொப்பத்தைச் சரிபார்த்து, நிறுவும். இது Strike7API.dll-க்குத் தேவை.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|நூலகங்கள் (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>ஒற்றை நிறத் திரை</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>வண்ணத் திரை</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>ஆஃப்</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>ஸ்டாப்வாட்ச்</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>லைட்பார் நிறம்</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>ஆஃப்</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software வழியாக</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>நேரடியாக {0}-இல்</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>G19-இன் திரையுடன் WinUSB-ஐ இணைக்கிறது</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19-இன் திரை வேறொரு இயக்கியில் உள்ளது ({0}), எனவே Logitech Gaming Software-ஐத் தொடங்கவும்</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 அல்லது புதியது தேவை</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software-ஐத் தொடங்கவும்</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>Arx Control உள்ள தொலைபேசிக்காகக் காத்திருக்கிறது</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>தொலைபேசியில்</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>Strike7API.dll தேவை, எனவே அதைப் பதிவிறக்கவும் அல்லது ஒரு நகலைத் தேர்ந்தெடுக்கவும்</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>பதிவிறக்கிய Strike7API.dll மாறிவிட்டது, எனவே மீண்டும் பதிவிறக்கவும்</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>Microsoft-இன் Visual C++ 2008 ரன்டைம் தேவை</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll ஏற்றப்படவில்லை</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>S.T.R.I.K.E. 7 மென்பொருளைத் தொடங்கவும்</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. திரையில் PadForge-ஐத் தேர்ந்தெடுக்கவும்</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. திரையில்</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>திரை எதுவும் கிடைக்கவில்லை</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, லைட்பார் நிறத்திற்காகக் காத்திருக்கிறது</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, படம் எதுவும் தேர்ந்தெடுக்கப்படவில்லை</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>விசைப்பலகைத் திரை விசைகள்</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>திரை விசை {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>ஆப்லெட் விசை</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>திரை இடது</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>திரை வலது</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>திரை சரி</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>திரை ரத்துசெய்</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>திரை மேல்</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>திரை கீழ்</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>திரை மெனு</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>திரை அமைப்புகள்</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge எதையும் காட்டாது, அதன் ஆப்லெட் திரையிலிருந்து விலகும். Logitech Gaming Software-இன் கீழ் திரை விசைகள் PadForge-இன் ஆப்லெட் முன்னணியில் இருக்கும்போது மட்டுமே PadForge-ஐ அடையும், எனவே அவற்றுக்கு வேறொரு பயன்முறை தேவை.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>திரை செயலிலுள்ள சுயவிவரத்தின் பெயரைக் காட்டும், ஒவ்வொரு சுயவிவர மாற்றத்தையும் பின்தொடரும்.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>திரை செயலிலுள்ள சுயவிவரம் சுயவிவரப் பட்டியலில் இருக்கும் இடத்தைக் காட்டும். இயல்புநிலை சுயவிவரம் 0 ஆகும்.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>திரை செயலிலுள்ள சுயவிவரத்தின் சொந்தப் படத்தைக் காட்டும், படம் இல்லையெனில் அதன் பெயரைக் காட்டும். ஒவ்வொரு சுயவிவரமும் தனக்கெனப் படத்தை வைத்திருக்கும்.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>திரை நாளின் நேரத்தைக் காட்டும்.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>செயலிலுள்ள சுயவிவரம் மாறியதிலிருந்து கடந்த மணி, நிமிடங்களைத் திரை காட்டும். ஒரு விளையாட்டின் நிரலுடன் இணைக்கப்பட்ட சுயவிவரம் அந்த விளையாட்டு தொடங்கும்போது செயலுக்கு வரும், எனவே எண்ணிக்கை அந்த அமர்வுக்குரியது. இயல்புநிலை சுயவிவரத்தில் இயந்திரம் தொடங்கியதிலிருந்து எண்ணும்.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>திரை நீங்கள் தேர்ந்தெடுக்கும் படத்தை அதன் சொந்த அளவில் காட்டும். திரையை விடப் பெரிய படத்தில் திரையின் அளவுள்ள ஒரு சாளரம் காட்டப்படும், இதை "விசைப்பலகைத் திரைப் படத்தை நகர்த்து" மேக்ரோ நகர்த்தும். S.T.R.I.K.E. 7-இல் திரையின் குறுக்கே விரலை இழுத்தும் நகர்த்தலாம்.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>திரை ஸ்டாப்வாட்சைக் காட்டும். அதை ஸ்டாப்வாட்ச் மேக்ரோ தொடங்கும், இடைநிறுத்தும், மீட்டமைக்கும். ஒவ்வொரு திரையும் ஒரே ஸ்டாப்வாட்சைக் காட்டும்.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>திரை மிகக் குறைந்த ஸ்லாட்டிலுள்ள DualShock 4 அல்லது DualSense-இன் லைட்பாரின் நிறத்தைக் காட்டும். ஒற்றை நிறத் திரை அதன் ஒளிர்வைப் புள்ளி வடிவமாகக் காட்டும். லைட்பாருக்கு நிறம் வரும் வரை PadForge எதையும் காட்டாது.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>படங்கள் (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|அனைத்துக் கோப்புகள் (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>நகர்த்து</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>X நகர்வு</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Y நகர்வு</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} {1} என அமைக்கப்பட்டது.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mad Catz-இன் S.T.R.I.K.E. 7 SDK-ஐப் பதிவிறக்குகிறது…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 இப்போது {0}-ஐ ஏற்றுகிறது.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsoft-இன் Visual C++ 2008 ரன்டைமைப் பதிவிறக்கி நிறுவுகிறது…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK பதிவிறக்கம் அறியப்பட்ட SHA-256-உடன் பொருந்தவில்லை, எனவே அதிலிருந்து எதுவும் வைத்துக்கொள்ளப்படவில்லை.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>நிறுவி இயங்கிய பின்னும் Visual C++ 2008 ரன்டைம் இன்னும் இல்லை.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>விசைப்பலகைத் திரையைக் காட்டு</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>தேர்ந்தெடுத்த வகையின் ஒவ்வொரு விசைப்பலகைத் திரையிலும் படங்களை இயக்கி, பின்னர் ஒவ்வொரு திரையையும் அதன் சொந்தப் பயன்முறைக்குத் திருப்பும்.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} படங்களைக் காட்டு: {1} × {2} ms, மீள்செயல் எண்ணிக்கை {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>படங்கள் திரைக்குப் பொருந்துமாறு மாற்றப்படும்: ஒற்றை நிறத் திரையில் 160 × 43 கருப்பு வெள்ளைப் பிக்சல்கள், G19-இன் திரையில் 320 × 240, Arx Control மற்றும் S.T.R.I.K.E. 7-க்கு 480 × 320. ஒரு நொடியின் பத்தில் ஒரு பங்கு மிகக் குறைந்த ஃப்ரேம் நேரம்.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>விசைப்பலகைத் திரைப் பயன்முறை</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ஒரு வகை விசைப்பலகைத் திரையை வேறொரு பயன்முறைக்கு மாற்றி, அதை அந்தத் திரையின் அமைப்பாக வைத்திருக்கும்.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1}-ஐக் காட்டுகிறது</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>வேறொரு மேக்ரோ அல்லது திரையின் உரையாடல் மாற்றும் வரை பயன்முறை அப்படியே இருக்கும்.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>ஸ்டாப்வாட்ச்</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>ஸ்டாப்வாட்ச் பயன்முறையிலுள்ள விசைப்பலகைத் திரைகள் காட்டும் ஸ்டாப்வாட்சைத் தொடங்கும் அல்லது இடைநிறுத்தும், அல்லது மீட்டமைக்கும்.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>ஸ்டாப்வாட்சைத் தொடங்கு அல்லது இடைநிறுத்து</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>ஸ்டாப்வாட்சை மீட்டமை</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>மீட்டமைத்தல் ஸ்டாப்வாட்சை நிறுத்தி பூஜ்ஜியத்துக்கு அமைக்கும். ஸ்டாப்வாட்ச் பயன்முறையிலுள்ள ஒவ்வொரு விசைப்பலகைத் திரையும் ஒரே ஸ்டாப்வாட்சைக் காட்டும்.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>விசைப்பலகைத் திரைப் படத்தை நகர்த்து</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ஒரு வரைபடத்துக்காக, திரையை விடப் பெரிய படத்தின் மேல் ஒவ்வொரு விசைப்பலகைத் திரையின் சாளரத்தையும் நகர்த்தும்.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>படங்களை {0}, {1} px நகர்த்து</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>தன்னைவிடப் பெரிய, தேர்ந்தெடுத்த படத்தைக் காட்டும் ஒவ்வொரு வகைத் திரையையும் நகர்த்தும். சாளரம் படத்தின் விளிம்புகளில் நின்றுவிடும்.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>திரை</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>செயல்</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>திசை</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>படி</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

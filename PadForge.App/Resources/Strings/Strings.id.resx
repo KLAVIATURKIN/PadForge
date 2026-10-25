@@ -4291,4 +4291,97 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="About_X1nputDesc" xml:space="preserve"><value>Laporan 9-byte pelatuk impuls Xbox dan jalur penulisannya, karya araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Format PCM haptik PS5, 16-bit bertanda pada 3 kHz, yang memastikan pengodean haptik Bluetooth 8-bit bertanda. AGPL-3.0, dibaca hanya sebagai dokumentasi, tidak ada kode AGPL yang disertakan.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Layar Keyboard</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Menggambar di layar bawaan keyboard GamePanel Logitech dan Mad Catz S.T.R.I.K.E. 7, serta di ponsel melalui Logitech Arx Control: profil, jam, waktu bermain, stopwatch, gambar, atau warna bilah lampu DualShock 4 atau DualSense. Tombol di samping layar tersebut menjadi tombol pada baris Tombol Layar Keyboard.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kendalikan Layar Keyboard</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Menggambar di layar Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, dan G19, di Arx Control, serta di Mad Catz S.T.R.I.K.E. 7. Selama Logitech Gaming Software berjalan, PadForge menggambar melaluinya. Tanpa itu, PadForge menulis ke layar monokrom lewat HID dan mengikat WinUSB ke antarmuka layar G19. Menonaktifkan opsi ini mengembalikan layar G19 ke Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Layar Monokrom…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Layar Warna…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Unduh Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mengunduh SDK S.T.R.I.K.E. 7 dari Mad Catz melalui server AIDA64, memeriksanya dengan SHA-256 yang diketahui, dan hanya menyimpan Strike7API.dll 64-bit di folder sementara PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Pilih Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Instal Runtime Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Mengunduh Visual C++ 2008 SP1 Redistributable dari Microsoft untuk Windows 64-bit, yang dibutuhkan Strike7API.dll, memeriksa tanda tangan Microsoft padanya, lalu menginstalnya.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Pustaka (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Layar Monokrom</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Layar Warna</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Nonaktif</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Warna bilah lampu</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>nonaktif</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>melalui Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>langsung di {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>mengikat WinUSB ke layar G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>layar G19 memakai driver lain ({0}), jadi jalankan Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>memerlukan Logitech Gaming Software 8.52 atau yang lebih baru</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>jalankan Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>menunggu ponsel dengan Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>di ponsel</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>memerlukan Strike7API.dll, jadi unduh atau pilih salinannya</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll yang diunduh telah berubah, jadi unduh lagi</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>memerlukan runtime Visual C++ 2008 dari Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll gagal dimuat</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>jalankan perangkat lunak S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>pilih PadForge di layar V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>di layar V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>layar tidak ditemukan</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, menunggu warna bilah lampu</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, belum ada gambar yang dipilih</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tombol Layar Keyboard</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tombol Layar {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tombol Applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Layar Kiri</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Layar Kanan</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Layar OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Layar Batal</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Layar Atas</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Layar Bawah</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Layar Menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Layar Pengaturan</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge tidak menampilkan apa pun, dan appletnya meninggalkan layar. Di bawah Logitech Gaming Software, tombol layar hanya sampai ke PadForge saat appletnya berada di depan, jadi tombol itu memerlukan mode lain.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Layar menampilkan nama profil aktif dan mengikuti setiap pergantian profil.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Layar menampilkan urutan profil aktif dalam daftar profil. Profil Default adalah 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Layar menampilkan gambar milik profil aktif, atau namanya jika profil itu tidak memiliki gambar. Setiap profil menyimpan gambarnya sendiri.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Layar menampilkan waktu saat ini.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Layar menampilkan jam dan menit sejak profil aktif diterapkan. Profil yang terikat pada program sebuah game diterapkan saat game dimulai, sehingga hitungannya adalah sesi itu. Di bawah profil Default, hitungan dimulai sejak engine dijalankan.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Layar menampilkan gambar pilihan Anda dalam ukuran aslinya. Gambar yang lebih besar dari layar ditampilkan lewat jendela seukuran layar, yang digeser oleh makro Geser Gambar Layar Keyboard. Di S.T.R.I.K.E. 7, jari yang digeser di layar juga menggesernya.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Layar menampilkan stopwatch, yang dimulai, dijeda, dan diatur ulang oleh makro Stopwatch. Semua layar menampilkan stopwatch yang sama.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Layar menampilkan warna bilah lampu pada DualShock 4 atau DualSense di slot terendah. Layar monokrom menampilkan kecerahannya sebagai pola titik. Sebelum ada warna yang sampai ke bilah lampu, PadForge tidak menampilkan apa pun.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Gambar (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Semua File (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Geser</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Geser X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Geser Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} diatur ke {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mengunduh SDK S.T.R.I.K.E. 7 dari Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 kini memuat {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Mengunduh dan menginstal runtime Visual C++ 2008 dari Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Unduhan SDK S.T.R.I.K.E. 7 tidak cocok dengan SHA-256 yang diketahui, jadi tidak ada yang disimpan darinya.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Runtime Visual C++ 2008 masih belum ada setelah penginstalnya dijalankan.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Tampilkan Layar Keyboard</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Memutar gambar di setiap layar keyboard dari jenis yang dipilih, lalu mengembalikan setiap layar ke modenya sendiri.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Tampilkan gambar {0}: {1} × {2} ms, jumlah pengulangan {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Gambar disesuaikan dengan layar: 160 kali 43 piksel hitam putih pada layar monokrom, 320 kali 240 pada layar G19, dan 480 kali 320 untuk Arx Control dan S.T.R.I.K.E. 7. Sepersepuluh detik adalah waktu frame terpendek.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode Layar Keyboard</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Mengalihkan satu jenis layar keyboard ke mode lain dan menyimpannya sebagai pengaturan layar itu.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} menampilkan {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mode bertahan sampai makro lain atau dialog layar mengubahnya.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Memulai atau menjeda, atau mengatur ulang, stopwatch yang ditampilkan layar keyboard dalam mode Stopwatch.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Mulai atau Jeda Stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Atur Ulang Stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Atur ulang menghentikan stopwatch dan mengembalikannya ke nol. Setiap layar keyboard dalam mode Stopwatch menampilkan stopwatch yang sama.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Geser Gambar Layar Keyboard</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Menggeser jendela setiap layar keyboard di atas gambar yang lebih besar dari layar, misalnya untuk peta.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Geser gambar {0} kali {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Menggeser setiap jenis layar yang menampilkan gambar pilihan yang lebih besar dari layarnya. Jendela berhenti di tepi gambar.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Layar</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aksi</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Arah</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Langkah</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

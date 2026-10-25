@@ -2113,4 +2113,97 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Izikrini zekhibhodi</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Idweba ezikrinini ezakhelwe kumakhibhodi e-GamePanel e-Logitech naku-Mad Catz S.T.R.I.K.E. 7, nakufoni nge-Logitech Arx Control: iphrofayela, iwashi, isikhathi sokudlala, i-stopwatch, isithombe, noma umbala webha yokukhanya ye-DualShock 4 noma ye-DualSense. Okhiye abaseduze kwalezo zikrini baba izinkinobho emgqeni othi Okhiye bezikrini zekhibhodi.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Lawula izikrini zekhibhodi</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Idweba ezikrinini ze-Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, ne-G19, ku-Arx Control, naku-Mad Catz S.T.R.I.K.E. 7. Uma i-Logitech Gaming Software isebenza, i-PadForge idweba ngayo. Ngaphandle kwayo, i-PadForge ibhala ezikrinini zombala owodwa nge-HID futhi ibeka i-WinUSB njengomshayeli wesikrini se-G19. Ukuvala lokhu kubuyisela isikrini se-G19 ku-Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Isikrini sombala owodwa…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Isikrini esinemibala…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Landa i-Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Ilanda i-SDK ye-S.T.R.I.K.E. 7 ye-Mad Catz kuseva ye-AIDA64, iyihlole ngokuyiqhathanisa ne-SHA-256 yayo eyaziwayo, bese igcina kuphela i-Strike7API.dll ye-64-bit kufolda yesikhashana ye-PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Khetha i-Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Faka i-Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Ilanda i-Visual C++ 2008 SP1 Redistributable ye-Microsoft ye-Windows ye-64-bit, edingwa yi-Strike7API.dll, ihlole isiginesha ye-Microsoft kuyo, bese iyayifaka.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Imitapo (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Isikrini sombala owodwa</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Isikrini esinemibala</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Kuvaliwe</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>I-stopwatch</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Umbala webha yokukhanya</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>kuvaliwe</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>nge-Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>ngqo ku-{0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>kubekwa i-WinUSB esikrinini se-G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>isikrini se-G19 sisebenzisa omunye umshayeli ({0}), ngakho qala i-Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>idinga i-Logitech Gaming Software 8.52 noma eyakamuva</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>qala i-Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>kulindwe ifoni ene-Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>efonini</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>idinga i-Strike7API.dll, ngakho yilande noma ukhethe ikhophi</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>i-Strike7API.dll elandiwe ishintshile, ngakho yilande futhi</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>idinga i-Visual C++ 2008 runtime ye-Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>i-Strike7API.dll ayilayishekanga</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>qala isofthiwe ye-S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>khetha i-PadForge esikrinini se-V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>esikrinini se-V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>akukho sikrini esitholakele</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, kulindwe umbala webha yokukhanya</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, akukho sithombe esikhethiwe</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Okhiye bezikrini zekhibhodi</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Ukhiye wesikrini {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Ukhiye we-applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Isikrini kwesokunxele</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Isikrini kwesokudla</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Isikrini OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Isikrini khansela</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Isikrini phezulu</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Isikrini phansi</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Isikrini imenyu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Isikrini izilungiselelo</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>I-PadForge ayibonisi lutho, futhi i-applet yayo iyasuka esikrinini. Ngaphansi kwe-Logitech Gaming Software okhiye besikrini bafinyelela ku-PadForge kuphela uma i-applet yayo iphambili, ngakho badinga enye imodi.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Isikrini sibonisa igama lephrofayela esebenzayo futhi silandela ukushintsha kwephrofayela ngakunye.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Isikrini sibonisa indawo yephrofayela esebenzayo ohlwini lwamaphrofayela. Iphrofayela ethi Okuzenzakalelayo ingu-0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Isikrini sibonisa isithombe sephrofayela esebenzayo, noma igama layo uma ingenaso. Iphrofayela ngayinye igcina isithombe sayo.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Isikrini sibonisa isikhathi samanje.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Isikrini sibonisa amahora nemizuzu selokhu kwashintshelwa kuphrofayela esebenzayo. Kushintshelwa kuphrofayela exhunywe kuhlelo lomdlalo uma umdlalo uqala, ngakho kubalwa leso sikhathi sokudlala. Ngaphansi kwephrofayela ethi Okuzenzakalelayo kubalwa kusukela ekuqaleni kwenjini.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Isikrini sibonisa isithombe osikhethayo, ngosayizi waso. Isithombe esikhulu kunesikrini sibonisa iwindi elilingana nesikrini, elihanjiswa yi-macro ethi Hambisa isithombe sesikrini sekhibhodi. Ku-S.T.R.I.K.E. 7 umunwe odonswa esikrinini nawo uyalihambisa.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Isikrini sibonisa i-stopwatch. I-macro ethi I-stopwatch iyayiqala, iyayimisa isikhashana, futhi iyayisetha kabusha. Zonke izikrini zibonisa i-stopwatch efanayo.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Isikrini sibonisa umbala webha yokukhanya ku-DualShock 4 noma ku-DualSense esesikhaleni esinenombolo encane kakhulu. Isikrini sombala owodwa sibonisa ukukhanya kwawo njengephethini lamachashaza. Uma umbala ungakafiki ebheni yokukhanya, i-PadForge ayibonisi lutho.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Izithombe (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Wonke amafayela (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Hambisa</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Hambisa X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Hambisa Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0}: kusethwe ku-{1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Kulandwa i-SDK ye-S.T.R.I.K.E. 7 ye-Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>I-S.T.R.I.K.E. 7 manje isebenzisa {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Kulandwa futhi kufakwa i-Visual C++ 2008 runtime ye-Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Okulandiwe kwe-SDK ye-S.T.R.I.K.E. 7 akuhambisani ne-SHA-256 yayo eyaziwayo, ngakho akukho lutho olugciniwe kukho.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>I-Visual C++ 2008 runtime isalokhu ingekho ngemva kokuthi isifaki sayo sisebenze.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Bonisa isikrini sekhibhodi</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Idlala izithombe kuzo zonke izikrini zekhibhodi zohlobo olukhethiwe, bese ibuyisela isikrini ngasinye kumodi yaso.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Bonisa izithombe ezi-{0}: {1} × {2} ms, inani lokuphinda {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Izithombe zilungiswa ukuze zilingane nesikrini: amaphikseli angu-160 ngo-43 amnyama namhlophe esikrinini sombala owodwa, angu-320 ngo-240 ku-G19, futhi angu-480 ngo-320 ku-Arx Control naku-S.T.R.I.K.E. 7. Isikhathi esifushane kakhulu sefreyimu yingxenye yeshumi yomzuzwana.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Imodi yesikrini sekhibhodi</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Ishintshela uhlobo lwesikrini sekhibhodi kwenye imodi futhi ikugcine njengesilungiselelo saleso sikrini.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>Ku-{0} kuboniswa {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Imodi ihlala injalo kuze kube enye i-macro noma ibhokisi lezingxoxo lesikrini liyayishintsha.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>I-stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Iqala noma imisa isikhashana, noma isetha kabusha, i-stopwatch eboniswa yizikrini zekhibhodi ezikumodi ye-stopwatch.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Qala noma misa isikhashana i-stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Setha kabusha i-stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Ukusetha kabusha kumisa i-stopwatch futhi kuyibuyisele kuqanda. Zonke izikrini zekhibhodi ezikumodi ye-stopwatch zibonisa i-stopwatch efanayo.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Hambisa isithombe sesikrini sekhibhodi</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Ihambisa iwindi lesikrini sekhibhodi ngasinye phezu kwesithombe esikhulu kunesikrini, njengemephu.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Hambisa izithombe ngo-{0} ngo-{1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Ihambisa zonke izinhlobo zesikrini ezibonisa isithombe esikhethiwe esikhulu kunazo. Iwindi lima emaphethelweni esithombe.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Isikrini</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Isenzo</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Isiqondiso</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Isinyathelo</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

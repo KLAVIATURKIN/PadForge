@@ -2597,6 +2597,7 @@ namespace PadForge.Services
                     UpdateGKeysStatus();
                     UpdateAnalogKeyboardsStatus();
                     UpdateBlissBoxStatus();
+                    UpdateKeyboardScreensStatus();
                     if (_mainVm.Devices.SelectedDevice is { } selected
                         && FindUserDevice(selected.InstanceGuid) is { } selectedDevice)
                         UpdateBlissBoxDeviceRow(selected, selectedDevice);
@@ -2686,6 +2687,10 @@ namespace PadForge.Services
                 // too.
                 if (_dreamcastScreen != null) _dreamcastScreen.Reset();
                 else DreamcastScreenService.DropRequests();
+                // The keyboard screens (#519) close their sessions with the
+                // engine, the same way and for the same reason.
+                if (_keyboardScreens != null) _keyboardScreens.Reset();
+                else KeyboardScreenService.DropRequests();
 
                 _mainVm.IsEngineRunning = false;
                 _mainVm.Dashboard.EngineStateKey = "Stopped";
@@ -2815,6 +2820,9 @@ namespace PadForge.Services
             // ── Bliss-Box Dreamcast screens (#469): ungated, like the
             //    macro requests above ──
             TickBlissBox();
+
+            // ── Keyboard screens (#519): ungated too ──
+            TickKeyboardScreens();
 
             // ── Web Menus phones (#471): ungated too, since the phone is the
             //    point while a game holds the focus ──
@@ -3654,6 +3662,8 @@ namespace PadForge.Services
             UpdateAnalogKeyboardsStatus();
             // Bliss-Box ports (#469): same cadence, same shape.
             UpdateBlissBoxStatus();
+            // Keyboard screens (#519): same cadence, same shape.
+            UpdateKeyboardScreensStatus();
 
             // Snapshot devices under lock to avoid cross-thread collection-modified
             // exceptions when the engine's UpdateDevices runs concurrently.
@@ -4495,6 +4505,7 @@ namespace PadForge.Services
                     // whose mapping picker names all of them.
                     namedObjects: ud.CapType == InputDeviceType.VrController
                                || ud.CapType == InputDeviceType.LogitechGKeys
+                               || ud.CapType == InputDeviceType.KeyboardScreenKeys
                                   ? ud.DeviceObjects : null,
                     analogKeyOrder: ud.CapType == InputDeviceType.AnalogKeyboard
                         ? PadForge.Common.Input.AnalogKeyboardRuntime.KeysFor(ud)
@@ -5386,6 +5397,7 @@ namespace PadForge.Services
                     isHeadTracker: ud.CapType == InputDeviceType.HeadTracker,
                     namedObjects: ud.CapType == InputDeviceType.VrController
                                || ud.CapType == InputDeviceType.LogitechGKeys
+                               || ud.CapType == InputDeviceType.KeyboardScreenKeys
                                   ? ud.DeviceObjects : null,
                     analogKeyOrder: ud.CapType == InputDeviceType.AnalogKeyboard
                         ? PadForge.Common.Input.AnalogKeyboardRuntime.KeysFor(ud)
@@ -12240,7 +12252,9 @@ namespace PadForge.Services
                                 // VR controller controls and G-keys are named too, and a
                                 // G-key's name comes from THIS machine's Logitech software.
                                 || devType == InputDeviceType.VrController
-                                || devType == InputDeviceType.LogitechGKeys)
+                                || devType == InputDeviceType.LogitechGKeys
+                                // The keyboard screen keys carry their own names (#519).
+                                || devType == InputDeviceType.KeyboardScreenKeys)
                                 try { objects = dev.GetDeviceObjects(); } catch { }
                             var info = new RemotePeerDeviceInfo
                             {
@@ -15582,6 +15596,7 @@ namespace PadForge.Services
                 InputDeviceType.WebMenus => "WebMenus",
                 InputDeviceType.PeripheralLighting => "PeripheralLighting",
                 InputDeviceType.PeripheralHaptics => "PeripheralHaptics",
+                InputDeviceType.KeyboardScreenKeys => "KeyboardScreenKeys",
                 _ => "Device"
             };
             // Vendor daemon notice (#343): the sweep scans on its cadence;

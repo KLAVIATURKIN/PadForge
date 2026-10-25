@@ -4251,4 +4251,97 @@
   <data name="About_X1nputDesc" xml:space="preserve"><value>ລາຍງານ 9 ໄບຕ໌ຂອງທຣິກເກີ impulse ຂອງ Xbox ແລະ ເສັ້ນທາງການຂຽນຂອງມັນ ໂດຍ araghon007 MIT</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>ຮູບແບບ PCM ແຮັບຕິກຂອງ PS5 ແບບ 16 ບິດມີເຄື່ອງໝາຍທີ່ 3 kHz ເຊິ່ງໄດ້ຢືນຢັນການເຂົ້າລະຫັດແຮັບຕິກ Bluetooth ແບບ 8 ບິດມີເຄື່ອງໝາຍ AGPL-3.0, ອ່ານເປັນເອກະສານເທົ່ານັ້ນ, ບໍ່ມີໂຄດ AGPL ຖືກລວມມາ</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>ໜ້າຈໍແປ້ນພິມ</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>ແຕ້ມລົງເທິງໜ້າຈໍທີ່ມີໃນແປ້ນພິມ GamePanel ຂອງ Logitech ແລະ Mad Catz S.T.R.I.K.E. 7, ແລະ ເທິງໂທລະສັບຜ່ານ Logitech Arx Control: ໂປຣໄຟລ໌, ໂມງ, ເວລາຫຼິ້ນ, ໂມງຈັບເວລາ, ຮູບ, ຫຼື ສີແຖບໄຟຂອງ DualShock 4 ຫຼື DualSense. ປຸ່ມທີ່ຢູ່ຂ້າງໜ້າຈໍເຫຼົ່ານັ້ນຈະກາຍເປັນປຸ່ມໃນແຖວ ປຸ່ມໜ້າຈໍແປ້ນພິມ.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>ຄວບຄຸມໜ້າຈໍແປ້ນພິມ</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>ແຕ້ມລົງເທິງໜ້າຈໍ Logitech G15, G15 v2, G510, G13, Z-10, GamePanel ແລະ G19, ເທິງ Arx Control, ແລະ ເທິງ Mad Catz S.T.R.I.K.E. 7. ໃນຂະນະທີ່ Logitech Gaming Software ເຮັດວຽກຢູ່, PadForge ແຕ້ມຜ່ານມັນ. ຖ້າບໍ່ມີມັນ, PadForge ຂຽນລົງໜ້າຈໍຂາວດຳຜ່ານ HID ແລະ ຜູກ WinUSB ກັບອິນເຕີເຟສໜ້າຈໍຂອງ G19. ການປິດອັນນີ້ຈະຄືນໜ້າຈໍຂອງ G19 ໃຫ້ Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>ໜ້າຈໍຂາວດຳ…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>ໜ້າຈໍສີ…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>ດາວໂຫຼດ Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>ດາວໂຫຼດ SDK S.T.R.I.K.E. 7 ຂອງ Mad Catz ຈາກເຊີບເວີຂອງ AIDA64, ກວດສອບມັນກັບ SHA-256 ທີ່ຮູ້ຈັກ, ແລະ ເກັບໄວ້ພຽງ Strike7API.dll ແບບ 64 ບິດ ໃນໂຟນເດີຊົ່ວຄາວຂອງ PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>ເລືອກ Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>ຕິດຕັ້ງຣັນທາມ Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>ດາວໂຫຼດ Visual C++ 2008 SP1 Redistributable ຂອງ Microsoft ສຳລັບ Windows 64 ບິດ ທີ່ Strike7API.dll ຕ້ອງການ, ກວດສອບລາຍເຊັນຂອງ Microsoft ໃນມັນ, ແລະ ຕິດຕັ້ງມັນ.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|ໄລບຣາຣີ (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>ໜ້າຈໍຂາວດຳ</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>ໜ້າຈໍສີ</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>ປິດ</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>ໂມງຈັບເວລາ</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>ສີແຖບໄຟ</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>ປິດ</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>ຜ່ານ Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>ໂດຍກົງເທິງ {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>ກຳລັງຜູກ WinUSB ກັບໜ້າຈໍຂອງ G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>ໜ້າຈໍຂອງ G19 ໃຊ້ໄດຣເວີອື່ນ ({0}), ສະນັ້ນໃຫ້ເປີດ Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>ຕ້ອງການ Logitech Gaming Software 8.52 ຫຼື ໃໝ່ກວ່າ</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>ເປີດ Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>ກຳລັງລໍຖ້າໂທລະສັບທີ່ມີ Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>ເທິງໂທລະສັບ</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>ຕ້ອງການ Strike7API.dll, ສະນັ້ນໃຫ້ດາວໂຫຼດ ຫຼື ເລືອກສຳເນົາ</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll ທີ່ດາວໂຫຼດມາໄດ້ປ່ຽນແປງ, ສະນັ້ນໃຫ້ດາວໂຫຼດໃໝ່</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>ຕ້ອງການຣັນທາມ Visual C++ 2008 ຂອງ Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>ໂຫຼດ Strike7API.dll ບໍ່ໄດ້</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>ເປີດຊອບແວ S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>ເລືອກ PadForge ເທິງໜ້າຈໍ V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>ເທິງໜ້າຈໍ V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ບໍ່ພົບໜ້າຈໍ</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ກຳລັງລໍຖ້າສີແຖບໄຟ</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ບໍ່ໄດ້ເລືອກຮູບ</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>ປຸ່ມໜ້າຈໍແປ້ນພິມ</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>ປຸ່ມໜ້າຈໍ {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>ປຸ່ມແອັບເພລັດ</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>ໜ້າຈໍ ຊ້າຍ</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>ໜ້າຈໍ ຂວາ</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>ໜ້າຈໍ OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>ໜ້າຈໍ ຍົກເລີກ</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>ໜ້າຈໍ ຂຶ້ນ</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>ໜ້າຈໍ ລົງ</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>ໜ້າຈໍ ເມນູ</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>ໜ້າຈໍ ການຕັ້ງຄ່າ</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge ບໍ່ສະແດງຫຍັງ, ແລະ ແອັບເພລັດຂອງມັນອອກຈາກໜ້າຈໍ. ພາຍໃຕ້ Logitech Gaming Software ປຸ່ມໜ້າຈໍຈະສົ່ງເຖິງ PadForge ພຽງແຕ່ເມື່ອແອັບເພລັດຂອງມັນຢູ່ດ້ານໜ້າ, ສະນັ້ນພວກມັນຕ້ອງການໂໝດອື່ນ.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>ໜ້າຈໍສະແດງຊື່ຂອງໂປຣໄຟລ໌ທີ່ໃຊ້ຢູ່ ແລະ ປ່ຽນຕາມທຸກຄັ້ງທີ່ສະຫຼັບໂປຣໄຟລ໌.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>ໜ້າຈໍສະແດງລຳດັບຂອງໂປຣໄຟລ໌ທີ່ໃຊ້ຢູ່ໃນລາຍການໂປຣໄຟລ໌. ໂປຣໄຟລ໌ ຄ່າເລີ່ມຕົ້ນ ແມ່ນ 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>ໜ້າຈໍສະແດງຮູບຂອງໂປຣໄຟລ໌ທີ່ໃຊ້ຢູ່ ຫຼື ຊື່ຂອງມັນເມື່ອບໍ່ມີຮູບ. ແຕ່ລະໂປຣໄຟລ໌ເກັບຮູບຂອງຕົນເອງ.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>ໜ້າຈໍສະແດງເວລາປັດຈຸບັນ.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>ໜ້າຈໍສະແດງຊົ່ວໂມງ ແລະ ນາທີ ນັບຕັ້ງແຕ່ໂປຣໄຟລ໌ທີ່ໃຊ້ຢູ່ຖືກສະຫຼັບເຂົ້າມາ. ໂປຣໄຟລ໌ທີ່ຜູກກັບໂປຣແກຣມຂອງເກມຈະຖືກສະຫຼັບເຂົ້າມາເມື່ອເກມເລີ່ມ, ສະນັ້ນການນັບຈຶ່ງແມ່ນເຊດຊັນນັ້ນ. ພາຍໃຕ້ໂປຣໄຟລ໌ ຄ່າເລີ່ມຕົ້ນ ມັນນັບຈາກຕອນທີ່ເອັນຈິນເລີ່ມ.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>ໜ້າຈໍສະແດງຮູບທີ່ທ່ານເລືອກ ໃນຂະໜາດຂອງມັນເອງ. ຮູບທີ່ໃຫຍ່ກວ່າໜ້າຈໍຈະສະແດງເປັນໜ້າຕ່າງຂະໜາດເທົ່າໜ້າຈໍ, ເຊິ່ງມາໂຄຣ ເລື່ອນຮູບໜ້າຈໍແປ້ນພິມ ຈະຍ້າຍມັນ. ເທິງ S.T.R.I.K.E. 7 ການລາກນິ້ວຜ່ານໜ້າຈໍກໍຍ້າຍມັນໄດ້ເຊັ່ນກັນ.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>ໜ້າຈໍສະແດງໂມງຈັບເວລາ, ເຊິ່ງມາໂຄຣ ໂມງຈັບເວລາ ເລີ່ມ, ຢຸດຊົ່ວຄາວ ແລະ ຄືນຄ່າ. ທຸກໜ້າຈໍສະແດງໂມງຈັບເວລາດຽວກັນ.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>ໜ້າຈໍສະແດງສີຂອງແຖບໄຟເທິງ DualShock 4 ຫຼື DualSense ໃນຊ່ອງທີ່ຕ່ຳສຸດ. ໜ້າຈໍຂາວດຳສະແດງຄວາມສະຫວ່າງຂອງມັນເປັນຮູບແບບຈຸດ. ຈົນກວ່າສີຈະໄປເຖິງແຖບໄຟ, PadForge ບໍ່ສະແດງຫຍັງ.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>ຮູບ (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|ໄຟລ໌ທັງໝົດ (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>ເລື່ອນ</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>ເລື່ອນ X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>ເລື່ອນ Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>ຕັ້ງ {0} ເປັນ {1} ແລ້ວ.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>ກຳລັງດາວໂຫຼດ SDK S.T.R.I.K.E. 7 ຂອງ Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>ດຽວນີ້ S.T.R.I.K.E. 7 ໂຫຼດ {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>ກຳລັງດາວໂຫຼດ ແລະ ຕິດຕັ້ງຣັນທາມ Visual C++ 2008 ຂອງ Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>ໄຟລ໌ດາວໂຫຼດ SDK S.T.R.I.K.E. 7 ບໍ່ກົງກັບ SHA-256 ທີ່ຮູ້ຈັກ, ສະນັ້ນຈຶ່ງບໍ່ໄດ້ເກັບຫຍັງຈາກມັນໄວ້.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>ຍັງບໍ່ມີຣັນທາມ Visual C++ 2008 ຫຼັງຈາກຕົວຕິດຕັ້ງຂອງມັນເຮັດວຽກແລ້ວ.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>ສະແດງໜ້າຈໍແປ້ນພິມ</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>ຫຼິ້ນຮູບເທິງທຸກໜ້າຈໍແປ້ນພິມຂອງປະເພດທີ່ເລືອກ, ແລ້ວສົ່ງແຕ່ລະໜ້າຈໍກັບຄືນສູ່ໂໝດຂອງມັນເອງ.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>ສະແດງຮູບ {0}: {1} × {2} ms, ຈຳນວນເທື່ອຊ້ຳ {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>ຮູບຈະຖືກປັບໃຫ້ພໍດີກັບໜ້າຈໍ: 160 × 43 ພິກເຊລຂາວດຳ ເທິງໜ້າຈໍຂາວດຳ, 320 × 240 ເທິງໜ້າຈໍຂອງ G19, ແລະ 480 × 320 ສຳລັບ Arx Control ແລະ S.T.R.I.K.E. 7. ໜຶ່ງສ່ວນສິບວິນາທີແມ່ນເວລາຕໍ່ເຟຣມທີ່ສັ້ນທີ່ສຸດ.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>ໂໝດໜ້າຈໍແປ້ນພິມ</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ສະຫຼັບໜ້າຈໍແປ້ນພິມປະເພດໜຶ່ງໄປເປັນໂໝດອື່ນ ແລະ ເກັບມັນໄວ້ເປັນການຕັ້ງຄ່າຂອງໜ້າຈໍນັ້ນ.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} ສະແດງ {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>ໂໝດຈະຄົງຢູ່ຈົນກວ່າມາໂຄຣອື່ນ ຫຼື ກ່ອງໂຕ້ຕອບຂອງໜ້າຈໍຈະປ່ຽນມັນ.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>ໂມງຈັບເວລາ</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>ເລີ່ມ ຫຼື ຢຸດຊົ່ວຄາວ, ຫຼື ຄືນຄ່າ, ໂມງຈັບເວລາທີ່ໜ້າຈໍແປ້ນພິມໃນໂໝດ ໂມງຈັບເວລາ ສະແດງ.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>ເລີ່ມ ຫຼື ຢຸດຊົ່ວຄາວໂມງຈັບເວລາ</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>ຄືນຄ່າໂມງຈັບເວລາ</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>ຄືນຄ່າຈະຢຸດໂມງຈັບເວລາ ແລະ ຕັ້ງມັນກັບເປັນສູນ. ທຸກໜ້າຈໍແປ້ນພິມໃນໂໝດ ໂມງຈັບເວລາ ສະແດງໂມງຈັບເວລາດຽວກັນ.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>ເລື່ອນຮູບໜ້າຈໍແປ້ນພິມ</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ຍ້າຍໜ້າຕ່າງຂອງແຕ່ລະໜ້າຈໍແປ້ນພິມໄປທົ່ວຮູບທີ່ໃຫຍ່ກວ່າໜ້າຈໍ, ສຳລັບແຜນທີ່.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>ເລື່ອນຮູບ {0}, {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ຍ້າຍທຸກປະເພດໜ້າຈໍທີ່ສະແດງຮູບທີ່ເລືອກ ທີ່ໃຫຍ່ກວ່າຕົວມັນເອງ. ໜ້າຕ່າງຈະຢຸດຢູ່ທີ່ຂອບຂອງຮູບ.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>ໜ້າຈໍ</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>ການກະທຳ</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>ທິດທາງ</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>ຂັ້ນ</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

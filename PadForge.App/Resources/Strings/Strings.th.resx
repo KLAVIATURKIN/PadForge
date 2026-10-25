@@ -4291,4 +4291,97 @@
   <data name="About_X1nputDesc" xml:space="preserve"><value>รายงานอิมพัลส์ทริกเกอร์ขนาด 9 ไบต์ของ Xbox และเส้นทางการเขียนรายงานนั้น โดย araghon007 สัญญาอนุญาต MIT</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>รูปแบบ PCM แฮปติกของ PS5 แบบ 16 บิตมีเครื่องหมายที่ 3 kHz ซึ่งใช้ยืนยันการเข้ารหัสแฮปติก Bluetooth แบบ 8 บิตมีเครื่องหมาย สัญญาอนุญาต AGPL-3.0 ใช้อ่านเป็นเอกสารอ้างอิงเท่านั้น ไม่มีโค้ด AGPL รวมอยู่ในโปรแกรม</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>หน้าจอคีย์บอร์ด</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>วาดบนหน้าจอที่ติดมากับคีย์บอร์ด GamePanel ของ Logitech และ Mad Catz S.T.R.I.K.E. 7 รวมถึงบนโทรศัพท์ผ่าน Logitech Arx Control ได้แก่ โปรไฟล์ นาฬิกา เวลาเล่น นาฬิกาจับเวลา รูปภาพ หรือสีของแถบไฟบน DualShock 4 หรือ DualSense คีย์ข้างหน้าจอเหล่านั้นจะกลายเป็นปุ่มในแถวคีย์หน้าจอคีย์บอร์ด</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>ควบคุมหน้าจอคีย์บอร์ด</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>วาดบนหน้าจอของ Logitech G15, G15 v2, G510, G13, Z-10, GamePanel และ G19 บน Arx Control และบน Mad Catz S.T.R.I.K.E. 7 ขณะที่ Logitech Gaming Software ทำงานอยู่ PadForge จะวาดผ่านซอฟต์แวร์นั้น หากไม่มี PadForge จะเขียนลงหน้าจอขาวดำผ่าน HID และผูก WinUSB กับอินเทอร์เฟซหน้าจอของ G19 การปิดตัวเลือกนี้จะคืนหน้าจอของ G19 ให้ Windows</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>หน้าจอขาวดำ…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>หน้าจอสี…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>ดาวน์โหลด Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>ดาวน์โหลด SDK ของ Mad Catz สำหรับ S.T.R.I.K.E. 7 จากเซิร์ฟเวอร์ของ AIDA64 ตรวจสอบกับค่า SHA-256 ที่ทราบ แล้วเก็บไว้เฉพาะ Strike7API.dll แบบ 64 บิตในโฟลเดอร์ชั่วคราวของ PadForge</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>เลือก Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>ติดตั้งรันไทม์ Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>ดาวน์โหลด Visual C++ 2008 SP1 Redistributable ของ Microsoft สำหรับ Windows 64 บิต ซึ่ง Strike7API.dll ต้องใช้ ตรวจสอบลายเซ็นของ Microsoft บนไฟล์ แล้วติดตั้ง</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|ไลบรารี (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>หน้าจอขาวดำ</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>หน้าจอสี</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>ปิด</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>นาฬิกาจับเวลา</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>สีแถบไฟ</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>ปิด</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>ผ่าน Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>โดยตรงบน {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>กำลังผูก WinUSB กับหน้าจอของ G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>หน้าจอของ G19 ใช้ไดรเวอร์อื่น ({0}) จึงต้องเริ่ม Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>ต้องใช้ Logitech Gaming Software 8.52 ขึ้นไป</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>เริ่ม Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>กำลังรอโทรศัพท์ที่มี Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>บนโทรศัพท์</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>ต้องใช้ Strike7API.dll ให้ดาวน์โหลดหรือเลือกสำเนาที่มี</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll ที่ดาวน์โหลดไว้เปลี่ยนไป ให้ดาวน์โหลดใหม่</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>ต้องใช้รันไทม์ Visual C++ 2008 ของ Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>โหลด Strike7API.dll ไม่ได้</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>เริ่มซอฟต์แวร์ S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>เลือก PadForge บนหน้าจอ V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>บนหน้าจอ V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ไม่พบหน้าจอ</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0} กำลังรอสีแถบไฟ</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0} ยังไม่ได้เลือกรูปภาพ</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>คีย์หน้าจอคีย์บอร์ด</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>คีย์หน้าจอ {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>คีย์แอปเพล็ต</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>หน้าจอ ซ้าย</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>หน้าจอ ขวา</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>หน้าจอ OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>หน้าจอ ยกเลิก</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>หน้าจอ ขึ้น</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>หน้าจอ ลง</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>หน้าจอ เมนู</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>หน้าจอ การตั้งค่า</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge ไม่แสดงอะไร และแอปเพล็ตของ PadForge จะออกจากหน้าจอ ภายใต้ Logitech Gaming Software คีย์หน้าจอจะส่งถึง PadForge ได้เฉพาะเมื่อแอปเพล็ตของ PadForge อยู่ด้านหน้า จึงต้องใช้โหมดอื่น</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>หน้าจอแสดงชื่อของโปรไฟล์ที่ใช้งานอยู่ และเปลี่ยนตามทุกครั้งที่สลับโปรไฟล์</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>หน้าจอแสดงลำดับของโปรไฟล์ที่ใช้งานอยู่ในรายการโปรไฟล์ โปรไฟล์ค่าเริ่มต้นคือ 0</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>หน้าจอแสดงรูปภาพของโปรไฟล์ที่ใช้งานอยู่ หรือแสดงชื่อเมื่อโปรไฟล์ไม่มีรูปภาพ แต่ละโปรไฟล์เก็บรูปภาพของตัวเอง</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>หน้าจอแสดงเวลาของวัน</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>หน้าจอแสดงชั่วโมงและนาทีนับจากที่โปรไฟล์ที่ใช้งานอยู่เริ่มทำงาน โปรไฟล์ที่ผูกกับโปรแกรมของเกมจะเริ่มทำงานเมื่อเกมเริ่ม ค่าที่นับจึงเป็นรอบการเล่นนั้น ภายใต้โปรไฟล์ค่าเริ่มต้น จะนับตั้งแต่เอนจินเริ่มทำงาน</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>หน้าจอแสดงรูปภาพที่คุณเลือกในขนาดเดิม รูปภาพที่ใหญ่กว่าหน้าจอจะแสดงเป็นหน้าต่างขนาดเท่าหน้าจอ ซึ่งแมโคร เลื่อนรูปภาพหน้าจอคีย์บอร์ด เป็นผู้ย้าย บน S.T.R.I.K.E. 7 การลากนิ้วบนหน้าจอก็ย้ายได้เช่นกัน</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>หน้าจอแสดงนาฬิกาจับเวลา ซึ่งแมโครนาฬิกาจับเวลาใช้เริ่ม หยุดชั่วคราว และรีเซ็ต ทุกหน้าจอแสดงนาฬิกาจับเวลาเดียวกัน</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>หน้าจอแสดงสีของแถบไฟบน DualShock 4 หรือ DualSense ในช่องที่มีหมายเลขต่ำสุด หน้าจอขาวดำแสดงความสว่างเป็นลายจุด หากยังไม่มีสีส่งถึงแถบไฟ PadForge จะไม่แสดงอะไร</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>รูปภาพ (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|ไฟล์ทั้งหมด (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>เลื่อน</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>เลื่อน X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>เลื่อน Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>ตั้ง {0} เป็น {1} แล้ว</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>กำลังดาวน์โหลด SDK ของ Mad Catz สำหรับ S.T.R.I.K.E. 7…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>ตอนนี้ S.T.R.I.K.E. 7 โหลด {0}</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>กำลังดาวน์โหลดและติดตั้งรันไทม์ Visual C++ 2008 ของ Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>ไฟล์ดาวน์โหลด SDK ของ S.T.R.I.K.E. 7 ไม่ตรงกับ SHA-256 ที่ทราบ จึงไม่เก็บสิ่งใดจากไฟล์นั้นไว้</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>รันไทม์ Visual C++ 2008 ยังขาดอยู่หลังจากตัวติดตั้งทำงานแล้ว</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>แสดงหน้าจอคีย์บอร์ด</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>เล่นรูปภาพบนหน้าจอคีย์บอร์ดทุกเครื่องของประเภทที่เลือก แล้วคืนแต่ละหน้าจอสู่โหมดของตัวเอง</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>แสดงรูปภาพ {0}: {1} × {2} ms จำนวนครั้งที่ทำซ้ำ {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>รูปภาพจะถูกปรับให้พอดีกับหน้าจอ: 160 × 43 พิกเซลขาวดำบนหน้าจอขาวดำ 320 × 240 บนหน้าจอของ G19 และ 480 × 320 สำหรับ Arx Control และ S.T.R.I.K.E. 7 เวลาต่อเฟรมสั้นที่สุดคือ 0.1 วินาที</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>โหมดหน้าจอคีย์บอร์ด</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>สลับหน้าจอคีย์บอร์ดประเภทหนึ่งไปเป็นอีกโหมด และเก็บไว้เป็นการตั้งค่าของหน้าจอนั้น</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} แสดง {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>โหมดจะคงอยู่จนกว่าแมโครอื่นหรือกล่องโต้ตอบของหน้าจอจะเปลี่ยน</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>นาฬิกาจับเวลา</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>เริ่มหรือหยุดชั่วคราว หรือรีเซ็ตนาฬิกาจับเวลาที่หน้าจอคีย์บอร์ดในโหมดนาฬิกาจับเวลาแสดงอยู่</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>เริ่มหรือหยุดนาฬิกาจับเวลาชั่วคราว</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>รีเซ็ตนาฬิกาจับเวลา</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>รีเซ็ตจะหยุดนาฬิกาจับเวลาและตั้งกลับเป็นศูนย์ ทุกหน้าจอคีย์บอร์ดในโหมดนาฬิกาจับเวลาแสดงนาฬิกาจับเวลาเดียวกัน</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>เลื่อนรูปภาพหน้าจอคีย์บอร์ด</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ย้ายหน้าต่างของแต่ละหน้าจอคีย์บอร์ดไปบนรูปภาพที่ใหญ่กว่าหน้าจอ สำหรับแผนที่</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>เลื่อนรูปภาพ {0} × {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>ย้ายหน้าจอทุกประเภทที่แสดงรูปภาพที่เลือกซึ่งใหญ่กว่าหน้าจอ หน้าต่างจะหยุดที่ขอบของรูปภาพ</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>หน้าจอ</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>การทำงาน</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>ทิศทาง</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>ระยะก้าว</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

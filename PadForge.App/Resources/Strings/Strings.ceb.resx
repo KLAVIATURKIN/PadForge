@@ -3225,4 +3225,97 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="About_X1nputDesc" xml:space="preserve"><value>Ang 9-byte nga report sa impulse-trigger sa Xbox ug ang write path niini, ni araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Ang PS5 haptic PCM format, signed 16-bit sa 3 kHz, nga misulbad sa signed 8-bit Bluetooth haptics encoding. AGPL-3.0, gibasa isip dokumentasyon lang, walay AGPL code nga gilakip.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Mga screen sa keyboard</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Magpakita sa mga screen nga naa sa mga GamePanel keyboard sa Logitech ug sa Mad Catz S.T.R.I.K.E. 7, ug sa usa ka phone pinaagi sa Logitech Arx Control: ang profile, orasan, oras sa pagdula, stopwatch, hulagway, o ang kolor sa lightbar sa DualShock 4 o DualSense. Ang mga key tupad sa maong mga screen mahimong mga button sa laray nga Mga key sa screen sa keyboard.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kontrolaha ang mga screen sa keyboard</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Magpakita sa mga screen sa Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, ug G19, sa Arx Control, ug sa Mad Catz S.T.R.I.K.E. 7. Samtang nagdagan ang Logitech Gaming Software, mopakita ang PadForge pinaagi niini. Kon wala kini, isulat sa PadForge ang mga monochrome nga screen pinaagi sa HID ug ihigot ang WinUSB sa screen interface sa G19. Kon patyon kini, ibalik ngadto sa Windows ang screen sa G19.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monochrome nga screen…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Screen nga may kolor…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>I-download ang Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mag-download sa S.T.R.I.K.E. 7 SDK sa Mad Catz gikan sa server sa AIDA64, susihon kini batok sa nailhan nga SHA-256 niini, ug ang 64-bit nga Strike7API.dll ra ang tipigan sa temporaryong folder sa PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Pili og Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>I-install ang Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Mag-download sa Visual C++ 2008 SP1 Redistributable sa Microsoft para sa 64-bit nga Windows, nga gikinahanglan sa Strike7API.dll, susihon ang pirma sa Microsoft niini, ug i-install kini.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Mga library (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Monochrome nga screen</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Screen nga may kolor</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Patay</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Kolor sa lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>patay</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>pinaagi sa Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>direkta sa {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>naghigot sa WinUSB sa screen sa G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>ang screen sa G19 naa sa laing driver ({0}), busa sugdi ang Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>nagkinahanglan og Logitech Gaming Software 8.52 o mas bag-o</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>sugdi ang Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>naghulat og phone nga may Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>sa usa ka phone</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>nagkinahanglan og Strike7API.dll, busa i-download kini o pili og kopya</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>nausab ang na-download nga Strike7API.dll, busa i-download kini pag-usab</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>nagkinahanglan og Visual C++ 2008 runtime sa Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>dili ma-load ang Strike7API.dll</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>sugdi ang software sa S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>pilia ang PadForge sa screen sa V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>sa screen sa V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>walay screen nga nakit-an</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, naghulat og kolor sa lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, walay hulagway nga gipili</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Mga key sa screen sa keyboard</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Key {0} sa screen</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applet key</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Pawala sa screen</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Patuo sa screen</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>OK sa screen</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Kanselahon sa screen</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Pataas sa screen</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Paubos sa screen</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Menu sa screen</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Mga setting sa screen</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>Walay ipakita ang PadForge, ug mobiya ang applet niini sa screen. Ubos sa Logitech Gaming Software, maabot lang sa PadForge ang mga key sa screen samtang naa sa atubangan ang applet niini, busa nagkinahanglan sila og laing mode.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ipakita sa screen ang ngalan sa aktibong profile ug mosunod kini sa matag pagbalhin og profile.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ipakita sa screen ang posisyon sa aktibong profile sa listahan sa profile. Ang profile nga Default kay 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Ipakita sa screen ang kaugalingong hulagway sa aktibong profile, o ang ngalan niini kon wala kini hulagway. Ang matag profile adunay kaugalingong hulagway.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ipakita sa screen ang oras karon.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ipakita sa screen ang mga oras ug minuto sukad nibalhin ang aktibong profile. Ang profile nga nakahigot sa programa sa usa ka dula mobalhin kon magsugod ang dula, busa ang ihap mao ang maong sesyon. Ubos sa profile nga Default, moihap kini sukad sa pagsugod sa engine.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ipakita sa screen ang hulagway nga imong gipili, sa kaugalingong gidak-on niini. Kon mas dako ang hulagway kaysa screen, usa ka bintana nga kasinggidak-on sa screen ang ipakita, nga gilihok sa macro nga "I-pan ang hulagway sa screen sa keyboard". Sa S.T.R.I.K.E. 7, molihok usab kini kon iguyod ang tudlo latas sa screen.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ipakita sa screen ang stopwatch, nga gisugdan, gi-pause, ug gi-reset sa macro nga Stopwatch. Parehas nga stopwatch ang ipakita sa tanang screen.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ipakita sa screen ang kolor sa lightbar sa DualShock 4 o DualSense nga naa sa pinakaubos nga slot. Ang monochrome nga screen mopakita sa kahayag niini isip pattern sa mga tuldok. Hangtod moabot ang kolor sa lightbar, walay ipakita ang PadForge.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Mga hulagway (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Tanang file (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>I-pan</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>I-pan X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>I-pan Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>Ang {0} gibutang sa {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Nag-download sa S.T.R.I.K.E. 7 SDK sa Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>Ang S.T.R.I.K.E. 7 karon mo-load sa {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Nag-download ug nag-install sa Visual C++ 2008 runtime sa Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Ang na-download nga S.T.R.I.K.E. 7 SDK dili motakdo sa nailhan nga SHA-256 niini, busa walay gitipigan gikan niini.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Wala gihapoy Visual C++ 2008 runtime human midagan ang installer niini.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Ipakita ang screen sa keyboard</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Magpakita og mga hulagway sa matag screen sa keyboard sa gipili nga klase, dayon ibalik ang matag screen sa kaugalingong mode niini.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Ipakita ang mga hulagway sa {0}: {1} × {2} ms, ihap sa pagbalik {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Ang mga hulagway gipahaum sa screen: 160 por 43 nga itom ug puti nga pixel sa monochrome nga screen, 320 por 240 sa G19, ug 480 por 320 para sa Arx Control ug sa S.T.R.I.K.E. 7. Ang ikanapulo sa usa ka segundo mao ang pinakamubo nga oras sa frame.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mode sa screen sa keyboard</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Ibalhin ang usa ka klase sa screen sa keyboard ngadto sa laing mode ug tipigan kini isip setting sa maong screen.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>Ang {0} mopakita sa {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Magpabilin ang mode hangtod usbon kini sa laing macro o sa dialog sa screen.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Sugdan o i-pause, o i-reset, ang stopwatch nga gipakita sa mga screen sa keyboard nga naa sa Stopwatch mode.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Sugdi o i-pause ang stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>I-reset ang stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Ang i-reset mohunong sa stopwatch ug ibalik kini sa zero. Parehas nga stopwatch ang ipakita sa matag screen sa keyboard nga naa sa Stopwatch mode.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>I-pan ang hulagway sa screen sa keyboard</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Ilihok ang bintana sa matag screen sa keyboard ibabaw sa hulagway nga mas dako kaysa screen, para sa mapa.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>I-pan ang mga hulagway {0} por {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Molihok sa matag klase sa screen nga nagpakita og gipili nga hulagway nga mas dako kaysa niini. Mohunong ang bintana sa mga ngilit sa hulagway.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Screen</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aksyon</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direksyon</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Lakang</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

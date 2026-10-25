@@ -1002,4 +1002,40 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Teclado mba'erechahakuéra</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Emboguejy Strike7API.dll</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Eiporavo Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Ogue</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Barra de luz sa'y</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>ogue</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software rupi</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>oikotevẽ Logitech Gaming Software 8.52 térã ipyahuvéva</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>oha'arõ peteĩ pumbyry Arx Control reheve</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>pumbyrýpe</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>eiporavo PadForge V.E.N.O.M. mba'erechahápe</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. mba'erechahápe</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ndojejuhúi mba'erechaha</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, oha'arõ barra de luz sa'y</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ndojeporavói ta'ãnga</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Mba'erechaha tecla {0}</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Mba'erechaha asu</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Mba'erechaha akatúa</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Mba'erechaha OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Mba'erechaha heja</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Mba'erechaha yvate</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Mba'erechaha guýpe</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Mba'erechaha menú</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Mba'erechaha ñemboheko</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Mba'erechaha ohechauka aravo.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Ta'angakuéra (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Opaite marandurenda (*.*)|*.*</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Oñemboguejyhína Mad Catz S.T.R.I.K.E. 7 SDK…</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Hechauka teclado mba'erechaha</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} ohechauka {1}</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Mba'erechaha</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

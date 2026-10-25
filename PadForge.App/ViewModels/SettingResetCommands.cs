@@ -30,6 +30,7 @@ namespace PadForge.ViewModels
             nameof(GKeysEnabled) or
             nameof(AnalogKeyboardsEnabled) or
             nameof(BlissBoxEnabled) or
+            nameof(KeyboardScreensEnabled) or
             nameof(PollingRateMs) or
             nameof(HmInactivityDestroyTimeoutSeconds) or
             nameof(AssignOfferNewDevice) or
@@ -130,6 +131,12 @@ namespace PadForge.ViewModels
                     // Off is the default: the API shares the channel the
                     // Bliss-Box API Tool and DeviceBuddy use.
                     BlissBoxEnabled = false;
+                    break;
+                }
+                case nameof(KeyboardScreensEnabled):
+                {
+                    // Off is the default: it loads other vendors' libraries.
+                    KeyboardScreensEnabled = false;
                     break;
                 }
                 case nameof(PollingRateMs):
@@ -1129,6 +1136,14 @@ namespace PadForge.ViewModels
             nameof(DreamcastFrames) or
             nameof(DreamcastFrameMs) or
             nameof(DreamcastRepeat) or
+            nameof(ScreenKind) or
+            nameof(ScreenFrames) or
+            nameof(ScreenFrameMs) or
+            nameof(ScreenRepeat) or
+            nameof(ScreenMode) or
+            nameof(StopwatchAction) or
+            nameof(PanDirection) or
+            nameof(PanStep) or
             nameof(TurboRateCurve) or
             nameof(Type) or
             nameof(VolumeLimit) or
@@ -1406,6 +1421,46 @@ namespace PadForge.ViewModels
                 case nameof(DreamcastRepeat):
                 {
                     DreamcastRepeat = 1;
+                    break;
+                }
+                case nameof(ScreenKind):
+                {
+                    ScreenKind = PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind.Monochrome;
+                    break;
+                }
+                case nameof(ScreenFrames):
+                {
+                    ScreenFrames = string.Empty;
+                    break;
+                }
+                case nameof(ScreenFrameMs):
+                {
+                    ScreenFrameMs = 1000;
+                    break;
+                }
+                case nameof(ScreenRepeat):
+                {
+                    ScreenRepeat = 1;
+                    break;
+                }
+                case nameof(ScreenMode):
+                {
+                    ScreenMode = PadForge.Services.KeyboardScreenData.DefaultMode;
+                    break;
+                }
+                case nameof(StopwatchAction):
+                {
+                    StopwatchAction = PadForge.Services.KeyboardScreenStopwatchAction.StartPause;
+                    break;
+                }
+                case nameof(PanDirection):
+                {
+                    PanDirection = PadForge.Services.KeyboardScreenPanDirection.Right;
+                    break;
+                }
+                case nameof(PanStep):
+                {
+                    PanStep = DefaultPanStep;
                     break;
                 }
                 case nameof(TurboRateCurve):

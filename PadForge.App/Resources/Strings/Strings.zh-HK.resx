@@ -4291,4 +4291,97 @@
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox 脈衝扳機的 9 位元組報告及其寫入路徑，由 araghon007 編寫。MIT。</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 的觸覺 PCM 格式，即帶正負號的 16 位元、3 kHz，由此確定了帶正負號 8 位元的藍牙觸覺編碼。AGPL-3.0，只作文件閱讀，並無隨附任何 AGPL 程式碼。</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>鍵盤熒幕</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>在 Logitech 的 GamePanel 鍵盤和 Mad Catz S.T.R.I.K.E. 7 內置的熒幕上顯示內容，亦可透過 Logitech Arx Control 顯示在手機上：設定檔、時鐘、遊玩時間、碼錶、圖片，或 DualShock 4 或 DualSense 光條的顏色。熒幕旁的按鍵會成為「鍵盤熒幕按鍵」列上的按鈕。</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>驅動鍵盤熒幕</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>在 Logitech G15、G15 v2、G510、G13、Z-10、GamePanel 和 G19 的熒幕、Arx Control 以及 Mad Catz S.T.R.I.K.E. 7 上顯示內容。Logitech Gaming Software 執行時，PadForge 會透過它繪製。沒有它時，PadForge 會經 HID 寫入單色熒幕，並將 WinUSB 繫結到 G19 的熒幕介面。關閉此選項會將 G19 的熒幕交還 Windows。</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>單色熒幕…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>彩色熒幕…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>下載 Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>從 AIDA64 的伺服器下載 Mad Catz 的 S.T.R.I.K.E. 7 SDK，以已知的 SHA-256 核對，並只將 64 位元的 Strike7API.dll 保留在 PadForge 的暫存資料夾。</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>選擇 Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>安裝 Visual C++ 2008 執行階段</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>下載 Microsoft 為 64 位元 Windows 提供的 Visual C++ 2008 SP1 可轉散發套件（Strike7API.dll 需要它），核對 Microsoft 的簽署後安裝。</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|程式庫 (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>單色熒幕</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>彩色熒幕</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>關閉</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>碼錶</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>光條顏色</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}：{1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>關閉</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>透過 Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>直接顯示於 {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>正在將 WinUSB 繫結到 G19 的熒幕</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19 的熒幕使用另一個驅動程式（{0}），請啟動 Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>需要 Logitech Gaming Software 8.52 或更新版本</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>請啟動 Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>等待安裝了 Arx Control 的手機</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>顯示於手機</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>需要 Strike7API.dll，請下載或選擇一份副本</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>已下載的 Strike7API.dll 已改變，請重新下載</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>需要 Microsoft 的 Visual C++ 2008 執行階段</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll 無法載入</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>請啟動 S.T.R.I.K.E. 7 軟件</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>請在 V.E.N.O.M. 熒幕上選擇 PadForge</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>顯示於 V.E.N.O.M. 熒幕</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>找不到熒幕</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}，等待光條顏色</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}，未選擇圖片</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>鍵盤熒幕按鍵</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>熒幕按鍵 {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>小程式鍵</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>熒幕左</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>熒幕右</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>熒幕確定</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>熒幕取消</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>熒幕上</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>熒幕下</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>熒幕選單</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>熒幕設定</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge 不顯示任何內容，其小程式亦會離開熒幕。在 Logitech Gaming Software 下，熒幕按鍵只在 PadForge 的小程式位於前台時才傳到 PadForge，因此需要使用其他模式。</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>熒幕顯示使用中設定檔的名稱，並隨每次切換設定檔而更新。</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>熒幕顯示使用中設定檔在設定檔清單中的位置。預設設定檔為 0。</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>熒幕顯示使用中設定檔本身的圖片，沒有圖片時則顯示其名稱。每個設定檔各自保存自己的圖片。</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>熒幕顯示目前時間。</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>熒幕顯示自使用中設定檔切換啟用以來的小時和分鐘數。綁定遊戲程式的設定檔會在遊戲啟動時切換啟用，所以計算的是該次遊玩。在預設設定檔下，則由引擎啟動時開始計算。</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>熒幕以圖片原有大小顯示你選擇的圖片。圖片比熒幕大時，只顯示熒幕大小的一個視窗，可用「平移鍵盤熒幕圖片」巨集移動。在 S.T.R.I.K.E. 7 上，用手指在熒幕上拖動也可移動。</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>熒幕顯示碼錶，可用「碼錶」巨集開始、暫停和重設。所有熒幕顯示同一個碼錶。</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>熒幕顯示編號最低的插槽中 DualShock 4 或 DualSense 的光條顏色。單色熒幕以點陣圖案顯示其亮度。顏色傳到光條之前，PadForge 不顯示任何內容。</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>圖片 (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|所有檔案 (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>平移</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>平移 X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>平移 Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} 已設為「{1}」。</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>正在下載 Mad Catz 的 S.T.R.I.K.E. 7 SDK…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 現在會載入 {0}。</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>正在下載並安裝 Microsoft 的 Visual C++ 2008 執行階段…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>下載的 S.T.R.I.K.E. 7 SDK 與已知的 SHA-256 不符，因此沒有保留其中任何內容。</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>安裝程式執行後，仍然缺少 Visual C++ 2008 執行階段。</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>顯示鍵盤熒幕</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>在所選種類的每個鍵盤熒幕上播放圖片，然後讓每個熒幕回到自己的模式。</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>顯示 {0} 圖片：{1} × {2} 毫秒，重複次數 {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>圖片會配合熒幕大小：單色熒幕為 160 × 43 黑白像素，G19 為 320 × 240，Arx Control 和 S.T.R.I.K.E. 7 為 480 × 320。每幅最短時間為十分之一秒。</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>鍵盤熒幕模式</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>將某種鍵盤熒幕切換到另一個模式，並保留為該熒幕的設定。</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} 顯示{1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>此模式會保持，直到其他巨集或熒幕的對話方塊更改它。</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>碼錶</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>開始或暫停、或重設處於「碼錶」模式的鍵盤熒幕所顯示的碼錶。</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>開始或暫停碼錶</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>重設碼錶</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>重設會停止碼錶並將它歸零。所有處於「碼錶」模式的鍵盤熒幕顯示同一個碼錶。</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>平移鍵盤熒幕圖片</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>在比熒幕大的圖片上移動每個鍵盤熒幕的視窗，例如用於地圖。</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>將圖片平移 {0}、{1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>移動每一種正在顯示比自身更大的所選圖片的熒幕。視窗會在圖片邊緣停止。</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>熒幕</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>動作</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>方向</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>步幅</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

@@ -1220,4 +1220,39 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Rub Strike7API.dll los</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Xaiv Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Nruab Visual C++ 2008 Runtime</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Rub Microsoft Visual C++ 2008 SP1 Redistributable rau Windows 64-bit, uas Strike7API.dll xav tau, kuaj Microsoft lub kos npe rau nws, thiab nruab nws.</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Kaw</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Xim lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>kaw</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>los ntawm Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>ncaj qha rau {0}</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>xav tau Logitech Gaming Software 8.52 los yog tshiab dua</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>qhib Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>tos ib lub xov tooj uas muaj Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>nyob ntawm ib lub xov tooj</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>xav tau Strike7API.dll, yog li ntawd rub nws los yog xaiv ib qho</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll uas rub los lawm tau hloov, yog li ntawd rub dua</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>xav tau Microsoft Visual C++ 2008 runtime</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll qhib tsis tau</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>qhib lub software S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, tos xim lightbar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, tsis tau xaiv duab</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Duab (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Txhua cov ntaub ntawv (*.*)|*.*</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} teeb tsa rau {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Tab tom rub Mad Catz S.T.R.I.K.E. 7 SDK…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 tam sim no siv {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Tab tom rub thiab nruab Microsoft Visual C++ 2008 runtime…</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Tom qab nruab tas lawm, Visual C++ 2008 runtime tseem tsis muaj.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Qhia {0} duab: {1} × {2} ms, rov ua {3} zaug</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} qhia {1}</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Kauj ruam</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

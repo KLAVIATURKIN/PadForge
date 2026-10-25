@@ -4241,6 +4241,7 @@ namespace PadForge.Common.Input
             ShutdownHandheldInputs();
             ShutdownHeadTrackerInputs();
             ShutdownLogitechGKeysInputs();
+            ShutdownKeyboardScreenKeysInputs();
             ShutdownPeripheralRows();
             ShutdownTouchSenseMice();
             ShutdownAnalogKeyboardInputs();

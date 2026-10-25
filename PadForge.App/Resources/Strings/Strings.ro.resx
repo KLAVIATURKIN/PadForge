@@ -4291,4 +4291,97 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="About_X1nputDesc" xml:space="preserve"><value>Raportul de 9 octeți al trăgacelor cu impuls Xbox și calea sa de scriere, de araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Formatul PCM haptic al PS5, 16 biți cu semn la 3 kHz, care a lămurit codificarea haptică Bluetooth de 8 biți cu semn. AGPL-3.0, citit doar ca documentație, nu este inclus niciun cod AGPL.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ecrane de tastatură</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Desenează pe ecranele integrate în tastaturile GamePanel de la Logitech și în Mad Catz S.T.R.I.K.E. 7, precum și pe un telefon prin Logitech Arx Control: profilul, un ceas, timpul de joc, un cronometru, o imagine sau culoarea barei luminoase a unui DualShock 4 sau DualSense. Tastele de lângă aceste ecrane devin butoane pe rândul Taste de ecran ale tastaturii.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Controlare ecrane de tastatură</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Desenează pe ecranele Logitech G15, G15 v2, G510, G13, Z-10, GamePanel și G19, pe Arx Control și pe Mad Catz S.T.R.I.K.E. 7. Cât timp rulează Logitech Gaming Software, PadForge desenează prin intermediul acestuia. Fără el, PadForge scrie pe ecranele monocrome prin HID și leagă WinUSB de interfața de ecran a lui G19. Dezactivarea acestei opțiuni returnează ecranul lui G19 către Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Ecran monocrom…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Ecran color…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Descărcare Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Descarcă SDK-ul S.T.R.I.K.E. 7 de la Mad Catz de pe serverul AIDA64, îl verifică după SHA-256-ul său cunoscut și păstrează doar Strike7API.dll pe 64 de biți în folderul temporar al PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Alegere Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Instalare mediu de execuție Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Descarcă Visual C++ 2008 SP1 Redistributable de la Microsoft pentru Windows pe 64 de biți, de care are nevoie Strike7API.dll, verifică semnătura Microsoft de pe acesta și îl instalează.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Biblioteci (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Ecran monocrom</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Ecran color</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Dezactivat</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Cronometru</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Culoarea barei luminoase</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>dezactivat</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>prin Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>direct pe {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>se leagă WinUSB de ecranul lui G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>ecranul lui G19 folosește alt driver ({0}), așa că porniți Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>necesită Logitech Gaming Software 8.52 sau o versiune ulterioară</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>porniți Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>se așteaptă un telefon cu Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>pe un telefon</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>necesită Strike7API.dll, așa că descărcați-l sau alegeți o copie</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>fișierul Strike7API.dll descărcat s-a modificat, așa că descărcați-l din nou</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>necesită mediul de execuție Visual C++ 2008 de la Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll nu s-a încărcat</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>porniți software-ul S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>alegeți PadForge pe ecranul V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>pe ecranul V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>nu s-a găsit niciun ecran</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, se așteaptă o culoare a barei luminoase</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, nicio imagine aleasă</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Taste de ecran ale tastaturii</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tasta de ecran {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tasta de applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ecran stânga</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Ecran dreapta</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Ecran OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Ecran anulare</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Ecran sus</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Ecran jos</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Ecran meniu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Ecran setări</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge nu afișează nimic, iar applet-ul său părăsește ecranul. Sub Logitech Gaming Software, tastele de ecran ajung la PadForge doar cât timp applet-ul acestuia este în prim-plan, așa că au nevoie de alt mod.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ecranul afișează numele profilului activ și se actualizează la fiecare schimbare de profil.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ecranul afișează poziția profilului activ în lista de profile. Profilul implicit are numărul 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Ecranul afișează imaginea proprie a profilului activ sau numele acestuia când nu are imagine. Fiecare profil își păstrează propria imagine.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ecranul afișează ora.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Ecranul afișează orele și minutele de când s-a activat profilul activ. Un profil legat de programul unui joc se activează când pornește jocul, deci contorul măsoară acea sesiune. Sub profilul implicit, contorul pornește de la începutul motorului.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Ecranul afișează o imagine pe care o alegeți, la dimensiunea ei proprie. O imagine mai mare decât ecranul se afișează printr-o fereastră de dimensiunea ecranului, pe care o deplasează macrocomanda Panoramare imagine pe ecranul tastaturii. Pe S.T.R.I.K.E. 7, un deget tras pe ecran o deplasează și el.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ecranul afișează cronometrul, pe care macrocomanda Cronometru îl pornește, îl întrerupe și îl resetează. Toate ecranele afișează același cronometru.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Ecranul afișează culoarea barei luminoase a DualShock 4 sau DualSense din cel mai mic slot. Un ecran monocrom îi afișează luminozitatea ca model de puncte. Până când o culoare ajunge la o bară luminoasă, PadForge nu afișează nimic.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Imagini (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Toate fișierele (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Panoramare</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Panoramare X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Panoramare Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} a fost setat la {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Se descarcă SDK-ul S.T.R.I.K.E. 7 de la Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 încarcă acum {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Se descarcă și se instalează mediul de execuție Visual C++ 2008 de la Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Descărcarea SDK-ului S.T.R.I.K.E. 7 nu se potrivește cu SHA-256-ul cunoscut, așa că nu s-a păstrat nimic din ea.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Mediul de execuție Visual C++ 2008 lipsește în continuare după rularea programului de instalare.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Afișare ecran de tastatură</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Redă imagini pe fiecare ecran de tastatură de tipul ales, apoi readuce fiecare ecran la modul propriu.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Afișare imagini {0}: {1} × {2} ms, număr de repetări {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Imaginile se adaptează la ecran: 160 pe 43 de pixeli alb-negru pe un ecran monocrom, 320 pe 240 pe cel al lui G19 și 480 pe 320 pentru Arx Control și S.T.R.I.K.E. 7. O zecime de secundă este cea mai scurtă durată a cadrului.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mod ecran de tastatură</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Comută un tip de ecran de tastatură în alt mod și îl păstrează ca setare a acelui ecran.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} afișează {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Modul rămâne până când îl schimbă o altă macrocomandă sau dialogul ecranului.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Cronometru</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Pornește sau întrerupe, ori resetează, cronometrul afișat de ecranele de tastatură în modul Cronometru.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Pornire sau întrerupere cronometru</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Resetare cronometru</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Resetarea oprește cronometrul și îl readuce la zero. Fiecare ecran de tastatură în modul Cronometru afișează același cronometru.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Panoramare imagine pe ecranul tastaturii</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Deplasează fereastra fiecărui ecran de tastatură peste o imagine mai mare decât ecranul, de exemplu pentru o hartă.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Panoramare imagini cu {0} pe {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Deplasează fiecare tip de ecran care afișează o imagine aleasă mai mare decât el. Fereastra se oprește la marginile imaginii.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ecran</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Acțiune</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direcție</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Pas</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

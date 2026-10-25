@@ -4262,4 +4262,97 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="About_X1nputDesc" xml:space="preserve"><value>Het rapport van 9 bytes voor de Impulse-triggers van Xbox en het schrijfpad ervan, door araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Het PCM-formaat van de PS5-haptiek, 16 bits met teken op 3 kHz, dat de 8-bitcodering met teken van de Bluetooth-haptiek vastlegde. AGPL-3.0, alleen als documentatie gelezen, er wordt geen AGPL-code meegeleverd.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Toetsenbordschermen</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Tekent op de schermen in de GamePanel-toetsenborden van Logitech en de Mad Catz S.T.R.I.K.E. 7, en via Logitech Arx Control op een telefoon: het profiel, een klok, speeltijd, een stopwatch, een afbeelding of de kleur van de lightbar van een DualShock 4 of DualSense. De toetsen naast die schermen worden knoppen in de rij Toetsenbordschermtoetsen.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Toetsenbordschermen aansturen</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Tekent op de schermen van de Logitech G15, G15 v2, G510, G13, Z-10, GamePanel en G19, op Arx Control en op de Mad Catz S.T.R.I.K.E. 7. Terwijl Logitech Gaming Software draait, tekent PadForge via die software. Zonder die software schrijft PadForge de monochrome schermen via HID en koppelt het WinUSB aan de scherminterface van de G19. Uitschakelen geeft het scherm van de G19 terug aan Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monochroom scherm…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Kleurenscherm…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll downloaden</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Downloadt de S.T.R.I.K.E. 7-SDK van Mad Catz van de server van AIDA64, controleert die aan de hand van de bekende SHA-256 en bewaart alleen de 64-bits Strike7API.dll in de tijdelijke map van PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll kiezen…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008-runtime installeren</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Downloadt Microsofts Visual C++ 2008 SP1 Redistributable voor 64-bits Windows, die Strike7API.dll nodig heeft, controleert de handtekening van Microsoft erop en installeert die.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Bibliotheken (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Monochroom scherm</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Kleurenscherm</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Uit</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Lightbarkleur</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>uit</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>via Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>rechtstreeks op de {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>WinUSB wordt aan het scherm van de G19 gebonden</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>het scherm van de G19 gebruikt een ander stuurprogramma ({0}), start dus Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>heeft Logitech Gaming Software 8.52 of nieuwer nodig</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>start Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>wacht op een telefoon met Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>op een telefoon</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>heeft Strike7API.dll nodig, download het bestand dus of kies een kopie</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>de gedownloade Strike7API.dll is gewijzigd, download opnieuw</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>heeft de Visual C++ 2008-runtime van Microsoft nodig</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll kon niet worden geladen</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>start de S.T.R.I.K.E. 7-software</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>kies PadForge op het V.E.N.O.M.-scherm</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>op het V.E.N.O.M.-scherm</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>geen scherm gevonden</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, wacht op een lightbarkleur</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, geen afbeelding gekozen</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Toetsenbordschermtoetsen</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Schermtoets {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applettoets</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Scherm links</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Scherm rechts</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Scherm OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Scherm annuleren</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Scherm omhoog</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Scherm omlaag</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Scherm menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Scherm instellingen</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge toont niets en het applet verlaat het scherm. Onder Logitech Gaming Software bereiken de schermtoetsen PadForge alleen als het applet vooraan staat, dus daarvoor is een andere modus nodig.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Het scherm toont de naam van het actieve profiel en volgt elke profielwissel.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Het scherm toont de plaats van het actieve profiel in de profiellijst. Het profiel Standaard is 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Het scherm toont de eigen afbeelding van het actieve profiel, of de naam als het er geen heeft. Elk profiel bewaart zijn eigen afbeelding.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Het scherm toont de tijd van de dag.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Het scherm toont de uren en minuten sinds het actieve profiel is ingeschakeld. Een profiel dat aan het programma van een spel is gekoppeld, wordt ingeschakeld wanneer het spel start, dus de teller geldt voor die sessie. Onder het profiel Standaard telt de teller vanaf de start van de engine.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Het scherm toont een gekozen afbeelding op de eigen grootte. Een afbeelding die groter is dan het scherm, toont een venster ter grootte van het scherm, dat de macro Afbeelding op toetsenbordscherm verschuiven verplaatst. Op de S.T.R.I.K.E. 7 verplaatst een over het scherm gesleepte vinger het ook.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Het scherm toont de stopwatch, die de macro Stopwatch start, pauzeert en reset. Elk scherm toont dezelfde stopwatch.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Het scherm toont de kleur van de lightbar van de DualShock 4 of DualSense in het laagste slot. Een monochroom scherm toont de helderheid als stippenpatroon. Zolang er geen kleur bij een lightbar is aangekomen, toont PadForge niets.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Afbeeldingen (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Alle bestanden (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Verschuiven</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Verschuiven X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Verschuiven Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} ingesteld op {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>De S.T.R.I.K.E. 7-SDK van Mad Catz wordt gedownload…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>De S.T.R.I.K.E. 7 laadt nu {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsofts Visual C++ 2008-runtime wordt gedownload en geïnstalleerd…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>De download van de S.T.R.I.K.E. 7-SDK komt niet overeen met de bekende SHA-256, dus er is niets van bewaard.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>De Visual C++ 2008-runtime ontbreekt nog nadat het installatieprogramma is uitgevoerd.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Toetsenbordscherm tonen</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Speelt afbeeldingen af op elk toetsenbordscherm van het gekozen type en zet daarna elk scherm terug naar zijn eigen modus.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Afbeeldingen tonen op {0}: {1} × {2} ms, aantal herhalingen {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Afbeeldingen worden aangepast aan het scherm: 160 bij 43 zwart-witpixels op een monochroom scherm, 320 bij 240 op dat van de G19 en 480 bij 320 voor Arx Control en de S.T.R.I.K.E. 7. Een tiende seconde is de kortste tijd per afbeelding.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Modus van toetsenbordscherm</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Schakelt een type toetsenbordscherm over naar een andere modus en bewaart die als instelling van dat scherm.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} toont {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>De modus blijft staan tot een andere macro of het dialoogvenster van het scherm hem wijzigt.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stopwatch</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Start of pauzeert, of reset, de stopwatch die toetsenbordschermen in de modus Stopwatch tonen.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Stopwatch starten of pauzeren</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Stopwatch resetten</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Resetten stopt de stopwatch en zet hem terug op nul. Elk toetsenbordscherm in de modus Stopwatch toont dezelfde stopwatch.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Afbeelding op toetsenbordscherm verschuiven</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Verschuift het venster van elk toetsenbordscherm over een afbeelding die groter is dan het scherm, bijvoorbeeld voor een kaart.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Afbeeldingen verschuiven met {0} bij {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Verschuift elk type scherm dat een gekozen afbeelding toont die groter is dan het scherm zelf. Het venster stopt aan de randen van de afbeelding.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Scherm</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Actie</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Richting</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Stap</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

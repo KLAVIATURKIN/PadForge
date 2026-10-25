@@ -4291,4 +4291,97 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox-impulssiliipaisimien 9-tavuinen raportti ja sen kirjoituspolku, tekijä araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5-ohjaimen haptinen PCM-muoto, etumerkillinen 16-bittinen 3 kHz:n taajuudella, joka ratkaisi etumerkillisen 8-bittisen Bluetooth-haptiikkakoodauksen. AGPL-3.0, käytetty vain dokumentaationa, AGPL-koodia ei toimiteta.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Näppäimistön näytöt</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Piirtää Logitechin GamePanel-näppäimistöjen ja Mad Catz S.T.R.I.K.E. 7:n sisäänrakennetuille näytöille sekä puhelimeen Logitech Arx Controlin kautta: profiili, kello, peliaika, sekuntikello, kuva tai DualShock 4- tai DualSense-ohjaimen valopalkin väri. Näyttöjen vieressä olevista näppäimistä tulee painikkeita Näppäimistön näyttönäppäimet -riville.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Ohjaa näppäimistön näyttöjä</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Piirtää Logitech G15-, G15 v2-, G510-, G13-, Z-10-, GamePanel- ja G19-näytöille, Arx Controlille sekä Mad Catz S.T.R.I.K.E. 7:lle. Kun Logitech Gaming Software on käynnissä, PadForge piirtää sen kautta. Ilman sitä PadForge kirjoittaa yksivärisille näytöille HID:n kautta ja sitoo WinUSB:n G19:n näyttörajapintaan. Kun tämä on pois päältä, G19:n näyttö palautuu Windowsille.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Yksivärinen näyttö…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Värinäyttö…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Lataa Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Lataa Mad Catzin S.T.R.I.K.E. 7 SDK:n AIDA64:n palvelimelta, tarkistaa sen tunnetun SHA-256-tarkistussumman mukaan ja säilyttää vain 64-bittisen Strike7API.dll-tiedoston PadForge-ohjelman väliaikaisessa kansiossa.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Valitse Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Asenna Visual C++ 2008 -ajoympäristö</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Lataa Microsoftin Visual C++ 2008 SP1 Redistributable -paketin 64-bittiselle Windowsille, jota Strike7API.dll tarvitsee, tarkistaa siinä olevan Microsoftin allekirjoituksen ja asentaa sen.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Kirjastot (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Yksivärinen näyttö</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Värinäyttö</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Pois</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Sekuntikello</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Valopalkin väri</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>pois päältä</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Softwaren kautta</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>suoraan laitteessa {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>sidotaan WinUSB G19:n näyttöön</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19:n näyttö käyttää toista ajuria ({0}), joten käynnistä Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>vaatii Logitech Gaming Softwaren version 8.52 tai uudemman</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>käynnistä Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>odotetaan puhelinta, jossa on Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>puhelimessa</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>tarvitsee Strike7API.dll-tiedoston, joten lataa se tai valitse kopio</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>ladattu Strike7API.dll on muuttunut, joten lataa se uudelleen</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>tarvitsee Microsoftin Visual C++ 2008 -ajoympäristön</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll-tiedostoa ei voitu ladata</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>käynnistä S.T.R.I.K.E. 7 -ohjelmisto</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>valitse PadForge V.E.N.O.M. -näytöllä</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. -näytöllä</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>näyttöä ei löytynyt</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, odotetaan valopalkin väriä</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, kuvaa ei ole valittu</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Näppäimistön näyttönäppäimet</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Näyttönäppäin {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Sovelmanäppäin</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Näytön vasen</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Näytön oikea</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Näytön OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Näytön peruuta</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Näytön ylös</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Näytön alas</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Näytön valikko</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Näytön asetukset</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge ei näytä mitään, ja sen sovelma poistuu näytöltä. Logitech Gaming Softwaren alla näyttönäppäimet tavoittavat PadForgen vain, kun sen sovelma on etualalla, joten ne tarvitsevat toisen tilan.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Näytössä on aktiivisen profiilin nimi, ja se päivittyy jokaisen profiilinvaihdon yhteydessä.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Näytössä on aktiivisen profiilin paikka profiililuettelossa. Profiili Oletus on 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Näyttö näyttää aktiivisen profiilin oman kuvan tai sen nimen, jos kuvaa ei ole. Jokaisella profiililla on oma kuvansa.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Näyttö näyttää kellonajan.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Näyttö näyttää tunnit ja minuutit siitä, kun aktiivinen profiili otettiin käyttöön. Pelin ohjelmaan sidottu profiili otetaan käyttöön, kun peli käynnistyy, joten laskuri kattaa kyseisen istunnon. Profiilissa Oletus laskenta alkaa ohjelmamoottorin käynnistyksestä.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Näyttö näyttää valitsemasi kuvan alkuperäisessä koossa. Näyttöä suuremmasta kuvasta näytetään näytön kokoinen ikkuna, jota makro Panoroi näppäimistön näytön kuvaa siirtää. S.T.R.I.K.E. 7:ssä myös näytön poikki vedetty sormi siirtää sitä.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Näyttö näyttää sekuntikellon, jonka Sekuntikello-makro käynnistää, keskeyttää ja nollaa. Kaikki näytöt näyttävät saman sekuntikellon.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Näyttö näyttää alimmassa paikassa olevan DualShock 4- tai DualSense-ohjaimen valopalkin värin. Yksivärinen näyttö näyttää sen kirkkauden pistekuviona. Kunnes valopalkille on tullut väri, PadForge ei näytä mitään.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Kuvat (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Kaikki tiedostot (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Panorointi</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Panoroi X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Panoroi Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0}: asetus {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Ladataan Mad Catzin S.T.R.I.K.E. 7 SDK:ta…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 lataa nyt tiedoston {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Ladataan ja asennetaan Microsoftin Visual C++ 2008 -ajoympäristö…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Ladatun S.T.R.I.K.E. 7 SDK:n SHA-256 ei vastaa tunnettua arvoa, joten mitään siitä ei säilytetty.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 -ajoympäristö puuttuu edelleen asentajan ajon jälkeen.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Näytä näppäimistön näytöllä</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Toistaa kuvia jokaisella valitun tyyppisellä näppäimistön näytöllä ja palauttaa sitten kunkin näytön omaan tilaansa.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Näytä kuvat, {0}: {1} × {2} ms, toistokertoja {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Kuvat sovitetaan näyttöön: yksivärisellä näytöllä 160 × 43 mustavalkoista pikseliä, G19:n näytöllä 320 × 240 sekä Arx Controlilla ja S.T.R.I.K.E. 7:llä 480 × 320. Lyhin kuvan kesto on kymmenesosasekunti.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Näppäimistön näytön tila</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Vaihtaa näppäimistön näytön tyypin toiseen tilaan ja säilyttää sen kyseisen näytön asetuksena.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} näyttää: {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Tila pysyy, kunnes toinen makro tai näytön valintaikkuna muuttaa sitä.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Sekuntikello</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Käynnistää, keskeyttää tai nollaa sekuntikellon, jota Sekuntikello-tilassa olevat näppäimistön näytöt näyttävät.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Käynnistä tai keskeytä sekuntikello</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Nollaa sekuntikello</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Nollaus pysäyttää sekuntikellon ja palauttaa sen nollaan. Kaikki Sekuntikello-tilassa olevat näppäimistön näytöt näyttävät saman sekuntikellon.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Panoroi näppäimistön näytön kuvaa</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Siirtää kunkin näppäimistön näytön ikkunaa näyttöä suuremman kuvan päällä, esimerkiksi karttaa varten.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Panoroi kuvia: X {0}, Y {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Siirtää jokaista näyttötyyppiä, jolla näkyy valittu itseään suurempi kuva. Ikkuna pysähtyy kuvan reunoihin.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Näyttö</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Toiminto</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Suunta</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Askel</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

@@ -4242,4 +4242,97 @@
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox 冲击扳机的 9 字节报告及其写入路径，由 araghon007 提供。MIT。</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 触觉 PCM 格式（有符号 16 位，3 kHz），由此确定了蓝牙触觉的有符号 8 位编码。AGPL-3.0，仅作文档参考，不随附任何 AGPL 代码。</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>键盘屏幕</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>在罗技 GamePanel 键盘和 Mad Catz S.T.R.I.K.E. 7 内置的屏幕上绘制内容，也可通过 Logitech Arx Control 在手机上绘制：配置文件、时钟、游戏时间、秒表、图片，或 DualShock 4、DualSense 灯条的颜色。这些屏幕旁的按键会成为“键盘屏幕按键”行中的按钮。</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>驱动键盘屏幕</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>在 Logitech G15、G15 v2、G510、G13、Z-10、GamePanel 和 G19 的屏幕上、Arx Control 上以及 Mad Catz S.T.R.I.K.E. 7 上绘制内容。Logitech Gaming Software 运行时，PadForge 通过它绘制。没有它时，PadForge 通过 HID 写入单色屏幕，并将 WinUSB 绑定到 G19 的屏幕接口。关闭此项会把 G19 的屏幕交还给 Windows。</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>单色屏幕…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>彩色屏幕…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>下载 Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>从 AIDA64 的服务器下载 Mad Catz 的 S.T.R.I.K.E. 7 SDK，按已知的 SHA-256 校验，仅将 64 位的 Strike7API.dll 保留在 PadForge 的临时文件夹中。</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>选择 Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>安装 Visual C++ 2008 运行时</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>下载 Microsoft 适用于 64 位 Windows 的 Visual C++ 2008 SP1 可再发行组件包（Strike7API.dll 需要它），检查其 Microsoft 签名，然后安装。</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|库 (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>单色屏幕</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>彩色屏幕</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>关闭</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>秒表</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>灯条颜色</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}：{1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>关闭</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>通过 Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>直接显示在 {0} 上</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>正在将 WinUSB 绑定到 G19 的屏幕</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19 的屏幕使用了其他驱动程序（{0}），请启动 Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>需要 Logitech Gaming Software 8.52 或更高版本</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>请启动 Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>正在等待装有 Arx Control 的手机</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>在手机上</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>需要 Strike7API.dll，请下载或选择一个副本</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>已下载的 Strike7API.dll 有变化，请重新下载</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>需要 Microsoft 的 Visual C++ 2008 运行时</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll 无法加载</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>请启动 S.T.R.I.K.E. 7 软件</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>请在 V.E.N.O.M. 屏幕上选择 PadForge</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>在 V.E.N.O.M. 屏幕上</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>未找到屏幕</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}，正在等待灯条颜色</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}，未选择图片</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>键盘屏幕按键</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>屏幕键 {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>小程序键</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>屏幕左</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>屏幕右</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>屏幕确定</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>屏幕取消</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>屏幕上</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>屏幕下</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>屏幕菜单</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>屏幕设置</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge 不显示任何内容，其小程序也会离开屏幕。在 Logitech Gaming Software 下，屏幕键只有在 PadForge 的小程序位于前台时才会传给 PadForge，因此需要使用其他模式。</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>屏幕显示当前配置文件的名称，并随每次配置文件切换更新。</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>屏幕显示当前配置文件在配置文件列表中的位置。默认配置文件为 0。</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>屏幕显示当前配置文件自己的图片，没有图片时显示其名称。每个配置文件保存各自的图片。</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>屏幕显示当前时间。</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>屏幕显示自当前配置文件切入以来的小时和分钟数。绑定到某个游戏程序的配置文件会在游戏启动时切入，因此计时就是这一次游戏。在默认配置文件下，则从引擎启动时开始计时。</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>屏幕按原始大小显示你选择的图片。比屏幕大的图片会显示一个与屏幕等大的窗口，“平移键盘屏幕图片”宏可以移动该窗口。在 S.T.R.I.K.E. 7 上，用手指在屏幕上拖动也可以移动它。</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>屏幕显示秒表，秒表由“秒表”宏启动、暂停和重置。所有屏幕显示的是同一个秒表。</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>屏幕显示最低编号插槽中 DualShock 4 或 DualSense 灯条的颜色。单色屏幕以点阵图案显示其亮度。在颜色传到灯条之前，PadForge 不显示任何内容。</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>图片 (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|所有文件 (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>平移</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>平移 X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>平移 Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} 已设为 {1}。</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>正在下载 Mad Catz 的 S.T.R.I.K.E. 7 SDK…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 现在加载 {0}。</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>正在下载并安装 Microsoft 的 Visual C++ 2008 运行时…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>下载的 S.T.R.I.K.E. 7 SDK 与已知的 SHA-256 不符，因此未保留其中任何内容。</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 运行时的安装程序运行后，该运行时仍然缺失。</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>显示键盘屏幕</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>在所选类型的每个键盘屏幕上播放图片，然后让每个屏幕回到各自的模式。</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>显示 {0} 图片：{1} × {2} 毫秒，重复 {3} 次</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>图片会适配屏幕：单色屏幕为 160 × 43 黑白像素，G19 的屏幕为 320 × 240，Arx Control 和 S.T.R.I.K.E. 7 为 480 × 320。每张最短时长为十分之一秒。</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>键盘屏幕模式</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>将某类键盘屏幕切换到另一种模式，并保存为该屏幕的设置。</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} 显示 {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>该模式会一直保持，直到其他宏或该屏幕的对话框更改它。</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>秒表</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>启动或暂停，或重置处于“秒表”模式的键盘屏幕所显示的秒表。</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>启动或暂停秒表</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>重置秒表</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>重置会停止秒表并将其归零。处于“秒表”模式的所有键盘屏幕显示的是同一个秒表。</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>平移键盘屏幕图片</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>让每个键盘屏幕的窗口在比屏幕大的图片上移动，例如用于地图。</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>平移图片 {0}，{1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>移动所有显示了比自身更大的所选图片的屏幕。窗口会停在图片的边缘。</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>屏幕</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>操作</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>方向</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>步长</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

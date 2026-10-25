@@ -2910,6 +2910,11 @@ namespace PadForge.ViewModels
                     OnPropertyChanged(nameof(IsSwitchLayerType));
                     OnPropertyChanged(nameof(IsSetChromaColorType));
                     OnPropertyChanged(nameof(IsShowDreamcastScreenType));
+                    OnPropertyChanged(nameof(IsShowKeyboardScreenType));
+                    OnPropertyChanged(nameof(IsKeyboardScreenModeType));
+                    OnPropertyChanged(nameof(IsStopwatchType));
+                    OnPropertyChanged(nameof(IsPanKeyboardScreenType));
+                    OnPropertyChanged(nameof(IsKeyboardScreenKindType));
                     OnPropertyChanged(nameof(IsGuideLedBrightnessType));
                     OnPropertyChanged(nameof(IsAnyLightbarType));
                     OnPropertyChanged(nameof(IsLightbarReactiveHold));
@@ -3350,6 +3355,28 @@ namespace PadForge.ViewModels
         /// picture card.</summary>
         [System.Xml.Serialization.XmlIgnore]
         public bool IsShowDreamcastScreenType => _type == MacroActionType.ShowDreamcastScreen;
+
+        /// <summary>True when Type is ShowKeyboardScreen (#519). Surfaces the
+        /// picture card.</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool IsShowKeyboardScreenType => _type == MacroActionType.ShowKeyboardScreen;
+
+        /// <summary>True when Type is KeyboardScreenMode (#519).</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool IsKeyboardScreenModeType => _type == MacroActionType.KeyboardScreenMode;
+
+        /// <summary>True when Type is Stopwatch (#519).</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool IsStopwatchType => _type == MacroActionType.Stopwatch;
+
+        /// <summary>True when Type is PanKeyboardScreen (#519).</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool IsPanKeyboardScreenType => _type == MacroActionType.PanKeyboardScreen;
+
+        /// <summary>True for the two keyboard screen types that name a kind of
+        /// screen (#519), which share the kind row.</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool IsKeyboardScreenKindType => IsShowKeyboardScreenType || IsKeyboardScreenModeType;
 
         /// <summary>True when Type is PointerModeSet (issue #203 follow-up).</summary>
         [System.Xml.Serialization.XmlIgnore]
@@ -4561,6 +4588,205 @@ namespace PadForge.ViewModels
             DreamcastFrames = PadForge.Services.DreamcastScreenService.EncodeFrames(frames);
         }
 
+        private PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind _screenKind;
+        /// <summary>Show Keyboard Screen and Keyboard Screen Mode (#519): the
+        /// kind of screen the action acts on.</summary>
+        public PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind ScreenKind
+        {
+            get => _screenKind;
+            set
+            {
+                if (!Enum.IsDefined(typeof(PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind), value))
+                    value = PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind.Monochrome;
+                if (!SetProperty(ref _screenKind, value)) return;
+                OnPropertyChanged(nameof(ScreenKindIndex));
+                OnPropertyChanged(nameof(ScreenFrameImages));
+                OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        /// <summary>The kind as the editor's list index, the kinds' own
+        /// order.</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public int ScreenKindIndex
+        {
+            get => (int)_screenKind;
+            set => ScreenKind = (PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind)value;
+        }
+
+        private string _screenFrames = string.Empty;
+        /// <summary>Show Keyboard Screen (#519): the pictures in the order they
+        /// show, each a PNG at the kind's size in base64, joined by commas,
+        /// eight at most.</summary>
+        public string ScreenFrames
+        {
+            get => _screenFrames;
+            set
+            {
+                if (!SetProperty(ref _screenFrames, value ?? string.Empty)) return;
+                OnPropertyChanged(nameof(ScreenFrameImages));
+                OnPropertyChanged(nameof(ScreenFrameCount));
+                OnPropertyChanged(nameof(CanAddScreenFrame));
+                OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        private int _screenFrameMs = 1000;
+        /// <summary>How long each picture shows, ms: a tenth of a second at
+        /// least and ten minutes at most.</summary>
+        public int ScreenFrameMs
+        {
+            get => _screenFrameMs;
+            set
+            {
+                if (SetProperty(ref _screenFrameMs,
+                        Math.Clamp(value, PadForge.Services.KeyboardScreenService.MinFrameMs, 600000)))
+                    OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        private int _screenRepeat = 1;
+        /// <summary>How many times the pictures play before the screen returns
+        /// to its mode.</summary>
+        public int ScreenRepeat
+        {
+            get => _screenRepeat;
+            set
+            {
+                if (SetProperty(ref _screenRepeat, Math.Clamp(value, 1, 1000)))
+                    OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        /// <summary>The pictures as the screen shows them, for the editor.</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public IReadOnlyList<System.Windows.Media.ImageSource> ScreenFrameImages
+        {
+            get
+            {
+                var images = new List<System.Windows.Media.ImageSource>();
+                foreach (var frame in PadForge.Services.KeyboardScreenService.DecodeFrames(_screenKind, _screenFrames))
+                    images.Add(PadForge.Common.Input.KeyboardScreens.KeyboardScreenRenderer.ToBitmap(frame, _screenKind));
+                return images;
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnore]
+        public int ScreenFrameCount => SplitScreenFrames().Count;
+
+        [System.Xml.Serialization.XmlIgnore]
+        public bool CanAddScreenFrame => ScreenFrameCount < PadForge.Services.KeyboardScreenService.MaxFrames;
+
+        private List<string> SplitScreenFrames()
+        {
+            var frames = new List<string>();
+            foreach (var part in _screenFrames.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+                frames.Add(part);
+            return frames;
+        }
+
+        /// <summary>Appends a picture, a PNG in base64, while fewer than eight
+        /// are set.</summary>
+        internal void AddScreenFrame(string frame)
+        {
+            var frames = SplitScreenFrames();
+            if (string.IsNullOrEmpty(frame) || frames.Count >= PadForge.Services.KeyboardScreenService.MaxFrames) return;
+            frames.Add(frame);
+            ScreenFrames = PadForge.Services.KeyboardScreenService.JoinFrames(frames);
+        }
+
+        /// <summary>Removes the picture at <paramref name="index"/>.</summary>
+        internal void RemoveScreenFrame(int index)
+        {
+            var frames = SplitScreenFrames();
+            if (index < 0 || index >= frames.Count) return;
+            frames.RemoveAt(index);
+            ScreenFrames = PadForge.Services.KeyboardScreenService.JoinFrames(frames);
+        }
+
+        private PadForge.Services.KeyboardScreenMode _screenMode = PadForge.Services.KeyboardScreenData.DefaultMode;
+        /// <summary>Keyboard Screen Mode (#519): the mode the kind switches
+        /// to.</summary>
+        public PadForge.Services.KeyboardScreenMode ScreenMode
+        {
+            get => _screenMode;
+            set
+            {
+                if (!Enum.IsDefined(typeof(PadForge.Services.KeyboardScreenMode), value))
+                    value = PadForge.Services.KeyboardScreenData.DefaultMode;
+                if (!SetProperty(ref _screenMode, value)) return;
+                OnPropertyChanged(nameof(ScreenModeIndex));
+                OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        /// <summary>The mode as the editor's list index, the modes' own
+        /// order.</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public int ScreenModeIndex
+        {
+            get => (int)_screenMode;
+            set => ScreenMode = (PadForge.Services.KeyboardScreenMode)value;
+        }
+
+        private PadForge.Services.KeyboardScreenStopwatchAction _stopwatchAction;
+        /// <summary>Stopwatch (#519): start or pause, or reset.</summary>
+        public PadForge.Services.KeyboardScreenStopwatchAction StopwatchAction
+        {
+            get => _stopwatchAction;
+            set
+            {
+                if (!Enum.IsDefined(typeof(PadForge.Services.KeyboardScreenStopwatchAction), value))
+                    value = PadForge.Services.KeyboardScreenStopwatchAction.StartPause;
+                if (!SetProperty(ref _stopwatchAction, value)) return;
+                OnPropertyChanged(nameof(StopwatchActionIndex));
+                OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnore]
+        public int StopwatchActionIndex
+        {
+            get => (int)_stopwatchAction;
+            set => StopwatchAction = (PadForge.Services.KeyboardScreenStopwatchAction)value;
+        }
+
+        private PadForge.Services.KeyboardScreenPanDirection _panDirection = PadForge.Services.KeyboardScreenPanDirection.Right;
+        /// <summary>Pan Keyboard Screen Picture (#519): which way the window
+        /// moves over the picture.</summary>
+        public PadForge.Services.KeyboardScreenPanDirection PanDirection
+        {
+            get => _panDirection;
+            set
+            {
+                if (!Enum.IsDefined(typeof(PadForge.Services.KeyboardScreenPanDirection), value))
+                    value = PadForge.Services.KeyboardScreenPanDirection.Right;
+                if (!SetProperty(ref _panDirection, value)) return;
+                OnPropertyChanged(nameof(PanDirectionIndex));
+                OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnore]
+        public int PanDirectionIndex
+        {
+            get => (int)_panDirection;
+            set => PanDirection = (PadForge.Services.KeyboardScreenPanDirection)value;
+        }
+
+        public const int DefaultPanStep = 16;
+        private int _panStep = DefaultPanStep;
+        /// <summary>How far one pan moves, in the picture's pixels.</summary>
+        public int PanStep
+        {
+            get => _panStep;
+            set
+            {
+                if (SetProperty(ref _panStep, Math.Clamp(value, 1, PadForge.Common.Input.KeyboardScreens.KeyboardScreenRenderer.MaxPictureSide)))
+                    OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
         /// <summary>Runtime emission cursor for TextBlock pacing: how many UTF-16
         /// code units of <see cref="TextContent"/> the current run has typed. The
         /// executor re-arms it to 0 when the action completes, and macro start
@@ -5728,6 +5954,19 @@ namespace PadForge.ViewModels
                     MacroActionType.ShowDreamcastScreen => string.Format(
                         Strings.Instance.MacroAction_ShowDreamcastScreen_Format,
                         DreamcastFrameCount, _dreamcastFrameMs, _dreamcastRepeat),
+                    MacroActionType.ShowKeyboardScreen => string.Format(
+                        Strings.Instance.MacroAction_ShowKeyboardScreen_Format,
+                        PadForge.Services.KeyboardScreenService.KindName(_screenKind), ScreenFrameCount, _screenFrameMs, _screenRepeat),
+                    MacroActionType.KeyboardScreenMode => string.Format(
+                        Strings.Instance.MacroAction_KeyboardScreenMode_Format,
+                        PadForge.Services.KeyboardScreenService.KindName(_screenKind),
+                        PadForge.Services.KeyboardScreenService.ModeName(_screenMode)),
+                    MacroActionType.Stopwatch => _stopwatchAction == PadForge.Services.KeyboardScreenStopwatchAction.Reset
+                        ? Strings.Instance.MacroAction_Stopwatch_Reset
+                        : Strings.Instance.MacroAction_Stopwatch_StartPause,
+                    MacroActionType.PanKeyboardScreen => string.Format(
+                        Strings.Instance.MacroAction_PanKeyboardScreen_Format,
+                        PadForge.Services.KeyboardScreenService.DirectionName(_panDirection), _panStep),
                     MacroActionType.GuideLedBrightness => string.Format(
                         Strings.Instance.MacroAction_GuideLedBrightness_Format,
                         _guideLedPercent),
@@ -6648,7 +6887,33 @@ namespace PadForge.ViewModels
         /// which each port returns to its own screen setting. One-shot, the
         /// <see cref="PlaySound"/> shape: the screen service plays it, and the
         /// macro moves on. At the tail, and its ordinal is pinned.</summary>
-        ShowDreamcastScreen = 57
+        ShowDreamcastScreen = 57,
+
+        /// <summary>Plays one to eight pictures on every keyboard screen of
+        /// <see cref="MacroAction.ScreenKind"/> (issue #519, asked in
+        /// discussion #507): each for <see cref="MacroAction.ScreenFrameMs"/>,
+        /// the whole set <see cref="MacroAction.ScreenRepeat"/> times, over
+        /// whatever the kind's mode shows, which returns when the pictures
+        /// end. One-shot, the <see cref="ShowDreamcastScreen"/> shape.
+        /// Ordinal pinned.</summary>
+        ShowKeyboardScreen = 58,
+
+        /// <summary>Switches a kind of keyboard screen to
+        /// <see cref="MacroAction.ScreenMode"/>, kept as the kind's setting
+        /// (#519). One-shot. Ordinal pinned.</summary>
+        KeyboardScreenMode = 59,
+
+        /// <summary>Starts or pauses, or resets, the keyboard screens' one
+        /// stopwatch (#519), which the Stopwatch mode shows. One-shot.
+        /// Ordinal pinned.</summary>
+        Stopwatch = 60,
+
+        /// <summary>Moves every keyboard screen's window over its picture by
+        /// <see cref="MacroAction.PanStep"/> pixels toward
+        /// <see cref="MacroAction.PanDirection"/>, stopping at the picture's
+        /// edges (#519), for a map larger than the screen. One-shot. Ordinal
+        /// pinned.</summary>
+        PanKeyboardScreen = 61
     }
 
     /// <summary>One parsed part of a <see cref="MacroActionType.CycleTapList"/>

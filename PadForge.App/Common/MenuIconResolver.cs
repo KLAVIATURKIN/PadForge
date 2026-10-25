@@ -198,7 +198,7 @@ namespace PadForge.Common
         /// both the length and the bytes, so a file replaced after its size was
         /// looked at cannot bring a larger one in, and a file that grows while
         /// it is read is read to the length the handle gave.</summary>
-        private static byte[] ReadCapped(string path)
+        internal static byte[] ReadCapped(string path)
         {
             if (string.IsNullOrEmpty(path)) return null;
             using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);

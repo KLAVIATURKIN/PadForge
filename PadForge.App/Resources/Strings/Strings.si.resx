@@ -4227,4 +4227,97 @@ PadForge විසින් ඒවා දැන් අස්ථාපනය ක�
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox ආවේග ට්‍රිගර බයිට 9 වාර්තාව සහ එහි ලිවීමේ මාර්ගය, araghon007 විසින්. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 හැප්ටික් PCM ආකෘතිය, 3 kHz හි සලකුණු සහිත බිට් 16, එය සලකුණු සහිත බිට් 8 Bluetooth හැප්ටික් කේතනය නිරවුල් කළේය. AGPL-3.0, ලේඛන ලෙස පමණක් කියවන ලදී, කිසිදු AGPL කේතයක් ඇතුළත් නොවේ.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>යතුරුපුවරු තිර</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech හි GamePanel යතුරුපුවරු සහ Mad Catz S.T.R.I.K.E. 7 තුළ ඇති තිර මත ද, Logitech Arx Control හරහා දුරකථනයක් මත ද අඳියි: පැතිකඩ, ඔරලෝසුවක්, ක්‍රීඩා කාලය, විරාම ඔරලෝසුවක්, පින්තූරයක්, නැතහොත් DualShock 4 හෝ DualSense ලයිට්බාර් එකක වර්ණය. එම තිර අසල ඇති යතුරු, යතුරුපුවරු තිර යතුරු පේළියේ බොත්තම් බවට පත් වේ.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>යතුරුපුවරු තිර පාලනය කරන්න</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel සහ G19 තිර මත ද, Arx Control මත ද, Mad Catz S.T.R.I.K.E. 7 මත ද අඳියි. Logitech Gaming Software ක්‍රියාත්මක වන අතරතුර PadForge එය හරහා අඳියි. එය නොමැතිව, PadForge ඒකවර්ණ තිර වෙත HID හරහා ලියන අතර G19 හි තිර අතුරුමුහුණතට WinUSB බඳියි. මෙය අක්‍රිය කිරීමෙන් G19 හි තිරය නැවත Windows වෙත ලබා දේ.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>ඒකවර්ණ තිරය…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>වර්ණ තිරය…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll බාගන්න</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mad Catz හි S.T.R.I.K.E. 7 SDK එක AIDA64 හි සේවාදායකයෙන් බාගත කර, එහි දන්නා SHA-256 සමඟ පරීක්ෂා කර, 64-bit Strike7API.dll පමණක් PadForge හි තාවකාලික ෆෝල්ඩරයේ තබා ගනී.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll තෝරන්න…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 ධාවන කාලය ස්ථාපනය කරන්න</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Strike7API.dll හට අවශ්‍ය, 64-bit Windows සඳහා වන Microsoft හි Visual C++ 2008 SP1 Redistributable බාගත කර, එහි Microsoft අත්සන පරීක්ෂා කර, එය ස්ථාපනය කරයි.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|පුස්තකාල (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>ඒකවර්ණ තිරය</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>වර්ණ තිරය</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>අක්‍රිය</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>විරාම ඔරලෝසුව</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>ලයිට්බාර් වර්ණය</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>අක්‍රියයි</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software හරහා</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>{0} මත සෘජුවම</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>G19 හි තිරයට WinUSB බඳිමින්</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19 හි තිරය වෙනත් ධාවකයක ({0}) ඇත, එබැවින් Logitech Gaming Software අරඹන්න</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 හෝ ඊට පසු අනුවාදයක් අවශ්‍යයි</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software අරඹන්න</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>Arx Control ඇති දුරකථනයක් සඳහා රැඳී සිටිමින්</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>දුරකථනයක් මත</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>Strike7API.dll අවශ්‍යයි, එබැවින් එය බාගන්න හෝ පිටපතක් තෝරන්න</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>බාගත් Strike7API.dll වෙනස් වී ඇත, එබැවින් එය නැවත බාගන්න</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>Microsoft හි Visual C++ 2008 ධාවන කාලය අවශ්‍යයි</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll පූරණය නොවීය</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>S.T.R.I.K.E. 7 මෘදුකාංගය අරඹන්න</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. තිරයේ PadForge තෝරන්න</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. තිරය මත</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>තිරයක් හමු නොවීය</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ලයිට්බාර් වර්ණයක් සඳහා රැඳී සිටිමින්</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, පින්තූරයක් තෝරා නැත</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>යතුරුපුවරු තිර යතුරු</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>තිර යතුර {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>ඇප්ලට් යතුර</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>තිර වම</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>තිර දකුණ</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>තිර OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>තිර අවලංගු කිරීම</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>තිර ඉහළ</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>තිර පහළ</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>තිර මෙනුව</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>තිර සැකසීම්</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge කිසිවක් නොපෙන්වන අතර එහි ඇප්ලට් එක තිරයෙන් ඉවත් වේ. Logitech Gaming Software යටතේ තිර යතුරු PadForge වෙත ළඟා වන්නේ එහි ඇප්ලට් එක ඉදිරියෙන් ඇති විට පමණි, එබැවින් ඒවාට වෙනත් ප්‍රකාරයක් අවශ්‍ය වේ.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>තිරය සක්‍රිය පැතිකඩේ නම පෙන්වන අතර සෑම පැතිකඩ මාරුවක්ම අනුගමනය කරයි.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>තිරය පැතිකඩ ලැයිස්තුවේ සක්‍රිය පැතිකඩේ ස්ථානය පෙන්වයි. පෙරනිමි පැතිකඩ 0 වේ.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>තිරය සක්‍රිය පැතිකඩේම පින්තූරය පෙන්වයි, නැතහොත් පින්තූරයක් නැති විට එහි නම පෙන්වයි. සෑම පැතිකඩක්ම තමන්ගේම පින්තූරයක් තබා ගනී.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>තිරය දවසේ වේලාව පෙන්වයි.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>සක්‍රිය පැතිකඩ මාරු වූ දා සිට ගත වූ පැය සහ මිනිත්තු තිරය පෙන්වයි. ක්‍රීඩාවක වැඩසටහනකට බැඳි පැතිකඩක් ක්‍රීඩාව ආරම්භ වන විට මාරු වේ, එබැවින් ගණන එම සැසිය වේ. පෙරනිමි පැතිකඩ යටතේ එය එන්ජිම ආරම්භ වූ දා සිට ගණන් කරයි.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>තිරය ඔබ තෝරන පින්තූරයක් එහිම ප්‍රමාණයෙන් පෙන්වයි. තිරයට වඩා විශාල පින්තූරයක් සඳහා තිරයේ ප්‍රමාණයේ කවුළුවක් පෙන්වයි, එය යතුරුපුවරු තිර පින්තූරය ගෙනයන්න මැක්‍රෝව චලනය කරයි. S.T.R.I.K.E. 7 මත තිරය හරහා ඇදගෙන යන ඇඟිල්ලක් ද එය චලනය කරයි.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>තිරය විරාම ඔරලෝසුව පෙන්වයි. විරාම ඔරලෝසුව මැක්‍රෝව එය ආරම්භ කරයි, විරාම කරයි සහ යළි සකසයි. සෑම තිරයක්ම එකම විරාම ඔරලෝසුව පෙන්වයි.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>තිරය පහළම අංකය ඇති ස්ලොට් එකේ ඇති DualShock 4 හෝ DualSense හි ලයිට්බාර් වර්ණය පෙන්වයි. ඒකවර්ණ තිරයක් එහි දීප්තිය තිත් රටාවක් ලෙස පෙන්වයි. වර්ණයක් ලයිට්බාර් එකකට ළඟා වන තුරු PadForge කිසිවක් නොපෙන්වයි.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>පින්තූර (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|සියලු ගොනු (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>ගෙනයාම</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>X ගෙනයාම</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Y ගෙනයාම</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} {1} ලෙස සකසා ඇත.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mad Catz හි S.T.R.I.K.E. 7 SDK බාගත කරමින්…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 දැන් {0} පූරණය කරයි.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsoft හි Visual C++ 2008 ධාවන කාලය බාගත කර ස්ථාපනය කරමින්…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK බාගැනීම එහි දන්නා SHA-256 සමඟ නොගැළපේ, එබැවින් එයින් කිසිවක් තබා ගත්තේ නැත.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 ධාවන කාලය එහි ස්ථාපකය ධාවනය වූ පසුත් තවමත් නොමැත.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>යතුරුපුවරු තිරය පෙන්වන්න</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>තෝරාගත් වර්ගයේ සෑම යතුරුපුවරු තිරයක් මතම පින්තූර පෙන්වා, පසුව සෑම තිරයක්ම එහිම ප්‍රකාරයට ආපසු හරවයි.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} පින්තූර පෙන්වන්න: {1} × {2} ms, පුනරාවර්තන ගණන {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>පින්තූර තිරයට ගැළපෙන සේ සකසනු ලැබේ: ඒකවර්ණ තිරයක කළු සහ සුදු පික්සල 160 × 43, G19 හි 320 × 240, සහ Arx Control සහ S.T.R.I.K.E. 7 සඳහා 480 × 320. කෙටිම රාමු කාලය තත්පරයෙන් දහයෙන් පංගුවකි.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>යතුරුපුවරු තිර ප්‍රකාරය</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>යතුරුපුවරු තිර වර්ගයක් වෙනත් ප්‍රකාරයකට මාරු කර, එය එම තිරයේ සැකසුම ලෙස තබා ගනී.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} පෙන්වයි</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>වෙනත් මැක්‍රෝවක් හෝ තිරයේ සංවාද කොටුව එය වෙනස් කරන තුරු ප්‍රකාරය එලෙසම පවතී.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>විරාම ඔරලෝසුව</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>විරාම ඔරලෝසුව ප්‍රකාරයේ ඇති යතුරුපුවරු තිර පෙන්වන විරාම ඔරලෝසුව ආරම්භ කරයි හෝ විරාම කරයි, නැතහොත් යළි සකසයි.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>විරාම ඔරලෝසුව ආරම්භ හෝ විරාම කරන්න</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>විරාම ඔරලෝසුව යළි සකසන්න</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>යළි සැකසීම විරාම ඔරලෝසුව නවත්වා එය නැවත බිංදුවට සකසයි. විරාම ඔරලෝසුව ප්‍රකාරයේ ඇති සෑම යතුරුපුවරු තිරයක්ම එකම විරාම ඔරලෝසුව පෙන්වයි.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>යතුරුපුවරු තිර පින්තූරය ගෙනයන්න</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>සිතියමක් සඳහා මෙන්, තිරයට වඩා විශාල පින්තූරයක් මත සෑම යතුරුපුවරු තිරයකම කවුළුව චලනය කරයි.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>පින්තූර {0} සහ {1} px කින් ගෙනයන්න</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>තමාට වඩා විශාල තෝරාගත් පින්තූරයක් පෙන්වන සෑම තිර වර්ගයක්ම චලනය කරයි. කවුළුව පින්තූරයේ දාරවලදී නතර වේ.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>තිරය</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>ක්‍රියාව</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>දිශාව</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>පියවර</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

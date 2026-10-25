@@ -4291,4 +4291,97 @@ Vill du att PadForge avinstallerar dem nu? Detta kräver förhöjd behörighet o
   <data name="About_X1nputDesc" xml:space="preserve"><value>Rapporten på 9 byte för Xbox-impulsavtryckare och dess skrivväg, av araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PCM-formatet för haptik på PS5, 16 bitar med tecken vid 3 kHz, vilket avgjorde kodningen av Bluetooth-haptik som 8 bitar med tecken. AGPL-3.0, endast läst som dokumentation, ingen AGPL-kod följer med.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Tangentbordsskärmar</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Ritar på skärmarna som är inbyggda i Logitechs GamePanel-tangentbord och Mad Catz S.T.R.I.K.E. 7, och på en telefon via Logitech Arx Control: profilen, en klocka, speltid, ett stoppur, en bild eller färgen på ljusfältet på en handkontroll av typen DualShock 4 eller DualSense. Tangenterna bredvid skärmarna blir knappar på raden Tangentbordsskärmstangenter.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Styr tangentbordsskärmar</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Ritar på skärmarna på Logitech G15, G15 v2, G510, G13, Z-10, GamePanel och G19, på Arx Control och på Mad Catz S.T.R.I.K.E. 7. Medan Logitech Gaming Software körs ritar PadForge via det. Utan det skriver PadForge de monokroma skärmarna över HID och binder WinUSB till skärmgränssnittet på G19. Om du stänger av detta får Windows tillbaka skärmen på G19.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monokrom skärm…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Färgskärm…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Ladda ned Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Laddar ned Mad Catz S.T.R.I.K.E. 7 SDK från AIDA64:s server, kontrollerar den mot dess kända SHA-256 och behåller bara den 64-bitars Strike7API.dll i den temporära mappen för PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Välj Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Installera körmiljön för Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Laddar ned Microsofts Visual C++ 2008 SP1 Redistributable för 64-bitars Windows, som Strike7API.dll behöver, kontrollerar Microsofts signatur på den och installerar den.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Bibliotek (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Monokrom skärm</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Färgskärm</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Av</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Stoppur</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Ljusfältets färg</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>av</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>via Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>direkt på {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>binder WinUSB till skärmen på G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>skärmen på G19 använder en annan drivrutin ({0}), så starta Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>kräver Logitech Gaming Software 8.52 eller senare</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>starta Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>väntar på en telefon med Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>på en telefon</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>kräver Strike7API.dll, så ladda ned den eller välj en kopia</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>den nedladdade Strike7API.dll har ändrats, så ladda ned den igen</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>kräver Microsofts Visual C++ 2008-körmiljö</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll kunde inte läsas in</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>starta programvaran för S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>välj PadForge på skärmen V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>på skärmen V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>ingen skärm hittades</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, väntar på en ljusfältsfärg</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ingen bild vald</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tangentbordsskärmstangenter</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Skärmtangent {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Appletangent</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skärm vänster</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Skärm höger</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Skärm OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Skärm avbryt</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Skärm upp</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Skärm ned</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Skärm meny</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Skärm inställningar</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge visar ingenting och dess applet lämnar skärmen. Under Logitech Gaming Software når skärmtangenterna PadForge bara medan dess applet ligger överst, så de behöver ett annat läge.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Skärmen visar den aktiva profilens namn och följer med vid varje profilbyte.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Skärmen visar den aktiva profilens plats i profillistan. Profilen Standard är 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Skärmen visar den aktiva profilens egen bild, eller dess namn om den inte har någon. Varje profil har sin egen bild.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Skärmen visar klockslaget.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Skärmen visar timmar och minuter sedan den aktiva profilen aktiverades. En profil som är knuten till ett spelprogram aktiveras när spelet startar, så räkningen gäller den spelsessionen. Under profilen Standard räknar den från att PadForge startade.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Skärmen visar en bild som du väljer, i dess egen storlek. En bild som är större än skärmen visas som ett fönster i skärmens storlek, som makrot Panorera tangentbordsskärmens bild flyttar. På S.T.R.I.K.E. 7 flyttar du den också genom att dra ett finger över skärmen.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Skärmen visar stoppuret, som makrot Stoppur startar, pausar och återställer. Alla skärmar visar samma stoppur.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skärmen visar färgen på ljusfältet på DualShock 4 eller DualSense på den lägsta platsen. En monokrom skärm visar dess ljusstyrka som ett punktmönster. Tills en färg når ett ljusfält visar PadForge ingenting.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Bilder (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Alla filer (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Panorera</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Panorera X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Panorera Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} är inställd på {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Laddar ned Mad Catz S.T.R.I.K.E. 7 SDK…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 läser nu in {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Laddar ned och installerar Microsofts Visual C++ 2008-körmiljö…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Nedladdningen av S.T.R.I.K.E. 7 SDK stämmer inte med dess kända SHA-256, så ingenting från den behölls.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008-körmiljön saknas fortfarande efter att dess installationsprogram har körts.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Visa tangentbordsskärm</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Spelar upp bilder på varje tangentbordsskärm av den valda typen och återställer sedan varje skärm till dess eget läge.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Visa bilder på {0}: {1} × {2} ms, antal upprepningar {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Bilder anpassas till skärmen: 160 gånger 43 svartvita pixlar på en monokrom skärm, 320 gånger 240 på skärmen på G19 och 480 gånger 320 för Arx Control och S.T.R.I.K.E. 7. En tiondels sekund är den kortaste bildtiden.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Tangentbordsskärmens läge</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Växlar en typ av tangentbordsskärm till ett annat läge och behåller det som skärmens inställning.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} visar {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Läget gäller tills ett annat makro eller skärmens dialogruta ändrar det.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stoppur</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Startar eller pausar, eller återställer, stoppuret som tangentbordsskärmar i läget Stoppur visar.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Starta eller pausa stoppur</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Återställ stoppur</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Återställ stoppar stoppuret och sätter det tillbaka på noll. Alla tangentbordsskärmar i läget Stoppur visar samma stoppur.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Panorera tangentbordsskärmens bild</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Flyttar varje tangentbordsskärms fönster över en bild som är större än skärmen, till exempel för en karta.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Panorera bilder {0}, {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Flyttar varje typ av skärm som visar en vald bild som är större än skärmen. Fönstret stannar vid bildens kanter.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skärm</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Åtgärd</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Riktning</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Steg</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

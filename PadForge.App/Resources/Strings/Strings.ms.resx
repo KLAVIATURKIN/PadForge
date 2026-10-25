@@ -4267,4 +4267,97 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="About_X1nputDesc" xml:space="preserve"><value>Laporan 9 bait pencetus impuls Xbox dan laluan tulisnya, oleh araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Format PCM haptik PS5, 16-bit bertanda pada 3 kHz, yang menyelesaikan pengekodan haptik Bluetooth 8-bit bertanda. AGPL-3.0, dibaca sebagai dokumentasi sahaja, tiada kod AGPL disertakan.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Skrin Papan Kekunci</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Melukis pada skrin terbina dalam papan kekunci GamePanel Logitech dan Mad Catz S.T.R.I.K.E. 7, dan pada telefon melalui Logitech Arx Control: profil, jam, masa bermain, jam randik, gambar, atau warna bar cahaya DualShock 4 atau DualSense. Kekunci di sebelah skrin tersebut menjadi butang pada baris Kekunci Skrin Papan Kekunci.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kawal Skrin Papan Kekunci</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Melukis pada skrin G15, G15 v2, G510, G13, Z-10, GamePanel dan G19 Logitech, pada Arx Control, dan pada Mad Catz S.T.R.I.K.E. 7. Semasa Logitech Gaming Software berjalan, PadForge melukis melaluinya. Tanpanya, PadForge menulis ke skrin monokrom melalui HID dan mengikat WinUSB pada antara muka skrin G19. Mematikan ini mengembalikan skrin G19 kepada Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Skrin Monokrom…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Skrin Warna…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Muat Turun Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Memuat turun SDK S.T.R.I.K.E. 7 Mad Catz daripada pelayan AIDA64, menyemaknya dengan SHA-256 yang diketahui, dan menyimpan hanya Strike7API.dll 64-bit dalam folder sementara PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Pilih Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Pasang Masa Jalan Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Memuat turun Visual C++ 2008 SP1 Redistributable Microsoft untuk Windows 64-bit, yang diperlukan oleh Strike7API.dll, menyemak tandatangan Microsoft padanya, dan memasangnya.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Pustaka (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Skrin Monokrom</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Skrin Warna</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Mati</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Jam Randik</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Warna Bar Cahaya</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>mati</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>melalui Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>terus pada {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>mengikat WinUSB pada skrin G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>skrin G19 menggunakan pemacu lain ({0}), jadi mulakan Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>memerlukan Logitech Gaming Software 8.52 atau lebih baharu</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>mulakan Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>menunggu telefon dengan Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>pada telefon</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>memerlukan Strike7API.dll, jadi muat turunnya atau pilih salinan</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll yang dimuat turun telah berubah, jadi muat turun semula</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>memerlukan masa jalan Visual C++ 2008 Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll tidak dapat dimuatkan</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>mulakan perisian S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>pilih PadForge pada skrin V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>pada skrin V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>tiada skrin ditemui</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, menunggu warna bar cahaya</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, tiada gambar dipilih</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Kekunci Skrin Papan Kekunci</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Kekunci Skrin {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Kekunci Applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skrin Kiri</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Skrin Kanan</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Skrin OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Skrin Batal</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Skrin Atas</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Skrin Bawah</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Skrin Menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Skrin Tetapan</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge tidak memaparkan apa-apa, dan appletnya meninggalkan skrin. Di bawah Logitech Gaming Software, kekunci skrin hanya sampai kepada PadForge semasa appletnya berada di hadapan, jadi kekunci itu memerlukan mod lain.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Skrin memaparkan nama profil aktif dan mengikut setiap pertukaran profil.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Skrin memaparkan kedudukan profil aktif dalam senarai profil. Profil Lalai ialah 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Skrin memaparkan gambar sendiri profil aktif, atau namanya jika tiada gambar. Setiap profil menyimpan gambarnya sendiri.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Skrin memaparkan waktu semasa.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Skrin memaparkan jam dan minit sejak profil aktif ditukar masuk. Profil yang dikaitkan dengan program sesuatu permainan ditukar masuk apabila permainan bermula, jadi kiraan itu ialah sesi tersebut. Di bawah profil Lalai, ia dikira dari permulaan enjin.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Skrin memaparkan gambar pilihan anda, pada saiznya sendiri. Gambar yang lebih besar daripada skrin menunjukkan tetingkap seukuran skrin, yang digerakkan oleh makro Pan Gambar Skrin Papan Kekunci. Pada S.T.R.I.K.E. 7, jari yang diseret merentasi skrin juga menggerakkannya.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Skrin memaparkan jam randik, yang dimulakan, dijedakan dan ditetapkan semula oleh makro Jam Randik. Setiap skrin memaparkan jam randik yang sama.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skrin memaparkan warna bar cahaya pada DualShock 4 atau DualSense dalam slot terendah. Skrin monokrom memaparkan kecerahannya sebagai corak titik. Selagi tiada warna sampai ke bar cahaya, PadForge tidak memaparkan apa-apa.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Gambar (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Semua Fail (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Pan</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Pan X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Pan Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} ditetapkan kepada {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Memuat turun SDK S.T.R.I.K.E. 7 Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 kini memuatkan {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Memuat turun dan memasang masa jalan Visual C++ 2008 Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Muat turun SDK S.T.R.I.K.E. 7 tidak sepadan dengan SHA-256 yang diketahui, jadi tiada apa-apa daripadanya disimpan.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Masa jalan Visual C++ 2008 masih tiada selepas pemasangnya dijalankan.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Tunjukkan Skrin Papan Kekunci</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Memainkan gambar pada setiap skrin papan kekunci jenis yang dipilih, kemudian mengembalikan setiap skrin kepada modnya sendiri.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Tunjukkan gambar {0}: {1} × {2} ms, bilangan ulangan {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Gambar disesuaikan dengan skrin: 160 kali 43 piksel hitam putih pada skrin monokrom, 320 kali 240 pada skrin G19, dan 480 kali 320 untuk Arx Control dan S.T.R.I.K.E. 7. Satu persepuluh saat ialah masa bingkai terpendek.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Mod Skrin Papan Kekunci</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Menukar satu jenis skrin papan kekunci kepada mod lain dan menyimpannya sebagai tetapan skrin itu.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} memaparkan {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Mod kekal sehingga makro lain atau dialog skrin mengubahnya.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Jam Randik</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Memulakan atau menjedakan, atau menetapkan semula, jam randik yang dipaparkan oleh skrin papan kekunci dalam mod Jam Randik.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Mulakan atau Jedakan Jam Randik</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Tetapkan Semula Jam Randik</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Tetap semula menghentikan jam randik dan menetapkannya kembali kepada sifar. Setiap skrin papan kekunci dalam mod Jam Randik memaparkan jam randik yang sama.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Pan Gambar Skrin Papan Kekunci</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Menggerakkan tetingkap setiap skrin papan kekunci di atas gambar yang lebih besar daripada skrin, contohnya peta.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Pan gambar {0} kali {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Menggerakkan setiap jenis skrin yang memaparkan gambar pilihan yang lebih besar daripada dirinya. Tetingkap berhenti pada tepi gambar.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skrin</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Tindakan</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Arah</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Langkah</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

@@ -2583,4 +2583,61 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ekrã di tekladu</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kontrola ekrã di tekladu</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Ekrã monokromátiku…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Ekrã di kor…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Baxa Strike7API.dll</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Skodji Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Instala runtime di Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Ekrã monokromátiku</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Ekrã di kor</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Dizligadu</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Kronómetru</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Kor di lightbar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>dizligadu</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>pa meiu di Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>diretamenti na {0}</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>mesti Logitech Gaming Software 8.52 o más novu</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>inisia Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>na un telemóvel</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>mesti runtime di Visual C++ 2008 di Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll ka karega</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>inisia software di S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>skodji PadForge na ekrã V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>na ekrã V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ta spera kor di lightbar</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tékla di ekrã di tekladu</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tékla di ekrã {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tékla di applet</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Ekrã Skerda</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Ekrã Direita</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Ekrã OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Ekrã Kansela</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Ekrã Riba</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Ekrã Baxu</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Ekrã Menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Ekrã Konfigurason</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Ekrã ta mostra nómi di perfil ativu i ta sigi kada troka di perfil.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Ekrã ta mostra lugar di perfil ativu na lista di perfil. Perfil Padron e 0.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Ekrã ta mostra ora di dia.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Ekrã ta mostra kronómetru, ki makru Kronómetru ta kumesa, pauza i ripoi. Tudu ekrã ta mostra mésmu kronómetru.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Sa ta baxa SDK di S.T.R.I.K.E. 7 di Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 gosi ta karega {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Sa ta baxa i instala runtime di Visual C++ 2008 di Microsoft…</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Mostra ekrã di tekladu</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Mostra {0} imajen: {1} × {2} ms, númeru di ripitison {3}</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Modu di ekrã di tekladu</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} ta mostra {1}</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Kronómetru</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Kumesa o pauza kronómetru</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Ripoi kronómetru</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Ekrã</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Ason</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

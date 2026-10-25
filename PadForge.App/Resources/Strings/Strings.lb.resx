@@ -4247,4 +4247,97 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="About_X1nputDesc" xml:space="preserve"><value>Den 9-Byte-Report vun den Impulse-Trigger vun der Xbox a säi Schreifwee, vun araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>De PCM-Format vun der PS5-Haptik, signéiert 16 Bit bei 3 kHz, deen déi signéiert 8-Bit-Kodéierung vun der Bluetooth-Haptik gekläert huet. AGPL-3.0, nëmmen als Dokumentatioun gelies, et gëtt kee AGPL-Code matgeliwwert.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Tastatur-Écranen</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Weist op den Écranen, déi an d'GamePanel-Tastature vu Logitech an an d'Mad Catz S.T.R.I.K.E. 7 agebaut sinn, an iwwer Logitech Arx Control op engem Handy: d'Profil, eng Auer, d'Spillzäit, eng Stoppauer, e Bild oder d'Faarf vum Liichtbalken vun engem DualShock 4 oder DualSense. D'Tasten nieft dësen Écranen ginn zu Knäppercher an der Zeil „Tastatur-Écran-Tasten“.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Tastatur-Écranen ustéieren</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Weist eppes op den Écrane vun de Logitech G15, G15 v2, G510, G13, Z-10, GamePanel a G19, op Arx Control an op der Mad Catz S.T.R.I.K.E. 7. Wann d'Logitech Gaming Software leeft, mécht PadForge dat doriwwer. Ouni se schreift PadForge d'monochrom Écranen iwwer HID a bënnt WinUSB un d'Écran-Interface vum G19. Wann dëst ausgeschalt gëtt, kritt Windows den Écran vum G19 erëm.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Monochrom-Écran…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Faarf-Écran…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll eroflueden</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Luet d'S.T.R.I.K.E. 7-SDK vu Mad Catz vum Server vun AIDA64 erof, vergläicht et mat sengem bekannte SHA-256 a behält just d'64-Bit-Strike7API.dll am temporären Dossier vu PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll wielen…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008-Runtime installéieren</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Luet de Visual C++ 2008 SP1 Redistributable vu Microsoft fir 64-Bit-Windows erof, deen Strike7API.dll brauch, préift d'Signatur vu Microsoft drop an installéiert en.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Bibliothéiken (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Monochrom-Écran</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Faarf-Écran</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Aus</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Stoppauer</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Liichtbalken-Faarf</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>aus</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>iwwer d'Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>direkt um {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>WinUSB gëtt un den Écran vum G19 gebonnen</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>den Écran vum G19 ass op engem aneren Treiber ({0}), dofir d'Logitech Gaming Software starten</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>brauch Logitech Gaming Software 8.52 oder méi nei</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software starten</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>waart op en Handy mat Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>op engem Handy</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>brauch Strike7API.dll, dofir se eroflueden oder eng Kopie wielen</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>déi erofgeluede Strike7API.dll huet sech geännert, dofir se nach eng Kéier eroflueden</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>brauch d'Visual C++ 2008-Runtime vu Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll léisst sech net lueden</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>d'S.T.R.I.K.E. 7-Software starten</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>PadForge um V.E.N.O.M.-Écran wielen</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>um V.E.N.O.M.-Écran</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>keen Écran fonnt</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, waart op eng Liichtbalken-Faarf</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, kee Bild gewielt</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tastatur-Écran-Tasten</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Écran-Tast {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Applet-Tast</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Écran lénks</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Écran riets</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Écran OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Écran ofbriechen</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Écran erop</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Écran erof</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Écran-Menü</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Écran-Astellungen</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge weist näischt, a säin Applet verléisst den Écran. Ënner Logitech Gaming Software kommen d'Écran-Tasten nëmme bei PadForge un, wann säin Applet am Virdergrond ass, dofir brauche se en anere Modus.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Den Écran weist den Numm vum aktive Profil a follegt all Profilwiessel.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Den Écran weist d'Plaz vum aktive Profil an der Profillëscht. D'Standardprofil ass 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Den Écran weist dem aktive Profil säin eegent Bild oder säin Numm, wann et keent huet. All Profil behält säin eegent Bild.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Den Écran weist d'Auerzäit.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Den Écran weist d'Stonnen a Minutten zënter dem leschte Profilwiessel. E Profil, dat un de Programm vun engem Spill gebonnen ass, gëtt aktiv, wann d'Spill start, sou datt d'Zielung déi Sessioun ass. Beim Standardprofil zielt et vum Start vun der Engine un.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Den Écran weist e Bild, dat Dir wielt, a senger eegener Gréisst. Bei engem Bild, dat méi grouss ass wéi den Écran, gëtt eng Fënster an der Gréisst vum Écran gewisen, déi de Makro „Bild um Tastatur-Écran verschieben“ beweegt. Op der S.T.R.I.K.E. 7 beweegt e Fanger, deen iwwer den Écran gezunn gëtt, se och.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Den Écran weist d'Stoppauer, déi de Makro „Stoppauer“ start, pauséiert an zrécksetzt. All Écran weist déiselwecht Stoppauer.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Den Écran weist d'Faarf vum Liichtbalken vum DualShock 4 oder DualSense am niddregste Slot. E monochromen Écran weist hir Hellegkeet als Punktmuster. Bis eng Faarf bei engem Liichtbalken ukënnt, weist PadForge näischt.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Biller (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|All Fichieren (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Verschiebung</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>X-Verschiebung</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Y-Verschiebung</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} op {1} gesat.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>D'S.T.R.I.K.E. 7-SDK vu Mad Catz gëtt erofgelueden…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>D'S.T.R.I.K.E. 7 luet elo {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>D'Visual C++ 2008-Runtime vu Microsoft gëtt erofgelueden an installéiert…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Den Download vum S.T.R.I.K.E. 7-SDK entsprécht net sengem bekannte SHA-256, dofir gouf näischt dovun behalen.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>D'Visual C++ 2008-Runtime feelt nach ëmmer, nodeems hiren Installateur gelaf ass.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Tastatur-Écran weisen</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Spillt Biller op all Tastatur-Écran vun der gewielter Aart of a setzt dono all Écran zréck op säin eegene Modus.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0}-Biller weisen: {1} × {2} ms, Unzuel Widderhuelungen {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>D'Biller ginn un den Écran ugepasst: 160 op 43 schwaarz-wäiss Pixel op engem monochromen Écran, 320 op 240 op deem vum G19 an 480 op 320 fir Arx Control an d'S.T.R.I.K.E. 7. En Zéngtel vun enger Sekonn ass déi kierzste Bildzäit.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Tastatur-Écran-Modus</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Schalt eng Aart vu Tastatur-Écran op en anere Modus a behält dee Modus als Astellung vun deem Écran.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} weist {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>De Modus bleift, bis en anere Makro oder den Dialog vum Écran en ännert.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Stoppauer</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Start, pauséiert oder setzt d'Stoppauer zréck, déi d'Tastatur-Écranen am Modus „Stoppauer“ weisen.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Stoppauer starten oder pauséieren</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Stoppauer zrécksetzen</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Zrécksetzen stoppt d'Stoppauer a setzt se op null zréck. All Tastatur-Écran am Modus „Stoppauer“ weist déiselwecht Stoppauer.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Bild um Tastatur-Écran verschieben</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Beweegt d'Fënster vun all Tastatur-Écran iwwer e Bild, dat méi grouss ass wéi den Écran, zum Beispill fir eng Kaart.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Biller verschieben: {0} op {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Beweegt all Aart vun Écran, deen e gewielt Bild weist, dat méi grouss ass wéi en selwer. D'Fënster bleift un de Kante vum Bild stoen.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Écran</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aktioun</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Richtung</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Schratt</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

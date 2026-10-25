@@ -1398,4 +1398,55 @@
   <data name="About_WiiBrew" xml:space="preserve"><value>WiiBrew</value></data>
   <data name="About_X1nput" xml:space="preserve"><value>X1nput</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Ol skrin blong kiboad</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Kontrolem ol skrin blong kiboad</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Skrin blak mo waet…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Skrin blong kala…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Daonlodem Strike7API.dll</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Jusum Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Skrin blak mo waet</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Skrin blong kala</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Of</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Kala blong laetba</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>of</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>tru long Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>stret long {0}</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>i nidim Logitech Gaming Software 8.52 o wan we i niu moa</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>statem Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>i stap wet long wan fon we i gat Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>long wan fon</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>i nidim Strike7API.dll, daonlodem o jusum wan kopi</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>Strike7API.dll we yu daonlodem i jenis, daonlodem bakegen</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>statem sofwea blong S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>jusum PadForge long skrin blong V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>long skrin blong V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>i no faenem skrin</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, i stap wet long kala blong laetba</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, yu no jusum pikja yet</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Ol ki blong skrin blong kiboad</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Ki {0} blong skrin</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skrin Lef</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Skrin Raet</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Skrin OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Skrin Kanselem</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Skrin Antap</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Skrin Daon</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Skrin Menu</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Skrin Seting</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Skrin i soem nem blong profael we i stap wok naoia, mo i folem evri taem we profael i jenis.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Skrin i soem pikja blong profael we i stap wok naoia, o nem blong hem sapos i no gat pikja. Evri profael i kipim pikja blong hem.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Skrin i soem taem blong dei.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Ol pikja (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Evri fael (*.*)|*.*</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Daonlodem S.T.R.I.K.E. 7 SDK blong Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 i lodem {0} naoia.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Daonlodem mo instolem Visual C++ 2008 runtime blong Microsoft…</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Soem skrin blong kiboad</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Soem {0} pikja: {1} × {2} ms, ripit {3} taem</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skrin</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

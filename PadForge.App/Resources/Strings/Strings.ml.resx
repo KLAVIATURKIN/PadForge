@@ -4236,4 +4236,97 @@ PadForge ഇവ ഇപ്പോൾ അൺഇൻസ്റ്റാൾ ചെയ�
   <data name="About_X1nputDesc" xml:space="preserve"><value>araghon007-ന്റെ, Xbox ഇംപൾസ്-ട്രിഗർ 9-ബൈറ്റ് റിപ്പോർട്ടും അതിന്റെ റൈറ്റ് പാത്തും. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 ഹാപ്റ്റിക് PCM ഫോർമാറ്റ്, 3 kHz-ൽ സൈൻ ചെയ്ത 16-ബിറ്റ്, ഇത് സൈൻ ചെയ്ത 8-ബിറ്റ് ബ്ലൂടൂത്ത് ഹാപ്റ്റിക്സ് എൻകോഡിംഗിന് തീർപ്പുകൽപ്പിച്ചു. AGPL-3.0, ഡോക്യുമെന്റേഷനായി മാത്രം വായിച്ചത്, AGPL കോഡ് ഒന്നും ഉൾപ്പെടുത്തുന്നില്ല.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>കീബോർഡ് സ്ക്രീനുകൾ</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech-ന്റെ GamePanel കീബോർഡുകളിലും Mad Catz S.T.R.I.K.E. 7-ലും ഉള്ള സ്ക്രീനുകളിലും, Logitech Arx Control വഴി ഒരു ഫോണിലും വരയ്ക്കുന്നു: പ്രൊഫൈൽ, ക്ലോക്ക്, കളിച്ച സമയം, സ്റ്റോപ്പ് വാച്ച്, ഒരു ചിത്രം, അല്ലെങ്കിൽ DualShock 4 അല്ലെങ്കിൽ DualSense ലൈറ്റ്ബാറിന്റെ നിറം. ആ സ്ക്രീനുകൾക്കരികിലെ കീകൾ കീബോർഡ് സ്ക്രീൻ കീകൾ വരിയിൽ ബട്ടണുകളാകുന്നു.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>കീബോർഡ് സ്ക്രീനുകൾ നിയന്ത്രിക്കുക</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, G19 സ്ക്രീനുകളിലും, Arx Control-ലും, Mad Catz S.T.R.I.K.E. 7-ലും വരയ്ക്കുന്നു. Logitech Gaming Software പ്രവർത്തിക്കുമ്പോൾ PadForge അതിലൂടെ വരയ്ക്കുന്നു. അത് ഇല്ലെങ്കിൽ PadForge മോണോക്രോം സ്ക്രീനുകളിൽ HID വഴി എഴുതുകയും G19-ന്റെ സ്ക്രീൻ ഇന്റർഫേസിലേക്ക് WinUSB ബൈൻഡ് ചെയ്യുകയും ചെയ്യുന്നു. ഇത് ഓഫാക്കിയാൽ G19-ന്റെ സ്ക്രീൻ Windows-ന് തിരികെ നൽകും.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>മോണോക്രോം സ്ക്രീൻ…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>കളർ സ്ക്രീൻ…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll ഡൗൺലോഡ് ചെയ്യുക</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mad Catz-ന്റെ S.T.R.I.K.E. 7 SDK AIDA64-ന്റെ സെർവറിൽ നിന്ന് ഡൗൺലോഡ് ചെയ്യുന്നു, അറിയപ്പെടുന്ന SHA-256-മായി പരിശോധിക്കുന്നു, 64-ബിറ്റ് Strike7API.dll മാത്രം PadForge-ന്റെ താൽക്കാലിക ഫോൾഡറിൽ സൂക്ഷിക്കുന്നു.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll തിരഞ്ഞെടുക്കുക…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 റൺടൈം ഇൻസ്റ്റാൾ ചെയ്യുക</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Strike7API.dll-ന് ആവശ്യമായ, 64-ബിറ്റ് Windows-നുള്ള Microsoft-ന്റെ Visual C++ 2008 SP1 Redistributable ഡൗൺലോഡ് ചെയ്യുന്നു, അതിലെ Microsoft ഒപ്പ് പരിശോധിക്കുന്നു, ഇൻസ്റ്റാൾ ചെയ്യുന്നു.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|ലൈബ്രറികൾ (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>മോണോക്രോം സ്ക്രീൻ</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>കളർ സ്ക്രീൻ</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>ഓഫ്</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>സ്റ്റോപ്പ് വാച്ച്</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>ലൈറ്റ്ബാർ നിറം</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>ഓഫ്</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software വഴി</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>{0}-ൽ നേരിട്ട്</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>G19-ന്റെ സ്ക്രീനിലേക്ക് WinUSB ബൈൻഡ് ചെയ്യുന്നു</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19-ന്റെ സ്ക്രീൻ മറ്റൊരു ഡ്രൈവറിലാണ് ({0}), അതിനാൽ Logitech Gaming Software ആരംഭിക്കുക</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 അല്ലെങ്കിൽ പുതിയത് ആവശ്യമാണ്</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software ആരംഭിക്കുക</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>Arx Control ഉള്ള ഒരു ഫോണിനായി കാത്തിരിക്കുന്നു</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>ഒരു ഫോണിൽ</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>Strike7API.dll ആവശ്യമാണ്, അതിനാൽ ഡൗൺലോഡ് ചെയ്യുക അല്ലെങ്കിൽ ഒരു പകർപ്പ് തിരഞ്ഞെടുക്കുക</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>ഡൗൺലോഡ് ചെയ്ത Strike7API.dll മാറിയിരിക്കുന്നു, അതിനാൽ വീണ്ടും ഡൗൺലോഡ് ചെയ്യുക</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>Microsoft-ന്റെ Visual C++ 2008 റൺടൈം ആവശ്യമാണ്</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll ലോഡ് ആയില്ല</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>S.T.R.I.K.E. 7 സോഫ്റ്റ്വെയർ ആരംഭിക്കുക</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. സ്ക്രീനിൽ PadForge തിരഞ്ഞെടുക്കുക</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. സ്ക്രീനിൽ</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>സ്ക്രീൻ കണ്ടെത്തിയില്ല</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ലൈറ്റ്ബാർ നിറത്തിനായി കാത്തിരിക്കുന്നു</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ചിത്രം തിരഞ്ഞെടുത്തിട്ടില്ല</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>കീബോർഡ് സ്ക്രീൻ കീകൾ</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>സ്ക്രീൻ കീ {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>ആപ്ലെറ്റ് കീ</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>സ്ക്രീൻ ഇടത്</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>സ്ക്രീൻ വലത്</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>സ്ക്രീൻ OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>സ്ക്രീൻ റദ്ദാക്കുക</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>സ്ക്രീൻ മുകളിലേക്ക്</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>സ്ക്രീൻ താഴേക്ക്</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>സ്ക്രീൻ മെനു</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>സ്ക്രീൻ ക്രമീകരണങ്ങൾ</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge ഒന്നും കാണിക്കുന്നില്ല, അതിന്റെ ആപ്ലെറ്റ് സ്ക്രീൻ വിടുന്നു. Logitech Gaming Software-ന് കീഴിൽ സ്ക്രീൻ കീകൾ PadForge-ന്റെ ആപ്ലെറ്റ് മുന്നിലുള്ളപ്പോൾ മാത്രമേ PadForge-ൽ എത്തൂ, അതിനാൽ അവയ്ക്ക് മറ്റൊരു മോഡ് വേണം.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>സജീവ പ്രൊഫൈലിന്റെ പേര് സ്ക്രീൻ കാണിക്കുകയും ഓരോ പ്രൊഫൈൽ മാറ്റവും പിന്തുടരുകയും ചെയ്യുന്നു.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>പ്രൊഫൈൽ പട്ടികയിൽ സജീവ പ്രൊഫൈലിന്റെ സ്ഥാനം സ്ക്രീൻ കാണിക്കുന്നു. സ്ഥിരസ്ഥിതി പ്രൊഫൈൽ 0 ആണ്.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>സജീവ പ്രൊഫൈലിന്റെ സ്വന്തം ചിത്രം സ്ക്രീൻ കാണിക്കുന്നു, ചിത്രമില്ലെങ്കിൽ അതിന്റെ പേര്. ഓരോ പ്രൊഫൈലും അതിന്റെ ചിത്രം സൂക്ഷിക്കുന്നു.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>സ്ക്രീൻ ദിവസത്തിലെ സമയം കാണിക്കുന്നു.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>സജീവ പ്രൊഫൈൽ മാറിയതു മുതലുള്ള മണിക്കൂറുകളും മിനിറ്റുകളും സ്ക്രീൻ കാണിക്കുന്നു. ഒരു ഗെയിമിന്റെ പ്രോഗ്രാമുമായി ബന്ധിപ്പിച്ച പ്രൊഫൈൽ ഗെയിം തുടങ്ങുമ്പോൾ മാറുന്നു, അതിനാൽ എണ്ണം ആ സെഷന്റേതാണ്. സ്ഥിരസ്ഥിതി പ്രൊഫൈലിൽ എൻജിൻ ആരംഭിച്ചതു മുതൽ എണ്ണുന്നു.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>നിങ്ങൾ തിരഞ്ഞെടുക്കുന്ന ചിത്രം സ്ക്രീൻ അതിന്റെ സ്വന്തം വലുപ്പത്തിൽ കാണിക്കുന്നു. സ്ക്രീനേക്കാൾ വലിയ ചിത്രത്തിൽ സ്ക്രീനിന്റെ വലുപ്പമുള്ള ഒരു ജാലകം കാണിക്കുന്നു, അതിനെ കീബോർഡ് സ്ക്രീൻ ചിത്രം പാൻ ചെയ്യുക മാക്രോ നീക്കുന്നു. S.T.R.I.K.E. 7-ൽ സ്ക്രീനിലൂടെ വിരൽ വലിച്ചാലും അത് നീങ്ങും.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>സ്റ്റോപ്പ് വാച്ച് മാക്രോ ആരംഭിക്കുകയും താൽക്കാലികമായി നിർത്തുകയും പുനഃസജ്ജമാക്കുകയും ചെയ്യുന്ന സ്റ്റോപ്പ് വാച്ച് സ്ക്രീൻ കാണിക്കുന്നു. എല്ലാ സ്ക്രീനും ഒരേ സ്റ്റോപ്പ് വാച്ചാണ് കാണിക്കുന്നത്.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>ഏറ്റവും താഴ്ന്ന സ്ലോട്ടിലെ DualShock 4 അല്ലെങ്കിൽ DualSense-ന്റെ ലൈറ്റ്ബാറിന്റെ നിറം സ്ക്രീൻ കാണിക്കുന്നു. മോണോക്രോം സ്ക്രീൻ അതിന്റെ തെളിച്ചം ഡോട്ട് പാറ്റേണായി കാണിക്കുന്നു. ലൈറ്റ്ബാറിൽ ഒരു നിറം എത്തുന്നതുവരെ PadForge ഒന്നും കാണിക്കില്ല.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>ചിത്രങ്ങൾ (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|എല്ലാ ഫയലുകളും (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>പാൻ</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>പാൻ X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>പാൻ Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} {1} ആയി സജ്ജമാക്കി.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mad Catz-ന്റെ S.T.R.I.K.E. 7 SDK ഡൗൺലോഡ് ചെയ്യുന്നു…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 ഇപ്പോൾ {0} ലോഡ് ചെയ്യുന്നു.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsoft-ന്റെ Visual C++ 2008 റൺടൈം ഡൗൺലോഡ് ചെയ്ത് ഇൻസ്റ്റാൾ ചെയ്യുന്നു…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK ഡൗൺലോഡ് അറിയപ്പെടുന്ന SHA-256-മായി പൊരുത്തപ്പെടുന്നില്ല, അതിനാൽ അതിൽ നിന്ന് ഒന്നും സൂക്ഷിച്ചില്ല.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>ഇൻസ്റ്റാളർ പ്രവർത്തിച്ച ശേഷവും Visual C++ 2008 റൺടൈം ഇല്ല.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>കീബോർഡ് സ്ക്രീൻ കാണിക്കുക</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>തിരഞ്ഞെടുത്ത തരത്തിലെ എല്ലാ കീബോർഡ് സ്ക്രീനിലും ചിത്രങ്ങൾ പ്ലേ ചെയ്യുന്നു, തുടർന്ന് ഓരോ സ്ക്രീനിനെയും അതിന്റെ സ്വന്തം മോഡിലേക്ക് തിരികെ കൊണ്ടുവരുന്നു.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} ചിത്രങ്ങൾ കാണിക്കുക: {1} × {2} ms, ആവർത്തനം {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>ചിത്രങ്ങൾ സ്ക്രീനിന് ഒതുങ്ങുംവിധം ക്രമീകരിക്കുന്നു: മോണോക്രോം സ്ക്രീനിൽ 160 × 43 ബ്ലാക്ക് ആൻഡ് വൈറ്റ് പിക്സൽ, G19-ൽ 320 × 240, Arx Control-നും S.T.R.I.K.E. 7-നും 480 × 320. ഒരു സെക്കൻഡിന്റെ പത്തിലൊന്നാണ് ഏറ്റവും കുറഞ്ഞ ഫ്രെയിം സമയം.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>കീബോർഡ് സ്ക്രീൻ മോഡ്</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>ഒരു തരം കീബോർഡ് സ്ക്രീനിനെ മറ്റൊരു മോഡിലേക്ക് മാറ്റുകയും അത് ആ സ്ക്രീനിന്റെ ക്രമീകരണമായി സൂക്ഷിക്കുകയും ചെയ്യുന്നു.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} {1} കാണിക്കുന്നു</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>മറ്റൊരു മാക്രോയോ സ്ക്രീനിന്റെ ഡയലോഗോ മാറ്റുന്നതുവരെ മോഡ് അങ്ങനെ തുടരും.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>സ്റ്റോപ്പ് വാച്ച്</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>കീബോർഡ് സ്ക്രീനുകൾ സ്റ്റോപ്പ് വാച്ച് മോഡിൽ കാണിക്കുന്ന സ്റ്റോപ്പ് വാച്ച് ആരംഭിക്കുകയോ താൽക്കാലികമായി നിർത്തുകയോ പുനഃസജ്ജമാക്കുകയോ ചെയ്യുന്നു.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>സ്റ്റോപ്പ് വാച്ച് ആരംഭിക്കുക അല്ലെങ്കിൽ നിർത്തുക</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>സ്റ്റോപ്പ് വാച്ച് പുനഃസജ്ജമാക്കുക</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>പുനഃസജ്ജമാക്കൽ സ്റ്റോപ്പ് വാച്ച് നിർത്തി പൂജ്യത്തിലേക്ക് മടക്കുന്നു. സ്റ്റോപ്പ് വാച്ച് മോഡിലുള്ള എല്ലാ കീബോർഡ് സ്ക്രീനും ഒരേ സ്റ്റോപ്പ് വാച്ച് കാണിക്കുന്നു.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>കീബോർഡ് സ്ക്രീൻ ചിത്രം പാൻ ചെയ്യുക</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>ഒരു മാപ്പിനായി, സ്ക്രീനേക്കാൾ വലിയ ചിത്രത്തിനു മുകളിലൂടെ ഓരോ കീബോർഡ് സ്ക്രീനിന്റെയും ജാലകം നീക്കുന്നു.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>ചിത്രങ്ങൾ {0} × {1} px പാൻ ചെയ്യുക</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>തിരഞ്ഞെടുത്ത, തന്നെക്കാൾ വലിയ ചിത്രം കാണിക്കുന്ന എല്ലാ തരം സ്ക്രീനുകളെയും നീക്കുന്നു. ജാലകം ചിത്രത്തിന്റെ അരികുകളിൽ നിൽക്കും.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>സ്ക്രീൻ</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>പ്രവർത്തനം</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>ദിശ</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>ഘട്ടം</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

@@ -4291,4 +4291,97 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="About_X1nputDesc" xml:space="preserve"><value>9 bæta skýrsla Xbox impulse-gikkja og skrifleið hennar, eftir araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PCM-snið PS5 snertisvörunar, 16 bita með formerki við 3 kHz, sem skar úr um 8 bita kóðun Bluetooth-snertisvörunar með formerki. AGPL-3.0, aðeins lesið sem skjöl, enginn AGPL-kóði fylgir með.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Skjáir lyklaborðs</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Teiknar á skjáina sem eru innbyggðir í GamePanel-lyklaborð frá Logitech og Mad Catz S.T.R.I.K.E. 7, og á síma í gegnum Logitech Arx Control: sniðið, klukku, spilatíma, skeiðklukku, mynd eða lit ljósrandar á DualShock 4 eða DualSense. Lyklarnir við hlið þessara skjáa verða hnappar í röðinni Skjályklar lyklaborðs.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Stjórna skjáum lyklaborðs</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Teiknar á skjái Logitech G15, G15 v2, G510, G13, Z-10, GamePanel og G19, á Arx Control og á Mad Catz S.T.R.I.K.E. 7. Á meðan Logitech Gaming Software er í gangi teiknar PadForge í gegnum það. Án þess skrifar PadForge á einlitu skjáina yfir HID og tengir WinUSB við skjáviðmót G19. Ef slökkt er á þessu fær Windows skjá G19 aftur.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Einlitur skjár…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Litaskjár…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Sækja Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Sækir S.T.R.I.K.E. 7 SDK frá Mad Catz af netþjóni AIDA64, ber það saman við þekkt SHA-256-gildi og geymir aðeins 64 bita Strike7API.dll í tímabundinni möppu PadForge.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Velja Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Setja upp Visual C++ 2008 keyrsluumhverfi</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Sækir Visual C++ 2008 SP1 Redistributable frá Microsoft fyrir 64 bita Windows, sem Strike7API.dll þarfnast, athugar undirskrift Microsoft á því og setur það upp.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Söfn (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Einlitur skjár</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Litaskjár</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Slökkt</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Skeiðklukka</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Litur ljósrandar</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>slökkt</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>í gegnum Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>beint á {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>tengi WinUSB við skjá G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>skjár G19 er á öðrum rekli ({0}), ræstu því Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>krefst Logitech Gaming Software 8.52 eða nýrra</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>ræstu Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>bíður eftir síma með Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>á síma</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>krefst Strike7API.dll, sæktu það eða veldu afrit</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>niðurhalaða Strike7API.dll hefur breyst, sæktu það aftur</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>krefst keyrsluumhverfis Visual C++ 2008 frá Microsoft</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll hlóðst ekki</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>ræstu S.T.R.I.K.E. 7 hugbúnaðinn</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>veldu PadForge á V.E.N.O.M. skjánum</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>á V.E.N.O.M. skjánum</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>enginn skjár fannst</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, bíður eftir lit ljósrandar</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, engin mynd valin</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Skjályklar lyklaborðs</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Skjálykill {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Smáforritslykill</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Skjár vinstri</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Skjár hægri</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Skjár OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Skjár hætta við</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Skjár upp</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Skjár niður</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Skjár valmynd</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Skjár stillingar</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge sýnir ekkert og smáforrit þess fer af skjánum. Undir Logitech Gaming Software berast skjályklarnir til PadForge aðeins á meðan smáforrit þess er fremst, svo þeir þurfa annan ham.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Skjárinn sýnir heiti virka sniðsins og uppfærist við hver sniðaskipti.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Skjárinn sýnir stöðu virka sniðsins á sniðalistanum. Sjálfgefna sniðið er 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Skjárinn sýnir eigin mynd virka sniðsins, eða heiti þess ef það hefur enga. Hvert snið geymir sína eigin mynd.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Skjárinn sýnir tíma dags.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Skjárinn sýnir klukkustundir og mínútur frá því að virka sniðið tók gildi. Snið sem er tengt forriti leiks tekur gildi þegar leikurinn ræsist, svo talningin nær yfir þá lotu. Undir sjálfgefna sniðinu telur hún frá ræsingu vélarinnar.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Skjárinn sýnir mynd að eigin vali í upprunalegri stærð. Mynd sem er stærri en skjárinn sýnir glugga á stærð skjásins, sem fjölvinn Færa mynd á skjá lyklaborðs hreyfir. Á S.T.R.I.K.E. 7 hreyfir fingur sem dreginn er yfir skjáinn hann líka.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Skjárinn sýnir skeiðklukkuna, sem skeiðklukkufjölvinn ræsir, setur á bið og endurstillir. Allir skjáir sýna sömu skeiðklukku.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Skjárinn sýnir lit ljósrandarinnar á DualShock 4 eða DualSense í lægstu raufinni. Einlitur skjár sýnir birtustig hennar sem punktamynstur. Þar til litur berst ljósrönd sýnir PadForge ekkert.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Myndir (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Allar skrár (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Færa</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Færa X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Færa Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} stillt á {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Sæki S.T.R.I.K.E. 7 SDK frá Mad Catz…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 hleður nú {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Sæki og set upp Visual C++ 2008 keyrsluumhverfi frá Microsoft…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Niðurhal S.T.R.I.K.E. 7 SDK samsvarar ekki þekktu SHA-256, svo engu úr því var haldið.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Visual C++ 2008 keyrsluumhverfið vantar enn eftir að uppsetningarforritið keyrði.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Sýna skjá lyklaborðs</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Spilar myndir á hverjum lyklaborðsskjá af völdu tagi og skilar síðan hverjum skjá í sinn eigin ham.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Sýna {0} myndir: {1} × {2} ms, fjöldi endurtekninga {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Myndir eru lagaðar að skjánum: 160 × 43 svarthvítir punktar á einlitum skjá, 320 × 240 á skjá G19 og 480 × 320 fyrir Arx Control og S.T.R.I.K.E. 7. Stysti rammatími er tíundi hluti úr sekúndu.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Ham skjás lyklaborðs</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Skiptir tilteknu tagi lyklaborðsskjás yfir í annan ham og vistar hann sem stillingu þess skjás.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} sýnir {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Hamurinn helst þar til annar fjölvi eða gluggi skjásins breytir honum.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Skeiðklukka</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Ræsir eða setur á bið, eða endurstillir, skeiðklukkuna sem lyklaborðsskjáir í skeiðklukkuham sýna.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Ræsa eða setja skeiðklukku á bið</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Endurstilla skeiðklukku</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Endurstilling stöðvar skeiðklukkuna og setur hana á núll. Allir lyklaborðsskjáir í skeiðklukkuham sýna sömu skeiðklukku.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Færa mynd á skjá lyklaborðs</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Færir glugga hvers lyklaborðsskjás yfir mynd sem er stærri en skjárinn, fyrir kort.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Færa myndir um {0} og {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Færir alla skjái sem sýna valda mynd sem er stærri en þeir sjálfir. Glugginn stöðvast við brúnir myndarinnar.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skjár</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Aðgerð</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Stefna</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Skref</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

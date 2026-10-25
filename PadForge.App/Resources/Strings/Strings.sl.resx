@@ -4291,4 +4291,97 @@ Ali želite, da jih PadForge zdaj odstrani? To zahteva skrbniške pravice in lah
   <data name="About_X1nputDesc" xml:space="preserve"><value>9-bajtno poročilo impulznih sprožilcev Xbox in pot njegovega zapisovanja. Avtor: araghon007. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>Format haptičnega PCM za PS5, predznačeni 16-bitni pri 3 kHz, ki je razrešil predznačeno 8-bitno kodiranje haptike prek Bluetootha. AGPL-3.0, prebrano le kot dokumentacija, nobena koda AGPL ni vključena.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Zasloni tipkovnice</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Riše na zaslone, vgrajene v tipkovnice Logitech GamePanel in Mad Catz S.T.R.I.K.E. 7, ter na telefon prek Logitech Arx Control: profil, uro, čas igranja, štoparico, sliko ali barvo svetlobnega traku krmilnika DualShock 4 ali DualSense. Tipke ob teh zaslonih postanejo gumbi v vrstici Tipke zaslona tipkovnice.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Upravljaj zaslone tipkovnice</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Riše na zaslone Logitech G15, G15 v2, G510, G13, Z-10, GamePanel in G19, na Arx Control ter na Mad Catz S.T.R.I.K.E. 7. Ko teče Logitech Gaming Software, PadForge riše prek njega. Brez njega PadForge enobarvne zaslone zapisuje prek HID in veže WinUSB na vmesnik zaslona G19. Izklop te možnosti vrne zaslon G19 sistemu Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Enobarvni zaslon …</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Barvni zaslon …</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control …</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7 …</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Prenesi Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Prenese SDK za Mad Catz S.T.R.I.K.E. 7 s strežnika AIDA64, ga preveri glede na znani SHA-256 in v začasni mapi PadForge obdrži samo 64-bitno datoteko Strike7API.dll.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Izberi Strike7API.dll …</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Namesti izvajalno okolje Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Prenese Microsoft Visual C++ 2008 SP1 Redistributable za 64-bitni Windows, ki ga potrebuje Strike7API.dll, preveri Microsoftov podpis in ga namesti.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Knjižnice (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Enobarvni zaslon</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Barvni zaslon</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Izklopljeno</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Štoparica</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Barva svetlobnega traku</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>izklopljeno</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>prek Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>neposredno na {0}</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>povezovanje WinUSB z zaslonom G19</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>zaslon G19 uporablja drug gonilnik ({0}), zato zaženi Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>zahteva Logitech Gaming Software 8.52 ali novejši</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>zaženi Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>čakanje na telefon z Arx Control</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>na telefonu</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>zahteva Strike7API.dll, zato ga prenesi ali izberi kopijo</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>preneseni Strike7API.dll se je spremenil, zato ga prenesi znova</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>zahteva izvajalno okolje Microsoft Visual C++ 2008</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll se ni naložil</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>zaženi programsko opremo S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>na zaslonu V.E.N.O.M. izberi PadForge</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>na zaslonu V.E.N.O.M.</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>zaslon ni najden</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, čakanje na barvo svetlobnega traku</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, slika ni izbrana</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Tipke zaslona tipkovnice</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Tipka zaslona {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Tipka apleta</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Zaslon levo</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Zaslon desno</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Zaslon V redu</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Zaslon Prekliči</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Zaslon gor</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Zaslon dol</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Zaslon meni</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Zaslon nastavitve</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge ne prikazuje ničesar, njegov aplet pa zapusti zaslon. V programu Logitech Gaming Software tipke zaslona dosežejo PadForge le, ko je njegov aplet v ospredju, zato potrebujejo drug način.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Zaslon prikazuje ime aktivnega profila in sledi vsaki zamenjavi profila.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Zaslon prikazuje mesto aktivnega profila na seznamu profilov. Privzeti profil je 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Zaslon prikazuje sliko aktivnega profila ali njegovo ime, če slike nima. Vsak profil ima svojo sliko.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Zaslon prikazuje trenutni čas.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Zaslon prikazuje ure in minute od vklopa aktivnega profila. Profil, vezan na program igre, se vklopi ob zagonu igre, zato štetje velja za to sejo. Pri privzetem profilu šteje od zagona pogona.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Zaslon prikazuje izbrano sliko v njeni velikosti. Slika, večja od zaslona, prikaže okno velikosti zaslona, ki ga premika makro Premakni sliko zaslona tipkovnice. Na S.T.R.I.K.E. 7 ga premakne tudi prst, vlečen čez zaslon.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Zaslon prikazuje štoparico, ki jo makro Štoparica zažene, začasno ustavi in ponastavi. Vsi zasloni prikazujejo isto štoparico.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Zaslon prikazuje barvo svetlobnega traku na krmilniku DualShock 4 ali DualSense v najnižji reži. Enobarvni zaslon prikaže svetlost kot vzorec pik. Dokler barva ne doseže svetlobnega traku, PadForge ne prikaže ničesar.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Slike (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Vse datoteke (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Premik</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Premik X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Premik Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0}: nastavljeno na {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Prenašanje SDK za Mad Catz S.T.R.I.K.E. 7 …</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 zdaj nalaga {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Prenašanje in nameščanje izvajalnega okolja Microsoft Visual C++ 2008 …</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>Prenos SDK za S.T.R.I.K.E. 7 se ne ujema z znanim SHA-256, zato ni bilo ohranjeno nič.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Izvajalnega okolja Visual C++ 2008 po zagonu namestitvenega programa še vedno ni.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Prikaži zaslon tipkovnice</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Predvaja slike na vsakem zaslonu tipkovnice izbrane vrste, nato vrne vsak zaslon v njegov način.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Prikaži slike {0}: {1} × {2} ms, število ponovitev {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Slike se prilagodijo zaslonu: 160 × 43 črno-belih pik na enobarvnem zaslonu, 320 × 240 na zaslonu G19 ter 480 × 320 za Arx Control in S.T.R.I.K.E. 7. Najkrajši čas sličice je desetinka sekunde.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Način zaslona tipkovnice</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Preklopi vrsto zaslona tipkovnice v drug način in ga shrani kot nastavitev tega zaslona.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} prikazuje {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Način ostane, dokler ga ne spremeni drug makro ali pogovorno okno zaslona.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Štoparica</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Zažene ali začasno ustavi oziroma ponastavi štoparico, ki jo prikazujejo zasloni tipkovnice v načinu Štoparica.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Zaženi ali začasno ustavi štoparico</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Ponastavi štoparico</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Ponastavitev ustavi štoparico in jo nastavi nazaj na nič. Vsi zasloni tipkovnice v načinu Štoparica prikazujejo isto štoparico.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Premakni sliko zaslona tipkovnice</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Premakne okno vsakega zaslona tipkovnice po sliki, večji od zaslona, na primer po zemljevidu.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Premakni slike za {0} in {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Premakne vse vrste zaslonov, ki prikazujejo izbrano sliko, večjo od njih. Okno se ustavi na robovih slike.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Zaslon</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Dejanje</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Smer</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Korak</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

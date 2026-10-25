@@ -452,6 +452,8 @@ namespace PadForge.Common.Input
             // --- Phase 1i: head tracker, OpenTrack UDP + FreeTrack (issue #355) ---
             changed |= UpdateHeadTrackerDevice();
             changed |= UpdateLogitechGKeysDevice();
+            // --- Phase 1j2: the keys beside the keyboard screens (issue #519) ---
+            changed |= UpdateKeyboardScreenKeysDevice();
 
             // --- Phase 1m: vendor rows and unit rows for peripheral outputs (issue #494) ---
             changed |= UpdatePeripheralRows();

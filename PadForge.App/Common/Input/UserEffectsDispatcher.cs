@@ -2718,6 +2718,13 @@ namespace PadForge.Common.Input
                         {
                             byte tvf1 = (byte)fields["validFlag1"];
                             var trgb = fields.TryGetValue("lightbar", out var tv) ? tv as byte[] : null;
+                            // The keyboard screens' Lightbar mode (#519) shows
+                            // the color the pad takes: a DualShock 4 frame
+                            // always asserts the bar (validFlag0 0x07), a
+                            // DualSense frame with its enable bit.
+                            if (trgb != null && trgb.Length >= 3 && (!isDs5 || (tvf1 & 0x04) != 0))
+                                PadForge.Common.Input.KeyboardScreens.LightbarColors.Record(
+                                    _padIndex, ud.InstanceGuid, trgb[0], trgb[1], trgb[2]);
                             string sig = $"{tvf1:X2}/{(trgb != null ? $"{trgb[0]},{trgb[1]},{trgb[2]}" : "none")}";
                             long tnow = Environment.TickCount64;
                             if (sig != _lbLastSig || tnow - _lbFieldsLastLog >= 5000)

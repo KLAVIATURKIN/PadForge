@@ -2384,6 +2384,10 @@ namespace PadForge.Services
             vm.BlissBoxEnabled = appSettings.BlissBoxEnabled;
             vm.BlissBoxPorts = BlissBoxPortData.Normalize(appSettings.BlissBoxPorts);
             vm.DefaultProfileDreamcastPicture = appSettings.DefaultProfileDreamcastPicture;
+            vm.KeyboardScreensEnabled = appSettings.KeyboardScreensEnabled;
+            vm.KeyboardScreens = KeyboardScreenData.Normalize(appSettings.KeyboardScreens);
+            vm.DefaultProfileKeyboardScreenPicture = appSettings.DefaultProfileKeyboardScreenPicture;
+            vm.Strike7LibraryPath = appSettings.Strike7LibraryPath;
             // The hint must be in place before SDL_Init, and a hint set early
             // persists, so the load applies it (#395).
             PadForge.Common.Input.InputManager.ApplyFlydigiEnhancedProtocol(appSettings.FlydigiEnhancedProtocol);
@@ -4096,7 +4100,15 @@ namespace PadForge.Services
                 TextPerCharDelayMs = ad.TextPerCharDelayMs,
                 DreamcastFrames = ad.DreamcastFrames ?? "",
                 DreamcastFrameMs = ad.DreamcastFrameMs,
-                DreamcastRepeat = ad.DreamcastRepeat
+                DreamcastRepeat = ad.DreamcastRepeat,
+                ScreenKind = ad.ScreenKind,
+                ScreenFrames = ad.ScreenFrames ?? "",
+                ScreenFrameMs = ad.ScreenFrameMs,
+                ScreenRepeat = ad.ScreenRepeat,
+                ScreenMode = ad.ScreenMode,
+                StopwatchAction = ad.StopwatchAction,
+                PanDirection = ad.PanDirection,
+                PanStep = ad.PanStep
             };
         }
 
@@ -5005,6 +5017,11 @@ namespace PadForge.Services
                 BlissBoxPorts = vm.BlissBoxPorts.Count > 0 ? vm.BlissBoxPorts.ToArray() : null,
                 DefaultProfileDreamcastPicture = string.IsNullOrEmpty(vm.DefaultProfileDreamcastPicture)
                     ? null : vm.DefaultProfileDreamcastPicture,
+                KeyboardScreensEnabled = vm.KeyboardScreensEnabled,
+                KeyboardScreens = vm.KeyboardScreens.Count > 0 ? vm.KeyboardScreens.ToArray() : null,
+                DefaultProfileKeyboardScreenPicture = string.IsNullOrEmpty(vm.DefaultProfileKeyboardScreenPicture)
+                    ? null : vm.DefaultProfileKeyboardScreenPicture,
+                Strike7LibraryPath = string.IsNullOrEmpty(vm.Strike7LibraryPath) ? null : vm.Strike7LibraryPath,
                 // Default profile's custom gestures. When a named profile is
                 // active, defaultSnap.TouchpadGestures carries the gestures
                 // recorded on the default; when default is active, pull
@@ -5455,7 +5472,15 @@ namespace PadForge.Services
                 TextPerCharDelayMs = a.TextPerCharDelayMs,
                 DreamcastFrames = string.IsNullOrEmpty(a.DreamcastFrames) ? null : a.DreamcastFrames,
                 DreamcastFrameMs = a.DreamcastFrameMs,
-                DreamcastRepeat = a.DreamcastRepeat
+                DreamcastRepeat = a.DreamcastRepeat,
+                ScreenKind = a.ScreenKind,
+                ScreenFrames = string.IsNullOrEmpty(a.ScreenFrames) ? null : a.ScreenFrames,
+                ScreenFrameMs = a.ScreenFrameMs,
+                ScreenRepeat = a.ScreenRepeat,
+                ScreenMode = a.ScreenMode,
+                StopwatchAction = a.StopwatchAction,
+                PanDirection = a.PanDirection,
+                PanStep = a.PanStep
             };
         }
 
@@ -6585,6 +6610,29 @@ namespace PadForge.Services
         [XmlElement]
         public string DefaultProfileDreamcastPicture { get; set; }
 
+        /// <summary>The keyboard screens (issue #519). Off by default: it
+        /// loads other vendors' libraries, opens sessions with their
+        /// software, and can bind WinUSB to a G19's screen interface.</summary>
+        [XmlElement]
+        public bool KeyboardScreensEnabled { get; set; }
+
+        /// <summary>Each kind of keyboard screen's choices (#519). Null when
+        /// every kind is at its defaults.</summary>
+        [XmlArray("KeyboardScreens")]
+        [XmlArrayItem("Screen")]
+        public KeyboardScreenData[] KeyboardScreens { get; set; }
+
+        /// <summary>The Default profile's keyboard screen picture (#519), a
+        /// stored path. Named profiles keep theirs on
+        /// <see cref="ProfileData.KeyboardScreenPicture"/>.</summary>
+        [XmlElement]
+        public string DefaultProfileKeyboardScreenPicture { get; set; }
+
+        /// <summary>A Strike7API.dll the user picked (#519), a stored path.
+        /// Null for the copy PadForge downloads.</summary>
+        [XmlElement]
+        public string Strike7LibraryPath { get; set; }
+
         /// <summary>Per-axis ranges in HeadPose's order (yaw, pitch, roll, X,
         /// Y, Z). Zero means the axis follows its family's shared range, which
         /// is what every axis does until a user pins one, so an older file
@@ -7541,6 +7589,26 @@ namespace PadForge.Services
         [XmlElement] public int DreamcastFrameMs { get; set; } = 1000;
         /// <summary>How many times the pictures play, 1 at least.</summary>
         [XmlElement] public int DreamcastRepeat { get; set; } = 1;
+
+        /// <summary>Show Keyboard Screen and Keyboard Screen Mode (#519):
+        /// the kind of screen.</summary>
+        [XmlElement] public PadForge.Common.Input.KeyboardScreens.KeyboardScreenKind ScreenKind { get; set; }
+        /// <summary>Show Keyboard Screen (#519): the pictures in the order
+        /// they show, each a PNG at the kind's size in base64, joined by
+        /// commas.</summary>
+        [XmlElement] public string ScreenFrames { get; set; }
+        /// <summary>How long each picture shows, ms.</summary>
+        [XmlElement] public int ScreenFrameMs { get; set; } = 1000;
+        /// <summary>How many times the pictures play, 1 at least.</summary>
+        [XmlElement] public int ScreenRepeat { get; set; } = 1;
+        /// <summary>Keyboard Screen Mode (#519): the mode to switch to.</summary>
+        [XmlElement] public KeyboardScreenMode ScreenMode { get; set; } = KeyboardScreenData.DefaultMode;
+        /// <summary>Stopwatch (#519): start or pause, or reset.</summary>
+        [XmlElement] public KeyboardScreenStopwatchAction StopwatchAction { get; set; }
+        /// <summary>Pan Keyboard Screen Picture (#519): the direction.</summary>
+        [XmlElement] public KeyboardScreenPanDirection PanDirection { get; set; } = KeyboardScreenPanDirection.Right;
+        /// <summary>How far one pan moves, in the picture's pixels.</summary>
+        [XmlElement] public int PanStep { get; set; } = ViewModels.MacroAction.DefaultPanStep;
     }
 
     /// <summary>
@@ -7624,6 +7692,12 @@ namespace PadForge.Services
         /// Picture. AUTHORED like the name: no state save copies it.</summary>
         [XmlElement]
         public string DreamcastPicture { get; set; }
+
+        /// <summary>The profile's keyboard screen picture (#519), a stored
+        /// path, shown by a keyboard screen set to Profile Picture. AUTHORED
+        /// like the Dreamcast picture: no state save copies it.</summary>
+        [XmlElement]
+        public string KeyboardScreenPicture { get; set; }
 
         [XmlArray("Entries")]
         [XmlArrayItem("Entry")]

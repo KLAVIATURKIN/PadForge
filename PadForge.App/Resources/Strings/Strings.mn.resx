@@ -4251,4 +4251,97 @@ PadForge одоо тэдгээрийг устгах уу? Үүнд админи�
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox импульс гохын 9 байтын тайлан ба түүнийг бичих зам, araghon007-ийн бүтээл. MIT.</value></data>
   <data name="About_ChiakiNg" xml:space="preserve"><value>chiaki-ng</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5-ийн хаптик PCM формат, тэмдэгтэй 16 бит, 3 kHz, үүгээр тэмдэгтэй 8 битийн Bluetooth хаптик кодчлолыг тодорхойлсон. AGPL-3.0, зөвхөн баримт бичиг болгон уншсан, AGPL код багтаагүй.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Гарын дэлгэцүүд</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Logitech-ийн GamePanel гарууд болон Mad Catz S.T.R.I.K.E. 7-д суурилуулсан дэлгэц дээр, мөн Logitech Arx Control-оор дамжуулан утсан дээр зурна: профайл, цаг, тоглосон хугацаа, секундомер, зураг эсвэл DualShock 4 буюу DualSense-ийн гэрлийн зурвасын өнгө. Эдгээр дэлгэцийн хажуугийн товчлуурууд "Гарын дэлгэцийн товчлуурууд" мөрөнд товч болно.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Гарын дэлгэцүүдийг удирдах</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Logitech G15, G15 v2, G510, G13, Z-10, GamePanel, G19-ийн дэлгэц, Arx Control болон Mad Catz S.T.R.I.K.E. 7 дээр зурна. Logitech Gaming Software ажиллаж байх үед PadForge түүгээр дамжуулан зурна. Түүнгүйгээр PadForge хар цагаан дэлгэцүүдэд HID-ээр бичиж, G19-ийн дэлгэцийн интерфейст WinUSB-г холбоно. Үүнийг унтраавал G19-ийн дэлгэцийг Windows-д буцааж өгнө.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Хар цагаан дэлгэц…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Өнгөт дэлгэц…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Strike7API.dll татах</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Mad Catz-ийн S.T.R.I.K.E. 7 SDK-г AIDA64-ийн серверээс татаж, мэдэгдэж буй SHA-256-тай нь тулган шалгаад, зөвхөн 64 битийн Strike7API.dll-г PadForge-ийн түр хавтсанд хадгална.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Strike7API.dll сонгох…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Visual C++ 2008 ажиллах орчин суулгах</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Strike7API.dll-д шаардлагатай, 64 битийн Windows-д зориулсан Microsoft-ын Visual C++ 2008 SP1 Redistributable-ийг татаж, Microsoft-ын гарын үсгийг шалгаад суулгана.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Сангууд (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Хар цагаан дэлгэц</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Өнгөт дэлгэц</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Унтраалттай</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Секундомер</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Гэрлийн зурвасын өнгө</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>унтраалттай</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>Logitech Gaming Software-ээр дамжуулан</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>{0} дээр шууд</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>G19-ийн дэлгэцэд WinUSB-г холбож байна</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19-ийн дэлгэц өөр драйвер ({0}) дээр байгаа тул Logitech Gaming Software-ийг эхлүүлнэ үү</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>Logitech Gaming Software 8.52 буюу түүнээс хойшхи хувилбар шаардлагатай</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>Logitech Gaming Software-ийг эхлүүлнэ үү</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>Arx Control-той утсыг хүлээж байна</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>утсан дээр</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>Strike7API.dll шаардлагатай тул татах эсвэл хуулбарыг нь сонгоно уу</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>татсан Strike7API.dll өөрчлөгдсөн тул дахин татна уу</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>Microsoft-ын Visual C++ 2008 ажиллах орчин шаардлагатай</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll ачаалагдсангүй</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>S.T.R.I.K.E. 7 программыг эхлүүлнэ үү</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>V.E.N.O.M. дэлгэц дээр PadForge-ийг сонгоно уу</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>V.E.N.O.M. дэлгэц дээр</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>дэлгэц олдсонгүй</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, гэрлийн зурвасын өнгийг хүлээж байна</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, зураг сонгоогүй</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Гарын дэлгэцийн товчлуурууд</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Дэлгэцийн товчлуур {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Аплетийн товчлуур</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Дэлгэцийн зүүн</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Дэлгэцийн баруун</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Дэлгэцийн OK</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Дэлгэцийн цуцлах</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Дэлгэцийн дээш</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Дэлгэцийн доош</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Дэлгэцийн цэс</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Дэлгэцийн тохиргоо</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge юу ч харуулахгүй бөгөөд түүний аплет дэлгэцээс гарна. Logitech Gaming Software ашиглаж байхад дэлгэцийн товчлуурууд зөвхөн PadForge-ийн аплет урд байх үед түүнд хүрдэг тул тэдгээрт өөр горим хэрэгтэй.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Дэлгэц идэвхтэй профайлын нэрийг харуулж, профайл солигдох бүрд дагаж өөрчлөгдөнө.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Дэлгэц идэвхтэй профайлын профайлын жагсаалт дахь байрлалыг харуулна. Үндсэн профайл 0 байна.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Дэлгэц идэвхтэй профайлын өөрийн зургийг, зураггүй бол нэрийг нь харуулна. Профайл бүр өөрийн зурагтай.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Дэлгэц өдрийн цагийг харуулна.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Дэлгэц идэвхтэй профайл солигдон орсноос хойшхи цаг, минутыг харуулна. Тоглоомын программтай холбосон профайл тоглоом эхлэхэд идэвхждэг тул тоолол нь тухайн тоглолтын хугацаа болно. Үндсэн профайлын үед хөдөлгүүр эхэлснээс тоолно.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Дэлгэц таны сонгосон зургийг өөрийнх нь хэмжээгээр харуулна. Дэлгэцээс том зургийн хувьд дэлгэцийн хэмжээтэй цонх харагдах бөгөөд түүнийг "Гарын дэлгэцийн зургийг гүйлгэх" макро хөдөлгөнө. S.T.R.I.K.E. 7 дээр дэлгэцэн дээгүүр хуруугаа чирэхэд мөн хөдөлнө.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Дэлгэц секундомерыг харуулах бөгөөд түүнийг "Секундомер" макро эхлүүлж, түр зогсоож, тэглэнэ. Бүх дэлгэц ижил секундомерыг харуулна.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Дэлгэц хамгийн бага дугаартай слот дахь DualShock 4 эсвэл DualSense-ийн гэрлийн зурвасын өнгийг харуулна. Хар цагаан дэлгэц түүний тод байдлыг цэгэн хээгээр харуулна. Гэрлийн зурваст өнгө ирэх хүртэл PadForge юу ч харуулахгүй.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Зургууд (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Бүх файл (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Гүйлгэх</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Гүйлгэх X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Гүйлгэх Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0}: {1} болгож тохирууллаа.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Mad Catz-ийн S.T.R.I.K.E. 7 SDK-г татаж байна…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 одоо {0} файлыг ачаална.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Microsoft-ын Visual C++ 2008 ажиллах орчныг татаж суулгаж байна…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK татац мэдэгдэж буй SHA-256-тай таарахгүй тул түүнээс юу ч хадгалсангүй.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Суулгагч ажилласны дараа ч Visual C++ 2008 ажиллах орчин байхгүй хэвээр байна.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Гарын дэлгэц харуулах</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Сонгосон төрлийн бүх гарын дэлгэц дээр зургуудыг тоглуулаад, дэлгэц бүрийг өөрийн горимд нь буцаана.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>{0} зураг харуулах: {1} × {2} мс, давталтын тоо {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Зургуудыг дэлгэцэнд тааруулна: хар цагаан дэлгэц дээр 160 × 43 хар цагаан пиксел, G19-ийнх дээр 320 × 240, Arx Control болон S.T.R.I.K.E. 7 дээр 480 × 320. Кадрын хамгийн богино хугацаа нь секундын аравны нэг.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Гарын дэлгэцийн горим</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Гарын дэлгэцийн нэг төрлийг өөр горимд шилжүүлж, тухайн дэлгэцийн тохиргоо болгон хадгална.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} дээр {1} харуулна</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Өөр макро эсвэл дэлгэцийн харилцах цонх өөрчлөх хүртэл горим хэвээр үлдэнэ.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Секундомер</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Секундомер горимтой гарын дэлгэцүүдийн харуулдаг секундомерыг эхлүүлж эсвэл түр зогсооно, эсвэл тэглэнэ.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Секундомерыг эхлүүлэх эсвэл түр зогсоох</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Секундомерыг тэглэх</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Тэглэх нь секундомерыг зогсоож, тэг рүү буцаана. Секундомер горимтой бүх гарын дэлгэц ижил секундомерыг харуулна.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Гарын дэлгэцийн зургийг гүйлгэх</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Гарын дэлгэц бүрийн цонхыг дэлгэцээс том зураг, жишээ нь газрын зураг дээгүүр хөдөлгөнө.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Зургийг {0}, {1} px-ээр гүйлгэх</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Өөрөөсөө том сонгосон зураг харуулж буй бүх төрлийн дэлгэцийг хөдөлгөнө. Цонх зургийн ирмэгт зогсоно.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Дэлгэц</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Үйлдэл</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Чиглэл</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Алхам</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>

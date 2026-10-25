@@ -4168,4 +4168,97 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="About_WiiBrewDesc" xml:space="preserve"><value>Wii yáokòngqì yángshēngqì xiéyì yǔ IR jiàozhǔn wéndàng. Jǐn yòng yú xiéyì shìshí cānkǎo.</value></data>
   <data name="About_X1nputDesc" xml:space="preserve"><value>Xbox chōngjī bānjī de 9 zìjié bàogào jí qí xiěrù lùjìng, yóu araghon007 tígōng. MIT.</value></data>
   <data name="About_ChiakiNgDesc" xml:space="preserve"><value>PS5 chùgǎn PCM géshì, yǒu fúhào 16 wèi, 3 kHz, yóucǐ quèdìng le Lányá chùgǎn de yǒu fúhào 8 wèi biānmǎ. AGPL-3.0, jǐn zuòwéi wéndàng yuèdú, bù suí fù rènhé AGPL dàimǎ.</value></data>
+  <data name="Settings_KeyboardScreens_Title" xml:space="preserve"><value>Jiànpán píngmù</value></data>
+  <data name="Settings_KeyboardScreens_Desc" xml:space="preserve"><value>Zài Logitech GamePanel jiànpán hé Mad Catz S.T.R.I.K.E. 7 nèizhì de píngmù shàng, yǐjí tōngguò Logitech Arx Control zài shǒujī shàng huìzhì: pèizhì wénjiàn, shízhōng, yóuxì shíjiān, miǎobiǎo, yī zhāng túpiàn, huò DualShock 4 huò DualSense dēngtiáo de yánsè. Zhèxiē píngmù pángbiān de jiàn huì chéngwéi “Jiànpán píngmù jiàn” yī háng zhōng de ànniǔ.</value></data>
+  <data name="Settings_KeyboardScreens" xml:space="preserve"><value>Qūdòng jiànpán píngmù</value></data>
+  <data name="Settings_KeyboardScreensTooltip" xml:space="preserve"><value>Zài Logitech G15, G15 v2, G510, G13, Z-10, GamePanel hé G19 de píngmù shàng, zài Arx Control shàng, yǐjí zài Mad Catz S.T.R.I.K.E. 7 shàng huìzhì. Logitech Gaming Software yùnxíng shí, PadForge tōngguò tā huìzhì. Méiyǒu tā shí, PadForge tōngguò HID xiě dānsè píngmù, bìng bǎ WinUSB bǎngdìng dào G19 píngmù de jiēkǒu. Guānbì cǐ xiàng huì bǎ G19 de píngmù huán gěi Windows.</value></data>
+  <data name="KeyboardScreens_Configure_Monochrome" xml:space="preserve"><value>Dānsè píngmù…</value></data>
+  <data name="KeyboardScreens_Configure_Color" xml:space="preserve"><value>Cǎisè píngmù…</value></data>
+  <data name="KeyboardScreens_Configure_Arx" xml:space="preserve"><value>Arx Control…</value></data>
+  <data name="KeyboardScreens_Configure_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7…</value></data>
+  <data name="KeyboardScreens_DownloadStrike7" xml:space="preserve"><value>Xiàzài Strike7API.dll</value></data>
+  <data name="KeyboardScreens_DownloadStrike7_Tooltip" xml:space="preserve"><value>Cóng AIDA64 de fúwùqì xiàzài Mad Catz de S.T.R.I.K.E. 7 SDK, yòng yǐzhī de SHA-256 jiǎoyàn, bìng zhǐ bǎ 64 wèi de Strike7API.dll bǎoliú zài PadForge de línshí wénjiànjiā zhōng.</value></data>
+  <data name="KeyboardScreens_PickStrike7" xml:space="preserve"><value>Xuǎnzé Strike7API.dll…</value></data>
+  <data name="KeyboardScreens_InstallVc2008" xml:space="preserve"><value>Ānzhuāng Visual C++ 2008 yùnxíngshí</value></data>
+  <data name="KeyboardScreens_InstallVc2008_Tooltip" xml:space="preserve"><value>Xiàzài Microsoft wèi 64 wèi Windows tígōng de Visual C++ 2008 SP1 kě zàifāxíng zǔjiànbāo (Strike7API.dll xūyào tā), yànzhèng Microsoft de qiānmíng, ránhòu ānzhuāng.</value></data>
+  <data name="KeyboardScreens_Strike7LibraryFilter" xml:space="preserve"><value>Strike7API.dll|Strike7API.dll|Kùwénjiàn (*.dll)|*.dll</value></data>
+  <data name="KeyboardScreens_Kind_Monochrome" xml:space="preserve"><value>Dānsè píngmù</value></data>
+  <data name="KeyboardScreens_Kind_Color" xml:space="preserve"><value>Cǎisè píngmù</value></data>
+  <data name="KeyboardScreens_Kind_Arx" xml:space="preserve"><value>Arx Control</value></data>
+  <data name="KeyboardScreens_Kind_Strike7" xml:space="preserve"><value>S.T.R.I.K.E. 7</value></data>
+  <data name="KeyboardScreens_Mode_Off" xml:space="preserve"><value>Guānbì</value></data>
+  <data name="KeyboardScreens_Mode_Stopwatch" xml:space="preserve"><value>Miǎobiǎo</value></data>
+  <data name="KeyboardScreens_Mode_Lightbar" xml:space="preserve"><value>Dēngtiáo yánsè</value></data>
+  <data name="KeyboardScreens_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="KeyboardScreens_Status_Off" xml:space="preserve"><value>guānbì</value></data>
+  <data name="KeyboardScreens_Status_Lgs" xml:space="preserve"><value>tōngguò Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_Direct_Format" xml:space="preserve"><value>zhíjiē zài {0} shàng</value></data>
+  <data name="KeyboardScreens_Status_G19Preparing" xml:space="preserve"><value>zhèngzài bǎ WinUSB bǎngdìng dào G19 de píngmù</value></data>
+  <data name="KeyboardScreens_Status_G19OtherDriver_Format" xml:space="preserve"><value>G19 de píngmù shǐyòng qítā qūdòng chéngxù ({0}), qǐng qǐdòng Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxNoLibrary" xml:space="preserve"><value>xūyào Logitech Gaming Software 8.52 huò gèng gāo bǎnběn</value></data>
+  <data name="KeyboardScreens_Status_ArxNotRunning" xml:space="preserve"><value>qǐdòng Logitech Gaming Software</value></data>
+  <data name="KeyboardScreens_Status_ArxWaiting" xml:space="preserve"><value>děngdài ānzhuāngle Arx Control de shǒujī</value></data>
+  <data name="KeyboardScreens_Status_ArxOnPhone" xml:space="preserve"><value>zài shǒujī shàng</value></data>
+  <data name="KeyboardScreens_Status_Strike7NoLibrary" xml:space="preserve"><value>xūyào Strike7API.dll, qǐng xiàzài tā huò xuǎnzé yī gè fùběn</value></data>
+  <data name="KeyboardScreens_Status_Strike7Changed" xml:space="preserve"><value>yǐ xiàzài de Strike7API.dll fāshēngle biànhuà, qǐng chóngxīn xiàzài</value></data>
+  <data name="KeyboardScreens_Status_Strike7NeedsRuntime" xml:space="preserve"><value>xūyào Microsoft Visual C++ 2008 yùnxíngshí</value></data>
+  <data name="KeyboardScreens_Status_Strike7LoadFailed" xml:space="preserve"><value>Strike7API.dll wúfǎ jiāzài</value></data>
+  <data name="KeyboardScreens_Status_Strike7NotRunning" xml:space="preserve"><value>qǐdòng S.T.R.I.K.E. 7 ruǎnjiàn</value></data>
+  <data name="KeyboardScreens_Status_Strike7Waiting" xml:space="preserve"><value>zài V.E.N.O.M. píngmù shàng xuǎnzé PadForge</value></data>
+  <data name="KeyboardScreens_Status_Strike7Showing" xml:space="preserve"><value>zài V.E.N.O.M. píngmù shàng</value></data>
+  <data name="KeyboardScreens_Status_NotFound" xml:space="preserve"><value>wèi zhǎodào píngmù</value></data>
+  <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, děngdài dēngtiáo yánsè</value></data>
+  <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, wèi xuǎnzé túpiàn</value></data>
+  <data name="DeviceType_KeyboardScreenKeys" xml:space="preserve"><value>Jiànpán píngmù jiàn</value></data>
+  <data name="KeyboardScreenKey_Mono_Format" xml:space="preserve"><value>Píngmù jiàn {0}</value></data>
+  <data name="KeyboardScreenKey_Applet" xml:space="preserve"><value>Xiǎo chéngxù jiàn</value></data>
+  <data name="KeyboardScreenKey_G19Left" xml:space="preserve"><value>Píngmù zuǒ</value></data>
+  <data name="KeyboardScreenKey_G19Right" xml:space="preserve"><value>Píngmù yòu</value></data>
+  <data name="KeyboardScreenKey_G19Ok" xml:space="preserve"><value>Píngmù quèdìng</value></data>
+  <data name="KeyboardScreenKey_G19Cancel" xml:space="preserve"><value>Píngmù qǔxiāo</value></data>
+  <data name="KeyboardScreenKey_G19Up" xml:space="preserve"><value>Píngmù shàng</value></data>
+  <data name="KeyboardScreenKey_G19Down" xml:space="preserve"><value>Píngmù xià</value></data>
+  <data name="KeyboardScreenKey_G19Menu" xml:space="preserve"><value>Píngmù càidān</value></data>
+  <data name="KeyboardScreenKey_G19Settings" xml:space="preserve"><value>Píngmù shèzhì</value></data>
+  <data name="KeyboardScreen_Hint_Off" xml:space="preserve"><value>PadForge bù xiǎnshì rènhé nèiróng, qí xiǎo chéngxù yě líkāi píngmù. Zài Logitech Gaming Software xià, zhǐyǒu PadForge de xiǎo chéngxù wèiyú zuì qiánmiàn shí, píngmù jiàn cái néng chuándì gěi PadForge, yīncǐ xūyào qítā móshì.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileName" xml:space="preserve"><value>Píngmù xiǎnshì dāngqián pèizhì wénjiàn de míngchēng, bìng suí měi cì pèizhì wénjiàn qiēhuàn gēngxīn.</value></data>
+  <data name="KeyboardScreen_Hint_ProfileNumber" xml:space="preserve"><value>Píngmù xiǎnshì dāngqián pèizhì wénjiàn zài pèizhì wénjiàn lièbiǎo zhōng de wèizhì. Mòrèn pèizhì wénjiàn shì 0.</value></data>
+  <data name="KeyboardScreen_Hint_ProfilePicture" xml:space="preserve"><value>Píngmù xiǎnshì dāngqián pèizhì wénjiàn zìjǐ de túpiàn, méiyǒu túpiàn shí xiǎnshì qí míngchēng. Měi gè pèizhì wénjiàn bǎocún gèzì de túpiàn.</value></data>
+  <data name="KeyboardScreen_Hint_Clock" xml:space="preserve"><value>Píngmù xiǎnshì dāngqián shíjiān.</value></data>
+  <data name="KeyboardScreen_Hint_PlayTime" xml:space="preserve"><value>Píngmù xiǎnshì zìcóng dāngqián pèizhì wénjiàn qiēhuàn shēngxiào yǐlái de xiǎoshí hé fēnzhōng shù. Yǔ yóuxì chéngxù guānlián de pèizhì wénjiàn zài yóuxì qǐdòng shí shēngxiào, yīncǐ jìshí jiùshì nà yī cì yóuxì de shíjiān. Zài mòrèn pèizhì wénjiàn xià, cóng yǐnqíng qǐdòng shí kāishǐ jìshí.</value></data>
+  <data name="KeyboardScreen_Hint_Picture" xml:space="preserve"><value>Píngmù yǐ túpiàn běnshēn de dàxiǎo xiǎnshì nín xuǎnzé de túpiàn. Rúguǒ túpiàn bǐ píngmù dà, zhǐ xiǎnshì yī gè yǔ píngmù děng dà de chuāngkǒu, “Píngyí jiànpán píngmù túpiàn” hóng kěyǐ yídòng zhège chuāngkǒu. Zài S.T.R.I.K.E. 7 shàng, yòng shǒuzhǐ zài píngmù shàng tuōdòng yě néng yídòng tā.</value></data>
+  <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>Píngmù xiǎnshì miǎobiǎo, ér miǎobiǎo hóng kěyǐ qǐdòng, zàntíng hé chóngzhì tā. Suǒyǒu píngmù xiǎnshì tóng yī gè miǎobiǎo.</value></data>
+  <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>Píngmù xiǎnshì zuì dī cáowèi zhōng DualShock 4 huò DualSense dēngtiáo de yánsè. Dānsè píngmù yòng diǎnzhèn túàn xiǎnshì qí liángdù. Zài yánsè chuándì dào dēngtiáo zhīqián, PadForge bù xiǎnshì rènhé nèiróng.</value></data>
+  <data name="KeyboardScreen_PictureFilter" xml:space="preserve"><value>Túpiàn (*.png, *.jpg, *.bmp, *.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|Suǒyǒu wénjiàn (*.*)|*.*</value></data>
+  <data name="KeyboardScreen_Pan_Label" xml:space="preserve"><value>Píngyí</value></data>
+  <data name="KeyboardScreen_PanX" xml:space="preserve"><value>Píngyí X</value></data>
+  <data name="KeyboardScreen_PanY" xml:space="preserve"><value>Píngyí Y</value></data>
+  <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>{0} yǐ shèwéi {1}.</value></data>
+  <data name="Status_DownloadingStrike7" xml:space="preserve"><value>Zhèngzài xiàzài Mad Catz de S.T.R.I.K.E. 7 SDK…</value></data>
+  <data name="Status_Strike7LibraryPicked_Format" xml:space="preserve"><value>S.T.R.I.K.E. 7 xiànzài jiāzài {0}.</value></data>
+  <data name="Status_InstallingVc2008" xml:space="preserve"><value>Zhèngzài xiàzài bìng ānzhuāng Microsoft Visual C++ 2008 yùnxíngshí…</value></data>
+  <data name="Status_Strike7SdkHashMismatch" xml:space="preserve"><value>S.T.R.I.K.E. 7 SDK de xiàzài nèiróng yǔ yǐzhī de SHA-256 bù fú, yīncǐ wèi bǎoliú qízhōng de rènhé nèiróng.</value></data>
+  <data name="Status_Vc2008RuntimeMissing" xml:space="preserve"><value>Ānzhuāng chéngxù yùnxíng hòu, réng quēshǎo Visual C++ 2008 yùnxíngshí.</value></data>
+  <data name="MacroAction_Type_ShowKeyboardScreen" xml:space="preserve"><value>Xiǎnshì jiànpán píngmù</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Tooltip" xml:space="preserve"><value>Zài suǒ xuǎn lèixíng de měi gè jiànpán píngmù shàng bōfàng túpiàn, ránhòu shǐ měi gè píngmù huīfù dào gèzì de móshì.</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Xiǎnshì {0} túpiàn: {1} × {2} ms, chóngfù cìshù {3}</value></data>
+  <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Túpiàn huì shìyìng píngmù: dānsè píngmù wèi 160 × 43 hēibái xiàngsù, G19 de píngmù wèi 320 × 240, Arx Control hé S.T.R.I.K.E. 7 wèi 480 × 320. Zuì duǎn de zhēn shíjiān shì shí fēn zhī yī miǎo.</value></data>
+  <data name="MacroAction_Type_KeyboardScreenMode" xml:space="preserve"><value>Jiànpán píngmù móshì</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Tooltip" xml:space="preserve"><value>Bǎ mǒu lèi jiànpán píngmù qiēhuàn dào lìng yī zhǒng móshì, bìng bǎ tā bǎocún wèi gāi píngmù de shèzhì.</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>{0} xiǎnshì {1}</value></data>
+  <data name="MacroAction_KeyboardScreenMode_Hint" xml:space="preserve"><value>Gāi móshì yīzhí bǎochí, zhídào lìng yī gè hóng huò gāi píngmù de duìhuàkuāng gēnggǎi tā.</value></data>
+  <data name="MacroAction_Type_Stopwatch" xml:space="preserve"><value>Miǎobiǎo</value></data>
+  <data name="MacroAction_Stopwatch_Tooltip" xml:space="preserve"><value>Qǐdòng huò zàntíng, huò chóngzhì jiànpán píngmù zài miǎobiǎo móshì xià xiǎnshì de miǎobiǎo.</value></data>
+  <data name="MacroAction_Stopwatch_StartPause" xml:space="preserve"><value>Qǐdòng huò zàntíng miǎobiǎo</value></data>
+  <data name="MacroAction_Stopwatch_Reset" xml:space="preserve"><value>Chóngzhì miǎobiǎo</value></data>
+  <data name="MacroAction_Stopwatch_Hint" xml:space="preserve"><value>Chóngzhì huì tíngzhǐ miǎobiǎo bìng bǎ tā guīlíng. Suǒyǒu zài miǎobiǎo móshì xià de jiànpán píngmù xiǎnshì tóng yī gè miǎobiǎo.</value></data>
+  <data name="MacroAction_Type_PanKeyboardScreen" xml:space="preserve"><value>Píngyí jiànpán píngmù túpiàn</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Tooltip" xml:space="preserve"><value>Zài bǐ píngmù dà de túpiàn shàng yídòng měi gè jiànpán píngmù de chuāngkǒu, kěyòng yú dìtú.</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Format" xml:space="preserve"><value>Píngyí túpiàn {0}, {1} px</value></data>
+  <data name="MacroAction_PanKeyboardScreen_Hint" xml:space="preserve"><value>Yídòng měi zhǒng xiǎnshì bǐ zìshēn dà de suǒ xuǎn túpiàn de píngmù. Chuāngkǒu zài túpiàn biānyuán tíngzhǐ.</value></data>
+  <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Píngmù</value></data>
+  <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Dòngzuò</value></data>
+  <data name="Macro_Pan_Direction" xml:space="preserve"><value>Fāngxiàng</value></data>
+  <data name="Macro_Pan_Step" xml:space="preserve"><value>Bùcháng</value></data>
+  <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
 </root>
