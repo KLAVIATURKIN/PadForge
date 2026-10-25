@@ -4018,6 +4018,10 @@ namespace PadForge.Services
             macro.RawProfileId =
                 outputType is VirtualControllerType.Extended
                 or VirtualControllerType.Nintendo ? extendedProfileId : null;
+            // The axis pickers offer the button pressure targets on the
+            // DualShock 3 (SIXAXIS): Full (#530).
+            macro.CarriesPressure = outputType == VirtualControllerType.PlayStation
+                && HMaestroProfileCatalog.ReportCarriesPressure(extendedProfileId);
             foreach (var action in macro.Actions)
                 action.CustomButtonCount = btnCount;
 

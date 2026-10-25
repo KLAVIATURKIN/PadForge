@@ -3337,6 +3337,28 @@
                                             <ComboBoxItem Content="{Binding Macro_RightStickY, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroAxisTarget.RightStickY}"/>
                                             <ComboBoxItem Content="{Binding Macro_LeftTrigger, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroAxisTarget.LeftTrigger}"/>
                                             <ComboBoxItem Content="{Binding Macro_RightTrigger, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroAxisTarget.RightTrigger}"/>
+                                            <!-- The virtual DualShock 3's button pressures (#530), on the
+                                                 DualShock 3 (SIXAXIS): Full preset only. -->
+                                            <ComboBoxItem Content="{Binding ButtonA, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureButtonA}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding ButtonB, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureButtonB}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding ButtonX, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureButtonX}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding ButtonY, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureButtonY}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding LeftShoulder, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureLeftShoulder}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding RightShoulder, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureRightShoulder}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding DPadUp, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureDPadUp}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding DPadDown, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureDPadDown}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding DPadLeft, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureDPadLeft}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding DPadRight, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureDPadRight}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         </ComboBox>
                                         <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="AxisTarget" SettingLabel="{Binding Macro_Axis, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_AxisTarget_2866" Margin="4,0,8,0"/>
                                         <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Macro_AxisValue, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
@@ -3388,6 +3410,28 @@
                                             <ComboBoxItem Content="{Binding Macro_RightStickY, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroAxisTarget.RightStickY}"/>
                                             <ComboBoxItem Content="{Binding Macro_LeftTrigger, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroAxisTarget.LeftTrigger}"/>
                                             <ComboBoxItem Content="{Binding Macro_RightTrigger, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroAxisTarget.RightTrigger}"/>
+                                            <!-- The virtual DualShock 3's button pressures (#530), on the
+                                                 DualShock 3 (SIXAXIS): Full preset only. -->
+                                            <ComboBoxItem Content="{Binding ButtonA, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureButtonA}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding ButtonB, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureButtonB}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding ButtonX, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureButtonX}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding ButtonY, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureButtonY}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding LeftShoulder, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureLeftShoulder}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding RightShoulder, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureRightShoulder}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding DPadUp, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureDPadUp}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding DPadDown, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureDPadDown}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding DPadLeft, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureDPadLeft}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <ComboBoxItem Content="{Binding DPadRight, Source={x:Static vm:MacroPressureLabels.Instance}}" Tag="{x:Static vm:MacroAxisTarget.PressureDPadRight}"
+                                                          Visibility="{Binding CarriesPressure, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         </ComboBox>
                                         <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="AxisTarget" SettingLabel="{Binding Macro_Axis, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_AxisTarget_2915"/>
                                     </StackPanel>

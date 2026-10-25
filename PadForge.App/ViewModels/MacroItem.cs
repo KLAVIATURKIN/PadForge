@@ -1853,6 +1853,26 @@ namespace PadForge.ViewModels
             }
         }
 
+        private bool _carriesPressure;
+
+        /// <summary>
+        /// True on a slot whose preset sends button pressure, the
+        /// DualShock 3 (SIXAXIS): Full (#530). Stamped by PadViewModel
+        /// beside ButtonStyle and handed to every action, whose axis
+        /// pickers offer the ten pressure targets only then.
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool CarriesPressure
+        {
+            get => _carriesPressure;
+            set
+            {
+                if (SetProperty(ref _carriesPressure, value))
+                    foreach (var action in Actions)
+                        action.CarriesPressure = value;
+            }
+        }
+
         // ─────────────────────────────────────────────
         //  Trigger options
         // ─────────────────────────────────────────────
@@ -2748,7 +2768,7 @@ namespace PadForge.ViewModels
         public RelayCommand AddActionCommand =>
             _addActionCommand ??= new RelayCommand(() =>
             {
-                var action = new MacroAction { Type = MacroActionType.ButtonPress, ButtonStyle = _buttonStyle, CustomButtonCount = _customButtonCount, RawProfileId = _extendedProfileId };
+                var action = new MacroAction { Type = MacroActionType.ButtonPress, ButtonStyle = _buttonStyle, CustomButtonCount = _customButtonCount, RawProfileId = _extendedProfileId, CarriesPressure = _carriesPressure };
                 Actions.Add(action);
                 SelectedAction = action;
             });
@@ -2776,6 +2796,7 @@ namespace PadForge.ViewModels
                 clone.ButtonStyle = _buttonStyle;
                 clone.CustomButtonCount = _customButtonCount;
                 clone.RawProfileId = _extendedProfileId;
+                clone.CarriesPressure = _carriesPressure;
                 int idx = Actions.IndexOf(_selectedAction);
                 if (idx < 0) Actions.Add(clone); else Actions.Insert(idx + 1, clone);
                 SelectedAction = clone;
@@ -3498,6 +3519,20 @@ namespace PadForge.ViewModels
             }
         }
 
+        private bool _carriesPressure;
+
+        /// <summary>
+        /// The owning macro's <see cref="MacroItem.CarriesPressure"/>
+        /// (#530): the axis pickers show the ten button pressure targets
+        /// only while it is set. Display-only.
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool CarriesPressure
+        {
+            get => _carriesPressure;
+            set => SetProperty(ref _carriesPressure, value);
+        }
+
         private ushort _buttonFlags;
 
         /// <summary>
@@ -4037,7 +4072,8 @@ namespace PadForge.ViewModels
         /// M:{0..4} mouse-button click, W:{ticks} vertical wheel,
         /// H:{ticks} horizontal wheel, B:{mask} VC button flags,
         /// A:{axisTarget}:{value} VC axis assert (MacroAxisTarget ordinal,
-        /// trigger targets on the AxisHold pull scale). Example:
+        /// trigger and button pressure targets on the AxisHold pull scale).
+        /// Example:
         /// "K:49,K:50,W:1+M:0".</summary>
         public string CycleStepsCsv
         {
@@ -7130,7 +7166,22 @@ namespace PadForge.ViewModels
         RightStickX,
         RightStickY,
         LeftTrigger,
-        RightTrigger
+        RightTrigger,
+
+        // The virtual DualShock 3's ten button pressures (#530), in
+        // ButtonPressureState order and named as the pressure mapping rows
+        // are. Append-only: settings keep a target by name, and a Cycle Tap
+        // List step keeps it by number.
+        PressureButtonA,
+        PressureButtonB,
+        PressureButtonX,
+        PressureButtonY,
+        PressureLeftShoulder,
+        PressureRightShoulder,
+        PressureDPadUp,
+        PressureDPadDown,
+        PressureDPadLeft,
+        PressureDPadRight
     }
 
     public static class MacroAxisTargetNames
@@ -7146,8 +7197,64 @@ namespace PadForge.ViewModels
             MacroAxisTarget.RightStickY => Strings.Instance.MacroAxis_YRotation,
             MacroAxisTarget.LeftTrigger => Strings.Instance.MacroAxis_ZAxis,
             MacroAxisTarget.RightTrigger => Strings.Instance.MacroAxis_ZRotation,
+            _ when target.PressureIndex() >= 0 => PressureName(target.PressureIndex()),
             _ => target.ToString()
         };
+
+        /// <summary>The button pressure a target writes, 0 to 9 in
+        /// ButtonPressureState order (#530), or -1 for an axis.</summary>
+        public static int PressureIndex(this MacroAxisTarget target)
+            => target >= MacroAxisTarget.PressureButtonA && target <= MacroAxisTarget.PressureDPadRight
+                ? target - MacroAxisTarget.PressureButtonA
+                : -1;
+
+        /// <summary>A button pressure's label, "✕ Pressure" through "D-Pad
+        /// Right Pressure": the pressure mapping rows' labels (discussion
+        /// #476), which the macro editor's pickers and summaries share.</summary>
+        public static string PressureName(int index)
+            => string.Format(Strings.Instance.DevObj_Pressure_Format, PressureButtonName(index));
+
+        private static string PressureButtonName(int index) => index switch
+        {
+            0 => "✕",
+            1 => "○",
+            2 => "◻",
+            3 => "△",
+            4 => "L1",
+            5 => "R1",
+            6 => Strings.Instance.Btn_DPadUp,
+            7 => Strings.Instance.Btn_DPadDown,
+            8 => Strings.Instance.Btn_DPadLeft,
+            9 => Strings.Instance.Btn_DPadRight,
+            _ => string.Empty,
+        };
+    }
+
+    /// <summary>The button pressure targets' labels for the macro editor's
+    /// axis pickers (#530). Bindable the way <see cref="Strings.Instance"/>
+    /// is: a language change raises every one again.</summary>
+    public sealed class MacroPressureLabels : INotifyPropertyChanged
+    {
+        public static MacroPressureLabels Instance { get; } = new();
+
+        private MacroPressureLabels()
+        {
+            Strings.Instance.PropertyChanged += (_, _) =>
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public string ButtonA => MacroAxisTargetNames.PressureName(0);
+        public string ButtonB => MacroAxisTargetNames.PressureName(1);
+        public string ButtonX => MacroAxisTargetNames.PressureName(2);
+        public string ButtonY => MacroAxisTargetNames.PressureName(3);
+        public string LeftShoulder => MacroAxisTargetNames.PressureName(4);
+        public string RightShoulder => MacroAxisTargetNames.PressureName(5);
+        public string DPadUp => MacroAxisTargetNames.PressureName(6);
+        public string DPadDown => MacroAxisTargetNames.PressureName(7);
+        public string DPadLeft => MacroAxisTargetNames.PressureName(8);
+        public string DPadRight => MacroAxisTargetNames.PressureName(9);
     }
 
     /// <summary>Direction filter for axis-based macro triggers.</summary>

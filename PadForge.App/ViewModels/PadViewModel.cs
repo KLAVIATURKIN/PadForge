@@ -2944,19 +2944,11 @@ namespace PadForge.ViewModels
         /// port.</summary>
         private void AddPressureRows()
         {
-            MappingItem Row(string button, string target) => new(
-                string.Format(Strings.Instance.DevObj_Pressure_Format, button), target,
-                MappingCategory.Triggers, includeInMapAll: false);
-            Mappings.Add(Row("✕", "PressureButtonA"));
-            Mappings.Add(Row("○", "PressureButtonB"));
-            Mappings.Add(Row("◻", "PressureButtonX"));
-            Mappings.Add(Row("△", "PressureButtonY"));
-            Mappings.Add(Row("L1", "PressureLeftShoulder"));
-            Mappings.Add(Row("R1", "PressureRightShoulder"));
-            Mappings.Add(Row(Strings.Instance.Btn_DPadUp, "PressureDPadUp"));
-            Mappings.Add(Row(Strings.Instance.Btn_DPadDown, "PressureDPadDown"));
-            Mappings.Add(Row(Strings.Instance.Btn_DPadLeft, "PressureDPadLeft"));
-            Mappings.Add(Row(Strings.Instance.Btn_DPadRight, "PressureDPadRight"));
+            // The labels are the macro editor's pressure targets' too (#530).
+            var targets = MappingSetMigrator.PressureTargets;
+            for (int i = 0; i < targets.Count; i++)
+                Mappings.Add(new MappingItem(MacroAxisTargetNames.PressureName(i), targets[i],
+                    MappingCategory.Triggers, includeInMapAll: false));
         }
 
         /// <summary>The Motion Gyro and Motion Accelerometer rows, then the
@@ -5965,7 +5957,8 @@ namespace PadForge.ViewModels
                     PadIndex = PadIndex,
                     Name = $"Macro {Macros.Count + 1}",
                     ButtonStyle = MacroButtonNames.DeriveStyle(_outputType, _profileId),
-                    RawProfileId = SlotRawProfileId
+                    RawProfileId = SlotRawProfileId,
+                    CarriesPressure = SlotCarriesPressure
                 };
                 Macros.Add(macro);
                 SelectedMacro = macro;
@@ -6860,9 +6853,10 @@ namespace PadForge.ViewModels
                     PadIndex = PadIndex,
                     Name = string.Format(Strings.Instance.Pad_Audio_SoundMacroName_Format, Macros.Count + 1),
                     ButtonStyle = MacroButtonNames.DeriveStyle(_outputType, _profileId),
-                    RawProfileId = SlotRawProfileId
+                    RawProfileId = SlotRawProfileId,
+                    CarriesPressure = SlotCarriesPressure
                 };
-                macro.Actions.Add(new MacroAction { Type = MacroActionType.PlaySound });
+                macro.Actions.Add(new MacroAction { Type = MacroActionType.PlaySound, CarriesPressure = macro.CarriesPressure });
                 Macros.Add(macro);
                 SelectedMacro = macro;
                 SelectedConfigTab = 1; // Macros tab
@@ -6884,6 +6878,13 @@ namespace PadForge.ViewModels
                 or VirtualControllerType.Nintendo
                 ? _profileId : null;
 
+        /// <summary>True when the slot's preset sends button pressure, the
+        /// DualShock 3 (SIXAXIS): Full, the rule the pressure mapping rows
+        /// follow. The macro editor offers the pressure targets then (#530).</summary>
+        private bool SlotCarriesPressure =>
+            _outputType == VirtualControllerType.PlayStation
+            && PadForge.Common.Input.HMaestroProfileCatalog.ReportCarriesPressure(_profileId);
+
         /// <summary>
         /// Syncs macro button display style to all macros when the output
         /// controller type (or an Extended slot's profile, #215) changes.
@@ -6895,11 +6896,13 @@ namespace PadForge.ViewModels
                 or VirtualControllerType.Nintendo
                 ? _extendedConfig?.ButtonCount : null) ?? 11;
             string letteredProfile = SlotRawProfileId;
+            bool carriesPressure = SlotCarriesPressure;
             foreach (var macro in Macros)
             {
                 macro.ButtonStyle = style;
                 macro.CustomButtonCount = btnCount;
                 macro.RawProfileId = letteredProfile;
+                macro.CarriesPressure = carriesPressure;
                 foreach (var action in macro.Actions)
                     action.CustomButtonCount = btnCount;
             }

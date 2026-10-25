@@ -306,7 +306,7 @@ namespace PadForge.Common.Input
                     if (SlotRawHidSurface[i])
                         EvaluateSlotMacrosExtended(ref CombinedRawHidStates[i], macros);
                     else
-                        EvaluateSlotMacros(ref CombinedOutputStates[i], macros);
+                        EvaluateSlotMacros(ref CombinedOutputStates[i], macros, ref CombinedPressureStates[i]);
                 }
                 catch (Exception ex)
                 {
@@ -457,6 +457,36 @@ namespace PadForge.Common.Input
         // cannot erase a macro's own ButtonPress A. Poll-thread only.
         private ushort _macroPassConsumedButtons;
         private ushort _macroPassOutputButtons;
+
+        // The slot's button pressure for the pass (#530). The three-argument
+        // evaluator copies CombinedPressureStates in, the pressure targets
+        // write it, and it goes back out for Step 5. The copy from before
+        // the pass is the yield gate's baseline, the _preMacroGp rule.
+        // Outside that evaluator (the raw lane, a direct two-argument call)
+        // a pressure target does nothing. Poll-thread only.
+        private PadForge.Engine.Common.ButtonPressureState _macroPressure;
+        private PadForge.Engine.Common.ButtonPressureState _preMacroPressure;
+        private bool _macroPressureLive;
+
+        /// <summary>The gamepad evaluator with the slot's button pressure
+        /// (#530): an axis action on a pressure target writes it, and Step 5
+        /// sends what it holds after the pass.</summary>
+        internal void EvaluateSlotMacros(ref Gamepad gp, MacroItem[] macros,
+            ref PadForge.Engine.Common.ButtonPressureState pressure)
+        {
+            _macroPressure = pressure;
+            _preMacroPressure = pressure;
+            _macroPressureLive = true;
+            try
+            {
+                EvaluateSlotMacros(ref gp, macros);
+            }
+            finally
+            {
+                pressure = _macroPressure;
+                _macroPressureLive = false;
+            }
+        }
         // 4 words = 128 buttons, the ceiling RawHidState.Create and
         // MacroItem.TriggerCustomButtonWords both enforce (round five, X20:
         // the previous 8 was copied from the axis convention).
@@ -4176,10 +4206,17 @@ namespace PadForge.Common.Input
         /// Applies an AxisSet action to the gamepad. Sticks take AxisValue as the
         /// signed stick value. Triggers read it on the PULL scale (0..32767 =
         /// 0..100%), the same as every other trigger write here, so the percent
-        /// the editor shows lands the same pull on every slot type.
+        /// the editor shows lands the same pull on every slot type. A button
+        /// pressure target (#530) reads the same pull scale as a pressure.
         /// </summary>
-        private static void ApplyAxisAction(ref Gamepad gp, MacroAction action)
+        private void ApplyAxisAction(ref Gamepad gp, MacroAction action)
         {
+            int pressureIndex = action.AxisTarget.PressureIndex();
+            if (pressureIndex >= 0)
+            {
+                WritePressure(ref gp, pressureIndex, PressureFromPull(action.AxisValue));
+                return;
+            }
             switch (action.AxisTarget)
             {
                 case MacroAxisTarget.LeftStickX:
@@ -4207,9 +4244,10 @@ namespace PadForge.Common.Input
         /// Applies an AxisHold action to the gamepad (v15). Sticks share
         /// AxisSet's signed-short write. Triggers read AxisValue on the
         /// PULL scale (0..32767 = 0..100%) and double it onto the 0..65535
-        /// output so a full pull is expressible, the same as AxisSet.
+        /// output so a full pull is expressible, the same as AxisSet. A
+        /// button pressure target goes through AxisSet's write.
         /// </summary>
-        private static void ApplyAxisHoldAction(ref Gamepad gp, MacroAction action)
+        private void ApplyAxisHoldAction(ref Gamepad gp, MacroAction action)
         {
             switch (action.AxisTarget)
             {
@@ -4234,6 +4272,80 @@ namespace PadForge.Common.Input
             return (ushort)Math.Min(scaled, 65535);
         }
 
+        // ── Button pressure targets (#530) ──
+        //
+        // The virtual DualShock 3 (SIXAXIS): Full sends how hard ten buttons
+        // are pressed (discussion #476). A pressure target writes the press
+        // and the pressure together: above 0 presses the button at that
+        // pressure and 0 releases it. PCSX2 reads any pressure above 0 as a
+        // press and sets the press from it (PadDualshock2::Set), and
+        // HIDMaestro sends a pressed button at pressure 0 as fully pressed
+        // (HMGamepadState's pressure rule), so 0 can only mean released.
+
+        /// <summary>~12.5% of a full press, the trigger yield's share.</summary>
+        private const int YieldPressureThreshold = 32;
+
+        /// <summary>The Gamepad button a pressure rides, in
+        /// ButtonPressureState order.</summary>
+        internal static ushort PressureButtonBit(int index) => index switch
+        {
+            0 => Gamepad.A,
+            1 => Gamepad.B,
+            2 => Gamepad.X,
+            3 => Gamepad.Y,
+            4 => Gamepad.LEFT_SHOULDER,
+            5 => Gamepad.RIGHT_SHOULDER,
+            6 => Gamepad.DPAD_UP,
+            7 => Gamepad.DPAD_DOWN,
+            8 => Gamepad.DPAD_LEFT,
+            9 => Gamepad.DPAD_RIGHT,
+            _ => 0,
+        };
+
+        /// <summary>The pull scale (0..32767 = 0..100%) as a pressure, 0 to
+        /// 255, rounded. Any pull above 0 is at least 1, PressureByte's
+        /// rule, so a light press never rounds to a release.</summary>
+        internal static int PressureFromPull(int value)
+        {
+            if (value <= 0) return 0;
+            return Math.Clamp((value * 255 + 16383) / 32767, 1, 255);
+        }
+
+        /// <summary>What a button's pressure is now: its pressure while
+        /// pressed, 255 for a press with no pressure behind it (a digital
+        /// press, which HIDMaestro sends at full strength), 0 while
+        /// released.</summary>
+        internal static int CurrentPressure(in Gamepad gp,
+            in PadForge.Engine.Common.ButtonPressureState pressure, int index)
+        {
+            if ((gp.Buttons & PressureButtonBit(index)) == 0) return 0;
+            byte p = pressure[index];
+            return p == 0 ? 255 : p;
+        }
+
+        /// <summary>Writes a button pressure and its press. The pass's output
+        /// overlay follows the bit, as ButtonPress and ButtonRelease keep it,
+        /// so a consumed trigger cannot erase the press and the pass's last
+        /// write stands. Nothing outside the three-argument evaluator.</summary>
+        private void WritePressure(ref Gamepad gp, int index, int value)
+        {
+            if (!_macroPressureLive) return;
+            ushort bit = PressureButtonBit(index);
+            if (bit == 0) return;
+            byte v = (byte)Math.Clamp(value, 0, 255);
+            _macroPressure[index] = v;
+            if (v > 0)
+            {
+                gp.Buttons |= bit;
+                _macroPassOutputButtons |= bit;
+            }
+            else
+            {
+                gp.Buttons &= (ushort)~bit;
+                _macroPassOutputButtons &= (ushort)~bit;
+            }
+        }
+
         // ── #237 absolute-deflection yield (reWASD "Absolute deflection") ──
         //
         // Actions whose write is currently suppressed because the physical
@@ -4255,21 +4367,25 @@ namespace PadForge.Common.Input
         /// and the target's ALREADY-MAPPED value (the physical pipeline's
         /// result, present in <paramref name="gp"/> because Step 4b runs
         /// after the mapping steps) exceeds the yield threshold, or did at
-        /// any earlier frame of this activation (latched).</summary>
-        private static bool AxisWriteYields(in Gamepad gp, MacroAction action)
+        /// any earlier frame of this activation (latched). A button pressure
+        /// target (#530) measures the pressure from before the pass.</summary>
+        private bool AxisWriteYields(in Gamepad gp, MacroAction action)
         {
             if (!action.AxisYieldToPhysical) return false;
             if (_axisYielded.Contains(action)) return true;
-            bool moved = action.AxisTarget switch
-            {
-                MacroAxisTarget.LeftStickX => Math.Abs((int)gp.ThumbLX) > YieldStickThreshold,
-                MacroAxisTarget.LeftStickY => Math.Abs((int)gp.ThumbLY) > YieldStickThreshold,
-                MacroAxisTarget.RightStickX => Math.Abs((int)gp.ThumbRX) > YieldStickThreshold,
-                MacroAxisTarget.RightStickY => Math.Abs((int)gp.ThumbRY) > YieldStickThreshold,
-                MacroAxisTarget.LeftTrigger => gp.LeftTrigger > YieldTriggerThreshold,
-                MacroAxisTarget.RightTrigger => gp.RightTrigger > YieldTriggerThreshold,
-                _ => false,
-            };
+            int pressureIndex = action.AxisTarget.PressureIndex();
+            bool moved = pressureIndex >= 0
+                ? CurrentPressure(in gp, in _preMacroPressure, pressureIndex) > YieldPressureThreshold
+                : action.AxisTarget switch
+                {
+                    MacroAxisTarget.LeftStickX => Math.Abs((int)gp.ThumbLX) > YieldStickThreshold,
+                    MacroAxisTarget.LeftStickY => Math.Abs((int)gp.ThumbLY) > YieldStickThreshold,
+                    MacroAxisTarget.RightStickX => Math.Abs((int)gp.ThumbRX) > YieldStickThreshold,
+                    MacroAxisTarget.RightStickY => Math.Abs((int)gp.ThumbRY) > YieldStickThreshold,
+                    MacroAxisTarget.LeftTrigger => gp.LeftTrigger > YieldTriggerThreshold,
+                    MacroAxisTarget.RightTrigger => gp.RightTrigger > YieldTriggerThreshold,
+                    _ => false,
+                };
             if (moved) _axisYielded.Add(action);
             return moved;
         }
@@ -4321,9 +4437,19 @@ namespace PadForge.Common.Input
         /// deflection"): ADDS the signed value onto whatever the mapping
         /// pipeline already wrote, clamped to the target's range. Sticks
         /// add in the signed short frame; triggers add on the pull scale
-        /// (AxisValue 32767 = +100% pull, negative subtracts).</summary>
-        private static void ApplyAxisAddAction(ref Gamepad gp, MacroAction action)
+        /// (AxisValue 32767 = +100% pull, negative subtracts). A button
+        /// pressure target (#530) adds onto its current pressure, a digital
+        /// press counting as full.</summary>
+        private void ApplyAxisAddAction(ref Gamepad gp, MacroAction action)
         {
+            int pressureIndex = action.AxisTarget.PressureIndex();
+            if (pressureIndex >= 0)
+            {
+                int add = (int)Math.Round(action.AxisValue * 255.0 / 32767.0);
+                WritePressure(ref gp, pressureIndex,
+                    Math.Clamp(CurrentPressure(in gp, in _macroPressure, pressureIndex) + add, 0, 255));
+                return;
+            }
             switch (action.AxisTarget)
             {
                 case MacroAxisTarget.LeftStickX:
@@ -4351,11 +4477,24 @@ namespace PadForge.Common.Input
         /// current combined value by (1 + AxisValue/32767). -50% halves,
         /// +50% amplifies half again, -100% zeroes, clamped to full scale.
         /// Triggers scale their unsigned pull directly; sticks scale the
-        /// signed deflection, so direction is preserved.</summary>
-        private static void ApplyAxisScaleAction(ref Gamepad gp, MacroAction action)
+        /// signed deflection, so direction is preserved. A button pressure
+        /// target (#530) scales its current pressure, a digital press
+        /// counting as full, the job PCSX2's Pressure Modifier does
+        /// (PadDualshock2::Set). A pressed button scaled by any factor above
+        /// 0 stays pressed, at 1 at the least, because 0 would release it.</summary>
+        private void ApplyAxisScaleAction(ref Gamepad gp, MacroAction action)
         {
             double factor = 1.0 + action.AxisValue / 32767.0;
             if (factor < 0) factor = 0;
+            int pressureIndex = action.AxisTarget.PressureIndex();
+            if (pressureIndex >= 0)
+            {
+                int current = CurrentPressure(in gp, in _macroPressure, pressureIndex);
+                int scaled = (int)Math.Clamp(Math.Round(current * factor), 0, 255);
+                if (scaled == 0 && current > 0 && factor > 0) scaled = 1;
+                WritePressure(ref gp, pressureIndex, scaled);
+                return;
+            }
             switch (action.AxisTarget)
             {
                 case MacroAxisTarget.LeftStickX:
@@ -4502,9 +4641,16 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>Writes one 'A' cycle part (v16): the AxisHold write
-        /// shape (triggers on the doubled pull scale, sticks signed).</summary>
-        private static void WriteCycleAxisPart(ref Gamepad gp, CycleStepPart p)
+        /// shape (triggers on the doubled pull scale, sticks signed, a button
+        /// pressure target (#530) on the pull scale as a pressure).</summary>
+        private void WriteCycleAxisPart(ref Gamepad gp, CycleStepPart p)
         {
+            int pressureIndex = ((MacroAxisTarget)p.Value).PressureIndex();
+            if (pressureIndex >= 0)
+            {
+                WritePressure(ref gp, pressureIndex, PressureFromPull(p.Value2));
+                return;
+            }
             switch ((MacroAxisTarget)p.Value)
             {
                 case MacroAxisTarget.LeftStickX:
