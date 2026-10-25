@@ -639,6 +639,7 @@ namespace PadForge
                      or nameof(SettingsViewModel.AnalogKeyboardsEnabled)
                      or nameof(SettingsViewModel.BlissBoxEnabled)
                      or nameof(SettingsViewModel.KeyboardScreensEnabled)
+                     or nameof(SettingsViewModel.NovintFalconEnabled)
                      or nameof(SettingsViewModel.Use2DControllerView)
                      or nameof(SettingsViewModel.EnableAutoProfileSwitching)
                      or nameof(SettingsViewModel.EnableCommunityConfigLookup)
@@ -873,6 +874,9 @@ namespace PadForge
 
             // The Keyboard Screens card (#519).
             WireKeyboardScreens();
+
+            // The Novint Falcon card and the pad page's Calibrate (#521).
+            WireFalcon();
 
             // Wire device service events (assign to slot, hide, etc.).
             _deviceService.WireEvents();
@@ -1467,6 +1471,11 @@ namespace PadForge
                         nameof(PadViewModel.WheelRotationRange) or nameof(PadViewModel.WheelRotationRangeEnabled) or
                         nameof(PadViewModel.WheelAutoCenter) or
                         nameof(PadViewModel.WheelRpmLeds) or
+                        nameof(PadViewModel.FalconFeel) or nameof(PadViewModel.FalconSpring) or
+                        nameof(PadViewModel.FalconKickButton) or nameof(PadViewModel.FalconKick) or
+                        nameof(PadViewModel.FalconShake) or nameof(PadViewModel.FalconBraceButton) or
+                        nameof(PadViewModel.FalconPreloadButton) or nameof(PadViewModel.FalconGravity) or
+                        nameof(PadViewModel.FalconForceCap) or
                         nameof(PadViewModel.ImpulseOverallGain) or
                         nameof(PadViewModel.ImpulseLeftStrength) or nameof(PadViewModel.ImpulseRightStrength) or
                         nameof(PadViewModel.ImpulseSwapTriggers) or
@@ -9132,6 +9141,11 @@ namespace PadForge
                 DriverCheckFailure.SteamVrDidNotLand => string.Format(s.Status_SteamVRDidNotLand_Format, check.Detail, check.Output),
                 DriverCheckFailure.Strike7SdkHashMismatch => s.Status_Strike7SdkHashMismatch,
                 DriverCheckFailure.Vc2008RuntimeMissing => s.Status_Vc2008RuntimeMissing,
+                DriverCheckFailure.FalconDriverPackageMissing => string.Format(s.Status_FalconDriverPackageMissing_Format, check.Detail),
+                DriverCheckFailure.FalconNotPluggedIn => s.Status_FalconNotPluggedIn,
+                DriverCheckFailure.FalconOnAnotherDriver => string.Format(s.Status_FalconOnAnotherDriver_Format, check.Detail),
+                DriverCheckFailure.FalconDriverDeclined => s.Status_FalconDriverDeclined,
+                DriverCheckFailure.FalconDriverNotBound => s.Status_FalconDriverNotBound,
                 _ => check.Message,
             };
         }

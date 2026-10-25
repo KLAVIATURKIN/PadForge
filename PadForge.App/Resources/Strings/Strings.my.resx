@@ -4354,4 +4354,82 @@ PadForge က ၎င်းတို့ကို ယခုပင် ဖြုတ�
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>ဦးတည်ရာ</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>အဆင့်</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>လက်ကိုင်</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>ဘယ်/ညာ</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>အပေါ်/အောက်</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>အတွင်း/အပြင်</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>ခလုတ် {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}- {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}၊ {1} မှ ဖွင့်ထားသည်</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension ၏ လိုက်ဘရရီသည် PadForge ၏ x64 ဗားရှင်းတွင်သာ အလုပ်လုပ်သည်။</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll ကို တွေ့ရှိသော်လည်း ဖွင့်၍ မရပါ။</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>ထို dhd64.dll သည် PadForge မျှော်လင့်သော Force Dimension လိုက်ဘရရီ မဟုတ်ပါ။</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>ဤ PC တွင် Force Dimension SDK မရှိပါ။ Force Dimension ၏ ဒေါင်းလုဒ်စာမျက်နှာမှ ရယူပါ၊ သို့မဟုတ် ၎င်း၏ dhd64.dll ကို ရွေးပါ။</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>နေရာသတ်မှတ်ရန် လက်ကိုင်ကို အပြင်ဘက်အဆုံးထိ ဆွဲထုတ်ပြီး အတွင်းဘက်အဆုံးထိ ပြန်တွန်းပါ</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz ဖြင့် အလုပ်လုပ်နေသည်</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>ဖွင့်ထားသည်</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon တစ်ခုကို FalconJoyForce သို့မဟုတ် Force Dimension ၏ ကိရိယာများကဲ့သို့ အခြားပရိုဂရမ်တွင် ဖွင့်ထားသည်။ ထိုပရိုဂရမ်တွင် ပိတ်ပါ။</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon သည် အခြားဒရိုက်ဗာ ({0}) ပေါ်တွင် ရှိနေသောကြောင့် Force Dimension ၏ လိုက်ဘရရီက ၎င်းကို ဖွင့်၍ မရပါ။ Device Manager တွင် Falcon ၏ ဒရိုက်ဗာကို Force Dimension ၏ SDK ဖိုင်တွဲရှိ drivers\usb ဖိုင်တွဲမှ အပ်ဒိတ်လုပ်ပါ။</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon တစ်ခုကို ဒရိုက်ဗာမပါဘဲ ချိတ်ဆက်ထားသည်။ “Falcon ဒရိုက်ဗာ ထည့်သွင်းရန်” က ၎င်းကို Force Dimension ၏ ဒရိုက်ဗာ ထည့်ပေးသည်။</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon တစ်ခုကို ဒရိုက်ဗာမပါဘဲ ချိတ်ဆက်ထားပြီး SDK ဖိုင်တွဲတွင် ထည့်ပေးရန် ဒရိုက်ဗာပက်ကေ့ချ် မရှိပါ။ Force Dimension ၏ SDK ကို ပြန်လည်ထည့်သွင်းပါ။</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon မတွေ့ပါ။ ၎င်း၏ ပါဝါကြိုးနှင့် USB ကြိုးကို တပ်ဆင်ပါ။</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll ကို ရွေးရန်…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Force Dimension ၏ လိုက်ဘရရီ၏ ဤမိတ္တူကို အခြားမိတ္တူများထက် အရင်ဖွင့်သည်။ SDK ထည့်သွင်းပေးသော မိတ္တူများကို ဤရွေးချယ်မှုမပါဘဲ ရှာတွေ့သည်။</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|လိုက်ဘရရီများ (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon ဒရိုက်ဗာ ထည့်သွင်းရန်</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>ဒရိုက်ဗာမရှိသော Falcon တွင် SDK ဖိုင်တွဲမှ Force Dimension ၏ ဒရိုက်ဗာကို ထည့်သွင်းသည်။ Windows က Force Dimension ကို ယုံကြည်မလားဟု ဦးစွာ မေးနိုင်သည်။</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension ၏ SDK ကို ရယူရန်</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Force Dimension ၏ SDK ဒေါင်းလုဒ်စာမျက်နှာကို သင့်ဘရောက်ဇာတွင် ဖွင့်သည်။ PadForge သည် သင်ထည့်သွင်းသော SDK ကို ဖွင့်သုံးပြီး ၎င်း၏ မည်သည့်အပိုင်းကိုမျှ ထည့်သွင်းမပေးပါ။</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>ရွေ့လျားအကွာအဝေး- ဘယ်ညာ {0:0} mm၊ အပေါ်အောက် {1:0} mm၊ အတွင်းအပြင် {2:0} mm။</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>ချိန်ညှိရန် ဤ Falcon ကို ဖွင့်ထားရန် လိုသည်။ ဆက်တင်များတွင် “Novint Falcon ကို ထိန်းချုပ်ရန်” ကို ဖွင့်ပြီး Falcon ကို တပ်ဆင်ပါ။</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>လက်ကိုင်ကို ၎င်း၏ ရွေ့လျားအကွာအဝေး အစွန်းတိုင်းသို့ ရွှေ့ပါ…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>ချိန်ညှိပြီးပါပြီ။ {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>ဝင်ရိုးအချို့ လုံလောက်စွာ မရွေ့သဖြင့် ၎င်းတို့၏ ယခင် ရွေ့လျားအကွာအဝေးကို ဆက်ထားသည်။ {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>လက်ကိုင် လုံလောက်စွာ မရွေ့သဖြင့် ရွေ့လျားအကွာအဝေးကို ယခင်အတိုင်း ထားသည်။ တိုင်းတာနေစဉ် ၎င်းကို အစွန်းတိုင်းသို့ ရွှေ့ပါ။</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>တိုင်းတာမှု မပြီးမီ Falcon ပိတ်သွားသည်။</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Force Dimension ထံမှ သင်ထည့်သွင်းသော Force Dimension ၏ SDK မှတစ်ဆင့် Novint Falcon ဖြင့် ဂိမ်းကစားသည်။ လက်ကိုင်သည် စတစ်ဖြစ်ပြီး လက်ကိုင်ပေါ်ရှိ ခလုတ်လေးခုသည် ခလုတ်များဖြစ်သည်။ PadForge သည် ဂိမ်း၏ တုန်ခါမှုနှင့် အကျိုးသက်ရောက်မှုများကို လက်ကိုင်ပေါ်တွင် အားအဖြစ် ပေးသည်။ ဆလော့တစ်ခုစီ၏ အားပြန်တုံ့ပြန်မှု တဘ်တွင် Falcon ၏ ခံစားရပုံကို သတ်မှတ်သည်။</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon ကို ထိန်းချုပ်ရန်</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Falcon တစ်ခုစီကို Force Dimension ၏ dhd64.dll မှတစ်ဆင့် ဖွင့်သည်။ ဖွင့်ထားသော Falcon သည် PadForge တစ်ခုတည်းအတွက်သာ ဖြစ်သောကြောင့် ဤဆက်တင် ဖွင့်ထားစဉ် FalconJoyForce နှင့် Force Dimension ၏ ကိရိယာများက ၎င်းကို ဖွင့်၍ မရပါ။ ပိတ်ထားလျှင် PadForge သည် Falcon အားလုံးကို ပိတ်သည်။</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon လိုက်ဘရရီကို {0} အဖြစ် သတ်မှတ်ပြီးပါပြီ။ အသုံးပြုနေဆဲ မိတ္တူသည် PadForge ပြန်စသည်အထိ ဆက်ရှိနေမည်။</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Force Dimension ၏ Falcon ဒရိုက်ဗာကို ထည့်သွင်းနေသည်…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension ၏ Falcon ဒရိုက်ဗာပက်ကေ့ချ် သို့မဟုတ် ၎င်း၏ ကတ်တလောက်ဖိုင် မရှိပါ- {0}။ Force Dimension ၏ SDK ကို ပြန်လည်ထည့်သွင်းပါ။</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Falcon တစ်ခုမျှ ချိတ်ဆက်ထားခြင်း မရှိပါ။</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon သည် အခြားဒရိုက်ဗာ ({0}) ပေါ်တွင် ရှိနေသောကြောင့် PadForge က ၎င်းကို မထိပါ။ Device Manager တွင် ၎င်းကို Force Dimension ၏ ဒရိုက်ဗာသို့ ပြောင်းနိုင်သည်။</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows သည် Force Dimension ၏ ဒရိုက်ဗာကို မထည့်သွင်းခဲ့ပါ။ Force Dimension ကို ယုံကြည်မလားဟု Windows က မေးလျှင် Install ကို ရွေးပါ။</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>ဒရိုက်ဗာ ထည့်သွင်းပြီးပါပြီ၊ သို့သော် Falcon သည် ၎င်းသို့ မပြောင်းသေးပါ။ Falcon ကို ဖြုတ်ပြီး ပြန်တပ်ပါ။</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge သည် Falcon ၏ လက်ကိုင်ပေါ်ရှိ အားတိုင်းကို လက်ကိုင်ရှိရာနေရာနှင့် ဂိမ်းက ဖွင့်သည့်အရာမှ တစ်စက္ကန့်လျှင် အကြိမ်တစ်ထောင်ခန့် တွက်ချက်သည်။ ဤဆက်တင်များသည် ဤဆလော့နှင့်သာ သက်ဆိုင်သည်။</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon ပြန်လည်သတ်မှတ်</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>ခံစားမှု</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>ဂျွိုက်စတစ်- လက်ကိုင်၏ နေရာသည် စတစ်ဖြစ်ပြီး စပရိန်တစ်ခုက ၎င်းကို ဗဟိုသို့ ပြန်ဆွဲသည်။ ချိန်ရွယ်- လက်ကိုင်၏ ရွေ့လျားမှုက စတစ်ကို ရွှေ့ပြီး လက်ကိုင်ကို အစွန်းရှိ နံရံတွင် ဖိထားလျှင် ဆက်လှည့်နေသည်။</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>ဂျွိုက်စတစ်</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>ချိန်ရွယ်</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>ဗဟိုပြန်စပရိန်</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>ဗဟိုပြန်စပရိန် ပြန်လည်သတ်မှတ်</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>နောက်ကန်ခလုတ်</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>ဤလက်ကိုင်ခလုတ်ကို ဖိထားစဉ်နှင့် ထို့နောက် စက္ကန့်လေးပုံတစ်ပုံအတွင်း ဂိမ်း၏ တုန်ခါမှုက လက်ကိုင်ကို သင့်ဘက်သို့ နောက်ကန်စေသည်။ အခြားအချိန်များတွင် တုန်ခါမှုက လက်ကိုင်ကို လှုပ်ခါစေသည်။</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>ခလုတ် 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>ခလုတ် 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>ခလုတ် 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>ခလုတ် 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>နောက်ကန်အား</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>နောက်ကန်အား ပြန်လည်သတ်မှတ်</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>လှုပ်ခါအား</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>လှုပ်ခါအား ပြန်လည်သတ်မှတ်</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>ငြိမ်စေခလုတ်</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>ဤလက်ကိုင်ခလုတ်ကို ဖိထားစဉ် အသေးစိတ်ချိန်ညှိနိုင်ရန် ချိန်ရွယ်မှုသည် 30 ရာခိုင်နှုန်းသို့ နှေးသွားသည်။</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>ကြိုတင်ဖိအားခလုတ်</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>ဤလက်ကိုင်ခလုတ်ကို ဖိထားစဉ် 1.6 N တည်ငြိမ်သော တွန်းအားက လက်ကိုင်ကို ဖိထားပေးပြီး သေးငယ်သော ပြင်ဆင်မှုများကို ချောမွေ့စေသည်။</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>ဆွဲငင်အား ထိန်းညှိမှု</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon က လက်ကိုင်၏ ကိုယ်ပိုင်အလေးချိန်ကို မည်မျှ ပင့်ထားပေးမည်ကို စံဆွဲငင်အား၏ ရာခိုင်နှုန်းဖြင့် သတ်မှတ်သည်။</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>ဆွဲငင်အား ထိန်းညှိမှု ပြန်လည်သတ်မှတ်</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>အားကန့်သတ်ချက်</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon က လက်ကိုင်ပေါ်သို့ ပေးနိုင်သော အများဆုံးအား၊ 1 မှ 8 နယူတန်အထိ။</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>အားကန့်သတ်ချက် ပြန်လည်သတ်မှတ်</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>ရွေ့လျားအကွာအဝေး ချိန်ညှိ</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>လက်ကိုင် မည်မျှ ရွေ့နိုင်သည်ကို တိုင်းတာသည်။ တိုင်းတာမှု ကြာသော လေးစက္ကန့်အတွင်း ၎င်းကို ရွေ့လျားအကွာအဝေး၏ အစွန်းတိုင်းသို့ ရွှေ့ပါ။ ထိုအတောအတွင်း အားများ ရပ်နားထားသည်။</value></data>
 </root>

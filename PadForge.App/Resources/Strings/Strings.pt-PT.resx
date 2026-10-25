@@ -4364,4 +4364,82 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direção</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Passo</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Pega</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Esquerda/Direita</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Cima/Baixo</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Dentro/Fora</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Botão {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>SDK Force Dimension {0}, carregado de {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>A biblioteca da Force Dimension só funciona na versão x64 do PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>O dhd64.dll foi encontrado, mas não foi possível carregá-lo.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Esse dhd64.dll não é a biblioteca da Force Dimension que o PadForge espera.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Não existe nenhum SDK da Force Dimension neste PC. Obtenha-o na página de transferências da Force Dimension ou escolha o respetivo dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>puxe a pega totalmente para fora e depois empurre-a totalmente para dentro, para a colocar na posição inicial</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>a funcionar a {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>aberto</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Um Falcon está aberto noutro programa, como o FalconJoyForce ou as ferramentas da Force Dimension. Feche-o aí.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>O Falcon está a usar outro controlador ({0}), pelo que a biblioteca da Force Dimension não o consegue abrir. No Gestor de Dispositivos, atualize o controlador do Falcon a partir da pasta drivers\usb na pasta do SDK da Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Há um Falcon ligado sem controlador. Instalar controlador do Falcon dá-lhe o da Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Há um Falcon ligado sem controlador e a pasta do SDK não tem nenhum pacote de controlador para lhe dar. Reinstale o SDK da Force Dimension.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Nenhum Falcon encontrado. Ligue a alimentação e o cabo USB.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Escolher dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Carrega esta cópia da biblioteca da Force Dimension antes de qualquer outra. As cópias que o SDK instala são encontradas sem isto.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Bibliotecas (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Instalar controlador do Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Instala o controlador da Force Dimension, a partir da pasta do SDK, num Falcon que não tenha nenhum. O Windows pode primeiro perguntar se confia na Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Obter o SDK da Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Abre a página de transferência do SDK da Force Dimension no browser. O PadForge carrega o SDK que instalar e não inclui nada dele.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Alcance: {0:0} mm para a esquerda e direita, {1:0} mm para cima e baixo, {2:0} mm para dentro e fora.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Calibrar requer que este Falcon esteja aberto. Ative Controlar Novint Falcon nas Definições e ligue o Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Mova a pega para todos os limites do seu alcance…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Calibrado. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Alguns eixos não se deslocaram o suficiente e mantêm o alcance anterior. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>A pega não se deslocou o suficiente, por isso o alcance mantém-se. Mova-a para todos os limites enquanto o varrimento decorre.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>O Falcon fechou antes de o varrimento terminar.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Permite jogar com um Novint Falcon através do SDK da Force Dimension, que instala a partir da Force Dimension. A pega é um manípulo, os quatro botões do punho são botões, e o PadForge aplica à pega, como força, a vibração e os efeitos do jogo. O separador Force feedback de cada slot define a sensação do Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Controlar Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Abre cada Falcon através do dhd64.dll da Force Dimension. Um Falcon aberto pertence só ao PadForge, pelo que o FalconJoyForce e as ferramentas da Force Dimension não o conseguem abrir enquanto esta opção estiver ativa. Desativada, o PadForge fecha todos os Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Biblioteca do Falcon definida como {0}. Uma cópia já em utilização mantém-se até o PadForge arrancar de novo.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>A instalar o controlador do Falcon da Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>O pacote do controlador do Falcon da Force Dimension, ou o respetivo catálogo, está em falta: {0}. Reinstale o SDK da Force Dimension.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Nenhum Falcon está ligado.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>O Falcon está a usar outro controlador ({0}), pelo que o PadForge o deixa como está. O Gestor de Dispositivos pode mudá-lo para o da Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>O Windows não instalou o controlador da Force Dimension. Se o Windows perguntar se confia na Force Dimension, escolha Instalar.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>O controlador está instalado, mas o Falcon ainda não passou a usá-lo. Desligue o Falcon e volte a ligá-lo.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>O PadForge calcula cada força na pega do Falcon cerca de mil vezes por segundo, a partir da posição da pega e do que o jogo reproduz. Estas definições pertencem a este slot.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Repor Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Sensação</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: a posição da pega é o manípulo e uma mola puxa-a de volta para o centro. Pontaria: o movimento da pega move o manípulo, e manter a pega contra a parede no limite continua a rodar.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Pontaria</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Mola de centragem</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Repor mola de centragem</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Botão de coice</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Enquanto este botão do punho estiver premido, e durante um quarto de segundo depois, a vibração do jogo dá um coice na pega na sua direção. A vibração noutros momentos faz a pega vibrar.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Botão 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Botão 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Botão 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Botão 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Força do coice</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Repor força do coice</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Força da vibração</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Repor força da vibração</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Botão de apoio</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Enquanto este botão do punho estiver premido, a pontaria abranda para 30 por cento para ajustes finos.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Botão de pré-carga</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Enquanto este botão do punho estiver premido, um empurrão constante de 1.6 N carrega a pega, o que suaviza pequenas correções.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Compensação da gravidade</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Quanto do peso da própria pega o Falcon sustenta, em percentagem da gravidade padrão.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Repor compensação da gravidade</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Limite de força</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>A força máxima que o Falcon aplica à pega, de 1 a 8 newtons.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Repor limite de força</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Calibrar alcance</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mede a distância que a pega percorre. Mova-a para todos os limites do seu alcance durante os quatro segundos do varrimento. As forças ficam em repouso entretanto.</value></data>
 </root>

@@ -1833,4 +1833,79 @@
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Hetsika</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Lalana</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Tahony</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Havia/Havanana</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Ambony/Ambany</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Anatiny/Ivelany</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Bokotra {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, nampidirina avy ao amin'ny {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Ny bibliothèque an'ny Force Dimension dia tsy mandeha afa-tsy amin'ny version x64 an'ny PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>Hita ny dhd64.dll fa tsy afaka nampidirina.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Io dhd64.dll io dia tsy ilay bibliothèque Force Dimension andrasan'ny PadForge.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Tsy misy Force Dimension SDK amin'ity PC ity. Alaivo ao amin'ny pejy fisintomana an'ny Force Dimension, na safidio ny dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>sintony hivoaka tanteraka ny tahony, avy eo atosiho hiditra tanteraka, mba hahitany ny toerany</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>mandeha amin'ny {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>misokatra</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Misy Falcon misokatra ao amin'ny programa hafa, toy ny FalconJoyForce na ny programan'ny Force Dimension. Akatony any.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Amin'ny pilote hafa ({0}) ny Falcon, ka tsy afaka manokatra azy ny bibliothèque an'ny Force Dimension. Ao amin'ny Gestionnaire de périphériques, havaozy ny pilote an'ny Falcon avy amin'ny dossier drivers\usb ao amin'ny dossier SDK an'ny Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Misy Falcon mifandray tsy misy pilote. Ny "Apetraho ny pilote Falcon" no manome azy ny an'ny Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Misy Falcon mifandray tsy misy pilote, ary tsy misy package pilote homena azy ao amin'ny dossier SDK. Apetraho indray ny SDK an'ny Force Dimension.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Tsy nahitana Falcon. Ampifandraiso amin'ny herinaratra sy amin'ny tariby USB izy.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Misafidiana dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Ity kopia ity amin'ny bibliothèque an'ny Force Dimension no ampidirina voalohany. Ireo kopia apetraky ny SDK dia hita na tsy misy izany aza.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Bibliothèques (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Apetraho ny pilote Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Mametraka ny pilote an'ny Force Dimension, avy amin'ny dossier SDK, amin'ny Falcon tsy manana pilote. Mety hanontany aloha ny Windows raha hatoky ny Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Alaivo ny SDK an'ny Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Manokatra ny pejy fisintomana ny SDK an'ny Force Dimension ao amin'ny navigateur-nao. Ampidirin'ny PadForge ny SDK apetrakao, ary tsy misy ampahany aminy ao amin'ny PadForge.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Halavirana: {0:0} mm havia sy havanana, {1:0} mm ambony sy ambany, {2:0} mm anatiny sy ivelany.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Mila misokatra ity Falcon ity ny calibration. Alefaso ny "Ampiasao ny Novint Falcon" ao amin'ny Fikirakirana ary ampifandraiso ny Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Afindrao amin'ny sisiny rehetra ny tahony…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Vita ny calibration. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Misy axe tsy nandeha lavitra ampy ka mijanona amin'ny halavirana taloha. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Tsy nandeha lavitra ampy ny tahony, ka tsy miova ny halavirana. Afindrao amin'ny sisiny rehetra izy mandritra ny fandrefesana.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Nikatona ny Falcon talohan'ny nahavitan'ny fandrefesana.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Milalao lalao amin'ny Novint Falcon amin'ny alalan'ny SDK an'ny Force Dimension, izay apetrakao avy amin'ny Force Dimension. Stick ny tahony, bokotra ny bokotra efatra eo amin'ny fihazonana, ary avadik'ny PadForge ho hery eo amin'ny tahony ny vibration sy ny effets an'ny lalao. Ny onglet Force feedback an'ny slot tsirairay no mamaritra ny fahatsapana ny Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Ampiasao ny Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Manokatra ny Falcon tsirairay amin'ny alalan'ny dhd64.dll an'ny Force Dimension. An'ny PadForge irery ny Falcon misokatra, ka tsy afaka manokatra azy ny FalconJoyForce sy ny programan'ny Force Dimension raha alefa ity. Raha vonoina, akaton'ny PadForge ny Falcon rehetra.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Napetraka ho {0} ny bibliothèque Falcon. Ny kopia efa ampiasaina dia mijanona mandra-panombohana indray ny PadForge.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Mametraka ny pilote Falcon an'ny Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Tsy hita ny package pilote Falcon an'ny Force Dimension, na ny catalogue-ny: {0}. Apetraho indray ny SDK an'ny Force Dimension.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Tsy misy Falcon mifandray.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Amin'ny pilote hafa ({0}) ny Falcon, ka tsy kitihin'ny PadForge. Afaka manova azy ho an'ny Force Dimension ny Gestionnaire de périphériques.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Tsy napetraky ny Windows ny pilote an'ny Force Dimension. Raha manontany ny Windows raha hatoky ny Force Dimension, safidio ny Installer.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Voapetraka ny pilote, saingy mbola tsy nifindra tany aminy ny Falcon. Esory ny Falcon ary ampifandraiso indray.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>Kajian'ny PadForge in-arivo eo ho eo isan-tsegondra ny hery rehetra eo amin'ny tahon'ny Falcon, araka ny toerana misy ny tahony sy izay alefan'ny lalao. An'ity slot ity ireo fikirakirana ireo.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Avereno ny Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Fahatsapana</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: ny toeran'ny tahony no stick, ary misy ressort misintona azy hiverina eo afovoany. Fikendrena: ny fihetsiky ny tahony no mampihetsika ny stick, ary raha tazomina amin'ny rindrina eo amin'ny sisiny ny tahony dia mitohy ny fihodinana.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Fikendrena</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Ressort mampiverina</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Avereno ny ressort mampiverina</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Bokotra fanosehana</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Raha tazomina ity bokotra eo amin'ny fihazonana ity, sy mandritra ny ampahefatry ny segondra aorian'izay, ny vibration an'ny lalao dia manosika mafy ny tahony mankany aminao. Ny vibration amin'ny fotoana hafa dia mampihovitrovitra ny tahony.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Bokotra 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Bokotra 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Bokotra 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Bokotra 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Herin'ny fanosehana</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Avereno ny herin'ny fanosehana</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Herin'ny hovitrovitra</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Avereno ny herin'ny hovitrovitra</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Bokotra fampitoniana</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Raha tazomina ity bokotra eo amin'ny fihazonana ity, miadana ho 30 isan-jato ny fikendrena ho an'ny fanitsiana madinika.</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Raha tazomina ity bokotra eo amin'ny fihazonana ity, misy fanosehana tsy miova 1.6 N amin'ny tahony, izay manalama ny fanitsiana madinika.</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Ny ampahany amin'ny lanjan'ny tahony tazonin'ny Falcon, amin'ny isan-jaton'ny gravité mahazatra.</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Fetran'ny hery</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Ny hery betsaka indrindra apetraky ny Falcon amin'ny tahony, 1 ka hatramin'ny 8 newton.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Avereno ny fetran'ny hery</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Refeso ny halavirana</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mandrefy ny halaviran'ny dian'ny tahony. Afindrao amin'ny sisiny rehetra izy mandritra ny efatra segondra hanaovana ny fandrefesana. Mijanona ny hery mandritra izany.</value></data>
 </root>

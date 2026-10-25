@@ -4261,4 +4261,82 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Fāngxiàng</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Bùcháng</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Wòbǐng</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Zuǒ/yòu</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Shàng/xià</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Jìn/chū</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Ànniǔ {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, cóng {1} jiāzài</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension de kù zhǐ néng zài PadForge de x64 bǎnběn zhōng yùnxíng.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>Zhǎodào le dhd64.dll, dàn wúfǎ jiāzài.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Zhège dhd64.dll bú shì PadForge suǒ qīwàng de Force Dimension kù.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Cǐ diànnǎo shàng méiyǒu Force Dimension SDK. Qǐng cóng Force Dimension de xiàzài yèmiàn huòqǔ, huò xuǎnzé qí dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>bǎ wòbǐng wánquán lā chū, zài wánquán tuī rù, shǐ qí guīwèi</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>yǐ {0:0.0} kHz yùnxíng</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>yǐ dǎkāi</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Yī tái Falcon zài qítā chéngxù zhōng yǐ dǎkāi, lìrú FalconJoyForce huò Force Dimension zìjǐ de gōngjù. Qǐng zài nàlǐ guānbì.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon shǐyòng le qítā qūdòng chéngxù ({0}), suǒyǐ Force Dimension de kù wúfǎ dǎkāi tā. Qǐng zài Shèbèi guǎnlǐqì zhōng, cóng Force Dimension SDK wénjiànjiā lǐ de drivers\usb wénjiànjiā gēngxīn Falcon de qūdòng chéngxù.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Yī tái Falcon yǐ chārù, dàn méiyǒu qūdòng chéngxù. Ānzhuāng Falcon qūdòng chéngxù huì wèi tā ānzhuāng Force Dimension de qūdòng chéngxù.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Yī tái Falcon yǐ chārù, dàn méiyǒu qūdòng chéngxù, érqiě SDK wénjiànjiā zhōng méiyǒu kě gěi tā ānzhuāng de qūdòng chéngxù bāo. Qǐng chóngxīn ānzhuāng Force Dimension SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Wèi zhǎodào Falcon. Qǐng chārù tā de diànyuán hé USB shùjùxiàn.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Xuǎnzé dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Yōuxiān jiāzài Force Dimension kù de zhège fùběn. SDK ānzhuāng de fùběn wúxū cǐ xiàng yě néng bèi zhǎodào.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Kùwénjiàn (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Ānzhuāng Falcon qūdòng chéngxù</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Cóng SDK wénjiànjiā wèi méiyǒu qūdòng chéngxù de Falcon ānzhuāng Force Dimension de qūdòng chéngxù. Windows kěnéng xiān xúnwèn shìfǒu xìnrèn Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Huòqǔ Force Dimension SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Zài liúlǎnqì zhōng dǎkāi Force Dimension SDK de xiàzài yèmiàn. PadForge jiāzài nín ānzhuāng de SDK, běnshēn bù fùdài SDK de rènhé nèiróng.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Xíngchéng: zuǒyòu {0:0} mm, shàngxià {1:0} mm, jìnchū {2:0} mm.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Jiàozhǔn xūyào cǐ Falcon chǔyú dǎkāi zhuàngtài. Qǐng zài Shèzhì zhōng dǎkāi Qūdòng Novint Falcon, bìng chārù Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Qǐng bǎ wòbǐng yídòng dào qí xíngchéng de měi gè biānyuán…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Yǐ jiàozhǔn. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Mǒuxiē zhóu yídòng jùlí bùgòu, bǎoliú yuán xíngchéng. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Wòbǐng yídòng jùlí bùgòu, suǒyǐ xíngchéng bǎochí yuányàng. Qǐng zài sǎomiáo qījiān bǎ tā yídòng dào měi gè biānyuán.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon zài sǎomiáo wánchéng qián yǐ guānbì.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Tōngguò Force Dimension SDK yòng Novint Falcon wán yóuxì. SDK xū nín cóng Force Dimension ānzhuāng. Wòbǐng zuòwéi yáogǎn, wòbǐng shàng de sì gè ànniǔ zuòwéi ànniǔ, PadForge jiāng yóuxì de zhèndòng hé tèxiào yǐ lì de xíngshì shīyú wòbǐng. Měi gè cáowèi de Lìfǎnkuì xuǎnxiàngkǎ shèzhì Falcon de shǒugǎn.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Qūdòng Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Tōngguò Force Dimension de dhd64.dll dǎkāi měi tái Falcon. Yǐ dǎkāi de Falcon zhǐ guī PadForge suǒyǒu, yīncǐ cǐ xiàng kāiqǐ shí FalconJoyForce hé Force Dimension gōngjù wúfǎ dǎkāi tā. Guānbì shí, PadForge huì guānbì suǒyǒu Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon kù yǐ shèwéi {0}. Yǐ zài shǐyòng de fùběn zài PadForge zàicì qǐdòng qián bǎochí bùbiàn.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Zhèngzài ānzhuāng Force Dimension de Falcon qūdòng chéngxù…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension de Falcon qūdòng chéngxù bāo huò qí mùlù wénjiàn quēshī: {0}. Qǐng chóngxīn ānzhuāng Force Dimension SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Wèi chārù Falcon.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon shǐyòng le qítā qūdòng chéngxù ({0}), suǒyǐ PadForge bù huì dòng tā. Kě zài Shèbèi guǎnlǐqì zhōng bǎ tā gǎiwéi Force Dimension de qūdòng chéngxù.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows wèi ānzhuāng Force Dimension de qūdòng chéngxù. Rúguǒ Windows xúnwèn shìfǒu xìnrèn Force Dimension, qǐng xuǎnzé Ānzhuāng.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Qūdòng chéngxù yǐ ānzhuāng, dàn Falcon shàngwèi qiēhuàn dào tā. Qǐng bá xià Falcon, zài chā huí qù.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge gēnjù wòbǐng de wèizhì hé yóuxì bōfàng de nèiróng, měi miǎo yuē jìsuàn yìqiān cì Falcon wòbǐng shàng de měi yī gè lì. Zhèxiē shèzhì shǔyú cǐ cáowèi.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Chóngzhì Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Shǒugǎn</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Cāozònggān: wòbǐng de wèizhì jiùshì yáogǎn, tánhuáng bǎ tā lā huí zhōngxīn. Miáozhǔn: wòbǐng de yùndòng yídòng yáogǎn, bǎ wòbǐng dǐ zài biānyuán de qiángbì shàng jiù huì jìxù zhuǎndòng.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Cāozònggān</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Miáozhǔn</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Huízhōng tánhuáng</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Chóngzhì huízhōng tánhuáng</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Tuījī ànniǔ</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Zhǐyào àn zhù cǐ wòbǐng ànniǔ, yǐjí sōngkāi hòu sì fēnzhī yī miǎo nèi, yóuxì de zhèndòng jiù huì bǎ wòbǐng cháo nín tuījī. Qítā shíhou de zhèndòng zé huì shǐ wòbǐng chàndòng.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Ànniǔ 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Ànniǔ 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Ànniǔ 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Ànniǔ 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Tuījī qiángdù</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Chóngzhì tuījī qiángdù</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Chàndòng qiángdù</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Chóngzhì chàndòng qiángdù</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Wěndìng ànniǔ</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Zhǐyào àn zhù cǐ wòbǐng ànniǔ, miáozhǔn sùdù jiù huì jiàngdào 30%, fāngbiàn jīngxì tiáozhěng.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Yùjiāzài ànniǔ</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Zhǐyào àn zhù cǐ wòbǐng ànniǔ, yī gè wěndìng de 1.6 N tuīlì jiù huì gěi wòbǐng jiāzài yùlì, shǐ xiǎofúdù xiūzhèng gèng píngwěn.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Zhònglì bǔcháng</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon tuōzhù wòbǐng zìshēn zhòngliàng de bǐlì, yǐ biāozhǔn zhònglì de bǎifēnbǐ biǎoshì.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Chóngzhì zhònglì bǔcháng</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Lì shàngxiàn</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon shīyú wòbǐng de zuìdà lì, fànwéi 1 zhì 8 niúdùn.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Chóngzhì lì shàngxiàn</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Jiàozhǔn xíngchéng</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Cèliáng wòbǐng yídòng de jùlí. Zài sǎomiáo yùnxíng de sì miǎo nèi, bǎ tā yídòng dào xíngchéng de měi gè biānyuán. Qījiān lì huì tíngzhǐ.</value></data>
 </root>

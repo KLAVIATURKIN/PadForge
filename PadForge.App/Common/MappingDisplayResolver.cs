@@ -2354,6 +2354,8 @@ namespace PadForge.Common
              ud.CapType != InputDeviceType.LogitechGKeys &&
              // The keyboard screen keys are named for the keys (#519).
              ud.CapType != InputDeviceType.KeyboardScreenKeys &&
+             // A Falcon's handle axes and grip buttons are named (#521).
+             ud.CapType != InputDeviceType.NovintFalcon &&
              // Analog keys are named for their legends (#468).
              ud.CapType != InputDeviceType.AnalogKeyboard &&
              ud.CapType != InputDeviceType.Tablet));

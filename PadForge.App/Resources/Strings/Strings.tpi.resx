@@ -1629,4 +1629,50 @@
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Wok</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Rot</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Lephan/Raithan</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Antap/Daunbilo</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Insait/Ausait</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Baten {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, i kam long {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Laibreri bilong Force Dimension i wok long x64 version bilong PadForge tasol.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>PadForge i painim dhd64.dll, tasol em i no inap lodim.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Dispela dhd64.dll i no laibreri bilong Force Dimension we PadForge i laikim.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>I nogat Force Dimension SDK long dispela PC. Kisim long pes bilong daunlod bilong Force Dimension, o makim dhd64.dll bilong en.</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>i wok long {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>i op</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Wanpela Falcon i op long narapela program, olsem FalconJoyForce o ol tul bilong Force Dimension yet. Pasim em long dispela program.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Wanpela Falcon i konek pinis na i nogat draiva. Instolim draiva bilong Falcon i givim draiva bilong Force Dimension long en.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Wanpela Falcon i konek pinis na i nogat draiva, na SDK folda i nogat draiva pekets bilong givim long en. Instolim gen SDK bilong Force Dimension.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>I no painim Falcon. Putim pawa na USB kebol bilong en.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Makim dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Lodim dispela kopi bilong laibreri bilong Force Dimension pastaim long olgeta narapela. PadForge i save painim ol kopi SDK i instolim.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Ol laibreri (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Instolim draiva bilong Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Instolim draiva bilong Force Dimension, long SDK folda, long Falcon i nogat draiva. Windows inap askim pastaim sapos yu trastim Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Kisim SDK bilong Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Opim pes bilong daunlod bilong SDK bilong Force Dimension long brausa bilong yu. PadForge i lodim SDK yu instolim na i no givim wanpela hap bilong en.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Longwe: {0:0} mm lephan na raithan, {1:0} mm antap na daunbilo, {2:0} mm insait na ausait.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kalibresen i nidim dispela Falcon i op. Tanim on Bosim Novint Falcon long Ol seting na konektim Falcon.</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibresen i pinis. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Sampela eksis i no go longwe inap, na ol i holim longwe bilong bipo. {0}</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Bosim Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Opim olgeta Falcon long dhd64.dll bilong Force Dimension. Falcon i op em i bilong PadForge tasol, olsem na FalconJoyForce na ol tul bilong Force Dimension i no inap opim taim dispela i on. Taim em i of, PadForge i pasim olgeta Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Laibreri bilong Falcon i kamap {0}. Kopi i wok pinis i stap inap PadForge i stat gen.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>I instolim draiva bilong Falcon bilong Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Draiva pekets bilong Falcon bilong Force Dimension, o katalog bilong en, i no stap: {0}. Instolim gen SDK bilong Force Dimension.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>I nogat Falcon i konek.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows i no instolim draiva bilong Force Dimension. Sapos Windows i askim sapos yu trastim Force Dimension, makim Install.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Draiva i instol pinis, tasol Falcon i no go long en yet. Rausim Falcon na konektim gen.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Reset Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Baten 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Baten 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Baten 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Baten 4</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
 </root>

@@ -4340,4 +4340,80 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Richtung</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Schratt</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Grëff</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Lénks/Riets</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Erop/Erof</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Eran/Eraus</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Knäppchen {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, geluede vun {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>D'Bibliothéik vu Force Dimension leeft just an der x64-Versioun vu PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll gouf fonnt, mä et konnt net geluede ginn.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Dës dhd64.dll ass net d'Bibliothéik vu Force Dimension, déi PadForge erwaart.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Kee Force Dimension SDK op dësem PC. Luet et vun der Download-Säit vu Force Dimension erof oder wielt seng dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>zitt de Grëff ganz eraus an dréckt en dann ganz eran, fir en an d'Ausgangspositioun ze bréngen</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>leeft mat {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>opgemaach</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>E Falcon ass an engem anere Programm op, wéi FalconJoyForce oder d'Tools vu Force Dimension. Maacht en do zou.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>E Falcon ass ouni Treiber ugeschloss. „Falcon-Treiber installéieren“ installéiert him deen vu Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>E Falcon ass ouni Treiber ugeschloss, an am SDK-Dossier ass kee Treiberpaket, fir him een ze ginn. Installéiert d'SDK vu Force Dimension nei.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Kee Falcon fonnt. Schléisst de Stroum an den USB-Kabel un.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll wielen…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Luet dës Kopie vun der Bibliothéik vu Force Dimension virun allen aneren. D'Kopien, déi d'SDK installéiert, ginn och ouni dat fonnt.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Bibliothéiken (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon-Treiber installéieren</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Installéiert den Treiber vu Force Dimension aus dem SDK-Dossier op engem Falcon, deen nach keen huet. Windows freet eventuell virdrun, ob et Force Dimension vertraue soll.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>SDK vu Force Dimension eroflueden</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Mécht d'Download-Säit vum SDK vu Force Dimension an Ärem Browser op. PadForge luet d'SDK, dat Dir installéiert, a liwwert näischt dovun mat.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Reechwäit: {0:0} mm lénks a riets, {1:0} mm erop an erof, {2:0} mm eran an eraus.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Fir ze kalibréieren, muss dëse Falcon op sinn. Schalt „Novint Falcon ustéieren“ an den Astellungen un a schléisst de Falcon un.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Beweegt de Grëff bis un all Rand vu senger Reechwäit…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibréiert. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>E puer Achsen sinn net wäit genuch gaang a behalen hir al Reechwäit. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>De Grëff ass net wäit genuch gaang, dofir bleift d'Reechwäit, wéi se war. Beweegt en bis un all Rand, während d'Messung leeft.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>De Falcon gouf zougemaach, ier d'Messung fäerdeg war.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Spillt Spiller mat engem Novint Falcon iwwer d'SDK vu Force Dimension, dat Dir vu Force Dimension installéiert. De Grëff ass e Stick, déi véier Knäppercher um Grëff sinn Knäppercher, a PadForge setzt d'Vibratioun an d'Effekter vum Spill als Kraaft op de Grëff. Den Tab Force Feedback vun all Slot leet fest, wéi de Falcon sech ufillt.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon ustéieren</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Mécht all Falcon iwwer d'dhd64.dll vu Force Dimension op. En oppene Falcon gehéiert just PadForge, dofir kënne FalconJoyForce an d'Tools vu Force Dimension en net opmaachen, soulaang dat hei un ass. Wann et aus ass, mécht PadForge all Falcon zou.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon-Bibliothéik op {0} gesat. Eng Kopie, déi scho benotzt gëtt, bleift, bis PadForge nei start.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>De Falcon-Treiber vu Force Dimension gëtt installéiert…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>D'Falcon-Treiberpaket vu Force Dimension oder säi Katalog feelt: {0}. Installéiert d'SDK vu Force Dimension nei.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Et ass kee Falcon ugeschloss.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows huet den Treiber vu Force Dimension net installéiert. Wann Windows freet, ob et Force Dimension vertraue soll, wielt „Installéieren“.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Den Treiber ass installéiert, mä de Falcon benotzt en nach net. Zitt de Stecker vum Falcon eraus a schléisst en nees un.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge berechent all Kraaft um Grëff vum Falcon ongeféier dausendmol pro Sekonn, aus der Positioun vum Grëff an deem, wat d'Spill spillt. Dës Astellunge gëlle fir dëse Slot.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon zrécksetzen</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Gefill</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: d'Positioun vum Grëff ass de Stick, an eng Fieder zitt en zréck an d'Mëtt. Ziilen: d'Beweegung vum Grëff beweegt de Stick, a wann een de Grëff um Rand géint d'Mauer hält, dréint d'Siicht weider.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Ziilen</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Zentréierfieder</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Zentréierfieder zrécksetzen</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Stoussknäppchen</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Soulaang dëst Grëffknäppchen gehale gëtt, an eng Véierelsekonn duerno, stéisst d'Vibratioun vum Spill de Grëff op Iech zou. Zu aneren Zäite rëselt d'Vibratioun de Grëff.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Knäppchen 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Knäppchen 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Knäppchen 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Knäppchen 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Stäerkt vum Stouss</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Stäerkt vum Stouss zrécksetzen</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Stäerkt vum Rëselen</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Stäerkt vum Rëselen zrécksetzen</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Stabiliséierungsknäppchen</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Soulaang dëst Grëffknäppchen gehale gëtt, gëtt d'Ziilen fir fein Upassungen op 30 Prozent verlangsamt.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Virspannungsknäppchen</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Soulaang dëst Grëffknäppchen gehale gëtt, dréckt eng konstant Kraaft vun 1.6 N op de Grëff, wat kleng Korrekture méi gläichméisseg mécht.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Schwéierkraaftkompensatioun</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Wéi vill vum Eegegewiicht vum Grëff de Falcon hält, a Prozent vun der Standard-Schwéierkraaft.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Schwéierkraaftkompensatioun zrécksetzen</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Kraaftlimit</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Déi maximal Kraaft, déi de Falcon op de Grëff bréngt, vun 1 bis 8 Newton.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Kraaftlimit zrécksetzen</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Reechwäit kalibréieren</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Moosst, wéi wäit de Grëff sech beweegt. Beweegt en während de véier Sekonnen, déi d'Messung dauert, bis un all Rand vu senger Reechwäit. D'Kräfte sinn an där Zäit aus.</value></data>
 </root>

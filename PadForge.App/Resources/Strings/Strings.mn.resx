@@ -4344,4 +4344,82 @@ PadForge одоо тэдгээрийг устгах уу? Үүнд админи�
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Чиглэл</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Алхам</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Бариул</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Зүүн/Баруун</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Дээш/Доош</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Дотогш/Гадагш</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Товч {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, ачаалсан байршил: {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension-ы сан зөвхөн PadForge-ийн x64 хувилбар дээр ажиллана.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll олдсон боловч ачаалж чадсангүй.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Энэ dhd64.dll нь PadForge-ийн хүлээж буй Force Dimension сан биш байна.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Энэ компьютерт Force Dimension SDK алга. Үүнийг Force Dimension-ы татах хуудаснаас авна уу, эсвэл түүний dhd64.dll файлыг сонгоно уу.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>байрлалыг тодорхойлохын тулд бариулыг бүрэн гадагш татаад, дараа нь бүрэн дотогш түлхэнэ үү</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz давтамжтай ажиллаж байна</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>нээлттэй</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon өөр программд, жишээ нь FalconJoyForce эсвэл Force Dimension-ы өөрийн хэрэгслүүдэд нээлттэй байна. Тэндээс хаана уу.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon өөр драйвер ({0}) дээр байгаа тул Force Dimension-ы сан үүнийг нээж чадахгүй. Төхөөрөмжийн менежерээс Falcon-ы драйверыг Force Dimension-ы SDK хавтасны drivers\usb хавтаснаас шинэчилнэ үү.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon драйвергүйгээр залгагдсан байна. «Falcon драйвер суулгах» нь түүнд Force Dimension-ы драйверыг суулгана.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon драйвергүйгээр залгагдсан бөгөөд SDK хавтсанд түүнд суулгах драйверын багц алга. Force Dimension-ы SDK-г дахин суулгана уу.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon олдсонгүй. Тэжээлийн кабель болон USB кабелийг нь залгана уу.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll сонгох…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Force Dimension-ы сангийн энэ хувийг бусдаас өмнө ачаална. SDK-ийн суулгасан хувиудыг үүнгүйгээр олдог.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Сангууд (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon драйвер суулгах</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Драйвергүй Falcon дээр Force Dimension-ы драйверыг SDK хавтаснаас суулгана. Windows эхлээд Force Dimension-д итгэх эсэхийг асууж магадгүй.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension-ы SDK авах</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Force Dimension-ы SDK татах хуудсыг хөтөч дээр нээнэ. PadForge таны суулгасан SDK-г ачаалах бөгөөд түүний нэг ч хэсгийг багтаадаггүй.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Хүрэх зай: зүүн-баруун {0:0} мм, дээш-доош {1:0} мм, дотогш-гадагш {2:0} мм.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Калибровк хийхэд энэ Falcon нээлттэй байх шаардлагатай. Тохиргоонд «Novint Falcon-ыг удирдах»-ыг асааж, Falcon-ыг залгана уу.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Бариулыг хүрэх зайнх нь бүх зах хүртэл хөдөлгөнө үү…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Калибровк хийгдлээ. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Зарим тэнхлэг хангалттай хол хөдлөөгүй тул хуучин хүрэх зайгаа хадгална. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Бариул хангалттай хол хөдлөөгүй тул хүрэх зай хэвээр үлдлээ. Хэмжилт явагдах үед бүх зах хүртэл хөдөлгөнө үү.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Хэмжилт дуусахаас өмнө Falcon хаагдлаа.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Force Dimension-ы SDK-аар дамжуулан Novint Falcon-оор тоглоом тоглоно. SDK-г Force Dimension-ы сайтаас суулгана. Бариул нь стик, бариулын дөрвөн товч нь товч болж, PadForge тоглоомын чичиргээ болон эффектийг бариул дээр хүч болгон дамжуулна. Слот бүрийн «Хүчний эргэх холбоо» таб Falcon-ы мэдрэмжийг тохируулна.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon-ыг удирдах</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Falcon бүрийг Force Dimension-ы dhd64.dll ашиглан нээнэ. Нээлттэй Falcon зөвхөн PadForge-д хамаарах тул энэ асаалттай үед FalconJoyForce болон Force Dimension-ы хэрэгслүүд үүнийг нээж чадахгүй. Унтраавал PadForge бүх Falcon-ыг хаана.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon-ы санг {0} болгож тохирууллаа. Аль хэдийн ашиглагдаж буй хувь PadForge дахин эхлэх хүртэл хэвээр үлдэнэ.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Force Dimension-ы Falcon драйверыг суулгаж байна…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension-ы Falcon драйверын багц эсвэл түүний каталог алга: {0}. Force Dimension-ы SDK-г дахин суулгана уу.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Falcon залгагдаагүй байна.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon өөр драйвер ({0}) дээр байгаа тул PadForge үүнд хүрэхгүй. Төхөөрөмжийн менежерээр үүнийг Force Dimension-ы драйвер руу сольж болно.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows Force Dimension-ы драйверыг суулгасангүй. Windows Force Dimension-д итгэх эсэхийг асуувал «Суулгах»-ыг сонгоно уу.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Драйвер суусан боловч Falcon түүн рүү шилжээгүй байна. Falcon-ыг салгаад дахин залгана уу.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge Falcon-ы бариул дээрх хүч бүрийг секундэд мянга орчим удаа бариулын байрлал болон тоглоомын тоглуулж буй зүйлээс хамааруулан тооцоолно. Эдгээр тохиргоо энэ слотод хамаарна.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon-ыг дахин тохируулах</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Мэдрэмж</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Жойстик: бариулын байрлал нь стик болох ба пүрш түүнийг төв рүү буцааж татна. Онилох: бариулын хөдөлгөөн стикийг хөдөлгөх ба бариулыг захын хананд тулгаж барихад эргэлт үргэлжилнэ.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Жойстик</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Онилох</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Төвлөрүүлэх пүрш</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Төвлөрүүлэх пүршийг дахин тохируулах</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Цохилтын товч</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Бариулын энэ товчийг дарж барих үед болон түүнээс хойш секундын дөрөвний нэгийн турш тоглоомын чичиргээ бариулыг тан руу цохилтоор түлхэнэ. Бусад үед чичиргээ бариулыг сэгсэрнэ.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Товч 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Товч 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Товч 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Товч 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Цохилтын хүч</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Цохилтын хүчийг дахин тохируулах</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Сэгсрэлтийн хүч</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Сэгсрэлтийн хүчийг дахин тохируулах</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Тогтворжуулах товч</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Бариулын энэ товчийг дарж барих үед нарийн тохируулга хийхийн тулд онилгоо 30 хувь хүртэл удааширна.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Урьдчилсан ачааллын товч</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Бариулын энэ товчийг дарж барих үед 1.6 N тогтмол түлхэлт бариулыг ачаална. Ингэснээр жижиг засварууд зөөлөрнө.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Хүндийн хүчний нөхөлт</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Бариулын өөрийн жингийн хэр их хэсгийг Falcon барьж байхыг стандарт хүндийн хүчний хувиар заана.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Хүндийн хүчний нөхөлтийг дахин тохируулах</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Хүчний хязгаар</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon-ы бариул дээр үзүүлэх хамгийн их хүч, 1-ээс 8 ньютон хүртэл.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Хүчний хязгаарыг дахин тохируулах</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Хүрэх зайг калибровк хийх</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Бариул хэр хол хөдлөхийг хэмжинэ. Хэмжилт явагдах дөрвөн секундын турш бариулыг хүрэх зайнх нь бүх зах хүртэл хөдөлгөнө үү. Энэ хугацаанд хүч ажиллахгүй.</value></data>
 </root>

@@ -4363,4 +4363,82 @@ Kopija prethodne verzije nalazi se u ovoj mapi: {1}</value></data>
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Smjer</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Korak</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Ručka</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Lijevo/desno</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Gore/dolje</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Unutra/van</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Gumb {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, učitan iz {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Biblioteka tvrtke Force Dimension radi samo u x64 izdanju programa PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll je pronađen, ali ga nije moguće učitati.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Ova datoteka dhd64.dll nije biblioteka tvrtke Force Dimension koju PadForge očekuje.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Na ovom računalu nema Force Dimension SDK-a. Preuzmite ga sa stranice za preuzimanje tvrtke Force Dimension ili odaberite njegov dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>izvucite ručku do kraja, a zatim je do kraja gurnite natrag, kako bi se postavila u početni položaj</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>radi na {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>otvoren</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon je otvoren u drugom programu, na primjer u FalconJoyForce ili u alatima tvrtke Force Dimension. Zatvorite ga tamo.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon koristi drugi upravljački program ({0}), pa ga biblioteka tvrtke Force Dimension ne može otvoriti. U Upravitelju uređaja ažurirajte upravljački program za Falcon iz mape drivers\usb u mapi Force Dimension SDK-a.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon je priključen bez upravljačkog programa. Gumb Instaliraj upravljački program za Falcon daje mu upravljački program tvrtke Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon je priključen bez upravljačkog programa, a u mapi SDK-a nema paketa upravljačkog programa koji bi mu se dao. Ponovno instalirajte Force Dimension SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon nije pronađen. Priključite njegovo napajanje i USB kabel.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Odaberi dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Učitava ovu kopiju biblioteke tvrtke Force Dimension prije svih drugih. Kopije koje SDK instalira pronalaze se i bez ovoga.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Biblioteke (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Instaliraj upravljački program za Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Instalira upravljački program tvrtke Force Dimension, iz mape SDK-a, na Falcon koji ga nema. Windows će vas prije toga možda pitati vjerujete li tvrtki Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Preuzmi Force Dimension SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Otvara stranicu za preuzimanje Force Dimension SDK-a u vašem pregledniku. PadForge učitava SDK koji vi instalirate i ne isporučuje ga.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Doseg: {0:0} mm lijevo i desno, {1:0} mm gore i dolje, {2:0} mm unutra i van.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kalibracija zahtijeva da je ovaj Falcon otvoren. Uključite Upravljaj uređajem Novint Falcon u postavkama i priključite Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Pomaknite ručku do svih rubova njezina dosega…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibrirano. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Neke osi nisu prešle dovoljan put i zadržavaju stari doseg. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Ručka nije prešla dovoljan put, pa doseg ostaje kakav je bio. Pomaknite je do svih rubova dok traje pomicanje.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon se zatvorio prije završetka pomicanja.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Omogućuje igranje igara s uređajem Novint Falcon putem Force Dimension SDK-a, koji instalirate od tvrtke Force Dimension. Ručka je palica, četiri gumba na ručki su gumbi, a PadForge stavlja vibraciju i efekte igre na ručku kao silu. Kartica Povratna sila svakog utora određuje kako Falcon djeluje na dodir.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Upravljaj uređajem Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Otvara svaki Falcon putem biblioteke dhd64.dll tvrtke Force Dimension. Otvoreni Falcon pripada isključivo programu PadForge, pa ga FalconJoyForce i alati tvrtke Force Dimension ne mogu otvoriti dok je ovo uključeno. Kad je isključeno, PadForge zatvara svaki Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Biblioteka za Falcon postavljena je na {0}. Kopija koja je već u upotrebi ostaje dok se PadForge ponovno ne pokrene.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Instaliranje upravljačkog programa za Falcon tvrtke Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Paket upravljačkog programa za Falcon tvrtke Force Dimension ili njegov katalog nedostaje: {0}. Ponovno instalirajte Force Dimension SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Nijedan Falcon nije priključen.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon koristi drugi upravljački program ({0}), pa ga PadForge ne dira. Upravitelj uređaja može ga promijeniti na onaj tvrtke Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows nije instalirao upravljački program tvrtke Force Dimension. Ako Windows pita vjerujete li tvrtki Force Dimension, odaberite Instaliraj.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Upravljački program je instaliran, ali Falcon nije prešao na njega. Odspojite Falcon i ponovno ga priključite.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge izračunava svaku silu na ručki uređaja Falcon otprilike tisuću puta u sekundi, prema položaju ručke i onome što igra reproducira. Ove postavke pripadaju ovom utoru.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Vrati Novint Falcon na zadano</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Osjećaj</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Džojstik: položaj ručke je palica, a opruga je vraća u središte. Ciljanje: pomicanje ručke pomiče palicu, a držanje ručke uz zid na njezinu rubu nastavlja okretanje.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Džojstik</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Ciljanje</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Opruga za centriranje</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Vrati oprugu za centriranje na zadano</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Gumb za udarac</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Dok je ovaj gumb na ručki pritisnut, i još četvrt sekunde nakon toga, vibracija igre udara ručkom prema vama. Vibracija u ostalo vrijeme trese ručku.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Gumb 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Gumb 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Gumb 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Gumb 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Jačina udarca</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Vrati jačinu udarca na zadano</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Jačina podrhtavanja</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Vrati jačinu podrhtavanja na zadano</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Gumb za oslonac</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Dok je ovaj gumb na ručki pritisnut, ciljanje se usporava na 30 posto radi finih prilagodbi.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Gumb za prednapon</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Dok je ovaj gumb na ručki pritisnut, ravnomjerni potisak od 1.6 N opterećuje ručku, što ublažava male ispravke.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Kompenzacija gravitacije</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Koliki dio težine same ručke Falcon drži, u postotku standardne gravitacije.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Vrati kompenzaciju gravitacije na zadano</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Ograničenje sile</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Najveća sila kojom Falcon djeluje na ručku, od 1 do 8 njutna.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Vrati ograničenje sile na zadano</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibriraj doseg</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mjeri koliko daleko ručka putuje. Pomaknite je do svih rubova njezina dosega tijekom četiri sekunde koliko traje pomicanje. Sile za to vrijeme miruju.</value></data>
 </root>

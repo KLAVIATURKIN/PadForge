@@ -4384,4 +4384,82 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Suunta</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Askel</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Kahva</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Vasen/oikea</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Ylös/alas</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Sisään/ulos</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Painike {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, ladattu sijainnista {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimensionin kirjasto toimii vain PadForge-ohjelman x64-versiossa.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>Tiedosto dhd64.dll löytyi, mutta sitä ei voitu ladata.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Tämä dhd64.dll ei ole se Force Dimension -kirjasto, jota PadForge odottaa.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Tässä tietokoneessa ei ole Force Dimension SDK:ta. Hanki se Force Dimensionin lataussivulta tai valitse sen dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>vedä kahva kokonaan ulos ja työnnä se sitten kokonaan sisään, jotta laite oppii sen sijainnin</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>käy taajuudella {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>avattu</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon on avoinna toisessa ohjelmassa, esimerkiksi FalconJoyForce-ohjelmassa tai Force Dimensionin omissa työkaluissa. Sulje se siellä.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon käyttää toista ajuria ({0}), joten Force Dimensionin kirjasto ei voi avata sitä. Päivitä Laitehallinnassa Falcon-laitteen ajuri Force Dimensionin SDK-kansion drivers\usb-kansiosta.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon on kytketty, mutta sillä ei ole ajuria. Painike Asenna Falcon-ajuri asentaa sille Force Dimensionin ajurin.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon on kytketty, mutta sillä ei ole ajuria, eikä SDK-kansiossa ole ajuripakettia, jonka sille voisi antaa. Asenna Force Dimensionin SDK uudelleen.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon-laitetta ei löytynyt. Kytke siihen virta ja USB-kaapeli.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Valitse dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Lataa tämän Force Dimensionin kirjastokopion muiden edelle. SDK:n asentamat kopiot löytyvät ilman tätäkin.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Kirjastot (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Asenna Falcon-ajuri</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Asentaa Force Dimensionin ajurin SDK-kansiosta Falcon-laitteelle, jolla sitä ei vielä ole. Windows saattaa ensin kysyä, luotetaanko Force Dimensioniin.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Hae Force Dimensionin SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Avaa Force Dimensionin SDK:n lataussivun selaimessa. PadForge lataa asentamasi SDK:n eikä sisällä siitä mitään.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Ulottuma: {0:0} mm vasemmalle ja oikealle, {1:0} mm ylös ja alas, {2:0} mm sisään ja ulos.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kalibrointi edellyttää, että tämä Falcon on avattu. Ota Asetuksissa käyttöön Ohjaa Novint Falcon -laitetta ja kytke Falcon tietokoneeseen.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Siirrä kahva ulottuman jokaiseen reunaan…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibroitu. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Jotkin akselit eivät liikkuneet tarpeeksi pitkälle ja säilyttävät vanhan ulottumansa. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Kahva ei liikkunut tarpeeksi pitkälle, joten ulottuma pysyy ennallaan. Siirrä se jokaiseen reunaan mittauksen aikana.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon suljettiin ennen kuin mittaus päättyi.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Pelaa pelejä Novint Falcon -laitteella Force Dimensionin SDK:n kautta, jonka asennat Force Dimensionilta. Kahva toimii sauvana, kahvan neljä painiketta ovat painikkeita, ja PadForge siirtää pelin tärinän ja tehosteet kahvaan voimana. Kunkin paikan Voimapalaute-välilehti määrittää, miltä Falcon tuntuu.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Ohjaa Novint Falcon -laitetta</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Avaa jokaisen Falcon-laitteen Force Dimensionin dhd64.dll-kirjaston kautta. Avattu Falcon kuuluu vain PadForge-ohjelmalle, joten FalconJoyForce ja Force Dimensionin työkalut eivät voi avata sitä, kun tämä on päällä. Kun asetus on pois päältä, PadForge sulkee kaikki Falcon-laitteet.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon-kirjastoksi on asetettu {0}. Jo käytössä oleva kopio pysyy, kunnes PadForge käynnistetään uudelleen.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Asennetaan Force Dimensionin Falcon-ajuria…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimensionin Falcon-ajuripaketti tai sen luettelotiedosto puuttuu: {0}. Asenna Force Dimensionin SDK uudelleen.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Falcon-laitetta ei ole kytketty.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon käyttää toista ajuria ({0}), joten PadForge ei koske siihen. Laitehallinnassa sen voi vaihtaa Force Dimensionin ajuriin.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows ei asentanut Force Dimensionin ajuria. Jos Windows kysyy, luotetaanko Force Dimensioniin, valitse Asenna.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Ajuri on asennettu, mutta Falcon ei ole siirtynyt käyttämään sitä. Irrota Falcon ja kytke se takaisin.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge laskee Falcon-laitteen kahvaan kohdistuvat voimat noin tuhat kertaa sekunnissa kahvan sijainnin ja pelin toistamien tehosteiden perusteella. Nämä asetukset kuuluvat tälle paikalle.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Palauta Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Tuntuma</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Ohjaussauva: kahvan asento on sauva, ja jousi vetää sen takaisin keskelle. Tähtäys: kahvan liike liikuttaa sauvaa, ja kahvan pitäminen reunan seinää vasten jatkaa kääntymistä.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Ohjaussauva</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Tähtäys</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Keskittävä jousi</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Palauta keskittävä jousi</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Potkupainike</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Kun tämä kahvan painike on painettuna ja neljänneksen sekuntia sen jälkeen, pelin tärinä potkaisee kahvaa sinua kohti. Muulloin tärinä ravistaa kahvaa.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Painike 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Painike 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Painike 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Painike 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Potkun voimakkuus</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Palauta potkun voimakkuus</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Ravistuksen voimakkuus</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Palauta ravistuksen voimakkuus</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Tukipainike</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Kun tämä kahvan painike on painettuna, tähtäys hidastuu 30 prosenttiin hienosäätöä varten.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Esikuormituspainike</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Kun tämä kahvan painike on painettuna, tasainen 1.6 N:n työntö kuormittaa kahvaa, mikä tasoittaa pieniä korjauksia.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Painovoiman kompensointi</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Kuinka suuren osan kahvan omasta painosta Falcon kannattelee, prosentteina normaalista painovoimasta.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Palauta painovoiman kompensointi</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Voimarajoitus</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Suurin voima, jonka Falcon kohdistaa kahvaan: 1–8 newtonia.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Palauta voimarajoitus</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibroi ulottuma</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mittaa, kuinka pitkälle kahva liikkuu. Siirrä se ulottuman jokaiseen reunaan neljän sekunnin ajan, jonka mittaus kestää. Voimat lepäävät sillä välin.</value></data>
 </root>

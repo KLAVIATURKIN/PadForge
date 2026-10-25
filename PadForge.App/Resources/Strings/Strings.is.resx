@@ -4384,4 +4384,82 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Stefna</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Skref</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Handfang</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Vinstri/hægri</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Upp/niður</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Inn/út</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Hnappur {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, hlaðið úr {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Safn Force Dimension keyrir aðeins í x64-útgáfu PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>Fann dhd64.dll en tókst ekki að hlaða því.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Þessi dhd64.dll er ekki safnið frá Force Dimension sem PadForge býst við.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Ekkert Force Dimension SDK er á þessari tölvu. Sæktu það af niðurhalssíðu Force Dimension eða veldu dhd64.dll þess.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>dragðu handfangið alla leið út og ýttu því svo alla leið inn til að finna upphafsstöðu</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>keyrir á {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>opið</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon-tæki er opið í öðru forriti, til dæmis FalconJoyForce eða verkfærum Force Dimension. Lokaðu því þar.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon-tækið er með annan rekil ({0}) og því getur safn Force Dimension ekki opnað það. Uppfærðu rekil Falcon-tækisins í Tækjastjórnun úr möppunni drivers\usb í SDK-möppu Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon-tæki er tengt án rekils. „Setja upp Falcon-rekil“ gefur því rekil frá Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon-tæki er tengt án rekils og SDK-mappan hefur engan rekilspakka til að gefa því. Settu Force Dimension SDK upp aftur.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Ekkert Falcon-tæki fannst. Tengdu það við rafmagn og USB-snúru.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Velja dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Hleður þessu eintaki af safni Force Dimension á undan öðrum. Eintökin sem SDK setur upp finnast án þess.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Söfn (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Setja upp Falcon-rekil</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Setur upp rekil frá Force Dimension, úr SDK-möppunni, á Falcon-tæki sem hefur engan. Windows gæti fyrst spurt hvort treysta eigi Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Sækja SDK frá Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Opnar niðurhalssíðu SDK frá Force Dimension í vafranum. PadForge hleður SDK sem þú setur upp og fylgir ekkert af því með.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Seiling: {0:0} mm til vinstri og hægri, {1:0} mm upp og niður, {2:0} mm inn og út.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kvörðun krefst þess að þetta Falcon-tæki sé opið. Kveiktu á „Stjórna Novint Falcon“ í stillingum og tengdu Falcon-tækið.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Færðu handfangið að hverri brún seilingarinnar…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kvarðað. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Sumir ásar færðust ekki nógu langt og halda fyrri seilingu. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Handfangið færðist ekki nógu langt og seilingin helst óbreytt. Færðu það að hverri brún á meðan yfirferðin stendur.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon-tækið lokaðist áður en yfirferðinni lauk.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Spilar leiki með Novint Falcon í gegnum SDK frá Force Dimension, sem þú setur upp frá Force Dimension. Handfangið er pinni, hnapparnir fjórir á handfanginu eru hnappar og PadForge setur titring og áhrif leiksins á handfangið sem kraft. Kraftsvörunarflipi hverrar raufar stillir tilfinningu Falcon-tækisins.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Stjórna Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Opnar hvert Falcon-tæki í gegnum dhd64.dll frá Force Dimension. Opið Falcon-tæki tilheyrir eingöngu PadForge, svo FalconJoyForce og verkfæri Force Dimension geta ekki opnað það meðan kveikt er á þessu. Þegar slökkt er á þessu lokar PadForge öllum Falcon-tækjum.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon-safn stillt á {0}. Eintak sem þegar er í notkun helst þar til PadForge ræsist aftur.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Set upp Falcon-rekil frá Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Rekilspakka Force Dimension fyrir Falcon, eða vörulista hans, vantar: {0}. Settu Force Dimension SDK upp aftur.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Ekkert Falcon-tæki er tengt.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon-tækið er með annan rekil ({0}) og því lætur PadForge það í friði. Tækjastjórnun getur skipt honum út fyrir rekil frá Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows setti ekki upp rekil Force Dimension. Ef Windows spyr hvort treysta eigi Force Dimension skaltu velja Setja upp.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Rekillinn er uppsettur en Falcon-tækið hefur ekki skipt yfir í hann. Taktu Falcon-tækið úr sambandi og settu það aftur í samband.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge reiknar hvern kraft á handfang Falcon-tækisins um þúsund sinnum á sekúndu, út frá stöðu handfangsins og því sem leikurinn spilar. Þessar stillingar tilheyra þessari rauf.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Endurstilla Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Tilfinning</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Stýripinni: staða handfangsins er pinninn og gormur togar það aftur í miðju. Miðun: hreyfing handfangsins hreyfir pinnann og ef handfanginu er haldið upp við vegginn á jaðrinum heldur snúningurinn áfram.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Stýripinni</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Miðun</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Miðjugormur</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Endurstilla miðjugorm</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Spyrnuhnappur</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Meðan haldið er inni þessum hnappi á handfanginu, og í fjórðung úr sekúndu eftir það, spyrnir titringur leiksins handfanginu í átt að þér. Titringur á öðrum tímum hristir handfangið.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Hnappur 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Hnappur 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Hnappur 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Hnappur 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Styrkur spyrnu</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Endurstilla styrk spyrnu</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Styrkur hristings</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Endurstilla styrk hristings</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Stuðningshnappur</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Meðan haldið er inni þessum hnappi á handfanginu hægir miðunin á sér í 30 prósent fyrir fínstillingar.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Forspennuhnappur</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Meðan haldið er inni þessum hnappi á handfanginu forspennir stöðugur 1.6 N þrýstingur handfangið, sem jafnar út litlar leiðréttingar.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Þyngdarjöfnun</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Hve mikið af eigin þyngd handfangsins Falcon-tækið ber uppi, í prósentum af staðalþyngdarafli.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Endurstilla þyngdarjöfnun</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Kraftmörk</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Mesti kraftur sem Falcon-tækið setur á handfangið, frá 1 til 8 njútonum.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Endurstilla kraftmörk</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kvarða seilingu</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mælir hve langt handfangið færist. Færðu það að hverri brún seilingarinnar þær fjórar sekúndur sem yfirferðin stendur. Kraftarnir hvíla á meðan.</value></data>
 </root>

@@ -3381,15 +3381,15 @@ try {
         # SERIAL and its SDL GUID and drew a Power section, and the NFC reader
         # and MIDI keyboard had Hide from Games ticked. A synthetic row
         # therefore gets what PadForge writes for a device it has just met:
-        # no serial, SDL GUID, display name or gun calibration, every
-        # per-device switch off, no HidHide instance ids and no peripheral
-        # outputs. The aux sensors and the touchpad shape go with the HasGyro,
+        # no serial, SDL GUID, display name, gun calibration or Falcon reach
+        # (#521), every per-device switch off, no HidHide instance ids and no
+        # peripheral outputs. The aux sensors and the touchpad shape go with the HasGyro,
         # HasAccel and HasTouchpad flags the callers clear and then turn back
         # on for the hardware each row stands in for. Emits nothing, so a
         # caller's return value stays the row alone.
         function Clear-SyntheticDeviceRecord($d) {
             $set = { param($tag, $val) $n = $d.SelectSingleNode($tag); if ($n) { $n.InnerText = "$val" } }
-            foreach ($tag in @("SerialNumber", "SdlGuid", "DisplayName", "GunCalibration")) { & $set $tag "" }
+            foreach ($tag in @("SerialNumber", "SdlGuid", "DisplayName", "GunCalibration", "FalconCalibration")) { & $set $tag "" }
             foreach ($tag in @("HidHideEnabled", "ConsumeInputEnabled", "ForceRawJoystickMode",
                                "QuickChargeEnabled", "HasAccelAux", "HasGyroAux")) { & $set $tag "false" }
             foreach ($tag in @("IdleDisconnectSeconds", "PeripheralOutputs", "CapTouchpadCount")) { & $set $tag 0 }

@@ -4335,4 +4335,82 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Richtung</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Schritt</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Griff</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Links/Rechts</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Oben/Unten</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Hinein/Heraus</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Taste {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, geladen aus {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Die Bibliothek von Force Dimension läuft nur in der x64-Version von PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll wurde gefunden, ließ sich aber nicht laden.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Diese dhd64.dll ist nicht die Bibliothek von Force Dimension, die PadForge erwartet.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Kein SDK von Force Dimension auf diesem PC. Laden Sie es auf der Download-Seite von Force Dimension herunter oder wählen Sie dessen dhd64.dll aus.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>Griff ganz herausziehen und dann ganz hineinschieben (Referenzfahrt)</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>läuft mit {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>geöffnet</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Ein Falcon ist in einem anderen Programm geöffnet, etwa FalconJoyForce oder den Tools von Force Dimension. Schließen Sie ihn dort.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Der Falcon verwendet einen anderen Treiber ({0}), daher kann die Bibliothek von Force Dimension ihn nicht öffnen. Aktualisieren Sie im Geräte-Manager den Treiber des Falcon über den Ordner drivers\usb im SDK-Ordner von Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Ein Falcon ist ohne Treiber angeschlossen. Mit „Falcon-Treiber installieren“ erhält er den Treiber von Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Ein Falcon ist ohne Treiber angeschlossen, und im SDK-Ordner fehlt ein Treiberpaket dafür. Installieren Sie das SDK von Force Dimension neu.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Kein Falcon gefunden. Schließen Sie Netzteil und USB-Kabel an.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll auswählen…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Lädt diese Kopie der Bibliothek von Force Dimension vor allen anderen. Die vom SDK installierten Kopien werden auch ohne sie gefunden.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Bibliotheken (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon-Treiber installieren</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Installiert den Treiber von Force Dimension aus dem SDK-Ordner auf einem Falcon, der noch keinen hat. Windows fragt möglicherweise zuerst, ob Force Dimension vertrauenswürdig ist.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>SDK von Force Dimension holen</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Öffnet die Download-Seite des SDK von Force Dimension im Browser. PadForge lädt das von Ihnen installierte SDK und liefert nichts davon mit.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Reichweite: {0:0} mm links/rechts, {1:0} mm oben/unten, {2:0} mm hinein/heraus.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Zum Kalibrieren muss dieser Falcon geöffnet sein. Aktivieren Sie in den Einstellungen „Novint Falcon ansteuern“ und schließen Sie den Falcon an.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Bewegen Sie den Griff an jeden Rand seiner Reichweite…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibriert. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Einige Achsen wurden nicht weit genug bewegt und behalten ihre alte Reichweite. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Der Griff wurde nicht weit genug bewegt, daher bleibt die Reichweite unverändert. Fahren Sie während des Durchlaufs an jeden Rand.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Der Falcon wurde geschlossen, bevor der Durchlauf endete.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Spielt Spiele mit einem Novint Falcon über das SDK von Force Dimension, das Sie bei Force Dimension installieren. Der Griff ist ein Stick, die vier Tasten am Griff sind Tasten, und PadForge legt Vibration und Effekte des Spiels als Kraft auf den Griff. Auf der Registerkarte „Force Feedback“ jedes Slots stellen Sie ein, wie sich der Falcon anfühlt.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon ansteuern</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Öffnet jeden Falcon über dhd64.dll von Force Dimension. Ein geöffneter Falcon gehört allein PadForge, daher können FalconJoyForce und die Tools von Force Dimension ihn nicht öffnen, solange dies aktiv ist. Ist es aus, schließt PadForge jeden Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon-Bibliothek auf {0} gesetzt. Eine bereits verwendete Kopie bleibt aktiv, bis PadForge neu startet.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Falcon-Treiber von Force Dimension wird installiert…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Das Falcon-Treiberpaket von Force Dimension oder sein Katalog fehlt: {0}. Installieren Sie das SDK von Force Dimension neu.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Kein Falcon angeschlossen.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Der Falcon verwendet einen anderen Treiber ({0}), daher lässt PadForge ihn unverändert. Im Geräte-Manager lässt er sich auf den Treiber von Force Dimension umstellen.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows hat den Treiber von Force Dimension nicht installiert. Fragt Windows, ob Force Dimension vertrauenswürdig ist, wählen Sie „Installieren“.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Der Treiber ist installiert, aber der Falcon nutzt ihn noch nicht. Ziehen Sie den Falcon ab und schließen Sie ihn wieder an.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge berechnet jede Kraft auf den Griff des Falcon etwa tausendmal pro Sekunde, aus der Position des Griffs und dem, was das Spiel ausgibt. Diese Einstellungen gelten für diesen Slot.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon zurücksetzen</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Verhalten</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: Die Position des Griffs ist der Stick, und eine Feder zieht ihn zur Mitte zurück. Zielen: Die Bewegung des Griffs bewegt den Stick, und wer den Griff am Rand gegen die Wand drückt, dreht weiter.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Zielen</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Zentrierfeder</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Zentrierfeder zurücksetzen</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Rückstoß-Taste</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Solange diese Griff-Taste gedrückt ist und eine Viertelsekunde danach, stößt die Vibration des Spiels den Griff zu Ihnen hin. Zu anderen Zeiten rüttelt die Vibration den Griff.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Taste 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Taste 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Taste 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Taste 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Rückstoßstärke</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Rückstoßstärke zurücksetzen</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Rüttelstärke</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Rüttelstärke zurücksetzen</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Stütz-Taste</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Solange diese Griff-Taste gedrückt ist, verlangsamt sich das Zielen für Feinkorrekturen auf 30 Prozent.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Vorspann-Taste</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Solange diese Griff-Taste gedrückt ist, spannt ein gleichmäßiger Druck von 1.6 N den Griff vor, was kleine Korrekturen glättet.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Schwerkraftausgleich</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Wie viel vom Eigengewicht des Griffs der Falcon trägt, in Prozent der Standardschwerkraft.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Schwerkraftausgleich zurücksetzen</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Kraftbegrenzung</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Die maximale Kraft, die der Falcon auf den Griff ausübt, von 1 bis 8 Newton.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Kraftbegrenzung zurücksetzen</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Reichweite kalibrieren</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Misst, wie weit sich der Griff bewegt. Fahren Sie vier Sekunden lang, solange der Durchlauf läuft, an jeden Rand der Reichweite. Die Kräfte pausieren währenddessen.</value></data>
 </root>

@@ -4356,4 +4356,82 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Norabidea</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Urratsa</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Heldulekua</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Ezker/Eskuin</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Gora/Behera</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Barrura/Kanpora</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>{0}. botoia</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, hemendik kargatua: {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension-en liburutegiak PadForge-ren x64 bertsioan soilik funtzionatzen du.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll aurkitu da, baina ezin izan da kargatu.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>dhd64.dll hori ez da PadForge-k espero duen Force Dimension liburutegia.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Ez dago Force Dimension SDK-rik ordenagailu honetan. Lortu ezazu Force Dimension-en deskarga-orritik, edo aukeratu bere dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>atera heldulekua guztiz, eta gero sartu guztiz, abiapuntura eramateko</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz-tan martxan</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>irekita</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon bat irekita dago beste programa batean, hala nola FalconJoyForce edo Force Dimension-en tresnetan. Itxi hor.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon beste kontrolatzaile batean dago ({0}), eta horregatik Force Dimension-en liburutegiak ezin du ireki. Gailu-kudeatzailean, eguneratu Falcon-aren kontrolatzailea Force Dimension-en SDK karpetako drivers\usb karpetatik.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon bat konektatuta dago, kontrolatzailerik gabe. Instalatu Falcon kontrolatzailea botoiak Force Dimension-ena ematen dio.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon bat konektatuta dago kontrolatzailerik gabe, eta SDK karpetan ez dago hari emateko kontrolatzaile-paketerik. Instalatu berriro Force Dimension-en SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Ez da Falcon-ik aurkitu. Konektatu bere korrontea eta USB kablea.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Aukeratu dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Force Dimension-en liburutegiaren kopia hau beste edozein baino lehen kargatzen du. SDK-k instalatzen dituen kopiak hura gabe ere aurkitzen dira.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Liburutegiak (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Instalatu Falcon kontrolatzailea</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Force Dimension-en kontrolatzailea instalatzen du, SDK karpetatik, kontrolatzailerik ez duen Falcon batean. Windows-ek Force Dimension-en fidatzen zaren galdetu dezake lehenik.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Lortu Force Dimension-en SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Force Dimension-en SDK deskarga-orria irekitzen du zure nabigatzailean. PadForge-k zuk instalatutako SDK kargatzen du, eta ez dakar batere.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Heina: {0:0} mm ezkerrera eta eskuinera, {1:0} mm gora eta behera, {2:0} mm barrura eta kanpora.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kalibratzeko, Falcon hau irekita egon behar da. Aktibatu Ezarpenetan Kontrolatu Novint Falcon eta konektatu Falcon-a.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Mugitu heldulekua bere heinaren ertz guztietara…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibratuta. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Ardatz batzuk ez dira nahikoa urrutira joan eta aurreko heina mantentzen dute. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Heldulekua ez da nahikoa urrutira joan, beraz heina lehen bezala geratzen da. Mugitu ertz guztietara miaketak irauten duen bitartean.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon itxi egin da miaketa amaitu aurretik.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Novint Falcon-ekin jolasten du Force Dimension-en SDK bidez, zeina Force Dimension-etik instalatzen baituzu. Heldulekua palanka bat da, heldulekuko lau botoiak botoiak dira, eta PadForge-k jokoaren bibrazioa eta efektuak indar gisa jartzen ditu heldulekuan. Zirrikitu bakoitzaren Indar-atzeraelikadura fitxak ezartzen du Falcon-ak nolako sentsazioa duen.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Kontrolatu Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Falcon bakoitza Force Dimension-en dhd64.dll bidez irekitzen du. Irekitako Falcon bat PadForge-rena soilik da, beraz FalconJoyForce-k eta Force Dimension-en tresnek ezin dute ireki hau aktibo dagoen bitartean. Desaktibatuta, PadForge-k Falcon guztiak ixten ditu.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon liburutegia {0} gisa ezarri da. Erabiltzen ari den kopiak bere horretan jarraitzen du PadForge berriro abiarazi arte.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Force Dimension-en Falcon kontrolatzailea instalatzen…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension-en Falcon kontrolatzaile-paketea edo bere katalogoa falta da: {0}. Instalatu berriro Force Dimension-en SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Ez dago Falcon-ik konektatuta.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon beste kontrolatzaile batean dago ({0}), beraz PadForge-k ez du ukitzen. Gailu-kudeatzaileak Force Dimension-enera alda dezake.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows-ek ez du Force Dimension-en kontrolatzailea instalatu. Windows-ek Force Dimension-en fidatzen zaren galdetzen badu, aukeratu Instalatu.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Kontrolatzailea instalatuta dago, baina Falcon ez da horretara pasa. Deskonektatu Falcon-a eta konektatu berriro.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge-k Falcon-aren heldulekuko indar guztiak segundoko mila aldiz inguru kalkulatzen ditu, heldulekua non dagoen eta jokoak zer jotzen duen kontuan hartuta. Ezarpen hauek zirrikitu honenak dira.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Berrezarri Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Sentsazioa</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: heldulekuaren posizioa da palanka, eta malguki batek erdira tiratzen du atzera. Xede-hartzea: heldulekuaren mugimenduak palanka mugitzen du, eta heldulekua ertzeko hormaren kontra edukitzeak biraka jarraitzen du.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Xede-hartzea</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Zentratze-malgukia</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Berrezarri zentratze-malgukia</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Atzera-bultzadaren botoia</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Heldulekuko botoi hau sakatuta dagoen bitartean, eta ondoren laurden segundoz, jokoaren bibrazioak heldulekua zure aldera bultzatzen du. Beste uneetan, bibrazioak heldulekua astintzen du.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>1. botoia</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>2. botoia</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>3. botoia</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>4. botoia</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Atzera-bultzadaren indarra</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Berrezarri atzera-bultzadaren indarra</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Astinduaren indarra</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Berrezarri astinduaren indarra</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Egonkortze-botoia</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Heldulekuko botoi hau sakatuta dagoen bitartean, xede-hartzea ehuneko 30era moteltzen da doikuntza fineterako.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Aurrekarga-botoia</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Heldulekuko botoi hau sakatuta dagoen bitartean, 1.6 N-ko bultzada egonkor batek heldulekua kargatzen du, eta horrek zuzenketa txikiak leuntzen ditu.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Grabitate-konpentsazioa</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon-ak heldulekuaren pisu propioaren zenbat eusten duen, grabitate estandarraren ehunekotan.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Berrezarri grabitate-konpentsazioa</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Indar-muga</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon-ak heldulekuan jartzen duen indar handiena, 1etik 8 newtonera.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Berrezarri indar-muga</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibratu heina</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Heldulekua zenbat urrutira mugitzen den neurtzen du. Mugitu bere heinaren ertz guztietara miaketak irauten duen lau segundoetan. Indarrak atseden hartzen dute bitartean.</value></data>
 </root>

@@ -4384,4 +4384,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>سمت</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>قدم</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>ہینڈل</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>بائیں/دائیں</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>اوپر/نیچے</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>اندر/باہر</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>بٹن {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}، {1} سے لوڈ ہوا</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension کی لائبریری صرف PadForge کے x64 ورژن میں چلتی ہے۔</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll مل گئی مگر لوڈ نہیں ہو سکی۔</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>یہ dhd64.dll وہ Force Dimension لائبریری نہیں ہے جس کی PadForge کو توقع ہے۔</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>اس پی سی پر Force Dimension SDK موجود نہیں ہے۔ اسے Force Dimension کے ڈاؤن لوڈ صفحے سے حاصل کریں، یا اس کی dhd64.dll منتخب کریں۔</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>ہینڈل کو پوری طرح باہر کھینچیں، پھر پوری طرح اندر دھکیلیں، تاکہ وہ ہوم ہو جائے</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz پر چل رہا ہے</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>کھلا ہے</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>ایک Falcon کسی دوسرے پروگرام میں کھلا ہے، جیسے FalconJoyForce یا Force Dimension کے اپنے ٹولز۔ اسے وہاں بند کریں۔</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon کسی دوسرے ڈرائیور ({0}) پر ہے، اس لیے Force Dimension کی لائبریری اسے کھول نہیں سکتی۔ ڈیوائس مینیجر میں Falcon کا ڈرائیور Force Dimension کے SDK فولڈر کے drivers\usb فولڈر سے اپ ڈیٹ کریں۔</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>ایک Falcon لگا ہوا ہے مگر اس کا کوئی ڈرائیور نہیں ہے۔ Falcon ڈرائیور انسٹال کریں اسے Force Dimension کا ڈرائیور دیتا ہے۔</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>ایک Falcon لگا ہوا ہے مگر اس کا کوئی ڈرائیور نہیں ہے، اور SDK فولڈر میں دینے کے لیے ڈرائیور پیکیج بھی نہیں ہے۔ Force Dimension کا SDK دوبارہ انسٹال کریں۔</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>کوئی Falcon نہیں ملا۔ اس کی پاور اور USB کیبل لگائیں۔</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll منتخب کریں…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Force Dimension کی لائبریری کی یہ کاپی دوسری کاپیوں سے پہلے لوڈ کرتا ہے۔ SDK جو کاپیاں انسٹال کرتا ہے وہ اس کے بغیر بھی مل جاتی ہیں۔</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|لائبریریاں (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon ڈرائیور انسٹال کریں</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>SDK فولڈر سے Force Dimension کا ڈرائیور اس Falcon پر انسٹال کرتا ہے جس کا کوئی ڈرائیور نہیں ہے۔ Windows پہلے پوچھ سکتا ہے کہ آیا Force Dimension پر بھروسا کرنا ہے۔</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension کا SDK حاصل کریں</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Force Dimension کے SDK کا ڈاؤن لوڈ صفحہ آپ کے براؤزر میں کھولتا ہے۔ PadForge وہ SDK لوڈ کرتا ہے جو آپ انسٹال کرتے ہیں، اور اس کا کوئی حصہ ساتھ نہیں دیتا۔</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>رینج: بائیں اور دائیں {0:0} mm، اوپر اور نیچے {1:0} mm، اندر اور باہر {2:0} mm۔</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>کیلیبریٹ کرنے کے لیے اس Falcon کا کھلا ہونا ضروری ہے۔ ترتیبات میں Novint Falcon چلائیں آن کریں اور Falcon لگائیں۔</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>ہینڈل کو اس کی رینج کے ہر کنارے تک لے جائیں…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>کیلیبریشن مکمل ہوئی۔ {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>کچھ محور کافی دور تک نہیں گئے اور اپنی پرانی رینج پر ہی رہیں گے۔ {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>ہینڈل کافی دور تک نہیں گیا، اس لیے رینج پہلے جیسی رہے گی۔ سوئپ چلنے کے دوران اسے ہر کنارے تک لے جائیں۔</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>سوئپ مکمل ہونے سے پہلے Falcon بند ہو گیا۔</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Force Dimension کے SDK کے ذریعے Novint Falcon سے گیمز کھیلتا ہے، جسے آپ Force Dimension سے انسٹال کرتے ہیں۔ ہینڈل ایک اسٹک ہے، گرفت کے چار بٹن بٹن ہیں، اور PadForge گیم کے رمبل اور ایفیکٹس کو قوت کی شکل میں ہینڈل پر لگاتا ہے۔ ہر سلاٹ کے فورس فیڈبیک ٹیب میں طے ہوتا ہے کہ Falcon کیسا محسوس ہو۔</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon چلائیں</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>ہر Falcon کو Force Dimension کی dhd64.dll کے ذریعے کھولتا ہے۔ کھلا ہوا Falcon صرف PadForge کا ہوتا ہے، اس لیے یہ آن ہونے پر FalconJoyForce اور Force Dimension کے ٹولز اسے نہیں کھول سکتے۔ آف ہونے پر PadForge ہر Falcon بند کر دیتا ہے۔</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon لائبریری {0} پر سیٹ ہو گئی۔ جو کاپی پہلے سے استعمال میں ہے وہ PadForge دوبارہ شروع ہونے تک رہے گی۔</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Force Dimension کا Falcon ڈرائیور انسٹال ہو رہا ہے…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension کا Falcon ڈرائیور پیکیج، یا اس کا کیٹلاگ، موجود نہیں ہے: {0}۔ Force Dimension کا SDK دوبارہ انسٹال کریں۔</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>کوئی Falcon لگا ہوا نہیں ہے۔</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon کسی دوسرے ڈرائیور ({0}) پر ہے، اس لیے PadForge اسے نہیں چھیڑتا۔ ڈیوائس مینیجر میں اسے Force Dimension کے ڈرائیور پر تبدیل کیا جا سکتا ہے۔</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows نے Force Dimension کا ڈرائیور انسٹال نہیں کیا۔ اگر Windows پوچھے کہ آیا Force Dimension پر بھروسا کرنا ہے تو Install منتخب کریں۔</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>ڈرائیور انسٹال ہو گیا ہے، مگر Falcon اس پر منتقل نہیں ہوا۔ Falcon کو نکال کر دوبارہ لگائیں۔</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge Falcon کے ہینڈل پر ہر قوت کا حساب فی سیکنڈ تقریباً ایک ہزار بار لگاتا ہے، اس بنیاد پر کہ ہینڈل کہاں ہے اور گیم کیا چلا رہا ہے۔ یہ ترتیبات اس سلاٹ کی ہیں۔</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon ری سیٹ کریں</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>محسوس</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>جوائے اسٹک: ہینڈل کی پوزیشن ہی اسٹک ہے، اور ایک اسپرنگ اسے واپس مرکز کی طرف کھینچتا ہے۔ Aim: ہینڈل کی حرکت اسٹک کو حرکت دیتی ہے، اور ہینڈل کو اس کے کنارے کی دیوار سے لگائے رکھنے پر گھماؤ جاری رہتا ہے۔</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>جوائے اسٹک</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>نشانہ</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>مرکز کی طرف کھینچنے والا اسپرنگ</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>مرکز کی طرف کھینچنے والا اسپرنگ ری سیٹ کریں</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>کک بٹن</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>جب تک یہ گرفت کا بٹن دبا رہتا ہے، اور اس کے بعد ایک چوتھائی سیکنڈ تک، گیم کا رمبل ہینڈل کو آپ کی طرف جھٹکا دیتا ہے۔ دوسرے اوقات میں رمبل ہینڈل کو ہلاتا ہے۔</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>بٹن 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>بٹن 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>بٹن 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>بٹن 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>کک کی طاقت</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>کک کی طاقت ری سیٹ کریں</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>ہلانے کی طاقت</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>ہلانے کی طاقت ری سیٹ کریں</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>بریس بٹن</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>جب تک یہ گرفت کا بٹن دبا رہتا ہے، باریک ایڈجسٹمنٹ کے لیے نشانہ 30 فیصد رفتار پر سست ہو جاتا ہے۔</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>پری لوڈ بٹن</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>جب تک یہ گرفت کا بٹن دبا رہتا ہے، 1.6 N کا ایک مستقل دھکا ہینڈل پر لگا رہتا ہے، جو چھوٹی درستیوں کو ہموار کرتا ہے۔</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>کشش ثقل کی تلافی</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon ہینڈل کے اپنے وزن کا کتنا حصہ اوپر تھامتا ہے، معیاری کشش ثقل کے فیصد میں۔</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>کشش ثقل کی تلافی ری سیٹ کریں</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>قوت کی حد</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon ہینڈل پر زیادہ سے زیادہ جتنی قوت لگاتا ہے، 1 سے 8 نیوٹن تک۔</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>قوت کی حد ری سیٹ کریں</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>رینج کیلیبریٹ کریں</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ناپتا ہے کہ ہینڈل کتنی دور تک جاتا ہے۔ سوئپ چلنے کے چار سیکنڈ کے دوران اسے اپنی رینج کے ہر کنارے تک لے جائیں۔ اس دوران قوتیں رکی رہتی ہیں۔</value></data>
 </root>

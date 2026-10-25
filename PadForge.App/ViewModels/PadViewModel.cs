@@ -4517,6 +4517,90 @@ namespace PadForge.ViewModels
                 WheelRpmLeds = false;
             });
 
+        // ─── Novint Falcon (#521), persisted in the PadSetting Falcon* fields ───
+
+        private int _falconFeel;
+        /// <summary>0 Joystick, 1 Aim (<see cref="Common.Input.Falcon.FalconFeel"/>).</summary>
+        public int FalconFeel
+        {
+            get => _falconFeel;
+            set
+            {
+                if (!SetProperty(ref _falconFeel, Math.Clamp(value, 0, 1))) return;
+                OnPropertyChanged(nameof(FalconIsJoystick));
+                OnPropertyChanged(nameof(FalconIsAim));
+            }
+        }
+
+        /// <summary>The Spring row shows for the Joystick feel, and the Brace
+        /// and Preload rows for the Aim feel, the feels that read them.</summary>
+        public bool FalconIsJoystick => _falconFeel == 0;
+        public bool FalconIsAim => _falconFeel == 1;
+
+        private int _falconSpring = 100;
+        /// <summary>The Joystick feel's spring, percent of 3 N.</summary>
+        public int FalconSpring { get => _falconSpring; set => SetProperty(ref _falconSpring, Math.Clamp(value, 0, 200)); }
+
+        private int _falconKickButton = 1;
+        /// <summary>The Kick button, 1 to 4, 0 for none.</summary>
+        public int FalconKickButton { get => _falconKickButton; set => SetProperty(ref _falconKickButton, Math.Clamp(value, 0, 4)); }
+
+        private int _falconKick = 100;
+        public int FalconKick { get => _falconKick; set => SetProperty(ref _falconKick, Math.Clamp(value, 0, 200)); }
+
+        private int _falconShake = 100;
+        public int FalconShake { get => _falconShake; set => SetProperty(ref _falconShake, Math.Clamp(value, 0, 200)); }
+
+        private int _falconBraceButton;
+        /// <summary>The Aim feel's Brace button, 1 to 4, 0 for none.</summary>
+        public int FalconBraceButton { get => _falconBraceButton; set => SetProperty(ref _falconBraceButton, Math.Clamp(value, 0, 4)); }
+
+        private int _falconPreloadButton;
+        /// <summary>The Aim feel's Preload button, 1 to 4, 0 for none.</summary>
+        public int FalconPreloadButton { get => _falconPreloadButton; set => SetProperty(ref _falconPreloadButton, Math.Clamp(value, 0, 4)); }
+
+        private int _falconGravity = 100;
+        /// <summary>Gravity compensation, percent of standard gravity.</summary>
+        public int FalconGravity { get => _falconGravity; set => SetProperty(ref _falconGravity, Math.Clamp(value, 0, 200)); }
+
+        private int _falconForceCap = 8;
+        /// <summary>The force cap in newtons.</summary>
+        public int FalconForceCap { get => _falconForceCap; set => SetProperty(ref _falconForceCap, Math.Clamp(value, 1, 8)); }
+
+        private string _falconCalibrationStatus = string.Empty;
+        /// <summary>The Calibrate row's line: the reach in use, a sweep
+        /// running, or how the last sweep went.</summary>
+        public string FalconCalibrationStatus { get => _falconCalibrationStatus; set => SetProperty(ref _falconCalibrationStatus, value ?? string.Empty); }
+
+        /// <summary>The Calibrate button, for the window to start a sweep on
+        /// the selected Falcon.</summary>
+        public event EventHandler FalconCalibrateRequested;
+
+        private RelayCommand _falconCalibrateCommand;
+        public RelayCommand FalconCalibrateCommand =>
+            _falconCalibrateCommand ??= new RelayCommand(() => FalconCalibrateRequested?.Invoke(this, EventArgs.Empty));
+
+        private RelayCommand _resetFalconSpringCommand, _resetFalconKickCommand, _resetFalconShakeCommand,
+            _resetFalconGravityCommand, _resetFalconForceCapCommand, _resetFalconAllCommand;
+        public RelayCommand ResetFalconSpringCommand => _resetFalconSpringCommand ??= new RelayCommand(() => FalconSpring = 100);
+        public RelayCommand ResetFalconKickCommand => _resetFalconKickCommand ??= new RelayCommand(() => FalconKick = 100);
+        public RelayCommand ResetFalconShakeCommand => _resetFalconShakeCommand ??= new RelayCommand(() => FalconShake = 100);
+        public RelayCommand ResetFalconGravityCommand => _resetFalconGravityCommand ??= new RelayCommand(() => FalconGravity = 100);
+        public RelayCommand ResetFalconForceCapCommand => _resetFalconForceCapCommand ??= new RelayCommand(() => FalconForceCap = 8);
+        public RelayCommand ResetFalconAllCommand =>
+            _resetFalconAllCommand ??= new RelayCommand(() =>
+            {
+                FalconFeel = 0;
+                FalconSpring = 100;
+                FalconKickButton = 1;
+                FalconKick = 100;
+                FalconShake = 100;
+                FalconBraceButton = 0;
+                FalconPreloadButton = 0;
+                FalconGravity = 100;
+                FalconForceCap = 8;
+            });
+
         private ICommand _resetForceAllCommand;
         public ICommand ResetForceAllCommand => _resetForceAllCommand ??= new RelayCommand(() =>
         {

@@ -4384,4 +4384,82 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Yön</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Adım</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Tutamak</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Sol/Sağ</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Yukarı/Aşağı</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>İçeri/Dışarı</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Düğme {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, {1} konumundan yüklendi</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension'ın kitaplığı yalnızca PadForge'un x64 sürümünde çalışır.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll bulundu ama yüklenemedi.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Bu dhd64.dll, PadForge'un beklediği Force Dimension kitaplığı değil.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Bu bilgisayarda Force Dimension SDK yok. Force Dimension'ın indirme sayfasından edinin veya dhd64.dll dosyasını seçin.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>tutamağı sonuna kadar dışarı çekip sonuna kadar içeri itin, başlangıç konumuna gelsin</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz hızında çalışıyor</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>açık</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Bir Falcon başka bir programda açık, örneğin FalconJoyForce veya Force Dimension'ın kendi araçlarında. Orada kapatın.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon başka bir sürücüde ({0}), bu yüzden Force Dimension'ın kitaplığı onu açamıyor. Aygıt Yöneticisi'nde Falcon'un sürücüsünü, Force Dimension SDK klasöründeki drivers\usb klasöründen güncelleyin.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Bir Falcon takılı ama sürücüsü yok. Falcon sürücüsünü kur düğmesi ona Force Dimension'ın sürücüsünü verir.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Bir Falcon takılı ama sürücüsü yok ve SDK klasöründe ona verilecek sürücü paketi de yok. Force Dimension SDK'yı yeniden kurun.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon bulunamadı. Güç kablosunu ve USB kablosunu takın.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll seç…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Force Dimension kitaplığının bu kopyasını diğerlerinden önce yükler. SDK'nın kurduğu kopyalar bu olmadan da bulunur.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Kitaplıklar (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon sürücüsünü kur</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Force Dimension'ın sürücüsünü SDK klasöründen, sürücüsü olmayan bir Falcon'a kurar. Windows önce Force Dimension'a güvenip güvenmediğinizi sorabilir.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension SDK'yı al</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Force Dimension'ın SDK indirme sayfasını tarayıcınızda açar. PadForge sizin kurduğunuz SDK'yı yükler, SDK'nın hiçbir parçasını içermez.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Erişim: sol-sağ {0:0} mm, yukarı-aşağı {1:0} mm, içeri-dışarı {2:0} mm.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kalibrasyon için bu Falcon'un açık olması gerekir. Ayarlar'da Novint Falcon'u kullan seçeneğini açın ve Falcon'u takın.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Tutamağı erişim alanının her kenarına götürün…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibre edildi. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Bazı eksenler yeterince uzağa gitmedi ve eski erişimlerini koruyor. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Tutamak yeterince uzağa gitmedi, bu yüzden erişim eskisi gibi kaldı. Tarama sürerken tutamağı her kenara götürün.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon, tarama bitmeden kapandı.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Novint Falcon ile oyun oynamayı, Force Dimension'dan kuracağınız Force Dimension SDK üzerinden sağlar. Tutamak bir çubuk olur, tutamaktaki dört düğme birer düğme olur ve PadForge oyunun titreşimini ve efektlerini tutamağa kuvvet olarak verir. Falcon'un nasıl hissettireceğini her yuvanın Kuvvet geri bildirimi sekmesi ayarlar.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon'u kullan</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Her Falcon'u Force Dimension'ın dhd64.dll dosyasıyla açar. Açık bir Falcon yalnızca PadForge'a aittir, bu yüzden bu açıkken FalconJoyForce ve Force Dimension'ın araçları onu açamaz. Kapalıyken PadForge her Falcon'u kapatır.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon kitaplığı {0} olarak ayarlandı. Kullanımdaki kopya, PadForge yeniden başlayana kadar kalır.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Force Dimension'ın Falcon sürücüsü kuruluyor…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension'ın Falcon sürücü paketi veya kataloğu eksik: {0}. Force Dimension SDK'yı yeniden kurun.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Takılı Falcon yok.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon başka bir sürücüde ({0}), bu yüzden PadForge ona dokunmuyor. Aygıt Yöneticisi onu Force Dimension'ın sürücüsüne değiştirebilir.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows, Force Dimension'ın sürücüsünü kurmadı. Windows Force Dimension'a güvenip güvenmediğinizi sorarsa Kur'u seçin.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Sürücü kurulu ama Falcon ona geçmedi. Falcon'u çıkarıp yeniden takın.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge, Falcon'un tutamağındaki her kuvveti saniyede yaklaşık bin kez hesaplar. Hesap tutamağın konumuna ve oyunun oynattığına dayanır. Bu ayarlar bu yuvaya aittir.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon'u sıfırla</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>His</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: tutamağın konumu çubuktur ve bir yay onu merkeze geri çeker. Nişan: tutamağın hareketi çubuğu hareket ettirir ve tutamağı kenardaki duvara dayamak dönmeyi sürdürür.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Nişan</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Merkezleme yayı</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Merkezleme yayını sıfırla</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Tepme düğmesi</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Bu kavrama düğmesi basılıyken ve sonrasında çeyrek saniye boyunca oyunun titreşimi tutamağı size doğru iter. Diğer zamanlarda titreşim tutamağı sallar.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Düğme 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Düğme 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Düğme 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Düğme 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Tepme gücü</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Tepme gücünü sıfırla</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Sallama gücü</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Sallama gücünü sıfırla</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Sabitleme düğmesi</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Bu kavrama düğmesi basılıyken nişan, ince ayar için yüzde 30 hıza yavaşlar.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Ön yük düğmesi</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Bu kavrama düğmesi basılıyken 1.6 N'luk sabit bir itme tutamağı yükler ve küçük düzeltmeleri yumuşatır.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Yerçekimi telafisi</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon'un tutamağın kendi ağırlığının ne kadarını taşıdığı, standart yerçekiminin yüzdesi olarak.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Yerçekimi telafisini sıfırla</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Kuvvet sınırı</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon'un tutamağa uyguladığı en yüksek kuvvet, 1 ile 8 newton arasında.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Kuvvet sınırını sıfırla</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Erişimi kalibre et</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Tutamağın ne kadar uzağa gittiğini ölçer. Tarama sürdüğü dört saniye boyunca tutamağı erişim alanının her kenarına götürün. Bu sırada kuvvetler durur.</value></data>
 </root>

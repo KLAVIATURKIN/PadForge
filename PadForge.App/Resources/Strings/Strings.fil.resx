@@ -4177,4 +4177,82 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direksyon</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Hakbang</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Handle</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Kaliwa/Kanan</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Itaas/Ibaba</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Papasok/Palabas</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Button {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, na-load mula sa {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Sa x64 build lang ng PadForge tumatakbo ang library ng Force Dimension.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>Nakita ang dhd64.dll pero hindi ito ma-load.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Ang dhd64.dll na iyon ay hindi ang library ng Force Dimension na inaasahan ng PadForge.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Walang Force Dimension SDK sa PC na ito. Kunin ito sa download page ng Force Dimension, o piliin ang dhd64.dll nito.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>hilahin palabas ang handle hanggang dulo, saka itulak papasok hanggang dulo, para i-home ito</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>tumatakbo sa {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>bukas</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>May nakabukas na Falcon sa ibang program, tulad ng FalconJoyForce o ng sariling mga tool ng Force Dimension. Isara ito roon.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Nasa ibang driver ang Falcon ({0}), kaya hindi ito mabuksan ng library ng Force Dimension. Sa Device Manager, i-update ang driver ng Falcon mula sa folder na drivers\usb sa SDK folder ng Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>May nakasaksak na Falcon na walang driver. Ibibigay dito ng I-install ang Falcon Driver ang driver ng Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>May nakasaksak na Falcon na walang driver, at walang driver package sa SDK folder na maibibigay dito. I-reinstall ang SDK ng Force Dimension.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Walang nakitang Falcon. Isaksak ang power at USB cable nito.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Pumili ng dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Nilo-load ang kopyang ito ng library ng Force Dimension bago ang iba. Nahahanap ang mga kopyang ini-install ng SDK kahit wala ito.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Mga Library (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>I-install ang Falcon Driver</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Ini-install ang driver ng Force Dimension, mula sa SDK folder, sa Falcon na walang driver. Maaaring itanong muna ng Windows kung pagkakatiwalaan ang Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Kunin ang SDK ng Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Binubuksan sa browser mo ang download page ng SDK ng Force Dimension. Nilo-load ng PadForge ang SDK na ini-install mo at wala itong ibinibigay na bahagi nito.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Abot: {0:0} mm kaliwa at kanan, {1:0} mm pataas at pababa, {2:0} mm papasok at palabas.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kailangang bukas ang Falcon na ito para makapag-calibrate. I-on ang Kontrolin ang Novint Falcon sa Settings at isaksak ang Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Igalaw ang handle sa bawat gilid ng abot nito…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Na-calibrate. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>May mga axis na hindi umabot nang sapat at nananatili ang dating abot. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Hindi umabot nang sapat ang handle, kaya nananatili ang abot gaya ng dati. Igalaw ito sa bawat gilid habang tumatakbo ang sweep.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Nagsara ang Falcon bago natapos ang sweep.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Naglalaro gamit ang Novint Falcon sa pamamagitan ng SDK ng Force Dimension, na ini-install mo mula sa Force Dimension. Stick ang handle, mga button ang apat na button ng grip, at inilalagay ng PadForge ang rumble at mga effect ng laro sa handle bilang force. Itinatakda ng Force Feedback tab ng bawat slot kung paano ang pakiramdam ng Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Kontrolin ang Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Binubuksan ang bawat Falcon sa pamamagitan ng dhd64.dll ng Force Dimension. Sa PadForge lang ang nakabukas na Falcon, kaya hindi ito mabubuksan ng FalconJoyForce at ng mga tool ng Force Dimension habang naka-on ito. Kapag naka-off, isinasara ng PadForge ang bawat Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Itinakda ang Falcon library sa {0}. Mananatili ang kopyang gamit na hanggang magsimulang muli ang PadForge.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Ini-install ang driver ng Force Dimension para sa Falcon…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Nawawala ang driver package ng Force Dimension para sa Falcon, o ang catalog nito: {0}. I-reinstall ang SDK ng Force Dimension.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Walang nakasaksak na Falcon.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Nasa ibang driver ang Falcon ({0}), kaya hindi ito ginagalaw ng PadForge. Mababago ito sa driver ng Force Dimension sa Device Manager.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Hindi na-install ng Windows ang driver ng Force Dimension. Kung itanong ng Windows kung pagkakatiwalaan ang Force Dimension, piliin ang Install.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Naka-install na ang driver, pero hindi pa lumilipat dito ang Falcon. Hugutin ang Falcon at isaksak muli.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>Kinukuwenta ng PadForge ang bawat force sa handle ng Falcon nang humigit-kumulang isang libong beses kada segundo, mula sa posisyon ng handle at sa pinapatugtog ng laro. Para sa slot na ito ang mga setting na ito.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>I-reset ang Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Pakiramdam</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: ang posisyon ng handle ang stick, at hinihila ito pabalik sa gitna ng isang spring. Aim: ang galaw ng handle ang gumagalaw sa stick, at ang pagdiin ng handle sa pader sa gilid nito ay patuloy na umiikot.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Aim</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Centering Spring</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>I-reset ang Centering Spring</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Kick Button</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Habang hawak ang grip button na ito, at sa loob ng isang-kapat na segundo pagkatapos, sinisipa ng rumble ng laro ang handle papunta sa iyo. Ang rumble sa ibang pagkakataon ay nagpapanginig sa handle.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Button 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Button 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Button 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Button 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Lakas ng Kick</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>I-reset ang Lakas ng Kick</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Lakas ng Shake</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>I-reset ang Lakas ng Shake</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Brace Button</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Habang hawak ang grip button na ito, bumabagal ang aim sa 30 porsiyento para sa pinong pag-aayos.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Preload Button</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Habang hawak ang grip button na ito, isang tuluy-tuloy na 1.6 N na tulak ang nagpe-preload sa handle, na nagpapakinis sa maliliit na pagwawasto.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Gravity Compensation</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Gaano karami sa sariling bigat ng handle ang sinusuportahan ng Falcon, sa porsiyento ng karaniwang gravity.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>I-reset ang Gravity Compensation</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Force Limit</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Pinakamalakas na force na inilalagay ng Falcon sa handle, mula 1 hanggang 8 newton.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>I-reset ang Force Limit</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>I-calibrate ang Abot</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Sinusukat kung gaano kalayo ang nilalakbay ng handle. Igalaw ito sa bawat gilid ng abot nito sa loob ng apat na segundong tumatakbo ang sweep. Humihinto muna ang mga force.</value></data>
 </root>

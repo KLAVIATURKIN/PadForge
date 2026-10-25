@@ -4384,4 +4384,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Посока</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Стъпка</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Ръкохватка</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Ляво/дясно</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Нагоре/надолу</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Навътре/навън</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Бутон {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, зареден от {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Библиотеката на Force Dimension работи само в x64 версията на PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll е намерен, но не може да бъде зареден.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Този dhd64.dll не е библиотеката на Force Dimension, която PadForge очаква.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>На този компютър няма Force Dimension SDK. Вземете го от страницата за изтегляне на Force Dimension или изберете неговия dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>издърпайте ръкохватката докрай навън, после я бутнете докрай навътре, за да се нулира позицията</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>работи на {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>отворено</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon е отворен в друга програма, например FalconJoyForce или собствените инструменти на Force Dimension. Затворете го там.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon е с друг драйвер ({0}), затова библиотеката на Force Dimension не може да го отвори. В Диспечер на устройствата обновете драйвера на Falcon от папката drivers\usb в папката на SDK на Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon е включен без драйвер. Инсталиране на драйвер за Falcon му дава драйвера на Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon е включен без драйвер, а в папката на SDK няма драйверен пакет, който да му се даде. Инсталирайте отново SDK на Force Dimension.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Не е намерен Falcon. Включете захранването и USB кабела му.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Избор на dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Зарежда това копие на библиотеката на Force Dimension преди всички други. Копията, които SDK инсталира, се намират и без това.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Библиотеки (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Инсталиране на драйвер за Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Инсталира драйвера на Force Dimension от папката на SDK за Falcon, който няма драйвер. Windows може първо да попита дали да се довери на Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Вземи SDK на Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Отваря страницата за изтегляне на SDK на Force Dimension в браузъра ви. PadForge зарежда SDK, който инсталирате, и не съдържа нищо от него.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Обхват: {0:0} мм наляво и надясно, {1:0} мм нагоре и надолу, {2:0} мм навътре и навън.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Калибрирането изисква този Falcon да е отворен. Включете Управление на Novint Falcon в настройките и включете Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Преместете ръкохватката до всеки край на обхвата ѝ…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Калибрирането е завършено. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Някои оси не изминаха достатъчно голямо разстояние и запазват стария си обхват. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Ръкохватката не измина достатъчно голямо разстояние, затова обхватът остава какъвто беше. Преместете я до всеки край, докато трае обхождането.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon се затвори, преди обхождането да завърши.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Играйте с Novint Falcon чрез SDK на Force Dimension, който инсталирате от Force Dimension. Ръкохватката е стик, четирите бутона на захвата са бутони, а PadForge прилага вибрацията и ефектите от играта върху ръкохватката като сила. Разделът за силова обратна връзка на всеки слот определя усещането от Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Управление на Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Отваря всеки Falcon чрез dhd64.dll на Force Dimension. Отвореният Falcon принадлежи само на PadForge, затова FalconJoyForce и инструментите на Force Dimension не могат да го отворят, докато това е включено. Когато е изключено, PadForge затваря всеки Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Библиотеката за Falcon е зададена на {0}. Вече използваното копие остава до следващото стартиране на PadForge.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Инсталиране на драйвера на Force Dimension за Falcon…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Липсва драйверният пакет на Force Dimension за Falcon или неговият каталог: {0}. Инсталирайте отново SDK на Force Dimension.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Няма включен Falcon.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon е с друг драйвер ({0}), затова PadForge не го пипа. Диспечерът на устройствата може да го смени с драйвера на Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows не инсталира драйвера на Force Dimension. Ако Windows попита дали да се довери на Force Dimension, изберете Инсталиране.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Драйверът е инсталиран, но Falcon не е преминал към него. Извадете Falcon и го включете отново.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge изчислява всяка сила върху ръкохватката на Falcon около хиляда пъти в секунда, според положението на ръкохватката и онова, което играе играта. Тези настройки са за този слот.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Нулиране на Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Усещане</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Джойстик: положението на ръкохватката е стикът, а пружина я връща към центъра. Прицелване: движението на ръкохватката движи стика, а държането ѝ до стената в края на обхвата продължава да върти.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Джойстик</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Прицелване</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Центрираща пружина</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Нулиране на центриращата пружина</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Бутон за удар</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Докато този бутон на захвата е натиснат и още четвърт секунда след това, вибрацията от играта удря ръкохватката към вас. В други моменти вибрацията я разклаща.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Бутон 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Бутон 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Бутон 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Бутон 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Сила на удара</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Нулиране на силата на удара</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Сила на разклащането</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Нулиране на силата на разклащането</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Бутон за опора</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Докато този бутон на захвата е натиснат, прицелването се забавя до 30 процента за фини корекции.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Бутон за предварително натоварване</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Докато този бутон на захвата е натиснат, постоянен натиск от 1.6 N натоварва ръкохватката, което изглажда малките корекции.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Компенсация на гравитацията</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Каква част от собственото тегло на ръкохватката Falcon поддържа, в проценти от стандартната гравитация.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Нулиране на компенсацията на гравитацията</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Ограничение на силата</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Най-голямата сила, с която Falcon въздейства на ръкохватката, от 1 до 8 нютона.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Нулиране на ограничението на силата</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Калибриране на обхвата</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Измерва докъде стига ръкохватката. Преместете я до всеки край на обхвата ѝ за четирите секунди, докато трае обхождането. През това време силите са изключени.</value></data>
 </root>

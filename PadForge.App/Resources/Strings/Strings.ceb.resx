@@ -3318,4 +3318,81 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direksyon</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Lakang</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Kuptanan</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Wala/Tuo</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Taas/Ubos</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Sulod/Gawas</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Button {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, gi-load gikan sa {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Ang library sa Force Dimension modagan lang sa x64 nga build sa PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>Nakit-an ang dhd64.dll apan dili kini ma-load.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Kana nga dhd64.dll dili mao ang library sa Force Dimension nga gipaabot sa PadForge.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Walay Force Dimension SDK niini nga PC. Kuhaa kini sa download page sa Force Dimension, o pilia ang dhd64.dll niini.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>bira ang kuptanan hangtod sa gawas, dayon iduso kini hangtod sa sulod, aron mahibal-an sa device ang posisyon niini</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>nagdagan sa {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>bukas</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Usa ka Falcon ang bukas sa laing programa, sama sa FalconJoyForce o sa kaugalingong mga tool sa Force Dimension. Isira kini didto.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Ang Falcon anaa sa laing driver ({0}), busa dili kini maablihan sa library sa Force Dimension. Sa Device Manager, i-update ang driver sa Falcon gikan sa drivers\usb nga folder sulod sa SDK folder sa Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Usa ka Falcon ang nakasaksak nga walay driver. Ang "I-install ang Falcon driver" mohatag niini sa driver sa Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Usa ka Falcon ang nakasaksak nga walay driver, ug ang SDK folder walay driver package nga ikahatag niini. I-install pag-usab ang SDK sa Force Dimension.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Walay Falcon nga nakit-an. Isaksak ang power ug ang USB cable niini.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Pili og dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Kini nga kopya sa library sa Force Dimension ang unang i-load, una sa bisan unsang uban. Ang mga kopya nga gi-install sa SDK makit-an bisan kung wala kini.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Mga library (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>I-install ang Falcon driver</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Mag-install sa driver sa Force Dimension, gikan sa SDK folder, sa Falcon nga walay driver. Mahimong mangutana una ang Windows kung saligan ba ang Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Kuhaa ang SDK sa Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Moabli sa download page sa SDK sa Force Dimension sa imong browser. Ang PadForge mo-load sa SDK nga imong i-install ug walay bahin niini nga iyang gilakip.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Abot: {0:0} mm wala ug tuo, {1:0} mm taas ug ubos, {2:0} mm sulod ug gawas.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Aron ma-calibrate, kinahanglan bukas kini nga Falcon. I-on ang "Kontrolaha ang Novint Falcon" sa Mga setting ug isaksak ang Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Ilihok ang kuptanan ngadto sa matag ngilit sa abot niini…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Na-calibrate na. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Ang ubang axis wala makalihok og igo ka layo ug magpabilin ang ilang daan nga abot. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Ang kuptanan wala makalihok og igo ka layo, busa ang abot magpabilin sama kaniadto. Ilihok kini ngadto sa matag ngilit samtang nagdagan ang pagsukod.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Nasira ang Falcon sa wala pa mahuman ang pagsukod.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Magdula og mga dula gamit ang Novint Falcon pinaagi sa SDK sa Force Dimension, nga imong i-install gikan sa Force Dimension. Ang kuptanan usa ka stick, ang upat ka button sa gunitanan mga button, ug ang PadForge mobutang sa rumble ug mga epekto sa dula ngadto sa kuptanan isip kusog. Ang Force feedback nga tab sa matag slot mo-set kung unsaon pagbati sa Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Kontrolaha ang Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Moabli sa matag Falcon pinaagi sa dhd64.dll sa Force Dimension. Ang bukas nga Falcon iya lang sa PadForge, busa ang FalconJoyForce ug ang mga tool sa Force Dimension dili makaabli niini samtang naka-on kini. Kung naka-off, isira sa PadForge ang tanang Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Ang Falcon library gi-set sa {0}. Ang kopya nga gigamit na magpabilin hangtod magsugod pag-usab ang PadForge.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Nag-install sa Falcon driver sa Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Ang Falcon driver package sa Force Dimension, o ang catalog niini, nawala: {0}. I-install pag-usab ang SDK sa Force Dimension.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Walay Falcon nga nakasaksak.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Ang Falcon anaa sa laing driver ({0}), busa pasagdan kini sa PadForge. Mausab kini sa Device Manager ngadto sa driver sa Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Wala gi-install sa Windows ang driver sa Force Dimension. Kung mangutana ang Windows kung saligan ba ang Force Dimension, pilia ang Install.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Na-install na ang driver, apan wala pa mobalhin ang Falcon niini. Tangtanga ang saksak sa Falcon ug isaksak kini pag-usab.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>Ang PadForge nagkuwenta sa matag kusog sa kuptanan sa Falcon mga usa ka libo ka higayon kada segundo, base sa posisyon sa kuptanan ug sa gipadagan sa dula. Kini nga mga setting para lang niini nga slot.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>I-reset ang Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Pagbati</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: ang posisyon sa kuptanan mao ang stick, ug usa ka spring ang mobira niini balik sa sentro. Tumong: ang lihok sa kuptanan molihok sa stick, ug ang pagpugong sa kuptanan batok sa bungbong sa ngilit niini magpadayon sa pagliko.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Tumong</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Spring sa pagsentro</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>I-reset ang spring sa pagsentro</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Button sa sipa</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Samtang gikuptan kini nga button sa gunitanan, ug sulod sa ikaupat nga bahin sa segundo human niini, ang rumble sa dula mosipa sa kuptanan paingon kanimo. Ang rumble sa ubang higayon mouyog sa kuptanan.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Button 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Button 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Button 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Button 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Kusog sa sipa</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>I-reset ang kusog sa sipa</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Kusog sa uyog</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>I-reset ang kusog sa uyog</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Button sa pagpalig-on</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Samtang gikuptan kini nga button sa gunitanan, mohinay ang tumong ngadto sa 30 porsyento para sa pinong mga pag-adjust.</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Samtang gikuptan kini nga button sa gunitanan, usa ka makanunayon nga 1.6 N nga duso ang mopiit sa kuptanan, nga mopahapsay sa gagmay nga mga koreksyon.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Kompensasyon sa grabidad</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Pila sa kaugalingong gibug-aton sa kuptanan ang gipugngan sa Falcon, sa porsyento sa standard nga grabidad.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>I-reset ang kompensasyon sa grabidad</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Limitasyon sa kusog</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Ang pinakadako nga kusog nga ibutang sa Falcon sa kuptanan, gikan sa 1 hangtod 8 ka newton.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>I-reset ang limitasyon sa kusog</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>I-calibrate ang abot</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mosukod kung unsa ka layo molihok ang kuptanan. Ilihok kini ngadto sa matag ngilit sa abot niini sulod sa upat ka segundo nga nagdagan ang pagsukod. Mohunong una ang mga kusog samtang nagsukod.</value></data>
 </root>

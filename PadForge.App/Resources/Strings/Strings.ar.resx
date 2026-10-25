@@ -4365,4 +4365,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>الاتجاه</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>الخطوة</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>بكسل</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>المقبض</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>يسار/يمين</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>أعلى/أسفل</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>داخل/خارج</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>الزر {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}، تم التحميل من {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>تعمل مكتبة Force Dimension في إصدار x64 من PadForge فقط.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>تم العثور على dhd64.dll لكن تعذر تحميله.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>ملف dhd64.dll هذا ليس مكتبة Force Dimension التي يتوقعها PadForge.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>لا يوجد Force Dimension SDK على هذا الكمبيوتر. احصل عليه من صفحة التنزيل لدى Force Dimension، أو اختر ملف dhd64.dll الخاص به.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>اسحب المقبض إلى الخارج بالكامل ثم ادفعه إلى الداخل بالكامل لتحديد موضعه</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>يعمل بمعدل {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>مفتوح</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>جهاز Falcon مفتوح في برنامج آخر، مثل FalconJoyForce أو أدوات Force Dimension نفسها. أغلقه هناك.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>جهاز Falcon يستخدم برنامج تشغيل آخر ({0})، لذا لا تستطيع مكتبة Force Dimension فتحه. في إدارة الأجهزة، حدّث برنامج تشغيل Falcon من المجلد drivers\usb داخل مجلد SDK الخاص بـ Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>جهاز Falcon موصول بلا برنامج تشغيل. يزوّده «تثبيت برنامج تشغيل Falcon» ببرنامج تشغيل Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>جهاز Falcon موصول بلا برنامج تشغيل، ولا توجد في مجلد SDK حزمة برنامج تشغيل لتثبيتها. أعد تثبيت Force Dimension SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>لم يُعثر على Falcon. وصّل كابل الطاقة وكابل USB.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>اختيار dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>يحمّل هذه النسخة من مكتبة Force Dimension قبل أي نسخة أخرى. النسخ التي يثبّتها SDK يُعثر عليها من دونه.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|المكتبات (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>تثبيت برنامج تشغيل Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>يثبّت برنامج تشغيل Force Dimension، من مجلد SDK، على جهاز Falcon لا برنامج تشغيل له. قد يسأل Windows أولاً هل تثق بـ Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>الحصول على Force Dimension SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>يفتح صفحة تنزيل Force Dimension SDK في المتصفح. يحمّل PadForge الـ SDK الذي تثبّته ولا يتضمن أي جزء منه.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>المدى: {0:0} مم يمينًا ويسارًا، {1:0} مم لأعلى ولأسفل، {2:0} مم للداخل وللخارج.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>تحتاج المعايرة إلى جهاز Falcon هذا مفتوحًا. فعّل «تشغيل Novint Falcon» في الإعدادات ووصّل Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>حرّك المقبض إلى كل حافة من حافات مداه…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>تمت المعايرة. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>لم تقطع بعض المحاور مسافة كافية وتحتفظ بمداها القديم. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>لم يقطع المقبض مسافة كافية، لذا يبقى المدى كما كان. حرّكه إلى كل حافة أثناء المسح.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>أُغلق Falcon قبل انتهاء المسح.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>يتيح لعب الألعاب بجهاز Novint Falcon عبر Force Dimension SDK الذي تثبّته من Force Dimension. المقبض عصا، وأزرار القبضة الأربعة أزرار، ويطبّق PadForge اهتزاز اللعبة ومؤثراتها على المقبض على هيئة قوة. تحدد علامة تبويب ردود فعل القوة في كل خانة إحساس Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>تشغيل Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>يفتح كل جهاز Falcon عبر dhd64.dll من Force Dimension. يصبح الجهاز المفتوح ملكًا لـ PadForge وحده، فلا يستطيع FalconJoyForce ولا أدوات Force Dimension فتحه ما دام هذا الخيار مفعّلًا. عند إيقافه يغلق PadForge كل أجهزة Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>تم تعيين مكتبة Falcon إلى {0}. تبقى النسخة المستخدمة حاليًا حتى يبدأ PadForge من جديد.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>جارٍ تثبيت برنامج تشغيل Falcon من Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>حزمة برنامج تشغيل Falcon من Force Dimension أو الفهرس الخاص بها مفقودة: {0}. أعد تثبيت Force Dimension SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>لا يوجد جهاز Falcon موصول.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>جهاز Falcon يستخدم برنامج تشغيل آخر ({0})، لذا يتركه PadForge كما هو. يمكن لإدارة الأجهزة تغييره إلى برنامج تشغيل Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>لم يثبّت Windows برنامج تشغيل Force Dimension. إذا سأل Windows هل تثق بـ Force Dimension، فاختر تثبيت.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>تم تثبيت برنامج التشغيل، لكن Falcon لم ينتقل إليه. افصل Falcon ثم أعد توصيله.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>يحسب PadForge كل قوة على مقبض Falcon نحو ألف مرة في الثانية، بحسب موضع المقبض وما تعرضه اللعبة. هذه الإعدادات خاصة بهذه الخانة.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>إعادة ضبط Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>الإحساس</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>عصا تحكم: موضع المقبض هو العصا، ويعيده زنبرك إلى المركز. تصويب: حركة المقبض تحرّك العصا، وإبقاء المقبض مضغوطًا على الجدار عند حافته يواصل الدوران.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>عصا تحكم</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>تصويب</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>زنبرك التوسيط</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>إعادة ضبط زنبرك التوسيط</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>زر الارتداد</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>ما دام زر القبضة هذا مضغوطًا، ولربع ثانية بعده، يدفع اهتزاز اللعبة المقبض نحوك. الاهتزاز في الأوقات الأخرى يهز المقبض.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>الزر 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>الزر 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>الزر 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>الزر 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>شدة الارتداد</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>إعادة ضبط شدة الارتداد</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>شدة الهز</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>إعادة ضبط شدة الهز</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>زر التثبيت</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>ما دام زر القبضة هذا مضغوطًا، يتباطأ التصويب إلى 30 بالمئة للتعديلات الدقيقة.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>زر الحمل المسبق</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>ما دام زر القبضة هذا مضغوطًا، تدفع قوة ثابتة مقدارها 1.6 N المقبض دفعًا خفيفًا فتنعّم التصحيحات الصغيرة.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>تعويض الجاذبية</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>مقدار وزن المقبض الذي يرفعه Falcon، بالنسبة المئوية من الجاذبية القياسية.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>إعادة ضبط تعويض الجاذبية</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>حد القوة</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>أقصى قوة يضعها Falcon على المقبض، من 1 إلى 8 نيوتن.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>إعادة ضبط حد القوة</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>معايرة المدى</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>يقيس المسافة التي يقطعها المقبض. حرّكه إلى كل حافة من مداه خلال الثواني الأربع التي يستغرقها المسح. تتوقف القوى في هذه الأثناء.</value></data>
 </root>

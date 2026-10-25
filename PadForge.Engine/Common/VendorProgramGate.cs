@@ -5,7 +5,8 @@ namespace PadForge.Engine.Common
     /// vendors run on this PC: Razer's Chroma server and its Sensa runtime,
     /// SteelSeries GG's GameSense server, Logitech's LED engine and G-key
     /// library, which belong to G HUB, Logitech Gaming Software's LCD and
-    /// Arx Control libraries, and Mad Catz's S.T.R.I.K.E. 7 applet library.
+    /// Arx Control libraries, Mad Catz's S.T.R.I.K.E. 7 applet library, and
+    /// Force Dimension's haptic library, which opens a Novint Falcon.
     ///
     /// <para>In the app the gate is always open, and passing it is one read
     /// of a flag. The test assembly closes it for the life of its process

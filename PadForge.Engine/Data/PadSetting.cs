@@ -325,6 +325,46 @@ namespace PadForge.Engine.Data
         /// auto-detected. Default off.</summary>
         [XmlElement] public string WheelRpmLeds { get; set; } = "0";
 
+        // ─── Novint Falcon (#521) ───
+        // The Falcon section of the Force Feedback tab, per (slot, device) so
+        // a profile carries it per game, the job FalconJoyForce's per-title
+        // config files do.
+
+        /// <summary>"0" Joystick (a centering spring, the stick follows the
+        /// handle's position) or "1" Aim (a free handle, the stick follows its
+        /// speed). Default Joystick.</summary>
+        [XmlElement] public string FalconFeel { get; set; } = "0";
+
+        /// <summary>The Joystick feel's spring, percent of 3 N at full
+        /// deflection (0–200). Default 100.</summary>
+        [XmlElement] public string FalconSpring { get; set; } = "100";
+
+        /// <summary>The grip button (1–4, 0 none) whose hold, and 250 ms
+        /// after, turns rumble into a push toward the player. Default 1.</summary>
+        [XmlElement] public string FalconKickButton { get; set; } = "1";
+
+        /// <summary>Kick strength, percent (0–200). Default 100.</summary>
+        [XmlElement] public string FalconKick { get; set; } = "100";
+
+        /// <summary>Shake strength, percent (0–200). Default 100.</summary>
+        [XmlElement] public string FalconShake { get; set; } = "100";
+
+        /// <summary>The Aim feel's brace button (1–4, 0 none): the aim at 0.3
+        /// while held. Default none.</summary>
+        [XmlElement] public string FalconBraceButton { get; set; } = "0";
+
+        /// <summary>The Aim feel's preload button (1–4, 0 none): 1.6 N along
+        /// In/Out while held. Default none.</summary>
+        [XmlElement] public string FalconPreloadButton { get; set; } = "0";
+
+        /// <summary>Gravity compensation, percent of standard gravity
+        /// (0–200). Default 100.</summary>
+        [XmlElement] public string FalconGravity { get; set; } = "100";
+
+        /// <summary>The force cap in newtons (1–8). Default 8, the Falcon's
+        /// rated force.</summary>
+        [XmlElement] public string FalconForceCap { get; set; } = "8";
+
         // ─── Steering at-lock feedback (v3.4 #94) ───
         // Per-slot, opt-in haptic feedback when a steering source (winding / 2D
         // angle-to-axis / motion-lean) saturates at full lock. All off by default.
@@ -1578,6 +1618,15 @@ namespace PadForge.Engine.Data
             sb.Append(RotationRangeEnabled); sb.Append('|');
             sb.Append(AutoCenterStrength); sb.Append('|');
             sb.Append(WheelRpmLeds); sb.Append('|');
+            sb.Append(FalconFeel); sb.Append('|');
+            sb.Append(FalconSpring); sb.Append('|');
+            sb.Append(FalconKickButton); sb.Append('|');
+            sb.Append(FalconKick); sb.Append('|');
+            sb.Append(FalconShake); sb.Append('|');
+            sb.Append(FalconBraceButton); sb.Append('|');
+            sb.Append(FalconPreloadButton); sb.Append('|');
+            sb.Append(FalconGravity); sb.Append('|');
+            sb.Append(FalconForceCap); sb.Append('|');
             sb.Append(SteeringAngleRumbleEnabled); sb.Append('|');
             sb.Append(SteeringAngleRumbleAxis); sb.Append('|');
             sb.Append(SteeringAngleRumbleStrength); sb.Append('|');
@@ -2302,6 +2351,10 @@ namespace PadForge.Engine.Data
             nameof(TriggerRumbleFold),
             nameof(LeftMotorStrength), nameof(RightMotorStrength),
             nameof(RotationRange), nameof(RotationRangeEnabled), nameof(AutoCenterStrength), nameof(WheelRpmLeds),
+            // Novint Falcon (#521)
+            nameof(FalconFeel), nameof(FalconSpring), nameof(FalconKickButton), nameof(FalconKick),
+            nameof(FalconShake), nameof(FalconBraceButton), nameof(FalconPreloadButton),
+            nameof(FalconGravity), nameof(FalconForceCap),
             nameof(SteeringAngleRumbleEnabled), nameof(SteeringAngleRumbleAxis), nameof(SteeringAngleRumbleStrength), nameof(SteeringAngleRumbleDeadzone),
             // Steering at-lock feedback (#94)
             nameof(SteeringLockRumbleEnabled), nameof(SteeringLockTriggerVibEnabled),

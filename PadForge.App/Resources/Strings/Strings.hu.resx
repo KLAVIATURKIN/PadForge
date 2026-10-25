@@ -4384,4 +4384,82 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Irány</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Lépés</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Fogantyú</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Bal/Jobb</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Fel/Le</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Be/Ki</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>{0}. gomb</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, betöltve innen: {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>A Force Dimension könyvtára csak a PadForge x64-es változatában fut.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>A dhd64.dll megvan, de nem sikerült betölteni.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Ez a dhd64.dll nem az a Force Dimension-könyvtár, amelyet a PadForge vár.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Ezen a számítógépen nincs Force Dimension SDK. Szerezze be a Force Dimension letöltőoldaláról, vagy válassza ki a dhd64.dll fájlt.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>húzza ki teljesen a fogantyút, majd tolja vissza teljesen, hogy alaphelyzetbe álljon</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz-en fut</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>megnyitva</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Egy Falcon-eszköz meg van nyitva egy másik programban, például a FalconJoyForce-ban vagy a Force Dimension saját eszközeiben. Zárja be ott.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>A Falcon-eszköz másik illesztőprogramot használ ({0}), ezért a Force Dimension könyvtára nem tudja megnyitni. Az Eszközkezelőben frissítse a Falcon illesztőprogramját a Force Dimension SDK mappájának drivers\usb mappájából.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>A Falcon-eszköz csatlakoztatva van, de nincs hozzá illesztőprogram. A Falcon-illesztőprogram telepítése a Force Dimension illesztőprogramját telepíti hozzá.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>A Falcon-eszköz csatlakoztatva van, de nincs hozzá illesztőprogram, és az SDK mappájában nincs telepíthető illesztőprogram-csomag. Telepítse újra a Force Dimension SDK-ját.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Nem található Falcon-eszköz. Csatlakoztassa a tápellátását és az USB-kábelét.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>A dhd64.dll kiválasztása…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>A Force Dimension könyvtárának ezt a másolatát tölti be elsőként. Az SDK által telepített másolatok enélkül is megtalálhatók.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Könyvtárak (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon-illesztőprogram telepítése</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Telepíti a Force Dimension illesztőprogramját az SDK mappájából egy olyan Falcon-eszközre, amelyhez még nincs illesztőprogram. A Windows előbb megkérdezheti, megbízik-e a Force Dimension-ben.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>A Force Dimension SDK letöltése</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Megnyitja a Force Dimension SDK letöltőoldalát a böngészőben. A PadForge a telepített SDK-t tölti be, és nem tartalmaz belőle semmit.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Mozgástartomány: {0:0} mm balra-jobbra, {1:0} mm fel-le, {2:0} mm be-ki.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>A kalibráláshoz ennek a Falcon-eszköznek nyitva kell lennie. Kapcsolja be a „Novint Falcon vezérlése” beállítást a Beállításokban, és csatlakoztassa a Falcon-eszközt.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Mozgassa a fogantyút a mozgástartomány minden széléig…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibrálva. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Néhány tengely nem tett meg elég hosszú utat, ezért megtartja a korábbi mozgástartományát. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>A fogantyú nem tett meg elég hosszú utat, ezért a mozgástartomány változatlan marad. Mozgassa minden szélig, amíg a mérés tart.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>A Falcon-eszköz bezárult a mérés befejezése előtt.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Játék Novint Falcon eszközzel a Force Dimension SDK-ján keresztül, amelyet a Force Dimension oldaláról kell telepíteni. A fogantyú egy kar, a markolat négy gombja gomb, a PadForge pedig a játék rezgését és effektjeit erőként juttatja a fogantyúra. Az egyes foglalatok Erő-visszacsatolás lapján állítható be, milyen érzetet ad a Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon vezérlése</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Minden Falcon-eszközt megnyit a Force Dimension dhd64.dll fájlján keresztül. A megnyitott Falcon kizárólag a PadForge-é, ezért amíg ez be van kapcsolva, a FalconJoyForce és a Force Dimension eszközei nem tudják megnyitni. Kikapcsolva a PadForge minden Falcon-eszközt bezár.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>A Falcon-könyvtár új helye: {0}. A már használatban lévő másolat a PadForge újraindításáig marad.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>A Force Dimension Falcon-illesztőprogramjának telepítése…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>A Force Dimension Falcon-illesztőprogram-csomagja vagy katalógusa hiányzik: {0}. Telepítse újra a Force Dimension SDK-ját.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Nincs csatlakoztatva Falcon-eszköz.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>A Falcon-eszköz másik illesztőprogramot használ ({0}), ezért a PadForge nem nyúl hozzá. Az Eszközkezelőben átállítható a Force Dimension illesztőprogramjára.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>A Windows nem telepítette a Force Dimension illesztőprogramját. Ha a Windows megkérdezi, megbízik-e a Force Dimension-ben, válassza a Telepítés lehetőséget.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Az illesztőprogram telepítve van, de a Falcon-eszköz még nem állt át rá. Húzza ki a Falcon-eszközt, majd dugja vissza.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>A PadForge a Falcon fogantyújára ható minden erőt másodpercenként nagyjából ezerszer számol ki a fogantyú helyzetéből és a játék által lejátszottakból. Ezek a beállítások ehhez a foglalathoz tartoznak.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon visszaállítása</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Érzet</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: a fogantyú helyzete a kar állása, és egy rugó középre húzza. Célzás: a fogantyú mozgása mozgatja a kart, és ha a fogantyút a szélén lévő falnak nyomva tartja, a forgás folytatódik.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Célzás</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Középre húzó rugó</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Középre húzó rugó visszaállítása</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Visszarúgás gomb</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Amíg ez a markolatgomb le van nyomva, és még negyed másodpercig utána, a játék rezgése visszarúgásként Ön felé löki a fogantyút. Máskor a rezgés megrázza a fogantyút.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>1. gomb</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>2. gomb</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>3. gomb</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>4. gomb</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Visszarúgás erőssége</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Visszarúgás erősségének visszaállítása</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Rázás erőssége</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Rázás erősségének visszaállítása</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Támasztás gomb</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Amíg ez a markolatgomb le van nyomva, a célzás 30 százalékra lassul a finom igazításhoz.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Előfeszítés gomb</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Amíg ez a markolatgomb le van nyomva, egyenletes 1.6 N-os nyomás előfeszíti a fogantyút, ami simábbá teszi a kis korrekciókat.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Gravitációkompenzáció</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>A Falcon a fogantyú saját súlyának mekkora részét tartja fel, a normál gravitáció százalékában.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Gravitációkompenzáció visszaállítása</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Erőkorlát</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>A legnagyobb erő, amelyet a Falcon a fogantyúra kifejt, 1 és 8 newton között.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Erőkorlát visszaállítása</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Mozgástartomány kalibrálása</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Megméri, mekkora utat tesz meg a fogantyú. Mozgassa a mozgástartomány minden széléig a mérés négy másodperce alatt. Közben az erők szünetelnek.</value></data>
 </root>

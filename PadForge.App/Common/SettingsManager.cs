@@ -1190,6 +1190,36 @@ namespace PadForge.Common.Input
                 return ps;
             }
 
+            // A Novint Falcon (#521) takes the assignment @pobgithub's
+            // RumbleRoute firmware gives it (RumbleRoute.c:45-54): the
+            // handle's Left/Right and Up/Down on the right stick, and the
+            // grip's buttons 1 to 4 on the right trigger, the left trigger,
+            // the right bumper and the right stick's click. Up/Down reads up
+            // low, as a gamepad's Y axis does (FalconDevice.GetCurrentState),
+            // so the handle raised raises the stick. In/Out starts unmapped.
+            // Xbox and PlayStation outputs, whose fields these are.
+            if (ud.CapType == InputDeviceType.NovintFalcon && !ud.ForceRawJoystickMode
+                && (outputType is Engine.VirtualControllerType.Xbox or Engine.VirtualControllerType.PlayStation))
+            {
+                ps.RightThumbAxisX = "Axis 0";
+                ps.RightThumbAxisY = "Axis 1";
+                ps.RightTrigger = "Button 0";
+                ps.LeftTrigger = "Button 1";
+                ps.RightShoulder = "Button 2";
+                ps.RightThumbButton = "Button 3";
+                ps.RightThumbDeadZoneX = "0";
+                ps.RightThumbDeadZoneY = "0";
+                ps.RightThumbAntiDeadZone = "0";
+                ps.RightThumbLinear = "0";
+                ps.ForceOverall = "100";
+                ps.LeftMotorStrength = "100";
+                ps.RightMotorStrength = "100";
+                ps.ForceSwapMotor = "0";
+                ps.TriggerRumbleFold = "0";
+                ps.UpdateChecksum();
+                return ps;
+            }
+
             // Touchpad and tablet sources carry their contact surface to PlayStation.
             // Verified capabilities control finger count and click availability.
             // A DualShock 3 preset has no touchpad to carry it to.

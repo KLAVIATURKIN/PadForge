@@ -2206,4 +2206,80 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Isiqondiso</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Isinyathelo</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Isibambo</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Kwesokunxele/Kwesokudla</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Phezulu/Phansi</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ngaphakathi/Ngaphandle</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Inkinobho {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, evela ku-{1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Umtapo we-Force Dimension usebenza kuphela kunguqulo ye-x64 ye-PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>I-dhd64.dll itholakele kodwa ayikwazanga ukulayishwa.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Le dhd64.dll akuwona umtapo we-Force Dimension olindelwe yi-PadForge.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Ayikho i-Force Dimension SDK kule PC. Yithole ekhasini lokulanda le-Force Dimension, noma ukhethe i-dhd64.dll yayo.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>donsela isibambo ngaphandle ngokuphelele, bese usiphushela ngaphakathi ngokuphelele, ukuze sithole indawo yaso</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>isebenza ku-{0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>ivuliwe</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>I-Falcon ivuliwe kolunye uhlelo, njenge-FalconJoyForce noma amathuluzi e-Force Dimension uqobo. Yivale lapho.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>I-Falcon ixhunyiwe ingenamshayeli. Inkinobho ethi Faka umshayeli we-Falcon iyinika umshayeli we-Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>I-Falcon ixhunyiwe ingenamshayeli, futhi ifolda ye-SDK ayinayo iphakheji yomshayeli engayinika yona. Phinda ufake i-SDK ye-Force Dimension.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Ayikho i-Falcon etholakele. Xhuma ugesi wayo nentambo yayo ye-USB.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Khetha i-dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Ilayisha le khophi yomtapo we-Force Dimension ngaphambi kwanoma iyiphi enye. Amakhophi afakwa yi-SDK atholakala ngaphandle kwayo.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Imitapo (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Faka umshayeli we-Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Ifaka umshayeli we-Force Dimension, osuka kufolda ye-SDK, ku-Falcon engenawo. I-Windows ingase iqale ibuze ukuthi iyayethemba yini i-Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Thola i-SDK ye-Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Ivula ikhasi lokulanda i-SDK ye-Force Dimension kusiphequluli sakho. I-PadForge isebenzisa i-SDK oyifakile, futhi ayiqukethe ingxenye yayo.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Ibanga: {0:0} mm kwesokunxele nakwesokudla, {1:0} mm phezulu naphansi, {2:0} mm ngaphakathi nangaphandle.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Ukulinganisa kudinga ukuthi le Falcon ivuleke. Vula "Lawula i-Novint Falcon" kuzilungiselelo bese uxhuma i-Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Hambisa isibambo uye kuyo yonke imiphetho yebanga laso…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kulinganisiwe. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Amanye ama-eksisi awahambanga ngokwanele futhi agcina ibanga lawo elidala. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Isibambo asihambanga ngokwanele, ngakho ibanga lihlala linjalo. Sihambise uye kuyo yonke imiphetho ngesikhathi kusalinganiswa.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>I-Falcon ivaliwe ngaphambi kokuthi ukulinganisa kuqede.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Idlala imidlalo nge-Novint Falcon ngokusebenzisa i-SDK ye-Force Dimension, oyifaka ivela ku-Force Dimension. Isibambo siyinduku, izinkinobho ezine zesibambo ziyizinkinobho, futhi i-PadForge iguqula ukudlidliza nemiphumela yegeyimu kube amandla esibanjweni. Ithebhu ethi Impendulo yamandla yesikhala ngasinye isetha ukuthi i-Falcon izwakala kanjani.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Lawula i-Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Ivula i-Falcon ngayinye nge-dhd64.dll ye-Force Dimension. I-Falcon evuliwe ingeye-PadForge kuphela, ngakho i-FalconJoyForce namathuluzi e-Force Dimension awakwazi ukuyivula ngesikhathi lokhu kuvuliwe. Uma kuvaliwe, i-PadForge ivala zonke izi-Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Umtapo we-Falcon usethelwe ku-{0}. Ikhophi esivele isetshenziswa ihlala ize i-PadForge iqale kabusha.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Kufakwa umshayeli we-Falcon we-Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Iphakheji yomshayeli we-Falcon we-Force Dimension, noma ikhathalogi yayo, ayikho: {0}. Phinda ufake i-SDK ye-Force Dimension.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Ayikho i-Falcon exhunyiwe.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>I-Windows ayiwufakanga umshayeli we-Force Dimension. Uma i-Windows ibuza ukuthi iyayethemba yini i-Force Dimension, khetha okuthi Faka.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Umshayeli ufakiwe, kodwa i-Falcon ayikawusebenzisi. Khipha i-Falcon bese uyixhuma futhi.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>I-PadForge ibala wonke amandla esibanjweni se-Falcon cishe izikhathi eziyinkulungwane ngomzuzwana, ngokusekelwe ekutheni isibambo sikuphi nokuthi igeyimu idlalani. Lezi zilungiselelo zingezalesi sikhala.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Setha kabusha i-Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Ukuzwakala</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: indawo yesibambo iyinduku, futhi isipringi siyasibuyisela maphakathi. Ukuhlosa: ukunyakaza kwesibambo kuhambisa induku, futhi ukubamba isibambo sicindezele odongeni emaphethelweni aso kuqhubeka nokujika.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Ukuhlosa</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Isipringi sokubuyisela maphakathi</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Setha kabusha isipringi sokubuyisela maphakathi</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Inkinobho yokukhahlela</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Ngesikhathi le nkinobho yesibambo icindezelwe, nangekota yomzuzwana ngemuva, ukudlidliza kwegeyimu kukhahlela isibambo kuza kuwe. Ukudlidliza ngezinye izikhathi kuzamazamisa isibambo.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Inkinobho 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Inkinobho 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Inkinobho 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Inkinobho 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Amandla okukhahlela</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Setha kabusha amandla okukhahlela</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Amandla okuzamazama</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Setha kabusha amandla okuzamazama</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Inkinobho yokuzinzisa</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Ngesikhathi le nkinobho yesibambo icindezelwe, ukuhlosa kwehlela kumaphesenti angu-30 ukuze kulungiswe kahle.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Inkinobho yokucindezela kuqala</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Ngesikhathi le nkinobho yesibambo icindezelwe, ukuphusha okuqinile kwe-1.6 N kucindezela isibambo, okwenza ukulungisa okuncane kube bushelelezi.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Ukunxephezela ukudonsela phansi</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Ingakanani ingxenye yesisindo sesibambo i-Falcon esiphakamisayo, ngamaphesenti amandla adonsela phansi ajwayelekile.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Setha kabusha ukunxephezela ukudonsela phansi</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Umkhawulo wamandla</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Amandla amakhulu kakhulu i-Falcon ewafaka esibanjweni, kusuka ku-1 kuya ku-8 ama-newton.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Setha kabusha umkhawulo wamandla</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Linganisa ibanga</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Ilinganisa ukuthi isibambo sihamba kangakanani. Sihambise uye kuyo yonke imiphetho yebanga laso phakathi nemizuzwana emine yokulinganisa. Amandla ayaphumula ngalesi sikhathi.</value></data>
 </root>

@@ -4350,4 +4350,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>ئاراستە</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>هەنگاو</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>دەسک</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>چەپ/ڕاست</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>سەرەوە/خوارەوە</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>ناوەوە/دەرەوە</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>دوگمە {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}، بارکراوە لە {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>کتێبخانەکەی Force Dimension تەنها لە وەشانی x64 ی PadForge کار دەکات.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll دۆزرایەوە بەڵام نەتوانرا بار بکرێت.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>ئەم dhd64.dll ە ئەو کتێبخانەیەی Force Dimension نییە کە PadForge چاوەڕێی دەکات.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>هیچ Force Dimension SDK لەسەر ئەم کۆمپیوتەرە نییە. لە پەڕەی داگرتنی Force Dimension وەریبگرە، یان dhd64.dll ەکەی هەڵبژێرە.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>دەسکەکە بە تەواوی ڕابکێشە بۆ دەرەوە، پاشان بە تەواوی پاڵی بنێ بۆ ناوەوە، بۆ ئەوەی شوێنەکەی بناسرێت</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>کار دەکات بە {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>کراوەیە</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>ئامێرێکی Falcon لە بەرنامەیەکی تردا کراوەیە، وەک FalconJoyForce یان ئامرازەکانی خودی Force Dimension. لەوێ دایبخە.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon ەکە لەسەر درایڤەرێکی ترە ({0})، بۆیە کتێبخانەی Force Dimension ناتوانێت بیکاتەوە. لە بەڕێوەبەری ئامێرەکان، درایڤەری Falcon لە فۆڵدەری drivers\usb لەناو فۆڵدەری SDK ی Force Dimension نوێ بکەرەوە.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>ئامێرێکی Falcon بەبێ درایڤەر بەستراوە. «دامەزراندنی درایڤەری Falcon» درایڤەری Force Dimension ی پێ دەدات.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>ئامێرێکی Falcon بەبێ درایڤەر بەستراوە، و فۆڵدەری SDK هیچ پاکێجێکی درایڤەری تێدا نییە بۆ ئەوەی پێی بدات. SDK ی Force Dimension دووبارە دابمەزرێنە.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>هیچ ئامێرێکی Falcon نەدۆزرایەوە. کەیبڵی کارەبا و کەیبڵی USB ەکەی ببەستە.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>هەڵبژاردنی dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>ئەم کۆپییەی کتێبخانەی Force Dimension پێش هەموو کۆپییەکانی تر بار دەکات. ئەو کۆپییانەی SDK دایاندەمەزرێنێت بەبێ ئەمە دەدۆزرێنەوە.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|کتێبخانەکان (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>دامەزراندنی درایڤەری Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>درایڤەری Force Dimension لە فۆڵدەری SDK ەوە لەسەر ئەو Falcon ە دادەمەزرێنێت کە درایڤەری نییە. لەوانەیە Windows سەرەتا بپرسێت کە ئایا متمانە بە Force Dimension بکرێت.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>وەرگرتنی SDK ی Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>پەڕەی داگرتنی SDK ی Force Dimension لە وێبگەڕەکەتدا دەکاتەوە. PadForge ئەو SDK ە بار دەکات کە تۆ دایدەمەزرێنیت و هیچ بەشێکی لەگەڵ خۆیدا دابەش ناکات.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>مەودای جووڵە: {0:0} ملم چەپ و ڕاست، {1:0} ملم سەرەوە و خوارەوە، {2:0} ملم ناوەوە و دەرەوە.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>کالیبرەکردن پێویستی بەوەیە ئەم Falcon ە کراوە بێت. «بەڕێوەبردنی Novint Falcon» لە ڕێکخستنەکان چالاک بکە و Falcon ەکە ببەستە.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>دەسکەکە بجووڵێنە بۆ هەموو لێوارەکانی مەودای جووڵەکەی…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>کالیبرە کرا. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>هەندێک تەوەر بەشی پێویست نەجووڵان و مەودای کۆنیان دەمێنێتەوە. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>دەسکەکە بەشی پێویست نەجووڵا، بۆیە مەودای جووڵە وەک خۆی دەمێنێتەوە. لە کاتی پشکنینەکەدا بیجووڵێنە بۆ هەموو لێوارەکان.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon ەکە داخرا پێش ئەوەی پشکنینەکە تەواو بێت.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>ڕێگە دەدات یاری بە Novint Falcon بکەیت لە ڕێگەی SDK ی Force Dimension، کە لە Force Dimension ەوە دایدەمەزرێنیت. دەسکەکە ستیکێکە، چوار دوگمەکەی دەسکەکە دوگمەن، و PadForge لەرزین و کاریگەرییەکانی یارییەکە وەک هێز دەخاتە سەر دەسکەکە. تابی فیدباکی هێز لە هەر شوێنێک دیاری دەکات کە Falcon چۆن هەست پێ دەکرێت.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>بەڕێوەبردنی Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>هەموو ئامێرەکانی Falcon لە ڕێگەی dhd64.dll ی Force Dimension دەکاتەوە. Falcon ی کراوە تەنها هی PadForge ە، بۆیە FalconJoyForce و ئامرازەکانی Force Dimension ناتوانن بیکەنەوە کاتێک ئەمە چالاکە. کاتێک ناچالاکە، PadForge هەموو Falcon ەکان دادەخات.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>کتێبخانەی Falcon دانرا بۆ {0}. کۆپییەک کە ئێستا بەکاردێت دەمێنێتەوە تا PadForge دووبارە دەست پێ دەکاتەوە.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>دامەزراندنی درایڤەری Falcon ی Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>پاکێجی درایڤەری Falcon ی Force Dimension، یان کەتەلۆگەکەی، بوونی نییە: {0}. SDK ی Force Dimension دووبارە دابمەزرێنە.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>هیچ ئامێرێکی Falcon نەبەستراوە.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon ەکە لەسەر درایڤەرێکی ترە ({0})، بۆیە PadForge دەستی لێ نادات. بەڕێوەبەری ئامێرەکان دەتوانێت بیگۆڕێت بۆ درایڤەری Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows درایڤەری Force Dimension ی دانەمەزراند. ئەگەر Windows پرسی کە ئایا متمانە بە Force Dimension بکرێت، «دامەزراندن» هەڵبژێرە.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>درایڤەرەکە دامەزرا، بەڵام Falcon ەکە هێشتا نەگوازراوەتەوە بۆی. Falcon ەکە جیا بکەرەوە و دووبارە بیبەستەوە.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge هەموو هێزێک لەسەر دەسکی Falcon نزیکەی هەزار جار لە چرکەیەکدا هەژمار دەکات، بەپێی شوێنی دەسکەکە و ئەوەی یارییەکە لێی دەدات. ئەم ڕێکخستنانە هی ئەم شوێنەن.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>گەڕاندنەوەی Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>هەست</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>جۆیستیک: شوێنی دەسکەکە ستیکەکەیە، و فەنەرێک ڕایدەکێشێتەوە بۆ ناوەند. نیشانەگرتن: جووڵەی دەسکەکە ستیکەکە دەجووڵێنێت، و ڕاگرتنی دەسکەکە بە دیواری لێوارەکەیەوە سووڕانەوە بەردەوام دەکات.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>جۆیستیک</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>نیشانەگرتن</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>فەنەری ناوەندکردن</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>گەڕاندنەوەی فەنەری ناوەندکردن</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>دوگمەی پاڵنان</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>تا ئەم دوگمەیەی دەسک ڕاگیراوە، و بۆ چارەکە چرکەیەک دوای ئەوە، لەرزینی یارییەکە دەسکەکە بەرەو تۆ پاڵ دەنێت. لەرزین لە کاتەکانی تردا دەسکەکە دەهەژێنێت.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>دوگمە 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>دوگمە 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>دوگمە 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>دوگمە 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>هێزی پاڵنان</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>گەڕاندنەوەی هێزی پاڵنان</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>هێزی هەژاندن</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>گەڕاندنەوەی هێزی هەژاندن</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>دوگمەی جێگیرکردن</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>تا ئەم دوگمەیەی دەسک ڕاگیراوە، نیشانەگرتن بۆ 30 لەسەدا هێواش دەبێتەوە بۆ ڕێکخستنی ورد.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>دوگمەی پێشبارکردن</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>تا ئەم دوگمەیەی دەسک ڕاگیراوە، پاڵنانێکی جێگیری 1.6 N دەسکەکە بار دەکات، کە ڕاستکردنەوە بچووکەکان نەرمتر دەکات.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>قەرەبووکردنەوەی کێشکردن</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon چەند لە کێشی خودی دەسکەکە ڕادەگرێت، بە لەسەدی کێشکردنی ستاندارد.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>گەڕاندنەوەی قەرەبووکردنەوەی کێشکردن</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>سنووری هێز</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>زۆرترین هێز کە Falcon دەیخاتە سەر دەسکەکە، لە 1 تا 8 نیوتن.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>گەڕاندنەوەی سنووری هێز</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>کالیبرەکردنی مەودای جووڵە</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>پێوانەی ئەوە دەکات کە دەسکەکە چەند دەجووڵێت. بۆ ئەو چوار چرکەیەی پشکنینەکە کار دەکات، بیجووڵێنە بۆ هەموو لێوارەکانی مەودای جووڵەکەی. لەو ماوەیەدا هێزەکان ڕادەوەستن.</value></data>
 </root>

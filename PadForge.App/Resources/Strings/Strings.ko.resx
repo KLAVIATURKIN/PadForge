@@ -4335,4 +4335,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>방향</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>이동 거리</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>핸들</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>왼쪽/오른쪽</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>위/아래</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>안쪽/바깥쪽</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>버튼 {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, {1}에서 불러옴</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension 라이브러리는 PadForge의 x64 빌드에서만 실행됩니다.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll을 찾았지만 불러오지 못했습니다.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>해당 dhd64.dll은 PadForge가 요구하는 Force Dimension 라이브러리가 아닙니다.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>이 PC에 Force Dimension SDK가 없습니다. Force Dimension 다운로드 페이지에서 받거나 dhd64.dll을 직접 선택하세요.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>핸들을 끝까지 당겼다가 끝까지 밀어 넣어 원점을 잡으세요</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz로 실행 중</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>열림</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>다른 프로그램에서 Falcon이 열려 있습니다(FalconJoyForce, Force Dimension 자체 도구 등). 해당 프로그램에서 닫으세요.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon이 다른 드라이버({0})를 사용 중이라 Force Dimension 라이브러리가 열 수 없습니다. 장치 관리자에서 Force Dimension SDK 폴더의 drivers\usb 폴더에 있는 드라이버로 Falcon 드라이버를 업데이트하세요.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon이 연결되어 있지만 드라이버가 없습니다. Falcon 드라이버 설치를 누르면 Force Dimension 드라이버가 설치됩니다.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon이 연결되어 있지만 드라이버가 없고, SDK 폴더에도 설치할 드라이버 패키지가 없습니다. Force Dimension SDK를 다시 설치하세요.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon을 찾을 수 없습니다. 전원과 USB 케이블을 연결하세요.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll 선택…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>이 Force Dimension 라이브러리 사본을 다른 것보다 먼저 불러옵니다. SDK가 설치한 사본은 이 설정이 없어도 찾아집니다.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|라이브러리 (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon 드라이버 설치</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>드라이버가 없는 Falcon에 SDK 폴더의 Force Dimension 드라이버를 설치합니다. 먼저 Windows가 Force Dimension을 신뢰할지 물을 수 있습니다.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension SDK 받기</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>브라우저에서 Force Dimension SDK 다운로드 페이지를 엽니다. PadForge는 사용자가 설치한 SDK를 불러오며 SDK를 포함하지 않습니다.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>이동 범위: 좌우 {0:0} mm, 상하 {1:0} mm, 안팎 {2:0} mm.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>보정하려면 이 Falcon이 열려 있어야 합니다. 설정에서 Novint Falcon 구동을 켜고 Falcon을 연결하세요.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>핸들을 이동 범위의 모든 끝까지 움직이세요…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>보정했습니다. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>일부 축은 충분히 움직이지 않아 이전 이동 범위를 유지합니다. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>핸들이 충분히 움직이지 않아 이동 범위가 그대로 유지됩니다. 측정 중에 모든 끝까지 움직이세요.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>측정이 끝나기 전에 Falcon이 닫혔습니다.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Force Dimension에서 설치하는 Force Dimension SDK를 통해 Novint Falcon으로 게임을 합니다. 핸들은 스틱, 그립의 버튼 네 개는 버튼으로 쓰이며, PadForge가 게임의 진동과 효과를 힘으로 핸들에 전달합니다. Falcon의 느낌은 각 슬롯의 포스 피드백 탭에서 설정합니다.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon 구동</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Force Dimension의 dhd64.dll로 각 Falcon을 엽니다. 열린 Falcon은 PadForge만 사용하므로, 이 설정이 켜져 있는 동안 FalconJoyForce와 Force Dimension 도구는 Falcon을 열 수 없습니다. 끄면 PadForge가 모든 Falcon을 닫습니다.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon 라이브러리를 {0}(으)로 설정했습니다. 이미 사용 중인 사본은 PadForge를 다시 시작할 때까지 유지됩니다.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Force Dimension Falcon 드라이버를 설치하는 중…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension Falcon 드라이버 패키지 또는 카탈로그가 없습니다: {0}. Force Dimension SDK를 다시 설치하세요.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>연결된 Falcon이 없습니다.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon이 다른 드라이버({0})를 사용 중이라 PadForge가 건드리지 않습니다. 장치 관리자에서 Force Dimension 드라이버로 변경할 수 있습니다.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows가 Force Dimension 드라이버를 설치하지 않았습니다. Windows가 Force Dimension을 신뢰할지 물으면 설치를 선택하세요.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>드라이버는 설치되었지만 Falcon이 아직 해당 드라이버로 바뀌지 않았습니다. Falcon을 뽑았다가 다시 연결하세요.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge는 핸들의 위치와 게임이 재생하는 내용을 바탕으로 Falcon 핸들에 가해지는 모든 힘을 초당 약 천 번 계산합니다. 이 설정은 이 슬롯에만 적용됩니다.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon 초기화</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>느낌</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>조이스틱: 핸들의 위치가 스틱 값이 되고 스프링이 핸들을 중앙으로 당깁니다. 조준: 핸들의 움직임이 스틱을 움직이며, 핸들을 가장자리 벽에 대고 있으면 계속 돌아갑니다.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>조이스틱</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>조준</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>센터링 스프링</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>센터링 스프링 재설정</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>킥 버튼</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>이 그립 버튼을 누르고 있는 동안과 그 후 0.25초 동안, 게임의 진동이 핸들을 사용자 쪽으로 칩니다. 그 외에는 진동이 핸들을 흔듭니다.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>버튼 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>버튼 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>버튼 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>버튼 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>킥 강도</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>킥 강도 재설정</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>흔들림 강도</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>흔들림 강도 재설정</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>버팀 버튼</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>이 그립 버튼을 누르고 있는 동안 조준 속도가 30퍼센트로 느려져 세밀하게 조정할 수 있습니다.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>프리로드 버튼</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>이 그립 버튼을 누르고 있는 동안 1.6 N의 일정한 힘이 핸들에 걸려 작은 보정이 부드러워집니다.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>중력 보정</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon이 핸들 자체 무게 중 얼마를 받쳐 줄지를 표준 중력의 백분율로 정합니다.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>중력 보정 재설정</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>힘 제한</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon이 핸들에 가하는 최대 힘으로, 1~8뉴턴입니다.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>힘 제한 재설정</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>이동 범위 보정</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>핸들이 움직이는 거리를 측정합니다. 측정이 진행되는 4초 동안 핸들을 이동 범위의 모든 끝까지 움직이세요. 그동안 힘은 멈춥니다.</value></data>
 </root>

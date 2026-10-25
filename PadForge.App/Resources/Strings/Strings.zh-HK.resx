@@ -4384,4 +4384,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>方向</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>步幅</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>握把</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>左／右</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>上／下</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>內／外</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>按鈕 {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}：{1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}，載入自 {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension 的程式庫只可在 x64 版本的 PadForge 中執行。</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>找到 dhd64.dll，但無法載入。</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>該 dhd64.dll 並非 PadForge 所需的 Force Dimension 程式庫。</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>這部電腦上沒有 Force Dimension SDK。請從 Force Dimension 的下載頁面取得，或選擇其 dhd64.dll。</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>將握把完全拉出，再完全推入，以歸位</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>以 {0:0.0} kHz 運作中</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>已開啟</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>另一個程式已開啟 Falcon，例如 FalconJoyForce 或 Force Dimension 自家的工具。請在該處關閉。</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon 使用另一個驅動程式（{0}），因此 Force Dimension 的程式庫無法開啟它。請在裝置管理員中，從 Force Dimension 的 SDK 資料夾內的 drivers\usb 資料夾更新 Falcon 的驅動程式。</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>已接上 Falcon，但沒有驅動程式。按「安裝 Falcon 驅動程式」會為它安裝 Force Dimension 的驅動程式。</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>已接上 Falcon，但沒有驅動程式，而 SDK 資料夾內也沒有可供安裝的驅動程式套件。請重新安裝 Force Dimension 的 SDK。</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>找不到 Falcon。請接上電源及 USB 線。</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>選擇 dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>優先載入這個 Force Dimension 程式庫副本。SDK 安裝的副本無需此項也能找到。</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|程式庫 (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>安裝 Falcon 驅動程式</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>從 SDK 資料夾為沒有驅動程式的 Falcon 安裝 Force Dimension 的驅動程式。Windows 可能會先詢問是否信任 Force Dimension。</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>取得 Force Dimension 的 SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>在瀏覽器中開啟 Force Dimension 的 SDK 下載頁面。PadForge 會載入你安裝的 SDK，本身不附帶任何 SDK 內容。</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>活動範圍：左右 {0:0} mm，上下 {1:0} mm，內外 {2:0} mm。</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>校準需要先開啟這部 Falcon。請在設定中開啟「驅動 Novint Falcon」，並接上 Falcon。</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>請將握把移到活動範圍的每個邊緣…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>已校準。{0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>部分軸的移動幅度不足，會保留原有的活動範圍。{0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>握把的移動幅度不足，因此活動範圍維持不變。掃描期間請將它移到每個邊緣。</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>掃描完成前，Falcon 已關閉。</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>透過 Force Dimension 的 SDK，用 Novint Falcon 玩遊戲。SDK 須自行從 Force Dimension 安裝。握把會作為搖桿，握把上的四個按鈕會作為按鈕，PadForge 會把遊戲的震動和效果以力的形式施於握把。每個插槽的力回饋分頁可設定 Falcon 的手感。</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>驅動 Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>透過 Force Dimension 的 dhd64.dll 開啟每部 Falcon。開啟後的 Falcon 只屬於 PadForge，因此此項開啟期間，FalconJoyForce 和 Force Dimension 的工具無法開啟它。關閉時，PadForge 會關閉所有 Falcon。</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon 程式庫已設為 {0}。正在使用的副本會維持不變，直至 PadForge 再次啟動。</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>正在安裝 Force Dimension 的 Falcon 驅動程式…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>缺少 Force Dimension 的 Falcon 驅動程式套件或其目錄檔：{0}。請重新安裝 Force Dimension 的 SDK。</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>沒有接上 Falcon。</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon 使用另一個驅動程式（{0}），因此 PadForge 不會處理它。可在裝置管理員中將它改為 Force Dimension 的驅動程式。</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows 沒有安裝 Force Dimension 的驅動程式。如果 Windows 詢問是否信任 Force Dimension，請選擇「安裝」。</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>驅動程式已安裝，但 Falcon 尚未改用它。請拔出 Falcon 再重新接上。</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge 根據握把的位置和遊戲播放的內容，每秒約計算一千次施於 Falcon 握把的所有力。這些設定屬於此插槽。</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>重設 Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>手感</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>操縱桿：握把的位置就是搖桿，並有彈簧把它拉回中心。瞄準：握把的移動會推動搖桿，將握把頂住邊緣的牆壁便會持續轉動。</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>操縱桿</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>瞄準</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>回中彈簧</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>重設回中彈簧</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>後座力按鈕</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>按住此握把按鈕期間及放開後四分之一秒內，遊戲的震動會把握把推向你。其他時間的震動則會令握把震動。</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>按鈕 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>按鈕 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>按鈕 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>按鈕 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>後座力強度</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>重設後座力強度</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>震動強度</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>重設震動強度</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>穩定按鈕</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>按住此握把按鈕期間，瞄準速度會減慢至 30%，方便微調。</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>預載按鈕</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>按住此握把按鈕期間，會以 1.6 N 的穩定力度推動握把使其受力，令細微修正更平滑。</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>重力補償</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon 托住握把自身重量的比例，以標準重力的百分比表示。</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>重設重力補償</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>力度上限</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon 施於握把的最大力度，範圍為 1 至 8 牛頓。</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>重設力度上限</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>校準活動範圍</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>量度握把可移動的距離。在四秒的掃描期間，請將握把移到活動範圍的每個邊緣。期間不會輸出任何力。</value></data>
 </root>

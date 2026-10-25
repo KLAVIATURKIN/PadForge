@@ -4344,4 +4344,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>ທິດທາງ</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>ຂັ້ນ</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>ດ້າມຈັບ</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>ຊ້າຍ/ຂວາ</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ຂຶ້ນ/ລົງ</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>ເຂົ້າ/ອອກ</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>ປຸ່ມ {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, ໂຫຼດຈາກ {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>ໄລບຣາຣີຂອງ Force Dimension ເຮັດວຽກໄດ້ສະເພາະໃນ PadForge ລຸ້ນ x64 ເທົ່ານັ້ນ.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>ພົບ dhd64.dll ແຕ່ບໍ່ສາມາດໂຫຼດມັນໄດ້.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>dhd64.dll ນັ້ນບໍ່ແມ່ນໄລບຣາຣີ Force Dimension ທີ່ PadForge ຕ້ອງການ.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>ບໍ່ມີ Force Dimension SDK ໃນຄອມພິວເຕີເຄື່ອງນີ້. ດາວໂຫຼດມັນຈາກໜ້າດາວໂຫຼດຂອງ Force Dimension ຫຼື ເລືອກ dhd64.dll ຂອງມັນ.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>ດຶງດ້າມຈັບອອກມາຈົນສຸດ ແລ້ວດັນເຂົ້າໄປຈົນສຸດ ເພື່ອໃຫ້ມັນຮູ້ຕຳແໜ່ງເລີ່ມຕົ້ນ</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>ກຳລັງເຮັດວຽກທີ່ {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>ເປີດຢູ່</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>ມີ Falcon ເປີດຢູ່ໃນໂປຣແກຣມອື່ນ ເຊັ່ນ FalconJoyForce ຫຼື ເຄື່ອງມືຂອງ Force Dimension ເອງ. ປິດມັນຢູ່ໃນໂປຣແກຣມນັ້ນ.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon ກຳລັງໃຊ້ໄດຣເວີອື່ນ ({0}), ສະນັ້ນໄລບຣາຣີຂອງ Force Dimension ຈຶ່ງບໍ່ສາມາດເປີດມັນໄດ້. ໃນຕົວຈັດການອຸປະກອນ, ອັບເດດໄດຣເວີຂອງ Falcon ຈາກໂຟນເດີ drivers\usb ໃນໂຟນເດີ SDK ຂອງ Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>ມີ Falcon ສຽບຢູ່ໂດຍບໍ່ມີໄດຣເວີ. ປຸ່ມ "ຕິດຕັ້ງໄດຣເວີ Falcon" ຈະຕິດຕັ້ງໄດຣເວີຂອງ Force Dimension ໃຫ້ມັນ.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>ມີ Falcon ສຽບຢູ່ໂດຍບໍ່ມີໄດຣເວີ ແລະ ໂຟນເດີ SDK ບໍ່ມີແພັກເກັດໄດຣເວີທີ່ຈະຕິດຕັ້ງໃຫ້ມັນ. ຕິດຕັ້ງ SDK ຂອງ Force Dimension ຄືນໃໝ່.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>ບໍ່ພົບ Falcon. ສຽບສາຍໄຟ ແລະ ສາຍ USB ຂອງມັນ.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>ເລືອກ dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>ໂຫຼດສຳເນົາໄລບຣາຣີຂອງ Force Dimension ນີ້ກ່ອນສຳເນົາອື່ນ. ສຳເນົາທີ່ SDK ຕິດຕັ້ງຈະຖືກພົບເອງໂດຍບໍ່ຕ້ອງເລືອກ.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|ໄລບຣາຣີ (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>ຕິດຕັ້ງໄດຣເວີ Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>ຕິດຕັ້ງໄດຣເວີຂອງ Force Dimension ຈາກໂຟນເດີ SDK ໃສ່ Falcon ທີ່ບໍ່ມີໄດຣເວີ. Windows ອາດຈະຖາມກ່ອນວ່າຈະເຊື່ອຖື Force Dimension ຫຼື ບໍ່.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>ດາວໂຫຼດ SDK ຂອງ Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>ເປີດໜ້າດາວໂຫຼດ SDK ຂອງ Force Dimension ໃນບຣາວເຊີຂອງທ່ານ. PadForge ໂຫຼດ SDK ທີ່ທ່ານຕິດຕັ້ງ ແລະ ບໍ່ໄດ້ແຈກຢາຍສ່ວນໃດຂອງມັນ.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>ໄລຍະເຄື່ອນທີ່: ຊ້າຍ-ຂວາ {0:0} mm, ຂຶ້ນ-ລົງ {1:0} mm, ເຂົ້າ-ອອກ {2:0} mm.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>ການປັບທຽບຕ້ອງໃຫ້ Falcon ນີ້ເປີດຢູ່. ເປີດ "ຄວບຄຸມ Novint Falcon" ໃນການຕັ້ງຄ່າ ແລະ ສຽບ Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>ເລື່ອນດ້າມຈັບໄປທຸກຂອບຂອງໄລຍະເຄື່ອນທີ່…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>ປັບທຽບແລ້ວ. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>ບາງແກນເຄື່ອນທີ່ບໍ່ໄກພໍ ແລະ ຍັງໃຊ້ໄລຍະເຄື່ອນທີ່ເດີມ. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>ດ້າມຈັບເຄື່ອນທີ່ບໍ່ໄກພໍ, ສະນັ້ນໄລຍະເຄື່ອນທີ່ຍັງຄືເດີມ. ເລື່ອນມັນໄປທຸກຂອບໃນຂະນະທີ່ການກວາດກຳລັງເຮັດວຽກ.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon ປິດກ່ອນການກວາດຈະສຳເລັດ.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>ຫຼິ້ນເກມດ້ວຍ Novint Falcon ຜ່ານ SDK ຂອງ Force Dimension ເຊິ່ງທ່ານຕິດຕັ້ງຈາກ Force Dimension. ດ້າມຈັບເປັນສະຕິກ, ປຸ່ມສີ່ປຸ່ມເທິງດ້າມຈັບເປັນປຸ່ມ ແລະ PadForge ປ່ຽນການສັ່ນ ແລະ ເອັບເຟັກຂອງເກມເປັນແຮງໃສ່ດ້າມຈັບ. ແຖບ ແຮງສະທ້ອນກັບ ຂອງແຕ່ລະຊ່ອງກຳນົດວ່າ Falcon ຈະໃຫ້ຄວາມຮູ້ສຶກແນວໃດ.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>ຄວບຄຸມ Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>ເປີດ Falcon ແຕ່ລະເຄື່ອງຜ່ານ dhd64.dll ຂອງ Force Dimension. Falcon ທີ່ເປີດຢູ່ເປັນຂອງ PadForge ຜູ້ດຽວ, ສະນັ້ນ FalconJoyForce ແລະ ເຄື່ອງມືຂອງ Force Dimension ບໍ່ສາມາດເປີດມັນໄດ້ໃນຂະນະທີ່ອັນນີ້ເປີດຢູ່. ເມື່ອປິດ, PadForge ຈະປິດ Falcon ທຸກເຄື່ອງ.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>ຕັ້ງໄລບຣາຣີ Falcon ເປັນ {0} ແລ້ວ. ສຳເນົາທີ່ກຳລັງໃຊ້ຢູ່ຈະຍັງຄົງຢູ່ຈົນກວ່າ PadForge ເລີ່ມໃໝ່.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>ກຳລັງຕິດຕັ້ງໄດຣເວີ Falcon ຂອງ Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>ແພັກເກັດໄດຣເວີ Falcon ຂອງ Force Dimension ຫຼື ແຄັດຕາລັອກຂອງມັນ ຫາຍໄປ: {0}. ຕິດຕັ້ງ SDK ຂອງ Force Dimension ຄືນໃໝ່.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>ບໍ່ມີ Falcon ສຽບຢູ່.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon ກຳລັງໃຊ້ໄດຣເວີອື່ນ ({0}), ສະນັ້ນ PadForge ຈຶ່ງບໍ່ແຕະຕ້ອງມັນ. ຕົວຈັດການອຸປະກອນສາມາດປ່ຽນມັນເປັນໄດຣເວີຂອງ Force Dimension ໄດ້.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows ບໍ່ໄດ້ຕິດຕັ້ງໄດຣເວີຂອງ Force Dimension. ຖ້າ Windows ຖາມວ່າຈະເຊື່ອຖື Force Dimension ຫຼື ບໍ່, ໃຫ້ເລືອກ "ຕິດຕັ້ງ".</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>ໄດຣເວີຕິດຕັ້ງແລ້ວ ແຕ່ Falcon ຍັງບໍ່ໄດ້ປ່ຽນໄປໃຊ້ມັນ. ຖອດ Falcon ອອກ ແລ້ວສຽບຄືນ.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge ຄຳນວນທຸກແຮງທີ່ກະທຳຕໍ່ດ້າມຈັບຂອງ Falcon ປະມານພັນເທື່ອຕໍ່ວິນາທີ ຈາກຕຳແໜ່ງຂອງດ້າມຈັບ ແລະ ສິ່ງທີ່ເກມກຳລັງຫຼິ້ນ. ການຕັ້ງຄ່າເຫຼົ່ານີ້ເປັນຂອງຊ່ອງນີ້.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>ຄືນຄ່າ Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>ຄວາມຮູ້ສຶກ</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>ຈອຍສະຕິກ: ຕຳແໜ່ງຂອງດ້າມຈັບຄືສະຕິກ ແລະ ສະປິງດຶງມັນກັບຄືນຈຸດກາງ. ເລັງ: ການເຄື່ອນໄຫວຂອງດ້າມຈັບເລື່ອນສະຕິກ ແລະ ການດັນດ້າມຈັບໄວ້ຕິດກຳແພງທີ່ຂອບຈະເຮັດໃຫ້ຫັນຕໍ່ໄປເລື້ອຍໆ.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>ຈອຍສະຕິກ</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>ເລັງ</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>ສະປິງກັບຈຸດກາງ</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>ຄືນຄ່າສະປິງກັບຈຸດກາງ</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>ປຸ່ມດີດ</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>ໃນຂະນະທີ່ກົດຄ້າງປຸ່ມນີ້ເທິງດ້າມຈັບ ແລະ ອີກໜຶ່ງສ່ວນສີ່ວິນາທີຫຼັງຈາກນັ້ນ, ການສັ່ນຂອງເກມຈະດີດດ້າມຈັບເຂົ້າຫາທ່ານ. ການສັ່ນໃນເວລາອື່ນຈະເຮັດໃຫ້ດ້າມຈັບສັ່ນ.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>ປຸ່ມ 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>ປຸ່ມ 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>ປຸ່ມ 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>ປຸ່ມ 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>ຄວາມແຮງການດີດ</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>ຄືນຄ່າຄວາມແຮງການດີດ</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>ຄວາມແຮງການສັ່ນ</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>ຄືນຄ່າຄວາມແຮງການສັ່ນ</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>ປຸ່ມພະຍຸງ</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>ໃນຂະນະທີ່ກົດຄ້າງປຸ່ມນີ້ເທິງດ້າມຈັບ, ການເລັງຈະຊ້າລົງເຫຼືອ 30 ເປີເຊັນ ເພື່ອການປັບລະອຽດ.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>ປຸ່ມແຮງດັນລ່ວງໜ້າ</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>ໃນຂະນະທີ່ກົດຄ້າງປຸ່ມນີ້ເທິງດ້າມຈັບ, ແຮງດັນຄົງທີ່ 1.6 N ຈະກົດດ້າມຈັບໄວ້ ເຊິ່ງເຮັດໃຫ້ການແກ້ໄຂເລັກນ້ອຍລຽບນຽນຂຶ້ນ.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>ການຊົດເຊີຍແຮງໂນ້ມຖ່ວງ</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon ຍົກນ້ຳໜັກຂອງດ້າມຈັບເອງໄວ້ຫຼາຍປານໃດ, ເປັນເປີເຊັນຂອງແຮງໂນ້ມຖ່ວງມາດຕະຖານ.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>ຄືນຄ່າການຊົດເຊີຍແຮງໂນ້ມຖ່ວງ</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>ຂີດຈຳກັດແຮງ</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>ແຮງສູງສຸດທີ່ Falcon ໃສ່ໃຫ້ດ້າມຈັບ, ຈາກ 1 ຫາ 8 ນິວຕັນ.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>ຄືນຄ່າຂີດຈຳກັດແຮງ</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>ປັບທຽບໄລຍະເຄື່ອນທີ່</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ວັດແທກວ່າດ້າມຈັບເຄື່ອນທີ່ໄດ້ໄກເທົ່າໃດ. ເລື່ອນມັນໄປທຸກຂອບຂອງໄລຍະເຄື່ອນທີ່ຕະຫຼອດສີ່ວິນາທີທີ່ການກວາດເຮັດວຽກ. ແຮງຕ່າງໆຈະຢຸດພັກໃນລະຫວ່າງນັ້ນ.</value></data>
 </root>

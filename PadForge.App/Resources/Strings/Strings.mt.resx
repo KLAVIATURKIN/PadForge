@@ -4295,4 +4295,82 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direzzjoni</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Pass</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Maqbad</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Xellug/Lemin</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Fuq/Isfel</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ġewwa/Barra</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Buttuna {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, mgħobbi minn {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Il-librerija ta' Force Dimension taħdem biss fil-verżjoni x64 ta' PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>Instab dhd64.dll u ma setax jitgħabba.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Dak il-fajl dhd64.dll mhuwiex il-librerija ta' Force Dimension li jistenna PadForge.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Ma hemm l-ebda Force Dimension SDK fuq dan il-PC. Ġibu mill-paġna tad-download ta' Force Dimension, jew agħżel il-fajl dhd64.dll tiegħu.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>iġbed il-maqbad 'il barra kollu, imbagħad imbuttah 'il ġewwa kollu, biex l-apparat jitgħallem il-pożizzjoni tiegħu</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>qed jaħdem b'{0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>miftuħ</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Hemm Falcon miftuħ fi programm ieħor, bħal FalconJoyForce jew l-għodod ta' Force Dimension stess. Agħlqu hemm.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Il-Falcon qiegħed fuq driver ieħor ({0}), għalhekk il-librerija ta' Force Dimension ma tistax tiftħu. Fid-Device Manager, aġġorna d-driver tal-Falcon mill-folder drivers\usb fil-folder tal-SDK ta' Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Hemm Falcon imqabbad mingħajr driver. “Installa d-driver tal-Falcon” jagħtih id-driver ta' Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Hemm Falcon imqabbad mingħajr driver, u l-folder tal-SDK m'għandux pakkett ta' driver x'jagħtih. Erġa' installa l-SDK ta' Force Dimension.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Ma nstab l-ebda Falcon. Qabbad il-kurrent u l-kejbil USB tiegħu.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Agħżel dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Jgħabbi din il-kopja tal-librerija ta' Force Dimension qabel kull oħra. Il-kopji li jinstalla l-SDK jinstabu mingħajrha.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Libreriji (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Installa d-driver tal-Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Jinstalla d-driver ta' Force Dimension, mill-folder tal-SDK, fuq Falcon li m'għandux wieħed. Windows jista' l-ewwel jistaqsik jekk tafdax lil Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Ikseb l-SDK ta' Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Jiftaħ il-paġna tad-download tal-SDK ta' Force Dimension fil-browser tiegħek. PadForge jgħabbi l-SDK li tinstalla u ma jinkludi l-ebda parti minnu.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Medda: {0:0} mm xellug u lemin, {1:0} mm fuq u isfel, {2:0} mm ġewwa u barra.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Biex tikkalibra, dan il-Falcon irid ikun miftuħ. Ixgħel “Ħaddem in-Novint Falcon” fis-Settings u qabbad il-Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Ċaqlaq il-maqbad sa kull tarf tal-medda tiegħu…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Ikkalibrat. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Xi assijiet ma mxewx biżżejjed u jżommu l-medda l-qadima tagħhom. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Il-maqbad ma mexiex biżżejjed, għalhekk il-medda tibqa' kif kienet. Ċaqalqu sa kull tarf waqt li jkun għaddej il-kejl.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Il-Falcon ingħalaq qabel ma spiċċa l-kejl.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Jippermettilek tilgħab logħob b'Novint Falcon permezz tal-SDK ta' Force Dimension, li tinstalla mingħand Force Dimension. Il-maqbad huwa stick, l-erba' buttuni tal-maqbad huma buttuni, u PadForge ipoġġi r-rumble u l-effetti tal-logħba fuq il-maqbad bħala forza. It-tab Force feedback ta' kull slot jiddetermina kif iġib ruħu l-Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Ħaddem in-Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Jiftaħ kull Falcon permezz tad-dhd64.dll ta' Force Dimension. Falcon miftuħ huwa ta' PadForge biss, għalhekk FalconJoyForce u l-għodod ta' Force Dimension ma jistgħux jiftħuh waqt li dan ikun mixgħul. Meta jkun mitfi, PadForge jagħlaq kull Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Il-librerija tal-Falcon issettjata għal {0}. Kopja li diġà qed tintuża tibqa' sakemm PadForge jerġa' jibda.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Qed jiġi installat id-driver tal-Falcon ta' Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Il-pakkett tad-driver tal-Falcon ta' Force Dimension, jew il-katalgu tiegħu, nieqes: {0}. Erġa' installa l-SDK ta' Force Dimension.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Ma hemm l-ebda Falcon imqabbad.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Il-Falcon qiegħed fuq driver ieħor ({0}), għalhekk PadForge iħallih. Id-Device Manager jista' jbiddlu għal dak ta' Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows ma installax id-driver ta' Force Dimension. Jekk Windows jistaqsik jekk tafdax lil Force Dimension, agħżel Installa.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Id-driver huwa installat, iżda l-Falcon għadu ma qalibx għalih. Aqla' l-Falcon u erġa' qabbdu.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge jikkalkula kull forza fuq il-maqbad tal-Falcon madwar elf darba fis-sekonda, skont fejn ikun il-maqbad u x'qed tagħmel il-logħba. Dawn is-settings huma ta' dan is-slot.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Irrisettja n-Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Sensazzjoni</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: il-pożizzjoni tal-maqbad hija l-istick, u molla tiġbdu lura għaċ-ċentru. Mira: il-moviment tal-maqbad iċaqlaq l-istick, u jekk iżżomm il-maqbad mal-ħajt fit-tarf, jibqa' jdur.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Mira</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Molla taċ-ċentrar</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Irrisettja l-molla taċ-ċentrar</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Buttuna tad-daqqa</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Waqt li żżomm din il-buttuna tal-maqbad, u għal kwart ta' sekonda wara, ir-rumble tal-logħba jagħti daqqa lill-maqbad lejk. Ir-rumble f'ħinijiet oħra jħezzeż il-maqbad.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Buttuna 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Buttuna 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Buttuna 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Buttuna 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Saħħa tad-daqqa</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Irrisettja s-saħħa tad-daqqa</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Saħħa tat-tħezziż</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Irrisettja s-saħħa tat-tħezziż</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Buttuna tal-istabbilizzar</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Waqt li żżomm din il-buttuna tal-maqbad, il-veloċità tal-mira tinżel għal 30 fil-mija għal aġġustamenti fini.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Buttuna tal-preload</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Waqt li żżomm din il-buttuna tal-maqbad, imbuttatura kostanti ta' 1.6 N tagħfas fuq il-maqbad, u dan jagħmel il-korrezzjonijiet żgħar aktar lixxi.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Kumpens tal-gravità</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Kemm mill-piż tal-maqbad innifsu jżomm il-Falcon, f'persentaġġ tal-gravità standard.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Irrisettja l-kumpens tal-gravità</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Limitu tal-forza</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>L-akbar forza li l-Falcon ipoġġi fuq il-maqbad, minn 1 sa 8 newtons.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Irrisettja l-limitu tal-forza</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Ikkalibra l-medda</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Ikejjel kemm jimxi l-maqbad. Ċaqalqu sa kull tarf tal-medda tiegħu għall-erba' sekondi li jdum il-kejl. Il-forzi jieqfu sadanittant.</value></data>
 </root>

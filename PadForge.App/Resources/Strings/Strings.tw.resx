@@ -663,4 +663,16 @@
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Adeyɛ</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Anammɔn</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Benkum/Nifa</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Soro/Fam</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Mu/Abɔnten</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>abue</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Paw dhd64.dll…</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
 </root>

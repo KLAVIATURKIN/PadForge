@@ -4320,4 +4320,82 @@ PadForge විසින් ඒවා දැන් අස්ථාපනය ක�
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>දිශාව</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>පියවර</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>හසුරුව</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>වම/දකුණ</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ඉහළ/පහළ</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>ඇතුළට/පිටතට</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>බොත්තම {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, {1} වෙතින් පූරණය කරන ලදී</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension හි පුස්තකාලය ධාවනය වන්නේ PadForge හි x64 අනුවාදයේ පමණි.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll හමු වූ නමුත් එය පූරණය කළ නොහැකි විය.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>එම dhd64.dll, PadForge බලාපොරොත්තු වන Force Dimension පුස්තකාලය නොවේ.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>මෙම පරිගණකයේ Force Dimension SDK නැත. එය Force Dimension හි බාගැනීම් පිටුවෙන් ලබා ගන්න, නැතහොත් එහි dhd64.dll තෝරන්න.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>හසුරුව මුල් ස්ථානයට පත් කිරීමට, එය සම්පූර්ණයෙන්ම පිටතට ඇද, පසුව සම්පූර්ණයෙන්ම ඇතුළට තල්ලු කරන්න</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz වේගයෙන් ක්‍රියාත්මක වේ</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>විවෘතයි</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon එකක් වෙනත් වැඩසටහනක විවෘතව ඇත, උදාහරණයක් ලෙස FalconJoyForce හෝ Force Dimension හි මෙවලම්. එය එහි වසන්න.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon වෙනත් ධාවකයක ({0}) ඇති බැවින් Force Dimension හි පුස්තකාලයට එය විවෘත කළ නොහැක. උපාංග කළමනාකරු තුළ, Force Dimension හි SDK ෆෝල්ඩරයේ ඇති drivers\usb ෆෝල්ඩරයෙන් Falcon හි ධාවකය යාවත්කාලීන කරන්න.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon එකක් ධාවකයක් නොමැතිව සම්බන්ධ කර ඇත. “Falcon ධාවකය ස්ථාපනය කරන්න” මගින් එයට Force Dimension හි ධාවකය ලබා දේ.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon එකක් ධාවකයක් නොමැතිව සම්බන්ධ කර ඇති අතර, SDK ෆෝල්ඩරයේ එයට ලබා දීමට ධාවක පැකේජයක් නැත. Force Dimension හි SDK නැවත ස්ථාපනය කරන්න.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon එකක් හමු නොවීය. එහි බල සැපයුම සහ USB කේබලය සම්බන්ධ කරන්න.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll තෝරන්න…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Force Dimension හි පුස්තකාලයේ මෙම පිටපත අන් සියල්ලට පෙර පූරණය කරයි. SDK ස්ථාපනය කරන පිටපත් මෙය නොමැතිවම සොයා ගැනේ.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|පුස්තකාල (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon ධාවකය ස්ථාපනය කරන්න</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>ධාවකයක් නොමැති Falcon එකකට SDK ෆෝල්ඩරයෙන් Force Dimension හි ධාවකය ස්ථාපනය කරයි. Force Dimension විශ්වාස කළ යුතුද යන්න Windows මුලින් විමසිය හැක.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension හි SDK ලබා ගන්න</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Force Dimension හි SDK බාගැනීම් පිටුව ඔබගේ බ්‍රවුසරයේ විවෘත කරයි. PadForge ඔබ ස්ථාපනය කරන SDK පූරණය කරන අතර, එහි කිසිදු කොටසක් PadForge සමඟ බෙදා හරින්නේ නැත.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>චලන පරාසය: වමට සහ දකුණට {0:0} mm, ඉහළට සහ පහළට {1:0} mm, ඇතුළට සහ පිටතට {2:0} mm.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>ක්‍රමාංකනයට මෙම Falcon විවෘතව තිබිය යුතුය. සැකසීම් තුළ “Novint Falcon පාලනය කරන්න” සක්‍රිය කර Falcon සම්බන්ධ කරන්න.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>හසුරුව එහි චලන පරාසයේ සෑම කෙළවරකටම ගෙන යන්න…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>ක්‍රමාංකනය කරන ලදී. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>සමහර අක්ෂ ප්‍රමාණවත් දුරක් ගමන් නොකළ බැවින් ඒවායේ පැරණි චලන පරාසය රඳවා ගනී. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>හසුරුව ප්‍රමාණවත් දුරක් ගමන් නොකළ බැවින් චලන පරාසය පෙර පරිදිම පවතී. මැනීම ක්‍රියාත්මක වන අතරතුර එය සෑම කෙළවරකටම ගෙන යන්න.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>මැනීම අවසන් වීමට පෙර Falcon වැසී ගියේය.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>ඔබ Force Dimension වෙතින් ස්ථාපනය කරන Force Dimension හි SDK හරහා Novint Falcon එකකින් ක්‍රීඩා කරයි. හසුරුව ස්ටික් එකක් වේ, ග්‍රහණයේ බොත්තම් හතර බොත්තම් වේ, සහ PadForge ක්‍රීඩාවේ කම්පනය සහ ප්‍රයෝග හසුරුව මත බලයක් ලෙස යොදයි. Falcon දැනෙන ආකාරය එක් එක් ස්ලොට් එකේ බල ප්‍රතිපෝෂණය ටැබය මගින් සකසයි.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon පාලනය කරන්න</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>එක් එක් Falcon එක Force Dimension හි dhd64.dll හරහා විවෘත කරයි. විවෘත Falcon එකක් PadForge සතු පමණක් වන බැවින්, මෙය සක්‍රිය අතරතුර FalconJoyForce සහ Force Dimension හි මෙවලම්වලට එය විවෘත කළ නොහැක. අක්‍රිය කළ විට, PadForge සියලුම Falcon වසා දමයි.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon පුස්තකාලය {0} ලෙස සකසා ඇත. දැනටමත් භාවිතයේ ඇති පිටපතක් PadForge නැවත ආරම්භ වන තෙක් පවතී.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Force Dimension හි Falcon ධාවකය ස්ථාපනය කරමින්…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension හි Falcon ධාවක පැකේජය හෝ එහි කැටලොගය නැත: {0}. Force Dimension හි SDK නැවත ස්ථාපනය කරන්න.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>කිසිදු Falcon එකක් සම්බන්ධ කර නැත.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon වෙනත් ධාවකයක ({0}) ඇති බැවින් PadForge එයට අත නොතබයි. උපාංග කළමනාකරුට එය Force Dimension හි ධාවකයට වෙනස් කළ හැක.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows විසින් Force Dimension හි ධාවකය ස්ථාපනය කළේ නැත. Force Dimension විශ්වාස කළ යුතුද යැයි Windows විමසුවහොත්, “ස්ථාපනය කරන්න” තෝරන්න.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>ධාවකය ස්ථාපනය කර ඇත, නමුත් Falcon තවම එයට මාරු වී නැත. Falcon ගලවා නැවත සම්බන්ධ කරන්න.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge, Falcon හි හසුරුව මත ඇති සෑම බලයක්ම තත්පරයකට දළ වශයෙන් දහස් වතාවක්, හසුරුව ඇති ස්ථානය සහ ක්‍රීඩාව වාදනය කරන දේ අනුව ගණනය කරයි. මෙම සැකසීම් මෙම ස්ලොට් එකට අයත් වේ.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon යළි සකසන්න</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>දැනීම</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>ජොයිස්ටික්: හසුරුවේ පිහිටීම ස්ටික් එක වන අතර, ස්ප්‍රිංගයක් එය නැවත මධ්‍යයට අදියි. ඉලක්කය: හසුරුවේ චලනය ස්ටික් එක චලනය කරයි, සහ හසුරුව එහි කෙළවරේ බිත්තියට එරෙහිව තබාගෙන සිටින තාක් හැරීම දිගටම සිදු වේ.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>ජොයිස්ටික්</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>ඉලක්කය</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>මධ්‍යගත කිරීමේ ස්ප්‍රිංගය</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>මධ්‍යගත කිරීමේ ස්ප්‍රිංගය යළි සකසන්න</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>පහර බොත්තම</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>මෙම ග්‍රහණ බොත්තම ඔබාගෙන සිටින අතරතුර සහ ඉන් පසු තත්පර කාලක් තුළ, ක්‍රීඩාවේ කම්පනය හසුරුව ඔබ දෙසට පහර දෙයි. වෙනත් වේලාවන්හි කම්පනය හසුරුව සොලවයි.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>බොත්තම 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>බොත්තම 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>බොත්තම 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>බොත්තම 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>පහරේ ශක්තිය</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>පහරේ ශක්තිය යළි සකසන්න</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>සෙලවීමේ ශක්තිය</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>සෙලවීමේ ශක්තිය යළි සකසන්න</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>ස්ථාවර කිරීමේ බොත්තම</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>මෙම ග්‍රහණ බොත්තම ඔබාගෙන සිටින අතරතුර, සියුම් ගැලපීම් සඳහා ඉලක්කය සියයට 30 දක්වා මන්දගාමී වේ.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>පූර්ව බල බොත්තම</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>මෙම ග්‍රහණ බොත්තම ඔබාගෙන සිටින අතරතුර, ස්ථාවර 1.6 N තල්ලුවක් හසුරුවට යොදයි, එමගින් කුඩා නිවැරදි කිරීම් සුමට වේ.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>ගුරුත්ව වන්දිය</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>හසුරුවේ ස්වකීය බරෙන් කොපමණ ප්‍රමාණයක් Falcon විසින් ඔසවා තබන්නේද යන්න, සම්මත ගුරුත්වයේ ප්‍රතිශතයක් ලෙස.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>ගුරුත්ව වන්දිය යළි සකසන්න</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>බල සීමාව</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon හසුරුව මත යොදන උපරිම බලය, නිව්ටන 1 සිට 8 දක්වා.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>බල සීමාව යළි සකසන්න</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>චලන පරාසය ක්‍රමාංකනය කරන්න</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>හසුරුව කොපමණ දුරක් ගමන් කරන්නේද යන්න මනියි. මැනීම ක්‍රියාත්මක වන තත්පර හතර තුළ එය එහි චලන පරාසයේ සෑම කෙළවරකටම ගෙන යන්න. ඒ අතරතුර බල ක්‍රියා නොකරයි.</value></data>
 </root>

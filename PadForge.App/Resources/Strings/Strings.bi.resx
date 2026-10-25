@@ -1449,4 +1449,54 @@
   <data name="MacroAction_ShowKeyboardScreen_Format" xml:space="preserve"><value>Soem {0} pikja: {1} × {2} ms, ripit {3} taem</value></data>
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Skrin</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Hanel</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Lef/Raet</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Antap/Daon</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Insaed/Aotsaed</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Baton {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, i lod i kam long {1}</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>PadForge i faenem dhd64.dll be i no save lodem.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>I nogat Force Dimension SDK long PC ia. Tekem long pej blong daonlod blong Force Dimension, no jusum dhd64.dll blong hem.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>pulum hanel i go aotsaed olgeta, afta pusum i go insaed olgeta, blong mekem i lanem ples blong hem</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>i ron long {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>i open</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Wan Falcon i open long wan narafala program, olsem FalconJoyForce no ol tul blong Force Dimension. Klosem long ples ia.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Wan Falcon i plag i stap be i nogat draeva. Instolem draeva blong Falcon i givim draeva blong Force Dimension long hem.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Wan Falcon i plag i stap be i nogat draeva, mo SDK folda i nogat draeva pakej blong givim long hem. Instolem bakegen SDK blong Force Dimension.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>I no faenem wan Falcon. Plagem paoa mo USB kebol blong hem.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Jusum dhd64.dll…</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Instolem draeva blong Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Instolem draeva blong Force Dimension, we i kam long SDK folda, long wan Falcon we i nogat draeva. Fastaem, Windows i save askem sapos yu trastem Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Tekem SDK blong Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Openem pej blong daonlod blong SDK blong Force Dimension long braosa blong yu. PadForge i lodem SDK we yu instolem, mo i no kam wetem eni pat blong hem.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Hamas longwe: {0:0} mm lef mo raet, {1:0} mm antap mo daon, {2:0} mm insaed mo aotsaed.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kalibresen i nidim Falcon ia i open. Tanem on Kontrolem Novint Falcon long Seting mo plagem Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Muvum hanel i go kasem evri saed blong ples we i save go…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibresen i finis. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Sam aksis oli no muv longwe inaf, mo oli kipim olfala renj blong olgeta. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Hanel i no muv longwe inaf, ale renj i stap olsem bifo. Muvum i go kasem evri saed taem mesarem i stap ron.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon i klos bifo mesarem i finis.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Plei ol gem wetem wan Novint Falcon tru long SDK blong Force Dimension, we yu instolem i kam long Force Dimension. Hanel i wan stik, fo baton long hanel oli ol baton, mo PadForge i putum seksek mo ol efek blong gem long hanel olsem fos. Force Feedback tab blong wanwan slot i setem fasin blong Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Kontrolem Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Openem wanwan Falcon tru long dhd64.dll blong Force Dimension. Wan Falcon we i open i blong PadForge nomo, ale FalconJoyForce mo ol tul blong Force Dimension oli no save openem taem samting ia i on. Taem i of, PadForge i klosem evri Falcon.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>I stap instolem draeva blong Falcon blong Force Dimension…</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>I nogat Falcon we i plag i stap.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon i stap long wan narafala draeva ({0}), ale PadForge i livim hem. Device Manager i save jenisim i go long draeva blong Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows i no instolem draeva blong Force Dimension. Sapos Windows i askem sapos yu trastem Force Dimension, jusum Install.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Draeva i instol finis, be Falcon i no muv i go long hem yet. Tekemaot plag blong Falcon mo plagem bakegen.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge i kaontem evri fos long hanel blong Falcon samwe long wan taosen taem long wan sekon, folem ples blong hanel mo samting we gem i pleim. Ol seting ia oli blong slot ia.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Putum bak Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Baton 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Baton 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Baton 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Baton 4</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Mesarem hamas longwe</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mesarem hamas longwe hanel i save go. Muvum i go kasem evri saed blong hem long fo sekon we mesarem i ron. Ol fos oli stop long taem ia.</value></data>
 </root>

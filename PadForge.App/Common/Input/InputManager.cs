@@ -2388,6 +2388,9 @@ namespace PadForge.Common.Input
         {
             OutputsQuiesced = true;
             try { StopAllForceFeedback(); } catch { }
+            // A Falcon (#521) stops outright: its haptic thread sets zero
+            // force and closes the device within a short wait.
+            try { QuiesceFalcons(150); } catch { }
             // A Bliss-Box port's stop is its worker's to send (#469), and a
             // dying process may not outlive that, so wait a moment for it.
             try { BlissBoxRuntime.StopMotorsNow(250); } catch { }
@@ -2400,6 +2403,9 @@ namespace PadForge.Common.Input
             // waits for the GameSense and Razer Sensa workers' next tick
             // (PeripheralOutputHost.WaitForSilence).
             PadForge.Common.Input.Peripherals.PeripheralOutputs.SilenceHaptics();
+            // A Falcon (#521) keeps its feel and loses the game's force. Its
+            // haptic thread renders the zero at its next pass.
+            SilenceFalcons();
             var devices = SettingsManager.UserDevices?.Items;
             if (devices == null) return;
 
@@ -3948,6 +3954,8 @@ namespace PadForge.Common.Input
             // edge, except a level a Remote Link peer drives, which keeps
             // playing like a peer-driven SDL rumble.
             PadForge.Common.Input.Peripherals.PeripheralOutputs.SilenceHaptics(keepRelayed: true);
+            // #521: a Falcon takes the edge too, its feel kept.
+            SilenceFalcons();
             try
             {
                 if (submitControllers == null) UpdateVirtualDevices();
@@ -4242,6 +4250,7 @@ namespace PadForge.Common.Input
             ShutdownHeadTrackerInputs();
             ShutdownLogitechGKeysInputs();
             ShutdownKeyboardScreenKeysInputs();
+            ShutdownFalconInputs();
             ShutdownPeripheralRows();
             ShutdownTouchSenseMice();
             ShutdownAnalogKeyboardInputs();

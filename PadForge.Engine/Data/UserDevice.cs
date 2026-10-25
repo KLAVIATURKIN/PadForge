@@ -615,6 +615,13 @@ namespace PadForge.Engine.Data
         [XmlElement]
         public string GunCalibration { get; set; } = string.Empty;
 
+        /// <summary>A Novint Falcon's reach (#521) as "x,y,z" in millimeters,
+        /// set by the Calibrate sweep on the Force Feedback tab. Empty means
+        /// 60 mm on each axis. It belongs to the Falcon, so it is kept per
+        /// device, which a Falcon's serial number identifies.</summary>
+        [XmlElement]
+        public string FalconCalibration { get; set; } = string.Empty;
+
         /// <summary>Quick Charge edge memory (#372): the last charging read,
         /// so the drop fires only on the false-to-true edge. Deliberately
         /// NOT reset on a fresh connection: a user who re-links Bluetooth

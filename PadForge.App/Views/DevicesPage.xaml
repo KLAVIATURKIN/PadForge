@@ -1313,6 +1313,24 @@
                         <TextBlock Text="{Binding Devices_RawInputState, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}"
                                    Style="{StaticResource SectionEyebrow}" Margin="0,0,0,8"/>
 
+                        <!-- Novint Falcon (#521): the handle as a dot in its
+                             Left/Right and Up/Down square. In/Out and the four
+                             buttons follow in the named axes and the grid. -->
+                        <StackPanel Visibility="{Binding IsFalconDevice, Converter={StaticResource BoolToVisibilityConverter}}"
+                                    Margin="0,0,0,8">
+                            <TextBlock Text="{Binding Devices_FalconHandle, Source={x:Static strings:Strings.Instance}}" FontFamily="{StaticResource TelemetryFontFamily}" FontSize="11" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,0,0,3"/>
+                            <Border x:Name="FalconPreviewBorder"
+                                    Background="{DynamicResource SteelGroundBrush}" BorderBrush="{DynamicResource SteelLineBrush}"
+                                    BorderThickness="1" CornerRadius="6"
+                                    Width="100" Height="100" HorizontalAlignment="Left" ClipToBounds="True"
+                                    SizeChanged="FalconPreviewBorder_SizeChanged">
+                                <Canvas FlowDirection="LeftToRight">
+                                    <Ellipse x:Name="FalconDot" Width="14" Height="14" Fill="#CCFF6600"
+                                             Effect="{StaticResource ColdDotGlow}"/>
+                                </Canvas>
+                            </Border>
+                        </StackPanel>
+
                         <!-- Axes label (joysticks/gamepads only) -->
                         <TextBlock Text="{Binding Devices_Axes, Source={x:Static strings:Strings.Instance}}" FontFamily="{StaticResource TelemetryFontFamily}" FontSize="11" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,0,0,3">
                             <TextBlock.Style>

@@ -4324,4 +4324,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Ուղղություն</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Քայլ</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Բռնակ</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Ձախ/աջ</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Վերև/ներքև</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ներս/դուրս</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Կոճակ {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}՝ {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, բեռնված է {1}-ից</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension-ի գրադարանն աշխատում է միայն PadForge-ի x64 տարբերակում։</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll-ը գտնվեց, բայց չհաջողվեց բեռնել։</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Այս dhd64.dll-ը PadForge-ի սպասած Force Dimension-ի գրադարանը չէ։</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Այս համակարգչում Force Dimension SDK չկա։ Ստացեք այն Force Dimension-ի ներբեռնման էջից կամ ընտրեք դրա dhd64.dll-ը։</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>քաշեք բռնակն ամբողջովին դուրս, ապա մղեք ամբողջովին ներս՝ այն ելակետ բերելու համար</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>աշխատում է {0:0.0} kHz հաճախականությամբ</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>բաց է</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon-ը բաց է մեկ այլ ծրագրում, օրինակ՝ FalconJoyForce-ում կամ Force Dimension-ի սեփական գործիքներում։ Փակեք այն այնտեղ։</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon-ն օգտագործում է մեկ այլ դրայվեր ({0}), ուստի Force Dimension-ի գրադարանը չի կարող այն բացել։ Սարքերի կառավարիչում թարմացրեք Falcon-ի դրայվերը Force Dimension-ի SDK պանակի drivers\usb պանակից։</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon-ը միացված է առանց դրայվերի։ Տեղադրել Falcon-ի դրայվերը կոճակը նրան տալիս է Force Dimension-ի դրայվերը։</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon-ը միացված է առանց դրայվերի, իսկ SDK պանակում նրան տալու դրայվերի փաթեթ չկա։ Նորից տեղադրեք Force Dimension-ի SDK-ը։</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon չի գտնվել։ Միացրեք դրա սնուցումը և USB մալուխը։</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Ընտրել dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Բեռնում է Force Dimension-ի գրադարանի այս օրինակը մյուսներից առաջ։ SDK-ի տեղադրած օրինակները գտնվում են առանց դրա։</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Գրադարաններ (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Տեղադրել Falcon-ի դրայվերը</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>SDK պանակից տեղադրում է Force Dimension-ի դրայվերը այն Falcon-ի վրա, որն այն չունի։ Windows-ը կարող է նախ հարցնել՝ վստահե՞լ Force Dimension-ին։</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Ստանալ Force Dimension-ի SDK-ը</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Բացում է Force Dimension-ի SDK-ի ներբեռնման էջը ձեր բրաուզերում։ PadForge-ը բեռնում է ձեր տեղադրած SDK-ը և դրանից ոչինչ չի ներառում։</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Տիրույթ՝ {0:0} մմ ձախ-աջ, {1:0} մմ վերև-ներքև, {2:0} մմ ներս-դուրս։</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Չափաբերման համար այս Falcon-ը պետք է բաց լինի։ Կարգավորումներում միացրեք Կառավարել Novint Falcon-ը և միացրեք Falcon-ը։</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Տեղափոխեք բռնակը իր տիրույթի յուրաքանչյուր եզր…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Չափաբերվեց։ {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Որոշ առանցքներ բավականաչափ հեռու չշարժվեցին և պահպանում են իրենց նախկին տիրույթը։ {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Բռնակը բավականաչափ հեռու չշարժվեց, ուստի տիրույթը մնում է նախկինը։ Սկանավորման ընթացքում տեղափոխեք այն յուրաքանչյուր եզր։</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon-ը փակվեց մինչև սկանավորման ավարտը։</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Խաղում է Novint Falcon-ով Force Dimension-ի SDK-ի միջոցով, որը դուք տեղադրում եք Force Dimension-ից։ Բռնակը ձող է, բռնակի չորս կոճակները կոճակներ են, իսկ PadForge-ը խաղի թրթռոցն ու էֆեկտները բռնակին հաղորդում է որպես ուժ։ Յուրաքանչյուր սլոթի Հետադարձ ուժ ներդիրում կարգավորվում է, թե ինչպես է Falcon-ը զգացվում։</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Կառավարել Novint Falcon-ը</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Բացում է յուրաքանչյուր Falcon Force Dimension-ի dhd64.dll-ի միջոցով։ Բաց Falcon-ը պատկանում է միայն PadForge-ին, ուստի այս ընտրանքը միացրած ժամանակ FalconJoyForce-ը և Force Dimension-ի գործիքները չեն կարող այն բացել։ Անջատված վիճակում PadForge-ը փակում է բոլոր Falcon-ները։</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon-ի գրադարանը սահմանվեց՝ {0}։ Արդեն օգտագործվող օրինակը մնում է մինչև PadForge-ի նորից գործարկումը։</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Տեղադրվում է Force Dimension-ի Falcon դրայվերը…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension-ի Falcon դրայվերի փաթեթը կամ դրա կատալոգը բացակայում է՝ {0}։ Նորից տեղադրեք Force Dimension-ի SDK-ը։</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Ոչ մի Falcon միացված չէ։</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon-ն օգտագործում է մեկ այլ դրայվեր ({0}), ուստի PadForge-ը այն չի դիպչում։ Սարքերի կառավարիչը կարող է այն փոխել Force Dimension-ի դրայվերի։</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows-ը չտեղադրեց Force Dimension-ի դրայվերը։ Եթե Windows-ը հարցնի՝ վստահե՞լ Force Dimension-ին, ընտրեք Տեղադրել։</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Դրայվերը տեղադրված է, բայց Falcon-ը դեռ չի անցել դրան։ Անջատեք Falcon-ը և նորից միացրեք։</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge-ը հաշվում է Falcon-ի բռնակի վրա ազդող յուրաքանչյուր ուժ վայրկյանում մոտ հազար անգամ՝ ըստ բռնակի դիրքի և այն բանի, ինչ խաղում է խաղը։ Այս կարգավորումները պատկանում են այս սլոթին։</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Վերականգնել Novint Falcon-ը</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Զգացողություն</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Ջոյստիկ՝ բռնակի դիրքը ձողն է, իսկ զսպանակը այն ետ է քաշում կենտրոն։ Նշանառություն՝ բռնակի շարժումը շարժում է ձողը, և բռնակը եզրի պատին սեղմած պահելը շարունակում է պտտել։</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Ջոյստիկ</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Նշանառություն</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Կենտրոնացնող զսպանակ</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Վերականգնել կենտրոնացնող զսպանակը</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Հարվածի կոճակ</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Քանի դեռ բռնակի այս կոճակը պահված է, և դրանից հետո էլ վայրկյանի մեկ քառորդ, խաղի թրթռոցը բռնակը հարվածում է ձեր կողմը։ Մյուս ժամանակ թրթռոցը ցնցում է բռնակը։</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Կոճակ 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Կոճակ 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Կոճակ 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Կոճակ 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Հարվածի ուժգնություն</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Վերականգնել հարվածի ուժգնությունը</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Ցնցման ուժգնություն</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Վերականգնել ցնցման ուժգնությունը</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Ամրացման կոճակ</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Քանի դեռ բռնակի այս կոճակը պահված է, նշանառությունը դանդաղում է մինչև 30 տոկոս՝ նուրբ ճշգրտումների համար։</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Նախաբեռնման կոճակ</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Քանի դեռ բռնակի այս կոճակը պահված է, կայուն 1.6 N մղումը բեռնում է բռնակը, ինչը հարթեցնում է փոքր ուղղումները։</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Ծանրության փոխհատուցում</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Բռնակի սեփական քաշի որ մասն է Falcon-ը պահում վերևում՝ ստանդարտ ծանրության ուժի տոկոսով։</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Վերականգնել ծանրության փոխհատուցումը</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Ուժի սահման</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Ամենամեծ ուժը, որ Falcon-ը գործադրում է բռնակի վրա՝ 1-ից 8 նյուտոն։</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Վերականգնել ուժի սահմանը</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Չափաբերել տիրույթը</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Չափում է, թե որքան հեռու է շարժվում բռնակը։ Սկանավորման չորս վայրկյանի ընթացքում տեղափոխեք այն իր տիրույթի յուրաքանչյուր եզր։ Այդ ընթացքում ուժերը դադարում են։</value></data>
 </root>

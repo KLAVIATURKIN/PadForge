@@ -31,6 +31,7 @@ namespace PadForge.ViewModels
             nameof(AnalogKeyboardsEnabled) or
             nameof(BlissBoxEnabled) or
             nameof(KeyboardScreensEnabled) or
+            nameof(NovintFalconEnabled) or
             nameof(PollingRateMs) or
             nameof(HmInactivityDestroyTimeoutSeconds) or
             nameof(AssignOfferNewDevice) or
@@ -137,6 +138,12 @@ namespace PadForge.ViewModels
                 {
                     // Off is the default: it loads other vendors' libraries.
                     KeyboardScreensEnabled = false;
+                    break;
+                }
+                case nameof(NovintFalconEnabled):
+                {
+                    // Off is the default: the Falcon moves on its own.
+                    NovintFalconEnabled = false;
                     break;
                 }
                 case nameof(PollingRateMs):
@@ -387,6 +394,10 @@ namespace PadForge.ViewModels
             nameof(TriggerRumbleFold) or
             nameof(SwapMotors) or
             nameof(WheelRotationRangeEnabled) or
+            nameof(FalconFeel) or
+            nameof(FalconKickButton) or
+            nameof(FalconBraceButton) or
+            nameof(FalconPreloadButton) or
             nameof(ConstantForceEnabled) or
             nameof(AudioRumbleEnabled) or
             nameof(ImpulseSwapTriggers) or
@@ -441,6 +452,26 @@ namespace PadForge.ViewModels
                 case nameof(WheelRotationRangeEnabled):
                 {
                     WheelRotationRangeEnabled = true;
+                    break;
+                }
+                case nameof(FalconFeel):
+                {
+                    FalconFeel = 0;
+                    break;
+                }
+                case nameof(FalconKickButton):
+                {
+                    FalconKickButton = 1;
+                    break;
+                }
+                case nameof(FalconBraceButton):
+                {
+                    FalconBraceButton = 0;
+                    break;
+                }
+                case nameof(FalconPreloadButton):
+                {
+                    FalconPreloadButton = 0;
                     break;
                 }
                 case nameof(ConstantForceEnabled):

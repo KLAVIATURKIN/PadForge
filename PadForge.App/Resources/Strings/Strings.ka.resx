@@ -4350,4 +4350,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>მიმართულება</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>ნაბიჯი</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>სახელური</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>მარცხნივ/მარჯვნივ</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ზემოთ/ქვემოთ</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>შიგნით/გარეთ</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>ღილაკი {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, ჩატვირთულია აქედან: {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension-ის ბიბლიოთეკა მხოლოდ PadForge-ის x64 ვერსიაში მუშაობს.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll ნაპოვნია, მაგრამ ვერ ჩაიტვირთა.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>ეს dhd64.dll არ არის Force Dimension-ის ბიბლიოთეკა, რომელსაც PadForge ელოდება.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>ამ კომპიუტერზე Force Dimension SDK არ არის. ჩამოტვირთეთ Force Dimension-ის ჩამოტვირთვის გვერდიდან ან აირჩიეთ მისი dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>სახელური ბოლომდე გამოსწიეთ, შემდეგ ბოლომდე შიგნით შეიყვანეთ, რომ საწყის მდგომარეობაში მოვიდეს</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>მუშაობს {0:0.0} kHz სიხშირით</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>ღიაა</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon სხვა პროგრამაშია გახსნილი, მაგალითად FalconJoyForce-ში ან Force Dimension-ის საკუთარ ხელსაწყოებში. დახურეთ იქ.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon სხვა დრაივერზეა ({0}), ამიტომ Force Dimension-ის ბიბლიოთეკას მისი გახსნა არ შეუძლია. მოწყობილობათა მმართველში განაახლეთ Falcon-ის დრაივერი Force Dimension-ის SDK საქაღალდეში არსებული drivers\usb საქაღალდიდან.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon მიერთებულია დრაივერის გარეშე. „Falcon-ის დრაივერის დაყენება“ მას Force Dimension-ის დრაივერს აყენებს.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon მიერთებულია დრაივერის გარეშე, SDK საქაღალდეში კი მისთვის დრაივერის პაკეტი არ არის. თავიდან დააყენეთ Force Dimension-ის SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon ვერ მოიძებნა. შეაერთეთ მისი კვების კაბელი და USB კაბელი.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll-ის არჩევა…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>ტვირთავს Force Dimension-ის ბიბლიოთეკის ამ ასლს სხვებზე ადრე. SDK-ის მიერ დაყენებული ასლები მის გარეშეც მოიძებნება.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|ბიბლიოთეკები (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon-ის დრაივერის დაყენება</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>აყენებს Force Dimension-ის დრაივერს SDK საქაღალდიდან Falcon-ზე, რომელსაც დრაივერი არ აქვს. Windows-მა შეიძლება ჯერ იკითხოს, ენდობით თუ არა Force Dimension-ს.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension-ის SDK-ის მიღება</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>ბრაუზერში ხსნის Force Dimension-ის SDK-ის ჩამოტვირთვის გვერდს. PadForge ტვირთავს თქვენ მიერ დაყენებულ SDK-ს და მას არ შეიცავს.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>დიაპაზონი: {0:0} მმ მარცხნივ-მარჯვნივ, {1:0} მმ ზემოთ-ქვემოთ, {2:0} მმ შიგნით-გარეთ.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>კალიბრაციისთვის ეს Falcon ღია უნდა იყოს. პარამეტრებში ჩართეთ „Novint Falcon-ის მართვა“ და შეაერთეთ Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>მოამოძრავეთ სახელური მისი დიაპაზონის ყველა კიდემდე…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>დაკალიბრდა. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>ზოგი ღერძი საკმარისად შორს არ გადაადგილდა და ძველ დიაპაზონს ინარჩუნებს. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>სახელური საკმარისად შორს არ გადაადგილდა, ამიტომ დიაპაზონი უცვლელი რჩება. გადაატარეთ ყველა კიდემდე, სანამ გაზომვა მიმდინარეობს.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon დაიხურა გაზომვის დასრულებამდე.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>თამაშობს Novint Falcon-ით Force Dimension-ის SDK-ის მეშვეობით, რომელსაც Force Dimension-ისგან აყენებთ. სახელური სტიკია, სახელურის ოთხი ღილაკი ღილაკებია, PadForge კი თამაშის ვიბრაციასა და ეფექტებს სახელურზე ძალად გადასცემს. თითოეული სლოტის ძალისმიერი უკუკავშირის ჩანართში განისაზღვრება, როგორ იგრძნობა Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon-ის მართვა</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>ხსნის ყველა Falcon-ს Force Dimension-ის dhd64.dll-ის მეშვეობით. გახსნილი Falcon მხოლოდ PadForge-ს ეკუთვნის, ამიტომ ჩართვისას FalconJoyForce და Force Dimension-ის ხელსაწყოები მას ვერ გახსნიან. გამორთვისას PadForge ყველა Falcon-ს ხურავს.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon-ის ბიბლიოთეკად არჩეულია {0}. უკვე გამოყენებული ასლი PadForge-ის ხელახლა გაშვებამდე რჩება.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>მიმდინარეობს Force Dimension-ის Falcon-დრაივერის დაყენება…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension-ის Falcon-დრაივერის პაკეტი ან მისი კატალოგი აკლია: {0}. თავიდან დააყენეთ Force Dimension-ის SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>არცერთი Falcon არ არის მიერთებული.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon სხვა დრაივერზეა ({0}), ამიტომ PadForge მას არ ეხება. მოწყობილობათა მმართველში მისი შეცვლა Force Dimension-ის დრაივერზე შეიძლება.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows-მა Force Dimension-ის დრაივერი ვერ დააყენა. თუ Windows იკითხავს, ენდობით თუ არა Force Dimension-ს, აირჩიეთ „დაყენება“.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>დრაივერი დაყენებულია, მაგრამ Falcon მასზე არ გადასულა. გამოართეთ Falcon და ისევ შეაერთეთ.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge Falcon-ის სახელურზე მოქმედ ყველა ძალას წამში დაახლოებით ათასჯერ ითვლის, სახელურის მდებარეობისა და თამაშის მიერ გაშვებული ეფექტების მიხედვით. ეს პარამეტრები ამ სლოტს ეკუთვნის.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon-ის საწყისზე დაბრუნება</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>შეგრძნება</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>ჯოისტიკი: სახელურის მდებარეობა სტიკია და ზამბარა მას ცენტრში აბრუნებს. მიზნება: სახელურის მოძრაობა სტიკს ამოძრავებს, ხოლო სახელურის კიდესთან კედელზე მიდებული დაჭერა განუწყვეტლივ აბრუნებს.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>ჯოისტიკი</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>მიზნება</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>ცენტრში დამბრუნებელი ზამბარა</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>ცენტრში დამბრუნებელი ზამბარის საწყისზე დაბრუნება</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>ბიძგის ღილაკი</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>სანამ ეს ღილაკი დაჭერილია და კიდევ მეოთხედი წამი მის შემდეგ, თამაშის ვიბრაცია სახელურს თქვენკენ ბიძგით ურტყამს. სხვა დროს ვიბრაცია სახელურს არხევს.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>ღილაკი 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>ღილაკი 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>ღილაკი 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>ღილაკი 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>ბიძგის სიძლიერე</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>ბიძგის სიძლიერის საწყისზე დაბრუნება</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>რყევის სიძლიერე</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>რყევის სიძლიერის საწყისზე დაბრუნება</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>სტაბილიზაციის ღილაკი</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>სანამ ეს ღილაკი დაჭერილია, მიზნება 30 პროცენტამდე ნელდება ზუსტი კორექტირებისთვის.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>წინასწარი დატვირთვის ღილაკი</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>სანამ ეს ღილაკი დაჭერილია, მუდმივი 1.6 N ძალა სახელურს ტვირთავს, რაც მცირე შესწორებებს ამრბილებს.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>სიმძიმის კომპენსაცია</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>სახელურის საკუთარი წონის რა ნაწილს იკავებს Falcon, სტანდარტული სიმძიმის ძალის პროცენტებში.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>სიმძიმის კომპენსაციის საწყისზე დაბრუნება</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>ძალის ლიმიტი</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>მაქსიმალური ძალა, რომელსაც Falcon სახელურზე ახდენს, 1-დან 8 ნიუტონამდე.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>ძალის ლიმიტის საწყისზე დაბრუნება</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>დიაპაზონის კალიბრაცია</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ზომავს, რამდენად შორს გადაადგილდება სახელური. ოთხი წამის განმავლობაში, სანამ გაზომვა მიმდინარეობს, გადაატარეთ ყველა კიდემდე. ძალები ამ დროს ითიშება.</value></data>
 </root>

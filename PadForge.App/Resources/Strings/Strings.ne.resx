@@ -4384,4 +4384,82 @@ PadForge ले तिनलाई अहिले अनइन्स्टल �
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>दिशा</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>चरण</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>ह्यान्डल</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>बायाँ/दायाँ</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>माथि/तल</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>भित्र/बाहिर</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>बटन {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, {1} बाट लोड गरिएको</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension को लाइब्रेरी PadForge को x64 बिल्डमा मात्र चल्छ।</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll भेटियो तर लोड गर्न सकिएन।</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>त्यो dhd64.dll PadForge ले अपेक्षा गरेको Force Dimension लाइब्रेरी होइन।</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>यो PC मा Force Dimension SDK छैन। Force Dimension को डाउनलोड पृष्ठबाट लिनुहोस्, वा यसको dhd64.dll छान्नुहोस्।</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>ह्यान्डलको स्थिति सिकाउन यसलाई पूरै बाहिर तान्नुहोस्, अनि पूरै भित्र धकेल्नुहोस्</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz मा चलिरहेको</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>खुला</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>एउटा Falcon अर्को प्रोग्राममा खुला छ, जस्तै FalconJoyForce वा Force Dimension का आफ्नै उपकरणहरू। त्यहाँ बन्द गर्नुहोस्।</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon अर्को ड्राइभरमा छ ({0}), त्यसैले Force Dimension को लाइब्रेरीले यसलाई खोल्न सक्दैन। यन्त्र प्रबन्धक (Device Manager) मा, Force Dimension को SDK फोल्डरभित्रको drivers\usb फोल्डरबाट Falcon को ड्राइभर अपडेट गर्नुहोस्।</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>एउटा Falcon ड्राइभरबिना जोडिएको छ। “Falcon ड्राइभर स्थापना गर्नुहोस्” ले यसलाई Force Dimension को ड्राइभर दिन्छ।</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>एउटा Falcon ड्राइभरबिना जोडिएको छ, र SDK फोल्डरमा यसलाई दिने ड्राइभर प्याकेज छैन। Force Dimension को SDK पुनः स्थापना गर्नुहोस्।</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>कुनै Falcon भेटिएन। यसको पावर र USB केबल जोड्नुहोस्।</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll छान्नुहोस्…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Force Dimension को लाइब्रेरीको यो प्रतिलिपि अरू कुनै भन्दा पहिले लोड गर्छ। SDK ले स्थापना गर्ने प्रतिलिपिहरू यसबिना नै भेटिन्छन्।</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|लाइब्रेरीहरू (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon ड्राइभर स्थापना गर्नुहोस्</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>SDK फोल्डरबाट, ड्राइभर नभएको Falcon मा Force Dimension को ड्राइभर स्थापना गर्छ। Windows ले पहिले Force Dimension लाई विश्वास गर्ने कि नगर्ने भनेर सोध्न सक्छ।</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension को SDK लिनुहोस्</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>तपाईंको ब्राउजरमा Force Dimension को SDK डाउनलोड पृष्ठ खोल्छ। PadForge ले तपाईंले स्थापना गरेको SDK लोड गर्छ र त्यसको कुनै अंश आफूसँग समावेश गर्दैन।</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>पहुँच: बायाँ-दायाँ {0:0} मिमि, माथि-तल {1:0} मिमि, भित्र-बाहिर {2:0} मिमि।</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>क्यालिब्रेट गर्न यो Falcon खुला हुनुपर्छ। सेटिङहरूमा “Novint Falcon चलाउनुहोस्” सक्रिय गर्नुहोस् र Falcon जोड्नुहोस्।</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>ह्यान्डललाई यसको पहुँचको हरेक किनारासम्म सार्नुहोस्…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>क्यालिब्रेट भयो। {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>केही अक्षहरू पर्याप्त टाढा गएनन्, त्यसैले तिनको पुरानै पहुँच कायम रहन्छ। {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>ह्यान्डल पर्याप्त टाढा गएन, त्यसैले पहुँच पहिले जस्तै रहन्छ। मापन चलिरहँदा यसलाई हरेक किनारासम्म सार्नुहोस्।</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>मापन सकिनुअघि नै Falcon बन्द भयो।</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Force Dimension को SDK मार्फत Novint Falcon बाट गेम खेलाउँछ, जुन SDK तपाईं Force Dimension बाट स्थापना गर्नुहुन्छ। ह्यान्डल स्टिक हो, ग्रिपका चार बटनहरू बटन हुन्, र PadForge ले गेमको कम्पन र इफेक्टहरूलाई बलको रूपमा ह्यान्डलमा लागू गर्छ। हरेक स्लटको फोर्स फिडब्याक ट्याबले Falcon कस्तो महसुस हुन्छ भनेर तय गर्छ।</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon चलाउनुहोस्</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>हरेक Falcon लाई Force Dimension को dhd64.dll मार्फत खोल्छ। खुला Falcon PadForge को मात्र हुन्छ, त्यसैले यो सक्रिय हुँदा FalconJoyForce र Force Dimension का उपकरणहरूले यसलाई खोल्न सक्दैनन्। निष्क्रिय हुँदा, PadForge ले सबै Falcon बन्द गर्छ।</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon लाइब्रेरी {0} मा सेट गरियो। पहिले नै प्रयोगमा रहेको प्रतिलिपि PadForge फेरि सुरु नभएसम्म रहन्छ।</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Force Dimension को Falcon ड्राइभर स्थापना हुँदैछ…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension को Falcon ड्राइभर प्याकेज, वा यसको क्याटलग, हराएको छ: {0}। Force Dimension को SDK पुनः स्थापना गर्नुहोस्।</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>कुनै Falcon जोडिएको छैन।</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon अर्को ड्राइभरमा छ ({0}), त्यसैले PadForge ले यसलाई छुँदैन। यन्त्र प्रबन्धक (Device Manager) ले यसलाई Force Dimension को ड्राइभरमा बदल्न सक्छ।</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows ले Force Dimension को ड्राइभर स्थापना गरेन। Windows ले Force Dimension लाई विश्वास गर्ने कि नगर्ने भनेर सोधेमा, “स्थापना गर्नुहोस्” छान्नुहोस्।</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>ड्राइभर स्थापना भयो, तर Falcon त्यसमा सरेको छैन। Falcon निकालेर फेरि जोड्नुहोस्।</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>ह्यान्डल कहाँ छ र गेमले के चलाउँछ भन्ने आधारमा PadForge ले Falcon को ह्यान्डलमा पर्ने हरेक बल एक सेकेन्डमा करिब एक हजार पटक गणना गर्छ। यी सेटिङहरू यो स्लटका हुन्।</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon रिसेट गर्नुहोस्</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>अनुभूति</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>जोयस्टिक: ह्यान्डलको स्थिति नै स्टिक हो, र स्प्रिङले यसलाई केन्द्रतिर फर्काउँछ। निशाना: ह्यान्डलको चालले स्टिक सार्छ, र ह्यान्डललाई किनाराको पर्खालमा थिचिराख्दा घुमाइ जारी रहन्छ।</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>जोयस्टिक</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>निशाना</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>केन्द्रीकरण स्प्रिङ</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>केन्द्रीकरण स्प्रिङ रिसेट गर्नुहोस्</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>किक बटन</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>यो ग्रिप बटन थिचिराख्दा, र त्यसपछि एक चौथाइ सेकेन्डसम्म, गेमको कम्पनले ह्यान्डललाई तपाईंतिर धक्का दिन्छ। अरू बेलाको कम्पनले ह्यान्डल हल्लाउँछ।</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>बटन 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>बटन 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>बटन 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>बटन 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>किकको बल</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>किकको बल रिसेट गर्नुहोस्</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>हल्लाइको बल</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>हल्लाइको बल रिसेट गर्नुहोस्</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>स्थिरता बटन</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>यो ग्रिप बटन थिचिराख्दा, सूक्ष्म समायोजनका लागि निशाना 30 प्रतिशतमा ढिलो हुन्छ।</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>प्रिलोड बटन</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>यो ग्रिप बटन थिचिराख्दा, 1.6 N को स्थिर धक्काले ह्यान्डललाई लोड गर्छ, जसले साना सुधारहरू सहज बनाउँछ।</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>गुरुत्व क्षतिपूर्ति</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>ह्यान्डलको आफ्नै तौलको कति भाग Falcon ले थाम्छ, मानक गुरुत्वको प्रतिशतमा।</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>गुरुत्व क्षतिपूर्ति रिसेट गर्नुहोस्</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>बल सीमा</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon ले ह्यान्डलमा लगाउने अधिकतम बल, 1 देखि 8 न्युटनसम्म।</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>बल सीमा रिसेट गर्नुहोस्</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>पहुँच क्यालिब्रेट गर्नुहोस्</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ह्यान्डल कति टाढा जान्छ भनेर नाप्छ। मापन चल्ने चार सेकेन्डसम्म यसलाई पहुँचको हरेक किनारासम्म सार्नुहोस्। त्यस बेला बलहरू रोकिन्छन्।</value></data>
 </root>

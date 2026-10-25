@@ -4384,4 +4384,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>جهت</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>گام</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>دسته</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>چپ/راست</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>بالا/پایین</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>داخل/خارج</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>دکمه {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}، بارگذاری‌شده از {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>کتابخانه Force Dimension فقط در نسخه x64 برنامه PadForge اجرا می‌شود.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll پیدا شد، اما بارگذاری نشد.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>این dhd64.dll کتابخانه Force Dimension مورد انتظار PadForge نیست.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Force Dimension SDK روی این رایانه نیست. آن را از صفحه دانلود Force Dimension دریافت کنید یا dhd64.dll آن را انتخاب کنید.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>برای تنظیم موقعیت مبدأ، دسته را تا انتها بیرون بکشید و سپس تا انتها به داخل فشار دهید</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>در حال اجرا با {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>باز</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>یک Falcon در برنامه‌ای دیگر باز است، مانند FalconJoyForce یا ابزارهای خود Force Dimension. آن را همان‌جا ببندید.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon با درایور دیگری ({0}) کار می‌کند، بنابراین کتابخانه Force Dimension نمی‌تواند آن را باز کند. در مدیریت دستگاه، درایور Falcon را از پوشه drivers\usb در پوشه SDK مربوط به Force Dimension به‌روزرسانی کنید.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>یک Falcon بدون درایور وصل شده است. دکمه «نصب درایور Falcon» درایور Force Dimension را برای آن نصب می‌کند.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>یک Falcon بدون درایور وصل شده است و پوشه SDK بسته درایوری برای نصب ندارد. Force Dimension SDK را دوباره نصب کنید.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>هیچ Falcon پیدا نشد. برق و کابل USB آن را وصل کنید.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>انتخاب dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>این نسخه از کتابخانه Force Dimension را پیش از هر نسخه دیگر بارگذاری می‌کند. نسخه‌هایی که SDK نصب می‌کند بدون آن هم پیدا می‌شوند.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|کتابخانه‌ها (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>نصب درایور Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>درایور Force Dimension را از پوشه SDK روی دستگاه Falcon بدون درایور نصب می‌کند. ممکن است Windows ابتدا بپرسد که به Force Dimension اعتماد شود یا نه.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>دریافت Force Dimension SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>صفحه دانلود Force Dimension SDK را در مرورگر شما باز می‌کند. PadForge همان SDK را که نصب می‌کنید بارگذاری می‌کند و هیچ بخشی از آن را همراه خود ندارد.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>برد: {0:0} mm چپ و راست، {1:0} mm بالا و پایین، {2:0} mm داخل و خارج.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>کالیبراسیون به باز بودن این Falcon نیاز دارد. گزینه «کنترل Novint Falcon» را در تنظیمات روشن کنید و Falcon را وصل کنید.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>دسته را به همه لبه‌های برد آن ببرید…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>کالیبره شد. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>برخی محورها به اندازه کافی حرکت نکردند و برد قبلی خود را حفظ می‌کنند. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>دسته به اندازه کافی حرکت نکرد، بنابراین برد مثل قبل می‌ماند. هنگام اجرای پیمایش، آن را به همه لبه‌ها ببرید.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon پیش از پایان پیمایش بسته شد.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>با Novint Falcon از طریق Force Dimension SDK بازی می‌کند. این SDK را از Force Dimension نصب می‌کنید. دسته یک استیک است، چهار دکمه دسته دکمه هستند و PadForge لرزش و جلوه‌های بازی را به‌صورت نیرو روی دسته اعمال می‌کند. زبانه فورس فیدبک هر اسلات حس Falcon را تنظیم می‌کند.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>کنترل Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>هر Falcon را از طریق dhd64.dll مربوط به Force Dimension باز می‌کند. Falcon بازشده فقط به PadForge تعلق دارد، پس تا زمانی که این گزینه روشن است FalconJoyForce و ابزارهای Force Dimension نمی‌توانند آن را باز کنند. با خاموش کردن آن، PadForge همه دستگاه‌های Falcon را می‌بندد.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>کتابخانه Falcon روی {0} تنظیم شد. نسخه‌ای که از قبل در حال استفاده است تا شروع دوباره PadForge می‌ماند.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>در حال نصب درایور Falcon از Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>بسته درایور Falcon از Force Dimension یا کاتالوگ آن وجود ندارد: {0}. Force Dimension SDK را دوباره نصب کنید.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>هیچ Falcon وصل نیست.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon با درایور دیگری ({0}) کار می‌کند، بنابراین PadForge به آن دست نمی‌زند. در مدیریت دستگاه می‌توانید آن را به درایور Force Dimension تغییر دهید.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows درایور Force Dimension را نصب نکرد. اگر Windows پرسید که به Force Dimension اعتماد شود یا نه، «نصب» را انتخاب کنید.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>درایور نصب شده است، اما Falcon هنوز به آن منتقل نشده. کابل Falcon را جدا و دوباره وصل کنید.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge نیروی وارد بر دسته Falcon را حدود هزار بار در ثانیه محاسبه می‌کند، از روی موقعیت دسته و آنچه بازی پخش می‌کند. این تنظیمات مربوط به همین اسلات هستند.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>بازنشانی Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>حس</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>جوی‌استیک: موقعیت دسته همان استیک است و یک فنر آن را به مرکز برمی‌گرداند. هدف‌گیری: حرکت دسته استیک را حرکت می‌دهد و نگه داشتن دسته روی دیواره لبه، چرخش را ادامه می‌دهد.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>جوی‌استیک</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>هدف‌گیری</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>فنر مرکزگیری</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>بازنشانی فنر مرکزگیری</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>دکمه پس‌زنی</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>تا زمانی که این دکمه دسته نگه داشته شود و تا یک‌چهارم ثانیه پس از آن، لرزش بازی دسته را به سمت شما پس می‌زند. در زمان‌های دیگر، لرزش دسته را تکان می‌دهد.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>دکمه 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>دکمه 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>دکمه 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>دکمه 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>شدت پس‌زنی</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>بازنشانی شدت پس‌زنی</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>شدت تکان</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>بازنشانی شدت تکان</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>دکمه تثبیت</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>تا زمانی که این دکمه دسته نگه داشته شود، سرعت هدف‌گیری برای تنظیم‌های دقیق به 30 درصد کاهش می‌یابد.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>دکمه پیش‌بار</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>تا زمانی که این دکمه دسته نگه داشته شود، یک فشار ثابت 1.6 N دسته را بارگذاری می‌کند و اصلاحات کوچک را نرم‌تر می‌کند.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>جبران گرانش</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>چه مقدار از وزن خود دسته را Falcon نگه می‌دارد، بر حسب درصد گرانش استاندارد.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>بازنشانی جبران گرانش</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>حد نیرو</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>بیشترین نیرویی که Falcon به دسته وارد می‌کند، از 1 تا 8 نیوتن.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>بازنشانی حد نیرو</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>کالیبره کردن برد</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>فاصله حرکت دسته را اندازه می‌گیرد. در چهار ثانیه اجرای پیمایش، دسته را به همه لبه‌های بردش ببرید. نیروها در این مدت قطع می‌شوند.</value></data>
 </root>

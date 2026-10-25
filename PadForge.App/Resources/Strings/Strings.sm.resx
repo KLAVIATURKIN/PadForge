@@ -1072,4 +1072,21 @@
   <data name="Status_KeyboardScreen_Format" xml:space="preserve"><value>Ua setiina le {0} i le {1}.</value></data>
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>E faʻaali e le {0} le {1}</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Agavale/Taumatau</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Luga/Lalo</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Totonu/Fafo</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Faʻamau {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>ua tatala</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Filifili le dhd64.dll…</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Toe setiina le Novint Falcon</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Faʻamau 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Faʻamau 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Faʻamau 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Faʻamau 4</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
 </root>

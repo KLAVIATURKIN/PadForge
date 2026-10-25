@@ -147,6 +147,28 @@ namespace PadForge.Common
         /// <summary>The Visual C++ 2008 runtime is still missing after its
         /// installer ran (#519).</summary>
         Vc2008RuntimeMissing,
+
+        /// <summary>Force Dimension's Falcon driver package is gone from the
+        /// SDK folder, or its catalog is (#521). The detail is the INF's
+        /// path.</summary>
+        FalconDriverPackageMissing,
+
+        /// <summary>No Falcon is plugged in to install the driver on
+        /// (#521).</summary>
+        FalconNotPluggedIn,
+
+        /// <summary>A Falcon is on another driver, which PadForge leaves in
+        /// place (#521). The detail is that driver's service.</summary>
+        FalconOnAnotherDriver,
+
+        /// <summary>Windows did not stock Force Dimension's package, which
+        /// includes the user declining its prompt to trust Force Dimension
+        /// (#521).</summary>
+        FalconDriverDeclined,
+
+        /// <summary>The Falcon is not on WinUSB after the install
+        /// (#521).</summary>
+        FalconDriverNotBound,
     }
 
     /// <summary>
@@ -2087,6 +2109,133 @@ namespace PadForge.Common
             {
                 if (!installerMayStillRun) CleanupTempDir(staging);
             }
+        }
+
+        // ─────────────────────────────────────────────
+        //  Novint Falcon (issue #521)
+        // ─────────────────────────────────────────────
+
+        /// <summary>The ID Force Dimension's fdhusb.inf binds the Falcon on,
+        /// in its Falcon_Install section.</summary>
+        internal const string FalconHardwareId = @"USB\VID_0403&PID_CB48";
+
+        /// <summary>
+        /// Force Dimension's driver package where its SDK installer leaves it,
+        /// <c>drivers\usb\fdhusb.inf</c> under the SDK folder, when the INF
+        /// names a catalog and the catalog is beside it. SDK 3.17.7's
+        /// installer holds two variants of the INF, and only DriverVer
+        /// 3.18.00.03 names fdhusb.cat, signed by Force Dimension. Windows
+        /// refuses a third-party INF with no catalog, so PadForge offers no
+        /// install of one. Null otherwise.
+        /// </summary>
+        internal static string FalconDriverPackage(string sdkRoot)
+        {
+            if (string.IsNullOrWhiteSpace(sdkRoot)) return null;
+            try
+            {
+                string inf = Path.Combine(sdkRoot, "drivers", "usb", "fdhusb.inf");
+                return HasCatalog(inf) ? inf : null;
+            }
+            catch (Exception ex) when (ex is ArgumentException or NotSupportedException)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>Whether an INF exists and the catalog its [Version]
+        /// section names is beside it.</summary>
+        internal static bool HasCatalog(string inf)
+        {
+            if (string.IsNullOrWhiteSpace(inf)) return false;
+            try
+            {
+                if (!File.Exists(inf)) return false;
+                string catalog = InfCatalogName(File.ReadAllLines(inf));
+                return catalog != null && File.Exists(Path.Combine(Path.GetDirectoryName(inf), catalog));
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException
+                                          or NotSupportedException or System.Security.SecurityException)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>The catalog an INF's [Version] section names in its
+        /// CatalogFile entry, or one decorated for x64. Null when it names
+        /// none.</summary>
+        internal static string InfCatalogName(System.Collections.Generic.IEnumerable<string> infLines)
+        {
+            bool inVersion = false;
+            foreach (string raw in infLines)
+            {
+                string line = raw;
+                int comment = line.IndexOf(';');
+                if (comment >= 0) line = line.Substring(0, comment);
+                line = line.Trim();
+                if (line.Length == 0) continue;
+                if (line.StartsWith("[", StringComparison.Ordinal))
+                {
+                    inVersion = line.Equals("[Version]", StringComparison.OrdinalIgnoreCase);
+                    continue;
+                }
+                if (!inVersion) continue;
+                int eq = line.IndexOf('=');
+                if (eq <= 0) continue;
+                string key = line.Substring(0, eq).Trim();
+                if (!key.Equals("CatalogFile", StringComparison.OrdinalIgnoreCase)
+                    && !key.Equals("CatalogFile.NT", StringComparison.OrdinalIgnoreCase)
+                    && !key.Equals("CatalogFile.NTamd64", StringComparison.OrdinalIgnoreCase))
+                    continue;
+                string value = line.Substring(eq + 1).Trim().Trim('"');
+                if (value.Length > 0) return value;
+            }
+            return null;
+        }
+
+        /// <summary>The Falcons plugged in, as USB nodes with the driver each
+        /// one is on.</summary>
+        internal static System.Collections.Generic.List<PadForge.Services.VendorUsbDriverInstaller.UsbNode> FalconNodes()
+            => PadForge.Services.VendorUsbDriverInstaller.ListPresentUsbNodes()
+                .Where(n => n.Vid == PadForge.Common.Input.Falcon.FalconDevice.FalconVendorId
+                    && n.Pid == PadForge.Common.Input.Falcon.FalconDevice.FalconProductId).ToList();
+
+        /// <summary>
+        /// Installs Force Dimension's own Falcon package, <paramref name="inf"/>
+        /// from an SDK folder (<see cref="FalconDriverPackage"/>), onto the
+        /// Falcons plugged in, when none of them has a driver. The package is
+        /// stocked in the driver store, where Windows may first ask the user to
+        /// trust Force Dimension, then forced onto the Falcon's ID, the install
+        /// Ds3DriverInstaller and VendorUsbDriverInstaller make. A Falcon on
+        /// any driver stops the install, so PadForge never takes a device from
+        /// another driver. Done means every Falcon is on WinUSB afterward.
+        /// Runs on a worker thread.
+        /// </summary>
+        public static void InstallFalconDriver(string inf)
+        {
+            if (OffLimitsForTest)
+                throw new UnauthorizedAccessException("The test host changes no driver: " + FalconHardwareId);
+            if (!HasCatalog(inf))
+                throw new DriverCheckException(DriverCheckFailure.FalconDriverPackageMissing,
+                    "Force Dimension's Falcon driver package is missing or has no catalog.", inf ?? string.Empty);
+            var nodes = FalconNodes();
+            if (nodes.Count == 0)
+                throw new DriverCheckException(DriverCheckFailure.FalconNotPluggedIn, "No Falcon is plugged in.");
+            foreach (var n in nodes)
+                if (!string.IsNullOrEmpty(n.Service))
+                    throw new DriverCheckException(DriverCheckFailure.FalconOnAnotherDriver,
+                        "A Falcon is on " + n.Service + ", so its driver stays as it is.", n.Service);
+            if (!PadForge.Services.VendorUsbDriverInstaller.InstallSignedPackage(inf, FalconHardwareId, m => Debug.WriteLine("[Falcon] " + m)))
+                throw new DriverCheckException(DriverCheckFailure.FalconDriverDeclined,
+                    "Windows did not install Force Dimension's driver package.");
+            for (int i = 0; i < 20; i++)
+            {
+                var now = FalconNodes();
+                if (now.Count > 0 && now.All(n => string.Equals(n.Service, "WINUSB", StringComparison.OrdinalIgnoreCase)))
+                    return;
+                System.Threading.Thread.Sleep(250);
+            }
+            throw new DriverCheckException(DriverCheckFailure.FalconDriverNotBound,
+                "The Falcon is not on Force Dimension's driver after the install.");
         }
 
         // ─────────────────────────────────────────────

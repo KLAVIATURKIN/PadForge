@@ -796,6 +796,28 @@ namespace PadForge.Services
                && UpdateDriverForPlugAndPlayDevices(IntPtr.Zero, bindId, inf,
                    INSTALLFLAG_FORCE | INSTALLFLAG_NONINTERACTIVE, out _);
 
+        /// <summary>Stocks a package its vendor signed and forces it onto
+        /// the nodes <paramref name="bindId"/> names, as Bind does with a
+        /// package signed on this PC (#521: Force Dimension's Falcon
+        /// package). The caller checks first that every such node has no
+        /// driver, this class's rule, and polls the nodes afterward, since a
+        /// forced update that refuses can follow a stock that already bound
+        /// them. False when Windows did not stock the package, which is also
+        /// the answer when the user declines Windows' prompt to trust the
+        /// publisher.</summary>
+        internal static bool InstallSignedPackage(string inf, string bindId, Action<string> log)
+        {
+            if (!StockPackage(inf, out bool reboot))
+            {
+                log?.Invoke($"DiInstallDriver declined {inf}.");
+                return false;
+            }
+            if (reboot) log?.Invoke($"Windows asked for a restart after installing {inf}.");
+            if (!ForceDriver(bindId, inf))
+                log?.Invoke($"Forced bind for {bindId} returned err={Marshal.GetLastWin32Error()}.");
+            return true;
+        }
+
         private static void RemovePackage(string inf, string path)
         {
             if (NoDriverChangesForTest) return;

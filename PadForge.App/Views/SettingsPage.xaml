@@ -488,6 +488,48 @@
                 </StackPanel>
             </Border>
 
+            <!-- ═══ Novint Falcon (issue #521) ═══
+                 Off by default. On, PadForge opens each Falcon through Force
+                 Dimension's library, the user's own install of its SDK, and a
+                 line per Falcon says how it runs or why it did not open. -->
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <reset:GlyphText Text="&#xE7FC;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                   VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBlock Text="{Binding Settings_Falcon_Title, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource CardTitle}"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding Settings_Falcon_Desc, Source={x:Static strings:Strings.Instance}}"
+                               Style="{StaticResource CardDescription}" Margin="0,0,0,12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <CheckBox VerticalAlignment="Center" Content="{Binding Settings_Falcon, Source={x:Static strings:Strings.Instance}}"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  ToolTip="{Binding Settings_FalconTooltip, Source={x:Static strings:Strings.Instance}}"
+                                  IsChecked="{Binding NovintFalconEnabled}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="NovintFalconEnabled" SettingLabel="{Binding Settings_Falcon, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_SettingsViewModel_NovintFalconEnabled_13110"/>
+                    </StackPanel>
+                    <!-- The library's line, then a line per Falcon or why none
+                         opened. Empty while the switch is off or the engine is
+                         stopped. -->
+                    <TextBlock common:LiveText.Polite="True" Text="{Binding FalconStatus}"
+                               Visibility="{Binding FalconStatus, Converter={StaticResource StringToVisibility}}"
+                               TextWrapping="Wrap" Margin="0,0,0,8"
+                               Foreground="{DynamicResource EmberBrush}"/>
+                    <WrapPanel Visibility="{Binding NovintFalconEnabled, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Button Content="{Binding Falcon_PickLibrary, Source={x:Static strings:Strings.Instance}}"
+                                ToolTip="{Binding Falcon_PickLibrary_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding PickFalconLibraryCommand}" Margin="0,0,8,6"/>
+                        <Button Content="{Binding Falcon_InstallDriver, Source={x:Static strings:Strings.Instance}}"
+                                ToolTip="{Binding Falcon_InstallDriver_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                Visibility="{Binding FalconCanInstallDriver, Converter={StaticResource BoolToVisibilityConverter}}"
+                                Command="{Binding InstallFalconDriverCommand}" Margin="0,0,8,6"/>
+                        <Button Content="{Binding Falcon_OpenDownload, Source={x:Static strings:Strings.Instance}}"
+                                ToolTip="{Binding Falcon_OpenDownload_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                Command="{Binding OpenFalconDownloadCommand}" Margin="0,0,8,6"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
             <!-- ═══ Battery Alerts (#293) ═══ -->
             <Border Style="{StaticResource CardBorder}" Margin="0,0,0,20">
                 <StackPanel>

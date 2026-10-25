@@ -4294,4 +4294,82 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Mwelekeo</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Hatua</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Kishikio</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Kushoto/Kulia</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Juu/Chini</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ndani/Nje</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Kitufe {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, imepakiwa kutoka {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Maktaba ya Force Dimension inafanya kazi tu katika toleo la x64 la PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll imepatikana lakini haikuweza kupakiwa.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>dhd64.dll hiyo si maktaba ya Force Dimension inayotarajiwa na PadForge.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Hakuna Force Dimension SDK kwenye kompyuta hii. Ipate kutoka ukurasa wa upakuaji wa Force Dimension, au chagua dhd64.dll yake.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>vuta kishikio nje kabisa, kisha kisukume ndani kabisa ili kitambue nafasi yake</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>inafanya kazi kwa {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>imefunguliwa</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon imefunguliwa kwenye programu nyingine, kama FalconJoyForce au zana za Force Dimension zenyewe. Ifunge huko.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon iko kwenye kiendeshi kingine ({0}), kwa hiyo maktaba ya Force Dimension haiwezi kuifungua. Katika Kidhibiti cha Kifaa, sasisha kiendeshi cha Falcon kutoka folda ya drivers\usb ndani ya folda ya SDK ya Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon imechomekwa bila kiendeshi. Sakinisha Kiendeshi cha Falcon huipa kiendeshi cha Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon imechomekwa bila kiendeshi, na folda ya SDK haina kifurushi cha kiendeshi cha kuipa. Sakinisha upya Force Dimension SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Hakuna Falcon iliyopatikana. Chomeka umeme wake na kebo yake ya USB.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Chagua dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Hupakia nakala hii ya maktaba ya Force Dimension kabla ya nyingine yoyote. Nakala ambazo SDK husakinisha hupatikana bila hii.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Maktaba (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Sakinisha Kiendeshi cha Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Husakinisha kiendeshi cha Force Dimension, kutoka folda ya SDK, kwenye Falcon isiyo na kiendeshi. Windows inaweza kwanza kuuliza kama inaamini Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Pata SDK ya Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Hufungua ukurasa wa upakuaji wa SDK ya Force Dimension kwenye kivinjari chako. PadForge hupakia SDK unayosakinisha na haijumuishi sehemu yoyote yake.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Masafa: {0:0} mm kushoto na kulia, {1:0} mm juu na chini, {2:0} mm ndani na nje.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Usawazishaji unahitaji Falcon hii iwe imefunguliwa. Washa Endesha Novint Falcon katika Mipangilio na uchomeke Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Sogeza kishikio hadi kila ukingo wa masafa yake…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Imesawazishwa. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Baadhi ya mihimili haikusafiri umbali wa kutosha na inabaki na masafa yake ya zamani. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Kishikio hakikusafiri umbali wa kutosha, kwa hiyo masafa yanabaki kama yalivyokuwa. Kisogeze hadi kila ukingo wakati kipimo kinaendelea.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon ilifungwa kabla kipimo hakijakamilika.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Hucheza michezo kwa Novint Falcon kupitia SDK ya Force Dimension, ambayo unaisakinisha kutoka Force Dimension. Kishikio ni kijiti, vitufe vinne vya mshiko ni vitufe, na PadForge huweka mtetemo na athari za mchezo kwenye kishikio kama nguvu. Kichupo cha Force Feedback cha kila nafasi huweka jinsi Falcon inavyohisi.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Endesha Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Hufungua kila Falcon kupitia dhd64.dll ya Force Dimension. Falcon iliyofunguliwa ni ya PadForge peke yake, kwa hiyo FalconJoyForce na zana za Force Dimension haziwezi kuifungua hii ikiwa imewashwa. Ikizimwa, PadForge hufunga kila Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Maktaba ya Falcon imewekwa kuwa {0}. Nakala inayotumika tayari inabaki hadi PadForge ianze tena.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Inasakinisha kiendeshi cha Falcon cha Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Kifurushi cha kiendeshi cha Falcon cha Force Dimension, au katalogi yake, hakipo: {0}. Sakinisha upya Force Dimension SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Hakuna Falcon iliyochomekwa.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon iko kwenye kiendeshi kingine ({0}), kwa hiyo PadForge inaiacha. Kidhibiti cha Kifaa kinaweza kuibadilisha iwe ya Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows haikusakinisha kiendeshi cha Force Dimension. Windows ikiuliza kama inaamini Force Dimension, chagua Sakinisha.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Kiendeshi kimesakinishwa, lakini Falcon haijahamia kwacho. Chomoa Falcon kisha uichomeke tena.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge hukokotoa kila nguvu kwenye kishikio cha Falcon takriban mara elfu moja kwa sekunde, kutokana na mahali kishikio kilipo na kile mchezo unachocheza. Mipangilio hii ni ya nafasi hii.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Weka Upya Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Hisia</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: nafasi ya kishikio ndiyo kijiti, na chemchemi hukivuta kurudi katikati. Lenga: mwendo wa kishikio husogeza kijiti, na kukishikilia kishikio dhidi ya ukuta ukingoni mwake huendelea kukigeuza.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Lenga</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Chemchemi ya Kuelekeza Katikati</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Weka Upya Chemchemi ya Kuelekeza Katikati</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Kitufe cha Teke</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Kitufe hiki cha mshiko kikishikiliwa, na kwa robo sekunde baadaye, mtetemo wa mchezo hukipiga kishikio kuelekea kwako. Mtetemo nyakati nyingine hutikisa kishikio.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Kitufe 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Kitufe 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Kitufe 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Kitufe 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Nguvu ya Teke</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Weka Upya Nguvu ya Teke</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Nguvu ya Kutikisa</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Weka Upya Nguvu ya Kutikisa</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Kitufe cha Brace</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Kitufe hiki cha mshiko kikishikiliwa, kulenga hupungua hadi asilimia 30 kwa marekebisho madogo.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Kitufe cha Preload</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Kitufe hiki cha mshiko kikishikiliwa, msukumo thabiti wa 1.6 N hukipakia kishikio, jambo linalolainisha marekebisho madogo.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Fidia ya Uvutano</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Kiasi cha uzito wa kishikio chenyewe ambacho Falcon hukishikilia juu, kwa asilimia ya uvutano wa kawaida.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Weka Upya Fidia ya Uvutano</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Kikomo cha Nguvu</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Nguvu ya juu zaidi ambayo Falcon huweka kwenye kishikio, kuanzia newtoni 1 hadi 8.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Weka Upya Kikomo cha Nguvu</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Sawazisha Masafa</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Hupima umbali ambao kishikio husafiri. Kisogeze hadi kila ukingo wa masafa yake kwa sekunde nne ambazo kipimo kinaendelea. Nguvu hupumzika wakati huo.</value></data>
 </root>

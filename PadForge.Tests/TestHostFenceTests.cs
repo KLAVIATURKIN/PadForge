@@ -178,6 +178,7 @@ namespace PadForge.Tests
         private const string LgsLcd = "PadForge.Engine/Common/Logitech/LogitechLcdLibrary.cs";
         private const string LgsArx = "PadForge.Engine/Common/Logitech/LogitechArxLibrary.cs";
         private const string Strike7 = "PadForge.Engine/Common/MadCatz/Strike7Library.cs";
+        private const string ForceDimension = "PadForge.Engine/Common/ForceDimension/ForceDimensionLibrary.cs";
         private const string G19Screen = Input + "KeyboardScreens/G19UsbScreen.cs";
         private const string LinkServerFile = "PadForge.Engine/RemoteLink/LinkServer.cs";
         private const string Krpc = "PadForge.Engine/RemoteLink/Dht/UdpKrpcTransport.cs";
@@ -387,6 +388,10 @@ namespace PadForge.Tests
             new object[] { Ds3Driver, "internal static void RemoveSigningCertificate(Action<string> log)", "if (OffLimitsForTest) return;" },
             new object[] { Services + "Ds3PairingService.cs", "private static IntPtr CreateFile(string n, uint a, uint s, IntPtr sa, uint d, uint f, IntPtr t)", "Ds3DriverInstaller.OffLimitsForTest ? INVALID_HANDLE : CreateFileNative(n, a, s, sa, d, f, t);" },
 
+            // Force Dimension's Falcon driver (#521), which stocks and forces
+            // its package through VendorUsbDriverInstaller's fenced helpers.
+            new object[] { "PadForge.App/Common/DriverInstaller.cs", "public static void InstallFalconDriver(string inf)", "if (OffLimitsForTest)" },
+
             // The web controller's certificate, binding and firewall rules.
             new object[] { WebTls, "private static string FindOrCreateCertThumbprint()", "if (OffLimitsForTest) return null;" },
             new object[] { WebTls, "private static string RunNetsh(string arguments)", "if (OffLimitsForTest)" },
@@ -458,6 +463,9 @@ namespace PadForge.Tests
             new object[] { LgsLcd, "public static LogitechLcdLibrary TryLoad(out string reason)", VendorRefuses + ")", "NativeLibrary.TryLoad(" },
             new object[] { LgsArx, "public static LogitechArxLibrary TryLoad(out string reason)", VendorRefuses + ")", "NativeLibrary.TryLoad(" },
             new object[] { Strike7, "public static Strike7Library TryLoad(string path, out string reason)", VendorRefuses + ")", "NativeLibrary.TryLoad(" },
+            new object[] { ForceDimension, "public static ForceDimensionLibrary TryLoad(string picked, out string reason)", VendorRefuses + ")", "NativeLibrary.TryLoad(" },
+            // A Falcon is opened by Force Dimension's library, by index (#521).
+            new object[] { Input + "InputManager.Falcon.cs", "private void FalconSweep()", "if (DirectDeviceAccess.RefusesAll) break;", "link.OpenIndex(index)" },
 
             // What is sent beyond this PC.
             new object[] { Stun, "public static async Task<IPEndPoint> QueryAsync(", RefusesHost + " return null;", "Dns.GetHostAddressesAsync(" },
@@ -648,9 +656,9 @@ namespace PadForge.Tests
         }
 
         /// <summary>A library of another vendor's is loaded by its path in
-        /// seven places. Logitech's four and Mad Catz's one (#519) ask the
-        /// vendor gate. The two VR runtimes ask theirs
-        /// (VrRuntimeOffLimitsTests).</summary>
+        /// eight places. Logitech's four, Mad Catz's one (#519) and Force
+        /// Dimension's one (#521) ask the vendor gate. The two VR runtimes ask
+        /// theirs (VrRuntimeOffLimitsTests).</summary>
         [Fact]
         public void EveryLibraryLoadedByPath_IsOnTheList()
             => Assert.Equal(Map(
@@ -660,6 +668,7 @@ namespace PadForge.Tests
                 (LgsLcd, 1),
                 (LgsArx, 1),
                 (Strike7, 1),
+                (ForceDimension, 1),
                 ("PadForge.Engine/Common/OpenXr/OpenXrSession.cs", 1)),
                 FenceSource.Census(@"NativeLibrary\.(Try)?Load\(|\bLoadLibrary(Ex)?[AW]?\(", callsOnly: true));
 

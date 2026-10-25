@@ -4360,4 +4360,82 @@ Adakah anda mahu PadForge menyahpasangnya sekarang? Ini memerlukan peninggian ke
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Arah</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Langkah</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Pemegang</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Kiri/Kanan</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Atas/Bawah</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Masuk/Keluar</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Butang {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, dimuatkan dari {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Pustaka Force Dimension hanya berjalan dalam binaan x64 PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll ditemui tetapi tidak dapat dimuatkan.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>dhd64.dll itu bukan pustaka Force Dimension yang dijangka oleh PadForge.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Tiada Force Dimension SDK pada PC ini. Dapatkannya dari halaman muat turun Force Dimension, atau pilih dhd64.dll miliknya.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>tarik pemegang keluar sepenuhnya, kemudian tolak masuk sepenuhnya, untuk menetapkan kedudukan asalnya</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>berjalan pada {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>dibuka</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon sedang dibuka dalam program lain, seperti FalconJoyForce atau alat Force Dimension sendiri. Tutupnya di sana.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon menggunakan pemacu lain ({0}), jadi pustaka Force Dimension tidak dapat membukanya. Dalam Pengurus Peranti, kemas kini pemacu Falcon daripada folder drivers\usb dalam folder SDK Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon telah dipalamkan tanpa pemacu. Pasang Pemacu Falcon memberinya pemacu Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon telah dipalamkan tanpa pemacu, dan folder SDK tidak mempunyai pakej pemacu untuk diberikan kepadanya. Pasang semula Force Dimension SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Tiada Falcon ditemui. Palamkan kuasa dan kabel USB-nya.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Pilih dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Memuatkan salinan pustaka Force Dimension ini sebelum yang lain. Salinan yang dipasang oleh SDK ditemui tanpanya.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Pustaka (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Pasang Pemacu Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Memasang pemacu Force Dimension, dari folder SDK, pada Falcon yang tidak mempunyainya. Windows mungkin bertanya dahulu sama ada mahu mempercayai Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Dapatkan SDK Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Membuka halaman muat turun SDK Force Dimension dalam pelayar anda. PadForge memuatkan SDK yang anda pasang dan tidak menyertakannya.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Jangkauan: {0:0} mm kiri dan kanan, {1:0} mm atas dan bawah, {2:0} mm masuk dan keluar.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Tentukur memerlukan Falcon ini dibuka. Hidupkan Kawal Novint Falcon dalam Tetapan dan palamkan Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Gerakkan pemegang ke setiap hujung jangkauannya…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Telah ditentukur. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Sesetengah paksi tidak bergerak cukup jauh dan mengekalkan jangkauan lama. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Pemegang tidak bergerak cukup jauh, jadi jangkauan kekal seperti sebelumnya. Gerakkan ke setiap hujung semasa sapuan berjalan.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon ditutup sebelum sapuan selesai.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Bermain permainan dengan Novint Falcon melalui SDK Force Dimension, yang anda pasang daripada Force Dimension. Pemegang ialah kayu bedik, empat butang pada genggaman ialah butang, dan PadForge meletakkan getaran dan kesan permainan pada pemegang sebagai daya. Tab Maklum Balas Daya setiap slot menetapkan rasa Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Kawal Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Membuka setiap Falcon melalui dhd64.dll Force Dimension. Falcon yang dibuka menjadi milik PadForge sahaja, jadi FalconJoyForce dan alat Force Dimension tidak dapat membukanya semasa ini dihidupkan. Apabila dimatikan, PadForge menutup setiap Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Pustaka Falcon ditetapkan kepada {0}. Salinan yang sedang digunakan kekal sehingga PadForge bermula semula.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Memasang pemacu Falcon Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Pakej pemacu Falcon Force Dimension, atau katalognya, tiada: {0}. Pasang semula Force Dimension SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Tiada Falcon dipalamkan.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon menggunakan pemacu lain ({0}), jadi PadForge membiarkannya. Pengurus Peranti boleh menukarnya kepada pemacu Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows tidak memasang pemacu Force Dimension. Jika Windows bertanya sama ada mahu mempercayai Force Dimension, pilih Pasang.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Pemacu telah dipasang, tetapi Falcon belum beralih kepadanya. Cabut Falcon dan palamkan semula.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge mengira setiap daya pada pemegang Falcon kira-kira seribu kali sesaat, berdasarkan kedudukan pemegang dan apa yang dimainkan oleh permainan. Tetapan ini milik slot ini.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Tetap Semula Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Rasa</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: kedudukan pemegang ialah kayu bedik, dan satu spring menariknya kembali ke tengah. Bidik: gerakan pemegang menggerakkan kayu bedik, dan menahan pemegang pada dinding di hujungnya terus memusingkan.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Bidik</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Spring Pemusatan</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Tetap Semula Spring Pemusatan</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Butang Sentak</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Semasa butang genggaman ini ditahan, dan selama suku saat selepas itu, getaran permainan menyentak pemegang ke arah anda. Getaran pada masa lain menggoncang pemegang.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Butang 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Butang 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Butang 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Butang 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Kekuatan Sentak</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Tetap Semula Kekuatan Sentak</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Kekuatan Goncang</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Tetap Semula Kekuatan Goncang</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Butang Sokong</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Semasa butang genggaman ini ditahan, bidikan diperlahankan kepada 30 peratus untuk pelarasan halus.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Butang Daya Awal</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Semasa butang genggaman ini ditahan, tolakan tetap 1.6 N membebani pemegang, yang melicinkan pembetulan kecil.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Pampasan Graviti</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Sebanyak mana berat pemegang itu sendiri ditampung oleh Falcon, dalam peratus graviti piawai.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Tetap Semula Pampasan Graviti</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Had Daya</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Daya paling besar yang dikenakan Falcon pada pemegang, dari 1 hingga 8 newton.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Tetap Semula Had Daya</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Tentukur Jangkauan</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mengukur sejauh mana pemegang bergerak. Gerakkan ke setiap hujung jangkauannya selama empat saat sapuan berjalan. Daya direhatkan sementara itu.</value></data>
 </root>

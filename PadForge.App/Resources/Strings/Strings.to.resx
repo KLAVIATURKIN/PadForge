@@ -674,4 +674,13 @@
   <data name="KeyboardScreens_Status_NoLightbar_Format" xml:space="preserve"><value>{0}, ʻoku tatali ki ha lanu ʻo e lightbar</value></data>
   <data name="KeyboardScreens_Status_NoPicture_Format" xml:space="preserve"><value>{0}, ʻoku teʻeki fili ha fakatātā</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Toʻohema/Toʻomataʻu</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ʻOlunga/Lalo</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ki loto/Ki tuʻa</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
 </root>

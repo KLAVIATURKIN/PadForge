@@ -147,6 +147,10 @@ namespace PadForge.Engine
         // buttons whichever engine reads them.
         public const int KeyboardScreenKeys = 42;
 
+        // A Novint Falcon opened through Force Dimension's library (issue
+        // #521): the handle's three axes and the grip's four buttons.
+        public const int NovintFalcon = 43;
+
         /// <summary>True when a row of this type answers a source whose
         /// DeviceGuid is empty, the "(Any Device)" wildcard that means
         /// whichever controller is assigned to the slot. Controllers,
@@ -166,12 +170,13 @@ namespace PadForge.Engine
         /// phone has no inputs at all, so the same zeroed axes keep it out,
         /// and so do the lighting and haptic rows (#494). The keyboard
         /// screen keys number their own 13 buttons from 0, the G-keys'
-        /// reason (#519).</summary>
+        /// reason (#519). A resting Falcon reads center on all three axes,
+        /// the head tracker's reason, so it stays out too (#521).</summary>
         public static bool AnswersAnyDeviceSources(int capType) => capType switch
         {
             HeadTracker or Nfc or Microphone or HandheldButtons or ConsumerControl or Tablet
                 or VrController or LogitechGKeys or AnalogKeyboard or WebMenus
-                or PeripheralLighting or PeripheralHaptics or KeyboardScreenKeys => false,
+                or PeripheralLighting or PeripheralHaptics or KeyboardScreenKeys or NovintFalcon => false,
             _ => true,
         };
     }

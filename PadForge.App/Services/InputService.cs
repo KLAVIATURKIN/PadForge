@@ -2598,6 +2598,7 @@ namespace PadForge.Services
                     UpdateAnalogKeyboardsStatus();
                     UpdateBlissBoxStatus();
                     UpdateKeyboardScreensStatus();
+                    UpdateFalconStatus();
                     if (_mainVm.Devices.SelectedDevice is { } selected
                         && FindUserDevice(selected.InstanceGuid) is { } selectedDevice)
                         UpdateBlissBoxDeviceRow(selected, selectedDevice);
@@ -3664,6 +3665,8 @@ namespace PadForge.Services
             UpdateBlissBoxStatus();
             // Keyboard screens (#519): same cadence, same shape.
             UpdateKeyboardScreensStatus();
+            // Novint Falcons (#521): same cadence, same shape.
+            UpdateFalconStatus();
 
             // Snapshot devices under lock to avoid cross-thread collection-modified
             // exceptions when the engine's UpdateDevices runs concurrently.
@@ -4509,7 +4512,8 @@ namespace PadForge.Services
                                   ? ud.DeviceObjects : null,
                     analogKeyOrder: ud.CapType == InputDeviceType.AnalogKeyboard
                         ? PadForge.Common.Input.AnalogKeyboardRuntime.KeysFor(ud)
-                        : null);
+                        : null,
+                    isFalcon: ud.CapType == InputDeviceType.NovintFalcon);
                 devVm.HasGyroData = ud.HasGyro;
                 devVm.HasAccelData = ud.HasAccel;
                 devVm.HasAccelAuxData = ud.HasAccelAux;
@@ -5401,7 +5405,8 @@ namespace PadForge.Services
                                   ? ud.DeviceObjects : null,
                     analogKeyOrder: ud.CapType == InputDeviceType.AnalogKeyboard
                         ? PadForge.Common.Input.AnalogKeyboardRuntime.KeysFor(ud)
-                        : null);
+                        : null,
+                    isFalcon: ud.CapType == InputDeviceType.NovintFalcon);
                 devVm.HasGyroData = ud.HasGyro;
                 devVm.HasAccelData = ud.HasAccel;
                 devVm.HasAccelAuxData = ud.HasAccelAux;
@@ -5419,6 +5424,14 @@ namespace PadForge.Services
                 return;
 
             var state = ud.InputState;
+
+            // Novint Falcon (#521): the handle's dot, from the row's own
+            // Left/Right and Up/Down, up the low end.
+            if (devVm.IsFalconDevice)
+            {
+                devVm.FalconDotX = state.Axis[0] / 65535.0;
+                devVm.FalconDotY = state.Axis[1] / 65535.0;
+            }
 
             // Mouse visual — update motion and scroll display properties.
             if (devVm.IsMouseDevice)
@@ -6515,6 +6528,7 @@ namespace PadForge.Services
             ps.RotationRangeEnabled = padVm.WheelRotationRangeEnabled ? "1" : "0";
             ps.AutoCenterStrength = padVm.WheelAutoCenter.ToString();
             ps.WheelRpmLeds = padVm.WheelRpmLeds ? "1" : "0";
+            SaveFalconSettings(padVm, ps);
             ps.LeftMotorStrength = padVm.LeftMotorStrength.ToString();
             ps.RightMotorStrength = padVm.RightMotorStrength.ToString();
             ps.ForceSwapMotor = padVm.SwapMotors ? "1" : "0";
@@ -6920,6 +6934,7 @@ namespace PadForge.Services
             padVm.WheelRotationRangeEnabled = ps.RotationRangeEnabled != "0";
             padVm.WheelAutoCenter = TryParseInt(ps.AutoCenterStrength, 0);
             padVm.WheelRpmLeds = ps.WheelRpmLeds == "1";
+            LoadFalconSettings(padVm, ps);
             padVm.LeftMotorStrength = TryParseInt(ps.LeftMotorStrength, 100);
             padVm.RightMotorStrength = TryParseInt(ps.RightMotorStrength, 100);
             padVm.SwapMotors = ps.ForceSwapMotor == "1" ||
@@ -12254,7 +12269,9 @@ namespace PadForge.Services
                                 || devType == InputDeviceType.VrController
                                 || devType == InputDeviceType.LogitechGKeys
                                 // The keyboard screen keys carry their own names (#519).
-                                || devType == InputDeviceType.KeyboardScreenKeys)
+                                || devType == InputDeviceType.KeyboardScreenKeys
+                                // So do a Novint Falcon's handle axes (#521).
+                                || devType == InputDeviceType.NovintFalcon)
                                 try { objects = dev.GetDeviceObjects(); } catch { }
                             var info = new RemotePeerDeviceInfo
                             {
@@ -15597,6 +15614,7 @@ namespace PadForge.Services
                 InputDeviceType.PeripheralLighting => "PeripheralLighting",
                 InputDeviceType.PeripheralHaptics => "PeripheralHaptics",
                 InputDeviceType.KeyboardScreenKeys => "KeyboardScreenKeys",
+                InputDeviceType.NovintFalcon => "NovintFalcon",
                 _ => "Device"
             };
             // Vendor daemon notice (#343): the sweep scans on its cadence;

@@ -435,6 +435,31 @@ namespace PadForge.Views
             BindActiveModelView();
         }
 
+        /// <summary>The pad (slot) and Falcon whose reach line the card last
+        /// showed, so a sync for the same selection leaves a calibration's
+        /// result in place.</summary>
+        private (int Pad, Guid Falcon) _falconLineFor;
+
+        /// <summary>The Falcon card (#521): shown for a Falcon row, with the
+        /// reach that Falcon uses when it becomes the selected device. A sweep
+        /// running keeps its own line.</summary>
+        private void SyncFalconCard(PadForge.Engine.Data.UserDevice falconRow)
+        {
+            if (FalconCard != null)
+                FalconCard.Visibility = falconRow != null ? Visibility.Visible : Visibility.Collapsed;
+            if (falconRow == null || DataContext is not PadViewModel vm)
+            {
+                _falconLineFor = default;
+                return;
+            }
+            var key = (vm.PadIndex, falconRow.InstanceGuid);
+            if (_falconLineFor == key) return;
+            _falconLineFor = key;
+            if (falconRow.Device is PadForge.Common.Input.Falcon.FalconDevice open && open.IsCalibrating) return;
+            vm.FalconCalibrationStatus = PadForge.Services.InputService.FalconReachLine(
+                PadForge.Common.Input.Falcon.FalconDevice.ParseReach(falconRow.FalconCalibration));
+        }
+
         private void SyncTabVisibility()
         {
             if (TabSticks == null || TabTriggers == null || TabForceFeedback == null) return;
@@ -520,6 +545,9 @@ namespace PadForge.Views
             bool hasPeripheralLighting = false;
             bool vendorLightingRow = false;
             PadForge.Engine.Data.UserDevice lightingRow = null;
+            // A Novint Falcon row (#521): the Force Feedback tab with its
+            // Falcon card.
+            PadForge.Engine.Data.UserDevice falconRow = null;
             int numTouchpads = 0;
             if (DataContext is PadViewModel vmProfile
                 && vmProfile.SelectedMappedDevice != null
@@ -539,7 +567,9 @@ namespace PadForge.Views
                             || ud.CapType == InputDeviceType.Joystick
                             || ud.CapType == InputDeviceType.Driving
                             || ud.CapType == InputDeviceType.Flight
-                            || ud.CapType == InputDeviceType.FirstPerson;
+                            || ud.CapType == InputDeviceType.FirstPerson
+                            || ud.CapType == InputDeviceType.NovintFalcon;
+                        if (ud.CapType == InputDeviceType.NovintFalcon) falconRow = ud;
 
                         // #392: the Grip card, the Gyro Tilt card, and Motion
                         // Steering are accelerometer features, and a bare Wii
@@ -648,7 +678,8 @@ namespace PadForge.Views
                         // generic SDL gamepad reporting rumble (covers Xbox 360 etc.).
                         hasRumble = hasImpulseTriggers
                                  || hasLightbar
-                                 || (ud.Device != null && ud.Device.HasRumble);
+                                 || (ud.Device != null && ud.Device.HasRumble)
+                                 || falconRow != null;
                         // A haptic mouse, keyboard or the Razer Sensa row
                         // (#494) gets the tab a gamepad gets: this slot's
                         // rumble reaches it through its own settings. The
@@ -677,6 +708,7 @@ namespace PadForge.Views
                 }
             }
             TabForceFeedback.Visibility = hasForceFeedback ? Visibility.Visible : Visibility.Collapsed;
+            SyncFalconCard(falconRow);
             // A slot whose controller is gone rumbles and lights nothing,
             // by the link pass's own rule, which holds through a reorder's
             // dispatcher rebuild, so neither route line blinks then.

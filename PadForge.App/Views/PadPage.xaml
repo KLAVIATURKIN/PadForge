@@ -7953,6 +7953,137 @@
                                    Foreground="{DynamicResource EmberBrush}"
                                    TextWrapping="Wrap" Margin="0,-8,0,16"/>
 
+                        <!-- Novint Falcon (#521): the feel, how the game's rumble
+                             and effects reach the handle, and the reach. Shown
+                             by SyncTabVisibility for a Falcon row. -->
+                        <Border x:Name="FalconCard" Style="{StaticResource CardBorder}" Visibility="Collapsed">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <controls:GlyphText Text="&#xE7FC;" FontFamily="Segoe MDL2 Assets" FontSize="16" Foreground="{DynamicResource EmberBrush}"
+                                               VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                    <TextBlock Text="{Binding Pad_Falcon_Header, Source={x:Static strings:Strings.Instance}}"
+                                               Style="{StaticResource CardTitle}"/>
+                                    <ui:Button Command="{Binding ResetFalconAllCommand}" Style="{StaticResource ResetAllButton}"
+                                            Content="{Binding Pad_ResetAll, Source={x:Static strings:Strings.Instance}}" Margin="12,0,0,0"
+                                            ToolTip="{Binding Pad_Falcon_ResetAll, Source={x:Static strings:Strings.Instance}}"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Pad_Falcon_Description, Source={x:Static strings:Strings.Instance}}"
+                                           Style="{StaticResource CardDescription}" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+                                <!-- Feel -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBlock Text="{Binding Pad_Falcon_Feel, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                    <ComboBox SelectedIndex="{Binding FalconFeel, Mode=TwoWay}" MinWidth="220" VerticalAlignment="Center"
+                                              ToolTip="{Binding Pad_Falcon_Feel_Tooltip, Source={x:Static strings:Strings.Instance}}">
+                                        <ComboBoxItem Content="{Binding Pad_Falcon_Feel_Joystick, Source={x:Static strings:Strings.Instance}}"/>
+                                        <ComboBoxItem Content="{Binding Pad_Falcon_Feel_Aim, Source={x:Static strings:Strings.Instance}}"/>
+                                    </ComboBox>
+                                    <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="FalconFeel" SettingLabel="{Binding Pad_Falcon_Feel, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_FalconFeel_13111"/>
+                                </StackPanel>
+
+                                <!-- Centering spring, the Joystick feel's -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8"
+                                            Visibility="{Binding FalconIsJoystick, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <TextBlock Text="{Binding Pad_Falcon_Spring, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                    <Slider Value="{Binding FalconSpring, Mode=TwoWay}" Minimum="0" Maximum="200" Style="{StaticResource DzSlider}"/>
+                                    <TextBox Text="{Binding FalconSpring, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource DzValueEdit}"/>
+                                    <TextBlock Text="%" Style="{StaticResource DzPercent}"/>
+                                    <ui:Button Command="{Binding ResetFalconSpringCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_Falcon_ResetSpring, Source={x:Static strings:Strings.Instance}}"/>
+                                </StackPanel>
+
+                                <!-- Kick button: held, rumble kicks the handle -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBlock Text="{Binding Pad_Falcon_KickButton, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                    <ComboBox SelectedIndex="{Binding FalconKickButton, Mode=TwoWay}" MinWidth="220" VerticalAlignment="Center"
+                                              ToolTip="{Binding Pad_Falcon_KickButton_Tooltip, Source={x:Static strings:Strings.Instance}}">
+                                        <ComboBoxItem Content="{Binding Common_None, Source={x:Static strings:Strings.Instance}}"/>
+                                        <ComboBoxItem Content="{Binding Pad_Falcon_Button1, Source={x:Static strings:Strings.Instance}}"/>
+                                        <ComboBoxItem Content="{Binding Pad_Falcon_Button2, Source={x:Static strings:Strings.Instance}}"/>
+                                        <ComboBoxItem Content="{Binding Pad_Falcon_Button3, Source={x:Static strings:Strings.Instance}}"/>
+                                        <ComboBoxItem Content="{Binding Pad_Falcon_Button4, Source={x:Static strings:Strings.Instance}}"/>
+                                    </ComboBox>
+                                    <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="FalconKickButton" SettingLabel="{Binding Pad_Falcon_KickButton, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_FalconKickButton_13112"/>
+                                </StackPanel>
+
+                                <!-- Kick strength -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBlock Text="{Binding Pad_Falcon_Kick, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                    <Slider Value="{Binding FalconKick, Mode=TwoWay}" Minimum="0" Maximum="200" Style="{StaticResource DzSlider}"/>
+                                    <TextBox Text="{Binding FalconKick, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource DzValueEdit}"/>
+                                    <TextBlock Text="%" Style="{StaticResource DzPercent}"/>
+                                    <ui:Button Command="{Binding ResetFalconKickCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_Falcon_ResetKick, Source={x:Static strings:Strings.Instance}}"/>
+                                </StackPanel>
+
+                                <!-- Shake strength -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBlock Text="{Binding Pad_Falcon_Shake, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                    <Slider Value="{Binding FalconShake, Mode=TwoWay}" Minimum="0" Maximum="200" Style="{StaticResource DzSlider}"/>
+                                    <TextBox Text="{Binding FalconShake, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource DzValueEdit}"/>
+                                    <TextBlock Text="%" Style="{StaticResource DzPercent}"/>
+                                    <ui:Button Command="{Binding ResetFalconShakeCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_Falcon_ResetShake, Source={x:Static strings:Strings.Instance}}"/>
+                                </StackPanel>
+
+                                <!-- Brace and Preload, the Aim feel's buttons -->
+                                <StackPanel Visibility="{Binding FalconIsAim, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                        <TextBlock Text="{Binding Pad_Falcon_BraceButton, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                        <ComboBox SelectedIndex="{Binding FalconBraceButton, Mode=TwoWay}" MinWidth="220" VerticalAlignment="Center"
+                                                  ToolTip="{Binding Pad_Falcon_BraceButton_Tooltip, Source={x:Static strings:Strings.Instance}}">
+                                            <ComboBoxItem Content="{Binding Common_None, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding Pad_Falcon_Button1, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding Pad_Falcon_Button2, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding Pad_Falcon_Button3, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding Pad_Falcon_Button4, Source={x:Static strings:Strings.Instance}}"/>
+                                        </ComboBox>
+                                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="FalconBraceButton" SettingLabel="{Binding Pad_Falcon_BraceButton, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_FalconBraceButton_13113"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                        <TextBlock Text="{Binding Pad_Falcon_PreloadButton, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                        <ComboBox SelectedIndex="{Binding FalconPreloadButton, Mode=TwoWay}" MinWidth="220" VerticalAlignment="Center"
+                                                  ToolTip="{Binding Pad_Falcon_PreloadButton_Tooltip, Source={x:Static strings:Strings.Instance}}">
+                                            <ComboBoxItem Content="{Binding Common_None, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding Pad_Falcon_Button1, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding Pad_Falcon_Button2, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding Pad_Falcon_Button3, Source={x:Static strings:Strings.Instance}}"/>
+                                            <ComboBoxItem Content="{Binding Pad_Falcon_Button4, Source={x:Static strings:Strings.Instance}}"/>
+                                        </ComboBox>
+                                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="FalconPreloadButton" SettingLabel="{Binding Pad_Falcon_PreloadButton, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_PadViewModel_FalconPreloadButton_13114"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!-- Gravity compensation -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBlock Text="{Binding Pad_Falcon_Gravity, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                    <Slider Value="{Binding FalconGravity, Mode=TwoWay}" Minimum="0" Maximum="200" Style="{StaticResource DzSlider}"
+                                            ToolTip="{Binding Pad_Falcon_Gravity_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
+                                    <TextBox Text="{Binding FalconGravity, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource DzValueEdit}"/>
+                                    <TextBlock Text="%" Style="{StaticResource DzPercent}"/>
+                                    <ui:Button Command="{Binding ResetFalconGravityCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_Falcon_ResetGravity, Source={x:Static strings:Strings.Instance}}"/>
+                                </StackPanel>
+
+                                <!-- Force limit, in newtons -->
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                    <TextBlock Text="{Binding Pad_Falcon_ForceCap, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzLabel}"/>
+                                    <Slider Value="{Binding FalconForceCap, Mode=TwoWay}" Minimum="1" Maximum="8" TickFrequency="1" IsSnapToTickEnabled="True"
+                                            Style="{StaticResource DzSlider}"
+                                            ToolTip="{Binding Pad_Falcon_ForceCap_Tooltip, Source={x:Static strings:Strings.Instance}}"/>
+                                    <TextBox Text="{Binding FalconForceCap, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Style="{StaticResource DzValueEdit}"/>
+                                    <TextBlock Text="{Binding Pad_Falcon_NewtonsUnit, Source={x:Static strings:Strings.Instance}}" Style="{StaticResource DzPercent}"/>
+                                    <ui:Button Command="{Binding ResetFalconForceCapCommand}" Style="{StaticResource ResetButton}" ToolTip="{Binding Pad_Falcon_ResetForceCap, Source={x:Static strings:Strings.Instance}}"/>
+                                </StackPanel>
+
+                                <!-- Calibrate: a four-second sweep of the reach -->
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="{Binding Pad_Falcon_Calibrate, Source={x:Static strings:Strings.Instance}}"
+                                            ToolTip="{Binding Pad_Falcon_Calibrate_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                            Command="{Binding FalconCalibrateCommand}" Padding="12,6" VerticalAlignment="Center"/>
+                                    <TextBlock common:LiveText.Polite="True" Text="{Binding FalconCalibrationStatus}"
+                                               TextWrapping="Wrap" VerticalAlignment="Center" Margin="12,0,0,0" MaxWidth="520"
+                                               Foreground="{DynamicResource EmberBrush}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
                         <!-- Force Feedback / Rumble / Haptics section -->
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>

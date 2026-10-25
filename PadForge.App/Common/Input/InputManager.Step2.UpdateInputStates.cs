@@ -683,9 +683,12 @@ namespace PadForge.Common.Input
                 // and found again would otherwise play on, since a zero
                 // against a zero cache reads as no change (the #402 rule in
                 // UserDevice.LoadFromDevice).
-                if (ud.Device == null || !PadForge.Common.Input.Peripherals.PeripheralOutputs.TakesHaptics(ud))
+                // A Falcon (#521) reports no SDL rumble either: its haptic
+                // thread renders the force this pass hands it.
+                bool falconRow = ud.Device is PadForge.Common.Input.Falcon.FalconDevice;
+                if (ud.Device == null || (!falconRow && !PadForge.Common.Input.Peripherals.PeripheralOutputs.TakesHaptics(ud)))
                     return;
-                PadForge.Common.Input.Peripherals.PeripheralOutputs.StopHaptics(ud.InstanceGuid);
+                if (!falconRow) PadForge.Common.Input.Peripherals.PeripheralOutputs.StopHaptics(ud.InstanceGuid);
                 ud.ForceFeedbackState = new ForceFeedbackState();
             }
 
@@ -733,9 +736,14 @@ namespace PadForge.Common.Input
             // gate too. A row whose device sleeps keeps taking its level, so
             // the device plays the current one when it wakes.
             bool isPeripheralHaptic = PadForge.Common.Input.Peripherals.PeripheralOutputs.TakesHaptics(ud);
+            // A Novint Falcon (#521): its haptic thread renders the slot's
+            // force as force on the handle, the peripheral rows' shape, so it
+            // passes the SDL gate with no SDL rumble of its own.
+            var falcon = ud.Device as PadForge.Common.Input.Falcon.FalconDevice;
+            bool isFalcon = falcon != null;
             if (!isXboxImpulse && !isVendorFfb && !isPadixConverter && !isBlissBox && !isPeripheralHaptic)
             {
-                if (ud.Device == null || (!ud.Device.HasRumble && !ud.Device.HasHaptic))
+                if (ud.Device == null || (!isFalcon && !ud.Device.HasRumble && !ud.Device.HasHaptic))
                     return;
             }
             else if ((isXboxImpulse || isPadixConverter || isBlissBox || isPeripheralHaptic) && ud.Device == null)
@@ -787,6 +795,13 @@ namespace PadForge.Common.Input
             int slotCount = settings.FindByInstanceGuid(ud.InstanceGuid, _instanceGuidBuffer);
             if (slotCount == 0)
             {
+                // A Falcon no slot is assigned holds itself up and does
+                // nothing else (#521).
+                if (isFalcon)
+                {
+                    falcon.Handoff = PadForge.Common.Input.Falcon.FalconHandoff.Unassigned;
+                    return;
+                }
                 if (RemoteLinkOutputRouter.IsPeerPath(ud.DevicePath))
                 {
                     RemoteLinkOutputRouter.StopVibration(ud.DevicePath);
@@ -1058,7 +1073,14 @@ namespace PadForge.Common.Input
                     firstPadSetting = devicePs;
             }
 
-            if (firstPadSetting == null) return;
+            if (firstPadSetting == null)
+            {
+                // No slot gave a force this pass. A Falcon's haptic thread
+                // would play its last one on, so it loses the game's force
+                // and keeps its feel (#521).
+                if (isFalcon) falcon.SilenceGame();
+                return;
+            }
 
             // Write combined vibration to a scratch Vibration and apply.
             if (_combinedVibration == null) _combinedVibration = new Vibration();
@@ -1100,6 +1122,15 @@ namespace PadForge.Common.Input
                 _combinedVibration.Direction = 0;
                 _combinedVibration.Period = 0;
                 _combinedVibration.ConditionAxisCount = 0;
+            }
+
+            // A Falcon (#521) takes the first slot's settings and the whole
+            // combined force, Trigger Rumble Fold applied as on every direct
+            // writer. Its haptic thread renders it, so nothing is written here.
+            if (isFalcon)
+            {
+                HandFalconForce(falcon, firstPadSetting, _combinedVibration, combinedL, combinedR, combinedLT, combinedRT);
+                return;
             }
 
             // Reverse output relay (#138): a "peer://" device lives on another PC.

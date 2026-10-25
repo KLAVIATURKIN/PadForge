@@ -566,6 +566,30 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _isHeadTrackerDevice, value);
         }
 
+        private bool _isFalconDevice;
+        /// <summary>Whether the selected device is a Novint Falcon (#521):
+        /// its handle draws as a dot in a square above the named axes.</summary>
+        public bool IsFalconDevice
+        {
+            get => _isFalconDevice;
+            set => SetProperty(ref _isFalconDevice, value);
+        }
+
+        private double _falconDotX = 0.5, _falconDotY = 0.5;
+        /// <summary>The Falcon handle's Left/Right across the square, 0 to 1.</summary>
+        public double FalconDotX
+        {
+            get => _falconDotX;
+            set => SetProperty(ref _falconDotX, value);
+        }
+
+        /// <summary>The handle's Up/Down down the square, 0 to 1, up at 0.</summary>
+        public double FalconDotY
+        {
+            get => _falconDotY;
+            set => SetProperty(ref _falconDotY, value);
+        }
+
         private string _headTrackerStatus = string.Empty;
         /// <summary>Which head-tracking source is live, for the details
         /// pane (issue #355). Written by the preview loop.</summary>
@@ -811,6 +835,20 @@ namespace PadForge.ViewModels
 
         /// <summary>Localized name of a head tracker axis slot (#355), null
         /// past the six.</summary>
+        /// <summary>A Falcon axis's name (#521), the names its mapping picker
+        /// shows.</summary>
+        internal static string FalconAxisName(int slot)
+        {
+            var s = Strings.Instance;
+            return slot switch
+            {
+                0 => s.Falcon_Axis_LeftRight,
+                1 => s.Falcon_Axis_UpDown,
+                2 => s.Falcon_Axis_InOut,
+                _ => null,
+            };
+        }
+
         internal static string HeadTrackerAxisName(int slot)
         {
             var s = Strings.Instance;
@@ -835,7 +873,7 @@ namespace PadForge.ViewModels
         /// are stored verbatim and used by the InputService update loop
         /// to read the matching <c>state.Buttons[Index]</c>.
         /// </summary>
-        internal void RebuildRawStateCollections(IReadOnlyList<int> axisIndices, IReadOnlyList<int> buttonIndices, int povCount, bool isKeyboard = false, bool isMouse = false, bool isTouchpad = false, bool isMidi = false, bool isNfc = false, IReadOnlyList<ConsumerButtonDisplayItem> consumerButtons = null, bool isHeadsetMotion = false, int voiceButtonBase = -1, bool isMicrophone = false, bool isHandheld = false, bool isSystemMotion = false, bool isHeadTracker = false, IReadOnlyList<PadForge.Engine.DeviceObjectItem> namedObjects = null, int[] analogKeyOrder = null)
+        internal void RebuildRawStateCollections(IReadOnlyList<int> axisIndices, IReadOnlyList<int> buttonIndices, int povCount, bool isKeyboard = false, bool isMouse = false, bool isTouchpad = false, bool isMidi = false, bool isNfc = false, IReadOnlyList<ConsumerButtonDisplayItem> consumerButtons = null, bool isHeadsetMotion = false, int voiceButtonBase = -1, bool isMicrophone = false, bool isHandheld = false, bool isSystemMotion = false, bool isHeadTracker = false, IReadOnlyList<PadForge.Engine.DeviceObjectItem> namedObjects = null, int[] analogKeyOrder = null, bool isFalcon = false)
         {
             // Analog keyboards (#468): key chips, gathered as keys move.
             IsAnalogKeyboardDevice = analogKeyOrder != null;
@@ -857,6 +895,8 @@ namespace PadForge.ViewModels
             ShowNamedButtons = isHandheld || namedObjects != null;
             IsHeadTrackerDevice = isHeadTracker;
             if (!isHeadTracker) { HeadTrackerStatus = string.Empty; HeadTrackerStatusVersion = -1; HeadTrackerStatusDevice = null; }
+            IsFalconDevice = isFalcon;
+            FalconDotX = FalconDotY = 0.5;
             IsMicrophoneDevice = isMicrophone;
             ShowVoicePhrases = voiceButtonBase >= 0;
             RebuildVoicePhrases(voiceButtonBase);
@@ -886,7 +926,8 @@ namespace PadForge.ViewModels
                     int slot = axisIndices[i];
                     // Head tracker axes carry their names (#355), like the
                     // picker: Head Yaw reads better than Axis 0.
-                    string axisName = isHeadTracker ? HeadTrackerAxisName(slot) : null;
+                    string axisName = isHeadTracker ? HeadTrackerAxisName(slot)
+                        : isFalcon ? FalconAxisName(slot) : null;
                     RawAxes.Add(new AxisDisplayItem { Index = slot, Name = axisName ?? string.Format(Strings.Instance.Devices_Axis_Format, slot) });
                 }
             }
@@ -967,6 +1008,8 @@ namespace PadForge.ViewModels
             IsHandheldDevice = false;
             IsSystemMotionDevice = false;
             IsHeadTrackerDevice = false;
+            IsFalconDevice = false;
+            FalconDotX = FalconDotY = 0.5;
             HeadTrackerStatus = string.Empty;
             HeadTrackerStatusVersion = -1;
             HeadTrackerStatusDevice = null;

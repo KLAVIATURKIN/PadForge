@@ -4384,4 +4384,82 @@ Vai vēlaties, lai PadForge tos tagad atinstalē? Tam nepieciešamas paaugstinā
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Virziens</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Solis</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Rokturis</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Pa kreisi/pa labi</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Augšup/lejup</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Iekšā/ārā</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Poga {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, ielādēts no {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension bibliotēka darbojas tikai PadForge x64 versijā.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll atrasts, bet to nevarēja ielādēt.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Šī dhd64.dll nav Force Dimension bibliotēka, ko PadForge gaida.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Šajā datorā nav Force Dimension SDK. Lejupielādējiet to Force Dimension lejupielādes lapā vai izvēlieties tā dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>izvelciet rokturi līdz galam ārā, pēc tam iespiediet līdz galam iekšā, lai to nostādītu sākuma pozīcijā</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>darbojas ar {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>atvērts</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon ir atvērts citā programmā, piemēram, FalconJoyForce vai pašu Force Dimension rīkos. Aizveriet to tur.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon izmanto citu draiveri ({0}), tāpēc Force Dimension bibliotēka to nevar atvērt. Ierīču pārvaldniekā atjauniniet Falcon draiveri no mapes drivers\usb Force Dimension SDK mapē.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon ir pievienots bez draivera. Poga Instalēt Falcon draiveri tam piešķir Force Dimension draiveri.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon ir pievienots bez draivera, un SDK mapē nav draivera pakotnes, ko tam piešķirt. Pārinstalējiet Force Dimension SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon nav atrasts. Pievienojiet tam strāvu un USB kabeli.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Izvēlēties dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Ielādē šo Force Dimension bibliotēkas kopiju pirms citām. Kopijas, ko instalē SDK, tiek atrastas arī bez tā.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Bibliotēkas (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Instalēt Falcon draiveri</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Instalē Force Dimension draiveri no SDK mapes Falcon ierīcei, kurai tā nav. Windows var vispirms vaicāt, vai uzticēties Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Iegūt Force Dimension SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Atver Force Dimension SDK lejupielādes lapu jūsu pārlūkprogrammā. PadForge ielādē jūsu instalēto SDK un neietver neko no tā.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Aptvērums: {0:0} mm pa kreisi un pa labi, {1:0} mm augšup un lejup, {2:0} mm iekšā un ārā.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kalibrēšanai šim Falcon jābūt atvērtam. Ieslēdziet Vadīt Novint Falcon iestatījumos un pievienojiet Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Pārvietojiet rokturi līdz katrai aptvēruma malai…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibrēts. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Dažas asis nepārvietojās pietiekami tālu un saglabā iepriekšējo aptvērumu. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Rokturis nepārvietojās pietiekami tālu, tāpēc aptvērums paliek kā bija. Pārvietojiet to līdz katrai malai, kamēr notiek mērījums.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon tika aizvērts, pirms mērījums beidzās.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Spēlējiet spēles ar Novint Falcon, izmantojot Force Dimension SDK, ko instalējat no Force Dimension. Rokturis ir svira, roktura četras pogas ir pogas, un PadForge pārnes spēles vibrāciju un efektus uz rokturi kā spēku. Katra slota cilnē Spēka atgriezeniskā saite iestata, kā Falcon justies.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Vadīt Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Atver katru Falcon, izmantojot Force Dimension dhd64.dll. Atvērts Falcon pieder tikai PadForge, tāpēc FalconJoyForce un Force Dimension rīki to nevar atvērt, kamēr tas ir ieslēgts. Izslēgts, PadForge aizver katru Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon bibliotēka iestatīta uz {0}. Jau izmantotā kopija paliek, līdz PadForge tiek startēts atkārtoti.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Notiek Force Dimension Falcon draivera instalēšana…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension Falcon draivera pakotne vai tās katalogs trūkst: {0}. Pārinstalējiet Force Dimension SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Neviens Falcon nav pievienots.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon izmanto citu draiveri ({0}), tāpēc PadForge to neaiztiek. Ierīču pārvaldnieks var to nomainīt uz Force Dimension draiveri.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows neinstalēja Force Dimension draiveri. Ja Windows vaicā, vai uzticēties Force Dimension, izvēlieties Instalēt.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Draiveris ir instalēts, bet Falcon vēl nav pārgājis uz to. Atvienojiet Falcon un pievienojiet to atkal.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge aprēķina katru spēku uz Falcon rokturi apmēram tūkstoš reižu sekundē pēc roktura atrašanās vietas un tā, ko spēlē spēle. Šie iestatījumi attiecas uz šo slotu.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Atiestatīt Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Sajūta</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Kursorsvira: roktura pozīcija ir svira, un atspere velk to atpakaļ uz centru. Tēmēšana: roktura kustība pārvieto sviru, un, turot rokturi pret sienu tā malā, griešanās turpinās.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Kursorsvira</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Tēmēšana</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Centrējošā atspere</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Atiestatīt centrējošo atsperi</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Atsitiena poga</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Kamēr šī roktura poga ir nospiesta un ceturtdaļsekundi pēc tam, spēles vibrācija atsit rokturi pret jums. Vibrācija citos brīžos kratā rokturi.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Poga 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Poga 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Poga 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Poga 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Atsitiena stiprums</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Atiestatīt atsitiena stiprumu</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Kratīšanas stiprums</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Atiestatīt kratīšanas stiprumu</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Stabilizācijas poga</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Kamēr šī roktura poga ir nospiesta, tēmēšana palēninās līdz 30 procentiem smalkiem labojumiem.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Priekšslodzes poga</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Kamēr šī roktura poga ir nospiesta, vienmērīgs 1.6 N spiediens noslogo rokturi, kas izlīdzina nelielus labojumus.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Gravitācijas kompensācija</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Cik lielu daļu no roktura paša svara Falcon notur, procentos no standarta gravitācijas.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Atiestatīt gravitācijas kompensāciju</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Spēka ierobežojums</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Lielākais spēks, ko Falcon iedarbina uz rokturi, no 1 līdz 8 ņūtoniem.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Atiestatīt spēka ierobežojumu</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibrēt aptvērumu</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Izmēra, cik tālu rokturis pārvietojas. Pārvietojiet to līdz katrai aptvēruma malai četras sekundes, kamēr notiek mērījums. Spēki šajā laikā ir izslēgti.</value></data>
 </root>

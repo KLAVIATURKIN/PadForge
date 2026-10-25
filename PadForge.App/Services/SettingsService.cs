@@ -2388,6 +2388,8 @@ namespace PadForge.Services
             vm.KeyboardScreens = KeyboardScreenData.Normalize(appSettings.KeyboardScreens);
             vm.DefaultProfileKeyboardScreenPicture = appSettings.DefaultProfileKeyboardScreenPicture;
             vm.Strike7LibraryPath = appSettings.Strike7LibraryPath;
+            vm.FalconLibraryPath = appSettings.FalconLibraryPath;
+            vm.NovintFalconEnabled = appSettings.NovintFalconEnabled;
             // The hint must be in place before SDL_Init, and a hint set early
             // persists, so the load applies it (#395).
             PadForge.Common.Input.InputManager.ApplyFlydigiEnhancedProtocol(appSettings.FlydigiEnhancedProtocol);
@@ -3671,6 +3673,7 @@ namespace PadForge.Services
                 padVm.WheelRotationRangeEnabled = ps.RotationRangeEnabled != "0";
                 padVm.WheelAutoCenter = TryParseInt(ps.AutoCenterStrength, 0);
                 padVm.WheelRpmLeds = ps.WheelRpmLeds == "1";
+                InputService.LoadFalconSettings(padVm, ps);
                 padVm.LeftMotorStrength = TryParseInt(ps.LeftMotorStrength, 100);
                 padVm.RightMotorStrength = TryParseInt(ps.RightMotorStrength, 100);
                 padVm.SwapMotors = ps.ForceSwapMotor == "1" ||
@@ -5022,6 +5025,8 @@ namespace PadForge.Services
                 DefaultProfileKeyboardScreenPicture = string.IsNullOrEmpty(vm.DefaultProfileKeyboardScreenPicture)
                     ? null : vm.DefaultProfileKeyboardScreenPicture,
                 Strike7LibraryPath = string.IsNullOrEmpty(vm.Strike7LibraryPath) ? null : vm.Strike7LibraryPath,
+                NovintFalconEnabled = vm.NovintFalconEnabled,
+                FalconLibraryPath = string.IsNullOrEmpty(vm.FalconLibraryPath) ? null : vm.FalconLibraryPath,
                 // Default profile's custom gestures. When a named profile is
                 // active, defaultSnap.TouchpadGestures carries the gestures
                 // recorded on the default; when default is active, pull
@@ -5577,6 +5582,7 @@ namespace PadForge.Services
                     ps.RotationRangeEnabled = padVm.WheelRotationRangeEnabled ? "1" : "0";
                     ps.AutoCenterStrength = padVm.WheelAutoCenter.ToString();
                     ps.WheelRpmLeds = padVm.WheelRpmLeds ? "1" : "0";
+                    InputService.SaveFalconSettings(padVm, ps);
                     ps.LeftMotorStrength = padVm.LeftMotorStrength.ToString();
                     ps.RightMotorStrength = padVm.RightMotorStrength.ToString();
                     ps.ForceSwapMotor = padVm.SwapMotors ? "1" : "0";
@@ -6632,6 +6638,17 @@ namespace PadForge.Services
         /// Null for the copy PadForge downloads.</summary>
         [XmlElement]
         public string Strike7LibraryPath { get; set; }
+
+        /// <summary>Drive Novint Falcon (issue #521). Off by default: the
+        /// Falcon moves on its own, and an open Falcon is locked against every
+        /// other program.</summary>
+        [XmlElement]
+        public bool NovintFalconEnabled { get; set; }
+
+        /// <summary>A dhd64.dll the user picked (#521), a stored path. Null
+        /// for Force Dimension's installed copies.</summary>
+        [XmlElement]
+        public string FalconLibraryPath { get; set; }
 
         /// <summary>Per-axis ranges in HeadPose's order (yaw, pitch, roll, X,
         /// Y, Z). Zero means the axis follows its family's shared range, which

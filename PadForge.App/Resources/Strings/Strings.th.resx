@@ -4384,4 +4384,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>ทิศทาง</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>ระยะก้าว</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>ด้ามจับ</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>ซ้าย/ขวา</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ขึ้น/ลง</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>เข้า/ออก</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>ปุ่ม {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0} โหลดจาก {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>ไลบรารีของ Force Dimension ทำงานได้เฉพาะ PadForge รุ่น x64 เท่านั้น</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>พบ dhd64.dll แต่โหลดไม่ได้</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>dhd64.dll นี้ไม่ใช่ไลบรารีของ Force Dimension ที่ PadForge ต้องการ</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>ไม่พบ Force Dimension SDK บนพีซีเครื่องนี้ ดาวน์โหลดได้จากหน้าดาวน์โหลดของ Force Dimension หรือเลือก dhd64.dll ของ SDK</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>ดึงด้ามจับออกให้สุด แล้วดันเข้าให้สุด เพื่อให้เครื่องรู้ตำแหน่งเริ่มต้น</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>ทำงานที่ {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>เปิดอยู่</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>มี Falcon ที่เปิดอยู่ในโปรแกรมอื่น เช่น FalconJoyForce หรือเครื่องมือของ Force Dimension เอง ให้ปิดที่นั่นก่อน</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon ใช้ไดรเวอร์อื่น ({0}) ไลบรารีของ Force Dimension จึงเปิดไม่ได้ ใน ตัวจัดการอุปกรณ์ ให้อัปเดตไดรเวอร์ของ Falcon จากโฟลเดอร์ drivers\usb ในโฟลเดอร์ SDK ของ Force Dimension</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>เสียบ Falcon อยู่แต่ไม่มีไดรเวอร์ ปุ่ม ติดตั้งไดรเวอร์ Falcon จะติดตั้งไดรเวอร์ของ Force Dimension ให้</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>เสียบ Falcon อยู่แต่ไม่มีไดรเวอร์ และโฟลเดอร์ SDK ไม่มีชุดไดรเวอร์ให้ติดตั้ง ให้ติดตั้ง Force Dimension SDK ใหม่</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>ไม่พบ Falcon ให้เสียบสายไฟและสาย USB</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>เลือก dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>โหลดไลบรารีของ Force Dimension ฉบับนี้ก่อนฉบับอื่น ส่วนฉบับที่ SDK ติดตั้งไว้จะถูกพบโดยไม่ต้องใช้ตัวเลือกนี้</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|ไลบรารี (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>ติดตั้งไดรเวอร์ Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>ติดตั้งไดรเวอร์ของ Force Dimension จากโฟลเดอร์ SDK ให้ Falcon ที่ยังไม่มีไดรเวอร์ Windows อาจถามก่อนว่าไว้วางใจ Force Dimension หรือไม่</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>รับ SDK ของ Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>เปิดหน้าดาวน์โหลด SDK ของ Force Dimension ในเบราว์เซอร์ PadForge โหลด SDK ที่คุณติดตั้งเอง และไม่มี SDK รวมมาด้วย</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>ระยะเอื้อม: ซ้าย/ขวา {0:0} มม. ขึ้น/ลง {1:0} มม. เข้า/ออก {2:0} มม.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>การปรับเทียบต้องเปิด Falcon เครื่องนี้ก่อน ให้เปิด ควบคุม Novint Falcon ในการตั้งค่า แล้วเสียบ Falcon</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>ขยับด้ามจับไปให้สุดทุกขอบของระยะเอื้อม…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>ปรับเทียบแล้ว {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>บางแกนเคลื่อนที่ไม่ไกลพอ จึงคงระยะเอื้อมเดิมไว้ {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>ด้ามจับเคลื่อนที่ไม่ไกลพอ ระยะเอื้อมจึงคงเดิม ให้ขยับไปให้สุดทุกขอบขณะที่กำลังวัด</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon ถูกปิดก่อนที่การวัดจะเสร็จ</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>เล่นเกมด้วย Novint Falcon ผ่าน SDK ของ Force Dimension ซึ่งคุณติดตั้งจาก Force Dimension ด้ามจับทำหน้าที่เป็นสติ๊ก ปุ่มทั้งสี่บนด้ามจับเป็นปุ่ม และ PadForge ส่งการสั่นกับเอฟเฟกต์ของเกมไปที่ด้ามจับเป็นแรง แท็บฟอร์ซฟีดแบ็กของแต่ละช่องใช้ตั้งความรู้สึกของ Falcon</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>ควบคุม Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>เปิด Falcon แต่ละตัวผ่าน dhd64.dll ของ Force Dimension Falcon ที่เปิดอยู่จะเป็นของ PadForge เพียงโปรแกรมเดียว FalconJoyForce และเครื่องมือของ Force Dimension จึงเปิดไม่ได้ขณะที่ตัวเลือกนี้เปิดอยู่ เมื่อปิดตัวเลือกนี้ PadForge จะปิด Falcon ทุกตัว</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>ตั้งไลบรารี Falcon เป็น {0} สำเนาที่ใช้งานอยู่แล้วจะคงอยู่จนกว่า PadForge จะเริ่มทำงานใหม่</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>กำลังติดตั้งไดรเวอร์ Falcon ของ Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>ไม่พบแพ็กเกจไดรเวอร์ Falcon ของ Force Dimension หรือแคตตาล็อกของแพ็กเกจ: {0} ให้ติดตั้ง Force Dimension SDK ใหม่</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>ไม่ได้เสียบ Falcon</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon ใช้ไดรเวอร์อื่น ({0}) PadForge จึงไม่แตะต้อง ตัวจัดการอุปกรณ์เปลี่ยนเป็นไดรเวอร์ของ Force Dimension ได้</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows ไม่ได้ติดตั้งไดรเวอร์ของ Force Dimension หาก Windows ถามว่าไว้วางใจ Force Dimension หรือไม่ ให้เลือก ติดตั้ง</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>ติดตั้งไดรเวอร์แล้ว แต่ Falcon ยังไม่ได้เปลี่ยนมาใช้ ให้ถอด Falcon ออกแล้วเสียบใหม่</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge คำนวณแรงทุกอย่างที่กระทำกับด้ามจับของ Falcon ราวหนึ่งพันครั้งต่อวินาที จากตำแหน่งของด้ามจับและสิ่งที่เกมเล่น การตั้งค่าเหล่านี้เป็นของช่องนี้</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>รีเซ็ต Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>ความรู้สึก</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>จอยสติ๊ก: ตำแหน่งของด้ามจับคือสติ๊ก และสปริงจะดึงกลับมาที่กึ่งกลาง เล็ง: การเคลื่อนที่ของด้ามจับขยับสติ๊ก และการดันด้ามจับไว้กับผนังที่ขอบจะทำให้หมุนต่อเนื่อง</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>จอยสติ๊ก</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>เล็ง</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>สปริงคืนศูนย์</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>รีเซ็ตสปริงคืนศูนย์</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>ปุ่มแรงกระแทก</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>ขณะกดปุ่มบนด้ามจับนี้ค้างไว้ และอีกหนึ่งในสี่วินาทีหลังปล่อย การสั่นของเกมจะกระแทกด้ามจับเข้าหาคุณ ส่วนการสั่นในช่วงอื่นจะทำให้ด้ามจับสั่น</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>ปุ่ม 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>ปุ่ม 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>ปุ่ม 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>ปุ่ม 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>ความแรงกระแทก</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>รีเซ็ตความแรงกระแทก</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>ความแรงการสั่น</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>รีเซ็ตความแรงการสั่น</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>ปุ่มพยุง</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>ขณะกดปุ่มบนด้ามจับนี้ค้างไว้ การเล็งจะช้าลงเหลือ 30 เปอร์เซ็นต์ เพื่อปรับละเอียด</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>ปุ่มพรีโหลด</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>ขณะกดปุ่มบนด้ามจับนี้ค้างไว้ แรงดันคงที่ 1.6 N จะพรีโหลดด้ามจับ ช่วยให้การแก้ไขเล็กน้อยนุ่มนวลขึ้น</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>การชดเชยแรงโน้มถ่วง</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon พยุงน้ำหนักของด้ามจับเองไว้เท่าใด คิดเป็นเปอร์เซ็นต์ของแรงโน้มถ่วงมาตรฐาน</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>รีเซ็ตการชดเชยแรงโน้มถ่วง</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>ขีดจำกัดแรง</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>แรงสูงสุดที่ Falcon กระทำต่อด้ามจับ ตั้งได้ตั้งแต่ 1 ถึง 8 นิวตัน</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>รีเซ็ตขีดจำกัดแรง</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>ปรับเทียบระยะเอื้อม</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>วัดว่าด้ามจับเคลื่อนที่ได้ไกลเพียงใด ขยับให้สุดทุกขอบของระยะเอื้อมตลอดสี่วินาทีที่การวัดทำงาน ระหว่างนั้นแรงทั้งหมดจะหยุดพัก</value></data>
 </root>

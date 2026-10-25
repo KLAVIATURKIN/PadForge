@@ -4335,4 +4335,82 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>方向</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>ステップ</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>ハンドル</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>左右</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>上下</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>手前/奥</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>ボタン {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}、{1} から読み込み済み</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension のライブラリは、PadForge の x64 ビルドでのみ動作します。</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll は見つかりましたが読み込めませんでした。</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>この dhd64.dll は、PadForge が必要とする Force Dimension のライブラリではありません。</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>この PC に Force Dimension SDK がありません。Force Dimension のダウンロードページから入手するか、dhd64.dll を選択してください。</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>ハンドルを限界まで引き出してから限界まで押し込み、原点合わせをしてください</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz で動作中</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>開いています</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon が別のプログラム (FalconJoyForce や Force Dimension 純正のツールなど) で開かれています。そちらで閉じてください。</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon は別のドライバー ({0}) を使用しているため、Force Dimension のライブラリで開けません。デバイス マネージャーで、Force Dimension の SDK フォルダー内の drivers\usb フォルダーから Falcon のドライバーを更新してください。</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon が接続されていますが、ドライバーがありません。Falcon ドライバーをインストールすると、Force Dimension のドライバーが適用されます。</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon が接続されていますが、ドライバーがなく、SDK フォルダーにも適用できるドライバー パッケージがありません。Force Dimension の SDK を再インストールしてください。</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon が見つかりません。電源と USB ケーブルを接続してください。</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll を選択…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Force Dimension のこのライブラリを最優先で読み込みます。SDK がインストールするコピーは、この設定がなくても見つかります。</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|ライブラリ (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon ドライバーをインストール</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>ドライバーのない Falcon に、SDK フォルダー内の Force Dimension のドライバーをインストールします。先に Windows が Force Dimension を信頼するか確認する場合があります。</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension の SDK を入手</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Force Dimension の SDK ダウンロードページをブラウザーで開きます。PadForge はインストール済みの SDK を読み込むだけで、SDK 自体は同梱していません。</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>可動範囲: 左右 {0:0} mm、上下 {1:0} mm、手前/奥 {2:0} mm。</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>キャリブレーションするには、この Falcon が開いている必要があります。設定で Novint Falcon を制御するをオンにし、Falcon を接続してください。</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>ハンドルを可動範囲の端まですべて動かしてください…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>キャリブレーションが完了しました。{0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>一部の軸は移動量が足りなかったため、以前の可動範囲のままです。{0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>ハンドルの移動量が足りなかったため、可動範囲は変わりません。スイープ中にすべての端まで動かしてください。</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>スイープが終わる前に Falcon が閉じられました。</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Force Dimension の SDK (Force Dimension からインストールしてください) を通じて、Novint Falcon でゲームを操作します。ハンドルはスティック、グリップの 4 つのボタンはボタンとして扱われ、PadForge はゲームの振動やエフェクトをハンドルの力として出力します。Falcon の感触は、各スロットのフォースフィードバック タブで設定します。</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon を制御する</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Force Dimension の dhd64.dll を通じて、すべての Falcon を開きます。開かれた Falcon は PadForge が専有するため、オンの間は FalconJoyForce や Force Dimension のツールでは開けません。オフにすると、PadForge はすべての Falcon を閉じます。</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon のライブラリを {0} に設定しました。すでに使用中のコピーは、PadForge を再起動するまでそのままです。</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Force Dimension の Falcon ドライバーをインストールしています…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension の Falcon ドライバー パッケージまたはそのカタログがありません: {0}。Force Dimension の SDK を再インストールしてください。</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Falcon が接続されていません。</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon は別のドライバー ({0}) を使用しているため、PadForge は変更しません。デバイス マネージャーで Force Dimension のドライバーに変更できます。</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows は Force Dimension のドライバーをインストールしませんでした。Windows が Force Dimension を信頼するか確認してきたら、[インストール] を選んでください。</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>ドライバーはインストールされましたが、Falcon がまだ切り替わっていません。Falcon を取り外し、もう一度接続してください。</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge は、ハンドルの位置とゲームの出力をもとに、Falcon のハンドルにかかる力を毎秒約 1000 回計算します。これらの設定はこのスロット専用です。</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon をリセット</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>操作感</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>ジョイスティック: ハンドルの位置がスティックの入力になり、バネが中心へ引き戻します。エイム: ハンドルの動きでスティックが動き、端の壁にハンドルを押し当てている間は回転し続けます。</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>ジョイスティック</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>エイム</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>センタリング バネ</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>センタリング バネをリセット</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>キック ボタン</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>このグリップ ボタンを押している間と、離してから 4 分の 1 秒間は、ゲームの振動がハンドルをプレイヤー側へ蹴り出します。それ以外の振動ではハンドルが揺れます。</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>ボタン 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>ボタン 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>ボタン 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>ボタン 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>キック強度</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>キック強度をリセット</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>シェイク強度</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>シェイク強度をリセット</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>ブレース ボタン</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>このグリップ ボタンを押している間、エイムの速度が 30% に下がり、細かい調整ができます。</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>プリロード ボタン</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>このグリップ ボタンを押している間、1.6 N の一定の力でハンドルに負荷がかかり、小さな修正がなめらかになります。</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>重力補正</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon がハンドル自体の重さをどれだけ支えるかを、標準重力に対する割合 (%) で指定します。</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>重力補正をリセット</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>力の上限</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon がハンドルに加える力の最大値です。1 ～ 8 ニュートンで指定します。</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>力の上限をリセット</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>可動範囲をキャリブレーション</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ハンドルが動く範囲を測定します。スイープが実行される 4 秒間に、ハンドルを可動範囲のすべての端まで動かしてください。その間、力は加わりません。</value></data>
 </root>

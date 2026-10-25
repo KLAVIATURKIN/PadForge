@@ -454,6 +454,8 @@ namespace PadForge.Common.Input
             changed |= UpdateLogitechGKeysDevice();
             // --- Phase 1j2: the keys beside the keyboard screens (issue #519) ---
             changed |= UpdateKeyboardScreenKeysDevice();
+            // --- Phase 1j3: Novint Falcons through Force Dimension's library (issue #521) ---
+            changed |= UpdateFalconDevices();
 
             // --- Phase 1m: vendor rows and unit rows for peripheral outputs (issue #494) ---
             changed |= UpdatePeripheralRows();

@@ -4410,4 +4410,82 @@ Would you like PadForge to uninstall them now? This requires elevation and may t
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direction</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Step</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Handle</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Left/Right</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Up/Down</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>In/Out</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Button {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, loaded from {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension's library runs only in the x64 build of PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>Found dhd64.dll and could not load it.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>That dhd64.dll is not the Force Dimension library PadForge expects.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>No Force Dimension SDK on this PC. Get it from Force Dimension's download page, or choose its dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>pull the handle all the way out, then push it all the way in, to home it</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>running at {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>open</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>A Falcon is open in another program, such as FalconJoyForce or Force Dimension's own tools. Close it there.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>The Falcon is on another driver ({0}), so Force Dimension's library cannot open it. In Device Manager, update the Falcon's driver from the drivers\usb folder in Force Dimension's SDK folder.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>A Falcon is plugged in with no driver. Install Falcon Driver gives it Force Dimension's.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>A Falcon is plugged in with no driver, and the SDK folder has no driver package to give it. Reinstall Force Dimension's SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>No Falcon found. Plug in its power and its USB cable.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Choose dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Loads this copy of Force Dimension's library before any other. The copies the SDK installs are found without it.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Libraries (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Install Falcon Driver</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Installs Force Dimension's driver, from the SDK folder, on a Falcon that has none. Windows may first ask whether to trust Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Get Force Dimension's SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Opens Force Dimension's SDK download page in your browser. PadForge loads the SDK you install and ships none of it.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Reach: {0:0} mm left and right, {1:0} mm up and down, {2:0} mm in and out.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Calibrate needs this Falcon open. Turn on Drive Novint Falcon in Settings and plug the Falcon in.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Move the handle to every edge of its reach…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Calibrated. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Some axes did not travel far enough and keep their old reach. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>The handle did not travel far enough, so the reach stays as it was. Move it to every edge while the sweep runs.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>The Falcon closed before the sweep finished.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Plays games with a Novint Falcon through Force Dimension's SDK, which you install from Force Dimension. The handle is a stick, the grip's four buttons are buttons, and PadForge puts the game's rumble and effects on the handle as force. Each slot's Force Feedback tab sets how the Falcon feels.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Drive Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Opens each Falcon through Force Dimension's dhd64.dll. An open Falcon belongs to PadForge alone, so FalconJoyForce and Force Dimension's tools cannot open it while this is on. Off, PadForge closes every Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon library set to {0}. A copy already in use stays until PadForge starts again.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Installing Force Dimension's Falcon driver…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension's Falcon driver package, or its catalog, is missing: {0}. Reinstall Force Dimension's SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>No Falcon is plugged in.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>The Falcon is on another driver ({0}), so PadForge leaves it alone. Device Manager can change it to Force Dimension's.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows did not install Force Dimension's driver. If Windows asks whether to trust Force Dimension, choose Install.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>The driver is installed, but the Falcon has not moved to it. Unplug the Falcon and plug it back in.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge computes every force on the Falcon's handle about a thousand times a second, from where the handle is and what the game plays. These settings belong to this slot.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Reset Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Feel</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: the handle's position is the stick, and a spring pulls it back to center. Aim: the handle's motion moves the stick, and holding the handle against the wall at its edge keeps turning.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Aim</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Centering Spring</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Reset Centering Spring</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Kick Button</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>While this grip button is held, and for a quarter second after, the game's rumble kicks the handle toward you. Rumble at other times shakes the handle.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Button 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Button 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Button 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Button 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Kick Strength</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Reset Kick Strength</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Shake Strength</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Reset Shake Strength</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Brace Button</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>While this grip button is held, the aim slows to 30 percent for fine adjustments.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Preload Button</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>While this grip button is held, a steady 1.6 N push loads the handle, which smooths small corrections.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Gravity Compensation</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>How much of the handle's own weight the Falcon holds up, in percent of standard gravity.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Reset Gravity Compensation</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Force Limit</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>The most force the Falcon puts on the handle, from 1 to 8 newtons.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Reset Force Limit</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Calibrate Reach</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Measures how far the handle travels. Move it to every edge of its reach for the four seconds the sweep runs. The forces rest meanwhile.</value></data>
 </root>

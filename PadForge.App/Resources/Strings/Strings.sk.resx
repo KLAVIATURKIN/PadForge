@@ -4384,4 +4384,82 @@ Chcete, aby ich PadForge teraz odinštaloval? Vyžaduje to oprávnenia správcu 
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Smer</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Krok</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Rukoväť</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Vľavo/Vpravo</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Hore/Dole</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Dnu/Von</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Tlačidlo {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, načítaný z {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Knižnica Force Dimension beží iba v x64 zostave PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>Súbor dhd64.dll sa našiel, ale nedal sa načítať.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Tento dhd64.dll nie je knižnica Force Dimension, ktorú PadForge očakáva.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Na tomto počítači nie je Force Dimension SDK. Získajte ho zo stránky na stiahnutie Force Dimension alebo vyberte jeho dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>vytiahnite rukoväť úplne von a potom ju zatlačte úplne dnu, aby sa zistila jej poloha</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>beží na {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>otvorený</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Falcon je otvorený v inom programe, napríklad FalconJoyForce alebo vo vlastných nástrojoch Force Dimension. Zatvorte ho tam.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Zariadenie Falcon používa iný ovládač zariadenia ({0}), preto ho knižnica Force Dimension nemôže otvoriť. V Správcovi zariadení aktualizujte ovládač zariadenia Falcon z priečinka drivers\usb v priečinku Force Dimension SDK.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Falcon je pripojený bez ovládača zariadenia. Tlačidlo Nainštalovať ovládač Falcon mu pridá ovládač od Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Falcon je pripojený bez ovládača zariadenia a priečinok SDK neobsahuje balík ovládača, ktorý by mu mohol pridať. Preinštalujte Force Dimension SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Nenašiel sa žiadny Falcon. Pripojte jeho napájanie a kábel USB.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Vybrať dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Pred všetkými ostatnými načíta túto kópiu knižnice Force Dimension. Kópie, ktoré nainštaluje SDK, sa nájdu aj bez toho.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Knižnice (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Nainštalovať ovládač Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Nainštaluje ovládač Force Dimension z priečinka SDK na zariadenie Falcon, ktoré žiadny nemá. Windows sa môže najprv opýtať, či dôverujete Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Získať Force Dimension SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Otvorí v prehliadači stránku na stiahnutie Force Dimension SDK. PadForge načíta SDK, ktoré si nainštalujete, a nič z neho nedodáva.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Dosah: {0:0} mm doľava a doprava, {1:0} mm hore a dole, {2:0} mm dnu a von.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kalibrácia vyžaduje otvorený Falcon. Zapnite v Nastaveniach Ovládať Novint Falcon a pripojte Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Posuňte rukoväť na každý okraj jej dosahu…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibrácia dokončená. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Niektoré osi sa nepohli dostatočne ďaleko a ponechali si pôvodný dosah. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Rukoväť sa nepohla dostatočne ďaleko, preto dosah zostáva nezmenený. Počas merania ju posuňte na každý okraj.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falcon sa zatvoril pred dokončením merania.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Hrajte hry s Novint Falcon cez Force Dimension SDK, ktoré si nainštalujete od Force Dimension. Rukoväť je páčka, štyri tlačidlá na rukoväti sú tlačidlá a PadForge prenáša vibrácie a efekty hry na rukoväť ako silu. Karta Silová spätná väzba každého slotu nastavuje, aký pocit Falcon dáva.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Ovládať Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Otvorí každý Falcon cez dhd64.dll od Force Dimension. Otvorený Falcon patrí iba PadForge, takže FalconJoyForce a nástroje Force Dimension ho nemôžu otvoriť, kým je táto voľba zapnutá. Keď je vypnutá, PadForge zatvorí každý Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Knižnica pre Falcon je nastavená na {0}. Už používaná kópia zostane, kým sa PadForge znova nespustí.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Inštaluje sa ovládač Falcon od Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Balík ovládača Falcon od Force Dimension alebo jeho katalóg chýba: {0}. Preinštalujte Force Dimension SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Nie je pripojený žiadny Falcon.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Zariadenie Falcon používa iný ovládač zariadenia ({0}), preto ho PadForge nechá tak. Správca zariadení ho môže zmeniť na ovládač od Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows nenainštaloval ovládač Force Dimension. Ak sa Windows opýta, či dôverujete Force Dimension, vyberte Nainštalovať.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Ovládač je nainštalovaný, ale Falcon sa naň ešte neprepol. Odpojte Falcon a znova ho pripojte.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge približne tisíckrát za sekundu vypočíta každú silu pôsobiacu na rukoväť zariadenia Falcon podľa polohy rukoväte a toho, čo hra prehráva. Tieto nastavenia patria tomuto slotu.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Resetovať Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Pocit</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: poloha rukoväte je páčka a pružina ju ťahá späť do stredu. Mierenie: pohyb rukoväte pohybuje páčkou a držanie rukoväte o stenu na okraji ďalej otáča.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Mierenie</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Centrovacia pružina</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Resetovať centrovaciu pružinu</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Tlačidlo rázu</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Kým je toto tlačidlo na rukoväti stlačené a štvrť sekundy potom, vibrácie hry udierajú rukoväť smerom k vám. Vibrácie v iných chvíľach rukoväť trasú.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Tlačidlo 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Tlačidlo 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Tlačidlo 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Tlačidlo 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Sila rázu</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Resetovať silu rázu</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Sila trasenia</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Resetovať silu trasenia</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Tlačidlo opory</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Kým je toto tlačidlo na rukoväti stlačené, mierenie sa spomalí na 30 percent pre jemné úpravy.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Tlačidlo predpätia</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Kým je toto tlačidlo na rukoväti stlačené, stály tlak 1.6 N zaťažuje rukoväť, čo vyhladzuje malé korekcie.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Kompenzácia gravitácie</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Koľko vlastnej hmotnosti rukoväte Falcon nadnáša, v percentách štandardnej gravitácie.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Resetovať kompenzáciu gravitácie</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Limit sily</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Najväčšia sila, akou Falcon pôsobí na rukoväť, od 1 do 8 newtonov.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Resetovať limit sily</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibrovať dosah</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Meria, ako ďaleko sa rukoväť pohne. Počas štyroch sekúnd merania ju posuňte na každý okraj dosahu. Sily sú medzitým vypnuté.</value></data>
 </root>

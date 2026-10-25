@@ -4364,4 +4364,82 @@ Vols que PadForge els desinstal·li ara? Cal elevar els permisos i pot trigar un
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Direcció</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Pas</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Mànec</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Esquerra/Dreta</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Amunt/Avall</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Endins/Enfora</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Botó {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>SDK de Force Dimension {0}, carregat des de {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>La biblioteca de Force Dimension només funciona a la versió x64 de PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>S'ha trobat dhd64.dll, però no s'ha pogut carregar.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Aquest dhd64.dll no és la biblioteca de Force Dimension que espera PadForge.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>No hi ha cap SDK de Force Dimension en aquest PC. Obtén-lo a la pàgina de descàrregues de Force Dimension o tria'n el dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>estira el mànec tot el que puguis i després empeny-lo fins al fons, per fer-lo anar a l'origen</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>funcionant a {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>obert</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Un Falcon és obert en un altre programa, com FalconJoyForce o les eines de Force Dimension. Tanca'l allà.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>El Falcon utilitza un altre controlador ({0}), de manera que la biblioteca de Force Dimension no pot obrir-lo. Al Administrador de dispositius, actualitza el controlador del Falcon des de la carpeta drivers\usb de la carpeta de l'SDK de Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Hi ha un Falcon connectat sense controlador. Instal·la el controlador del Falcon li dona el de Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Hi ha un Falcon connectat sense controlador, i la carpeta de l'SDK no té cap paquet de controlador per donar-li. Reinstal·la l'SDK de Force Dimension.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>No s'ha trobat cap Falcon. Connecta'n l'alimentació i el cable USB.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Tria dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Carrega aquesta còpia de la biblioteca de Force Dimension abans que cap altra. Les còpies que instal·la l'SDK es troben sense això.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Biblioteques (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Instal·la el controlador del Falcon</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Instal·la el controlador de Force Dimension, des de la carpeta de l'SDK, en un Falcon que no en té. Pot ser que Windows primer pregunti si confies en Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Obtén l'SDK de Force Dimension</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Obre al navegador la pàgina de descàrrega de l'SDK de Force Dimension. PadForge carrega l'SDK que tu instal·les i no n'inclou res.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Abast: {0:0} mm a esquerra i dreta, {1:0} mm amunt i avall, {2:0} mm endins i enfora.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Calibra necessita que aquest Falcon estigui obert. Activa Controla el Novint Falcon a la configuració i connecta el Falcon.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Mou el mànec fins a cada extrem del seu abast…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Calibrat. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Alguns eixos no s'han mogut prou i conserven l'abast anterior. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>El mànec no s'ha mogut prou, de manera que l'abast es queda com estava. Mou-lo fins a cada extrem mentre dura el recorregut.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>El Falcon s'ha tancat abans que acabés el recorregut.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Juga amb un Novint Falcon mitjançant l'SDK de Force Dimension, que has d'instal·lar des de Force Dimension. El mànec és una palanca, els quatre botons de l'empunyadura són botons, i PadForge aplica al mànec com a força la vibració i els efectes del joc. La pestanya Retroacció de força de cada ranura defineix com es nota el Falcon.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Controla el Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Obre cada Falcon mitjançant el dhd64.dll de Force Dimension. Un Falcon obert pertany només a PadForge, de manera que FalconJoyForce i les eines de Force Dimension no poden obrir-lo mentre això estigui activat. Desactivat, PadForge tanca tots els Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Biblioteca del Falcon establerta a {0}. Una còpia que ja s'està usant es manté fins que PadForge torni a iniciar-se.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>S'està instal·lant el controlador del Falcon de Force Dimension…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Falta el paquet del controlador del Falcon de Force Dimension, o el seu catàleg: {0}. Reinstal·la l'SDK de Force Dimension.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>No hi ha cap Falcon connectat.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>El Falcon utilitza un altre controlador ({0}), de manera que PadForge no el toca. L'Administrador de dispositius pot canviar-lo al de Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows no ha instal·lat el controlador de Force Dimension. Si Windows pregunta si confies en Force Dimension, tria Instal·la.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>El controlador està instal·lat, però el Falcon no hi ha passat. Desconnecta el Falcon i torna'l a connectar.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge calcula cada força sobre el mànec del Falcon unes mil vegades per segon, a partir de la posició del mànec i del que reprodueix el joc. Aquesta configuració pertany a aquesta ranura.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Restableix el Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Sensació</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: la posició del mànec és la palanca, i un moll la fa tornar al centre. Apuntar: el moviment del mànec mou la palanca, i mantenir el mànec contra la paret de l'extrem la fa continuar girant.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Apuntar</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Moll de centrat</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Restableix el moll de centrat</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Botó de cop</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Mentre es manté premut aquest botó de l'empunyadura, i durant un quart de segon després, la vibració del joc empeny el mànec cap a tu. La vibració en altres moments sacseja el mànec.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Botó 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Botó 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Botó 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Botó 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Força del cop</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Restableix la força del cop</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Força del sacseig</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Restableix la força del sacseig</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Botó d'estabilització</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Mentre es manté premut aquest botó de l'empunyadura, la punteria es redueix al 30 per cent per fer ajustos fins.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Botó de precàrrega</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Mentre es manté premut aquest botó de l'empunyadura, un empenyiment constant d'1.6 N carrega el mànec, cosa que suavitza les correccions petites.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Compensació de gravetat</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Quant del pes propi del mànec sosté el Falcon, en percentatge de la gravetat estàndard.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Restableix la compensació de gravetat</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Límit de força</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>La força màxima que el Falcon aplica al mànec, d'1 a 8 newtons.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Restableix el límit de força</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Calibra l'abast</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mesura fins on arriba el mànec. Mou-lo fins a cada extrem del seu abast durant els quatre segons que dura el recorregut. Mentrestant, les forces descansen.</value></data>
 </root>

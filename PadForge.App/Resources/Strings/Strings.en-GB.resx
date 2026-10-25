@@ -531,4 +531,9 @@
   <data name="KeyboardScreen_Hint_Stopwatch" xml:space="preserve"><value>The screen shows the stopwatch, which the Stopwatch macro starts, pauses and resets. Every screen shows the same stopwatch.</value></data>
   <data name="KeyboardScreen_Hint_Lightbar" xml:space="preserve"><value>The screen shows the colour of the lightbar on the DualShock 4 or DualSense in the lowest slot. A monochrome screen shows its brightness as a dot pattern. Until a colour reaches a lightbar, PadForge shows nothing.</value></data>
   <data name="MacroAction_ShowKeyboardScreen_Hint" xml:space="preserve"><value>Pictures are fitted to the screen: 160 by 43 black and white pixels on a monochrome screen, 320 by 240 on the G19's and 480 by 320 for Arx Control and the S.T.R.I.K.E. 7. A tenth of a second is the shortest frame time.</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension's Falcon driver package, or its catalogue, is missing: {0}. Reinstall Force Dimension's SDK.</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: the handle's position is the stick, and a spring pulls it back to centre. Aim: the handle's motion moves the stick, and holding the handle against the wall at its edge keeps turning.</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Centring Spring</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Reset Centring Spring</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>While this grip button is held, and for a quarter second after, the game's rumble kicks the handle towards you. Rumble at other times shakes the handle.</value></data>
 </root>

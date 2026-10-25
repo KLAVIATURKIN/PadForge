@@ -4355,4 +4355,82 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Richting</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Stap</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Handgreep</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Links/rechts</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Omhoog/omlaag</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Naar binnen/naar buiten</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Knop {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, geladen vanaf {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>De bibliotheek van Force Dimension werkt alleen in de x64-versie van PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll gevonden, laden mislukt.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Deze dhd64.dll is niet de Force Dimension-bibliotheek die PadForge verwacht.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Geen Force Dimension SDK op deze pc. Haal hem op via de downloadpagina van Force Dimension of kies de bijbehorende dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>trek de handgreep helemaal naar buiten en duw hem daarna helemaal naar binnen om de beginpositie te bepalen</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>draait op {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>geopend</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>Een Falcon is geopend in een ander programma, zoals FalconJoyForce of de eigen hulpprogramma's van Force Dimension. Sluit hem daar.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>De Falcon gebruikt een ander stuurprogramma ({0}), waardoor de bibliotheek van Force Dimension hem niet kan openen. Werk in Apparaatbeheer het stuurprogramma van de Falcon bij vanuit de map drivers\usb in de SDK-map van Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>Er is een Falcon aangesloten zonder stuurprogramma. Met Falcon-stuurprogramma installeren krijgt hij dat van Force Dimension.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>Er is een Falcon aangesloten zonder stuurprogramma, en de SDK-map bevat geen stuurprogrammapakket om hem te geven. Installeer de SDK van Force Dimension opnieuw.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Geen Falcon gevonden. Sluit de voeding en de USB-kabel aan.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll kiezen…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Laadt dit exemplaar van de bibliotheek van Force Dimension vóór alle andere. De exemplaren die de SDK installeert, worden ook zonder dit gevonden.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Bibliotheken (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon-stuurprogramma installeren</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Installeert het stuurprogramma van Force Dimension, uit de SDK-map, op een Falcon die er geen heeft. Windows vraagt mogelijk eerst of u Force Dimension vertrouwt.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension SDK ophalen</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Opent de downloadpagina van de Force Dimension SDK in uw browser. PadForge laadt de SDK die u installeert en levert er zelf niets van mee.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Bereik: {0:0} mm links en rechts, {1:0} mm omhoog en omlaag, {2:0} mm naar binnen en naar buiten.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kalibreren vereist dat deze Falcon geopend is. Zet Novint Falcon aansturen aan in Instellingen en sluit de Falcon aan.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Beweeg de handgreep naar elke rand van het bereik…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Gekalibreerd. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Sommige assen legden onvoldoende afstand af en houden hun oude bereik. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>De handgreep legde onvoldoende afstand af, dus het bereik blijft zoals het was. Beweeg hem naar elke rand zolang de meting loopt.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>De Falcon is gesloten voordat de meting klaar was.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Speelt games met een Novint Falcon via de SDK van Force Dimension, die u bij Force Dimension installeert. De handgreep is een stick, de vier knoppen op de greep zijn knoppen, en PadForge zet de trilling en effecten van de game als kracht op de handgreep. Het tabblad Force Feedback van elke slot bepaalt hoe de Falcon aanvoelt.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon aansturen</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Opent elke Falcon via dhd64.dll van Force Dimension. Een geopende Falcon is van PadForge alleen, dus FalconJoyForce en de hulpprogramma's van Force Dimension kunnen hem niet openen zolang dit aan staat. Uit sluit PadForge elke Falcon.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon-bibliotheek ingesteld op {0}. Een exemplaar dat al in gebruik is, blijft actief tot PadForge opnieuw start.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Het Falcon-stuurprogramma van Force Dimension wordt geïnstalleerd…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Het Falcon-stuurprogrammapakket van Force Dimension of de bijbehorende catalogus ontbreekt: {0}. Installeer de SDK van Force Dimension opnieuw.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Er is geen Falcon aangesloten.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>De Falcon gebruikt een ander stuurprogramma ({0}), dus PadForge laat hem met rust. In Apparaatbeheer kunt u het wijzigen naar dat van Force Dimension.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows heeft het stuurprogramma van Force Dimension niet geïnstalleerd. Als Windows vraagt of u Force Dimension vertrouwt, kies dan Installeren.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Het stuurprogramma is geïnstalleerd, maar de Falcon gebruikt het nog niet. Koppel de Falcon los en sluit hem opnieuw aan.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge berekent elke kracht op de handgreep van de Falcon ongeveer duizend keer per seconde, op basis van waar de handgreep zich bevindt en wat de game afspeelt. Deze instellingen horen bij deze slot.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon resetten</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Gevoel</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: de positie van de handgreep is de stick, en een veer trekt hem terug naar het midden. Richten: de beweging van de handgreep beweegt de stick, en de handgreep tegen de wand aan de rand houden blijft draaien.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Richten</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Centreerveer</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Centreerveer resetten</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Terugslagknop</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Zolang deze greepknop ingedrukt is, en een kwartseconde daarna, geeft de trilling van de game de handgreep een stoot naar u toe. Trilling op andere momenten schudt de handgreep.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Knop 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Knop 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Knop 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Knop 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Terugslagsterkte</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Terugslagsterkte resetten</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Schudsterkte</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Schudsterkte resetten</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Steunknop</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Zolang deze greepknop ingedrukt is, vertraagt het richten tot 30 procent voor fijne bijsturing.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Voorspanknop</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Zolang deze greepknop ingedrukt is, belast een constante duw van 1.6 N de handgreep, wat kleine correcties vloeiender maakt.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Zwaartekrachtcompensatie</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Hoeveel van het eigen gewicht van de handgreep de Falcon omhoog houdt, in procenten van de standaardzwaartekracht.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Zwaartekrachtcompensatie resetten</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Krachtlimiet</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>De maximale kracht die de Falcon op de handgreep zet, van 1 tot 8 newton.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Krachtlimiet resetten</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Bereik kalibreren</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Meet hoe ver de handgreep reikt. Beweeg hem naar elke rand van het bereik gedurende de vier seconden dat de meting loopt. De krachten rusten intussen.</value></data>
 </root>

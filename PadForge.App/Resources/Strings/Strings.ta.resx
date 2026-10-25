@@ -4384,4 +4384,82 @@ PadForge இப்போதே அவற்றை நிறுவல் நீ�
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>திசை</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>படி</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>கைப்பிடி</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>இடது/வலது</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>மேல்/கீழ்</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>உள்/வெளி</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>பொத்தான் {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, {1} இலிருந்து ஏற்றப்பட்டது</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimension நூலகம் PadForge-இன் x64 பதிப்பில் மட்டுமே இயங்கும்.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll கண்டறியப்பட்டது, ஆனால் அதை ஏற்ற முடியவில்லை.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>அந்த dhd64.dll, PadForge எதிர்பார்க்கும் Force Dimension நூலகம் அல்ல.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>இந்தக் கணினியில் Force Dimension SDK இல்லை. Force Dimension-இன் பதிவிறக்கப் பக்கத்திலிருந்து பெறுங்கள், அல்லது அதன் dhd64.dll-ஐத் தேர்ந்தெடுங்கள்.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>ஹோம் செய்ய, கைப்பிடியை முழுவதுமாக வெளியே இழுத்து, பிறகு முழுவதுமாக உள்ளே தள்ளுங்கள்</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>{0:0.0} kHz வேகத்தில் இயங்குகிறது</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>திறந்துள்ளது</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>ஒரு Falcon வேறொரு நிரலில் திறந்துள்ளது, எ.கா. FalconJoyForce அல்லது Force Dimension-இன் சொந்தக் கருவிகள். அங்கே அதை மூடுங்கள்.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon வேறொரு இயக்கியில் ({0}) உள்ளது, எனவே Force Dimension நூலகத்தால் அதைத் திறக்க முடியாது. சாதன மேலாளரில், Force Dimension SDK கோப்புறையிலுள்ள drivers\usb கோப்புறையிலிருந்து Falcon-இன் இயக்கியைப் புதுப்பியுங்கள்.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>ஒரு Falcon இயக்கி இல்லாமல் இணைக்கப்பட்டுள்ளது. Falcon இயக்கியை நிறுவு என்பது அதற்கு Force Dimension-இன் இயக்கியை வழங்கும்.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>ஒரு Falcon இயக்கி இல்லாமல் இணைக்கப்பட்டுள்ளது, SDK கோப்புறையில் அதற்கு வழங்க இயக்கித் தொகுப்பும் இல்லை. Force Dimension SDK-ஐ மீண்டும் நிறுவுங்கள்.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Falcon எதுவும் கிடைக்கவில்லை. அதன் மின்சாரத்தையும் USB கேபிளையும் இணைக்கவும்.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll-ஐத் தேர்ந்தெடு…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Force Dimension நூலகத்தின் இந்த நகலை மற்றவற்றுக்கு முன் ஏற்றுகிறது. SDK நிறுவும் நகல்கள் இது இல்லாமலே கண்டறியப்படும்.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|நூலகங்கள் (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Falcon இயக்கியை நிறுவு</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>இயக்கி இல்லாத Falcon-இல், SDK கோப்புறையிலிருந்து Force Dimension-இன் இயக்கியை நிறுவுகிறது. Force Dimension-ஐ நம்புவதா என்று Windows முதலில் கேட்கலாம்.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Force Dimension SDK-ஐப் பெறு</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Force Dimension SDK பதிவிறக்கப் பக்கத்தை உங்கள் உலாவியில் திறக்கும். நீங்கள் நிறுவும் SDK-ஐ PadForge ஏற்றுகிறது, அதில் எதையும் உடன் அனுப்புவதில்லை.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>எட்டும் தொலைவு: இடது வலது {0:0} mm, மேல் கீழ் {1:0} mm, உள் வெளி {2:0} mm.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>அளவுத்திருத்தம் செய்ய இந்த Falcon திறந்திருக்க வேண்டும். அமைப்புகளில் Novint Falcon-ஐ இயக்கு என்பதை இயக்கி, Falcon-ஐ இணைக்கவும்.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>கைப்பிடியை அதன் எட்டும் தொலைவின் ஒவ்வொரு விளிம்புக்கும் நகர்த்துங்கள்…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>அளவுத்திருத்தம் முடிந்தது. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>சில அச்சுகள் போதுமான தூரம் நகரவில்லை, அவை பழைய தொலைவையே வைத்திருக்கும். {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>கைப்பிடி போதுமான தூரம் நகரவில்லை, எனவே எட்டும் தொலைவு முன்பு இருந்தபடியே இருக்கும். அளவீடு நடக்கும்போது ஒவ்வொரு விளிம்புக்கும் நகர்த்துங்கள்.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>அளவீடு முடிவதற்குள் Falcon மூடப்பட்டது.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Force Dimension SDK வழியாக Novint Falcon கொண்டு விளையாட்டுகளை விளையாடுகிறது. இந்த SDK-ஐ Force Dimension-இடமிருந்து நீங்கள் நிறுவுகிறீர்கள். கைப்பிடி ஒரு ஸ்டிக், பிடியின் நான்கு பொத்தான்கள் பொத்தான்களாகும், PadForge விளையாட்டின் அதிர்வையும் விளைவுகளையும் கைப்பிடியில் விசையாகச் செலுத்துகிறது. ஒவ்வொரு ஸ்லாட்டின் ஃபோர்ஸ் ஃபீட்பேக் தாவல் Falcon-இன் உணர்வை அமைக்கிறது.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falcon-ஐ இயக்கு</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>ஒவ்வொரு Falcon-ஐயும் Force Dimension-இன் dhd64.dll வழியாகத் திறக்கிறது. திறந்த Falcon PadForge-க்கு மட்டுமே சொந்தம், எனவே இது இயக்கத்தில் இருக்கும்போது FalconJoyForce-ஆலும் Force Dimension கருவிகளாலும் அதைத் திறக்க முடியாது. அணைத்தால், PadForge ஒவ்வொரு Falcon-ஐயும் மூடும்.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon நூலகம் {0} என அமைக்கப்பட்டது. ஏற்கெனவே பயன்பாட்டிலுள்ள நகல், PadForge மீண்டும் தொடங்கும் வரை அப்படியே இருக்கும்.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Force Dimension-இன் Falcon இயக்கியை நிறுவுகிறது…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimension-இன் Falcon இயக்கித் தொகுப்பு அல்லது அதன் பட்டியல் இல்லை: {0}. Force Dimension SDK-ஐ மீண்டும் நிறுவுங்கள்.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>எந்த Falcon-உம் இணைக்கப்படவில்லை.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon வேறொரு இயக்கியில் ({0}) உள்ளது, எனவே PadForge அதைத் தொடாது. சாதன மேலாளரில் அதை Force Dimension-இன் இயக்கிக்கு மாற்றலாம்.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows, Force Dimension-இன் இயக்கியை நிறுவவில்லை. Force Dimension-ஐ நம்புவதா என்று Windows கேட்டால், நிறுவு என்பதைத் தேர்ந்தெடுங்கள்.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>இயக்கி நிறுவப்பட்டுள்ளது, ஆனால் Falcon அதற்கு மாறவில்லை. Falcon-ஐத் துண்டித்து மீண்டும் இணைக்கவும்.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>கைப்பிடி இருக்கும் இடத்தையும் விளையாட்டு இயக்குவதையும் கொண்டு, Falcon-இன் கைப்பிடியின் ஒவ்வொரு விசையையும் PadForge வினாடிக்கு சுமார் ஆயிரம் முறை கணக்கிடுகிறது. இந்த அமைப்புகள் இந்த ஸ்லாட்டுக்குரியவை.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falcon-ஐ மீட்டமை</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>உணர்வு</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>ஜாய்ஸ்டிக்: கைப்பிடியின் நிலையே ஸ்டிக், ஒரு ஸ்பிரிங் அதை மையத்துக்கு இழுக்கிறது. குறிபார்த்தல்: கைப்பிடியின் அசைவு ஸ்டிக்கை நகர்த்துகிறது, விளிம்பிலுள்ள சுவரில் கைப்பிடியை அழுத்திப் பிடித்தால் தொடர்ந்து திரும்பும்.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>ஜாய்ஸ்டிக்</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>குறிபார்த்தல்</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>மையப்படுத்தும் ஸ்பிரிங்</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>மையப்படுத்தும் ஸ்பிரிங்கை மீட்டமை</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>உதைப் பொத்தான்</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>இந்தப் பிடிப் பொத்தானை அழுத்திப் பிடித்திருக்கும்போதும், அதன் பிறகு கால் வினாடிக்கும், விளையாட்டின் அதிர்வு கைப்பிடியை உங்களை நோக்கி உதைக்கும். மற்ற நேரங்களில் அதிர்வு கைப்பிடியைக் குலுக்கும்.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>பொத்தான் 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>பொத்தான் 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>பொத்தான் 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>பொத்தான் 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>உதை வலிமை</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>உதை வலிமையை மீட்டமை</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>குலுக்க வலிமை</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>குலுக்க வலிமையை மீட்டமை</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>தாங்கல் பொத்தான்</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>இந்தப் பிடிப் பொத்தானை அழுத்திப் பிடித்திருக்கும்போது, நுட்பமான சரிசெய்தலுக்காக குறிபார்க்கும் வேகம் 30 சதவீதத்துக்குக் குறையும்.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>முன்சுமைப் பொத்தான்</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>இந்தப் பிடிப் பொத்தானை அழுத்திப் பிடித்திருக்கும்போது, நிலையான 1.6 N தள்ளல் கைப்பிடியில் சுமையை ஏற்றும், இது சிறிய திருத்தங்களை மென்மையாக்குகிறது.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>ஈர்ப்பு ஈடுசெய்தல்</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>கைப்பிடியின் சொந்த எடையில் எவ்வளவை Falcon தாங்குகிறது, நிலையான ஈர்ப்பின் சதவீதத்தில்.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>ஈர்ப்பு ஈடுசெய்தலை மீட்டமை</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>விசை வரம்பு</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon கைப்பிடியின் மீது செலுத்தும் அதிகபட்ச விசை, 1 முதல் 8 நியூட்டன் வரை.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>விசை வரம்பை மீட்டமை</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>எட்டும் தொலைவை அளவுத்திருத்து</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>கைப்பிடி எவ்வளவு தூரம் நகர்கிறது என்பதை அளக்கிறது. அளவீடு நடக்கும் நான்கு வினாடிகளுக்கு அதன் எட்டும் தொலைவின் ஒவ்வொரு விளிம்புக்கும் நகர்த்துங்கள். அந்த நேரத்தில் விசைகள் ஓய்வில் இருக்கும்.</value></data>
 </root>

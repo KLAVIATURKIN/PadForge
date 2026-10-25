@@ -4327,4 +4327,82 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>አቅጣጫ</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>ደረጃ</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>እጀታ</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>ግራ/ቀኝ</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ላይ/ታች</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>ውስጥ/ውጭ</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>አዝራር {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}፦ {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}፣ ከ{1} የተጫነ</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>የForce Dimension ቤተ-መጻሕፍት የሚሠራው በx64 የPadForge ስሪት ላይ ብቻ ነው።</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll ተገኝቷል ነገር ግን ሊጫን አልቻለም።</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>ያ dhd64.dll PadForge የሚጠብቀው የForce Dimension ቤተ-መጻሕፍት አይደለም።</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>በዚህ ኮምፒውተር ላይ Force Dimension SDK የለም። ከForce Dimension የማውረጃ ገጽ አውርደው፣ ወይም የእሱን dhd64.dll ምረጥ።</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>ቦታውን እንዲያውቅ እጀታውን እስከ መጨረሻው ወደ ውጭ ጎትተህ ከዚያ እስከ መጨረሻው ወደ ውስጥ ግፋው</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>በ{0:0.0} kHz እየሠራ ነው</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>ክፍት</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>አንድ Falcon በሌላ ፕሮግራም ውስጥ ክፍት ነው፣ ለምሳሌ FalconJoyForce ወይም የForce Dimension የራሱ ፕሮግራሞች። እዚያ ዝጋው።</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Falcon በሌላ አሽከርካሪ ({0}) ላይ ነው፣ ስለዚህ የForce Dimension ቤተ-መጻሕፍት ሊከፍተው አይችልም። በመሣሪያ አስተዳዳሪ ውስጥ የFalcon አሽከርካሪን በForce Dimension SDK አቃፊ ውስጥ ካለው drivers\usb አቃፊ አዘምን።</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>አንድ Falcon ያለ አሽከርካሪ ተሰክቷል። «የFalcon አሽከርካሪ ጫን» የForce Dimension አሽከርካሪን ይሰጠዋል።</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>አንድ Falcon ያለ አሽከርካሪ ተሰክቷል፣ እና የSDK አቃፊው የሚሰጠው የአሽከርካሪ ጥቅል የለውም። የForce Dimension SDK-ን እንደገና ጫን።</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>ምንም Falcon አልተገኘም። የኃይል ገመዱን እና የUSB ገመዱን ሰካ።</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>dhd64.dll ምረጥ…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>ይህንን የForce Dimension ቤተ-መጻሕፍት ቅጂ ከሌሎች ሁሉ በፊት ይጭናል። SDK የሚጭናቸው ቅጂዎች ያለዚህ ይገኛሉ።</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|ቤተ-መጻሕፍት (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>የFalcon አሽከርካሪ ጫን</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>አሽከርካሪ በሌለው Falcon ላይ የForce Dimension አሽከርካሪን ከSDK አቃፊ ይጭናል። Windows መጀመሪያ Force Dimensionን ማመን እንዳለበት ሊጠይቅ ይችላል።</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>የForce Dimension SDK አግኝ</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>የForce Dimension SDK ማውረጃ ገጽን በአሳሽህ ውስጥ ይከፍታል። PadForge የምትጭነውን SDK ይጭናል፣ ምንም ክፍሉን አብሮ አያቀርብም።</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>ርቀት፦ ግራና ቀኝ {0:0} mm፣ ላይና ታች {1:0} mm፣ ውስጥና ውጭ {2:0} mm።</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>ማስተካከያ ይህ Falcon ክፍት እንዲሆን ይፈልጋል። በቅንብሮች ውስጥ «Novint Falconን ተቆጣጠር»ን አብራ እና Falconን ሰካ።</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>እጀታውን ወደ እያንዳንዱ የርቀቱ ጠርዝ አንቀሳቅስ…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>ተስተካክሏል። {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>አንዳንድ ዘንጎች በቂ ርቀት አልተጓዙም እና የቀድሞ ርቀታቸውን ይዘዋል። {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>እጀታው በቂ ርቀት አልተጓዘም፣ ስለዚህ ርቀቱ እንደነበረ ይቆያል። ልኬቱ በሚሄድበት ጊዜ ወደ እያንዳንዱ ጠርዝ አንቀሳቅሰው።</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>ልኬቱ ከማለቁ በፊት Falcon ተዘግቷል።</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>ከForce Dimension በምትጭነው የForce Dimension SDK አማካኝነት በNovint Falcon ጨዋታዎችን እንድትጫወት ያስችላል። እጀታው ስቲክ ነው፣ የመያዣው አራት አዝራሮች አዝራሮች ናቸው፣ እና PadForge የጨዋታውን ንዝረት እና ውጤቶች በእጀታው ላይ እንደ ኃይል ያደርጋል። የእያንዳንዱ ቦታ የኃይል ግብረመልስ ትር Falcon እንዴት እንደሚሰማ ያዘጋጃል።</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Novint Falconን ተቆጣጠር</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>እያንዳንዱን Falcon በForce Dimension dhd64.dll በኩል ይከፍታል። ክፍት የሆነ Falcon የPadForge ብቻ ነው፣ ስለዚህ ይህ በርቶ ሳለ FalconJoyForce እና የForce Dimension ፕሮግራሞች ሊከፍቱት አይችሉም። ሲጠፋ PadForge ሁሉንም Falcon ይዘጋል።</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>የFalcon ቤተ-መጻሕፍት ወደ {0} ተቀናብሯል። አስቀድሞ በጥቅም ላይ ያለ ቅጂ PadForge እንደገና እስኪጀምር ድረስ ይቆያል።</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>የForce Dimension Falcon አሽከርካሪን በመጫን ላይ…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>የForce Dimension Falcon አሽከርካሪ ጥቅል ወይም ካታሎጉ ጠፍቷል፦ {0}። የForce Dimension SDK-ን እንደገና ጫን።</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>ምንም Falcon አልተሰካም።</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falcon በሌላ አሽከርካሪ ({0}) ላይ ነው፣ ስለዚህ PadForge አይነካውም። የመሣሪያ አስተዳዳሪ ወደ Force Dimension አሽከርካሪ ሊቀይረው ይችላል።</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows የForce Dimension አሽከርካሪን አልጫነም። Windows Force Dimensionን ማመን እንዳለበት ከጠየቀ «ጫን»ን ምረጥ።</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>አሽከርካሪው ተጭኗል፣ ነገር ግን Falcon ወደ እሱ አልተዛወረም። Falconን ነቅለህ መልሰህ ሰካው።</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge በFalcon እጀታ ላይ ያለውን እያንዳንዱን ኃይል በሰከንድ አንድ ሺህ ያህል ጊዜ ያሰላል፣ እጀታው ባለበት ቦታ እና ጨዋታው በሚያጫውተው ላይ ተመሥርቶ። እነዚህ ቅንብሮች የዚህ ቦታ ናቸው።</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Novint Falconን ዳግም አስጀምር</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>ስሜት</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>ጆይስቲክ፦ የእጀታው አቀማመጥ ስቲኩ ነው፣ እና ስፕሪንግ ወደ መሃል መልሶ ይጎትተዋል። ማነጣጠር፦ የእጀታው እንቅስቃሴ ስቲኩን ያንቀሳቅሳል፣ እና እጀታውን በጠርዙ ባለው ግድግዳ ላይ መያዝ መዞሩን ያስቀጥላል።</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>ጆይስቲክ</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>ማነጣጠር</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>የመሃል ስፕሪንግ</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>የመሃል ስፕሪንግን ዳግም አስጀምር</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>የምት አዝራር</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>ይህ የመያዣ አዝራር ተጭኖ ሳለ፣ እና ከዚያ በኋላ ለሩብ ሰከንድ፣ የጨዋታው ንዝረት እጀታውን ወደ አንተ ይገፋዋል። በሌሎች ጊዜያት ንዝረት እጀታውን ያንቀጠቅጣል።</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>አዝራር 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>አዝራር 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>አዝራር 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>አዝራር 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>የምት ጥንካሬ</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>የምት ጥንካሬን ዳግም አስጀምር</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>የመንቀጥቀጥ ጥንካሬ</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>የመንቀጥቀጥ ጥንካሬን ዳግም አስጀምር</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>የማረጋጊያ አዝራር</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>ይህ የመያዣ አዝራር ተጭኖ ሳለ፣ ለጥቃቅን ማስተካከያዎች ማነጣጠሩ ወደ 30 በመቶ ይዘገያል።</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>የቅድመ-ግፊት አዝራር</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>ይህ የመያዣ አዝራር ተጭኖ ሳለ፣ የማያቋርጥ 1.6 N ግፊት እጀታውን ይገፋል፣ ይህም ትናንሽ እርማቶችን ያለሰልሳል።</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>የስበት ማካካሻ</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Falcon ከእጀታው የራሱ ክብደት ምን ያህሉን ወደ ላይ እንደሚይዝ፣ ከመደበኛ የስበት ኃይል በመቶኛ።</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>የስበት ማካካሻን ዳግም አስጀምር</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>የኃይል ገደብ</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Falcon በእጀታው ላይ የሚያደርገው ከፍተኛ ኃይል፣ ከ1 እስከ 8 ኒውተን።</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>የኃይል ገደብን ዳግም አስጀምር</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>ርቀትን አስተካክል</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>እጀታው ምን ያህል እንደሚጓዝ ይለካል። ልኬቱ በሚሄድባቸው አራት ሰከንዶች ውስጥ ወደ እያንዳንዱ የርቀቱ ጠርዝ አንቀሳቅሰው። በዚህ ጊዜ ኃይሎቹ ያርፋሉ።</value></data>
 </root>

@@ -1651,6 +1651,7 @@ namespace PadForge.Tests
             Assert.Equal(string.Empty, ud.SdlGuid);
             Assert.Equal(string.Empty, ud.DisplayName);
             Assert.Equal(string.Empty, ud.GunCalibration);
+            Assert.Equal(string.Empty, ud.FalconCalibration);
             Assert.False(ud.HidHideEnabled, who);
             Assert.Empty(ud.HidHideInstanceIds);
             Assert.False(ud.ConsumeInputEnabled, who);

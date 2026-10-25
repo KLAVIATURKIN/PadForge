@@ -4384,4 +4384,82 @@ Vil du have, at PadForge afinstallerer dem nu? Det kræver administratorrettighe
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Retning</value></data>
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Trin</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
+  <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_FalconHandle" xml:space="preserve"><value>Håndtag</value></data>
+  <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Venstre/højre</value></data>
+  <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Op/ned</value></data>
+  <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ind/ud</value></data>
+  <data name="Falcon_Button_Format" xml:space="preserve"><value>Knap {0}</value></data>
+  <data name="Falcon_Name_Format" xml:space="preserve"><value>Falcon {0}</value></data>
+  <data name="Falcon_Status_Line_Format" xml:space="preserve"><value>{0}: {1}</value></data>
+  <data name="Falcon_Status_Library_Format" xml:space="preserve"><value>Force Dimension SDK {0}, indlæst fra {1}</value></data>
+  <data name="Falcon_Status_Arm64" xml:space="preserve"><value>Force Dimensions bibliotek kører kun i x64-udgaven af PadForge.</value></data>
+  <data name="Falcon_Status_LoadFailed" xml:space="preserve"><value>dhd64.dll blev fundet, men kunne ikke indlæses.</value></data>
+  <data name="Falcon_Status_NotLibrary" xml:space="preserve"><value>Denne dhd64.dll er ikke det Force Dimension-bibliotek, som PadForge forventer.</value></data>
+  <data name="Falcon_Status_NoSdk" xml:space="preserve"><value>Der er ikke noget Force Dimension SDK på denne pc. Hent det fra Force Dimensions downloadside, eller vælg dets dhd64.dll.</value></data>
+  <data name="Falcon_Status_Home" xml:space="preserve"><value>træk håndtaget helt ud og skub det derefter helt ind for at sætte det i udgangsposition</value></data>
+  <data name="Falcon_Status_Rate_Format" xml:space="preserve"><value>kører med {0:0.0} kHz</value></data>
+  <data name="Falcon_Status_Open" xml:space="preserve"><value>åben</value></data>
+  <data name="Falcon_Status_InUse" xml:space="preserve"><value>En Falcon er åben i et andet program, f.eks. FalconJoyForce eller Force Dimensions egne værktøjer. Luk den dér.</value></data>
+  <data name="Falcon_Status_OtherDriver_Format" xml:space="preserve"><value>Denne Falcon bruger en anden driver ({0}), så Force Dimensions bibliotek ikke kan åbne den. Opdater driveren til Falcon i Enhedshåndtering fra mappen drivers\usb i Force Dimensions SDK-mappe.</value></data>
+  <data name="Falcon_Status_NoDriver" xml:space="preserve"><value>En Falcon er tilsluttet uden driver. Installer Falcon Driver giver den Force Dimensions driver.</value></data>
+  <data name="Falcon_Status_NoDriverNoPackage" xml:space="preserve"><value>En Falcon er tilsluttet uden driver, og SDK-mappen har ingen driverpakke at give den. Geninstaller Force Dimensions SDK.</value></data>
+  <data name="Falcon_Status_NotFound" xml:space="preserve"><value>Ingen Falcon fundet. Tilslut strøm og USB-kabel.</value></data>
+  <data name="Falcon_PickLibrary" xml:space="preserve"><value>Vælg dhd64.dll…</value></data>
+  <data name="Falcon_PickLibrary_Tooltip" xml:space="preserve"><value>Indlæser denne kopi af Force Dimensions bibliotek før alle andre. De kopier, SDK'et installerer, findes uden den.</value></data>
+  <data name="Falcon_LibraryFilter" xml:space="preserve"><value>dhd64.dll|dhd64.dll|Biblioteker (*.dll)|*.dll</value></data>
+  <data name="Falcon_InstallDriver" xml:space="preserve"><value>Installer Falcon Driver</value></data>
+  <data name="Falcon_InstallDriver_Tooltip" xml:space="preserve"><value>Installerer Force Dimensions driver fra SDK-mappen på en Falcon, der ingen har. Windows spørger muligvis først, om du vil stole på Force Dimension.</value></data>
+  <data name="Falcon_OpenDownload" xml:space="preserve"><value>Hent Force Dimensions SDK</value></data>
+  <data name="Falcon_OpenDownload_Tooltip" xml:space="preserve"><value>Åbner Force Dimensions SDK-downloadside i din browser. PadForge indlæser det SDK, du installerer, og leverer intet af det.</value></data>
+  <data name="Falcon_Reach_Format" xml:space="preserve"><value>Rækkevidde: {0:0} mm til venstre og højre, {1:0} mm op og ned, {2:0} mm ind og ud.</value></data>
+  <data name="Falcon_Calibrate_NotOpen" xml:space="preserve"><value>Kalibrering kræver, at denne Falcon er åben. Slå Styr Novint Falcon til i Indstillinger, og tilslut Falconen.</value></data>
+  <data name="Falcon_Calibrate_Running" xml:space="preserve"><value>Flyt håndtaget til alle kanter af dets rækkevidde…</value></data>
+  <data name="Falcon_Calibrate_Done_Format" xml:space="preserve"><value>Kalibreret. {0}</value></data>
+  <data name="Falcon_Calibrate_Partial_Format" xml:space="preserve"><value>Nogle akser bevægede sig ikke langt nok og beholder deres gamle rækkevidde. {0}</value></data>
+  <data name="Falcon_Calibrate_TooSmall" xml:space="preserve"><value>Håndtaget bevægede sig ikke langt nok, så rækkevidden forbliver uændret. Flyt det til alle kanter, mens målingen kører.</value></data>
+  <data name="Falcon_Calibrate_Closed" xml:space="preserve"><value>Falconen blev lukket, før målingen var færdig.</value></data>
+  <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Settings_Falcon_Desc" xml:space="preserve"><value>Spil med en Novint Falcon via Force Dimensions SDK, som du installerer fra Force Dimension. Håndtaget er en stick, grebets fire knapper er knapper, og PadForge lægger spillets vibration og effekter på håndtaget som kraft. Fanen Force feedback for hver plads bestemmer, hvordan Falconen føles.</value></data>
+  <data name="Settings_Falcon" xml:space="preserve"><value>Styr Novint Falcon</value></data>
+  <data name="Settings_FalconTooltip" xml:space="preserve"><value>Åbner hver Falcon via Force Dimensions dhd64.dll. En åben Falcon tilhører udelukkende PadForge, så FalconJoyForce og Force Dimensions værktøjer ikke kan åbne den, mens dette er slået til. Slået fra lukker PadForge alle Falcons.</value></data>
+  <data name="Status_FalconLibraryPicked_Format" xml:space="preserve"><value>Falcon-biblioteket er sat til {0}. En kopi, der allerede er i brug, bliver, indtil PadForge starter igen.</value></data>
+  <data name="Status_InstallingFalconDriver" xml:space="preserve"><value>Installerer Force Dimensions Falcon-driver…</value></data>
+  <data name="Status_FalconDriverPackageMissing_Format" xml:space="preserve"><value>Force Dimensions Falcon-driverpakke eller dens katalog mangler: {0}. Geninstaller Force Dimensions SDK.</value></data>
+  <data name="Status_FalconNotPluggedIn" xml:space="preserve"><value>Ingen Falcon er tilsluttet.</value></data>
+  <data name="Status_FalconOnAnotherDriver_Format" xml:space="preserve"><value>Falconen bruger en anden driver ({0}), så PadForge lader den være. Enhedshåndtering kan skifte den til Force Dimensions.</value></data>
+  <data name="Status_FalconDriverDeclined" xml:space="preserve"><value>Windows installerede ikke Force Dimensions driver. Hvis Windows spørger, om du vil stole på Force Dimension, så vælg Installer.</value></data>
+  <data name="Status_FalconDriverNotBound" xml:space="preserve"><value>Driveren er installeret, men Falconen er ikke skiftet til den. Tag Falconens stik ud, og sæt det i igen.</value></data>
+  <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Pad_Falcon_Description" xml:space="preserve"><value>PadForge beregner hver kraft på Falconens håndtag cirka tusind gange i sekundet ud fra håndtagets position og det, spillet afspiller. Disse indstillinger hører til denne plads.</value></data>
+  <data name="Pad_Falcon_ResetAll" xml:space="preserve"><value>Nulstil Novint Falcon</value></data>
+  <data name="Pad_Falcon_Feel" xml:space="preserve"><value>Følelse</value></data>
+  <data name="Pad_Falcon_Feel_Tooltip" xml:space="preserve"><value>Joystick: håndtagets position er stick'en, og en fjeder trækker det tilbage til midten. Sigte: håndtagets bevægelse flytter stick'en, og når håndtaget holdes mod væggen ved kanten, fortsætter det med at dreje.</value></data>
+  <data name="Pad_Falcon_Feel_Joystick" xml:space="preserve"><value>Joystick</value></data>
+  <data name="Pad_Falcon_Feel_Aim" xml:space="preserve"><value>Sigte</value></data>
+  <data name="Pad_Falcon_Spring" xml:space="preserve"><value>Centreringsfjeder</value></data>
+  <data name="Pad_Falcon_ResetSpring" xml:space="preserve"><value>Nulstil centreringsfjeder</value></data>
+  <data name="Pad_Falcon_KickButton" xml:space="preserve"><value>Rekylknap</value></data>
+  <data name="Pad_Falcon_KickButton_Tooltip" xml:space="preserve"><value>Mens denne grebsknap holdes nede, og et kvart sekund efter, giver spillets vibration håndtaget et rekyl mod dig. Vibration på andre tidspunkter ryster håndtaget.</value></data>
+  <data name="Pad_Falcon_Button1" xml:space="preserve"><value>Knap 1</value></data>
+  <data name="Pad_Falcon_Button2" xml:space="preserve"><value>Knap 2</value></data>
+  <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Knap 3</value></data>
+  <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Knap 4</value></data>
+  <data name="Pad_Falcon_Kick" xml:space="preserve"><value>Rekylstyrke</value></data>
+  <data name="Pad_Falcon_ResetKick" xml:space="preserve"><value>Nulstil rekylstyrke</value></data>
+  <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Rystestyrke</value></data>
+  <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Nulstil rystestyrke</value></data>
+  <data name="Pad_Falcon_BraceButton" xml:space="preserve"><value>Stabiliseringsknap</value></data>
+  <data name="Pad_Falcon_BraceButton_Tooltip" xml:space="preserve"><value>Mens denne grebsknap holdes nede, sænkes sigtet til 30 procent til finjusteringer.</value></data>
+  <data name="Pad_Falcon_PreloadButton" xml:space="preserve"><value>Forspændingsknap</value></data>
+  <data name="Pad_Falcon_PreloadButton_Tooltip" xml:space="preserve"><value>Mens denne grebsknap holdes nede, belaster et jævnt tryk på 1.6 N håndtaget, hvilket udjævner små korrektioner.</value></data>
+  <data name="Pad_Falcon_Gravity" xml:space="preserve"><value>Tyngdekraftskompensation</value></data>
+  <data name="Pad_Falcon_Gravity_Tooltip" xml:space="preserve"><value>Hvor stor en del af håndtagets egen vægt Falconen bærer, i procent af standardtyngdekraften.</value></data>
+  <data name="Pad_Falcon_ResetGravity" xml:space="preserve"><value>Nulstil tyngdekraftskompensation</value></data>
+  <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Kraftgrænse</value></data>
+  <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Den største kraft, Falconen lægger på håndtaget, fra 1 til 8 newton.</value></data>
+  <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Nulstil kraftgrænse</value></data>
+  <data name="Pad_Falcon_Calibrate" xml:space="preserve"><value>Kalibrer rækkevidde</value></data>
+  <data name="Pad_Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Måler, hvor langt håndtaget bevæger sig. Flyt det til alle kanter af dets rækkevidde i de fire sekunder, målingen kører. Kræfterne hviler imens.</value></data>
 </root>

@@ -73,6 +73,12 @@ namespace PadForge.Views
             {
                 UpdateTouchpadDots();
             }
+            else if (e.PropertyName is nameof(ViewModels.DevicesViewModel.FalconDotX)
+                                   or nameof(ViewModels.DevicesViewModel.FalconDotY)
+                                   or nameof(ViewModels.DevicesViewModel.IsFalconDevice))
+            {
+                UpdateFalconDot();
+            }
             else if (e.PropertyName is nameof(ViewModels.DevicesViewModel.Pad2X0)
                               or nameof(ViewModels.DevicesViewModel.Pad2Y0)
                               or nameof(ViewModels.DevicesViewModel.Pad2X1)
@@ -127,6 +133,21 @@ namespace PadForge.Views
                 Canvas.SetTop(TouchpadDot4, vm.TouchpadY4 * h - 7);
             }
         }
+
+        /// <summary>The Falcon handle's dot (#521), placed as the touchpad
+        /// dots are. The square lays out after IsFalconDevice shows it, so
+        /// its size change places the dot too.</summary>
+        private void UpdateFalconDot()
+        {
+            if (DataContext is not ViewModels.DevicesViewModel vm || !vm.IsFalconDevice) return;
+            double w = FalconPreviewBorder.ActualWidth;
+            double h = FalconPreviewBorder.ActualHeight;
+            if (w <= 0 || h <= 0) return;
+            Canvas.SetLeft(FalconDot, vm.FalconDotX * w - 7);
+            Canvas.SetTop(FalconDot, vm.FalconDotY * h - 7);
+        }
+
+        private void FalconPreviewBorder_SizeChanged(object sender, SizeChangedEventArgs e) => UpdateFalconDot();
 
         // Second touchpad surface (multi-pad devices). Mirrors UpdateTouchpadDots
         // for the Pad2* finger slots inside Touchpad2PreviewBorder.

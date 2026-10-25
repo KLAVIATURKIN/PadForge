@@ -1486,6 +1486,84 @@ namespace PadForge.ViewModels
         public event EventHandler InstallVc2008RuntimeRequested;
 
         // ─────────────────────────────────────────────
+        //  Novint Falcon (issue #521)
+        // ─────────────────────────────────────────────
+
+        private bool _novintFalconEnabled;
+
+        /// <summary>Drive Novint Falcon (#521), the keyboard screens'
+        /// neighbor and shape. Off until asked for: the Falcon moves on its
+        /// own, and an open Falcon is locked against every other program,
+        /// FalconJoyForce included.</summary>
+        public bool NovintFalconEnabled
+        {
+            get => _novintFalconEnabled;
+            set
+            {
+                if (SetProperty(ref _novintFalconEnabled, value))
+                    PadForge.Common.Input.Falcon.FalconRuntime.Enabled = value;
+            }
+        }
+
+        private string _falconStatus = string.Empty;
+
+        /// <summary>The library's line, then a line per Falcon or why none
+        /// opened, pushed by InputService. Empty while the switch is off.</summary>
+        public string FalconStatus
+        {
+            get => _falconStatus;
+            set => SetProperty(ref _falconStatus, value);
+        }
+
+        private bool _falconCanInstallDriver;
+
+        /// <summary>A Falcon with no driver is plugged in and Force
+        /// Dimension's package is at hand, so the Install button shows.</summary>
+        public bool FalconCanInstallDriver
+        {
+            get => _falconCanInstallDriver;
+            set => SetProperty(ref _falconCanInstallDriver, value);
+        }
+
+        private string _falconLibraryPath;
+
+        /// <summary>A dhd64.dll the user picked (#521), a stored path, or null
+        /// for the installed copies.</summary>
+        public string FalconLibraryPath
+        {
+            get => _falconLibraryPath;
+            set
+            {
+                _falconLibraryPath = value;
+                PadForge.Common.Input.Falcon.FalconRuntime.PickedLibrary =
+                    string.IsNullOrWhiteSpace(value) ? null : PadForge.Common.IconPackageManager.ResolvePath(value);
+            }
+        }
+
+        private RelayCommand _pickFalconLibraryCommand;
+        private RelayCommand _installFalconDriverCommand;
+        private RelayCommand _openFalconDownloadCommand;
+
+        /// <summary>Points PadForge at a dhd64.dll the user has (#521).</summary>
+        public RelayCommand PickFalconLibraryCommand =>
+            _pickFalconLibraryCommand ??= new RelayCommand(
+                () => PickFalconLibraryRequested?.Invoke(this, EventArgs.Empty));
+
+        /// <summary>Gives a Falcon with no driver Force Dimension's (#521).</summary>
+        public RelayCommand InstallFalconDriverCommand =>
+            _installFalconDriverCommand ??= new RelayCommand(
+                () => InstallFalconDriverRequested?.Invoke(this, EventArgs.Empty));
+
+        /// <summary>Opens Force Dimension's SDK download page (#521).</summary>
+        public RelayCommand OpenFalconDownloadCommand =>
+            _openFalconDownloadCommand ??= new RelayCommand(
+                () => OpenFalconDownloadRequested?.Invoke(this, EventArgs.Empty));
+
+        public event EventHandler PickFalconLibraryRequested;
+        public event EventHandler InstallFalconDriverRequested;
+        public event EventHandler OpenFalconDownloadRequested;
+
+        // ─────────────────────────────────────────────
         //  Community Configs (Steam Workshop, issue #9)
         // ─────────────────────────────────────────────
 

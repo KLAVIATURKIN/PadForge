@@ -1306,5 +1306,35 @@
     "Id": "Reset_SettingsViewModel_KeyboardScreensEnabled_13109",
     "Owner": "PadForge.ViewModels.SettingsViewModel",
     "Property": "KeyboardScreensEnabled"
+  },
+  {
+    "File": "PadForge.App/Views/SettingsPage.xaml",
+    "Id": "Reset_SettingsViewModel_NovintFalconEnabled_13110",
+    "Owner": "PadForge.ViewModels.SettingsViewModel",
+    "Property": "NovintFalconEnabled"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_PadViewModel_FalconFeel_13111",
+    "Owner": "PadForge.ViewModels.PadViewModel",
+    "Property": "FalconFeel"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_PadViewModel_FalconKickButton_13112",
+    "Owner": "PadForge.ViewModels.PadViewModel",
+    "Property": "FalconKickButton"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_PadViewModel_FalconBraceButton_13113",
+    "Owner": "PadForge.ViewModels.PadViewModel",
+    "Property": "FalconBraceButton"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_PadViewModel_FalconPreloadButton_13114",
+    "Owner": "PadForge.ViewModels.PadViewModel",
+    "Property": "FalconPreloadButton"
   }
 ]
