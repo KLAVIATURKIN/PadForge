@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port ng Remote Link</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port ng Motion Server</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Nagbibigay ng data ng gyro at accelerometer sa Cemu, Dolphin, Yuzu, at iba pa.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mga Game Mod</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Hinahayaan ang mga game mod na ginawa para sa DSX na itakda ang mga adaptive trigger, lightbar, player light at mute light ng iyong mga PlayStation controller.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Tanggapin ang mga DSX Game Mod</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port ng Game Mod</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Magpatakbo ng DSX.exe Stand-In</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Ang ilang mod, gaya ng DualSense4GTAV, ay kusang nag-o-off kapag walang tumatakbong program na pinangalanang DSX. Nagpapatakbo ito ng maliit na stand-in na may ganoong pangalan habang nakikinig ang server.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Gumagana sa mga mod na ginawa para sa DSX, gaya ng para sa GTA V, Red Dead Redemption 2, Skyrim at Forza. Habang nakikinig ang server, isinusulat ng PadForge ang port nito kung saan hinahanap ng mga mod na iyon.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Nakikinig sa :{0}. Nagpapadala ang {1} sa virtual controller {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Nakikinig sa :{0}. Nagpapadala ang {1}, ngunit walang PlayStation controller sa alinmang virtual controller.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Ginagamit na ng ibang program ang port {0}, gaya ng DSX. Isara ito o pumili ng ibang port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Isang game mod</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Gumagana sa OpenTrack at anumang tracker na nagpapadala ng UDP output nito o sumusulat sa FreeTrack 2.0 shared memory, at sa OpenXR runtime sa makinang ito na kayang magpatakbo ng session sa background.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Basahin ang mga Logitech G-key</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Binabasa ang mga G-key sa pamamagitan ng Logitech G-key SDK. Kailangang tumatakbo ang Logitech Gaming Software 8.55 o mas bago. Sa software na iyon, i-drag ang G-key command papunta sa bawat key sa profile ng PadForge. Gawing persistent ang profile na iyon, kung hindi ay aabot lang sa PadForge ang mga key habang nasa harapan ang window nito. Kailangan ding wala sa on-board memory mode ang mouse na G600 o G300.</value></data>
@@ -817,7 +828,10 @@ May kopya ng nakaraang bersyon sa folder na ito: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Kanang Trigger</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Ipagpalit ang Kaliwa at Kanang Trigger Motor</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Isalin ang mga Adaptive Trigger Vibration</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kapag minamaneho ng laro ang slot na ito bilang virtual DualSense, tumutugtog sa mga impulse trigger motor ng controller na ito ang mga adaptive trigger effect na istilong vibration. Walang katumbas na vibration ang mga effect na istilong resistensya kaya hindi ito pinapansin.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kapag minamaneho ng laro ang slot na ito bilang virtual DualSense, o nagpapadala ng mga trigger effect ang isang game mod, tumutugtog sa mga impulse trigger motor ng controller na ito ang mga adaptive trigger effect na istilong vibration. Walang katumbas na vibration ang mga effect na istilong resistensya kaya hindi ito pinapansin.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>Itinatakda ng {0} ang mga trigger na ito. Babalik ang mga setting dito kapag huminto ito.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>Nagpapadala ang {0} ng mga trigger effect. Kapag naka-on ang Isalin ang mga Adaptive Trigger Vibration, tumutugtog dito ang mga vibration ng mga ito.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>Itinatakda ng {0} ang mga ilaw na ito. Babalik ang mga setting dito kapag huminto ito.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Subukan ang Kaliwang Trigger</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Subukan ang Kanang Trigger</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Aktibidad ng Trigger Motor</value></data>
@@ -874,7 +888,7 @@ May kopya ng nakaraang bersyon sa folder na ito: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Mga Adaptive Trigger</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Mga Adaptive Trigger</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>I-configure ang mga trigger feedback effect sa nakatalagang pisikal na DualSense. Awtomatikong ipinapasa ang mga trigger effect na galing sa laro. Ang mga setting dito ay nagdaragdag ng layer na itinakda ng user na tumatakbo kapag walang laro na sumusulat.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>I-configure ang mga trigger feedback effect sa nakatalagang pisikal na DualSense. Awtomatikong ipinapasa ang mga trigger effect na galing sa laro o game mod. Ang mga setting dito ay nagdaragdag ng layer na itinakda ng user na tumatakbo kapag wala sa dalawa ang sumusulat.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Mga Stick</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Mga deadzone, anti-deadzone, sensitivity curve, at center-offset calibration bawat stick. Ang bawat seksyon sa ibaba ay para sa isang analog stick sa aktibong output. Ang mga Extended profile ay maaaring magkaroon ng hanggang apat na stick. Ang mga karaniwang gamepad ay may dalawa.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Mga Trigger</value></data>
@@ -4178,6 +4192,12 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Handle</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>Itinatakda ng {0} ang mga trigger ng controller na ito.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>Itinatakda ng {0} ang mga ilaw ng controller na ito.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>Itinatakda ng {0} ang mga trigger at ilaw ng controller na ito.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>Nagpapatugtog ang {0} ng mga trigger vibration sa mga impulse trigger ng controller na ito.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>I-clear ang Mod Effect</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Tinatapos ang itinakda ng mga game mod sa controller na ito. Babalik ang sarili nitong mga setting hanggang magpadala muli ang isang mod.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Kaliwa/Kanan</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Itaas/Ibaba</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Papasok/Palabas</value></data>

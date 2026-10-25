@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- DSX.exe, the stand-in some DSX game mods look for (#529). It runs on
+       the .NET Framework that Windows 10 and 11 carry, so it needs no copy
+       of the .NET runtime, and PadForge embeds the built file and starts it
+       from its temp folder. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net462</TargetFramework>
+    <AssemblyName>DSX</AssemblyName>
+    <RootNamespace>PadForge.DsxStandIn</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <IsPackable>false</IsPackable>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DebugType>none</DebugType>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <Product>PadForge</Product>
+    <AssemblyTitle>PadForge stand-in for DSX game mods</AssemblyTitle>
+    <Description>PadForge stand-in for DSX game mods</Description>
+    <Company>PadForge</Company>
+  </PropertyGroup>
+</Project>

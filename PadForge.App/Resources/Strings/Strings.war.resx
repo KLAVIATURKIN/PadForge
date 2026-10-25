@@ -166,6 +166,9 @@
   <data name="FirstRun_Done" xml:space="preserve"><value>Tapos</value></data>
   <data name="Tour_Slots_Title" xml:space="preserve"><value>Mga slot</value></data>
   <data name="Tour_Cards_Title" xml:space="preserve"><value>Mga virtual nga controller</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mga game mod</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port han game mod</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Usa nga game mod</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Waray nakita nga suportado nga analog keyboard.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Waray nakita nga Bliss-Box port.</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>waray controller</value></data>

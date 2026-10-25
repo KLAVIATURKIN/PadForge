@@ -100,6 +100,9 @@
   <!-- ═══ Dashboard ═══ -->
   <data name="FirstRun_Next" xml:space="preserve"><value>Sunod</value></data>
   <data name="FirstRun_Done" xml:space="preserve"><value>Tapos na</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mga game mod</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port kan game mod</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Sarong game mod</value></data>
 
   <!-- ═══ Settings ═══ -->
   <data name="Settings_ThemeLight" xml:space="preserve"><value>Maliwanag</value></data>

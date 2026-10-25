@@ -274,6 +274,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link-poort</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motionserverpoort</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Levert gyroscoop- en versnellingsmetergegevens voor Cemu, Dolphin, Yuzu, enz.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Gamemods</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Laat gamemods die voor DSX zijn gemaakt de adaptieve triggers, lightbar, spelerslampjes en mute-lampje van PlayStation-controllers instellen.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX-gamemods accepteren</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Poort voor gamemods</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Een DSX.exe-vervanger uitvoeren</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Sommige mods, zoals DualSense4GTAV, schakelen zichzelf uit zolang er geen programma met de naam DSX draait. Hiermee draait er een kleine vervanger onder die naam zolang de server luistert.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Werkt met mods die voor DSX zijn gemaakt, zoals die voor GTA V, Red Dead Redemption 2, Skyrim en Forza. Zolang de server luistert, schrijft PadForge zijn poort op de plek waar die mods ernaar zoeken.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Luistert op :{0}. {1} verzendt naar virtuele controller {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Luistert op :{0}. {1} verzendt, maar op geen enkele virtuele controller zit een PlayStation-controller.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Poort {0} wordt gebruikt door een ander programma, zoals DSX. Sluit het af of kies een andere poort.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Een gamemod</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Werkt met OpenTrack en met elke tracker die zijn UDP-uitvoer verstuurt of naar het gedeelde geheugen van FreeTrack 2.0 schrijft, en met een OpenXR-runtime op deze machine die een sessie op de achtergrond kan uitvoeren.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-toetsen lezen</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Leest G-toetsen via de Logitech G-key SDK. Vereist dat Logitech Gaming Software 8.55 of nieuwer draait. Sleep daarin de opdracht G-key naar elke toets in het PadForge-profiel. Maak dat profiel permanent, anders bereiken de toetsen PadForge alleen terwijl het venster op de voorgrond is. Een G600- of G300-muis mag bovendien niet in de onboardmodus staan.</value></data>
@@ -1739,7 +1750,7 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="About_DualSenseYDesc" xml:space="preserve"><value>Referentie-implementatie voor USB-controller-audiopassthrough. Door WujekFoliarz.</value></data>
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptieve triggers</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptieve triggers</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configureer trigger-effecten op de toegewezen fysieke DualSense. Game-gestuurde trigger-effecten worden automatisch doorgestuurd. De instellingen hier voegen een door de gebruiker geconfigureerde laag toe die actief is wanneer geen spel schrijft.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configureer trigger-effecten op de toegewezen fysieke DualSense. Trigger-effecten van een game of gamemod worden automatisch doorgestuurd. De instellingen hier voegen een door de gebruiker geconfigureerde laag toe die actief is wanneer geen van beide schrijft.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Sticks</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Per stick: deadzones, anti-deadzones, gevoeligheidskrommen en centeroffset-kalibratie. Elke sectie hieronder geldt voor één analoge stick op de actieve uitvoer. Uitgebreide profielen kunnen tot vier sticks hebben. Standaardcontrollers hebben er twee.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Triggers</value></data>
@@ -1978,7 +1989,10 @@ Een kopie van de vorige versie staat in deze map: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Rechtertrigger</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Linker- en rechtertriggermotor verwisselen</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Adaptieve-triggertrillingen vertalen</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Wanneer een game dit slot als virtuele DualSense aanstuurt, worden de trillingsachtige adaptieve-triggereffecten afgespeeld op de impulstriggermotoren van deze controller. Weerstandsachtige effecten hebben geen trillingsequivalent en worden genegeerd.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Wanneer een game dit slot als virtuele DualSense aanstuurt of een gamemod trigger-effecten verstuurt, worden de trillingsachtige adaptieve-triggereffecten afgespeeld op de impulstriggermotoren van deze controller. Weerstandsachtige effecten hebben geen trillingsequivalent en worden genegeerd.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} stelt deze triggers in. De instellingen hier komen terug wanneer het stopt.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} verstuurt trigger-effecten. Met Adaptieve-triggertrillingen vertalen ingeschakeld worden de trillingen hier afgespeeld.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} stelt deze lampjes in. De instellingen hier komen terug wanneer het stopt.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Linkertrigger testen</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Rechtertrigger testen</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Triggermotor-activiteit</value></data>
@@ -4356,6 +4370,12 @@ Wil je dat PadForge ze nu verwijdert? Hiervoor zijn verhoogde rechten nodig en h
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Handgreep</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} stelt de triggers van deze controller in.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} stelt de lampjes van deze controller in.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} stelt de triggers en lampjes van deze controller in.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} speelt triggertrillingen af op de Impulse-triggers van deze controller.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Modeffecten wissen</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Beëindigt wat gamemods op deze controller hebben ingesteld. De eigen instellingen komen terug totdat een mod opnieuw iets verstuurt.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Links/rechts</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Omhoog/omlaag</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Naar binnen/naar buiten</value></data>

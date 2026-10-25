@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Porth Dolen Bell</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Porth y Gweinydd Symudiad</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Yn darparu data gyrosgop a chyflymiadur i Cemu, Dolphin, Yuzu, ac ati.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Modiau Gêm</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Yn gadael i fodiau gêm a wnaed ar gyfer DSX osod sbardunau addasol, bar golau, goleuadau chwaraewr a golau mud eich rheolyddion PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Derbyn Modiau Gêm DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Porth Modiau Gêm</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Rhedeg Dirprwy DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Mae rhai modiau, fel DualSense4GTAV, yn diffodd eu hunain oni bai bod rhaglen o'r enw DSX yn rhedeg. Mae hyn yn rhedeg dirprwy bach o dan yr enw hwnnw tra bo'r gweinydd yn gwrando.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Yn gweithio gyda modiau a wnaed ar gyfer DSX, fel y rhai ar gyfer GTA V, Red Dead Redemption 2, Skyrim a Forza. Tra bo'r gweinydd yn gwrando, mae PadForge yn ysgrifennu ei borth lle mae'r modiau hynny'n edrych amdano.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Yn gwrando ar :{0}. Mae {1} yn anfon at reolydd rhithwir {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Yn gwrando ar :{0}. Mae {1} yn anfon, ond nid oes gan yr un rheolydd rhithwir reolydd PlayStation arno.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Mae porth {0} yn cael ei ddefnyddio gan raglen arall, fel DSX. Caewch hi neu dewiswch borth arall.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Mod gêm</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Yn gweithio gydag OpenTrack ac unrhyw draciwr sy'n anfon ei allbwn UDP neu'n ysgrifennu cof a rennir FreeTrack 2.0, a chydag amser rhedeg OpenXR ar y peiriant hwn a all redeg sesiwn yn y cefndir.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Darllen Logitech G-Keys</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Yn darllen G-keys drwy Logitech G-key SDK. Mae angen i Logitech Gaming Software 8.55 neu ddiweddarach fod yn rhedeg. Yn y meddalwedd hwnnw, llusgwch y gorchymyn G-key ar bob bysell ym mhroffil PadForge. Gwnewch y proffil hwnnw'n barhaus, neu dim ond pan fydd ei ffenestr o'r blaen y bydd y bysellau'n cyrraedd PadForge. Rhaid i lygoden G600 neu G300 hefyd fod allan o'r modd cof mewnol.</value></data>
@@ -815,7 +826,10 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Sbardun De</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Cyfnewid Moduron Sbardun Chwith a De</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Cyfieithu Dirgryniadau Sbardun Addasol</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Pan fydd gêm yn gyrru'r slot hwn fel DualSense rhithwir, mae ei heffeithiau sbardun addasol arddull dirgryniad yn chwarae ar foduron sbardun impwls y rheolydd hwn. Nid oes gan effeithiau arddull gwrthiant gywerth dirgryniad ac fe'u hanwybyddir.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Pan fydd gêm yn gyrru'r slot hwn fel DualSense rhithwir, neu pan fydd mod gêm yn anfon effeithiau sbardun, mae'r effeithiau sbardun addasol arddull dirgryniad yn chwarae ar foduron sbardun impwls y rheolydd hwn. Nid oes gan effeithiau arddull gwrthiant gywerth dirgryniad ac fe'u hanwybyddir.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>Mae {0} yn gosod y sbardunau hyn. Daw'r gosodiadau yma yn ôl pan fydd yn stopio.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>Mae {0} yn anfon effeithiau sbardun. Gyda Cyfieithu Dirgryniadau Sbardun Addasol wedi'i droi ymlaen, mae eu dirgryniadau'n chwarae yma.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>Mae {0} yn gosod y goleuadau hyn. Daw'r gosodiadau yma yn ôl pan fydd yn stopio.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Profi'r Sbardun Chwith</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Profi'r Sbardun De</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Gweithgaredd Modur Sbardun</value></data>
@@ -872,7 +886,7 @@ Mae copi o'r fersiwn flaenorol yn y ffolder hon: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Sbardunau Addasol</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Sbardunau Addasol</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Ffurfweddu effeithiau adborth sbardun ar y DualSense ffisegol a neilltuwyd. Anfonir effeithiau sbardun a yrrir gan gêm ymlaen yn awtomatig. Mae'r gosodiadau yma yn ychwanegu haen a ffurfweddwyd gan y defnyddiwr sy'n rhedeg pan nad oes gêm yn ysgrifennu.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Ffurfweddu effeithiau adborth sbardun ar y DualSense ffisegol a neilltuwyd. Anfonir effeithiau sbardun o gêm neu o fod gêm ymlaen yn awtomatig. Mae'r gosodiadau yma yn ychwanegu haen a ffurfweddwyd gan y defnyddiwr sy'n rhedeg pan nad oes yr un o'r ddau yn ysgrifennu.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Ffyn</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Parthau marw, gwrth-barthau marw, cromliniau sensitifrwydd a graddnodi gwrthbwyso'r canol fesul ffon. Mae pob adran isod yn targedu un ffon analog ar yr allbwn gweithredol. Gall proffiliau Estynedig gael hyd at bedair ffon. Mae gan gamepads safonol ddwy.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Sbardunau</value></data>
@@ -4336,6 +4350,12 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Carn</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>Mae {0} yn gosod sbardunau'r rheolydd hwn.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>Mae {0} yn gosod goleuadau'r rheolydd hwn.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>Mae {0} yn gosod sbardunau a goleuadau'r rheolydd hwn.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>Mae {0} yn chwarae dirgryniadau sbardun ar sbardunau impwls y rheolydd hwn.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Clirio Effeithiau Mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Yn dod â'r hyn a osodwyd gan fodiau gêm ar y rheolydd hwn i ben. Daw ei osodiadau ei hun yn ôl nes bydd mod yn anfon eto.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Chwith/Dde</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>I Fyny/I Lawr</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>I Mewn/Allan</value></data>

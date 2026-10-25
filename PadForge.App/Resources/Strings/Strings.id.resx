@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port Tautan Jarak Jauh</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port server gerakan</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Menyediakan data giroskop dan akselerometer untuk Cemu, Dolphin, Yuzu, dll.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mod game</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Memungkinkan mod game yang dibuat untuk DSX mengatur pelatuk adaptif, bilah lampu, lampu pemain, dan lampu bisu pada kontroler PlayStation Anda.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Terima mod game DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port mod game</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Jalankan DSX.exe pengganti</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Beberapa mod, seperti DualSense4GTAV, mematikan diri sendiri kecuali ada program bernama DSX yang berjalan. Opsi ini menjalankan program pengganti kecil dengan nama itu selama server mendengarkan.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Berfungsi dengan mod yang dibuat untuk DSX, seperti untuk GTA V, Red Dead Redemption 2, Skyrim, dan Forza. Selama server mendengarkan, PadForge menuliskan port-nya di tempat mod tersebut mencarinya.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Mendengarkan di :{0}. {1} mengirim ke kontroler virtual {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Mendengarkan di :{0}. {1} mengirim, tetapi tidak ada kontroler virtual yang memiliki kontroler PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} dipakai program lain, seperti DSX. Tutup program itu atau pilih port lain.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Sebuah mod game</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Berfungsi dengan OpenTrack dan pelacak apa pun yang mengirim output UDP-nya atau menulis memori bersama FreeTrack 2.0, serta dengan runtime OpenXR di komputer ini yang dapat menjalankan sesi di latar belakang.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Baca tombol G-key Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Membaca tombol G-key melalui SDK G-key Logitech. Logitech Gaming Software 8.55 atau yang lebih baru harus berjalan. Di perangkat lunak itu, seret perintah G-key ke setiap tombol dalam profil PadForge. Jadikan profil itu persisten, atau tombol-tombol tersebut hanya sampai ke PadForge selama jendelanya berada di depan. Mouse G600 atau G300 juga harus keluar dari mode memori on-board.</value></data>
@@ -832,7 +843,10 @@ Salinan versi sebelumnya ada di folder ini: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Pelatuk kanan</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Tukar motor pelatuk kiri dan kanan</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Terjemahkan getaran pelatuk adaptif</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Saat game menggerakkan slot ini sebagai DualSense virtual, efek pelatuk adaptif bergaya getaran dimainkan pada motor pelatuk impuls kontroler ini. Efek bergaya hambatan tidak memiliki padanan getaran dan diabaikan.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Saat game menggerakkan slot ini sebagai DualSense virtual, atau mod game mengirim efek pelatuk, efek pelatuk adaptif bergaya getaran dimainkan pada motor pelatuk impuls kontroler ini. Efek bergaya hambatan tidak memiliki padanan getaran dan diabaikan.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} sedang mengatur pelatuk ini. Pengaturan di sini berlaku kembali saat itu berhenti.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} mengirim efek pelatuk. Dengan Terjemahkan getaran pelatuk adaptif aktif, getarannya dimainkan di sini.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} sedang mengatur lampu ini. Pengaturan di sini berlaku kembali saat itu berhenti.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Uji pelatuk kiri</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Uji pelatuk kanan</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Aktivitas motor pelatuk</value></data>
@@ -889,7 +903,7 @@ Salinan versi sebelumnya ada di folder ini: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Pelatuk adaptif</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Pelatuk adaptif</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfigurasikan efek umpan balik pelatuk pada DualSense fisik yang ditetapkan. Efek pelatuk yang dikendalikan game diteruskan secara otomatis. Pengaturan di sini menambahkan lapisan buatan pengguna yang berjalan saat tidak ada game yang menulis.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfigurasikan efek umpan balik pelatuk pada DualSense fisik yang ditetapkan. Efek pelatuk dari game atau mod game diteruskan secara otomatis. Pengaturan di sini menambahkan lapisan buatan pengguna yang berjalan saat keduanya tidak menulis.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Stik</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Zona mati, anti-zona mati, kurva sensitivitas, dan kalibrasi offset tengah per stik. Setiap bagian di bawah menyasar satu stik analog pada output aktif. Profil Diperluas dapat memiliki hingga empat stik. Gamepad standar memiliki dua.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Pelatuk</value></data>
@@ -4385,6 +4399,12 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Gagang</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} sedang mengatur pelatuk kontroler ini.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} sedang mengatur lampu kontroler ini.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} sedang mengatur pelatuk dan lampu kontroler ini.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} memainkan getaran pelatuk pada pelatuk impuls kontroler ini.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Hapus efek mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Mengakhiri apa yang diatur mod game pada kontroler ini. Pengaturannya sendiri berlaku kembali sampai mod mengirim lagi.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Kiri/Kanan</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Atas/Bawah</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Masuk/Keluar</value></data>

@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>தொலை இணைப்பு போர்ட்</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>அசைவுச் சேவையக போர்ட்</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu போன்றவற்றுக்குக் கைரோ மற்றும் முடுக்கமானித் தரவை வழங்குகிறது.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>கேம் மோட்கள்</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>DSX-க்காக உருவாக்கப்பட்ட கேம் மோட்கள், உங்கள் PlayStation கட்டுப்படுத்திகளின் அடாப்டிவ் டிரிகர்கள், லைட்பார், பிளேயர் விளக்குகள், ஒலியடக்க விளக்கு ஆகியவற்றை அமைக்க அனுமதிக்கிறது.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX கேம் மோட்களை ஏற்று</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>கேம் மோட் போர்ட்</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe மாற்றுநிரலை இயக்கு</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>DualSense4GTAV போன்ற சில மோட்கள், DSX என்ற பெயரில் ஒரு நிரல் இயங்காவிட்டால் தாமாகவே அணைந்துவிடும். சேவையகம் செவிமடுக்கும் வரை, அதே பெயரில் ஒரு சிறிய மாற்றுநிரலை இது இயக்குகிறது.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>GTA V, Red Dead Redemption 2, Skyrim, Forza போன்றவற்றுக்காக DSX-க்கு உருவாக்கப்பட்ட மோட்களுடன் செயல்படும். சேவையகம் செவிமடுக்கும்போது, அந்த மோட்கள் தேடும் இடத்தில் PadForge தன் போர்ட்டை எழுதுகிறது.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>:{0}-இல் செவிமடுக்கிறது. {1} மெய்நிகர் கட்டுப்படுத்தி {2}-க்கு அனுப்புகிறது.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>:{0}-இல் செவிமடுக்கிறது. {1} அனுப்புகிறது, ஆனால் எந்த மெய்நிகர் கட்டுப்படுத்தியிலும் PlayStation கட்டுப்படுத்தி இல்லை.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>போர்ட் {0}-ஐ DSX போன்ற வேறொரு நிரல் பயன்படுத்துகிறது. அதை மூடவும் அல்லது வேறு போர்ட்டைத் தேர்ந்தெடுக்கவும்.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>ஒரு கேம் மோட்</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack உடனும், தன் UDP வெளியீட்டை அனுப்பும் அல்லது FreeTrack 2.0 பகிர்ந்த நினைவகத்தில் எழுதும் எந்த டிராக்கருடனும், பின்னணியில் ஓர் அமர்வை இயக்கக்கூடிய இந்தக் கணினியிலுள்ள OpenXR ரன்டைமுடனும் வேலை செய்யும்.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-விசைகளைப் படி</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK வழியாக G-விசைகளைப் படிக்கிறது. Logitech Gaming Software 8.55 அல்லது அதற்குப் பிந்தைய பதிப்பு இயங்கிக்கொண்டிருக்க வேண்டும். அந்த மென்பொருளில், PadForge சுயவிவரத்தில் உள்ள ஒவ்வொரு விசையின் மீதும் G-key கட்டளையை இழுத்து விடவும். அந்தச் சுயவிவரத்தை நிலையானதாக (Persistent) அமைக்கவும், இல்லையெனில் PadForge சாளரம் முன்னால் இருக்கும்போது மட்டுமே விசைகள் PadForge-ஐ வந்தடையும். G600 அல்லது G300 சுட்டியாக இருந்தால், அது ஆன்-போர்டு நினைவகப் பயன்முறையிலிருந்தும் வெளியே இருக்க வேண்டும்.</value></data>
@@ -832,7 +843,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>வலது டிரிகர்</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>இடது மற்றும் வலது டிரிகர் மோட்டார்களை இடமாற்று</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>அடாப்டிவ் டிரிகர் அதிர்வுகளை மாற்று</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>ஒரு கேம் இந்த ஸ்லாட்டை மெய்நிகர் DualSense ஆக இயக்கும்போது, அதன் அதிர்வு வகை அடாப்டிவ் டிரிகர் விளைவுகள் இந்தக் கட்டுப்படுத்தியின் இம்பல்ஸ் டிரிகர் மோட்டார்களில் இயங்கும். எதிர்ப்பு வகை விளைவுகளுக்கு இணையான அதிர்வு இல்லை, அவை புறக்கணிக்கப்படும்.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>ஒரு கேம் இந்த ஸ்லாட்டை மெய்நிகர் DualSense ஆக இயக்கும்போது அல்லது கேம் மோட் டிரிகர் விளைவுகளை அனுப்பும்போது, அதிர்வு வகை அடாப்டிவ் டிரிகர் விளைவுகள் இந்தக் கட்டுப்படுத்தியின் இம்பல்ஸ் டிரிகர் மோட்டார்களில் இயங்கும். எதிர்ப்பு வகை விளைவுகளுக்கு இணையான அதிர்வு இல்லை, அவை புறக்கணிக்கப்படும்.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} இந்த டிரிகர்களை அமைக்கிறது. அது நிற்கும்போது இங்குள்ள அமைப்புகள் திரும்பும்.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} டிரிகர் விளைவுகளை அனுப்புகிறது. அடாப்டிவ் டிரிகர் அதிர்வுகளை மாற்று இயக்கத்தில் இருந்தால், அவற்றின் அதிர்வுகள் இங்கே இயங்கும்.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} இந்த விளக்குகளை அமைக்கிறது. அது நிற்கும்போது இங்குள்ள அமைப்புகள் திரும்பும்.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>இடது டிரிகரைச் சோதி</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>வலது டிரிகரைச் சோதி</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>டிரிகர் மோட்டார் செயல்பாடு</value></data>
@@ -889,7 +903,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>அடாப்டிவ் டிரிகர்கள்</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>அடாப்டிவ் டிரிகர்கள்</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>ஒதுக்கப்பட்ட இயற்பியல் DualSense-இல் டிரிகர் ஃபீட்பேக் விளைவுகளை உள்ளமைக்கவும். கேம் இயக்கும் டிரிகர் விளைவுகள் தானாகவே அனுப்பப்படும். இங்குள்ள அமைப்புகள், எந்த கேமும் எழுதாதபோது இயங்கும் பயனர் உள்ளமைத்த ஓர் அடுக்கைச் சேர்க்கும்.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>ஒதுக்கப்பட்ட இயற்பியல் DualSense-இல் டிரிகர் ஃபீட்பேக் விளைவுகளை உள்ளமைக்கவும். கேம் அல்லது கேம் மோட்டிலிருந்து வரும் டிரிகர் விளைவுகள் தானாகவே அனுப்பப்படும். இங்குள்ள அமைப்புகள், இவை இரண்டும் எழுதாதபோது இயங்கும் பயனர் உள்ளமைத்த ஓர் அடுக்கைச் சேர்க்கும்.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>ஸ்டிக்குகள்</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>ஒவ்வொரு ஸ்டிக்குக்குமான டெட்ஜோன்கள், ஆன்டி-டெட்ஜோன்கள், உணர்திறன் வளைவுகள், மைய ஆஃப்செட் அளவுத்திருத்தம். கீழே உள்ள ஒவ்வொரு பிரிவும் செயலிலுள்ள வெளியீட்டின் ஓர் அனலாக் ஸ்டிக்கைக் குறிக்கும். விரிவாக்கப்பட்ட சுயவிவரங்களில் நான்கு ஸ்டிக்குகள் வரை இருக்கலாம். வழக்கமான கேம்பேடுகளில் இரண்டு இருக்கும்.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>டிரிகர்கள்</value></data>
@@ -4385,6 +4399,12 @@ PadForge இப்போதே அவற்றை நிறுவல் நீ�
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>கைப்பிடி</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} இந்தக் கட்டுப்படுத்தியின் டிரிகர்களை அமைக்கிறது.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} இந்தக் கட்டுப்படுத்தியின் விளக்குகளை அமைக்கிறது.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} இந்தக் கட்டுப்படுத்தியின் டிரிகர்களையும் விளக்குகளையும் அமைக்கிறது.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} இந்தக் கட்டுப்படுத்தியின் இம்பல்ஸ் டிரிகர்களில் டிரிகர் அதிர்வுகளை இயக்குகிறது.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>மோட் விளைவுகளை அழி</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>இந்தக் கட்டுப்படுத்தியில் கேம் மோட்கள் அமைத்தவற்றை முடிவுக்குக் கொண்டுவருகிறது. மோட் மீண்டும் அனுப்பும் வரை இதன் சொந்த அமைப்புகள் திரும்பும்.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>இடது/வலது</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>மேல்/கீழ்</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>உள்/வெளி</value></data>

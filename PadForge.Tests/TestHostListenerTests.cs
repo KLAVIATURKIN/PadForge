@@ -297,6 +297,7 @@ namespace PadForge.Tests
                 ["PadForge.App/Common/Input/HeadTrackerDevice.cs"] = 2,
                 // Loopback in the app too.
                 ["PadForge.App/Services/DsuMotionServer.cs"] = 2,
+                ["PadForge.App/Services/GameModServer.cs"] = 2,
                 // Every address, and no test builds one.
                 ["PadForge.Engine/RemoteLink/LinkDiscovery.cs"] = 2,
                 ["PadForge.Engine/RemoteLink/Dht/UdpKrpcTransport.cs"] = 2,
@@ -330,6 +331,7 @@ namespace PadForge.Tests
             Assert.Contains("internal IPAddress UdpBindAddress { get; init; } = IPAddress.Any;", At("PadForge.App/Common/Input/HeadTrackerDevice.cs"));
             Assert.Contains("s.Bind(new IPEndPoint(UdpBindAddress, _port));", At("PadForge.App/Common/Input/HeadTrackerDevice.cs"));
             Assert.Contains("_socket.Bind(new IPEndPoint(IPAddress.Loopback, port));", At("PadForge.App/Services/DsuMotionServer.cs"));
+            Assert.Contains("_socket.Bind(new IPEndPoint(IPAddress.Loopback, port));", At("PadForge.App/Services/GameModServer.cs"));
         }
     }
 

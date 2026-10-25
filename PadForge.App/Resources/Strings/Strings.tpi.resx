@@ -176,6 +176,11 @@
   <data name="FirstRun_Done" xml:space="preserve"><value>Pinis</value></data>
   <data name="Tour_Cards_Title" xml:space="preserve"><value>Ol virtual kontrola</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Masin</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Ol mod bilong gem</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Kisim ol DSX mod bilong gem</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Pot bilong ol mod bilong gem</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Narapela program, olsem DSX, i usim pot {0}. Pasim em o makim narapela pot.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Wanpela mod bilong gem</value></data>
   <data name="BlissBox_NoController" xml:space="preserve"><value>nogat kontrola</value></data>
   <data name="BlissBox_TypeNumber_Format" xml:space="preserve"><value>Kain {0}</value></data>
   <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>Dispela PC tasol</value></data>
@@ -335,6 +340,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Triga long lephan</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Triga long raithan</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} i senisim ol dispela triga. Ol seting hia bai i kam bek taim em i stop.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} i senisim ol dispela lait. Ol seting hia bai i kam bek taim em i stop.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Traim triga long lephan</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Traim triga long raithan</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Reset triga long lephan</value></data>
@@ -1631,6 +1638,11 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Rot</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} i senisim ol triga bilong dispela kontrola.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} i senisim ol lait bilong dispela kontrola.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} i senisim ol triga na ol lait bilong dispela kontrola.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Rausim ol senis bilong mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Pinisim ol samting ol mod bilong gem i senisim long dispela kontrola. Ol seting bilong en yet i kam bek inap long taim wanpela mod i salim gen.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Lephan/Raithan</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Antap/Daunbilo</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Insait/Ausait</value></data>

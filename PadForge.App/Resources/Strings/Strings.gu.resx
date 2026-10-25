@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>રિમોટ લિંક પોર્ટ</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>મોશન સર્વર પોર્ટ</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu વગેરેને જાયરો અને એક્સેલરોમીટર ડેટા આપે છે.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>ગેમ મોડ્સ</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>DSX માટે બનાવેલા ગેમ મોડ્સને તમારા PlayStation કંટ્રોલરના અડેપ્ટિવ ટ્રિગર, લાઇટબાર, પ્લેયર લાઇટ અને મ્યૂટ લાઇટ સેટ કરવા દે છે.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX ગેમ મોડ્સ સ્વીકારો</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>ગેમ મોડ પોર્ટ</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe સ્ટેન્ડ-ઇન ચલાવો</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>DualSense4GTAV જેવા કેટલાક મોડ્સ, DSX નામનો પ્રોગ્રામ ચાલતો ન હોય તો પોતાને બંધ કરી દે છે. સર્વર સાંભળતું હોય ત્યારે આ તે નામનું એક નાનું સ્ટેન્ડ-ઇન ચલાવે છે.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>DSX માટે બનાવેલા મોડ્સ સાથે કામ કરે છે, જેમ કે GTA V, Red Dead Redemption 2, Skyrim અને Forza માટેના. સર્વર સાંભળતું હોય ત્યારે PadForge તેનો પોર્ટ ત્યાં લખે છે જ્યાં તે મોડ્સ તેને શોધે છે.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>:{0} પર સાંભળી રહ્યું છે. {1} વર્ચ્યુઅલ કંટ્રોલર {2} પર મોકલી રહ્યું છે.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>:{0} પર સાંભળી રહ્યું છે. {1} મોકલી રહ્યું છે, પરંતુ કોઈ વર્ચ્યુઅલ કંટ્રોલર પર PlayStation કંટ્રોલર નથી.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>પોર્ટ {0} DSX જેવા અન્ય પ્રોગ્રામ દ્વારા ઉપયોગમાં છે. તેને બંધ કરો અથવા બીજો પોર્ટ પસંદ કરો.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>એક ગેમ મોડ</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack સાથે અને UDP આઉટપુટ મોકલતા અથવા FreeTrack 2.0 શેર્ડ મેમરી લખતા કોઈપણ ટ્રૅકર સાથે કામ કરે છે, તેમજ આ મશીન પર બૅકગ્રાઉન્ડમાં સેશન ચલાવી શકતા OpenXR રનટાઇમ સાથે.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-keys વાંચો</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK દ્વારા G-keys વાંચે છે. Logitech Gaming Software 8.55 કે પછીનું ચાલતું હોવું જરૂરી છે. તે સોફ્ટવેરમાં, PadForge પ્રોફાઇલમાં દરેક કી પર G-key કમાન્ડ ખેંચો. તે પ્રોફાઇલને સ્થાયી બનાવો, નહીંતર PadForge ની વિન્ડો આગળ હોય ત્યારે જ કી PadForge સુધી પહોંચે છે. G600 કે G300 માઉસને ઓન-બોર્ડ મેમરી મોડમાંથી પણ બહાર રાખવો પડે છે.</value></data>
@@ -814,7 +825,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>જમણું ટ્રિગર</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>ડાબા અને જમણા ટ્રિગર મોટર અદલાબદલ કરો</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>અડેપ્ટિવ ટ્રિગર વાઇબ્રેશન રૂપાંતરિત કરો</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>જ્યારે કોઈ રમત આ સ્લોટને વર્ચ્યુઅલ DualSense તરીકે ચલાવે, ત્યારે તેના વાઇબ્રેશન પ્રકારના અડેપ્ટિવ ટ્રિગર ઇફેક્ટ આ કંટ્રોલરના ઇમ્પલ્સ ટ્રિગર મોટર પર વાગે છે. પ્રતિરોધ પ્રકારના ઇફેક્ટને વાઇબ્રેશનમાં કોઈ સમકક્ષ નથી, તેથી અવગણવામાં આવે છે.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>જ્યારે કોઈ રમત આ સ્લોટને વર્ચ્યુઅલ DualSense તરીકે ચલાવે, અથવા કોઈ ગેમ મોડ ટ્રિગર ઇફેક્ટ મોકલે, ત્યારે વાઇબ્રેશન પ્રકારના અડેપ્ટિવ ટ્રિગર ઇફેક્ટ આ કંટ્રોલરના ઇમ્પલ્સ ટ્રિગર મોટર પર વાગે છે. પ્રતિરોધ પ્રકારના ઇફેક્ટને વાઇબ્રેશનમાં કોઈ સમકક્ષ નથી, તેથી અવગણવામાં આવે છે.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} આ ટ્રિગર સેટ કરી રહ્યું છે. તે અટકે ત્યારે અહીંના સેટિંગ્સ પાછા આવે છે.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} ટ્રિગર ઇફેક્ટ મોકલી રહ્યું છે. અડેપ્ટિવ ટ્રિગર વાઇબ્રેશન રૂપાંતરિત કરો ચાલુ હોય ત્યારે તેમના વાઇબ્રેશન અહીં વાગે છે.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} આ લાઇટ સેટ કરી રહ્યું છે. તે અટકે ત્યારે અહીંના સેટિંગ્સ પાછા આવે છે.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>ડાબું ટ્રિગર ચકાસો</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>જમણું ટ્રિગર ચકાસો</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>ટ્રિગર મોટરની પ્રવૃત્તિ</value></data>
@@ -871,7 +885,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>અડેપ્ટિવ ટ્રિગર</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>અડેપ્ટિવ ટ્રિગર</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>સોંપેલા ભૌતિક DualSense પર ટ્રિગર ફીડબેક ઇફેક્ટ ગોઠવો. રમત દ્વારા ચાલતા ટ્રિગર ઇફેક્ટ આપમેળે આગળ મોકલાય છે. અહીંના સેટિંગ્સ વપરાશકર્તાએ ગોઠવેલું એક સ્તર ઉમેરે છે, જે કોઈ રમત લખતી ન હોય ત્યારે ચાલે છે.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>સોંપેલા ભૌતિક DualSense પર ટ્રિગર ફીડબેક ઇફેક્ટ ગોઠવો. રમત અથવા ગેમ મોડના ટ્રિગર ઇફેક્ટ આપમેળે આગળ મોકલાય છે. અહીંના સેટિંગ્સ વપરાશકર્તાએ ગોઠવેલું એક સ્તર ઉમેરે છે, જે બેમાંથી કોઈ લખતું ન હોય ત્યારે ચાલે છે.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>સ્ટિક</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>દરેક સ્ટિક માટે ડેડઝોન, એન્ટી-ડેડઝોન, સંવેદનશીલતા વળાંક અને કેન્દ્ર ઓફસેટ કૅલિબ્રેશન. નીચેનો દરેક વિભાગ સક્રિય આઉટપુટની એક એનાલોગ સ્ટિકને લક્ષ્ય બનાવે છે. Extended પ્રોફાઇલમાં ચાર સુધી સ્ટિક હોઈ શકે છે. સામાન્ય ગેમપૅડમાં બે હોય છે.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>ટ્રિગર</value></data>
@@ -4355,6 +4369,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>હેન્ડલ</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} આ કંટ્રોલરના ટ્રિગર સેટ કરી રહ્યું છે.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} આ કંટ્રોલરની લાઇટ સેટ કરી રહ્યું છે.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} આ કંટ્રોલરના ટ્રિગર અને લાઇટ સેટ કરી રહ્યું છે.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} આ કંટ્રોલરના ઇમ્પલ્સ ટ્રિગર પર ટ્રિગર વાઇબ્રેશન વગાડી રહ્યું છે.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>મોડ ઇફેક્ટ સાફ કરો</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>આ કંટ્રોલર પર ગેમ મોડ્સે સેટ કરેલું બંધ કરે છે. મોડ ફરી મોકલે ત્યાં સુધી તેના પોતાના સેટિંગ્સ પાછા આવે છે.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>ડાબે/જમણે</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ઉપર/નીચે</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>અંદર/બહાર</value></data>

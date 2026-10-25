@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Távoli kapcsolat portja</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Mozgáskiszolgáló portja</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Giroszkóp- és gyorsulásmérő-adatokat szolgáltat a Cemu, a Dolphin, a Yuzu és más programok számára.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Játékmodok</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Lehetővé teszi, hogy a DSX-hez készült játékmodok beállítsák a PlayStation kontrollerek adaptív ravaszait, fénysávját, játékosjelző fényeit és némításjelző fényét.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX-játékmodok fogadása</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Játékmod-port</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe helyettesítő futtatása</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Egyes modok, például a DualSense4GTAV, kikapcsolják magukat, ha nem fut DSX nevű program. Ez egy ilyen nevű kis helyettesítőt futtat, amíg a kiszolgáló figyel.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>A DSX-hez készült modokkal működik, például a GTA V, a Red Dead Redemption 2, a Skyrim és a Forza modjaival. Amíg a kiszolgáló figyel, a PadForge oda írja a portját, ahol a modok keresik.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Figyel a :{0} porton. {1} a(z) {2}. virtuális kontrollerre küld.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Figyel a :{0} porton. {1} küld, de egyik virtuális kontrolleren sincs PlayStation kontroller.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>A(z) {0} portot egy másik program használja, például a DSX. Zárja be, vagy válasszon másik portot.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Egy játékmod</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Együttműködik az OpenTrack programmal és minden olyan követővel, amely elküldi az UDP-kimenetét vagy FreeTrack 2.0 megosztott memóriába ír, valamint a gépen lévő olyan OpenXR-futtatókörnyezettel, amely a háttérben is tud munkamenetet futtatni.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-billentyűk olvasása</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>A G-billentyűket a Logitech G-key SDK-n keresztül olvassa. Ehhez futnia kell a Logitech Gaming Software 8.55-ös vagy újabb verziójának. Abban a programban húzza a „G-key” parancsot a PadForge-profil minden billentyűjére. Állítsa a profilt állandóra, különben a billentyűk csak akkor jutnak el a PadForge-hoz, amikor annak ablaka van előtérben. A G600 és a G300 egeret emellett ki kell venni a beépített memóriás módból.</value></data>
@@ -832,7 +843,10 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Jobb ravasz</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>A bal és a jobb ravaszmotor felcserélése</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Adaptív ravasz vibrációinak átfordítása</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Ha egy játék virtuális DualSense-ként hajtja ezt a foglalatot, a vibráció jellegű adaptívravasz-effektusai ennek a kontrollernek az impulzusravasz-motorjain szólalnak meg. Az ellenállás jellegű effektusoknak nincs vibrációs megfelelőjük, ezért a program figyelmen kívül hagyja őket.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Ha egy játék virtuális DualSense-ként hajtja ezt a foglalatot, vagy egy játékmod ravaszeffektusokat küld, a vibráció jellegű adaptívravasz-effektusok ennek a kontrollernek az impulzusravasz-motorjain szólalnak meg. Az ellenállás jellegű effektusoknak nincs vibrációs megfelelőjük, ezért a program figyelmen kívül hagyja őket.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} beállítja ezeket a ravaszokat. Az itteni beállítások visszatérnek, amint leáll.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} ravaszeffektusokat küld. Ha az Adaptív ravasz vibrációinak átfordítása be van kapcsolva, a vibrációk itt szólalnak meg.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} beállítja ezeket a fényeket. Az itteni beállítások visszatérnek, amint leáll.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Bal ravasz tesztelése</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Jobb ravasz tesztelése</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Ravaszmotorok aktivitása</value></data>
@@ -889,7 +903,7 @@ Az előző verzió egy példánya ebben a mappában található: {1}</value></da
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptív ravaszok</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptív ravaszok</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>A ravaszok visszajelzési effektusainak beállítása a hozzárendelt fizikai DualSense kontrolleren. A játék által vezérelt ravaszeffektusok automatikusan továbbítódnak. Az itteni beállítások egy felhasználó által beállított réteget adnak hozzá, amely akkor fut, amikor egyetlen játék sem ír.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>A ravaszok visszajelzési effektusainak beállítása a hozzárendelt fizikai DualSense kontrolleren. A játékból vagy játékmodból érkező ravaszeffektusok automatikusan továbbítódnak. Az itteni beállítások egy felhasználó által beállított réteget adnak hozzá, amely akkor fut, ha egyik sem ír.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Karok</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Karonkénti holtzónák, antiholtzónák, érzékenységi görbék és a középpont-eltolás kalibrálása. Az alábbi szakaszok mindegyike az aktív kimenet egy-egy analóg karjára vonatkozik. A Bővített profilokban legfeljebb négy kar lehet. A szabványos gamepadeken kettő van.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Ravaszok</value></data>
@@ -4385,6 +4399,12 @@ Szeretné, hogy a PadForge most eltávolítsa őket? Ehhez rendszergazdai jogosu
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Fogantyú</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} beállítja ennek a kontrollernek a ravaszait.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} beállítja ennek a kontrollernek a fényeit.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} beállítja ennek a kontrollernek a ravaszait és fényeit.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} vibrációkat játszik le ennek a kontrollernek az impulzusravaszain.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Modeffektusok törlése</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Megszünteti, amit a játékmodok beállítottak ezen a kontrolleren. A kontroller saját beállításai visszatérnek, amíg egy mod újra nem küld.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Bal/Jobb</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Fel/Le</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Be/Ki</value></data>

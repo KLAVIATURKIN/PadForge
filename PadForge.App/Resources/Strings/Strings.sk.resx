@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port Vzdialeného prepojenia</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port servera pohybu</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Poskytuje údaje gyroskopu a akcelerometra pre Cemu, Dolphin, Yuzu atď.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Herné módy</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Umožňuje herným módom vytvoreným pre DSX nastavovať adaptívne spúšte, svetelnú lištu, svetlá hráča a indikátor stlmenia na vašich ovládačoch PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Prijímať herné módy DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port herného módu</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Spustiť náhradu DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Niektoré módy, napríklad DualSense4GTAV, sa vypnú samy, ak nebeží program s názvom DSX. Toto spustí malú náhradu s týmto názvom, kým server počúva.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Funguje s módmi vytvorenými pre DSX, napríklad pre GTA V, Red Dead Redemption 2, Skyrim a Forza. Kým server počúva, PadForge zapisuje svoj port tam, kde ho tieto módy hľadajú.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Počúva na :{0}. {1} posiela do virtuálneho ovládača {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Počúva na :{0}. {1} posiela, ale na žiadnom virtuálnom ovládači nie je ovládač PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} používa iný program, napríklad DSX. Zatvorte ho alebo vyberte iný port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Herný mód</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funguje s OpenTrack a s každým sledovačom, ktorý posiela výstup cez UDP alebo zapisuje do zdieľanej pamäte FreeTrack 2.0, a s modulom runtime OpenXR na tomto počítači, ktorý dokáže spustiť reláciu na pozadí.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Čítať klávesy Logitech G-key</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Číta klávesy G cez Logitech G-key SDK. Vyžaduje spustený Logitech Gaming Software 8.55 alebo novší. V tomto softvéri presuňte príkaz G-key na každý kláves v profile PadForge. Nastavte tento profil ako trvalý, inak sa klávesy dostanú do programu PadForge, len keď je jeho okno v popredí. Myš G600 alebo G300 tiež nesmie byť v režime vstavanej pamäte.</value></data>
@@ -832,7 +843,10 @@ Kópia predchádzajúcej verzie je v tomto priečinku: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Pravá spúšť</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Zameniť motory ľavej a pravej spúšte</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Prevádzať vibrácie adaptívnych spúští</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Keď hra ovláda tento slot ako virtuálny DualSense, jej vibračné efekty adaptívnych spúští sa prehrávajú na motoroch impulzných spúští tohto ovládača. Odporové efekty nemajú vibračný ekvivalent, preto sa ignorujú.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Keď hra ovláda tento slot ako virtuálny DualSense alebo herný mód posiela efekty spúští, vibračné efekty adaptívnych spúští sa prehrávajú na motoroch impulzných spúští tohto ovládača. Odporové efekty nemajú vibračný ekvivalent, preto sa ignorujú.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} nastavuje tieto spúšte. Nastavenia tu sa vrátia, keď prestane.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} posiela efekty spúští. Keď je zapnuté Prevádzať vibrácie adaptívnych spúští, ich vibrácie sa prehrávajú tu.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} nastavuje tieto svetlá. Nastavenia tu sa vrátia, keď prestane.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Otestovať ľavú spúšť</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Otestovať pravú spúšť</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Aktivita motorov spúští</value></data>
@@ -889,7 +903,7 @@ Kópia predchádzajúcej verzie je v tomto priečinku: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptívne spúšte</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptívne spúšte</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Nastavte efekty spätnej väzby spúští na priradenom fyzickom ovládači DualSense. Efekty spúští riadené hrou sa preposielajú automaticky. Tieto nastavenia pridávajú používateľskú vrstvu, ktorá sa uplatní, keď hra nič nezapisuje.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Nastavte efekty spätnej väzby spúští na priradenom fyzickom ovládači DualSense. Efekty spúští z hry alebo herného módu sa preposielajú automaticky. Tieto nastavenia pridávajú používateľskú vrstvu, ktorá sa uplatní, keď nepíše ani jedno z nich.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Páčky</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Mŕtve zóny, anti-mŕtve zóny, krivky citlivosti a kalibrácia posunu stredu pre každú páčku. Každá sekcia nižšie sa týka jednej analógovej páčky na aktívnom výstupe. Rozšírené profily môžu mať až štyri páčky. Štandardné gamepady majú dve.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Spúšte</value></data>
@@ -4385,6 +4399,12 @@ Chcete, aby ich PadForge teraz odinštaloval? Vyžaduje to oprávnenia správcu 
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Rukoväť</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} nastavuje spúšte tohto ovládača.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} nastavuje svetlá tohto ovládača.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} nastavuje spúšte a svetlá tohto ovládača.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} prehráva vibrácie spúští na impulzných spúštiach tohto ovládača.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Vymazať efekty módov</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Ukončí, čo herné módy nastavili na tomto ovládači. Jeho vlastné nastavenia sa vrátia, kým mód znova niečo nepošle.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Vľavo/Vpravo</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Hore/Dole</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Dnu/Von</value></data>

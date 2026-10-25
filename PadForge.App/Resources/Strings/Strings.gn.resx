@@ -234,6 +234,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Gatillo asu</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Gatillo akatúa</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} omboheko hína ko'ã gatillo. Opyta vove, ñemboheko ko'ápe oĩva oujey.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} omboheko hína ko'ã tesape. Opyta vove, ñemboheko ko'ápe oĩva oujey.</value></data>
   <data name="Pad_TriggerRouting_LeftTrigger" xml:space="preserve"><value>Gatillo asu</value></data>
   <data name="Pad_TriggerRouting_RightTrigger" xml:space="preserve"><value>Gatillo akatúa</value></data>
   <data name="Pad_TriggerRouting_Source_MainLeft" xml:space="preserve"><value>Motor asu</value></data>
@@ -1042,6 +1044,9 @@
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Mba'erechaha</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} omboheko hína ko control gatillo kuéra.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} omboheko hína ko control tesape kuéra.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} omboheko hína ko control gatillo ha tesape kuéra.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Asu/Akatúa</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Yvate/Yvýpe</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Hyepýpe/Okápe</value></data>

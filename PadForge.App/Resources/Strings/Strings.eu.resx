@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Urruneko loturaren ataka</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Mugimendu-zerbitzariaren ataka</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Giroskopio- eta azelerometro-datuak ematen dizkie Cemu, Dolphin, Yuzu eta abarrei.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Joko-modak</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>DSXrako egindako joko-modei zure PlayStation kontrolagailuen katu moldagarriak, argi-barra, jokalari-argiak eta mutu-argia ezartzen uzten die.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Onartu DSX joko-modak</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Joko-moden ataka</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Exekutatu DSX.exe ordezkoa</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>DualSense4GTAV bezalako mod batzuk beren burua desaktibatzen dute DSX izeneko programa bat martxan ez badago. Honek izen horretako ordezko txiki bat exekutatzen du zerbitzariak entzuten duen bitartean.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>DSXrako egindako modekin dabil, hala nola GTA V, Red Dead Redemption 2, Skyrim eta Forza jokoetarakoekin. Zerbitzariak entzuten duen bitartean, PadForge-k bere ataka mod horiek bilatzen duten tokian idazten du.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Entzuten (:{0}). {1} {2}. kontrolagailu birtualera bidaltzen ari da.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Entzuten (:{0}). {1} bidaltzen ari da, baina ez dago PlayStation kontrolagailurik duen kontrolagailu birtualik.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>{0} ataka beste programa batek erabiltzen du, DSX adibidez. Itxi programa hori edo aukeratu beste ataka bat.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Joko-mod bat</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack-ekin funtzionatzen du, baita UDP irteera bidaltzen duen edo FreeTrack 2.0 memoria partekatuan idazten duen edozein jarraitzailerekin ere, eta ordenagailu honetan saio bat atzeko planoan exekuta dezakeen OpenXR exekuzio-ingurune batekin.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Irakurri Logitech G teklak</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>G teklak Logitech G-key SDK-aren bidez irakurtzen ditu. Logitech Gaming Software 8.55 edo berriagoa exekutatzen egon behar da. Programa horretan, arrastatu G-key komandoa PadForge profileko tekla bakoitzera. Ezarri profil hori iraunkor gisa. Bestela, teklak PadForge-ra iritsiko dira haren leihoa aurrean dagoen bitartean soilik. Gainera, G600 edo G300 sagu batek barneko memoriaren modutik kanpo egon behar du.</value></data>
@@ -817,7 +828,10 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Eskuineko katua</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Trukatu ezkerreko eta eskuineko katuen motorrak</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Bihurtu katu moldagarrien bibrazioak</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Joko batek zirrikitu hau DualSense birtual gisa kontrolatzen duenean, bibrazio motako katu moldagarrien efektuak kontrolagailu honen inpultso-katuen motorretan erreproduzitzen dira. Erresistentzia motako efektuek ez dute bibraziozko baliokiderik, eta ez ikusi egiten zaie.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Joko batek zirrikitu hau DualSense birtual gisa kontrolatzen duenean edo joko-mod batek katu-efektuak bidaltzen dituenean, bibrazio motako katu moldagarrien efektuak kontrolagailu honen inpultso-katuen motorretan erreproduzitzen dira. Erresistentzia motako efektuek ez dute bibraziozko baliokiderik, eta ez ikusi egiten zaie.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} katu hauek ezartzen ari da. Hemengo ezarpenak itzuliko dira hura gelditzen denean.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} katu-efektuak bidaltzen ari da. «Bihurtu katu moldagarrien bibrazioak» aktibatuta dagoenean, haien bibrazioak hemen erreproduzitzen dira.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} argi hauek ezartzen ari da. Hemengo ezarpenak itzuliko dira hura gelditzen denean.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Probatu ezkerreko katua</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Probatu eskuineko katua</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Katu-motorren jarduera</value></data>
@@ -874,7 +888,7 @@ Aurreko bertsioaren kopia bat karpeta honetan dago: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Katu moldagarriak</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Katu moldagarriak</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfiguratu katuen erantzun-efektuak esleitutako DualSense fisikoan. Jokoak eragindako katu-efektuak automatikoki birbidaltzen dira. Hemengo ezarpenek erabiltzaileak konfiguratutako geruza bat gehitzen dute, jokorik idazten ari ez denean exekutatzen dena.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfiguratu katuen erantzun-efektuak esleitutako DualSense fisikoan. Jokoaren edo joko-modaren katu-efektuak automatikoki birbidaltzen dira. Hemengo ezarpenek erabiltzaileak konfiguratutako geruza bat gehitzen dute, bietako inork idazten ari ez denean exekutatzen dena.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Palankak</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Palanka bakoitzeko gune hilak, gune hilaren konpentsazioak, sentikortasun-kurbak eta erdigunearen desplazamenduaren kalibrazioa. Beheko atal bakoitzak irteera aktiboko palanka analogiko bat du helburu. Profil hedatuek lau palanka izan ditzakete gehienez. Gamepad estandarrek bi dituzte.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Katuak</value></data>
@@ -4357,6 +4371,12 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Heldulekua</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} kontrolagailu honen katuak ezartzen ari da.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} kontrolagailu honen argiak ezartzen ari da.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} kontrolagailu honen katuak eta argiak ezartzen ari da.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} katu-bibrazioak erreproduzitzen ari da kontrolagailu honen inpultso-katuetan.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Garbitu moden efektuak</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Joko-modek kontrolagailu honetan ezarritakoa amaitzen du. Bere ezarpenak itzultzen dira mod batek berriro bidali arte.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Ezker/Eskuin</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Gora/Behera</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Barrura/Kanpora</value></data>

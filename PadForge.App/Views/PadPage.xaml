@@ -8702,6 +8702,11 @@
                         <TextBlock Text="{Binding Pad_AdaptiveTriggers_Subtitle, Source={x:Static strings:Strings.Instance}}"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                    TextWrapping="Wrap" Margin="0,0,0,16"/>
+                        <!-- A DSX game mod setting these triggers (#529), in the
+                             ember of the Force Feedback tab's route line. -->
+                        <TextBlock Text="{Binding GameModTriggersLine}" Visibility="{Binding GameModTriggersLine, Converter={StaticResource StringToVisibility}}"
+                                   Foreground="{DynamicResource EmberBrush}"
+                                   TextWrapping="Wrap" Margin="0,-8,0,16"/>
 
                         <!-- Left Trigger -->
                         <Border Style="{StaticResource CardBorder}">
@@ -9142,6 +9147,10 @@
                                    Text="{Binding Pad_Lighting_PlayerIdle_Hint, Source={x:Static strings:Strings.Instance}}"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                    TextWrapping="Wrap" Margin="0,0,0,16"/>
+                        <!-- A DSX game mod setting these lights (#529). -->
+                        <TextBlock Text="{Binding GameModLightsLine}" Visibility="{Binding GameModLightsLine, Converter={StaticResource StringToVisibility}}"
+                                   Foreground="{DynamicResource EmberBrush}"
+                                   TextWrapping="Wrap" Margin="0,-8,0,16"/>
 
                         <!-- A mouse, keyboard or vendor lighting row (#494):
                              this slot's lighting reaches it through the card
@@ -11273,6 +11282,11 @@
                         <TextBlock Text="{Binding Pad_ImpulseTriggers_Subtitle, Source={x:Static strings:Strings.Instance}}"
                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                    TextWrapping="Wrap" Margin="0,0,0,16"/>
+                        <!-- A DSX game mod's trigger effects (#529), which
+                             Translate Adaptive Trigger Vibrations plays here. -->
+                        <TextBlock Text="{Binding GameModImpulseLine}" Visibility="{Binding GameModImpulseLine, Converter={StaticResource StringToVisibility}}"
+                                   Foreground="{DynamicResource EmberBrush}"
+                                   TextWrapping="Wrap" Margin="0,-8,0,16"/>
 
                         <Border Style="{StaticResource CardBorder}">
                             <StackPanel>

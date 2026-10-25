@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Etälinkin portti</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Liikepalvelimen portti</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Välittää gyro- ja kiihtyvyysanturitiedot emulaattoreille, kuten Cemu, Dolphin ja Yuzu.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Pelimodit</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Sallii DSX-ohjelmaa varten tehtyjen pelimodien asettaa PlayStation-ohjaintesi mukautuvat liipaisimet, valopalkin, pelaajavalot ja mykistysvalon.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Hyväksy DSX-pelimodit</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Pelimodien portti</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Suorita DSX.exe-korvike</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Jotkin modit, kuten DualSense4GTAV, sammuttavat itsensä, ellei DSX-niminen ohjelma ole käynnissä. Tämä käynnistää tällä nimellä pienen korvikkeen palvelimen kuunnellessa.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Toimii DSX-ohjelmaa varten tehtyjen modien kanssa, esimerkiksi peleille GTA V, Red Dead Redemption 2, Skyrim ja Forza. Palvelimen kuunnellessa PadForge kirjoittaa sen portin sinne, mistä modit sitä etsivät.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Kuuntelee porttia :{0}. {1} lähettää virtuaaliohjaimelle {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Kuuntelee porttia :{0}. {1} lähettää, mutta millään virtuaaliohjaimella ei ole PlayStation-ohjainta.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Portti {0} on toisen ohjelman käytössä, esimerkiksi DSX-ohjelman. Sulje se tai valitse toinen portti.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Pelimodi</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Toimii OpenTrack-ohjelman ja minkä tahansa sellaisen seurantaohjelman kanssa, joka lähettää tulosteensa UDP:nä tai kirjoittaa FreeTrack 2.0 -muotoiseen jaettuun muistiin, sekä tämän koneen OpenXR-ajoympäristön kanssa, joka pystyy suorittamaan istunnon taustalla.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Lue Logitechin G-näppäimet</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lukee G-näppäimet Logitechin G-key SDK:n kautta. Vaatii, että Logitech Gaming Software 8.55 tai uudempi on käynnissä. Vedä ohjelmassa G-key-komento PadForge-profiilin jokaiselle näppäimelle. Tee profiilista pysyvä, muuten näppäimet tavoittavat PadForge-sovelluksen vain, kun sen ikkuna on edessä. G600- tai G300-hiiren on myös oltava poissa sisäisen muistin tilasta.</value></data>
@@ -832,7 +843,10 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Oikea liipaisin</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Vaihda vasemman ja oikean liipaisimen moottorit keskenään</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Muunna mukautuvien liipaisimien värinät</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kun peli ohjaa tätä paikkaa virtuaalisena DualSense-ohjaimena, sen värinätyyppiset mukautuvien liipaisimien efektit toistetaan tämän ohjaimen impulssiliipaisimien moottoreilla. Vastustyyppisillä efekteillä ei ole värinävastinetta, joten ne ohitetaan.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kun peli ohjaa tätä paikkaa virtuaalisena DualSense-ohjaimena tai pelimodi lähettää liipaisinefektejä, värinätyyppiset mukautuvien liipaisimien efektit toistetaan tämän ohjaimen impulssiliipaisimien moottoreilla. Vastustyyppisillä efekteillä ei ole värinävastinetta, joten ne ohitetaan.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} asettaa näitä liipaisimia. Tässä olevat asetukset palaavat, kun se lopettaa.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} lähettää liipaisinefektejä. Kun Muunna mukautuvien liipaisimien värinät on päällä, niiden värinät toistetaan täällä.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} asettaa näitä valoja. Tässä olevat asetukset palaavat, kun se lopettaa.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Testaa vasenta liipaisinta</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Testaa oikeaa liipaisinta</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Liipaisinmoottorien toiminta</value></data>
@@ -889,7 +903,7 @@ Kopio edellisestä versiosta on tässä kansiossa: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Mukautuvat liipaisimet</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Mukautuvat liipaisimet</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Määritä liipaisimien palaute-efektit liitetylle fyysiselle DualSense-ohjaimelle. Pelin ohjaamat liipaisinefektit välitetään automaattisesti. Täällä tehdyt asetukset lisäävät käyttäjän määrittämän tason, joka toimii, kun mikään peli ei kirjoita efektejä.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Määritä liipaisimien palaute-efektit liitetylle fyysiselle DualSense-ohjaimelle. Pelin tai pelimodin lähettämät liipaisinefektit välitetään automaattisesti. Täällä tehdyt asetukset lisäävät käyttäjän määrittämän tason, joka toimii, kun kumpikaan ei kirjoita efektejä.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Sauvat</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Sauvakohtaiset kuolleet alueet, kuolleen alueen kompensoinnit, herkkyyskäyrät ja keskipisteen korjauksen kalibrointi. Kukin alla oleva osio koskee yhtä aktiivisen lähdön analogista sauvaa. Laajennetuissa profiileissa voi olla enintään neljä sauvaa. Tavallisissa peliohjaimissa niitä on kaksi.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Liipaisimet</value></data>
@@ -4385,6 +4399,12 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Kahva</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} asettaa tämän ohjaimen liipaisimia.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} asettaa tämän ohjaimen valoja.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} asettaa tämän ohjaimen liipaisimia ja valoja.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} toistaa värinää tämän ohjaimen impulssiliipaisimilla.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Tyhjennä modien efektit</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Lopettaa pelimodien tähän ohjaimeen asettamat efektit. Ohjaimen omat asetukset palaavat, kunnes modi lähettää uudelleen.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Vasen/oikea</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Ylös/alas</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Sisään/ulos</value></data>

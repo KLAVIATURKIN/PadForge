@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Θύρα Απομακρυσμένης σύνδεσης</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Θύρα διακομιστή κίνησης</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Παρέχει δεδομένα γυροσκοπίου και επιταχυνσιομέτρου σε Cemu, Dolphin, Yuzu κ.λπ.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mod παιχνιδιών</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Επιτρέπει στα mod παιχνιδιών που έγιναν για το DSX να ορίζουν τις προσαρμοζόμενες σκανδάλες, τη φωτεινή μπάρα, τα φώτα παίκτη και το φως σίγασης των χειριστηρίων PlayStation σας.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Αποδοχή mod παιχνιδιών DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Θύρα mod παιχνιδιών</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Εκτέλεση υποκατάστατου DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Ορισμένα mod, όπως το DualSense4GTAV, απενεργοποιούνται αν δεν εκτελείται πρόγραμμα με όνομα DSX. Αυτό εκτελεί ένα μικρό υποκατάστατο με αυτό το όνομα όσο ο διακομιστής ακούει.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Λειτουργεί με mod που έγιναν για το DSX, όπως αυτά για GTA V, Red Dead Redemption 2, Skyrim και Forza. Όσο ο διακομιστής ακούει, το PadForge γράφει τη θύρα του εκεί όπου την αναζητούν αυτά τα mod.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Ακρόαση στο :{0}. {1} στέλνει στο εικονικό χειριστήριο {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Ακρόαση στο :{0}. {1} στέλνει, αλλά κανένα εικονικό χειριστήριο δεν έχει χειριστήριο PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Η θύρα {0} χρησιμοποιείται από άλλο πρόγραμμα, όπως το DSX. Κλείστε το ή επιλέξτε άλλη θύρα.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Ένα mod παιχνιδιού</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Λειτουργεί με το OpenTrack και με κάθε ανιχνευτή που στέλνει την έξοδό του μέσω UDP ή γράφει στην κοινόχρηστη μνήμη FreeTrack 2.0, καθώς και με ένα περιβάλλον εκτέλεσης OpenXR σε αυτόν τον υπολογιστή που μπορεί να εκτελεί μια συνεδρία στο παρασκήνιο.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Ανάγνωση πλήκτρων G της Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Διαβάζει τα πλήκτρα G μέσω του Logitech G-key SDK. Απαιτεί να εκτελείται το Logitech Gaming Software 8.55 ή νεότερο. Σε αυτό το λογισμικό, σύρετε την εντολή «G-key» σε κάθε πλήκτρο του προφίλ PadForge. Ορίστε αυτό το προφίλ ως μόνιμο, αλλιώς τα πλήκτρα φτάνουν στο PadForge μόνο όσο το παράθυρό του είναι σε πρώτο πλάνο. Ένα ποντίκι G600 ή G300 πρέπει επίσης να μην είναι σε λειτουργία ενσωματωμένης μνήμης.</value></data>
@@ -832,7 +843,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Δεξιά σκανδάλη</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Αντιμετάθεση κινητήρων αριστερής και δεξιάς σκανδάλης</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Μετατροπή δονήσεων προσαρμοζόμενων σκανδαλών</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Όταν ένα παιχνίδι οδηγεί αυτή την υποδοχή ως εικονικό DualSense, τα εφέ προσαρμοζόμενων σκανδαλών τύπου δόνησης αναπαράγονται στους κινητήρες των σκανδαλών ώθησης αυτού του χειριστηρίου. Τα εφέ τύπου αντίστασης δεν έχουν αντίστοιχο σε δόνηση και αγνοούνται.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Όταν ένα παιχνίδι οδηγεί αυτή την υποδοχή ως εικονικό DualSense, ή ένα mod παιχνιδιού στέλνει εφέ σκανδαλών, τα εφέ προσαρμοζόμενων σκανδαλών τύπου δόνησης αναπαράγονται στους κινητήρες των σκανδαλών ώθησης αυτού του χειριστηρίου. Τα εφέ τύπου αντίστασης δεν έχουν αντίστοιχο σε δόνηση και αγνοούνται.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ορίζει αυτές τις σκανδάλες. Οι ρυθμίσεις εδώ επανέρχονται όταν σταματήσει.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} στέλνει εφέ σκανδαλών. Με ενεργή τη «Μετατροπή δονήσεων προσαρμοζόμενων σκανδαλών», οι δονήσεις τους αναπαράγονται εδώ.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ορίζει αυτά τα φώτα. Οι ρυθμίσεις εδώ επανέρχονται όταν σταματήσει.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Δοκιμή αριστερής σκανδάλης</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Δοκιμή δεξιάς σκανδάλης</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Δραστηριότητα κινητήρων σκανδαλών</value></data>
@@ -889,7 +903,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Προσαρμοζόμενες σκανδάλες</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Προσαρμοζόμενες σκανδάλες</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Ρυθμίστε τα εφέ ανάδρασης σκανδαλών στο φυσικό DualSense που έχει ανατεθεί. Τα εφέ σκανδαλών που προκαλεί το παιχνίδι προωθούνται αυτόματα. Οι ρυθμίσεις εδώ προσθέτουν ένα επίπεδο ρυθμισμένο από τον χρήστη, που ισχύει όταν κανένα παιχνίδι δεν γράφει.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Ρυθμίστε τα εφέ ανάδρασης σκανδαλών στο φυσικό DualSense που έχει ανατεθεί. Τα εφέ σκανδαλών από ένα παιχνίδι ή ένα mod παιχνιδιού προωθούνται αυτόματα. Οι ρυθμίσεις εδώ προσθέτουν ένα επίπεδο ρυθμισμένο από τον χρήστη, που ισχύει όταν δεν γράφει κανένα από τα δύο.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Μοχλοί</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Νεκρές ζώνες, αντι-νεκρές ζώνες, καμπύλες ευαισθησίας και βαθμονόμηση μετατόπισης κέντρου ανά μοχλό. Κάθε ενότητα παρακάτω αφορά έναν αναλογικό μοχλό της ενεργής εξόδου. Τα Εκτεταμένα προφίλ μπορούν να έχουν έως τέσσερις μοχλούς. Τα τυπικά χειριστήρια έχουν δύο.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Σκανδάλες</value></data>
@@ -4385,6 +4399,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Λαβή</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ορίζει τις σκανδάλες αυτού του χειριστηρίου.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ορίζει τα φώτα αυτού του χειριστηρίου.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ορίζει τις σκανδάλες και τα φώτα αυτού του χειριστηρίου.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} αναπαράγει δονήσεις σκανδαλών στις σκανδάλες ώθησης αυτού του χειριστηρίου.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Εκκαθάριση εφέ mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Τερματίζει ό,τι ορίζουν τα mod παιχνιδιών σε αυτό το χειριστήριο. Οι δικές του ρυθμίσεις επανέρχονται μέχρι να στείλει ξανά κάποιο mod.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Αριστερά/Δεξιά</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Πάνω/Κάτω</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Μέσα/Έξω</value></data>

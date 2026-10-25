@@ -104,6 +104,11 @@
   <data name="FirstRun_Done" xml:space="preserve"><value>Kugqityiwe</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Isixhobo</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Izibuko</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Ii-mod zemidlalo</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Yamkela ii-mod zemidlalo ze-DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Izibuko le-mod yomdlalo</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Izibuko {0} lisetyenziswa yenye inkqubo, njenge-DSX. Yivale okanye ukhethe elinye izibuko.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>I-mod yomdlalo</value></data>
   <data name="RemoteLink_Connect" xml:space="preserve"><value>Qhagamshela</value></data>
   <data name="RemoteLink_Reject" xml:space="preserve"><value>Yala</value></data>
 
@@ -252,6 +257,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>I-trigger yasekhohlo</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>I-trigger yasekunene</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} imisela ii-trigger ezi. Iisetingi ezilapha ziya kubuyela xa iyeka.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} imisela ezi zibane. Iisetingi ezilapha ziya kubuyela xa iyeka.</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Seta kwakhona i-trigger yasekhohlo</value></data>
   <data name="Pad_ResetImpulseRight" xml:space="preserve"><value>Seta kwakhona i-trigger yasekunene</value></data>
   <data name="Pad_TriggerRouting_LeftTrigger" xml:space="preserve"><value>I-trigger yasekhohlo</value></data>
@@ -1515,6 +1522,11 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Isibambo</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} imisela ii-trigger zesi silawuli.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} imisela izibane zesi silawuli.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} imisela ii-trigger nezibane zesi silawuli.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Susa iziphumo ze-mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Iyekisa izinto ezimiselwe zii-mod zemidlalo kwesi silawuli. Iisetingi zaso zibuyela de i-mod ithumele kwakhona.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Ekhohlo/Ekunene</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Phezulu/Ezantsi</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ngaphakathi/Ngaphandle</value></data>

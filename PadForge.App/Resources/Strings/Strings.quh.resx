@@ -127,6 +127,7 @@
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Dispositivo</value></data>
   <data name="Instr_Raw" xml:space="preserve"><value>RAW</value></data>
   <data name="Instr_Out" xml:space="preserve"><value>OUT</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>{0} puertota huk programa llamk'achishan, DSX hina. Chay programata wisq'ay, utaq huk puertota akllay.</value></data>
   <data name="Dashboard_RemoteLink" xml:space="preserve"><value>Remote Link</value></data>
   <data name="HIDMaestroUninstall_Title" xml:space="preserve"><value>HIDMaestro-ta desinstalay</value></data>
   <data name="HIDMaestroUninstall_Message" xml:space="preserve"><value>Kayqa HIDMaestro-ta kay PC-manta urqhun: control virtualninkunata, controladorninta, firma certificadonta, registropi clavenkunata, archivonkunatapas. PadForge-qa ñawpaqta motorninta sayachin. HIDMaestro-ta llamk'achiq wak programakunaqa controladorninta chinkachinku, kutimanta qallarinankukama. PadForge-qa watiqmanta instalanqa, hukmanta control virtualta qallarichiqtin.</value></data>
@@ -253,6 +254,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Lluq'i gatillo</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Paña gatillo</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} kay gatillokunata churashan. Sayaqtinqa, kaypi kaq configuración kutimunqa.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} kay k'anchaykunata churashan. Sayaqtinqa, kaypi kaq configuración kutimunqa.</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Lluq'i gatillota ñawpaqman kutichiy</value></data>
   <data name="Pad_ResetImpulseRight" xml:space="preserve"><value>Paña gatillota ñawpaqman kutichiy</value></data>
   <data name="Pad_TriggerRouting_LeftTrigger" xml:space="preserve"><value>Lluq'i gatillo</value></data>
@@ -1306,6 +1309,9 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Hap'ina</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} kay controlpa gatillonkunata churashan.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} kay controlpa k'anchayninkunata churashan.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} kay controlpa gatillonkunata k'anchayninkunatapas churashan.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Lluq'i/Paña</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Hanaq/Ura</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ukhu/Hawa</value></data>

@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>റിമോട്ട് ലിങ്ക് പോർട്ട്</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>മോഷൻ സെർവർ പോർട്ട്</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu തുടങ്ങിയവയ്ക്ക് ഗൈറോ, ആക്സിലറോമീറ്റർ ഡാറ്റ നൽകുന്നു.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>ഗെയിം മോഡുകൾ</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>DSX-നായി നിർമ്മിച്ച ഗെയിം മോഡുകളെ നിങ്ങളുടെ PlayStation കൺട്രോളറുകളുടെ അഡാപ്റ്റീവ് ട്രിഗറുകൾ, ലൈറ്റ്ബാർ, പ്ലെയർ ലൈറ്റുകൾ, മ്യൂട്ട് ലൈറ്റ് എന്നിവ സജ്ജമാക്കാൻ അനുവദിക്കുന്നു.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX ഗെയിം മോഡുകൾ സ്വീകരിക്കുക</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>ഗെയിം മോഡ് പോർട്ട്</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe സ്റ്റാൻഡ്-ഇൻ പ്രവർത്തിപ്പിക്കുക</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>DualSense4GTAV പോലുള്ള ചില മോഡുകൾ, DSX എന്ന പേരിൽ ഒരു പ്രോഗ്രാം പ്രവർത്തിക്കുന്നില്ലെങ്കിൽ സ്വയം ഓഫ് ആകും. സെർവർ കേൾക്കുന്ന സമയത്ത് ആ പേരിൽ ഒരു ചെറിയ സ്റ്റാൻഡ്-ഇൻ ഇത് പ്രവർത്തിപ്പിക്കുന്നു.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>GTA V, Red Dead Redemption 2, Skyrim, Forza എന്നിവയ്ക്കുള്ളതുപോലെ DSX-നായി നിർമ്മിച്ച മോഡുകളുമായി പ്രവർത്തിക്കുന്നു. സെർവർ കേൾക്കുന്ന സമയത്ത്, ആ മോഡുകൾ തിരയുന്ന സ്ഥലത്ത് PadForge അതിന്റെ പോർട്ട് എഴുതുന്നു.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>:{0}-ൽ കേൾക്കുന്നു. {1} വെർച്വൽ കൺട്രോളർ {2}-ലേക്ക് അയയ്ക്കുന്നു.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>:{0}-ൽ കേൾക്കുന്നു. {1} അയയ്ക്കുന്നുണ്ട്, പക്ഷേ ഒരു വെർച്വൽ കൺട്രോളറിലും PlayStation കൺട്രോളർ ഇല്ല.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>പോർട്ട് {0} DSX പോലുള്ള മറ്റൊരു പ്രോഗ്രാം ഉപയോഗിക്കുന്നു. അത് അടയ്ക്കുക അല്ലെങ്കിൽ മറ്റൊരു പോർട്ട് തിരഞ്ഞെടുക്കുക.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>ഒരു ഗെയിം മോഡ്</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack-നോടും, UDP ഔട്ട്പുട്ട് അയയ്ക്കുകയോ FreeTrack 2.0 ഷെയേർഡ് മെമ്മറിയിലേക്ക് എഴുതുകയോ ചെയ്യുന്ന ഏത് ട്രാക്കറിനോടും, പശ്ചാത്തലത്തിൽ സെഷൻ പ്രവർത്തിപ്പിക്കാൻ കഴിയുന്ന, ഈ മെഷീനിലെ OpenXR റൺടൈമിനോടും പ്രവർത്തിക്കുന്നു.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-key-കൾ വായിക്കുക</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK വഴി G-key-കൾ വായിക്കുന്നു. Logitech Gaming Software 8.55 അല്ലെങ്കിൽ പുതിയത് പ്രവർത്തിക്കുന്നുണ്ടായിരിക്കണം. ആ സോഫ്റ്റ്വെയറിൽ, PadForge പ്രൊഫൈലിലെ ഓരോ കീയിലേക്കും G-key കമാൻഡ് വലിച്ചിടുക. ആ പ്രൊഫൈൽ സ്ഥിരമാക്കുക, അല്ലെങ്കിൽ PadForge വിൻഡോ മുന്നിലുള്ളപ്പോൾ മാത്രമേ കീകൾ PadForge-ൽ എത്തൂ. G600 അല്ലെങ്കിൽ G300 മൗസും ഓൺ-ബോർഡ് മെമ്മറി മോഡിൽ നിന്ന് പുറത്തായിരിക്കണം.</value></data>
@@ -815,7 +826,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>വലത് ട്രിഗർ</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>ഇടത്, വലത് ട്രിഗർ മോട്ടോറുകൾ പരസ്പരം മാറ്റുക</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>അഡാപ്റ്റീവ് ട്രിഗർ വൈബ്രേഷനുകൾ പരിവർത്തനം ചെയ്യുക</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>ഒരു ഗെയിം ഈ സ്ലോട്ടിനെ വെർച്വൽ DualSense ആയി നിയന്ത്രിക്കുമ്പോൾ, അതിലെ വൈബ്രേഷൻ രീതിയിലുള്ള അഡാപ്റ്റീവ് ട്രിഗർ ഇഫക്റ്റുകൾ ഈ കൺട്രോളറിന്റെ ഇംപൾസ് ട്രിഗർ മോട്ടോറുകളിൽ പ്ലേ ചെയ്യും. പ്രതിരോധ രീതിയിലുള്ള ഇഫക്റ്റുകൾക്ക് തത്തുല്യമായ വൈബ്രേഷൻ ഇല്ല, അവ അവഗണിക്കപ്പെടുന്നു.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>ഒരു ഗെയിം ഈ സ്ലോട്ടിനെ വെർച്വൽ DualSense ആയി നിയന്ത്രിക്കുമ്പോഴോ ഒരു ഗെയിം മോഡ് ട്രിഗർ ഇഫക്റ്റുകൾ അയയ്ക്കുമ്പോഴോ, വൈബ്രേഷൻ രീതിയിലുള്ള അഡാപ്റ്റീവ് ട്രിഗർ ഇഫക്റ്റുകൾ ഈ കൺട്രോളറിന്റെ ഇംപൾസ് ട്രിഗർ മോട്ടോറുകളിൽ പ്ലേ ചെയ്യും. പ്രതിരോധ രീതിയിലുള്ള ഇഫക്റ്റുകൾക്ക് തത്തുല്യമായ വൈബ്രേഷൻ ഇല്ല, അവ അവഗണിക്കപ്പെടുന്നു.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ഈ ട്രിഗറുകൾ സജ്ജമാക്കുന്നു. അത് നിർത്തുമ്പോൾ ഇവിടത്തെ ക്രമീകരണങ്ങൾ തിരികെ വരും.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} ട്രിഗർ ഇഫക്റ്റുകൾ അയയ്ക്കുന്നു. അഡാപ്റ്റീവ് ട്രിഗർ വൈബ്രേഷനുകൾ പരിവർത്തനം ചെയ്യുക ഓണായിരിക്കുമ്പോൾ, അവയുടെ വൈബ്രേഷനുകൾ ഇവിടെ പ്ലേ ചെയ്യും.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ഈ ലൈറ്റുകൾ സജ്ജമാക്കുന്നു. അത് നിർത്തുമ്പോൾ ഇവിടത്തെ ക്രമീകരണങ്ങൾ തിരികെ വരും.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>ഇടത് ട്രിഗർ പരീക്ഷിക്കുക</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>വലത് ട്രിഗർ പരീക്ഷിക്കുക</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>ട്രിഗർ മോട്ടോർ പ്രവർത്തനം</value></data>
@@ -872,7 +886,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>അഡാപ്റ്റീവ് ട്രിഗറുകൾ</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>അഡാപ്റ്റീവ് ട്രിഗറുകൾ</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>നൽകിയിട്ടുള്ള ഫിസിക്കൽ DualSense-ൽ ട്രിഗർ ഫീഡ്ബാക്ക് ഇഫക്റ്റുകൾ ക്രമീകരിക്കുക. ഗെയിം നിയന്ത്രിത ട്രിഗർ ഇഫക്റ്റുകൾ സ്വയമേവ കൈമാറും. ഒരു ഗെയിമും എഴുതാത്തപ്പോൾ പ്രവർത്തിക്കുന്ന, ഉപയോക്താവ് ക്രമീകരിച്ച ഒരു ലെയർ ഇവിടത്തെ ക്രമീകരണങ്ങൾ ചേർക്കുന്നു.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>നൽകിയിട്ടുള്ള ഫിസിക്കൽ DualSense-ൽ ട്രിഗർ ഫീഡ്ബാക്ക് ഇഫക്റ്റുകൾ ക്രമീകരിക്കുക. ഒരു ഗെയിമിൽ നിന്നോ ഗെയിം മോഡിൽ നിന്നോ ഉള്ള ട്രിഗർ ഇഫക്റ്റുകൾ സ്വയമേവ കൈമാറും. രണ്ടും എഴുതാത്തപ്പോൾ പ്രവർത്തിക്കുന്ന, ഉപയോക്താവ് ക്രമീകരിച്ച ഒരു ലെയർ ഇവിടത്തെ ക്രമീകരണങ്ങൾ ചേർക്കുന്നു.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>സ്റ്റിക്കുകൾ</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>ഓരോ സ്റ്റിക്കിനുമുള്ള ഡെഡ് സോണുകൾ, ആന്റി-ഡെഡ് സോണുകൾ, സെൻസിറ്റിവിറ്റി കർവുകൾ, സെന്റർ ഓഫ്സെറ്റ് കാലിബ്രേഷൻ. താഴെയുള്ള ഓരോ വിഭാഗവും സജീവ ഔട്ട്പുട്ടിലെ ഒരു അനലോഗ് സ്റ്റിക്കിനെ ലക്ഷ്യമിടുന്നു. എക്സ്റ്റെൻഡഡ് പ്രൊഫൈലുകൾക്ക് നാല് സ്റ്റിക്കുകൾ വരെ ഉണ്ടാകാം. സാധാരണ ഗെയിംപാഡുകൾക്ക് രണ്ട്.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>ട്രിഗറുകൾ</value></data>
@@ -4330,6 +4344,12 @@ PadForge ഇവ ഇപ്പോൾ അൺഇൻസ്റ്റാൾ ചെയ�
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>ഹാൻഡിൽ</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ഈ കൺട്രോളറിന്റെ ട്രിഗറുകൾ സജ്ജമാക്കുന്നു.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ഈ കൺട്രോളറിന്റെ ലൈറ്റുകൾ സജ്ജമാക്കുന്നു.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ഈ കൺട്രോളറിന്റെ ട്രിഗറുകളും ലൈറ്റുകളും സജ്ജമാക്കുന്നു.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} ഈ കൺട്രോളറിന്റെ ഇംപൾസ് ട്രിഗറുകളിൽ ട്രിഗർ വൈബ്രേഷനുകൾ പ്ലേ ചെയ്യുന്നു.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>മോഡ് ഇഫക്റ്റുകൾ മായ്ക്കുക</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>ഈ കൺട്രോളറിൽ ഗെയിം മോഡുകൾ സജ്ജമാക്കിയവ അവസാനിപ്പിക്കുന്നു. ഒരു മോഡ് വീണ്ടും അയയ്ക്കുന്നതുവരെ കൺട്രോളറിന്റെ സ്വന്തം ക്രമീകരണങ്ങൾ തിരികെ വരും.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>ഇടത്/വലത്</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>മുകളിൽ/താഴെ</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>അകത്ത്/പുറത്ത്</value></data>

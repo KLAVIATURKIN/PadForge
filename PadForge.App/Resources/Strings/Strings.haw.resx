@@ -144,6 +144,7 @@
   <!-- ═══ Dashboard ═══ -->
   <data name="FirstRun_Done" xml:space="preserve"><value>Pau</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Hāmeʻa</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Ke hoʻohana ʻia nei ka port {0} e kekahi polokalamu ʻē aʻe, e like me DSX. E pani iā ia a i ʻole e koho i kekahi port ʻē aʻe.</value></data>
   <data name="RemoteLink_Reject" xml:space="preserve"><value>Hōʻole</value></data>
 
   <!-- ═══ Settings ═══ -->

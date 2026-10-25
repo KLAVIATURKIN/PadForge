@@ -2374,6 +2374,9 @@ namespace PadForge.Services
             // Start DSU motion server if enabled.
             StartDsuServerIfEnabled();
 
+            // Start the server for DSX game mods if enabled (#529).
+            StartGameModServerIfEnabled();
+
             // Start web controller server if enabled.
             StartWebServerIfEnabled();
 
@@ -2544,6 +2547,7 @@ namespace PadForge.Services
             StopExternalControl();
             StopPeripheralOutputs();
             StopDsuServer();
+            StopGameModServer();
             StopWebServer();
             StopRemoteLink();
             StopAudioBassDetector();
@@ -3667,6 +3671,8 @@ namespace PadForge.Services
             UpdateKeyboardScreensStatus();
             // Novint Falcons (#521): same cadence, same shape.
             UpdateFalconStatus();
+            // Game mods (#529): same cadence, one read when nothing moved.
+            UpdateGameModLines();
 
             // Snapshot devices under lock to avoid cross-thread collection-modified
             // exceptions when the engine's UpdateDevices runs concurrently.
@@ -5333,6 +5339,7 @@ namespace PadForge.Services
             UpdateKeyboardScreenDeviceRow(row, ud);
             UpdateFalconDeviceRow(row, ud);
             UpdateAnalogKeyboardDeviceRow(row, ud);
+            UpdateGameModDeviceRow(row, ud);
         }
 
         /// <summary>
@@ -10696,6 +10703,25 @@ namespace PadForge.Services
                     StartDsuServerIfEnabled();
                 }
             }
+            else if (e.PropertyName == nameof(DashboardViewModel.EnableGameModServer))
+            {
+                if (_mainVm.Dashboard.EnableGameModServer)
+                    StartGameModServerIfEnabled();
+                else
+                    StopGameModServer();
+            }
+            else if (e.PropertyName == nameof(DashboardViewModel.GameModServerPort))
+            {
+                if (_mainVm.Dashboard.EnableGameModServer)
+                {
+                    StopGameModServer();
+                    StartGameModServerIfEnabled();
+                }
+            }
+            else if (e.PropertyName == nameof(DashboardViewModel.GameModDsxStandIn))
+            {
+                _gameModServer?.SetStandIn(_mainVm.Dashboard.GameModDsxStandIn);
+            }
             else if (e.PropertyName == nameof(DashboardViewModel.EnableWebController))
             {
                 if (_mainVm.Dashboard.EnableWebController)
@@ -13328,6 +13354,14 @@ namespace PadForge.Services
                 dash.DsuServerStatus = Strings.Instance.Common_Stopped;
             else
                 dash.DsuServerStatus = string.Format(Strings.Instance.Server_ListeningOn_Format, _mainVm.Dashboard.DsuMotionServerPort);
+
+            // Game mod server and the pad page lines (#529): the next tick
+            // rebuilds them in the new language.
+            if (_gameModServer == null)
+                dash.GameModServerStatus = Strings.Instance.Common_Stopped;
+            else
+                dash.GameModServerStatus = _gameModServer.FormatStatus();
+            _gameModLinesVersion = -1;
 
             // Head tracking (#355): drop the cache so the line rebuilds in
             // the new language whatever its state, Stopped included.
@@ -18677,6 +18711,9 @@ namespace PadForge.Services
                 VrSlotOrder            = SettingsManager.VrSlotOrder.ToArray(),
                 EnableDsuMotionServer = _mainVm.Dashboard.EnableDsuMotionServer,
                 DsuMotionServerPort = _mainVm.Dashboard.DsuMotionServerPort,
+                EnableGameModServer = _mainVm.Dashboard.EnableGameModServer,
+                GameModServerPort = _mainVm.Dashboard.GameModServerPort,
+                GameModDsxStandIn = _mainVm.Dashboard.GameModDsxStandIn,
                 EnableWebController = _mainVm.Dashboard.EnableWebController,
                 WebControllerPort = _mainVm.Dashboard.WebControllerPort,
                 EnableTouchpadOverlay = _mainVm.Dashboard.EnableTouchpadOverlay,
@@ -19689,6 +19726,12 @@ namespace PadForge.Services
             if (profile.DsuMotionServerPort >= 1024 && profile.DsuMotionServerPort <= 65535)
                 _mainVm.Dashboard.DsuMotionServerPort = profile.DsuMotionServerPort;
 
+            // ── Apply the game mod server settings (#529) ──
+            _mainVm.Dashboard.EnableGameModServer = profile.EnableGameModServer;
+            if (profile.GameModServerPort >= 1024 && profile.GameModServerPort <= 65535)
+                _mainVm.Dashboard.GameModServerPort = profile.GameModServerPort;
+            _mainVm.Dashboard.GameModDsxStandIn = profile.GameModDsxStandIn;
+
             // ── Apply web controller server settings ──
             _mainVm.Dashboard.EnableWebController = profile.EnableWebController;
             if (profile.WebControllerPort >= 1024 && profile.WebControllerPort <= 65535)
@@ -20041,6 +20084,9 @@ namespace PadForge.Services
                     profile.VrSlotOrder            = snapshot.VrSlotOrder;
                     profile.EnableDsuMotionServer = snapshot.EnableDsuMotionServer;
                     profile.DsuMotionServerPort = snapshot.DsuMotionServerPort;
+                    profile.EnableGameModServer = snapshot.EnableGameModServer;
+                    profile.GameModServerPort = snapshot.GameModServerPort;
+                    profile.GameModDsxStandIn = snapshot.GameModDsxStandIn;
                     profile.EnableWebController = snapshot.EnableWebController;
                     profile.WebControllerPort = snapshot.WebControllerPort;
                     profile.EnableTouchpadOverlay = snapshot.EnableTouchpadOverlay;

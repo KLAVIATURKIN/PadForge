@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port Legătură la distanță</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port server de mișcare</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Furnizează date de giroscop și accelerometru pentru Cemu, Dolphin, Yuzu etc.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Modificări de joc</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Permite modificărilor de joc create pentru DSX să seteze trăgacele adaptive, bara luminoasă, luminile de jucător și lumina microfonului dezactivat de pe controlerele PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Acceptare modificări de joc DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port modificări de joc</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Rulare substitut DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Unele modificări, precum DualSense4GTAV, se opresc singure dacă nu rulează un program numit DSX. Aceasta pornește un mic substitut cu acest nume cât timp serverul ascultă.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Funcționează cu modificări create pentru DSX, precum cele pentru GTA V, Red Dead Redemption 2, Skyrim și Forza. Cât timp serverul ascultă, PadForge își scrie portul acolo unde îl caută aceste modificări.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Ascultă pe :{0}. {1} trimite către controlerul virtual {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Ascultă pe :{0}. {1} trimite, dar niciun controler virtual nu are un controler PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Portul {0} este folosit de alt program, de exemplu DSX. Închideți-l sau alegeți alt port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>O modificare de joc</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funcționează cu OpenTrack și cu orice dispozitiv de urmărire care își trimite ieșirea prin UDP sau scrie în memoria partajată FreeTrack 2.0, precum și cu un mediu de execuție OpenXR de pe acest computer care poate rula o sesiune în fundal.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Citire taste G Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Citește tastele G prin Logitech G-key SDK. Necesită să ruleze Logitech Gaming Software 8.55 sau o versiune ulterioară. În acel program, trageți comanda G-key pe fiecare tastă din profilul PadForge. Setați acel profil ca persistent, altfel tastele ajung la PadForge doar când fereastra sa este în prim-plan. Un mouse G600 sau G300 trebuie, de asemenea, scos din modul de memorie integrată.</value></data>
@@ -832,7 +843,10 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Trăgaci drept</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Interschimbare motoare trăgaci stâng și drept</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Conversie vibrații trăgace adaptive</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Când un joc controlează acest slot ca DualSense virtual, efectele de tip vibrație ale trăgacelor adaptive se redau pe motoarele trăgacelor cu impuls ale acestui controler. Efectele de tip rezistență nu au echivalent în vibrații și sunt ignorate.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Când un joc controlează acest slot ca DualSense virtual sau o modificare de joc trimite efecte de trăgaci, efectele de tip vibrație ale trăgacelor adaptive se redau pe motoarele trăgacelor cu impuls ale acestui controler. Efectele de tip rezistență nu au echivalent în vibrații și sunt ignorate.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} setează aceste trăgace. Setările de aici revin când se oprește.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} trimite efecte de trăgaci. Cu Conversie vibrații trăgace adaptive activată, vibrațiile lor se redau aici.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} setează aceste lumini. Setările de aici revin când se oprește.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Testare trăgaci stâng</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Testare trăgaci drept</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Activitatea motoarelor trăgacelor</value></data>
@@ -889,7 +903,7 @@ O copie a versiunii anterioare se află în acest folder: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Trăgace adaptive</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Trăgace adaptive</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configurați efectele de feedback ale trăgacelor pe controlerul fizic DualSense atribuit. Efectele trăgacelor comandate de joc sunt transmise automat. Setările de aici adaugă un nivel configurat de utilizator, care rulează când niciun joc nu scrie efecte.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configurați efectele de feedback ale trăgacelor pe controlerul fizic DualSense atribuit. Efectele trăgacelor provenite de la un joc sau de la o modificare de joc sunt transmise automat. Setările de aici adaugă un nivel configurat de utilizator, care rulează când niciuna dintre ele nu scrie efecte.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Stickuri</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Zone moarte, anti-zone moarte, curbe de sensibilitate și calibrarea decalajului centrului pentru fiecare stick. Fiecare secțiune de mai jos vizează un stick analogic de pe ieșirea activă. Profilurile de tip Extins pot avea până la patru stickuri. Gamepadurile standard au două.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Trăgace</value></data>
@@ -4385,6 +4399,12 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Mâner</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} setează trăgacele acestui controler.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} setează luminile acestui controler.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} setează trăgacele și luminile acestui controler.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} redă vibrații de trăgaci pe trăgacele cu impuls ale acestui controler.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Ștergere efecte modificări</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Încheie ce au setat modificările de joc pe acest controler. Setările proprii ale controlerului revin până când o modificare trimite din nou.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Stânga/Dreapta</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Sus/Jos</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Înăuntru/Afară</value></data>

@@ -111,6 +111,7 @@
   <data name="FirstRun_Next" xml:space="preserve"><value>Zvinotevera</value></data>
   <data name="FirstRun_Done" xml:space="preserve"><value>Zvapera</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Mudziyo</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Pota {0} iri kushandiswa nechimwe chirongwa, somuenzaniso DSX. Chivhare kana usarudze imwe pota.</value></data>
   <data name="RemoteLink_Connect" xml:space="preserve"><value>Batanidza</value></data>
   <data name="RemoteLink_Reject" xml:space="preserve"><value>Ramba</value></data>
 
@@ -249,6 +250,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Trigger yekuruboshwe</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Trigger yekurudyi</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} iri kuseta ma-trigger aya. Masetingi ari pano anodzoka kana yamira.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} iri kuseta mwenje uyu. Masetingi ari pano anodzoka kana yamira.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Edza trigger yekuruboshwe</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Edza trigger yekurudyi</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Dzorera trigger yekuruboshwe</value></data>
@@ -1224,6 +1227,9 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Mubato</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} iri kuseta ma-trigger ekontiroura iyi.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} iri kuseta mwenje wekontiroura iyi.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} iri kuseta ma-trigger nemwenje zvekontiroura iyi.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Kuruboshwe/Kurudyi</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Kumusoro/Pasi</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Mukati/Kunze</value></data>

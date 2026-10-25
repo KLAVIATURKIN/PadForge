@@ -274,6 +274,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link 포트</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>모션 서버 포트</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu 등에 자이로 및 가속도계 데이터를 제공합니다.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>게임 모드</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>DSX용으로 만든 게임 모드가 PlayStation 컨트롤러의 적응형 트리거, 라이트바, 플레이어 조명, 음소거 조명을 설정할 수 있게 합니다.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX 게임 모드 허용</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>게임 모드 포트</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe 대역 실행</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>DualSense4GTAV 같은 일부 모드는 DSX라는 이름의 프로그램이 실행 중이지 않으면 스스로 꺼집니다. 서버가 수신 대기하는 동안 그 이름의 작은 대역 프로그램을 실행합니다.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>DSX용으로 만든 모드(GTA V, Red Dead Redemption 2, Skyrim, Forza용 등)와 함께 작동합니다. 서버가 수신 대기하는 동안 PadForge는 해당 모드가 찾는 위치에 포트를 기록합니다.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>:{0}에서 수신 대기 중. {1}이(가) 가상 컨트롤러 {2}에 전송 중입니다.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>:{0}에서 수신 대기 중. {1}이(가) 전송 중이지만 PlayStation 컨트롤러가 연결된 가상 컨트롤러가 없습니다.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>포트 {0}을(를) DSX 등 다른 프로그램이 사용 중입니다. 해당 프로그램을 닫거나 다른 포트를 선택하세요.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>게임 모드</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack와 UDP 출력을 보내거나 FreeTrack 2.0 공유 메모리에 쓰는 모든 트래커, 그리고 이 컴퓨터에 설치된, 백그라운드에서 세션을 실행할 수 있는 OpenXR 런타임과 함께 작동합니다.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G 키 읽기</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK로 G 키를 읽습니다. Logitech Gaming Software 8.55 이상이 실행 중이어야 합니다. 해당 소프트웨어에서 PadForge 프로필의 각 키에 G-key 명령을 끌어다 놓으세요. 그 프로필을 상시 프로필로 지정하지 않으면 PadForge 창이 앞에 있을 때만 키가 전달됩니다. 또한 G600 또는 G300 마우스는 온보드 모드가 아니어야 합니다.</value></data>
@@ -1719,7 +1730,7 @@
   <data name="About_DualSenseYDesc" xml:space="preserve"><value>USB 컨트롤러 오디오 패스스루의 참조 구현. WujekFoliarz 제작.</value></data>
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>어댑티브 트리거</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>어댑티브 트리거</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>할당된 물리적 DualSense의 트리거 효과를 구성합니다. 게임에서 보내는 트리거 효과는 자동으로 전달됩니다. 여기에서의 설정은 게임이 쓰고 있지 않을 때 동작하는 사용자 정의 레이어를 추가합니다.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>할당된 물리적 DualSense의 트리거 효과를 구성합니다. 게임이나 게임 모드에서 보내는 트리거 효과는 자동으로 전달됩니다. 여기에서의 설정은 둘 다 쓰고 있지 않을 때 동작하는 사용자 정의 레이어를 추가합니다.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>스틱</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>스틱별 데드존, 안티 데드존, 민감도 곡선 및 중심 오프셋 보정. 아래 각 섹션은 활성 출력의 한 아날로그 스틱을 대상으로 합니다. 확장 프로필은 최대 네 개의 스틱을, 표준 게임패드는 두 개를 가집니다.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>트리거</value></data>
@@ -1958,7 +1969,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>오른쪽 트리거</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>왼쪽과 오른쪽 트리거 모터 교체</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>적응형 트리거 진동 변환</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>게임이 이 슬롯을 가상 DualSense로 구동할 때 진동형 적응형 트리거 효과를 이 컨트롤러의 임펄스 트리거 모터로 재생합니다. 저항형 효과는 진동으로 대응할 수 없어 무시됩니다.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>게임이 이 슬롯을 가상 DualSense로 구동하거나 게임 모드가 트리거 효과를 보낼 때, 진동형 적응형 트리거 효과를 이 컨트롤러의 임펄스 트리거 모터로 재생합니다. 저항형 효과는 진동으로 대응할 수 없어 무시됩니다.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0}이(가) 이 트리거를 설정 중입니다. 중단하면 여기의 설정이 다시 적용됩니다.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0}이(가) 트리거 효과를 보내는 중입니다. 적응형 트리거 진동 변환을 켜면 해당 진동이 여기에서 재생됩니다.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0}이(가) 이 조명을 설정 중입니다. 중단하면 여기의 설정이 다시 적용됩니다.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>왼쪽 트리거 테스트</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>오른쪽 트리거 테스트</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>트리거 모터 작동</value></data>
@@ -4336,6 +4350,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>핸들</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0}이(가) 이 컨트롤러의 트리거를 설정 중입니다.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0}이(가) 이 컨트롤러의 조명을 설정 중입니다.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0}이(가) 이 컨트롤러의 트리거와 조명을 설정 중입니다.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0}이(가) 이 컨트롤러의 임펄스 트리거에서 트리거 진동을 재생 중입니다.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>모드 효과 지우기</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>게임 모드가 이 컨트롤러에 설정한 효과를 해제합니다. 모드가 다시 보낼 때까지 컨트롤러 자체 설정이 적용됩니다.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>왼쪽/오른쪽</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>위/아래</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>안쪽/바깥쪽</value></data>

@@ -113,6 +113,11 @@
   <data name="FirstRun_Skip" xml:space="preserve"><value>Laktawan</value></data>
   <data name="FirstRun_Next" xml:space="preserve"><value>Sumaruno</value></data>
   <data name="FirstRun_Done" xml:space="preserve"><value>Nalpasen</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Dagiti game mod</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Awaten dagiti DSX game mod</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port ti game mod</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Ti port {0} ket us-usaren ti sabali a programa, kas iti DSX. Irikep daytoy wenno mangpili iti sabali a port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Maysa a game mod</value></data>
   <data name="RemoteLink_Reject" xml:space="preserve"><value>Ilaksid</value></data>
 
   <!-- ═══ Settings ═══ -->
@@ -242,6 +247,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Kannigid a trigger</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Kannawan a trigger</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ti mangbalbaliw kadagitoy a trigger. Agsubli dagiti settings ditoy no agsardeng daytoy.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ti mangbalbaliw kadagitoy a silaw. Agsubli dagiti settings ditoy no agsardeng daytoy.</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>I-reset ti kannigid a trigger</value></data>
   <data name="Pad_ResetImpulseRight" xml:space="preserve"><value>I-reset ti kannawan a trigger</value></data>
   <data name="Pad_TriggerRouting_LeftTrigger" xml:space="preserve"><value>Kannigid a trigger</value></data>
@@ -1073,6 +1080,9 @@
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Addang</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ti mangbalbaliw kadagiti trigger daytoy a controller.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ti mangbalbaliw kadagiti silaw daytoy a controller.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ti mangbalbaliw kadagiti trigger ken silaw daytoy a controller.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Kannigid/Kannawan</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Ngato/Baba</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Uneg/Ruar</value></data>

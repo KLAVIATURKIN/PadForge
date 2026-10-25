@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port for Fjernkobling</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port for bevegelsesserver</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Gir gyro- og akselerometerdata til Cemu, Dolphin, Yuzu osv.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Spillmodder</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Lar spillmodder laget for DSX styre de adaptive avtrekkerne, lyslisten, spillerlysene og mute-lyset på PlayStation-kontrollerne dine.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Godta DSX-spillmodder</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port for spillmodder</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Kjør en DSX.exe-stedfortreder</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Noen modder, som DualSense4GTAV, slår seg av med mindre et program som heter DSX kjører. Dette kjører en liten stedfortreder med det navnet mens serveren lytter.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Fungerer med modder laget for DSX, for eksempel til GTA V, Red Dead Redemption 2, Skyrim og Forza. Mens serveren lytter, skriver PadForge porten sin der disse moddene ser etter den.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Lytter på :{0}. {1} sender til virtuell kontroller {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Lytter på :{0}. {1} sender, men ingen virtuell kontroller har en PlayStation-kontroller.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} er i bruk av et annet program, for eksempel DSX. Lukk det eller velg en annen port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>En spillmod</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Fungerer med OpenTrack og alle hodesporere som sender UDP-utdata eller skriver til delt minne for FreeTrack 2.0, og med et OpenXR-kjøretidsmiljø på denne maskinen som kan kjøre en økt i bakgrunnen.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Les Logitech G-taster</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Leser G-taster gjennom Logitech G-key SDK. Krever at Logitech Gaming Software 8.55 eller nyere kjører. I det programmet drar du G-key-kommandoen til hver tast i PadForge-profilen. Gjør profilen vedvarende, ellers når tastene bare fram til PadForge mens vinduet til PadForge er i forgrunnen. En G600- eller G300-mus må også være ute av modusen for innebygd minne.</value></data>
@@ -832,7 +843,10 @@ En kopi av den forrige versjonen ligger i denne mappen: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Høyre avtrekker</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Bytt om motorene i venstre og høyre avtrekker</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Oversett vibrasjoner fra adaptive avtrekkere</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Når et spill styrer dette sporet som en virtuell DualSense, spilles vibrasjonseffektene for adaptive avtrekkere av på Impulse Trigger-motorene i denne kontrolleren. Motstandseffekter har ingen vibrasjonsmotpart og ignoreres.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Når et spill styrer dette sporet som en virtuell DualSense, eller en spillmod sender avtrekkereffekter, spilles vibrasjonseffektene for adaptive avtrekkere av på Impulse Trigger-motorene i denne kontrolleren. Motstandseffekter har ingen vibrasjonsmotpart og ignoreres.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} stiller inn disse avtrekkerne. Innstillingene her kommer tilbake når den stopper.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} sender avtrekkereffekter. Med Oversett vibrasjoner fra adaptive avtrekkere på spilles vibrasjonene av her.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} stiller inn disse lysene. Innstillingene her kommer tilbake når den stopper.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Test venstre avtrekker</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Test høyre avtrekker</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Aktivitet i avtrekkermotorene</value></data>
@@ -889,7 +903,7 @@ En kopi av den forrige versjonen ligger i denne mappen: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptive avtrekkere</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptive avtrekkere</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfigurer tilbakemeldingseffekter for avtrekkerne på den tilordnede fysiske DualSense-kontrolleren. Avtrekkereffekter fra spillet videresendes automatisk. Innstillingene her legger til et brukerdefinert lag som kjører når ingen spill skriver.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfigurer tilbakemeldingseffekter for avtrekkerne på den tilordnede fysiske DualSense-kontrolleren. Avtrekkereffekter fra et spill eller en spillmod videresendes automatisk. Innstillingene her legger til et brukerdefinert lag som kjører når ingen av dem skriver.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Stikker</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Dødsoner, anti-dødsoner, følsomhetskurver og kalibrering av senterforskyvning per stikke. Hver del nedenfor gjelder én analog stikke på den aktive utgangen. Utvidede profiler kan ha opptil fire stikker. Vanlige gamepader har to.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Avtrekkere</value></data>
@@ -4385,6 +4399,12 @@ Vil du at PadForge skal avinstallere dem nå? Dette krever administratorrettighe
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Håndtak</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} stiller inn avtrekkerne på denne kontrolleren.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} stiller inn lysene på denne kontrolleren.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} stiller inn avtrekkerne og lysene på denne kontrolleren.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} spiller av avtrekkervibrasjoner på Impulse Triggers i denne kontrolleren.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Fjern modeffekter</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Avslutter det spillmodder har satt på denne kontrolleren. Kontrollerens egne innstillinger kommer tilbake til en mod sender på nytt.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Venstre/høyre</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Opp/ned</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Inn/ut</value></data>

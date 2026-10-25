@@ -293,6 +293,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Mlango wa Remote Link</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Mlango wa seva ya mwendo</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Hutoa data ya gyro na accelerometer kwa Cemu, Dolphin, Yuzu, n.k.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mod za Michezo</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Huruhusu mod za michezo zilizotengenezwa kwa DSX kuweka vichochezi vinavyojirekebisha, lightbar, taa za mchezaji na taa ya kunyamazisha ya vidhibiti vyako vya PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Kubali Mod za Michezo za DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Mlango wa Mod za Michezo</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Endesha Mbadala wa DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Baadhi ya mod, kama DualSense4GTAV, hujizima isipokuwa programu iitwayo DSX inaendeshwa. Hii huendesha mbadala mdogo wa jina hilo seva inaposikiliza.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Hufanya kazi na mod zilizotengenezwa kwa DSX, kama zile za GTA V, Red Dead Redemption 2, Skyrim na Forza. Seva inaposikiliza, PadForge huandika mlango wake mahali ambapo mod hizo huutafuta.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Inasikiliza kwenye :{0}. {1} inatuma kwa kidhibiti pepe {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Inasikiliza kwenye :{0}. {1} inatuma, lakini hakuna kidhibiti pepe chenye kidhibiti cha PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Mlango {0} unatumiwa na programu nyingine, kama DSX. Ifunge au chagua mlango mwingine.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Mod ya mchezo</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Inafanya kazi na OpenTrack na kifuatiliaji chochote kinachotuma towe lake la UDP au kuandika kumbukumbu ya pamoja ya FreeTrack 2.0, na pia na runtime ya OpenXR kwenye kompyuta hii inayoweza kuendesha kipindi chinichini.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Soma vitufe vya G vya Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Husoma vitufe vya G kupitia Logitech G-key SDK. Inahitaji Logitech Gaming Software 8.55 au mpya zaidi iwe inaendesha. Kwenye programu hiyo, buruta amri ya G-key hadi kila kitufe kwenye wasifu wa PadForge. Fanya wasifu huo uwe wa kudumu, la sivyo vitufe vinafika PadForge tu wakati dirisha lake liko mbele. Kipanya cha G600 au G300 pia lazima kiwe nje ya hali ya kumbukumbu ya ndani.</value></data>
@@ -814,7 +825,10 @@ Nakala ya toleo la awali iko kwenye folda hii: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Kichochezi cha Kulia</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Badilishana Motor za Vichochezi vya Kushoto na Kulia</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Tafsiri Mitetemo ya Vichochezi Vinavyojirekebisha</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Mchezo unapoendesha nafasi hii kama DualSense pepe, athari zake za vichochezi vinavyojirekebisha za aina ya mtetemo huchezwa kwenye motor za vichochezi vya impulse vya kidhibiti hiki. Athari za aina ya upinzani hazina kitu sawa na mtetemo na hupuuzwa.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Mchezo unapoendesha nafasi hii kama DualSense pepe, au mod ya mchezo inapotuma athari za vichochezi, athari za vichochezi vinavyojirekebisha za aina ya mtetemo huchezwa kwenye motor za vichochezi vya impulse vya kidhibiti hiki. Athari za aina ya upinzani hazina kitu sawa na mtetemo na hupuuzwa.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} inaweka vichochezi hivi. Mipangilio ya hapa hurudi inapoacha.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} inatuma athari za vichochezi. Ikiwa Tafsiri Mitetemo ya Vichochezi Vinavyojirekebisha imewashwa, mitetemo yake huchezwa hapa.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} inaweka taa hizi. Mipangilio ya hapa hurudi inapoacha.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Jaribu Kichochezi cha Kushoto</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Jaribu Kichochezi cha Kulia</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Shughuli ya Motor ya Kichochezi</value></data>
@@ -871,7 +885,7 @@ Nakala ya toleo la awali iko kwenye folda hii: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Vichochezi Vinavyojirekebisha</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Vichochezi Vinavyojirekebisha</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Sanidi athari za mrejesho wa vichochezi kwenye DualSense halisi iliyogawiwa. Athari za vichochezi zinazoendeshwa na mchezo hupelekwa kiotomatiki. Mipangilio ya hapa huongeza tabaka lililosanidiwa na mtumiaji linalofanya kazi pale mchezo hauandiki.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Sanidi athari za mrejesho wa vichochezi kwenye DualSense halisi iliyogawiwa. Athari za vichochezi kutoka kwa mchezo au mod ya mchezo hupelekwa kiotomatiki. Mipangilio ya hapa huongeza tabaka lililosanidiwa na mtumiaji linalofanya kazi pale ambapo mchezo wala mod ya mchezo haviandiki.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Vijiti</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Deadzone kwa kila kijiti, anti-deadzone, mikunjo ya unyeti, na usawazishaji wa mkengeuko wa kituo. Kila sehemu iliyo hapa chini inalenga kijiti kimoja cha analogi kwenye matokeo yanayotumika. Wasifu uliopanuliwa unaweza kuwa na hadi vijiti vinne. Gamepad za kawaida zina viwili.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Vichochezi</value></data>
@@ -4295,6 +4309,12 @@ Ungependa PadForge iviondoe sasa? Hii inahitaji ruhusa za msimamizi na inaweza k
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Kishikio</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} inaweka vichochezi vya kidhibiti hiki.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} inaweka taa za kidhibiti hiki.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} inaweka vichochezi na taa za kidhibiti hiki.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} inacheza mitetemo ya vichochezi kwenye vichochezi vya impulse vya kidhibiti hiki.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Futa Athari za Mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Humaliza kile ambacho mod za michezo ziliweka kwenye kidhibiti hiki. Mipangilio yake yenyewe hurudi hadi mod itume tena.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Kushoto/Kulia</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Juu/Chini</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ndani/Nje</value></data>

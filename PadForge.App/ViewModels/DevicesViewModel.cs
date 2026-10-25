@@ -143,6 +143,17 @@ namespace PadForge.ViewModels
         public event EventHandler FalconCalibrateRequested;
         public void RequestFalconCalibrate() => FalconCalibrateRequested?.Invoke(this, EventArgs.Empty);
 
+        /// <summary>Clear Mod Effects on a controller's panel (#529): what
+        /// the DSX game mods hold on every virtual controller it feeds ends,
+        /// and its own settings return until a mod sends again.</summary>
+        public void ClearModEffects()
+        {
+            var device = _selectedDevice;
+            if (device == null) return;
+            Common.Input.GameModEffects.ClearDevice(device.InstanceGuid);
+            device.GameModLine = string.Empty;
+        }
+
         /// <summary>Reads the offer for the selected device. Only a row whose
         /// IDs belong to an opt-in device costs a sweep of the USB
         /// nodes.</summary>

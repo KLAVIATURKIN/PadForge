@@ -165,6 +165,7 @@
   <data name="Dashboard_Slot" xml:space="preserve"><value>Iddoo</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Meeshaa</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Poortii</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Poortiin {0} sagantaa biraatiin, kan akka DSX, hojii irra jira. Cufi ykn poortii biraa filadhu.</value></data>
   <data name="RemoteLink_Connect" xml:space="preserve"><value>Walqunnamsiisi</value></data>
   <data name="RemoteLink_Connected" xml:space="preserve"><value>Walqunnameera</value></data>
   <data name="RemoteLink_Reject" xml:space="preserve"><value>Didi</value></data>
@@ -312,6 +313,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} tiriigarii kana qindeessaa jira. Yeroo inni dhaabbatu, qindaa'inni asii ni deebi'a.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ibsaa kana qindeessaa jira. Yeroo inni dhaabbatu, qindaa'inni asii ni deebi'a.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Tiriigarii bitaa qori</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Tiriigarii mirgaa qori</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Tiriigarii bitaa deebisi</value></data>
@@ -1779,6 +1782,9 @@
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Tarkaanfii</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} tiriigarii kontirolaa kanaa qindeessaa jira.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ibsaa kontirolaa kanaa qindeessaa jira.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} tiriigarii fi ibsaa kontirolaa kanaa qindeessaa jira.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Bitaa/Mirga</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Ol/Gadi</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Keessa/Ala</value></data>

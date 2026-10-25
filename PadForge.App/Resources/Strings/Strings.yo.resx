@@ -142,6 +142,12 @@
   <data name="Dashboard_Slot" xml:space="preserve"><value>Àyè</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Ẹ̀rọ</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Pọ́ọ̀tì</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Àwọn mod eré</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Gba àwọn mod eré DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Pọ́ọ̀tì mod eré</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Mú àrọ́pò DSX.exe ṣiṣẹ́</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Pọ́ọ̀tì {0} ti wà ní lílò lọ́wọ́ ìṣàfilọ́lẹ̀ mìíràn, bíi DSX. Pa á tàbí yan pọ́ọ̀tì mìíràn.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Mod eré kan</value></data>
   <data name="RemoteLink_Connect" xml:space="preserve"><value>Sopọ̀</value></data>
   <data name="RemoteLink_Connected" xml:space="preserve"><value>Ti sopọ̀</value></data>
   <data name="RemoteLink_Reject" xml:space="preserve"><value>Kọ̀ ọ́</value></data>
@@ -264,6 +270,8 @@
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Tírígà òsì</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Tírígà ọ̀tún</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Pààrọ̀ mọ́tò tírígà òsì àti ọ̀tún</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ń ṣètò àwọn tírígà wọ̀nyí. Ètò ibí yìí yóò padà nígbà tí ó bá dúró.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ń ṣètò àwọn ìmọ́lẹ̀ wọ̀nyí. Ètò ibí yìí yóò padà nígbà tí ó bá dúró.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Dán tírígà òsì wò</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Dán tírígà ọ̀tún wò</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Tún tírígà òsì tò</value></data>
@@ -1700,6 +1708,12 @@
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Ìgbésẹ̀</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ń ṣètò àwọn tírígà ẹ̀rọ ìdarí yìí.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ń ṣètò àwọn ìmọ́lẹ̀ ẹ̀rọ ìdarí yìí.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ń ṣètò àwọn tírígà àti ìmọ́lẹ̀ ẹ̀rọ ìdarí yìí.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} ń mú ìmìtìtì tírígà ṣiṣẹ́ lórí àwọn impulse trigger ẹ̀rọ ìdarí yìí.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Pa ipa àwọn mod rẹ́</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Ó fòpin sí ohun tí àwọn mod eré ṣètò lórí ẹ̀rọ ìdarí yìí. Ètò tirẹ̀ yóò padà títí mod kan yóò fi tún fi nǹkan ránṣẹ́.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Òsì/Ọ̀tún</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Òkè/Ìsàlẹ̀</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Inú/Òde</value></data>

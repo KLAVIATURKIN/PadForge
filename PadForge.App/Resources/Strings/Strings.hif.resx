@@ -104,6 +104,7 @@
   <data name="FirstRun_Skip" xml:space="preserve"><value>Chhodo</value></data>
   <data name="FirstRun_Next" xml:space="preserve"><value>Aage</value></data>
   <data name="FirstRun_Done" xml:space="preserve"><value>Khatam</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Game mod</value></data>
   <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>Naya code</value></data>
 
   <!-- ═══ Settings ═══ -->
@@ -851,6 +852,7 @@
   <data name="Macro_Pan_Direction" xml:space="preserve"><value>Taraf</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Mod ke effect hatao</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Upar/Niche</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Andar/Bahar</value></data>
   <data name="Falcon_Button_Format" xml:space="preserve"><value>Button {0}</value></data>

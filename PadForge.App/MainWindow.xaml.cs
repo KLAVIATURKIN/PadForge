@@ -659,6 +659,9 @@ namespace PadForge
             {
                 if (e.PropertyName is nameof(DashboardViewModel.EnableDsuMotionServer)
                      or nameof(DashboardViewModel.DsuMotionServerPort)
+                     or nameof(DashboardViewModel.EnableGameModServer)
+                     or nameof(DashboardViewModel.GameModServerPort)
+                     or nameof(DashboardViewModel.GameModDsxStandIn)
                      or nameof(DashboardViewModel.HeadTrackingEnabled)
                      or nameof(DashboardViewModel.HeadTrackingUdpPort)
                      or nameof(DashboardViewModel.HeadTrackingFreeTrack)

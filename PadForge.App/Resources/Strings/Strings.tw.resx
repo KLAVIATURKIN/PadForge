@@ -162,6 +162,7 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Benkum trigger</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Nifa trigger</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} rehyehyɛ nkanea yi. Sɛ ɛgyae a, nhyehyɛe a ɛwɔ ha no bɛsan aba.</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Reset benkum trigger</value></data>
   <data name="Pad_ResetImpulseRight" xml:space="preserve"><value>Reset nifa trigger</value></data>
   <data name="Pad_TriggerRouting_LeftTrigger" xml:space="preserve"><value>Benkum trigger</value></data>
@@ -665,6 +666,7 @@
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Anammɔn</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} rehyehyɛ controller yi nkanea.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Benkum/Nifa</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Soro/Fam</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Mu/Abɔnten</value></data>

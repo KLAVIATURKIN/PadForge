@@ -2208,6 +2208,77 @@
                 </StackPanel>
             </Border>
 
+            <!-- ═══ Game Mods (#529) ═══ -->
+            <!-- The UDP server DSX game mods send to. A local server with a
+                 port, so the Motion Server's card control for control, with
+                 the DSX.exe stand-in switch added and a status line that
+                 wraps, since it names the program sending. -->
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,12">
+                <!-- EA86 = Segoe MDL2 Puzzle, a piece added to a game. -->
+                <reset:GlyphText Text="&#xEA86;" Style="{StaticResource SectionGlyph}"/>
+                <TextBlock Text="{Binding Dashboard_GameMods, Source={x:Static strings:Strings.Instance}, Converter={StaticResource UpperConverter}}" Style="{StaticResource SectionTitle}"/>
+            </StackPanel>
+
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,0,0">
+                <StackPanel>
+                    <TextBlock Text="{Binding Dashboard_GameModsDescription, Source={x:Static strings:Strings.Instance}}"
+                               Style="{StaticResource CardDescription}" Margin="0,0,0,12"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <CheckBox VerticalAlignment="Center" Content="{Binding Dashboard_EnableGameMods, Source={x:Static strings:Strings.Instance}}"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  IsChecked="{Binding EnableGameModServer}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="EnableGameModServer" SettingLabel="{Binding Dashboard_EnableGameMods, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DashboardViewModel_EnableGameModServer_2230"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <TextBlock Text="{Binding Dashboard_Port, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                   Margin="0,0,8,0"/>
+                        <ui:NumberBox Value="{Binding GameModServerPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=1000}"
+                                      Minimum="1024" Maximum="65535"
+                                      SpinButtonPlacementMode="Inline" Width="200"/>
+                        <reset:SettingResetButton Command="{Binding ResetGameModPortCommand}" SettingLabel="{Binding Dashboard_GameModPort, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                        <CheckBox VerticalAlignment="Center" Content="{Binding Dashboard_GameModStandIn, Source={x:Static strings:Strings.Instance}}"
+                                  ToolTip="{Binding Dashboard_GameModStandIn_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                  Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                  IsChecked="{Binding GameModDsxStandIn}"/>
+                        <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="GameModDsxStandIn" SettingLabel="{Binding Dashboard_GameModStandIn, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_DashboardViewModel_GameModDsxStandIn_2246"/>
+                    </StackPanel>
+                    <DockPanel Margin="0,0,0,4">
+                        <!-- Serving = flame, as on the Motion Server card: the
+                             server's running truth, not the switch. -->
+                        <Path DockPanel.Dock="Left" FlowDirection="LeftToRight" Data="{StaticResource FlameOuterGeometry}"
+                              Width="11" Height="11" Stretch="Uniform"
+                              VerticalAlignment="Top" Margin="0,3,6,0">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Setter Property="Fill" Value="Transparent"/>
+                                    <Setter Property="Stroke" Value="{DynamicResource TextFillColorTertiaryBrush}"/>
+                                    <Setter Property="StrokeThickness" Value="1.1"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsGameModServerRunning}" Value="True">
+                                            <Setter Property="Fill" Value="{DynamicResource EmberBrush}"/>
+                                            <Setter Property="Stroke" Value="{x:Null}"/>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect Color="#FF6B2C" BlurRadius="8" ShadowDepth="0" Opacity="0.5"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                        <TextBlock common:LiveText.Polite="True" Text="{Binding GameModServerStatus}" FontSize="12"
+                                   FontFamily="{StaticResource TelemetryFontFamily}" TextWrapping="Wrap"
+                                   Foreground="{DynamicResource ColdBrush}"/>
+                    </DockPanel>
+                    <TextBlock Text="{Binding Dashboard_GameModsFooter, Source={x:Static strings:Strings.Instance}}" TextWrapping="Wrap"
+                               FontSize="12" Foreground="{DynamicResource TextFillColorTertiaryBrush}" Margin="0,4,0,0"/>
+                </StackPanel>
+            </Border>
+
             <!-- ═══ Overlays (menu #9 B-17, shift layer, profile switch) ═══ -->
             <StackPanel Orientation="Horizontal" Margin="0,20,0,12">
                 <!-- E700 = Segoe MDL2 GlobalNavButton, the canonical menu glyph. -->

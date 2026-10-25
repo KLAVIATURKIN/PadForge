@@ -274,6 +274,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link ポート</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>モーション サーバー ポート</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu、Dolphin、Yuzu などにジャイロおよび加速度センサーのデータを提供します。</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>ゲーム MOD</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>DSX 向けに作られたゲーム MOD が、PlayStation コントローラーのアダプティブトリガー、ライトバー、プレイヤーライト、ミュートライトを設定できるようにします。</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX 向けゲーム MOD を受け付ける</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>ゲーム MOD ポート</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe の代替プログラムを実行</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>DualSense4GTAV など、DSX という名前のプログラムが動作していないと自動的に無効になる MOD があります。サーバーがリッスンしている間、その名前の小さな代替プログラムを実行します。</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>DSX 向けに作られた MOD に対応しています。GTA V、Red Dead Redemption 2、Skyrim、Forza 向けの MOD などがあります。サーバーがリッスンしている間、PadForge は MOD が探す場所にポート番号を書き込みます。</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>:{0} でリッスン中。{1} が仮想コントローラー {2} に送信中です。</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>:{0} でリッスン中。{1} が送信中ですが、PlayStation コントローラーを持つ仮想コントローラーがありません。</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>ポート {0} は DSX などの別のプログラムが使用中です。そのプログラムを閉じるか、別のポートを選んでください。</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>ゲーム MOD</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack や、UDP 出力を送信するまたは FreeTrack 2.0 の共有メモリに書き込むあらゆるトラッカー、およびこのマシンにインストールされた、バックグラウンドでセッションを実行できる OpenXR ランタイムで動作します。</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G キーを読み取る</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK で G キーを読み取ります。Logitech Gaming Software 8.55 以降が実行されている必要があります。そのソフトで、PadForge プロファイルの各キーに G-key コマンドをドラッグしてください。そのプロファイルを常設に設定しない場合、キーは PadForge のウィンドウが前面にあるときだけ届きます。また、G600 または G300 マウスはオンボードモードを解除しておく必要があります。</value></data>
@@ -1719,7 +1730,7 @@
   <data name="About_DualSenseYDesc" xml:space="preserve"><value>USBコントローラー音声パススルーの参照実装。WujekFoliarz作。</value></data>
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>アダプティブトリガー</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>アダプティブトリガー</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>割り当てられた物理 DualSense のトリガーエフェクトを設定します。ゲーム由来のトリガーエフェクトは自動的に転送されます。ここでの設定は、ゲームが書き込んでいないときに動作するユーザー設定レイヤーを追加します。</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>割り当てられた物理 DualSense のトリガーエフェクトを設定します。ゲームまたはゲーム MOD からのトリガーエフェクトは自動的に転送されます。ここでの設定は、どちらも書き込んでいないときに動作するユーザー設定レイヤーを追加します。</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>スティック</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>スティックごとのデッドゾーン、アンチデッドゾーン、感度カーブ、中心オフセットキャリブレーション。下記の各セクションはアクティブな出力上の 1 本のアナログスティックを対象とします。拡張プロファイルは最大 4 本のスティックを持ち、標準ゲームパッドは 2 本です。</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>トリガー</value></data>
@@ -1958,7 +1969,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>右トリガー</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>左右のトリガーモーターを入れ替える</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>アダプティブトリガーの振動を変換</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>ゲームがこのスロットを仮想 DualSense として駆動する場合、振動系のアダプティブトリガーエフェクトをこのコントローラーのインパルストリガーモーターで再生します。抵抗系のエフェクトは振動に相当するものがないため無視されます。</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>ゲームがこのスロットを仮想 DualSense として駆動する場合、またはゲーム MOD がトリガーエフェクトを送信する場合、振動系のアダプティブトリガーエフェクトをこのコントローラーのインパルストリガーモーターで再生します。抵抗系のエフェクトは振動に相当するものがないため無視されます。</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} がこれらのトリガーを設定しています。停止すると、ここでの設定に戻ります。</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} がトリガーエフェクトを送信しています。「アダプティブトリガーの振動を変換」をオンにすると、その振動がここで再生されます。</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} がこれらのライトを設定しています。停止すると、ここでの設定に戻ります。</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>左トリガーをテスト</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>右トリガーをテスト</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>トリガーモーターの動作</value></data>
@@ -4336,6 +4350,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>ハンドル</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} がこのコントローラーのトリガーを設定しています。</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} がこのコントローラーのライトを設定しています。</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} がこのコントローラーのトリガーとライトを設定しています。</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} がこのコントローラーのインパルストリガーでトリガーの振動を再生しています。</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>MOD エフェクトを解除</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>ゲーム MOD がこのコントローラーに設定した内容を終了します。MOD が再び送信するまで、コントローラー自身の設定に戻ります。</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>左右</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>上下</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>手前/奥</value></data>

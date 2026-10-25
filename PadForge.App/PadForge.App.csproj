@@ -303,6 +303,15 @@
     <!-- Steam Workshop community-config import (#9): anonymous Steam clients,
          VDF parser, typed Steam Input model, translator, cache. -->
     <ProjectReference Include="..\PadForge.SteamWorkshop\PadForge.SteamWorkshop.csproj" />
+    <!-- DSX.exe, the stand-in some DSX game mods look for (#529). A .NET
+         Framework program, so it is built for its own framework and none of
+         this app's, and its file is embedded below rather than referenced. -->
+    <ProjectReference Include="..\PadForge.DsxStandIn\PadForge.DsxStandIn.csproj"
+                      ReferenceOutputAssembly="false"
+                      SkipGetTargetFrameworkProperties="true"
+                      UndefineProperties="TargetFramework;RuntimeIdentifier;SelfContained;PublishSingleFile"
+                      OutputItemType="DsxStandInBuilt"
+                      Private="false" />
     <!-- HIDMaestro SDK, pre-built release DLL, NOT a ProjectReference.
          Using a ProjectReference would build from source and pick up
          unstable in-progress work from the HIDMaestro repo. Update by
@@ -910,6 +919,18 @@
        WriteOnlyWhenDifferent keeps an unchanged commit from recompiling, and
        the target is harmless in WPF's second compile pass over the
        _wpftmp copy of this project: it writes the same file. -->
+  <!-- DSX.exe rides inside the app under one name (#529), and DsxStandIn
+       writes it to the temp folder and starts it. A build without it would
+       leave Run a DSX.exe Stand-In doing nothing, so its absence stops the
+       build. -->
+  <Target Name="EmbedDsxStandIn" AfterTargets="ResolveProjectReferences">
+    <Error Condition="'@(DsxStandInBuilt)' == '' and '$(DesignTimeBuild)' != 'true'"
+           Text="PadForge.DsxStandIn produced no DSX.exe to embed." />
+    <ItemGroup>
+      <EmbeddedResource Include="@(DsxStandInBuilt)" LogicalName="PadForge.DsxStandIn.exe" WithCulture="false" />
+    </ItemGroup>
+  </Target>
+
   <Target Name="StampBuildIdentity" BeforeTargets="CoreCompile">
     <PropertyGroup>
       <PadForgeBuildNumber></PadForgeBuildNumber>

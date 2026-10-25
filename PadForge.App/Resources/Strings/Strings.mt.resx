@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port ta' Remote Link</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port tas-server tal-moviment</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Jipprovdi data tal-ġiroskopju u tal-aċċelerometru lil Cemu, Dolphin, Yuzu, eċċ.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mods tal-logħob</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Iħalli lill-mods tal-logħob magħmula għal DSX jikkontrollaw it-triggers adattivi, il-lightbar, id-dwal tal-plejer u d-dawl tal-mute tal-kontrolluri PlayStation tiegħek.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Aċċetta l-mods tal-logħob ta' DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port tal-mods tal-logħob</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Ħaddem sostitut ta' DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Xi mods, bħal DualSense4GTAV, jitfu lilhom infushom jekk ma jkunx qed jaħdem programm jismu DSX. Dan iħaddem sostitut żgħir b'dak l-isem waqt li s-server ikun qed jisma'.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Jaħdem ma' mods magħmula għal DSX, bħal dawk għal GTA V, Red Dead Redemption 2, Skyrim u Forza. Waqt li s-server ikun qed jisma', PadForge jikteb il-port tiegħu fejn dawk il-mods ifittxuh.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Qed jisma' fuq :{0}. {1} qed jibgħat lill-kontrollur virtwali {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Qed jisma' fuq :{0}. {1} qed jibgħat, imma l-ebda kontrollur virtwali m'għandu kontrollur PlayStation fuqu.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Il-port {0} qed jintuża minn programm ieħor, bħal DSX. Agħlqu jew agħżel port ieħor.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Mod ta' logħba</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Jaħdem ma' OpenTrack u ma' kull tracker li jibgħat l-output UDP tiegħu jew jikteb fil-memorja kondiviża FreeTrack 2.0, u ma' runtime OpenXR fuq din il-magna li jista' jħaddem sessjoni fl-isfond.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Aqra l-G-keys ta' Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Jaqra l-G-keys permezz tas-SDK G-key ta' Logitech. Jeħtieġ Logitech Gaming Software 8.55 jew aktar recenti jaħdem. F'dak is-software, kaxkar il-kmand G-key fuq kull tast fil-profil ta' PadForge. Agħmel dak il-profil persistenti, inkella t-tasti jaslu f'PadForge biss waqt li t-tieqa tiegħu tkun quddiem. Maws G600 jew G300 irid ukoll ikun barra mill-modalità tal-memorja interna.</value></data>
@@ -816,7 +827,10 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Trigger tal-lemin</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Aqleb il-muturi tat-trigger tax-xellug u tal-lemin</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Ittraduċi l-vibrazzjonijiet tat-triggers adattivi</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Meta logħba tħaddem dan is-slot bħala DualSense virtwali, l-effetti tat-triggers adattivi tat-tip vibrazzjoni jindaqqu fuq il-muturi tal-impulse triggers ta' dan il-kontrollur. L-effetti tat-tip reżistenza m'għandhomx ekwivalenti ta' vibrazzjoni u jiġu injorati.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Meta logħba tħaddem dan is-slot bħala DualSense virtwali, jew mod ta' logħba jibgħat effetti tat-triggers, l-effetti tat-triggers adattivi tat-tip vibrazzjoni jindaqqu fuq il-muturi tal-impulse triggers ta' dan il-kontrollur. L-effetti tat-tip reżistenza m'għandhomx ekwivalenti ta' vibrazzjoni u jiġu injorati.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} qed jikkontrolla dawn it-triggers. Is-settings ta' hawn jerġgħu lura meta jieqaf.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} qed jibgħat effetti tat-triggers. Meta “Ittraduċi l-vibrazzjonijiet tat-triggers adattivi” tkun mixgħula, il-vibrazzjonijiet tagħhom jindaqqu hawn.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} qed jikkontrolla dawn id-dwal. Is-settings ta' hawn jerġgħu lura meta jieqaf.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Ittestja t-trigger tax-xellug</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Ittestja t-trigger tal-lemin</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Attività tal-muturi tat-triggers</value></data>
@@ -873,7 +887,7 @@ Kopja tal-verżjoni ta' qabel tinsab f'dan il-folder: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Triggers adattivi</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Triggers adattivi</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Ikkonfigura l-effetti ta' feedback tat-triggers fuq id-DualSense fiżiku assenjat. L-effetti tat-triggers li tibgħat il-logħba jintbagħtu awtomatikament. Is-settings hawn iżidu saff ikkonfigurat mill-utent li jaħdem meta l-ebda logħba ma tkun qed tikteb.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Ikkonfigura l-effetti ta' feedback tat-triggers fuq id-DualSense fiżiku assenjat. L-effetti tat-triggers minn logħba jew minn mod ta' logħba jintbagħtu awtomatikament. Is-settings hawn iżidu saff ikkonfigurat mill-utent li jaħdem meta l-ebda wieħed minnhom ma jkun qed jikteb.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Sticks</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Żoni mejta, anti-żoni mejta, kurvi tas-sensittività u kalibrazzjoni tal-offset taċ-ċentru għal kull stick. Kull taqsima hawn taħt hija għal stick analogu wieħed fuq l-output attiv. Il-profili Extended jista' jkollhom sa erba' sticks. Il-gamepads standard għandhom tnejn.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Triggers</value></data>
@@ -4296,6 +4310,12 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Maqbad</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} qed jikkontrolla t-triggers ta' dan il-kontrollur.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} qed jikkontrolla d-dwal ta' dan il-kontrollur.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} qed jikkontrolla t-triggers u d-dwal ta' dan il-kontrollur.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} qed idoqq vibrazzjonijiet tat-triggers fuq l-impulse triggers ta' dan il-kontrollur.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Neħħi l-effetti tal-mods</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Itemm dak li biddlu l-mods tal-logħob fuq dan il-kontrollur. Is-settings tiegħu stess jerġgħu lura sakemm mod jibgħat mill-ġdid.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Xellug/Lemin</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Fuq/Isfel</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ġewwa/Barra</value></data>

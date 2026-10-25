@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>የርቀት ትስስር ወደብ</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>የእንቅስቃሴ አገልጋይ ወደብ</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>ለCemu፣ Dolphin፣ Yuzu እና ለሌሎችም የጋይሮ እና የአክስሌሮሜትር ውሂብ ያቀርባል።</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>የጨዋታ ሞዶች</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>ለDSX የተሠሩ የጨዋታ ሞዶች የPlayStation መቆጣጠሪያዎችዎን አዳፕቲቭ ትሪገሮች፣ የብርሃን አሞሌ፣ የተጫዋች መብራቶች እና የድምጸ-ከል መብራት እንዲያዘጋጁ ያስችላል።</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>የDSX የጨዋታ ሞዶችን ተቀበል</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>የጨዋታ ሞድ ወደብ</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>የDSX.exe ተተኪ አሂድ</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>አንዳንድ ሞዶች፣ ለምሳሌ DualSense4GTAV፣ DSX የሚባል ፕሮግራም ካልሠራ ራሳቸውን ያቦዝናሉ። ይህ አገልጋዩ በሚያዳምጥበት ጊዜ በዚያ ስም ትንሽ ተተኪ ያሂዳል።</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>ለDSX ከተሠሩ ሞዶች ጋር ይሠራል፣ ለምሳሌ ለGTA V፣ Red Dead Redemption 2፣ Skyrim እና Forza ከተሠሩት ጋር። አገልጋዩ በሚያዳምጥበት ጊዜ PadForge ወደቡን እነዚያ ሞዶች በሚፈልጉት ቦታ ይጽፋል።</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>በ:{0} ላይ በማዳመጥ ላይ። {1} ወደ ምናባዊ መቆጣጠሪያ {2} እየላከ ነው።</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>በ:{0} ላይ በማዳመጥ ላይ። {1} እየላከ ነው፣ ነገር ግን የPlayStation መቆጣጠሪያ የተመደበለት ምናባዊ መቆጣጠሪያ የለም።</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>ወደብ {0} በሌላ ፕሮግራም፣ ለምሳሌ በDSX፣ በጥቅም ላይ ነው። ያንን ፕሮግራም ዝጋ ወይም ሌላ ወደብ ምረጥ።</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>አንድ የጨዋታ ሞድ</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>ከOpenTrack እና የUDP ውጽዓቱን ከሚልክ ወይም የFreeTrack 2.0 የጋራ ማህደረ ትውስታ ከሚጽፍ ማንኛውም መከታተያ ጋር ይሠራል፣ እንዲሁም በዚህ ኮምፒውተር ላይ ክፍለ ጊዜን ከበስተጀርባ ማስኬድ ከሚችል የOpenXR ራንታይም ጋር ይሠራል።</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>የLogitech G ቁልፎችን አንብብ</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>የG-key ቁልፎችን በLogitech G-key SDK በኩል ያነባል። Logitech Gaming Software 8.55 ወይም ከዚያ በኋላ ያለው እየሄደ መሆን አለበት። በዚያ ሶፍትዌር ውስጥ የG-key ትዕዛዙን በPadForge መገለጫ ውስጥ ባለው በእያንዳንዱ ቁልፍ ላይ ይጎትቱ። ያንን መገለጫ ቋሚ ያድርጉት፣ አለበለዚያ ቁልፎቹ PadForge የሚደርሱት መስኮቱ ፊት ለፊት ሲሆን ብቻ ነው። G600 ወይም G300 መዳፊት ደግሞ ከውስጠ-መሣሪያ ማህደረ ትውስታ ሁነታ መውጣት አለበት።</value></data>
@@ -816,7 +827,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>ቀኝ ትሪገር</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>የግራ እና የቀኝ ትሪገር ሞተሮችን አለዋውጥ</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>የአዳፕቲቭ ትሪገር ንዝረቶችን ተርጉም</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>አንድ ጨዋታ ይህን ቦታ እንደ ምናባዊ DualSense ሲያንቀሳቅስ፣ የንዝረት ዓይነት የአዳፕቲቭ ትሪገር ውጤቶቹ በዚህ መቆጣጠሪያ የኢምፐልስ ትሪገር ሞተሮች ላይ ይጫወታሉ። የተቃውሞ ዓይነት ውጤቶች የንዝረት አቻ ስለሌላቸው ችላ ይባላሉ።</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>አንድ ጨዋታ ይህን ቦታ እንደ ምናባዊ DualSense ሲያንቀሳቅስ ወይም አንድ የጨዋታ ሞድ የትሪገር ውጤቶችን ሲልክ፣ የንዝረት ዓይነት የአዳፕቲቭ ትሪገር ውጤቶቹ በዚህ መቆጣጠሪያ የኢምፐልስ ትሪገር ሞተሮች ላይ ይጫወታሉ። የተቃውሞ ዓይነት ውጤቶች የንዝረት አቻ ስለሌላቸው ችላ ይባላሉ።</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} እነዚህን ትሪገሮች እያዘጋጀ ነው። ሲያቆም እዚህ ያሉት ቅንብሮች ይመለሳሉ።</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} የትሪገር ውጤቶችን እየላከ ነው። «የአዳፕቲቭ ትሪገር ንዝረቶችን ተርጉም» ሲበራ ንዝረቶቻቸው እዚህ ይጫወታሉ።</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} እነዚህን መብራቶች እያዘጋጀ ነው። ሲያቆም እዚህ ያሉት ቅንብሮች ይመለሳሉ።</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>ግራ ትሪገርን ሞክር</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>ቀኝ ትሪገርን ሞክር</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>የትሪገር ሞተር እንቅስቃሴ</value></data>
@@ -873,7 +887,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>አዳፕቲቭ ትሪገሮች</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>አዳፕቲቭ ትሪገሮች</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>በተመደበው አካላዊ DualSense ላይ የትሪገር ግብረመልስ ውጤቶችን አዋቅር። በጨዋታ የሚነዱ የትሪገር ውጤቶች በራስ-ሰር ይተላለፋሉ። እዚህ ያሉት ቅንብሮች ምንም ጨዋታ በማይጽፍበት ጊዜ የሚሠራ፣ በተጠቃሚ የተዋቀረ ንብርብር ያክላሉ።</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>በተመደበው አካላዊ DualSense ላይ የትሪገር ግብረመልስ ውጤቶችን አዋቅር። ከጨዋታ ወይም ከጨዋታ ሞድ የሚመጡ የትሪገር ውጤቶች በራስ-ሰር ይተላለፋሉ። እዚህ ያሉት ቅንብሮች አንዳቸውም በማይጽፉበት ጊዜ የሚሠራ፣ በተጠቃሚ የተዋቀረ ንብርብር ያክላሉ።</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>ስቲኮች</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>ለእያንዳንዱ ስቲክ የሞተ ቀጠናዎች፣ ፀረ-የሞተ ቀጠናዎች፣ የትብነት ኩርባዎች እና የመሃል ማካካሻ ማስተካከያ። ከታች ያለው እያንዳንዱ ክፍል በንቁ ውፅዓቱ ላይ ያለውን አንድ አናሎግ ስቲክ ይመለከታል። የተራዘሙ መገለጫዎች እስከ አራት ስቲኮች ሊኖራቸው ይችላሉ። መደበኛ ጌምፓዶች ሁለት አላቸው።</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>ትሪገሮች</value></data>
@@ -4328,6 +4342,12 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>እጀታ</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} የዚህን መቆጣጠሪያ ትሪገሮች እያዘጋጀ ነው።</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} የዚህን መቆጣጠሪያ መብራቶች እያዘጋጀ ነው።</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} የዚህን መቆጣጠሪያ ትሪገሮች እና መብራቶች እያዘጋጀ ነው።</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} በዚህ መቆጣጠሪያ የኢምፐልስ ትሪገሮች ላይ የትሪገር ንዝረቶችን እያጫወተ ነው።</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>የሞድ ውጤቶችን አጽዳ</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>የጨዋታ ሞዶች በዚህ መቆጣጠሪያ ላይ ያዘጋጁትን ያቆማል። አንድ ሞድ እንደገና እስኪልክ ድረስ የመቆጣጠሪያው የራሱ ቅንብሮች ይመለሳሉ።</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>ግራ/ቀኝ</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ላይ/ታች</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>ውስጥ/ውጭ</value></data>

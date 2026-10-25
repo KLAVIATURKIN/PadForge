@@ -1078,6 +1078,15 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _showKeyboardScreen, value);
         }
 
+        private string _gameModLine = string.Empty;
+        /// <summary>What a DSX game mod sets on this controller (#529), shown
+        /// with Clear Mod Effects. Empty while no mod reaches it.</summary>
+        public string GameModLine
+        {
+            get => _gameModLine;
+            set => SetProperty(ref _gameModLine, value ?? string.Empty);
+        }
+
         private string _falconLine = string.Empty;
         /// <summary>An open Novint Falcon's line (issue #521): a homing
         /// prompt for its first seconds, then its rate. Empty for every other

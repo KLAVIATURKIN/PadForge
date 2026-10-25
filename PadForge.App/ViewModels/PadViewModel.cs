@@ -4633,6 +4633,23 @@ namespace PadForge.ViewModels
         /// motors; resistance-class programs deliberately ignored.</summary>
         public bool AtVibrationToImpulse { get => _atVibrationToImpulse; set => SetProperty(ref _atVibrationToImpulse, value); }
 
+        // ── Game mods (#529): what a DSX game mod sets on this slot, on the
+        //    tab it sets it on. Never saved: InputService fills them from
+        //    what the mods hold, and empty hides each.
+        private string _gameModTriggersLine = string.Empty;
+        /// <summary>The Adaptive Triggers tab's line while a mod holds a
+        /// trigger program here.</summary>
+        public string GameModTriggersLine { get => _gameModTriggersLine; set => SetProperty(ref _gameModTriggersLine, value ?? string.Empty); }
+
+        private string _gameModImpulseLine = string.Empty;
+        /// <summary>The Impulse Triggers tab's line for the same programs,
+        /// which Translate Adaptive Trigger Vibrations plays there.</summary>
+        public string GameModImpulseLine { get => _gameModImpulseLine; set => SetProperty(ref _gameModImpulseLine, value ?? string.Empty); }
+
+        private string _gameModLightsLine = string.Empty;
+        /// <summary>The Lighting tab's line while a mod holds a light here.</summary>
+        public string GameModLightsLine { get => _gameModLightsLine; set => SetProperty(ref _gameModLightsLine, value ?? string.Empty); }
+
         // ── Constant Trigger Force (Xbox One+ trigger-motor analogue of
         //    Constant Force). Two independent 0..1 magnitudes that the
         //    Engine ConstantTriggerForceEvaluator applies when game/macro

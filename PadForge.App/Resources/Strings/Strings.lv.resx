@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Attālā savienojuma ports</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Kustību servera ports</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Nodrošina žiroskopa un akselerometra datus emulatoriem Cemu, Dolphin, Yuzu u. c.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Spēļu modifikācijas</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Ļauj spēļu modifikācijām, kas paredzētas DSX, iestatīt jūsu PlayStation kontrolleru adaptīvās mēlītes, gaismas joslu, spēlētāja gaismiņas un mikrofona izslēgšanas gaismiņu.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Pieņemt DSX spēļu modifikācijas</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Spēļu modifikāciju ports</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Palaist DSX.exe aizstājēju</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Dažas modifikācijas, piemēram, DualSense4GTAV, izslēdzas pašas, ja nedarbojas programma ar nosaukumu DSX. Šī opcija palaiž nelielu aizstājēju ar šādu nosaukumu, kamēr serveris klausās.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Darbojas ar DSX paredzētajām modifikācijām, piemēram, spēlēm GTA V, Red Dead Redemption 2, Skyrim un Forza. Kamēr serveris klausās, PadForge ieraksta savu portu tur, kur šīs modifikācijas to meklē.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Klausās :{0}. {1} sūta uz virtuālo kontrolleri {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Klausās :{0}. {1} sūta, bet nevienam virtuālajam kontrolleram nav pievienots PlayStation kontrolleris.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Portu {0} izmanto cita programma, piemēram, DSX. Aizveriet to vai izvēlieties citu portu.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Spēles modifikācija</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Darbojas ar OpenTrack un jebkuru izsekotāju, kas sūta savu UDP izvadi vai raksta FreeTrack 2.0 koplietojamajā atmiņā, kā arī ar šī datora OpenXR izpildlaiku, kas spēj darbināt sesiju fonā.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Lasīt Logitech G taustiņus</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lasa G taustiņus, izmantojot Logitech G-key SDK. Jādarbojas Logitech Gaming Software 8.55 vai jaunākai versijai. Šajā programmatūrā velciet G-key komandu uz katru taustiņu PadForge profilā. Padariet šo profilu pastāvīgu, citādi taustiņi sasniegs PadForge tikai tad, kad tā logs ir priekšplānā. Pelei G600 vai G300 arī jābūt ārpus iebūvētās atmiņas režīma.</value></data>
@@ -832,7 +843,10 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Labā mēlīte</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Samainīt kreisās un labās mēlītes motorus</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Pārveidot adaptīvo mēlīšu vibrācijas</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kad spēle vada šo slotu kā virtuālu DualSense, tās vibrācijas tipa adaptīvo mēlīšu efekti tiek atskaņoti šī kontrollera impulsa mēlīšu motoros. Pretestības tipa efektiem nav vibrācijas ekvivalenta, un tie tiek ignorēti.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kad spēle vada šo slotu kā virtuālu DualSense vai spēles modifikācija sūta mēlīšu efektus, vibrācijas tipa adaptīvo mēlīšu efekti tiek atskaņoti šī kontrollera impulsa mēlīšu motoros. Pretestības tipa efektiem nav vibrācijas ekvivalenta, un tie tiek ignorēti.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} iestata šīs mēlītes. Šeit norādītie iestatījumi atgriežas, kad iestatīšana beidzas.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} sūta mēlīšu efektus. Ja ir ieslēgts „Pārveidot adaptīvo mēlīšu vibrācijas”, to vibrācijas tiek atskaņotas šeit.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} iestata šīs gaismas. Šeit norādītie iestatījumi atgriežas, kad iestatīšana beidzas.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Pārbaudīt kreiso mēlīti</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Pārbaudīt labo mēlīti</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Mēlīšu motoru darbība</value></data>
@@ -889,7 +903,7 @@ Iepriekšējās versijas kopija atrodas šajā mapē: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptīvās mēlītes</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptīvās mēlītes</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfigurējiet mēlīšu atgriezeniskās saites efektus piešķirtajam fiziskajam DualSense. Spēles radītie mēlīšu efekti tiek pārsūtīti automātiski. Šeit esošie iestatījumi pievieno lietotāja konfigurētu slāni, kas darbojas, kad neviena spēle neraksta efektus.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfigurējiet mēlīšu atgriezeniskās saites efektus piešķirtajam fiziskajam DualSense. Spēles vai spēles modifikācijas radītie mēlīšu efekti tiek pārsūtīti automātiski. Šeit esošie iestatījumi pievieno lietotāja konfigurētu slāni, kas darbojas, kad neviens no tiem neraksta efektus.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Sviras</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Katras sviras nejutības zonas, nejutības zonas kompensācija, jutības līknes un centra nobīdes kalibrēšana. Katra tālāk esošā sadaļa attiecas uz vienu aktīvās izvades analogo sviru. Paplašinātajos profilos var būt līdz četrām svirām. Standarta spēļu pultīm ir divas.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Mēlītes</value></data>
@@ -4385,6 +4399,12 @@ Vai vēlaties, lai PadForge tos tagad atinstalē? Tam nepieciešamas paaugstinā
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Rokturis</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} iestata šī kontrollera mēlītes.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} iestata šī kontrollera gaismas.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} iestata šī kontrollera mēlītes un gaismas.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} atskaņo mēlīšu vibrācijas šī kontrollera impulsa mēlītēs.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Notīrīt modifikāciju efektus</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Pārtrauc to, ko spēļu modifikācijas ir iestatījušas šim kontrolleram. Kontrollera paša iestatījumi atgriežas, līdz modifikācija atkal sūta efektus.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Pa kreisi/pa labi</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Augšup/lejup</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Iekšā/ārā</value></data>

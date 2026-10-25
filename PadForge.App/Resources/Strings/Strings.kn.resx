@@ -293,6 +293,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>ರಿಮೋಟ್ ಲಿಂಕ್ ಪೋರ್ಟ್</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>ಮೋಷನ್ ಸರ್ವರ್ ಪೋರ್ಟ್</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu ಇತ್ಯಾದಿಗಳಿಗೆ ಜೈರೋ ಮತ್ತು ಆಕ್ಸೆಲರೋಮೀಟರ್ ಡೇಟಾ ಒದಗಿಸುತ್ತದೆ.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>ಗೇಮ್ ಮಾಡ್‌ಗಳು</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>DSX ಗಾಗಿ ರಚಿಸಲಾದ ಗೇಮ್ ಮಾಡ್‌ಗಳಿಗೆ ನಿಮ್ಮ PlayStation ಕಂಟ್ರೋಲರ್‌ಗಳ ಅಡಾಪ್ಟಿವ್ ಟ್ರಿಗರ್‌ಗಳು, ಲೈಟ್ ಬಾರ್, ಪ್ಲೇಯರ್ ಲೈಟ್‌ಗಳು ಮತ್ತು ಮ್ಯೂಟ್ ಲೈಟ್ ಅನ್ನು ಹೊಂದಿಸಲು ಅವಕಾಶ ನೀಡುತ್ತದೆ.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX ಗೇಮ್ ಮಾಡ್‌ಗಳನ್ನು ಸ್ವೀಕರಿಸಿ</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>ಗೇಮ್ ಮಾಡ್ ಪೋರ್ಟ್</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe ಬದಲಿ ಪ್ರೋಗ್ರಾಂ ಚಲಾಯಿಸಿ</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>DualSense4GTAV ನಂತಹ ಕೆಲವು ಮಾಡ್‌ಗಳು DSX ಹೆಸರಿನ ಪ್ರೋಗ್ರಾಂ ಚಾಲನೆಯಲ್ಲಿಲ್ಲದಿದ್ದರೆ ತಾವಾಗಿಯೇ ಆಫ್ ಆಗುತ್ತವೆ. ಸರ್ವರ್ ಆಲಿಸುತ್ತಿರುವಾಗ ಇದು ಆ ಹೆಸರಿನ ಒಂದು ಸಣ್ಣ ಬದಲಿ ಪ್ರೋಗ್ರಾಂ ಅನ್ನು ಚಲಾಯಿಸುತ್ತದೆ.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>GTA V, Red Dead Redemption 2, Skyrim ಮತ್ತು Forza ಗಾಗಿ ಇರುವಂತಹ DSX ಗಾಗಿ ರಚಿಸಲಾದ ಮಾಡ್‌ಗಳೊಂದಿಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ. ಸರ್ವರ್ ಆಲಿಸುತ್ತಿರುವಾಗ, ಆ ಮಾಡ್‌ಗಳು ಹುಡುಕುವ ಸ್ಥಳದಲ್ಲಿ PadForge ತನ್ನ ಪೋರ್ಟ್ ಅನ್ನು ಬರೆಯುತ್ತದೆ.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>:{0} ನಲ್ಲಿ ಆಲಿಸಲಾಗುತ್ತಿದೆ. {1} ವರ್ಚುವಲ್ ಕಂಟ್ರೋಲರ್ {2} ಗೆ ಕಳುಹಿಸುತ್ತಿದೆ.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>:{0} ನಲ್ಲಿ ಆಲಿಸಲಾಗುತ್ತಿದೆ. {1} ಕಳುಹಿಸುತ್ತಿದೆ, ಆದರೆ ಯಾವುದೇ ವರ್ಚುವಲ್ ಕಂಟ್ರೋಲರ್‌ನಲ್ಲಿ PlayStation ಕಂಟ್ರೋಲರ್ ಇಲ್ಲ.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>ಪೋರ್ಟ್ {0} ಅನ್ನು DSX ನಂತಹ ಬೇರೊಂದು ಪ್ರೋಗ್ರಾಂ ಬಳಸುತ್ತಿದೆ. ಅದನ್ನು ಮುಚ್ಚಿ ಅಥವಾ ಬೇರೆ ಪೋರ್ಟ್ ಆಯ್ಕೆಮಾಡಿ.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>ಒಂದು ಗೇಮ್ ಮಾಡ್</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack ಜೊತೆಗೆ ಮತ್ತು ತನ್ನ UDP ಔಟ್‌ಪುಟ್ ಕಳುಹಿಸುವ ಅಥವಾ FreeTrack 2.0 ಹಂಚಿದ ಮೆಮೊರಿಗೆ ಬರೆಯುವ ಯಾವುದೇ ಟ್ರ್ಯಾಕರ್ ಜೊತೆಗೆ, ಮತ್ತು ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಸೆಷನ್ ಚಲಾಯಿಸಬಲ್ಲ ಈ ಯಂತ್ರದ OpenXR ರನ್‌ಟೈಮ್ ಜೊತೆಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-ಕೀಗಳನ್ನು ಓದಿ</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK ಮೂಲಕ G-ಕೀಗಳನ್ನು ಓದುತ್ತದೆ. Logitech Gaming Software 8.55 ಅಥವಾ ಹೊಸದು ಚಾಲನೆಯಲ್ಲಿರಬೇಕು. ಆ ಸಾಫ್ಟ್‌ವೇರ್‌ನಲ್ಲಿ, PadForge ಪ್ರೊಫೈಲ್‌ನ ಪ್ರತಿ ಕೀಗೆ G-key command ಅನ್ನು ಎಳೆದು ಬಿಡಿ. ಆ ಪ್ರೊಫೈಲ್ ಅನ್ನು ಶಾಶ್ವತಗೊಳಿಸಿ, ಇಲ್ಲದಿದ್ದರೆ ಅದರ ವಿಂಡೋ ಮುಂದಿರುವಾಗ ಮಾತ್ರ ಕೀಗಳು PadForge ಅನ್ನು ತಲುಪುತ್ತವೆ. G600 ಅಥವಾ G300 ಮೌಸ್ ಸಹ ಆನ್-ಬೋರ್ಡ್ ಮೆಮೊರಿ ಮೋಡ್‌ನಿಂದ ಹೊರಗಿರಬೇಕು.</value></data>
@@ -812,7 +823,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>ಬಲ ಟ್ರಿಗರ್</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>ಎಡ ಮತ್ತು ಬಲ ಟ್ರಿಗರ್ ಮೋಟಾರ್‌ಗಳನ್ನು ಅದಲುಬದಲು ಮಾಡಿ</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>ಅಡಾಪ್ಟಿವ್ ಟ್ರಿಗರ್ ಕಂಪನಗಳನ್ನು ಅನುವಾದಿಸಿ</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>ಆಟವು ಈ ಸ್ಲಾಟ್ ಅನ್ನು ವರ್ಚುವಲ್ DualSense ಆಗಿ ನಡೆಸಿದಾಗ, ಅದರ ಕಂಪನ-ಶೈಲಿಯ ಅಡಾಪ್ಟಿವ್ ಟ್ರಿಗರ್ ಪರಿಣಾಮಗಳು ಈ ಕಂಟ್ರೋಲರ್‌ನ ಇಂಪಲ್ಸ್ ಟ್ರಿಗರ್ ಮೋಟಾರ್‌ಗಳಲ್ಲಿ ಪ್ಲೇ ಆಗುತ್ತವೆ. ಪ್ರತಿರೋಧ-ಶೈಲಿಯ ಪರಿಣಾಮಗಳಿಗೆ ಕಂಪನ ಸಮಾನತೆ ಇಲ್ಲ, ಆದ್ದರಿಂದ ಅವನ್ನು ನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತದೆ.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>ಆಟವು ಈ ಸ್ಲಾಟ್ ಅನ್ನು ವರ್ಚುವಲ್ DualSense ಆಗಿ ನಡೆಸಿದಾಗ ಅಥವಾ ಗೇಮ್ ಮಾಡ್ ಟ್ರಿಗರ್ ಪರಿಣಾಮಗಳನ್ನು ಕಳುಹಿಸಿದಾಗ, ಕಂಪನ-ಶೈಲಿಯ ಅಡಾಪ್ಟಿವ್ ಟ್ರಿಗರ್ ಪರಿಣಾಮಗಳು ಈ ಕಂಟ್ರೋಲರ್‌ನ ಇಂಪಲ್ಸ್ ಟ್ರಿಗರ್ ಮೋಟಾರ್‌ಗಳಲ್ಲಿ ಪ್ಲೇ ಆಗುತ್ತವೆ. ಪ್ರತಿರೋಧ-ಶೈಲಿಯ ಪರಿಣಾಮಗಳಿಗೆ ಕಂಪನ ಸಮಾನತೆ ಇಲ್ಲ, ಆದ್ದರಿಂದ ಅವನ್ನು ನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತದೆ.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ಈ ಟ್ರಿಗರ್‌ಗಳನ್ನು ಹೊಂದಿಸುತ್ತಿದೆ. ಅದು ನಿಲ್ಲಿಸಿದಾಗ ಇಲ್ಲಿನ ಸೆಟ್ಟಿಂಗ್ಸ್ ಮರಳುತ್ತವೆ.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} ಟ್ರಿಗರ್ ಪರಿಣಾಮಗಳನ್ನು ಕಳುಹಿಸುತ್ತಿದೆ. ಅಡಾಪ್ಟಿವ್ ಟ್ರಿಗರ್ ಕಂಪನಗಳನ್ನು ಅನುವಾದಿಸಿ ಆನ್ ಇದ್ದಾಗ, ಅವುಗಳ ಕಂಪನಗಳು ಇಲ್ಲಿ ಪ್ಲೇ ಆಗುತ್ತವೆ.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ಈ ಲೈಟ್‌ಗಳನ್ನು ಹೊಂದಿಸುತ್ತಿದೆ. ಅದು ನಿಲ್ಲಿಸಿದಾಗ ಇಲ್ಲಿನ ಸೆಟ್ಟಿಂಗ್ಸ್ ಮರಳುತ್ತವೆ.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>ಎಡ ಟ್ರಿಗರ್ ಪರೀಕ್ಷಿಸಿ</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>ಬಲ ಟ್ರಿಗರ್ ಪರೀಕ್ಷಿಸಿ</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>ಟ್ರಿಗರ್ ಮೋಟಾರ್ ಚಟುವಟಿಕೆ</value></data>
@@ -869,7 +883,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>ಅಡಾಪ್ಟಿವ್ ಟ್ರಿಗರ್‌ಗಳು</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>ಅಡಾಪ್ಟಿವ್ ಟ್ರಿಗರ್‌ಗಳು</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>ನಿಯೋಜಿಸಲಾದ ಭೌತಿಕ DualSense ನಲ್ಲಿ ಟ್ರಿಗರ್ ಫೀಡ್‌ಬ್ಯಾಕ್ ಪರಿಣಾಮಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ. ಆಟ ಚಾಲಿತ ಟ್ರಿಗರ್ ಪರಿಣಾಮಗಳನ್ನು ತಾನಾಗಿಯೇ ಫಾರ್ವರ್ಡ್ ಮಾಡಲಾಗುತ್ತದೆ. ಇಲ್ಲಿನ ಸೆಟ್ಟಿಂಗ್ಸ್ ಯಾವುದೇ ಆಟ ಬರೆಯದಿರುವಾಗ ಚಾಲನೆಯಾಗುವ ಬಳಕೆದಾರ-ಕಾನ್ಫಿಗರ್ ಪದರವನ್ನು ಸೇರಿಸುತ್ತವೆ.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>ನಿಯೋಜಿಸಲಾದ ಭೌತಿಕ DualSense ನಲ್ಲಿ ಟ್ರಿಗರ್ ಫೀಡ್‌ಬ್ಯಾಕ್ ಪರಿಣಾಮಗಳನ್ನು ಕಾನ್ಫಿಗರ್ ಮಾಡಿ. ಆಟ ಅಥವಾ ಗೇಮ್ ಮಾಡ್‌ನಿಂದ ಬರುವ ಟ್ರಿಗರ್ ಪರಿಣಾಮಗಳನ್ನು ತಾನಾಗಿಯೇ ಫಾರ್ವರ್ಡ್ ಮಾಡಲಾಗುತ್ತದೆ. ಇಲ್ಲಿನ ಸೆಟ್ಟಿಂಗ್ಸ್ ಇವೆರಡೂ ಬರೆಯದಿರುವಾಗ ಚಾಲನೆಯಾಗುವ ಬಳಕೆದಾರ-ಕಾನ್ಫಿಗರ್ ಪದರವನ್ನು ಸೇರಿಸುತ್ತವೆ.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>ಸ್ಟಿಕ್‌ಗಳು</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>ಪ್ರತಿ ಸ್ಟಿಕ್‌ನ ಡೆಡ್ ಜೋನ್‌ಗಳು, ಆಂಟಿ-ಡೆಡ್ ಜೋನ್‌ಗಳು, ಸಂವೇದನಾಶೀಲತೆಯ ವಕ್ರರೇಖೆಗಳು ಮತ್ತು ಕೇಂದ್ರ ಆಫ್‌ಸೆಟ್ ಕ್ಯಾಲಿಬ್ರೇಶನ್. ಕೆಳಗಿನ ಪ್ರತಿ ವಿಭಾಗವು ಸಕ್ರಿಯ ಔಟ್‌ಪುಟ್‌ನ ಒಂದು ಅನಲಾಗ್ ಸ್ಟಿಕ್ ಅನ್ನು ಗುರಿಯಾಗಿಸುತ್ತದೆ. ವಿಸ್ತೃತ ಪ್ರೊಫೈಲ್‌ಗಳಲ್ಲಿ ನಾಲ್ಕು ಸ್ಟಿಕ್‌ಗಳವರೆಗೆ ಇರಬಹುದು. ಸಾಮಾನ್ಯ ಗೇಮ್‌ಪ್ಯಾಡ್‌ಗಳಲ್ಲಿ ಎರಡು ಇರುತ್ತವೆ.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>ಟ್ರಿಗರ್‌ಗಳು</value></data>
@@ -4334,6 +4348,12 @@ PadForge ಅವುಗಳನ್ನು ಈಗ ಅನ್‌ಇನ್‌ಸ್ಟಾ
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>ಹ್ಯಾಂಡಲ್</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ಈ ಕಂಟ್ರೋಲರ್‌ನ ಟ್ರಿಗರ್‌ಗಳನ್ನು ಹೊಂದಿಸುತ್ತಿದೆ.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ಈ ಕಂಟ್ರೋಲರ್‌ನ ಲೈಟ್‌ಗಳನ್ನು ಹೊಂದಿಸುತ್ತಿದೆ.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ಈ ಕಂಟ್ರೋಲರ್‌ನ ಟ್ರಿಗರ್‌ಗಳು ಮತ್ತು ಲೈಟ್‌ಗಳನ್ನು ಹೊಂದಿಸುತ್ತಿದೆ.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} ಈ ಕಂಟ್ರೋಲರ್‌ನ ಇಂಪಲ್ಸ್ ಟ್ರಿಗರ್‌ಗಳಲ್ಲಿ ಟ್ರಿಗರ್ ಕಂಪನಗಳನ್ನು ಪ್ಲೇ ಮಾಡುತ್ತಿದೆ.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>ಮಾಡ್ ಪರಿಣಾಮಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>ಈ ಕಂಟ್ರೋಲರ್‌ನಲ್ಲಿ ಗೇಮ್ ಮಾಡ್‌ಗಳು ಹೊಂದಿಸಿದ್ದನ್ನು ಕೊನೆಗೊಳಿಸುತ್ತದೆ. ಮಾಡ್ ಮತ್ತೆ ಕಳುಹಿಸುವವರೆಗೆ ಅದರ ಸ್ವಂತ ಸೆಟ್ಟಿಂಗ್ಸ್ ಮರಳುತ್ತವೆ.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>ಎಡ/ಬಲ</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ಮೇಲೆ/ಕೆಳಗೆ</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>ಒಳಗೆ/ಹೊರಗೆ</value></data>

@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Priključak Udaljene veze</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Priključak poslužitelja pokreta</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Daje podatke žiroskopa i akcelerometra programima Cemu, Dolphin, Yuzu itd.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Modifikacije igara</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Omogućuje modifikacijama igara izrađenima za DSX postavljanje adaptivnih okidača, svjetlosne trake, svjetala igrača i svjetla za utišavanje na vašim PlayStation kontrolerima.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Prihvati DSX modifikacije igara</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Priključak modifikacija igara</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Pokreni zamjenu DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Neke modifikacije, poput DualSense4GTAV, same se isključe ako se ne izvodi program naziva DSX. Ovo pokreće malu zamjenu tog naziva dok poslužitelj osluškuje.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Radi s modifikacijama izrađenima za DSX, primjerice za GTA V, Red Dead Redemption 2, Skyrim i Forza. Dok poslužitelj osluškuje, PadForge upisuje svoj priključak ondje gdje ga te modifikacije traže.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Osluškuje na :{0}. {1} šalje na virtualni kontroler {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Osluškuje na :{0}. {1} šalje, ali nijedan virtualni kontroler nema PlayStation kontroler.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Priključak {0} koristi drugi program, na primjer DSX. Zatvorite ga ili odaberite drugi priključak.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Modifikacija igre</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Radi s programom OpenTrack i svakim alatom za praćenje koji šalje UDP izlaz ili zapisuje dijeljenu memoriju FreeTrack 2.0 te s OpenXR okruženjem na ovom računalu koje može pokrenuti sesiju u pozadini.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Čitaj Logitech G-tipke</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Čita G-tipke putem Logitech G-key SDK-a. Potreban je pokrenut Logitech Gaming Software 8.55 ili noviji. U tom programu povucite naredbu G-key na svaku tipku u profilu PadForge. Postavite taj profil kao trajni jer inače tipke dolaze do programa PadForge samo dok je njegov prozor u prvom planu. Miš G600 ili G300 također mora biti izvan načina rada s ugrađenom memorijom.</value></data>
@@ -817,7 +828,10 @@ Kopija prethodne verzije nalazi se u ovoj mapi: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Desni okidač</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Zamijeni motore lijevog i desnog okidača</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Pretvori vibracije adaptivnih okidača</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kada igra upravlja ovim utorom kao virtualnim kontrolerom DualSense, njezini vibracijski efekti adaptivnih okidača reproduciraju se na motorima impulsnih okidača ovog kontrolera. Efekti otpora nemaju vibracijski ekvivalent pa se zanemaruju.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kada igra upravlja ovim utorom kao virtualnim kontrolerom DualSense ili modifikacija igre šalje efekte okidača, vibracijski efekti adaptivnih okidača reproduciraju se na motorima impulsnih okidača ovog kontrolera. Efekti otpora nemaju vibracijski ekvivalent pa se zanemaruju.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} postavlja ove okidače. Postavke ovdje vraćaju se kada prestane.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} šalje efekte okidača. Kada je uključeno Pretvori vibracije adaptivnih okidača, njihove se vibracije reproduciraju ovdje.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} postavlja ova svjetla. Postavke ovdje vraćaju se kada prestane.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Testiraj lijevi okidač</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Testiraj desni okidač</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Aktivnost motora okidača</value></data>
@@ -874,7 +888,7 @@ Kopija prethodne verzije nalazi se u ovoj mapi: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptivni okidači</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptivni okidači</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfigurirajte efekte povratne reakcije okidača na dodijeljenom fizičkom kontroleru DualSense. Efekti okidača koje pokreće igra prosljeđuju se automatski. Ove postavke dodaju korisničke efekte koji se izvode kada nijedna igra ne šalje svoje.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfigurirajte efekte povratne reakcije okidača na dodijeljenom fizičkom kontroleru DualSense. Efekti okidača iz igre ili modifikacije igre prosljeđuju se automatski. Ove postavke dodaju korisničke efekte koji se izvode kada nijedno od toga ne šalje svoje.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Palice</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Mrtve zone, anti-mrtve zone, krivulje osjetljivosti i kalibracija pomaka središta za svaku palicu. Svaki odjeljak u nastavku odnosi se na jednu analognu palicu aktivnog izlaza. Prošireni profili mogu imati do četiri palice. Standardni gamepadi imaju dvije.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Okidači</value></data>
@@ -4364,6 +4378,12 @@ Kopija prethodne verzije nalazi se u ovoj mapi: {1}</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Ručka</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} postavlja okidače ovog kontrolera.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} postavlja svjetla ovog kontrolera.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} postavlja okidače i svjetla ovog kontrolera.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} reproducira vibracije okidača na impulsnim okidačima ovog kontrolera.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Očisti efekte modifikacija</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Prekida ono što su modifikacije igara postavile na ovom kontroleru. Vraćaju se njegove vlastite postavke dok modifikacija ponovno ne pošalje.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Lijevo/desno</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Gore/dolje</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Unutra/van</value></data>

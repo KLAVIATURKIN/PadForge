@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>დისტანციური კავშირის პორტი</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>მოძრაობის სერვერის პორტი</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>გადასცემს გიროსკოპისა და აქსელერომეტრის მონაცემებს Cemu-ს, Dolphin-ს, Yuzu-სა და სხვ.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>თამაშის მოდები</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>საშუალებას აძლევს DSX-ისთვის შექმნილ თამაშის მოდებს, მართონ თქვენი PlayStation კონტროლერების ადაპტური ტრიგერები, შუქის ზოლი, მოთამაშის ინდიკატორები და დადუმების ინდიკატორი.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX-ის თამაშის მოდების მიღება</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>თამაშის მოდის პორტი</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe-ის შემცვლელის გაშვება</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>ზოგიერთი მოდი, მაგალითად DualSense4GTAV, თავად ითიშება, თუ DSX სახელწოდების პროგრამა არ მუშაობს. ეს ამავე სახელწოდების პატარა შემცვლელს უშვებს, სანამ სერვერი ისმენს.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>მუშაობს DSX-ისთვის შექმნილ მოდებთან, მაგალითად GTA V-ის, Red Dead Redemption 2-ის, Skyrim-ისა და Forza-სთვის. სანამ სერვერი ისმენს, PadForge თავის პორტს იქ ჩაწერს, სადაც ამ მოდებს მისი ძებნა სჩვევია.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>ისმენს :{0}. {1} აგზავნის ვირტუალურ კონტროლერზე {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>ისმენს :{0}. {1} აგზავნის, მაგრამ არც ერთ ვირტუალურ კონტროლერზე PlayStation კონტროლერი არ არის.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>პორტი {0} დაკავებულია სხვა პროგრამით, მაგალითად DSX-ით. დახურეთ ის ან აირჩიეთ სხვა პორტი.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>თამაშის მოდი</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>მუშაობს OpenTrack-თან და ნებისმიერ ტრეკერთან, რომელიც UDP გამოსვლას აგზავნის ან FreeTrack 2.0 გაზიარებულ მეხსიერებაში წერს, ასევე OpenXR გაშვების გარემოსთან ამ კომპიუტერზე, რომელსაც სესიის ფონზე გაშვება შეუძლია.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-key-ების წაკითხვა</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>კითხულობს G-key-ებს Logitech-ის G-key SDK-ს მეშვეობით. საჭიროა გაშვებული Logitech Gaming Software 8.55 ან უფრო ახალი. ამ პროგრამაში გადაათრიეთ G-key ბრძანება PadForge-ის პროფილის თითოეულ კლავიშზე. ეს პროფილი გახადეთ მუდმივი, თორემ კლავიშები PadForge-ს მხოლოდ მაშინ აღწევს, როცა მისი ფანჯარა წინა პლანზეა. G600 ან G300 მაუსიც უნდა იყოს ჩაშენებული მეხსიერების რეჟიმიდან გამოსული.</value></data>
@@ -817,7 +828,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>მარჯვენა ტრიგერი</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>მარცხენა და მარჯვენა ტრიგერის ძრავების გაცვლა</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>ადაპტური ტრიგერის ვიბრაციების გადათარგმნა</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>როცა თამაში ამ სლოტს ვირტუალურ DualSense-ად მართავს, ადაპტური ტრიგერის ვიბრაციული ტიპის ეფექტები ამ კონტროლერის იმპულსური ტრიგერის ძრავებზე უკრავს. წინააღმდეგობის ტიპის ეფექტებს ვიბრაციული ეკვივალენტი არ აქვს და ისინი იგნორირებულია.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>როცა თამაში ამ სლოტს ვირტუალურ DualSense-ად მართავს ან თამაშის მოდი ტრიგერის ეფექტებს აგზავნის, ადაპტური ტრიგერის ვიბრაციული ტიპის ეფექტები ამ კონტროლერის იმპულსური ტრიგერის ძრავებზე უკრავს. წინააღმდეგობის ტიპის ეფექტებს ვიბრაციული ეკვივალენტი არ აქვს და ისინი იგნორირებულია.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ადგენს ამ ტრიგერებს. აქ მოცემული პარამეტრები დაბრუნდება, როცა ის შეჩერდება.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} აგზავნის ტრიგერის ეფექტებს. როცა ჩართულია ადაპტური ტრიგერის ვიბრაციების გადათარგმნა, მათი ვიბრაციები აქ უკრავს.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ადგენს ამ განათებას. აქ მოცემული პარამეტრები დაბრუნდება, როცა ის შეჩერდება.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>მარცხენა ტრიგერის გამოცდა</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>მარჯვენა ტრიგერის გამოცდა</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>ტრიგერის ძრავის აქტივობა</value></data>
@@ -874,7 +888,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>ადაპტური ტრიგერები</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>ადაპტური ტრიგერები</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>მინიჭებულ ფიზიკურ DualSense-ზე ტრიგერის უკუკავშირის ეფექტების კონფიგურაცია. თამაშის მიერ მართული ტრიგერის ეფექტები ავტომატურად გადაიგზავნება. აქ მოცემული პარამეტრები ამატებს მომხმარებლის მიერ კონფიგურირებულ შრეს, რომელიც მაშინ მუშაობს, როცა თამაში არაფერს წერს.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>მინიჭებულ ფიზიკურ DualSense-ზე ტრიგერის უკუკავშირის ეფექტების კონფიგურაცია. თამაშის ან თამაშის მოდის ტრიგერის ეფექტები ავტომატურად გადაიგზავნება. აქ მოცემული პარამეტრები ამატებს მომხმარებლის მიერ კონფიგურირებულ შრეს, რომელიც მაშინ მუშაობს, როცა არცერთი არაფერს წერს.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>სტიკები</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>სტიკებისთვის ცალ-ცალკე მკვდარი ზონები, ანტი-მკვდარი ზონები, მგრძნობელობის მრუდები და ცენტრის წანაცვლების კალიბრაცია. ქვემოთ თითოეული განყოფილება აქტიური გამოსავლის ერთ ანალოგურ სტიკს ეხება. გაფართოებულ პროფილებს ოთხამდე სტიკი შეიძლება ჰქონდეს. სტანდარტულ გეიმპადებს ორი აქვს.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>ტრიგერები</value></data>
@@ -4351,6 +4365,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>სახელური</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ადგენს ამ კონტროლერის ტრიგერებს.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ადგენს ამ კონტროლერის განათებას.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ადგენს ამ კონტროლერის ტრიგერებსა და განათებას.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} უკრავს ტრიგერის ვიბრაციებს ამ კონტროლერის იმპულსურ ტრიგერებზე.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>მოდის ეფექტების გასუფთავება</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>წყვეტს იმას, რასაც თამაშის მოდები ადგენს ამ კონტროლერზე. მისი საკუთარი პარამეტრები ბრუნდება, სანამ მოდი ისევ არ გააგზავნის.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>მარცხნივ/მარჯვნივ</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ზემოთ/ქვემოთ</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>შიგნით/გარეთ</value></data>

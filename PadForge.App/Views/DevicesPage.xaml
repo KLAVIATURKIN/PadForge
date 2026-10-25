@@ -1038,6 +1038,21 @@
                         <TextBlock common:LiveText.Polite="True" Text="{Binding SelectedDevice.FalconCalibrationStatus}" TextWrapping="Wrap"
                                    FontSize="11" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,8"
                                    Visibility="{Binding SelectedDevice.ShowFalconCalibrate, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        <!-- Game mods (#529): what a DSX game mod sets on this
+                             controller, and the button that ends it. Both show
+                             only while a mod reaches this controller. -->
+                        <TextBlock Text="{Binding SelectedDevice.GameModLine}" TextWrapping="Wrap"
+                                   FontSize="11" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,8"
+                                   Visibility="{Binding SelectedDevice.GameModLine, Converter={StaticResource StringToVisibility}}"/>
+                        <Button Content="{Binding Devices_ClearModEffects, Source={x:Static strings:Strings.Instance}}" Margin="0,6,0,8"
+                                Padding="8,4" HorizontalAlignment="Left"
+                                Click="ClearModEffects_Click"
+                                ToolTip="{Binding Devices_ClearModEffects_Tooltip, Source={x:Static strings:Strings.Instance}}"
+                                Visibility="{Binding SelectedDevice.GameModLine, Converter={StaticResource StringToVisibility}}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"/>
+                            </Button.Style>
+                        </Button>
                         <!-- Analog keyboard (#468): a Razer keyboard waiting for
                              Razer Synapse says so on its own panel. -->
                         <TextBlock Text="{Binding SelectedDevice.AnalogKeyboardLine}" TextWrapping="Wrap"

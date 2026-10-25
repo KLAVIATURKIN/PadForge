@@ -2409,6 +2409,20 @@ namespace PadForge.Common.Input
                             if (socdGp != null)
                                 gpOut.Buttons = socdGp.ApplyGamepad(gpOut.Buttons);
 
+                            // A game mod's TriggerThreshold (#529): below its
+                            // point the virtual controller reports the trigger
+                            // as 0. On this local copy right before submit, as
+                            // above, so the pad page and the impulse
+                            // translation still read the real pull.
+                            if (GameModEffects.AnyHeld)
+                            {
+                                GameModEffects.ThresholdsForSlot(padIndex, out byte modLeftPoint, out byte modRightPoint);
+                                if (modLeftPoint != 0)
+                                    gpOut.LeftTrigger = GameModEffects.ApplyThreshold(gpOut.LeftTrigger, modLeftPoint);
+                                if (modRightPoint != 0)
+                                    gpOut.RightTrigger = GameModEffects.ApplyThreshold(gpOut.RightTrigger, modRightPoint);
+                            }
+
                             // PlayStation slots backed by an HM virtual go
                             // through the extended SubmitGamepadState overload
                             // so HMGamepadState's touchpad / IMU / battery

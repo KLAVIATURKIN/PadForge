@@ -2555,6 +2555,12 @@ namespace PadForge.Services
             _mainVm.Dashboard.DsuMotionServerPort = appSettings.DsuMotionServerPort > 0
                 ? appSettings.DsuMotionServerPort : 26760;
 
+            // The server for DSX game mods (#529), beside the motion server.
+            _mainVm.Dashboard.EnableGameModServer = appSettings.EnableGameModServer;
+            _mainVm.Dashboard.GameModServerPort = appSettings.GameModServerPort >= 1024 && appSettings.GameModServerPort <= 65535
+                ? appSettings.GameModServerPort : GameModServer.DefaultPort;
+            _mainVm.Dashboard.GameModDsxStandIn = appSettings.GameModDsxStandIn;
+
             // Head tracking (#355): sources and ranges first, then the
             // toggle (under the guard below), so the row opens under the
             // saved port.
@@ -4328,6 +4334,10 @@ namespace PadForge.Services
                 _mainVm.Dashboard.EnableDsuMotionServer = active.EnableDsuMotionServer;
                 if (active.DsuMotionServerPort >= 1024 && active.DsuMotionServerPort <= 65535)
                     _mainVm.Dashboard.DsuMotionServerPort = active.DsuMotionServerPort;
+                _mainVm.Dashboard.EnableGameModServer = active.EnableGameModServer;
+                if (active.GameModServerPort >= 1024 && active.GameModServerPort <= 65535)
+                    _mainVm.Dashboard.GameModServerPort = active.GameModServerPort;
+                _mainVm.Dashboard.GameModDsxStandIn = active.GameModDsxStandIn;
                 _mainVm.Dashboard.EnableWebController = active.EnableWebController;
                 if (active.WebControllerPort >= 1024 && active.WebControllerPort <= 65535)
                     _mainVm.Dashboard.WebControllerPort = active.WebControllerPort;
@@ -4500,6 +4510,9 @@ namespace PadForge.Services
             profile.VrSlotOrder            = SettingsManager.VrSlotOrder.ToArray();
             profile.EnableDsuMotionServer = _mainVm.Dashboard.EnableDsuMotionServer;
             profile.DsuMotionServerPort = _mainVm.Dashboard.DsuMotionServerPort;
+            profile.EnableGameModServer = _mainVm.Dashboard.EnableGameModServer;
+            profile.GameModServerPort = _mainVm.Dashboard.GameModServerPort;
+            profile.GameModDsxStandIn = _mainVm.Dashboard.GameModDsxStandIn;
             profile.EnableWebController = _mainVm.Dashboard.EnableWebController;
             profile.WebControllerPort = _mainVm.Dashboard.WebControllerPort;
             profile.EnableTouchpadOverlay = _mainVm.Dashboard.EnableTouchpadOverlay;
@@ -4966,6 +4979,9 @@ namespace PadForge.Services
                     : defaultSnap.SlotEnabled,
                 EnableDsuMotionServer = _mainVm.Dashboard.EnableDsuMotionServer,
                 DsuMotionServerPort = _mainVm.Dashboard.DsuMotionServerPort,
+                EnableGameModServer = _mainVm.Dashboard.EnableGameModServer,
+                GameModServerPort = _mainVm.Dashboard.GameModServerPort,
+                GameModDsxStandIn = _mainVm.Dashboard.GameModDsxStandIn,
                 EnableWebController = _mainVm.Dashboard.EnableWebController,
                 HeadTrackingEnabled = _mainVm.Dashboard.HeadTrackingEnabled,
                 HeadTrackingIndependentInputs = true,
@@ -6912,6 +6928,17 @@ namespace PadForge.Services
         [XmlElement]
         public int DsuMotionServerPort { get; set; } = 26760;
 
+        /// <summary>The server for DSX game mods (#529).</summary>
+        [XmlElement]
+        public bool EnableGameModServer { get; set; }
+
+        [XmlElement]
+        public int GameModServerPort { get; set; } = GameModServer.DefaultPort;
+
+        /// <summary>The DSX.exe stand-in for mods that look for DSX.</summary>
+        [XmlElement]
+        public bool GameModDsxStandIn { get; set; }
+
         [XmlElement]
         public bool EnableWebController { get; set; }
 
@@ -7880,6 +7907,19 @@ namespace PadForge.Services
         /// <summary>DSU motion server port for this profile.</summary>
         [XmlElement]
         public int DsuMotionServerPort { get; set; } = 26760;
+
+        /// <summary>Whether the server for DSX game mods (#529) was enabled
+        /// in this profile.</summary>
+        [XmlElement]
+        public bool EnableGameModServer { get; set; }
+
+        /// <summary>The game mod server's port for this profile.</summary>
+        [XmlElement]
+        public int GameModServerPort { get; set; } = GameModServer.DefaultPort;
+
+        /// <summary>Whether the DSX.exe stand-in ran in this profile.</summary>
+        [XmlElement]
+        public bool GameModDsxStandIn { get; set; }
 
         /// <summary>Whether the web controller server was enabled in this profile.</summary>
         [XmlElement]

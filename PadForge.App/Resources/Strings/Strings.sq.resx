@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Porta e lidhjes në distancë</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Porta e serverit të lëvizjes</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Ofron të dhëna xhiroje dhe akselerometri për Cemu, Dolphin, Yuzu etj.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Modet e lojës</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Lejon modet e lojërave të bëra për DSX të vendosin këmbëzat adaptive, shiritin e dritës, dritat e lojtarit dhe dritën e heshtjes të kontrollueseve tuaj PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Prano modet e lojës DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Porta e modit të lojës</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Ekzekuto një zëvendësues DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Disa mode, si DualSense4GTAV, çaktivizohen vetë nëse nuk po punon një program me emrin DSX. Kjo ekzekuton një zëvendësues të vogël me këtë emër ndërsa serveri dëgjon.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Punon me mode të bëra për DSX, si ato për GTA V, Red Dead Redemption 2, Skyrim dhe Forza. Ndërsa serveri dëgjon, PadForge shkruan portën e tij aty ku i kërkojnë këto mode.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Dëgjon te :{0}. {1} po dërgon te kontrolluesi virtual {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Dëgjon te :{0}. {1} po dërgon, por asnjë kontrollues virtual nuk ka një kontrollues PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Porta {0} është në përdorim nga një program tjetër, si DSX. Mbylle ose zgjidh një portë tjetër.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Një mod loje</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funksionon me OpenTrack dhe çdo gjurmues që dërgon daljen e vet UDP ose shkruan memorie të përbashkët FreeTrack 2.0, dhe me një runtime OpenXR në këtë kompjuter që mund të ekzekutojë një seancë në sfond.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Lexo G-keys të Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lexon G-keys përmes Logitech G-key SDK. Kërkon që Logitech Gaming Software 8.55 ose më i ri të jetë në punë. Në atë softuer, tërhiq komandën G-key mbi çdo tast në profilin PadForge. Bëje atë profil të përhershëm, përndryshe tastet arrijnë te PadForge vetëm kur dritarja e tij është përpara. Një maus G600 ose G300 duhet gjithashtu të jetë jashtë modalitetit të memories së brendshme.</value></data>
@@ -816,7 +827,10 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Këmbëza e djathtë</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Shkëmbe motorët e këmbëzës së majtë dhe të djathtë</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Përkthe dridhjet e këmbëzave adaptive</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kur një lojë e drejton këtë slot si DualSense virtual, efektet e këmbëzave adaptive në stil dridhjeje luhen në motorët e impulsit të këmbëzave të këtij kontrolluesi. Efektet në stil rezistence nuk kanë ekuivalent dridhjeje dhe shpërfillen.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kur një lojë e drejton këtë slot si DualSense virtual, ose një mod loje dërgon efekte këmbëzash, efektet e këmbëzave adaptive në stil dridhjeje luhen në motorët e impulsit të këmbëzave të këtij kontrolluesi. Efektet në stil rezistence nuk kanë ekuivalent dridhjeje dhe shpërfillen.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} po vendos këto këmbëza. Cilësimet këtu kthehen kur ai ndalon.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} po dërgon efekte këmbëzash. Me Përkthe dridhjet e këmbëzave adaptive të aktivizuar, dridhjet e tyre luhen këtu.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} po vendos këto drita. Cilësimet këtu kthehen kur ai ndalon.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Provo këmbëzën e majtë</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Provo këmbëzën e djathtë</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Aktiviteti i motorëve të këmbëzave</value></data>
@@ -873,7 +887,7 @@ Një kopje e versionit të mëparshëm ndodhet në këtë dosje: {1}</value></da
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Këmbëza adaptive</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Këmbëza adaptive</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfiguron efektet e reagimit të këmbëzave në DualSense-in fizik të caktuar. Efektet e këmbëzave të drejtuara nga loja përcillen automatikisht. Cilësimet këtu shtojnë një shtresë të konfiguruar nga përdoruesi që punon kur asnjë lojë nuk po shkruan.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfiguron efektet e reagimit të këmbëzave në DualSense-in fizik të caktuar. Efektet e këmbëzave nga një lojë ose një mod loje përcillen automatikisht. Cilësimet këtu shtojnë një shtresë të konfiguruar nga përdoruesi që punon kur asnjëra nuk po shkruan.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Levat</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Zona të vdekura për çdo levë, anti-zona të vdekura, kurba ndjeshmërie dhe kalibrim i zhvendosjes së qendrës. Çdo seksion më poshtë synon një levë analoge në daljen aktive. Profilet e zgjeruara mund të kenë deri në katër leva. Gamepad-et standardë kanë dy.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Këmbëzat</value></data>
@@ -4311,6 +4325,12 @@ Doni që PadForge t'i çinstalojë tani? Kjo kërkon privilegje administratori d
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Dorezë</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} po vendos këmbëzat e këtij kontrolluesi.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} po vendos dritat e këtij kontrolluesi.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} po vendos këmbëzat dhe dritat e këtij kontrolluesi.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} po luan dridhje këmbëzash në këmbëzat e impulsit të këtij kontrolluesi.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Pastro efektet e modit</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Ndërpret çfarë kanë vendosur modet e lojës në këtë kontrollues. Cilësimet e tij kthehen derisa një mod të dërgojë përsëri.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Majtas/Djathtas</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Lart/Poshtë</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Brenda/Jashtë</value></data>

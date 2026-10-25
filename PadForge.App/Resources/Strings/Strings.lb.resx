@@ -293,6 +293,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote-Link-Port</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Beweegungsserver-Port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Liwwert Gyro- a Beschleunegungsdaten u Cemu, Dolphin, Yuzu asw.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Spill-Mods</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Erlaabt Spill-Mods, déi fir DSX gemaach goufen, d'adaptiv Trigger, de Liichtbalken, d'Spillerluuchten an d'Mute-Luucht vun Äre PlayStation-Controlleren ze setzen.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX-Spill-Mods akzeptéieren</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Spill-Mod-Port</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>En DSX.exe-Ersatz ausféieren</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Verschidde Mods, wéi DualSense4GTAV, schalte sech aus, wa kee Programm mam Numm DSX leeft. Dës Optioun start e klengen Ersatz mat deem Numm, soulaang de Server lauschtert.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Funktionéiert mat Mods, déi fir DSX gemaach goufen, wéi déi fir GTA V, Red Dead Redemption 2, Skyrim a Forza. Soulaang de Server lauschtert, schreift PadForge säi Port dohin, wou dës Mods en sichen.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Lauschtert op :{0}. {1} schéckt un de virtuelle Controller {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Lauschtert op :{0}. {1} schéckt, mee keen virtuelle Controller huet e PlayStation-Controller drop.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} gëtt vun engem anere Programm benotzt, wéi zum Beispill DSX. Maacht en zou oder wielt en anere Port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>E Spill-Mod</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funktionéiert mat OpenTrack an all Tracker, deen seng UDP-Ausgab schéckt oder an de gemeinsame Späicher vu FreeTrack 2.0 schreift, a mat enger OpenXR-Runtime op dësem Computer, déi eng Sessioun am Hannergrond lafe loosse kann.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-Taste liesen</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Liest G-Tasten iwwer d'Logitech G-key SDK. Brauch eng lafend Logitech Gaming Software 8.55 oder méi nei. Zitt an där Software de Befeel „G-key“ op all Tast am PadForge-Profil. Maacht dëse Profil persistent, soss kommen d'Tasten nëmme bei PadForge un, wann seng Fënster am Virdergrond ass. Eng G600- oder G300-Maus däerf ausserdeem net am Onboard-Späichermodus sinn.</value></data>
@@ -808,7 +819,10 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Rietsen Trigger</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Lénks a riets Trigger-Motoren tauschen</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Vibratioune vun adaptiven Trigger iwwersetzen</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Wann e Spill dëse Slot als virtuellen DualSense steiert, ginn seng adaptiv Trigger-Effekter vun der Aart Vibratioun op den Impulse-Trigger-Motore vun dësem Controller ofgespillt. Effekter vun der Aart Widderstand hu keng Entspriechung als Vibratioun a ginn ignoréiert.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Wann e Spill dëse Slot als virtuellen DualSense steiert oder e Spill-Mod Trigger-Effekter schéckt, ginn d'adaptiv Trigger-Effekter vun der Aart Vibratioun op den Impulse-Trigger-Motore vun dësem Controller ofgespillt. Effekter vun der Aart Widderstand hu keng Entspriechung als Vibratioun a ginn ignoréiert.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} setzt dës Trigger. D'Astellungen hei kommen zréck, wann en ophält.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} schéckt Trigger-Effekter. Wann „Vibratioune vun adaptiven Trigger iwwersetzen“ un ass, ginn hir Vibratiounen hei ofgespillt.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} setzt dës Luuchten. D'Astellungen hei kommen zréck, wann en ophält.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Lénken Trigger testen</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Rietsen Trigger testen</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Aktivitéit vun den Trigger-Motoren</value></data>
@@ -865,7 +879,7 @@ Eng Kopie vun der viregter Versioun ass an dësem Dossier: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptiv Trigger</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptiv Trigger</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfiguréiert d'Trigger-Effekter um zougewisene physeschen DualSense. Trigger-Effekter, déi e Spill steiert, ginn automatesch weidergeleet. D'Astellungen hei bilden eng Schicht, déi Dir selwer konfiguréiert an déi leeft, wa kee Spill schreift.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfiguréiert d'Trigger-Effekter um zougewisene physeschen DualSense. Trigger-Effekter vun engem Spill oder engem Spill-Mod ginn automatesch weidergeleet. D'Astellungen hei bilden eng Schicht, déi Dir selwer konfiguréiert an déi leeft, wa weder d'Spill nach de Mod schreift.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Sticks</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Doudzonen, Anti-Doudzonen, Empfindlechkeetskurven a Kalibréierung vun der Mëttekorrektur, fir all Stick eenzel. All Sektioun hei ënnendrënner betrëfft een Analogstick um aktiven Ausgang. Erweidert Profiler kënne bis zu véier Sticks hunn. Standard-Gamepads hunn zwee.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Trigger</value></data>
@@ -4341,6 +4355,12 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Grëff</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} setzt d'Trigger vun dësem Controller.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} setzt d'Luuchte vun dësem Controller.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} setzt d'Trigger an d'Luuchte vun dësem Controller.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} spillt Trigger-Vibratiounen op den Impulse-Trigger vun dësem Controller of.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Mod-Effekter läschen</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Beent d'Effekter, déi Spill-Mods op dësem Controller gesat hunn. Seng eegen Astellunge kommen zréck, bis e Mod erëm eppes schéckt.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Lénks/Riets</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Erop/Erof</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Eran/Eraus</value></data>

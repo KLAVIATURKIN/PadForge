@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port för Fjärrlänk</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port för rörelseserver</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Förser Cemu, Dolphin, Yuzu m.fl. med gyro- och accelerometerdata.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Spelmoddar</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Låter spelmoddar som är gjorda för DSX styra adaptiva avtryckare, ljusfält, spelarlampor och ljudavstängningslampa på dina PlayStation-handkontroller.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Ta emot DSX-spelmoddar</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port för spelmoddar</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Kör en DSX.exe-ersättare</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Vissa moddar, som DualSense4GTAV, stänger av sig själva om inget program med namnet DSX körs. Det här kör en liten ersättare med det namnet medan servern lyssnar.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Fungerar med moddar gjorda för DSX, till exempel för GTA V, Red Dead Redemption 2, Skyrim och Forza. Medan servern lyssnar skriver PadForge sin port dit moddarna letar efter den.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Lyssnar på :{0}. {1} skickar till virtuell handkontroll {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Lyssnar på :{0}. {1} skickar, men ingen virtuell handkontroll har en PlayStation-handkontroll.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} används av ett annat program, till exempel DSX. Stäng det eller välj en annan port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>En spelmodd</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Fungerar med OpenTrack och alla spårare som skickar sin UDP-utdata eller skriver till delat minne enligt FreeTrack 2.0, och med en OpenXR-körmiljö på den här datorn som kan köra en session i bakgrunden.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Läs av Logitech G-tangenter</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Läser av G-tangenter via Logitech G-key SDK. Kräver att Logitech Gaming Software 8.55 eller senare körs. Dra i det programmet kommandot ”G-key” till varje tangent i PadForge-profilen. Gör profilen beständig, annars når tangenterna bara PadForge medan dess fönster ligger överst. En G600- eller G300-mus får dessutom inte vara i läget för inbyggt minne.</value></data>
@@ -832,7 +843,10 @@ En kopia av den föregående versionen finns i den här mappen: {1}</value></dat
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Höger avtryckare</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Byt plats på vänster och höger avtryckarmotor</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Översätt vibrationer från adaptiva avtryckare</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>När ett spel styr den här platsen som en virtuell DualSense spelas dess vibrationsliknande effekter för adaptiva avtryckare upp på den här handkontrollens impulsavtryckarmotorer. Motståndsliknande effekter har ingen motsvarighet som vibration och ignoreras.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>När ett spel styr den här platsen som en virtuell DualSense, eller en spelmodd skickar avtryckareffekter, spelas de vibrationsliknande effekterna för adaptiva avtryckare upp på den här handkontrollens impulsavtryckarmotorer. Motståndsliknande effekter har ingen motsvarighet som vibration och ignoreras.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} styr de här avtryckarna. Inställningarna här återkommer när den slutar.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} skickar avtryckareffekter. Med Översätt vibrationer från adaptiva avtryckare aktiverat spelas deras vibrationer upp här.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} styr de här lamporna. Inställningarna här återkommer när den slutar.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Testa vänster avtryckare</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Testa höger avtryckare</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Aktivitet i avtryckarmotorer</value></data>
@@ -889,7 +903,7 @@ En kopia av den föregående versionen finns i den här mappen: {1}</value></dat
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptiva avtryckare</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptiva avtryckare</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfigurera återkopplingseffekter för avtryckarna på den tilldelade fysiska DualSense-handkontrollen. Avtryckareffekter som styrs av spelet vidarebefordras automatiskt. Inställningarna här lägger till ett användarkonfigurerat lager som körs när inget spel skriver.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfigurera återkopplingseffekter för avtryckarna på den tilldelade fysiska DualSense-handkontrollen. Avtryckareffekter från ett spel eller en spelmodd vidarebefordras automatiskt. Inställningarna här lägger till ett användarkonfigurerat lager som körs när ingen av dem skriver.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Spakar</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Dödzoner, anti-dödzoner, känslighetskurvor och kalibrering av centrumförskjutning per spak. Varje avsnitt nedan gäller en analog spak på den aktiva utdataenheten. Utökade profiler kan ha upp till fyra spakar. Vanliga handkontroller har två.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Avtryckare</value></data>
@@ -4385,6 +4399,12 @@ Vill du att PadForge avinstallerar dem nu? Detta kräver förhöjd behörighet o
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Handtag</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} styr den här handkontrollens avtryckare.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} styr den här handkontrollens lampor.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} styr den här handkontrollens avtryckare och lampor.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} spelar upp avtryckarvibrationer på den här handkontrollens impulsavtryckare.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Rensa moddeffekter</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Avslutar det som spelmoddar har ställt in på den här handkontrollen. Dess egna inställningar återgår tills en modd skickar igen.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Vänster/höger</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Upp/ned</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>In/ut</value></data>

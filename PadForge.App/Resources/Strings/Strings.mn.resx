@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Алсын холболтын порт</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Хөдөлгөөний серверийн порт</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu зэрэгт гироскоп болон акселерометрийн өгөгдөл дамжуулна.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Тоглоомын модууд</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>DSX-д зориулж хийсэн тоглоомын модуудад таны PlayStation контроллеруудын дасан зохицох гох, гэрлийн зурвас, тоглогчийн гэрэл болон дуу хаах гэрлийг тохируулах боломж олгоно.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX тоглоомын модуудыг хүлээн авах</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Тоглоомын модын порт</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe орлуулагч ажиллуулах</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>DualSense4GTAV зэрэг зарим мод DSX нэртэй програм ажиллаагүй бол өөрсдийгөө унтраадаг. Энэ нь сервер сонсож байх үед тэр нэртэй жижиг орлуулагч програм ажиллуулна.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>GTA V, Red Dead Redemption 2, Skyrim, Forza зэрэг тоглоомд зориулсан, DSX-д зориулж хийсэн модуудтай ажиллана. Сервер сонсож байх үед PadForge өөрийн портыг тэдгээр модын хайдаг газарт бичнэ.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>:{0} дээр сонсож байна. {1} {2}-р виртуал контроллер руу илгээж байна.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>:{0} дээр сонсож байна. {1} илгээж байгаа ч аль ч виртуал контроллер дээр PlayStation контроллер алга.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>{0} портыг DSX зэрэг өөр програм ашиглаж байна. Тэр програмыг хаах эсвэл өөр порт сонгоно уу.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Тоглоомын мод</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack болон UDP гаралтаа илгээдэг эсвэл FreeTrack 2.0 хуваалцсан санах ойд бичдэг аливаа хянагчтай, мөн энэ компьютер дээрх арын горимд сесс ажиллуулж чадах OpenXR ажиллах орчинтой ажиллана.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-key товчлууруудыг унших</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>G товчлууруудыг Logitech G-key SDK-ээр уншина. Logitech Gaming Software 8.55 буюу түүнээс хойшх хувилбар ажиллаж байх шаардлагатай. Тэр програмд PadForge профайлын товчлуур бүр дээр G-key командыг чирж тавина уу. Тэр профайлыг байнгын болгоно уу, эс бөгөөс PadForge-ийн цонх урд байх үед л товчлуурын дохио түүнд хүрнэ. G600 эсвэл G300 хулгана мөн дотоод санах ойн горимоос гарсан байх ёстой.</value></data>
@@ -817,7 +828,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Баруун гох</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Зүүн ба баруун гохны моторыг солих</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Дасан зохицох гохны чичиргээг хөрвүүлэх</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Тоглоом энэ слотыг виртуал DualSense болгон удирдах үед түүний чичиргээ төрлийн дасан зохицох гохны эффектүүд энэ контроллерийн импульсийн гохны мотор дээр тоглогдоно. Эсэргүүцэл төрлийн эффектүүдэд чичиргээний дүйцэл байхгүй тул тэдгээрийг үл тооно.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Тоглоом энэ слотыг виртуал DualSense болгон удирдах эсвэл тоглоомын мод гохны эффект илгээх үед чичиргээ төрлийн дасан зохицох гохны эффектүүд энэ контроллерийн импульсийн гохны мотор дээр тоглогдоно. Эсэргүүцэл төрлийн эффектүүдэд чичиргээний дүйцэл байхгүй тул тэдгээрийг үл тооно.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} эдгээр гохыг тохируулж байна. Түүнийг зогсоход энд хийсэн тохиргоо сэргэнэ.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} гохны эффект илгээж байна. «Дасан зохицох гохны чичиргээг хөрвүүлэх» асаалттай үед тэдгээрийн чичиргээ энд тоглогдоно.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} эдгээр гэрлийг тохируулж байна. Түүнийг зогсоход энд хийсэн тохиргоо сэргэнэ.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Зүүн гохыг турших</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Баруун гохыг турших</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Гохны моторын идэвхжил</value></data>
@@ -874,7 +888,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Дасан зохицох гох</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Дасан зохицох гох</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Оноосон физик DualSense дээрх гохны эргэх холбооны эффектүүдийг тохируулна. Тоглоомын гохны эффектүүд автоматаар дамжуулагдана. Энд хийсэн тохиргоо нь ямар ч тоглоом бичээгүй үед ажиллах, хэрэглэгчийн тохируулсан давхаргыг нэмнэ.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Оноосон физик DualSense дээрх гохны эргэх холбооны эффектүүдийг тохируулна. Тоглоом эсвэл тоглоомын модоос ирсэн гохны эффектүүд автоматаар дамжуулагдана. Энд хийсэн тохиргоо нь аль аль нь бичээгүй үед ажиллах, хэрэглэгчийн тохируулсан давхаргыг нэмнэ.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Стикүүд</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Стик тус бүрийн үхсэн бүс, үхсэн бүсийн нөхөлт, мэдрэмжийн муруй, төвийн шилжилтийн калибровк. Доорх хэсэг бүр идэвхтэй гаралтын нэг аналог стикт хамаарна. Өргөтгөсөн профайл дөрвөн хүртэл стиктэй байж болно. Стандарт геймпад хоёр стиктэй.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Гохууд</value></data>
@@ -4345,6 +4359,12 @@ PadForge одоо тэдгээрийг устгах уу? Үүнд админи�
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Бариул</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} энэ контроллерийн гохыг тохируулж байна.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} энэ контроллерийн гэрлийг тохируулж байна.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} энэ контроллерийн гох болон гэрлийг тохируулж байна.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} энэ контроллерийн импульсийн гохонд гохны чичиргээ тоглуулж байна.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Модын эффектийг арилгах</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Тоглоомын модуудын энэ контроллерт тохируулсан зүйлийг зогсооно. Мод дахин илгээх хүртэл контроллерийн өөрийн тохиргоо сэргэнэ.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Зүүн/Баруун</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Дээш/Доош</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Дотогш/Гадагш</value></data>

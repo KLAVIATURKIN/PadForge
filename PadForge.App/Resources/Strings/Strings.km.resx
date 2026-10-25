@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>ច្រកតំណពីចម្ងាយ</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>ច្រកម៉ាស៊ីនមេចលនា</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>ផ្ដល់ទិន្នន័យហ្ស៊ីរ៉ូ និងឧបករណ៍វាស់សំទុះទៅ Cemu, Dolphin, Yuzu ជាដើម។</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>ម៉ូដហ្គេម</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>អនុញ្ញាតឱ្យម៉ូដហ្គេមដែលបង្កើតសម្រាប់ DSX កំណត់ទ្រីហ្គឺបន្សាំ របារភ្លើង ភ្លើងអ្នកលេង និងភ្លើងបិទសំឡេង នៃឧបករណ៍បញ្ជា PlayStation របស់អ្នក។</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>ទទួលយកម៉ូដហ្គេម DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>ច្រកម៉ូដហ្គេម</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>ដំណើរការកម្មវិធីជំនួស DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>ម៉ូដខ្លះ ដូចជា DualSense4GTAV បិទខ្លួនឯង ប្រសិនបើគ្មានកម្មវិធីឈ្មោះ DSX កំពុងដំណើរការ។ ជម្រើសនេះដំណើរការកម្មវិធីជំនួសតូចមួយដែលមានឈ្មោះនោះ ខណៈម៉ាស៊ីនមេកំពុងស្ដាប់។</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>ដំណើរការជាមួយម៉ូដដែលបង្កើតសម្រាប់ DSX ដូចជាម៉ូដសម្រាប់ GTA V, Red Dead Redemption 2, Skyrim និង Forza។ ខណៈម៉ាស៊ីនមេកំពុងស្ដាប់ PadForge សរសេរច្រករបស់វា នៅកន្លែងដែលម៉ូដទាំងនោះស្វែងរកវា។</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>កំពុងស្ដាប់នៅ :{0}។ {1} កំពុងផ្ញើទៅឧបករណ៍បញ្ជានិម្មិត {2}។</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>កំពុងស្ដាប់នៅ :{0}។ {1} កំពុងផ្ញើ ប៉ុន្តែគ្មានឧបករណ៍បញ្ជានិម្មិតណាមានឧបករណ៍បញ្ជា PlayStation នៅលើវាទេ។</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>ច្រក {0} កំពុងត្រូវបានប្រើដោយកម្មវិធីផ្សេង ដូចជា DSX។ បិទវា ឬជ្រើសរើសច្រកផ្សេង។</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>ម៉ូដហ្គេមមួយ</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>ដំណើរការជាមួយ OpenTrack និងកម្មវិធីតាមដានណាមួយដែលផ្ញើលទ្ធផល UDP របស់វា ឬសរសេរអង្គចងចាំរួម FreeTrack 2.0 ហើយជាមួយកម្មវិធីដំណើរការ OpenXR នៅលើម៉ាស៊ីននេះ ដែលអាចដំណើរការវគ្គមួយនៅផ្ទៃខាងក្រោយ។</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>អានគ្រាប់ចុច G របស់ Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>អានគ្រាប់ចុច G តាមរយៈ Logitech G-key SDK។ ត្រូវការ Logitech Gaming Software 8.55 ឬថ្មីជាងនេះកំពុងដំណើរការ។ នៅក្នុងកម្មវិធីនោះ សូមអូសពាក្យបញ្ជា G-key ទៅលើគ្រាប់ចុចនីមួយៗក្នុងប្រូហ្វាល់ PadForge។ សូមកំណត់ប្រូហ្វាល់នោះឲ្យជាប់លាប់ បើមិនដូច្នោះទេ គ្រាប់ចុចនឹងទៅដល់ PadForge តែពេលបង្អួចរបស់វានៅខាងមុខប៉ុណ្ណោះ។ កណ្ដុរ G600 ឬ G300 ក៏ត្រូវតែចេញពីរបៀបអង្គចងចាំក្នុងឧបករណ៍ដែរ។</value></data>
@@ -817,7 +828,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>ទ្រីហ្គឺស្ដាំ</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>ប្ដូរម៉ូទ័រទ្រីហ្គឺឆ្វេង និងស្ដាំ</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>បម្លែងការញ័រទ្រីហ្គឺបន្សាំ</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>នៅពេលហ្គេមបញ្ជារន្ធនេះជា DualSense និម្មិត បែបផែនទ្រីហ្គឺបន្សាំប្រភេទញ័ររបស់វា លេងលើម៉ូទ័រទ្រីហ្គឺ Impulse របស់ឧបករណ៍បញ្ជានេះ។ បែបផែនប្រភេទទប់ទល់ មិនមានសមមូលជាការញ័រទេ ហើយត្រូវបានរំលង។</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>នៅពេលហ្គេមបញ្ជារន្ធនេះជា DualSense និម្មិត ឬម៉ូដហ្គេមផ្ញើបែបផែនទ្រីហ្គឺ បែបផែនទ្រីហ្គឺបន្សាំប្រភេទញ័រ លេងលើម៉ូទ័រទ្រីហ្គឺ Impulse របស់ឧបករណ៍បញ្ជានេះ។ បែបផែនប្រភេទទប់ទល់ មិនមានសមមូលជាការញ័រទេ ហើយត្រូវបានរំលង។</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} កំពុងកំណត់ទ្រីហ្គឺទាំងនេះ។ ការកំណត់នៅទីនេះនឹងត្រឡប់មកវិញ នៅពេលវាឈប់។</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} កំពុងផ្ញើបែបផែនទ្រីហ្គឺ។ នៅពេលបើក «បម្លែងការញ័រទ្រីហ្គឺបន្សាំ» ការញ័ររបស់វាលេងនៅទីនេះ។</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} កំពុងកំណត់ភ្លើងទាំងនេះ។ ការកំណត់នៅទីនេះនឹងត្រឡប់មកវិញ នៅពេលវាឈប់។</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>សាកល្បងទ្រីហ្គឺឆ្វេង</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>សាកល្បងទ្រីហ្គឺស្ដាំ</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>សកម្មភាពម៉ូទ័រទ្រីហ្គឺ</value></data>
@@ -874,7 +888,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>ទ្រីហ្គឺបន្សាំ</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>ទ្រីហ្គឺបន្សាំ</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>កំណត់បែបផែនតបរបស់ទ្រីហ្គឺ លើ DualSense ពិតដែលបានកំណត់។ បែបផែនទ្រីហ្គឺដែលហ្គេមបញ្ជា ត្រូវបានបញ្ជូនបន្តដោយស្វ័យប្រវត្តិ។ ការកំណត់នៅទីនេះបន្ថែមស្រទាប់មួយដែលអ្នកប្រើកំណត់ ដែលដំណើរការនៅពេលគ្មានហ្គេមណាកំពុងសរសេរ។</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>កំណត់បែបផែនតបរបស់ទ្រីហ្គឺ លើ DualSense ពិតដែលបានកំណត់។ បែបផែនទ្រីហ្គឺពីហ្គេម ឬពីម៉ូដហ្គេម ត្រូវបានបញ្ជូនបន្តដោយស្វ័យប្រវត្តិ។ ការកំណត់នៅទីនេះបន្ថែមស្រទាប់មួយដែលអ្នកប្រើកំណត់ ដែលដំណើរការនៅពេលគ្មានមួយណាកំពុងសរសេរ។</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>ដងបញ្ជា</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>តំបន់ងាប់ តំបន់ប្រឆាំងតំបន់ងាប់ ខ្សែកោងភាពរសើប និងការក្រិតគម្លាតកណ្ដាល សម្រាប់ដងបញ្ជានីមួយៗ។ ផ្នែកនីមួយៗខាងក្រោមសំដៅលើដងបញ្ជាអាណាឡូកមួយ នៅលើលទ្ធផលសកម្ម។ ប្រូហ្វាល់ Extended អាចមានដងបញ្ជារហូតដល់បួន។ ហ្គេមផេតស្តង់ដារមានពីរ។</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>ទ្រីហ្គឺ</value></data>
@@ -4360,6 +4374,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>ដៃកាន់</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} កំពុងកំណត់ទ្រីហ្គឺរបស់ឧបករណ៍បញ្ជានេះ។</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} កំពុងកំណត់ភ្លើងរបស់ឧបករណ៍បញ្ជានេះ។</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} កំពុងកំណត់ទ្រីហ្គឺ និងភ្លើងរបស់ឧបករណ៍បញ្ជានេះ។</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} កំពុងលេងការញ័រទ្រីហ្គឺ លើទ្រីហ្គឺ Impulse របស់ឧបករណ៍បញ្ជានេះ។</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>សម្អាតបែបផែនម៉ូដ</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>បញ្ចប់អ្វីដែលម៉ូដហ្គេមបានកំណត់លើឧបករណ៍បញ្ជានេះ។ ការកំណត់ផ្ទាល់ខ្លួនរបស់វានឹងត្រឡប់មកវិញ រហូតដល់ម៉ូដណាមួយផ្ញើម្ដងទៀត។</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>ឆ្វេង/ស្ដាំ</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>លើ/ក្រោម</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>ចូល/ចេញ</value></data>

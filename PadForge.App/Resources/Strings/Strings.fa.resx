@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>پورت پیوند از راه دور</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>پورت سرور حرکت</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>داده‌های ژیروسکوپ و شتاب‌سنج را در اختیار Cemu، Dolphin، Yuzu و مانند آن‌ها قرار می‌دهد.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>مودهای بازی</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>به مودهای بازی ساخته‌شده برای DSX اجازه می‌دهد ماشه‌های تطبیقی، نوار نوری، چراغ‌های بازیکن و چراغ بی‌صدا کنترلرهای PlayStation شما را تنظیم کنند.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>پذیرفتن مودهای بازی DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>پورت مود بازی</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>اجرای جایگزین DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>برخی مودها، مانند DualSense4GTAV، تا زمانی که برنامه‌ای به نام DSX در حال اجرا نباشد خود را خاموش می‌کنند. این گزینه تا زمانی که سرور گوش می‌دهد، یک جایگزین کوچک با همین نام اجرا می‌کند.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>با مودهای ساخته‌شده برای DSX کار می‌کند، مانند مودهای GTA V، Red Dead Redemption 2، Skyrim و Forza. تا زمانی که سرور گوش می‌دهد، PadForge پورت خود را همان‌جا می‌نویسد که این مودها دنبالش می‌گردند.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>در حال گوش دادن روی :{0}. {1} به کنترلر مجازی {2} می‌فرستد.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>در حال گوش دادن روی :{0}. {1} می‌فرستد، اما هیچ کنترلر مجازی‌ای کنترلر PlayStation ندارد.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>پورت {0} توسط برنامه دیگری مانند DSX در حال استفاده است. آن را ببندید یا پورت دیگری انتخاب کنید.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>یک مود بازی</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>با OpenTrack و هر ردیابی که خروجی UDP آن را می‌فرستد یا در حافظه مشترک FreeTrack 2.0 می‌نویسد کار می‌کند، و نیز با یک محیط اجرای OpenXR روی همین رایانه که بتواند نشستی را در پس‌زمینه اجرا کند.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>خواندن کلیدهای G از Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>کلیدهای G را از طریق Logitech G-key SDK می‌خواند. باید Logitech Gaming Software نسخه 8.55 یا جدیدتر در حال اجرا باشد. در آن نرم‌افزار، فرمان G-key را در پروفایل PadForge روی هر کلید بکشید. آن پروفایل را ماندگار کنید، وگرنه کلیدها فقط وقتی به PadForge می‌رسند که پنجره آن جلو باشد. ماوس G600 یا G300 همچنین باید از حالت حافظه داخلی خارج باشد.</value></data>
@@ -832,7 +843,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>ماشه راست</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>جابه‌جایی موتورهای ماشه چپ و راست</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>تبدیل لرزش‌های ماشه تطبیقی</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>وقتی بازی این اسلات را به‌عنوان DualSense مجازی به کار می‌گیرد، جلوه‌های ماشه تطبیقی از نوع لرزش روی موتورهای ماشه ایمپالس این کنترلر پخش می‌شود. جلوه‌های از نوع مقاومت معادل لرزشی ندارند و نادیده گرفته می‌شوند.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>وقتی بازی این اسلات را به‌عنوان DualSense مجازی به کار می‌گیرد یا یک مود بازی جلوه‌های ماشه می‌فرستد، جلوه‌های ماشه تطبیقی از نوع لرزش روی موتورهای ماشه ایمپالس این کنترلر پخش می‌شود. جلوه‌های از نوع مقاومت معادل لرزشی ندارند و نادیده گرفته می‌شوند.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} این ماشه‌ها را تنظیم می‌کند. با توقف آن، تنظیمات اینجا برمی‌گردند.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} جلوه‌های ماشه می‌فرستد. با روشن بودن تبدیل لرزش‌های ماشه تطبیقی، لرزش‌های آن‌ها اینجا پخش می‌شود.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} این چراغ‌ها را تنظیم می‌کند. با توقف آن، تنظیمات اینجا برمی‌گردند.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>آزمایش ماشه چپ</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>آزمایش ماشه راست</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>فعالیت موتور ماشه</value></data>
@@ -889,7 +903,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>ماشه‌های تطبیقی</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>ماشه‌های تطبیقی</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>جلوه‌های بازخورد ماشه را روی DualSense فیزیکی اختصاص‌یافته پیکربندی کنید. جلوه‌های ماشه‌ای که بازی می‌فرستد به‌طور خودکار منتقل می‌شوند. تنظیمات اینجا لایه‌ای با پیکربندی کاربر اضافه می‌کند که وقتی هیچ بازی‌ای چیزی نمی‌نویسد اجرا می‌شود.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>جلوه‌های بازخورد ماشه را روی DualSense فیزیکی اختصاص‌یافته پیکربندی کنید. جلوه‌های ماشه‌ای که بازی یا مود بازی می‌فرستد به‌طور خودکار منتقل می‌شوند. تنظیمات اینجا لایه‌ای با پیکربندی کاربر اضافه می‌کند که وقتی هیچ‌کدام چیزی نمی‌نویسند اجرا می‌شود.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>استیک‌ها</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>ناحیه مرده، ضد ناحیه مرده، منحنی حساسیت و کالیبراسیون آفست مرکز برای هر استیک. هر بخش زیر به یک استیک آنالوگ در خروجی فعال مربوط است. پروفایل‌های گسترش‌یافته می‌توانند تا چهار استیک داشته باشند. گیم‌پدهای استاندارد دو استیک دارند.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>ماشه‌ها</value></data>
@@ -4385,6 +4399,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>دسته</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ماشه‌های این کنترلر را تنظیم می‌کند.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} چراغ‌های این کنترلر را تنظیم می‌کند.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ماشه‌ها و چراغ‌های این کنترلر را تنظیم می‌کند.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} روی ماشه‌های ایمپالس این کنترلر لرزش ماشه پخش می‌کند.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>پاک کردن جلوه‌های مود</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>جلوه‌هایی را که مودهای بازی روی این کنترلر تنظیم کرده‌اند پایان می‌دهد. تنظیمات خود کنترلر تا ارسال دوباره مود برمی‌گردند.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>چپ/راست</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>بالا/پایین</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>داخل/خارج</value></data>

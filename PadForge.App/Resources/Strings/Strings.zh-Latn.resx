@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote Link duānkǒu</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Tǐgǎn fúwùqì duānkǒu</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Wèi Cemu, Dolphin, Yuzu děng tígōng tuóluóyí hé jiāsùdùjì shùjù.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Yóuxì mózǔ</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Ràng wèi DSX zhìzuò de yóuxì mózǔ kěyǐ shèzhì nín de PlayStation kòngzhìqì de zìshìyìng bānjī, dēngtiáo, wánjiā zhǐshìdēng hé jìngyīn zhǐshìdēng.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Jiēshòu DSX yóuxì mózǔ</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Yóuxì mózǔ duānkǒu</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Yùnxíng DSX.exe tìshēn chéngxù</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Yǒuxiē mózǔ (rú DualSense4GTAV) zài méiyǒu míng wéi DSX de chéngxù yùnxíng shí huì zìxíng guānbì. Fúwùqì jiāntīng qījiān, zhè huì yùnxíng yí gè tóngmíng de xiǎoxíng tìshēn chéngxù.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Shìyòng yú wèi DSX zhìzuò de mózǔ, lìrú GTA V, Red Dead Redemption 2, Skyrim hé Forza de mózǔ. Fúwùqì jiāntīng qījiān, PadForge huì bǎ qí duānkǒu xiě dào zhèxiē mózǔ cházhǎo de wèizhì.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Jiāntīng :{0}. {1} zhèngzài xiàng xūnǐ kòngzhìqì {2} fāsòng.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Jiāntīng :{0}. {1} zhèngzài fāsòng, dàn méiyǒu xūnǐ kòngzhìqì shàng yǒu PlayStation kòngzhìqì.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Duānkǒu {0} yǐ bèi qítā chéngxù (lìrú DSX) zhànyòng. Qǐng guānbì gāi chéngxù huò xuǎnzé qítā duānkǒu.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Mǒu gè yóuxì mózǔ</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Shìyòng yú OpenTrack, rènhé fāsòng qí UDP shūchū huò xiěrù FreeTrack 2.0 gòngxiǎng nèicún de zhuīzōngqì, yǐjí běn jī shàng néng zài hòutái yùnxíng huìhuà de OpenXR yùnxíngshí.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Dúqǔ Logitech G jiàn</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Tōngguò Logitech G-key SDK dúqǔ G jiàn. Xūyào yùnxíng Logitech Gaming Software 8.55 huò gèng gāo bǎnběn. Qǐng zài gāi ruǎnjiàn zhōng, jiāng G-key mìnglìng tuō dào PadForge pèizhì wénjiàn de měi gè jiàn shàng. Qǐng jiāng gāi pèizhì wénjiàn shèwéi chángzhù, fǒuzé zhèxiē jiàn jǐn zài PadForge chuāngkǒu wèiyú qiántái shí cái huì sòngdá. Cǐwài, G600 huò G300 shǔbiāo bù néng chǔyú bǎnzài nèicún móshì.</value></data>
@@ -816,7 +827,10 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Yòu bānjī</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Jiāohuàn zuǒ yòu bānjī mǎdá</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Zhuǎnhuàn zìshìyìng bānjī zhèndòng</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Dāng yóuxì jiāng cǐ cáowèi zuòwéi xūnǐ DualSense qūdòng shí, qí zhèndònglèi zìshìyìng bānjī xiàoguǒ huì tōngguò cǐ kòngzhìqì de Chōngjī bānjī mǎdá bōfàng. Zǔlìlèi xiàoguǒ méiyǒu zhèndòng děngjiàwù, jiāng bèi hūlüè.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Dāng yóuxì jiāng cǐ cáowèi zuòwéi xūnǐ DualSense qūdòng, huò yóuxì mózǔ fāsòng bānjī xiàoguǒ shí, zhèndònglèi zìshìyìng bānjī xiàoguǒ huì tōngguò cǐ kòngzhìqì de chōngjī bānjī mǎdá bōfàng. Zǔlìlèi xiàoguǒ méiyǒu zhèndòng děngjiàwù, jiāng bèi hūlüè.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} zhèngzài shèzhì zhèxiē bānjī. Tā tíngzhǐ hòu, cǐ chù de shèzhì huì huīfù.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} zhèngzài fāsòng bānjī xiàoguǒ. Kāiqǐ "Zhuǎnhuàn zìshìyìng bānjī zhèndòng" hòu, tāmen de zhèndòng huì zài cǐ bōfàng.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} zhèngzài shèzhì zhèxiē dēng. Tā tíngzhǐ hòu, cǐ chù de shèzhì huì huīfù.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Cèshì zuǒ bānjī</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Cèshì yòu bānjī</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Bānjī mǎdá huódòng</value></data>
@@ -873,7 +887,7 @@ Zhī qián bǎnběn de fùběn wèiyú cǐ wénjiànjiā: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Zìshìyìng bānjī</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Zìshìyìng bānjī</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Pèizhì suǒ fēnpèi de wùlǐ DualSense shàng de bānjī xiàoguǒ. Yóuxì qūdòng de bānjī xiàoguǒ huì zìdòng zhuǎnfā. Cǐ chù de shèzhì huì diéjiā yí gè yònghù zìdìngyì céng, zài méiyǒu yóuxì xiěrù shí yùnxíng.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Pèizhì suǒ fēnpèi de wùlǐ DualSense shàng de bānjī xiàoguǒ. Lái zì yóuxì huò yóuxì mózǔ de bānjī xiàoguǒ huì zìdòng zhuǎnfā. Cǐ chù de shèzhì huì diéjiā yí gè yònghù zìdìngyì céng, zài èrzhě dōu méiyǒu xiěrù shí yùnxíng.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Yáogǎn</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Měi gēn yáogǎn de sǐqū, fǎn sǐqū, língmǐndù qūxiàn hé zhōngxīn piānyí jiàozhǔn. Xiàfāng měi gè fēnqū zhēnduì dāngqián shūchū de yì gēn mónǐ yáogǎn. Kuòzhǎn pèizhì wénjiàn zuì duō kěyǒu sì gēn yáogǎn. Biāozhǔn shǒubǐng yǒu liǎng gēn.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Bānjī</value></data>
@@ -4262,6 +4276,12 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Wòbǐng</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} zhèngzài shèzhì cǐ kòngzhìqì de bānjī.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} zhèngzài shèzhì cǐ kòngzhìqì de dēngguāng.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} zhèngzài shèzhì cǐ kòngzhìqì de bānjī hé dēngguāng.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} zhèngzài cǐ kòngzhìqì de chōngjī bānjī shàng bōfàng bānjī zhèndòng.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Qīngchú mózǔ xiàoguǒ</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Jiéshù yóuxì mózǔ zài cǐ kòngzhìqì shàng shèzhì de nèiróng. Zài mózǔ zàicì fāsòng zhīqián, kòngzhìqì huīfù shǐyòng zìshēn de shèzhì.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Zuǒ/yòu</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Shàng/xià</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Jìn/chū</value></data>

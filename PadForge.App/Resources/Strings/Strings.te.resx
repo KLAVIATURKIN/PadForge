@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>రిమోట్ లింక్ పోర్ట్</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>మోషన్ సర్వర్ పోర్ట్</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu మొదలైన వాటికి గైరో, యాక్సిలరోమీటర్ డేటాను అందిస్తుంది.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>గేమ్ మోడ్లు</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>DSX కోసం రూపొందించిన గేమ్ మోడ్లు మీ PlayStation కంట్రోలర్ల అడాప్టివ్ ట్రిగ్గర్లు, లైట్ బార్, ప్లేయర్ లైట్లు, మ్యూట్ లైట్ను సెట్ చేయడానికి అనుమతిస్తుంది.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX గేమ్ మోడ్లను అంగీకరించు</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>గేమ్ మోడ్ పోర్ట్</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe స్టాండ్-ఇన్ నడుపు</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>DualSense4GTAV వంటి కొన్ని మోడ్లు DSX అనే ప్రోగ్రామ్ నడవకపోతే తమను తాము ఆఫ్ చేసుకుంటాయి. సర్వర్ వింటున్నంత సేపు ఇది ఆ పేరుతో ఒక చిన్న స్టాండ్-ఇన్ను నడుపుతుంది.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>DSX కోసం రూపొందించిన మోడ్లతో పనిచేస్తుంది, ఉదాహరణకు GTA V, Red Dead Redemption 2, Skyrim, Forza మోడ్లు. సర్వర్ వింటున్నంత సేపు, ఆ మోడ్లు వెతికే చోట PadForge తన పోర్ట్ను రాస్తుంది.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>:{0} పై వింటోంది. {1} వర్చువల్ కంట్రోలర్ {2}కు పంపుతోంది.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>:{0} పై వింటోంది. {1} పంపుతోంది, కానీ ఏ వర్చువల్ కంట్రోలర్లోనూ PlayStation కంట్రోలర్ లేదు.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>పోర్ట్ {0} DSX వంటి మరొక ప్రోగ్రామ్ వాడుకలో ఉంది. దాన్ని మూసివేయండి లేదా మరొక పోర్ట్ ఎంచుకోండి.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>ఒక గేమ్ మోడ్</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack తోనూ, UDP అవుట్పుట్ పంపే లేదా FreeTrack 2.0 షేర్డ్ మెమరీకి రాసే ఏ ట్రాకర్‌తోనూ, బ్యాక్‌గ్రౌండ్‌లో సెషన్ నడపగల ఈ మెషీన్‌లోని OpenXR రన్టైమ్‌తోనూ పనిచేస్తుంది.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-key లను చదువు</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK ద్వారా G-key లను చదువుతుంది. Logitech Gaming Software 8.55 లేదా ఆ తరువాతిది నడుస్తూ ఉండాలి. ఆ సాఫ్ట్‌వేర్‌లో PadForge ప్రొఫైల్‌లోని ప్రతి కీపైకి G-key కమాండ్‌ను లాగండి. ఆ ప్రొఫైల్‌ను శాశ్వతంగా చేయండి, లేకపోతే PadForge విండో ముందు ఉన్నప్పుడు మాత్రమే కీలు PadForgeకు చేరతాయి. G600 లేదా G300 మౌస్ ఆన్-బోర్డ్ మెమరీ మోడ్ నుండి కూడా బయట ఉండాలి.</value></data>
@@ -832,7 +843,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>కుడి ట్రిగ్గర్</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>ఎడమ, కుడి ట్రిగ్గర్ మోటార్లను మార్చు</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>అడాప్టివ్ ట్రిగ్గర్ వైబ్రేషన్లను అనువదించు</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>గేమ్ ఈ స్లాట్ను వర్చువల్ DualSenseగా నడిపినప్పుడు, దాని వైబ్రేషన్ తరహా అడాప్టివ్ ట్రిగ్గర్ ప్రభావాలు ఈ కంట్రోలర్ ఇంపల్స్ ట్రిగ్గర్ మోటార్లపై ప్లే అవుతాయి. నిరోధక తరహా ప్రభావాలకు వైబ్రేషన్ సమానం లేదు, కాబట్టి వాటిని విస్మరిస్తారు.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>గేమ్ ఈ స్లాట్ను వర్చువల్ DualSenseగా నడిపినప్పుడు లేదా గేమ్ మోడ్ ట్రిగ్గర్ ప్రభావాలను పంపినప్పుడు, వైబ్రేషన్ తరహా అడాప్టివ్ ట్రిగ్గర్ ప్రభావాలు ఈ కంట్రోలర్ ఇంపల్స్ ట్రిగ్గర్ మోటార్లపై ప్లే అవుతాయి. నిరోధక తరహా ప్రభావాలకు వైబ్రేషన్ సమానం లేదు, కాబట్టి వాటిని విస్మరిస్తారు.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ఈ ట్రిగ్గర్లను సెట్ చేస్తోంది. అది ఆగినప్పుడు ఇక్కడి సెట్టింగులు తిరిగి వస్తాయి.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} ట్రిగ్గర్ ప్రభావాలను పంపుతోంది. అడాప్టివ్ ట్రిగ్గర్ వైబ్రేషన్లను అనువదించు ఆన్లో ఉంటే, వాటి వైబ్రేషన్లు ఇక్కడ ప్లే అవుతాయి.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ఈ లైట్లను సెట్ చేస్తోంది. అది ఆగినప్పుడు ఇక్కడి సెట్టింగులు తిరిగి వస్తాయి.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>ఎడమ ట్రిగ్గర్ పరీక్షించు</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>కుడి ట్రిగ్గర్ పరీక్షించు</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>ట్రిగ్గర్ మోటార్ కార్యకలాపం</value></data>
@@ -889,7 +903,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>అడాప్టివ్ ట్రిగ్గర్లు</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>అడాప్టివ్ ట్రిగ్గర్లు</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>కేటాయించిన భౌతిక DualSenseపై ట్రిగ్గర్ ఫీడ్బ్యాక్ ప్రభావాలను కాన్ఫిగర్ చేయండి. గేమ్ నడిపే ట్రిగ్గర్ ప్రభావాలు ఆటోమేటిక్గా ఫార్వర్డ్ అవుతాయి. ఇక్కడి సెట్టింగులు గేమ్ ఏమీ రాయనప్పుడు నడిచే వినియోగదారు కాన్ఫిగర్ చేసిన పొరను జోడిస్తాయి.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>కేటాయించిన భౌతిక DualSenseపై ట్రిగ్గర్ ఫీడ్బ్యాక్ ప్రభావాలను కాన్ఫిగర్ చేయండి. గేమ్ లేదా గేమ్ మోడ్ నుండి వచ్చే ట్రిగ్గర్ ప్రభావాలు ఆటోమేటిక్గా ఫార్వర్డ్ అవుతాయి. ఇక్కడి సెట్టింగులు ఈ రెండూ రాయనప్పుడు నడిచే వినియోగదారు కాన్ఫిగర్ చేసిన పొరను జోడిస్తాయి.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>స్టిక్లు</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>ప్రతి స్టిక్కు డెడ్ జోన్లు, యాంటీ-డెడ్ జోన్లు, సున్నితత్వ వక్రరేఖలు, మధ్య ఆఫ్సెట్ క్రమాంకనం. కింది ప్రతి విభాగం చురుకైన అవుట్పుట్పై ఒక అనలాగ్ స్టిక్ను లక్ష్యంగా చేసుకుంటుంది. ఎక్స్టెండెడ్ ప్రొఫైల్లకు నాలుగు స్టిక్ల వరకు ఉండవచ్చు. ప్రామాణిక గేమ్ప్యాడ్లకు రెండు ఉంటాయి.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>ట్రిగ్గర్లు</value></data>
@@ -4385,6 +4399,12 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>హ్యాండిల్</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ఈ కంట్రోలర్ ట్రిగ్గర్లను సెట్ చేస్తోంది.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ఈ కంట్రోలర్ లైట్లను సెట్ చేస్తోంది.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ఈ కంట్రోలర్ ట్రిగ్గర్లను, లైట్లను సెట్ చేస్తోంది.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} ఈ కంట్రోలర్ ఇంపల్స్ ట్రిగ్గర్లపై ట్రిగ్గర్ వైబ్రేషన్లను ప్లే చేస్తోంది.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>మోడ్ ప్రభావాలను తొలగించు</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>ఈ కంట్రోలర్పై గేమ్ మోడ్లు సెట్ చేసినవాటిని ముగిస్తుంది. మోడ్ మళ్లీ పంపే వరకు దీని సొంత సెట్టింగులు తిరిగి ఉంటాయి.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>ఎడమ/కుడి</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>పైకి/కిందికి</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>లోపలికి/బయటకు</value></data>

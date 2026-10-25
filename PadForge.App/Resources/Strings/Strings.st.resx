@@ -105,6 +105,11 @@
   <!-- ═══ Dashboard ═══ -->
   <data name="FirstRun_Skip" xml:space="preserve"><value>Tlola</value></data>
   <data name="FirstRun_Next" xml:space="preserve"><value>E latelang</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Di-mod tsa dipapadi</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Amohela di-mod tsa DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port ya di-mod tsa dipapadi</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} e sebediswa ke lenaneo le leng, le kang DSX. Le kwale kapa o kgethe port e nngwe.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Mod ya papadi</value></data>
   <data name="RemoteLink_Connect" xml:space="preserve"><value>Hokela</value></data>
   <data name="RemoteLink_Connected" xml:space="preserve"><value>E hoketswe</value></data>
   <data name="RemoteLink_Reject" xml:space="preserve"><value>Hana</value></data>
@@ -236,6 +241,8 @@
 
   <!-- ═══ Pad Page ═══ -->
   <data name="Macro_CopyNameFormat" xml:space="preserve"><value>{0} (Kopi)</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} e fetola di-trigger tsena. Disetting tsa mona di tla kgutla ha e emisa.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} e fetola mabone ana. Disetting tsa mona di tla kgutla ha e emisa.</value></data>
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_TriggerRouting_Source" xml:space="preserve"><value>Mohlodi</value></data>
   <data name="Pad_TriggerRouting_Mode" xml:space="preserve"><value>Mokgwa</value></data>
@@ -920,6 +927,11 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Mofeng</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} e fetola di-trigger tsa controller ena.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} e fetola mabone a controller ena.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} e fetola di-trigger tsa controller ena le mabone a yona.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Hlakola diphello tsa mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>E fedisa seo di-mod tsa dipapadi di se behileng ho controller ena. Disetting tsa yona di a kgutla ho fihlela mod e romela hape.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Ho le letshehadi/Ho le letona</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Hodimo/Tlase</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ka hare/Ka ntle</value></data>

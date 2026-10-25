@@ -112,6 +112,11 @@
   <!-- ═══ Dashboard ═══ -->
   <data name="FirstRun_Next" xml:space="preserve"><value>Le isi</value></data>
   <data name="FirstRun_Done" xml:space="preserve"><value>Ua uma</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mod o taʻaloga</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Talia mod o taʻaloga mo DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port o mod o taʻaloga</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>O loʻo faʻaaogā le port {0} e se isi polokalame, e pei o DSX. Tapuni pe filifili se isi port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Se mod o taʻaloga</value></data>
   <data name="RemoteLink_Connect" xml:space="preserve"><value>Fesoʻotaʻi</value></data>
   <data name="RemoteLink_Connected" xml:space="preserve"><value>Ua fesoʻotaʻi</value></data>
   <data name="RemoteLink_Reject" xml:space="preserve"><value>Teʻena</value></data>
@@ -236,6 +241,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Trigger agavale</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Trigger taumatau</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>O loʻo setiina e {0} nei trigger. E toe foʻi mai faʻatulagaga iinei pe a taofi.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>O loʻo setiina e {0} nei moli. E toe foʻi mai faʻatulagaga iinei pe a taofi.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Tofotofo le trigger agavale</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Tofotofo le trigger taumatau</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Toe setiina le trigger agavale</value></data>
@@ -1074,6 +1081,9 @@
   <data name="MacroAction_KeyboardScreenMode_Format" xml:space="preserve"><value>E faʻaali e le {0} le {1}</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>O loʻo setiina e {0} trigger o lenei controller.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>O loʻo setiina e {0} moli o lenei controller.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>O loʻo setiina e {0} trigger ma moli o lenei controller.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Agavale/Taumatau</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Luga/Lalo</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Totonu/Fafo</value></data>

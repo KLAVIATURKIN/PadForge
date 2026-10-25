@@ -144,6 +144,17 @@
   <data name="FirstRun_Next" xml:space="preserve"><value>Ibikurikira</value></data>
   <data name="FirstRun_Done" xml:space="preserve"><value>Byarangiye</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Igikoresho</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mod z'imikino</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Yemerera mod z'imikino zakorewe DSX gushyiraho adaptive trigger, lightbar, amatara y'abakinnyi n'itara rya mute bya kontorola zawe za PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Emera mod z'imikino za DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port ya mod z'imikino</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Tangiza igisimbura cya DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Mod zimwe, nka DualSense4GTAV, zirahagarara keretse hari porogaramu yitwa DSX irimo gukora. Ibi bitangiza igisimbura gito gifite iryo zina mu gihe seriveri irimo kumviriza.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Ikora na mod zakorewe DSX, nk'izakorewe GTA V, Red Dead Redemption 2, Skyrim na Forza. Mu gihe seriveri irimo kumviriza, PadForge yandika port yayo aho izo mod ziyishakira.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Irimo kumviriza kuri :{0}. {1} irimo kohereza kuri kontorola y'ikoranabuhanga ya {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Irimo kumviriza kuri :{0}. {1} irimo kohereza, ariko nta kontorola y'ikoranabuhanga ifite kontorola ya PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} irimo gukoreshwa n'indi porogaramu, nka DSX. Yifunge cyangwa uhitemo indi port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Mod y'umukino</value></data>
   <data name="RemoteLink_Connect" xml:space="preserve"><value>Huza</value></data>
   <data name="RemoteLink_Connected" xml:space="preserve"><value>Bihujwe</value></data>
   <data name="Dashboard_NoDevice" xml:space="preserve"><value>Nta gikoresho</value></data>
@@ -313,6 +324,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Trigger y'ibumoso</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Trigger y'iburyo</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} irimo gushyiraho izi trigger. Igenamiterere ryo hano rigaruka iyo ihagaze.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} irimo gushyiraho aya matara. Igenamiterere ryo hano rigaruka iyo ihagaze.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Gerageza trigger y'ibumoso</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Gerageza trigger y'iburyo</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Subiza uko byari biri: trigger y'ibumoso</value></data>
@@ -1572,6 +1585,12 @@
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Intambwe</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} irimo gushyiraho trigger z'iyi kontorola.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} irimo gushyiraho amatara y'iyi kontorola.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} irimo gushyiraho trigger n'amatara by'iyi kontorola.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} irimo kunyeganyeza impulse trigger z'iyi kontorola.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Siba ingaruka za mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Ihagarika ibyo mod z'imikino zashyize kuri iyi kontorola. Igenamiterere ryayo rigaruka kugeza igihe mod yongeye kohereza.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Ibumoso/Iburyo</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Hejuru/Hasi</value></data>
   <data name="Falcon_Button_Format" xml:space="preserve"><value>Buto {0}</value></data>

@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>遠端連線連接埠</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>體感伺服器連接埠</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>為 Cemu、Dolphin、Yuzu 等提供陀螺儀和加速度計數據。</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>遊戲模組</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>讓為 DSX 製作的遊戲模組可以設定你的 PlayStation 控制器的自適應扳機、光條、玩家指示燈和靜音燈。</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>接受 DSX 遊戲模組</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>遊戲模組連接埠</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>執行 DSX.exe 替身程式</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>部分模組（例如 DualSense4GTAV）在沒有名為 DSX 的程式執行時會自行關閉。伺服器監聽期間，這會執行一個同名的小型替身程式。</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>適用於為 DSX 製作的模組，例如 GTA V、Red Dead Redemption 2、Skyrim 和 Forza 的模組。伺服器監聽期間，PadForge 會把連接埠寫入這些模組查找的位置。</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>正在監聽 :{0}。{1} 正在傳送至虛擬控制器 {2}。</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>正在監聽 :{0}。{1} 正在傳送，但沒有任何虛擬控制器連接 PlayStation 控制器。</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>連接埠 {0} 已被另一個程式（例如 DSX）佔用。請關閉該程式或選擇其他連接埠。</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>某個遊戲模組</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>適用於 OpenTrack 以及任何能傳送其 UDP 輸出或寫入 FreeTrack 2.0 共用記憶體的追蹤器，亦適用於這部電腦上能在背景執行工作階段的 OpenXR 執行階段。</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>讀取 Logitech G 鍵</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>透過 Logitech G-key SDK 讀取 G 鍵。需要執行 Logitech Gaming Software 8.55 或更新版本。請在該軟件中，把 G-key 指令拖曳到 PadForge 設定檔的每個按鍵上。請將該設定檔設為常駐，否則只有當 PadForge 視窗位於最前時，這些按鍵才會傳到 PadForge。此外，G600 或 G300 滑鼠必須離開內置記憶體模式。</value></data>
@@ -832,7 +843,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>右扳機</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>對調左右扳機馬達</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>轉換自適應扳機震動</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>當遊戲把此插槽當作虛擬 DualSense 驅動時，其震動類的自適應扳機效果會在此控制器的脈衝扳機馬達上播放。阻力類效果沒有對應的震動，會被忽略。</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>當遊戲把此插槽當作虛擬 DualSense 驅動，或遊戲模組傳送扳機效果時，震動類的自適應扳機效果會在此控制器的脈衝扳機馬達上播放。阻力類效果沒有對應的震動，會被忽略。</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} 正在設定這些扳機。停止後會恢復這裡的設定。</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} 正在傳送扳機效果。開啟「轉換自適應扳機震動」後，其震動會在此播放。</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} 正在設定這些燈光。停止後會恢復這裡的設定。</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>測試左扳機</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>測試右扳機</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>扳機馬達活動</value></data>
@@ -889,7 +903,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>自適應扳機</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>自適應扳機</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>設定已指派的實體 DualSense 上的扳機回饋效果。由遊戲驅動的扳機效果會自動轉送。這裡的設定會加入一層由用戶自訂的效果，在沒有遊戲寫入時運作。</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>設定已指派的實體 DualSense 上的扳機回饋效果。遊戲或遊戲模組送來的扳機效果會自動轉送。這裡的設定會加入一層由用戶自訂的效果，在兩者都沒有寫入時運作。</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>搖桿</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>每支搖桿的死區、反死區、靈敏度曲線和中心偏移校準。下方每個區段對應目前輸出上的一支類比搖桿。擴充設定檔最多可有四支搖桿。標準遊戲控制器有兩支。</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>扳機</value></data>
@@ -4385,6 +4399,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>握把</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} 正在設定此控制器的扳機。</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} 正在設定此控制器的燈光。</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} 正在設定此控制器的扳機和燈光。</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} 正在此控制器的脈衝扳機上播放扳機震動。</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>清除模組效果</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>結束遊戲模組在此控制器上的設定。控制器會恢復自身設定，直到模組再次傳送。</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>左／右</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>上／下</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>內／外</value></data>

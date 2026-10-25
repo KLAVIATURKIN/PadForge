@@ -274,6 +274,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Porta Remote Link</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Porta del server di movimento</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fornisce dati di giroscopio e accelerometro a Cemu, Dolphin, Yuzu, ecc.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mod di gioco</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Consente alle mod di gioco create per DSX di controllare i grilletti adattivi, la barra luminosa, le spie del giocatore e la spia del microfono disattivato dei controller PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Accetta mod di gioco DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Porta mod di gioco</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Esegui un sostituto di DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Alcune mod, come DualSense4GTAV, si disattivano se non è in esecuzione un programma chiamato DSX. Questa opzione avvia un piccolo sostituto con quel nome finché il server è in ascolto.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Funziona con le mod create per DSX, come quelle per GTA V, Red Dead Redemption 2, Skyrim e Forza. Mentre il server è in ascolto, PadForge scrive la propria porta dove le mod la cercano.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>In ascolto su :{0}. {1} sta inviando al controller virtuale {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>In ascolto su :{0}. {1} sta inviando, ma nessun controller virtuale ha un controller PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>La porta {0} è in uso da un altro programma, come DSX. Chiudilo o scegli un'altra porta.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Una mod di gioco</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funziona con OpenTrack e con qualsiasi tracker che invii la propria uscita UDP o scriva nella memoria condivisa FreeTrack 2.0, e con un runtime OpenXR installato su questa macchina in grado di eseguire una sessione in background.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Leggi i tasti G Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Legge i tasti G tramite l’SDK G-key di Logitech. Richiede Logitech Gaming Software 8.55 o successivo in esecuzione. In quel programma, trascina il comando G-key su ogni tasto del profilo PadForge. Rendi persistente quel profilo, altrimenti i tasti raggiungono PadForge solo mentre la sua finestra è in primo piano. Inoltre, un mouse G600 o G300 non deve essere in modalità memoria integrata.</value></data>
@@ -1739,7 +1750,7 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="About_DualSenseYDesc" xml:space="preserve"><value>Implementazione di riferimento per il passthrough audio USB del controller. Di WujekFoliarz.</value></data>
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Grilletti adattivi</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Grilletti adattivi</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configura gli effetti dei grilletti sul DualSense fisico assegnato. Gli effetti generati dal gioco vengono inoltrati automaticamente. Le impostazioni qui aggiungono un livello configurato dall'utente che si attiva quando nessun gioco sta scrivendo.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configura gli effetti dei grilletti sul DualSense fisico assegnato. Gli effetti dei grilletti provenienti da un gioco o da una mod di gioco vengono inoltrati automaticamente. Le impostazioni qui aggiungono un livello configurato dall'utente che si attiva quando nessuno dei due sta scrivendo.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Levette</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Per ogni levetta: zone morte, anti-zone morte, curve di sensibilità e calibrazione dell'offset centrale. Ogni sezione sotto si applica a una levetta analogica dell'uscita attiva. I profili estesi possono avere fino a quattro levette. I gamepad standard ne hanno due.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Grilletti</value></data>
@@ -1978,7 +1989,10 @@ Una copia della versione precedente si trova in questa cartella: {1}</value></da
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Grilletto destro</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Scambia motori dei grilletti sinistro e destro</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Traduci le vibrazioni dei grilletti adattivi</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Quando un gioco pilota questo slot come DualSense virtuale, i suoi effetti dei grilletti adattivi di tipo vibrazione vengono riprodotti sui motori dei grilletti a impulsi di questo controller. Gli effetti di tipo resistenza non hanno un equivalente in vibrazione e vengono ignorati.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Quando un gioco pilota questo slot come DualSense virtuale, o una mod di gioco invia effetti dei grilletti, gli effetti dei grilletti adattivi di tipo vibrazione vengono riprodotti sui motori dei grilletti a impulsi di questo controller. Gli effetti di tipo resistenza non hanno un equivalente in vibrazione e vengono ignorati.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} sta impostando questi grilletti. Le impostazioni qui tornano quando si ferma.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} sta inviando effetti dei grilletti. Con Traduci le vibrazioni dei grilletti adattivi attivo, le loro vibrazioni vengono riprodotte qui.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} sta impostando queste luci. Le impostazioni qui tornano quando si ferma.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Prova grilletto sinistro</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Prova grilletto destro</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Attività del motore dei grilletti</value></data>
@@ -4358,6 +4372,12 @@ Vuoi che PadForge li disinstalli ora? L'operazione richiede privilegi elevati e 
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Impugnatura</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} sta impostando i grilletti di questo controller.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} sta impostando le luci di questo controller.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} sta impostando i grilletti e le luci di questo controller.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} sta riproducendo vibrazioni dei grilletti sui grilletti Impulse di questo controller.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Cancella effetti mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Termina ciò che le mod di gioco hanno impostato su questo controller. Le sue impostazioni tornano finché una mod non invia di nuovo.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Sinistra/Destra</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Su/Giù</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Dentro/Fuori</value></data>

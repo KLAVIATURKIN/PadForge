@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Cổng Liên kết từ xa</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Cổng máy chủ chuyển động</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cung cấp dữ liệu con quay hồi chuyển và gia tốc kế cho Cemu, Dolphin, Yuzu, v.v.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mod trò chơi</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Cho phép các mod trò chơi dành cho DSX đặt cò thích ứng, thanh đèn, đèn người chơi và đèn tắt tiếng trên tay cầm PlayStation của bạn.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Chấp nhận mod trò chơi DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Cổng mod trò chơi</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Chạy DSX.exe thay thế</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Một số mod, như DualSense4GTAV, tự tắt nếu không có chương trình tên DSX đang chạy. Tùy chọn này chạy một chương trình thay thế nhỏ mang tên đó khi máy chủ đang lắng nghe.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Hoạt động với các mod làm cho DSX, như mod cho GTA V, Red Dead Redemption 2, Skyrim và Forza. Khi máy chủ đang lắng nghe, PadForge ghi cổng của nó vào nơi các mod tìm.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Đang lắng nghe trên :{0}. {1} đang gửi tới tay cầm ảo {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Đang lắng nghe trên :{0}. {1} đang gửi, nhưng không có tay cầm ảo nào có tay cầm PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Cổng {0} đang được một chương trình khác sử dụng, chẳng hạn DSX. Hãy đóng nó hoặc chọn cổng khác.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Một mod trò chơi</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Hoạt động với OpenTrack và mọi bộ theo dõi gửi đầu ra UDP hoặc ghi vào bộ nhớ dùng chung FreeTrack 2.0, cũng như với một runtime OpenXR trên máy này có thể chạy phiên ở chế độ nền.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Đọc phím G của Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Đọc phím G thông qua Logitech G-key SDK. Cần Logitech Gaming Software 8.55 trở lên đang chạy. Trong phần mềm đó, hãy kéo lệnh G-key vào từng phím trong hồ sơ PadForge. Hãy đặt hồ sơ đó ở chế độ cố định (persistent), nếu không các phím chỉ đến được PadForge khi cửa sổ của nó ở phía trước. Chuột G600 hoặc G300 còn phải thoát khỏi chế độ bộ nhớ tích hợp.</value></data>
@@ -832,7 +843,10 @@ Bản sao của phiên bản trước nằm trong thư mục này: {1}</value></
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Cò phải</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Hoán đổi mô-tơ cò trái và phải</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Chuyển đổi rung của cò thích ứng</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Khi trò chơi điều khiển khe này như một DualSense ảo, các hiệu ứng cò thích ứng kiểu rung của nó sẽ phát trên mô-tơ cò xung lực của tay cầm này. Các hiệu ứng kiểu lực cản không có dạng rung tương đương nên bị bỏ qua.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Khi trò chơi điều khiển khe này như một DualSense ảo, hoặc một mod trò chơi gửi hiệu ứng cò, các hiệu ứng cò thích ứng kiểu rung sẽ phát trên mô-tơ cò xung lực của tay cầm này. Các hiệu ứng kiểu lực cản không có dạng rung tương đương nên bị bỏ qua.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} đang đặt các cò này. Thiết lập ở đây sẽ trở lại khi nó dừng.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} đang gửi hiệu ứng cò. Khi bật Chuyển đổi rung của cò thích ứng, các rung động của chúng sẽ phát ở đây.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} đang đặt các đèn này. Thiết lập ở đây sẽ trở lại khi nó dừng.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Thử cò trái</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Thử cò phải</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Hoạt động của mô-tơ cò</value></data>
@@ -889,7 +903,7 @@ Bản sao của phiên bản trước nằm trong thư mục này: {1}</value></
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Cò thích ứng</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Cò thích ứng</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Cấu hình các hiệu ứng phản hồi cò trên DualSense vật lý đã gán. Hiệu ứng cò do trò chơi điều khiển được tự động chuyển tiếp. Thiết lập ở đây thêm một lớp do người dùng cấu hình, chạy khi không có trò chơi nào ghi.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Cấu hình các hiệu ứng phản hồi cò trên DualSense vật lý đã gán. Hiệu ứng cò từ trò chơi hoặc mod trò chơi được tự động chuyển tiếp. Thiết lập ở đây thêm một lớp do người dùng cấu hình, chạy khi cả hai đều không ghi.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Cần analog</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Vùng chết, chống vùng chết, đường cong độ nhạy và hiệu chỉnh bù lệch tâm cho từng cần analog. Mỗi phần bên dưới ứng với một cần analog trên đầu ra đang hoạt động. Hồ sơ Mở rộng có thể có tối đa bốn cần analog. Tay cầm tiêu chuẩn có hai.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Cò</value></data>
@@ -4385,6 +4399,12 @@ Bạn có muốn PadForge gỡ cài đặt chúng ngay bây giờ không? Việc
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Tay nắm</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} đang đặt cò của tay cầm này.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} đang đặt đèn của tay cầm này.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} đang đặt cò và đèn của tay cầm này.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} đang phát rung cò trên các cò xung lực của tay cầm này.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Xóa hiệu ứng mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Kết thúc những gì mod trò chơi đã đặt trên tay cầm này. Thiết lập riêng của nó trở lại cho đến khi mod gửi lại.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Trái/Phải</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Lên/Xuống</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Vào/Ra</value></data>

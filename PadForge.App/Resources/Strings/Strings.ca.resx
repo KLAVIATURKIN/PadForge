@@ -293,6 +293,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port de l'Enllaç remot</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port del servidor de moviment</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Proporciona dades de giroscopi i acceleròmetre a Cemu, Dolphin, Yuzu, etc.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mods de joc</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Permet que els mods de joc fets per a DSX controlin els gallets adaptatius, la barra de llum, els llums de jugador i el llum de silenci dels comandaments PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Accepta mods de joc de DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port dels mods de joc</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Executa un substitut de DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Alguns mods, com DualSense4GTAV, s'apaguen tret que s'estigui executant un programa anomenat DSX. Això executa un petit substitut amb aquest nom mentre el servidor escolta.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Funciona amb mods fets per a DSX, com els de GTA V, Red Dead Redemption 2, Skyrim i Forza. Mentre el servidor escolta, PadForge escriu el seu port on aquests mods el busquen.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Escoltant a :{0}. {1} està enviant al comandament virtual {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Escoltant a :{0}. {1} està enviant, però cap comandament virtual té un comandament PlayStation connectat.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>El port {0} l'està usant un altre programa, com DSX. Tanca'l o tria un altre port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Un mod de joc</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funciona amb OpenTrack i amb qualsevol seguidor que enviï la seva sortida per UDP o escrigui a la memòria compartida de FreeTrack 2.0, i amb un entorn d'execució OpenXR d'aquest equip que pugui executar una sessió en segon pla.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Llegeix les tecles G de Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Llegeix les tecles G mitjançant l'SDK G-key de Logitech. Cal que Logitech Gaming Software 8.55 o posterior s'estigui executant. En aquest programari, arrossega l'ordre G-key a cada tecla del perfil de PadForge. Fes que aquest perfil sigui persistent, o les tecles només arribaran a PadForge mentre la seva finestra estigui en primer pla. A més, un ratolí G600 o G300 no ha d'estar en mode de memòria integrada.</value></data>
@@ -815,7 +826,10 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Gallet dret</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Intercanvia els motors dels gallets esquerre i dret</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Tradueix les vibracions dels gallets adaptatius</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Quan un joc controla aquesta ranura com a DualSense virtual, els seus efectes de gallet adaptatiu de tipus vibració es reprodueixen als motors dels gallets d'impuls d'aquest comandament. Els efectes de tipus resistència no tenen equivalent en vibració i s'ignoren.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Quan un joc controla aquesta ranura com a DualSense virtual, o un mod de joc envia efectes de gallet, els efectes de gallet adaptatiu de tipus vibració es reprodueixen als motors dels gallets d'impuls d'aquest comandament. Els efectes de tipus resistència no tenen equivalent en vibració i s'ignoren.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} està configurant aquests gallets. La configuració d'aquí torna quan s'aturi.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} està enviant efectes de gallet. Amb Tradueix les vibracions dels gallets adaptatius activat, les seves vibracions es reprodueixen aquí.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} està configurant aquests llums. La configuració d'aquí torna quan s'aturi.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Prova el gallet esquerre</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Prova el gallet dret</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Activitat dels motors dels gallets</value></data>
@@ -872,7 +886,7 @@ Hi ha una còpia de la versió anterior en aquesta carpeta: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Gallets adaptatius</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Gallets adaptatius</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configura els efectes de resposta dels gallets al DualSense físic assignat. Els efectes de gallet que genera el joc es reenvien automàticament. Aquesta configuració hi afegeix una capa definida per l'usuari que funciona quan cap joc hi escriu.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configura els efectes de resposta dels gallets al DualSense físic assignat. Els efectes de gallet d'un joc o d'un mod de joc es reenvien automàticament. Aquesta configuració hi afegeix una capa definida per l'usuari que funciona quan cap dels dos hi escriu.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Palanques</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Zones mortes, antizones mortes, corbes de sensibilitat i calibratge del desplaçament del centre per a cada palanca. Cada secció de sota correspon a una palanca analògica de la sortida activa. Els perfils ampliats poden tenir fins a quatre palanques. Els comandaments estàndard en tenen dues.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Gallets</value></data>
@@ -4365,6 +4379,12 @@ Vols que PadForge els desinstal·li ara? Cal elevar els permisos i pot trigar un
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Mànec</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} està configurant els gallets d'aquest comandament.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} està configurant els llums d'aquest comandament.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} està configurant els gallets i els llums d'aquest comandament.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} està reproduint vibracions de gallet als gallets d'impuls d'aquest comandament.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Esborra els efectes del mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Finalitza el que els mods de joc han definit en aquest comandament. La seva configuració pròpia torna fins que un mod torni a enviar.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Esquerra/Dreta</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Amunt/Avall</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Endins/Enfora</value></data>

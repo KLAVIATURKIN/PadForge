@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Հեռակա կապի պորտ</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Շարժման սերվերի պորտ</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Տրամադրում է գիրոյի և արագացուցաչափի տվյալներ Cemu-ին, Dolphin-ին, Yuzu-ին և այլն։</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Խաղի մոդեր</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Թույլ է տալիս DSX-ի համար ստեղծված խաղի մոդերին կարգավորել ձեր PlayStation կառավարիչների հարմարվող ձգանները, լուսաշերտը, խաղացողի լույսերը և միկրոֆոնի անջատման լույսը։</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Ընդունել DSX խաղի մոդեր</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Խաղի մոդերի պորտ</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Գործարկել DSX.exe փոխարինող</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Որոշ մոդեր, օրինակ DualSense4GTAV, անջատվում են, եթե DSX անունով ծրագիր չի աշխատում։ Սա գործարկում է այդ անունով փոքր փոխարինող, քանի դեռ սերվերը լսում է։</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Աշխատում է DSX-ի համար ստեղծված մոդերի հետ, օրինակ GTA V, Red Dead Redemption 2, Skyrim և Forza խաղերի։ Քանի դեռ սերվերը լսում է, PadForge-ը գրում է իր պորտը այնտեղ, որտեղ այդ մոդերը այն փնտրում են։</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Լսում է :{0}։ {1} ուղարկում է վիրտուալ կառավարիչ {2}-ին։</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Լսում է :{0}։ {1} ուղարկում է, բայց ոչ մի վիրտուալ կառավարչի վրա PlayStation կառավարիչ չկա։</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>{0} պորտը զբաղված է այլ ծրագրով, օրինակ DSX-ով։ Փակեք այն կամ ընտրեք մեկ այլ պորտ։</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Խաղի մոդ</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Աշխատում է OpenTrack-ի և ցանկացած հետևիչի հետ, որը ուղարկում է իր UDP ելքը կամ գրում է FreeTrack 2.0 ընդհանուր հիշողության մեջ, ինչպես նաև այս մեքենայի OpenXR runtime-ի հետ, որը կարող է ֆոնային ռեժիմում սեսիա աշխատեցնել։</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Կարդալ Logitech G-ստեղները</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>G-ստեղները կարդում է Logitech G-key SDK-ի միջոցով։ Պահանջվում է Logitech Gaming Software 8.55 կամ ավելի նոր տարբերակի աշխատանքը։ Այդ ծրագրում քաշեք G-key հրամանը PadForge պրոֆիլի յուրաքանչյուր ստեղնի վրա։ Այդ պրոֆիլը դարձրեք մշտական, այլապես ստեղները PadForge-ին հասնում են միայն այն ժամանակ, երբ դրա պատուհանը առջևում է։ G600 կամ G300 մկնիկը նույնպես պետք է դուրս լինի ներկառուցված հիշողության ռեժիմից։</value></data>
@@ -817,7 +828,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Աջ ձգան</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Փոխանակել ձախ և աջ ձգանի շարժիչները</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Թարգմանել հարմարվող ձգանների թրթռումները</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Երբ խաղը այս սլոթը վարում է որպես վիրտուալ DualSense, թրթռման տիպի հարմարվող ձգանի էֆեկտները նվագարկվում են այս կառավարչի իմպուլսային ձգանի շարժիչների վրա։ Դիմադրության տիպի էֆեկտները թրթռման համարժեք չունեն և անտեսվում են։</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Երբ խաղը այս սլոթը վարում է որպես վիրտուալ DualSense, կամ խաղի մոդը ուղարկում է ձգանի էֆեկտներ, թրթռման տիպի հարմարվող ձգանի էֆեկտները նվագարկվում են այս կառավարչի իմպուլսային ձգանի շարժիչների վրա։ Դիմադրության տիպի էֆեկտները թրթռման համարժեք չունեն և անտեսվում են։</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} կարգավորում է այս ձգանները։ Այստեղի կարգավորումները վերադառնում են, երբ այն կանգ է առնում։</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} ուղարկում է ձգանի էֆեկտներ։ Երբ «Թարգմանել հարմարվող ձգանների թրթռումները» միացված է, դրանց թրթռումները նվագարկվում են այստեղ։</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} կարգավորում է այս լույսերը։ Այստեղի կարգավորումները վերադառնում են, երբ այն կանգ է առնում։</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Փորձարկել ձախ ձգանը</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Փորձարկել աջ ձգանը</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Ձգանի շարժիչի ակտիվություն</value></data>
@@ -874,7 +888,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Հարմարվող ձգաններ</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Հարմարվող ձգաններ</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Կարգավորեք ձգանի հետադարձ էֆեկտները վերագրված ֆիզիկական DualSense-ի վրա։ Խաղի կողմից կառավարվող ձգանի էֆեկտները փոխանցվում են ավտոմատ։ Այստեղի կարգավորումները ավելացնում են օգտատիրոջ կողմից կարգավորվող շերտ, որը գործում է, երբ խաղը ոչինչ չի գրում։</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Կարգավորեք ձգանի հետադարձ էֆեկտները վերագրված ֆիզիկական DualSense-ի վրա։ Խաղի կամ խաղի մոդի ձգանի էֆեկտները փոխանցվում են ավտոմատ։ Այստեղի կարգավորումները ավելացնում են օգտատիրոջ կողմից կարգավորվող շերտ, որը գործում է, երբ դրանցից և ոչ մեկը ոչինչ չի գրում։</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Ձողեր</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Յուրաքանչյուր ձողի մեռյալ գոտիներ, հակամեռյալ գոտիներ, զգայունության կորեր և կենտրոնի շեղման չափաբերում։ Ստորև յուրաքանչյուր բաժին վերաբերում է ակտիվ ելքի մեկ անալոգային ձողին։ Extended պրոֆիլները կարող են ունենալ մինչև չորս ձող։ Ստանդարտ խաղային կառավարիչներն ունեն երկու։</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Ձգաններ</value></data>
@@ -4325,6 +4339,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Բռնակ</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} կարգավորում է այս կառավարչի ձգանները։</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} կարգավորում է այս կառավարչի լույսերը։</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} կարգավորում է այս կառավարչի ձգանները և լույսերը։</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} այս կառավարչի իմպուլսային ձգանների վրա նվագարկում է ձգանի թրթռումներ։</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Մաքրել մոդի էֆեկտները</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Ավարտում է այն, ինչ խաղի մոդերը սահմանել են այս կառավարչի վրա։ Կառավարչի սեփական կարգավորումները վերադառնում են, քանի դեռ մոդը նորից չի ուղարկել։</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Ձախ/աջ</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Վերև/ներքև</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ներս/դուրս</value></data>

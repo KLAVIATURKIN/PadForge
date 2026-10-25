@@ -223,6 +223,10 @@
   <data name="Dashboard_WebControllerPort" xml:space="preserve"><value>Porta di komandu web</value></data>
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Porta di Remote Link</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Porta di servidor di muvimentu</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mods di jogu</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Aseta mods di jogu pa DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Porta di mods di jogu</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Un mod di jogu</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Komandu web</value></data>
   <data name="Dashboard_EnableWeb" xml:space="preserve"><value>Ativa servidor di komandu web</value></data>
   <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>Só es PC</value></data>
@@ -490,6 +494,8 @@
   <data name="Pad_ImpulseTriggers_Header" xml:space="preserve"><value>Gatilhus Impulse</value></data>
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Gatilhu skerdu</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Gatilhu direitu</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} sta ta kontrola es gatilhus. Konfigurason di li ta volta kantu el para.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} sta ta kontrola es iluminason. Konfigurason di li ta volta kantu el para.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Testa gatilhu skerdu</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Testa gatilhu direitu</value></data>
   <data name="Pad_RawAxisValue" xml:space="preserve"><value>Valor brutu di eixu</value></data>
@@ -2644,6 +2650,10 @@
   <data name="Macro_Stopwatch_Action" xml:space="preserve"><value>Ason</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} sta ta kontrola gatilhus di es komandu.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} sta ta kontrola iluminason di es komandu.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} sta ta kontrola gatilhus i iluminason di es komandu.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} sta ta toka vibrason di gatilhu na Gatilhus Impulse di es komandu.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Skerda/Direita</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Riba/Baxu</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Dentu/Fora</value></data>

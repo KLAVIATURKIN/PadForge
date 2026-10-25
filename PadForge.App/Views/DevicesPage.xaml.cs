@@ -569,6 +569,9 @@ namespace PadForge.Views
         private void FalconCalibrate_Click(object sender, RoutedEventArgs e)
             => (DataContext as ViewModels.DevicesViewModel)?.RequestFalconCalibrate();
 
+        private void ClearModEffects_Click(object sender, RoutedEventArgs e)
+            => (DataContext as ViewModels.DevicesViewModel)?.ClearModEffects();
+
         // ── Handheld hidden buttons (issue #343) ──
 
         private void LearnHandheldButton_Click(object sender, RoutedEventArgs e)

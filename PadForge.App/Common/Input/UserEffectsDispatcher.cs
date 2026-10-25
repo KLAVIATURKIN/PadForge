@@ -299,6 +299,31 @@ namespace PadForge.Common.Input
         // external writer's once their grace window closes.
         private readonly Dictionary<Guid, bool> _prevPadForgeWantsPips = new();
 
+        // Whether the last pass wrote a game mod's hold (#529) on each
+        // subsystem of each device. A game's mirrored write is left to
+        // persist in firmware when it stops, but a mod's hold ends on
+        // purpose (its program exited, it reset, the user cleared it), so the
+        // pass owes the pad one write of PadForge's own value when a hold
+        // ends. Accessed only inside devices.SyncRoot, like the four above.
+        private readonly Dictionary<Guid, bool> _prevModRightTrig = new();
+        private readonly Dictionary<Guid, bool> _prevModLeftTrig = new();
+        private readonly Dictionary<Guid, bool> _prevModMicLed = new();
+        private readonly Dictionary<Guid, bool> _prevModPips = new();
+
+        /// <summary>TickCount64 of the last change to what a game mod holds
+        /// on this slot (#529), 0 before any.</summary>
+        private long _modChangedMs;
+
+        /// <summary>1 while a pass for a mod change is queued.</summary>
+        private int _modDispatchQueued;
+
+        /// <summary>How long the slot's 30 Hz writer stays alive after a mod
+        /// changes what it holds. A mod that sends every frame is then
+        /// written at the pass's own rate, not once per packet, and the
+        /// writer stops two seconds after the mod settles, the firmware
+        /// holding what was written.</summary>
+        internal const long ModChangeTimerMs = 2000;
+
         // Bounded unmute burst per device claim. Asserting AllowAudioMute
         // over the zero-filled MuteControl byte is a correction for a pad
         // an earlier owner left hardware-muted, and it has to run when we
@@ -474,6 +499,78 @@ namespace PadForge.Common.Input
                 && isDs5
                 && DualSensePassthroughDispatcher.IsPassthroughTarget(padIndex, deviceGuid));
 
+        /// <summary>One device's overrides with a game mod's hold (#529)
+        /// filled in, and which subsystems the mod's values took.</summary>
+        internal readonly struct ModFill
+        {
+            public readonly ExternalSubsystemOverrides Overrides;
+            public readonly bool RightTrigger;
+            public readonly bool LeftTrigger;
+            public readonly bool MuteLight;
+            public readonly bool PlayerLights;
+
+            public ModFill(ExternalSubsystemOverrides overrides,
+                bool rightTrigger, bool leftTrigger, bool muteLight, bool playerLights)
+            {
+                Overrides = overrides;
+                RightTrigger = rightTrigger;
+                LeftTrigger = leftTrigger;
+                MuteLight = muteLight;
+                PlayerLights = playerLights;
+            }
+        }
+
+        /// <summary>Places a game mod's held values (#529) in every subsystem
+        /// a game is not writing within its grace window: a game's own write
+        /// wins, and the mod's hold applies otherwise. The triggers, the mute
+        /// light and the player row are the DualSense's, and the lightbar
+        /// is every Sony pad's. The mod's lightbar is not counted as a game's
+        /// (<c>LightbarEverExternal</c> stays as the game left it), so when
+        /// the hold ends PadForge's own color returns.</summary>
+        /// <summary>A mod's held lightbar as 0x00RRGGBB, the form the lighting
+        /// rows take a game's color in, or null.</summary>
+        internal static int? ModColor(GameModEffects.Hold hold)
+        {
+            var c = hold?.Lightbar;
+            if (c == null || c.Length < 3) return null;
+            return (c[0] << 16) | (c[1] << 8) | c[2];
+        }
+
+        internal static ModFill FillFromModHold(ExternalSubsystemOverrides overrides,
+            GameModEffects.Hold hold, bool isDs5)
+        {
+            bool right = false, left = false, mute = false, pips = false;
+            if (hold != null)
+            {
+                if (isDs5)
+                {
+                    if (overrides.RightTriggerEffect == null && hold.RightTrigger != null)
+                    {
+                        overrides.RightTriggerEffect = (byte[])hold.RightTrigger.Clone();
+                        right = true;
+                    }
+                    if (overrides.LeftTriggerEffect == null && hold.LeftTrigger != null)
+                    {
+                        overrides.LeftTriggerEffect = (byte[])hold.LeftTrigger.Clone();
+                        left = true;
+                    }
+                    if (!overrides.MuteLed.HasValue && hold.MuteLight.HasValue)
+                    {
+                        overrides.MuteLed = hold.MuteLight;
+                        mute = true;
+                    }
+                    if (!overrides.PlayerIndicator.HasValue && hold.PlayerLights.HasValue)
+                    {
+                        overrides.PlayerIndicator = hold.PlayerLights;
+                        pips = true;
+                    }
+                }
+                if (overrides.LightbarRgb == null && hold.Lightbar != null)
+                    overrides.LightbarRgb = (byte[])hold.Lightbar.Clone();
+            }
+            return new ModFill(overrides, right, left, mute, pips);
+        }
+
         /// <summary>DS5-over-Bluetooth pads owed the connect one-shot that
         /// releases the LEDs from firmware control (ResetLights + FadeOut of
         /// the default blue). Armed when a Bluetooth DS5 is first seen online
@@ -561,6 +658,10 @@ namespace PadForge.Common.Input
                     _prevPadForgeWantsLeftTrig.Remove(g);
                     _prevPadForgeWantsMicLed.Remove(g);
                     _prevPadForgeWantsPips.Remove(g);
+                    _prevModRightTrig.Remove(g);
+                    _prevModLeftTrig.Remove(g);
+                    _prevModMicLed.Remove(g);
+                    _prevModPips.Remove(g);
                     _audioMuteBurstLeft.Remove(g);
                     _prevHeadphoneVolume.Remove(g);
                     _prevAudioOutputPath.Remove(g);
@@ -832,16 +933,48 @@ namespace PadForge.Common.Input
         public static bool TryGetInboundTriggerEffects(int padIndex, Span<byte> left, Span<byte> right)
         {
             if (left.Length < 11 || right.Length < 11) return false;
+            left.Slice(0, 11).Clear();
+            right.Slice(0, 11).Clear();
+            bool haveLeft = false, haveRight = false;
             lock (s_externalStateLock)
             {
-                if (!s_externalState.TryGetValue(padIndex, out var st)) return false;
-                if (st.LeftTrig == null && st.RightTrig == null) return false;
-                left.Slice(0, 11).Clear();
-                right.Slice(0, 11).Clear();
-                if (st.LeftTrig != null) st.LeftTrig.AsSpan(0, 11).CopyTo(left);
-                if (st.RightTrig != null) st.RightTrig.AsSpan(0, 11).CopyTo(right);
-                return true;
+                if (s_externalState.TryGetValue(padIndex, out var st))
+                {
+                    if (st.LeftTrig != null)
+                    {
+                        st.LeftTrig.AsSpan(0, 11).CopyTo(left);
+                        haveLeft = true;
+                    }
+                    if (st.RightTrig != null)
+                    {
+                        st.RightTrig.AsSpan(0, 11).CopyTo(right);
+                        haveRight = true;
+                    }
+                }
             }
+            // A game mod's held program (#529) for a side the game never
+            // wrote, so an Xbox pad with Translate Adaptive Trigger
+            // Vibrations plays a mod's vibrations as it plays a game's.
+            // The polling thread calls this, so the controller order comes
+            // from the 250 ms cache.
+            if ((!haveLeft || !haveRight) && GameModEffects.AnyHeld)
+            {
+                var hold = GameModEffects.ForSlotCached(padIndex);
+                if (hold != null)
+                {
+                    if (!haveLeft && hold.LeftTrigger != null)
+                    {
+                        hold.LeftTrigger.AsSpan(0, 11).CopyTo(left);
+                        haveLeft = true;
+                    }
+                    if (!haveRight && hold.RightTrigger != null)
+                    {
+                        hold.RightTrigger.AsSpan(0, 11).CopyTo(right);
+                        haveRight = true;
+                    }
+                }
+            }
+            return haveLeft || haveRight;
         }
 
         /// <summary>How long every external subsystem must sit untouched
@@ -1349,7 +1482,53 @@ namespace PadForge.Common.Input
                 || AudioPassthroughService.SlotWantsSpeakerPath(_padIndex)
                 // An armed DualShock 4 microphone lapses after about four
                 // seconds without a 0xA1 effects report (#528).
-                || AudioPassthroughService.SlotHasArmedDs4Mic(_padIndex);
+                || AudioPassthroughService.SlotHasArmedDs4Mic(_padIndex)
+                // A game mod changed what it holds here (#529).
+                || ModChangedRecently(System.Threading.Volatile.Read(ref _modChangedMs), Environment.TickCount64);
+        }
+
+        /// <summary>Whether a mod change at <paramref name="changedMs"/>
+        /// still keeps the writer alive at <paramref name="nowMs"/>.</summary>
+        internal static bool ModChangedRecently(long changedMs, long nowMs)
+            => changedMs != 0 && nowMs - changedMs < ModChangeTimerMs;
+
+        /// <summary>A game mod changed what it holds for this slot (#529).
+        /// Queues one pass off the caller's thread, which for a packet is the
+        /// game mod server's receive thread and must answer the next packet
+        /// without waiting on a HID write. A burst of changes queues one pass,
+        /// and the writer kept alive by <see cref="ModChangeTimerMs"/> takes
+        /// the rest at its own rate.</summary>
+        internal static void NotifyModEffectsChanged(int padIndex)
+        {
+            if (!_instances.TryGetValue(padIndex, out var inst) || inst == null) return;
+            System.Threading.Volatile.Write(ref inst._modChangedMs, Environment.TickCount64);
+            if (System.Threading.Interlocked.Exchange(ref inst._modDispatchQueued, 1) != 0) return;
+            System.Threading.ThreadPool.UnsafeQueueUserWorkItem(static d =>
+            {
+                System.Threading.Volatile.Write(ref d._modDispatchQueued, 0);
+                if (d._disposed) return;
+                try
+                {
+                    d.UpdateAnimTimer();
+                    d.DispatchSnapshot();
+                }
+                catch (Exception ex)
+                {
+                    Engine.SdlDiagLog.WriteLine("DISPATCH game mod pass failed: " + ex.GetType().Name);
+                }
+            }, inst, preferLocal: false);
+        }
+
+        /// <summary>Whether a mod's hold on a subsystem ended since the last
+        /// pass, recording this pass's state. True once, so the pass asserts
+        /// the subsystem one more time with PadForge's own value: Off for a
+        /// trigger or a mute light the pad page leaves unset, PadForge's pips
+        /// for the player row.</summary>
+        internal static bool ModHoldEnded(Dictionary<Guid, bool> previous, Guid device, bool holdsNow)
+        {
+            bool held = previous.TryGetValue(device, out var was) && was;
+            previous[device] = holdsNow;
+            return held && !holdsNow;
         }
 
         private void UpdateAnimTimer()
@@ -1806,7 +1985,7 @@ namespace PadForge.Common.Input
         /// The Sony lane's lowest-raw-index owner rule is deliberately not
         /// used: it can disagree with the displayed numbers.</para></summary>
         private bool LightPeripheral(UserDevice ud, IReadOnlyDictionary<Guid, DeviceSlotConfig> perDeviceCfgs,
-            float rawAudioPeak, long nowMs, int slotNumber)
+            float rawAudioPeak, long nowMs, int slotNumber, int? modColor)
         {
             Guid guid = ud.InstanceGuid;
             DeviceSlotConfig devCfg = null;
@@ -1826,6 +2005,13 @@ namespace PadForge.Common.Input
             }
 
             Common.Input.Peripherals.GameLightbarCapture.Read(_padIndex, nowMs, out int? fresh, out int? last);
+            // A game mod's lightbar color (#529) where no game color is
+            // live, the way the DualSense takes it: a game's write wins.
+            if (fresh == null && modColor.HasValue)
+            {
+                fresh = modColor;
+                last = modColor;
+            }
             float peak = Math.Clamp(rawAudioPeak * (float)devCfg.AudioLightbarSensitivity, 0f, 1f);
             var state = _deviceStates.TryGetValue(guid, out var ds) ? ds : null;
             uint pulse = state?.PulseColor ?? 0;
@@ -1985,6 +2171,10 @@ namespace PadForge.Common.Input
                     overrides.RumbleRight = null;
                     overrides.RumbleLeft  = null;
                 }
+                // What a game mod holds for this slot (#529), captured under
+                // the same lock for the same reason: a release and this pass
+                // are then ordered like everything else it writes.
+                var modHold = GameModEffects.ForSlot(_padIndex);
 
                 foreach (var ud in devices.Items)
                 {
@@ -2004,7 +2194,7 @@ namespace PadForge.Common.Input
                             ud.IsOnline && ud.Device is not Common.Input.Peripherals.IOutputOnlyRow;
                         if (!ud.IsOnline)
                             Common.Input.Peripherals.PeripheralOutputs.ReleaseLighting(ud.InstanceGuid, _padIndex);
-                        else if (LightPeripheral(ud, perDeviceCfgs, rawAudioPeak, nowMs, playerNumber))
+                        else if (LightPeripheral(ud, perDeviceCfgs, rawAudioPeak, nowMs, playerNumber, ModColor(modHold)))
                             litPeripherals++;
                         continue;
                     }
@@ -2199,7 +2389,7 @@ namespace PadForge.Common.Input
                     {
                         (peripheralKinds ??= new Dictionary<Guid, bool>())[ud.InstanceGuid] =
                             ud.Device is not Common.Input.Peripherals.IOutputOnlyRow;
-                        if (LightPeripheral(ud, perDeviceCfgs, rawAudioPeak, nowMs, playerNumber))
+                        if (LightPeripheral(ud, perDeviceCfgs, rawAudioPeak, nowMs, playerNumber, ModColor(modHold)))
                             litPeripherals++;
                         continue;
                     }
@@ -2355,6 +2545,17 @@ namespace PadForge.Common.Input
                     bool assertLightbar = ShouldAssertLightbar(
                         _padIndex, ud.InstanceGuid, gameDrivenBar, isDs5);
 
+                    // A game mod's hold (#529) fills each subsystem a game is
+                    // not writing within its grace window, after the lightbar
+                    // decision above (so a mod's color never stands this pass
+                    // down on a pass-through target, and a game driving the
+                    // bar through the pass-through still owns it) and before
+                    // the impulse and steering fills below (which see the
+                    // mod's block and stand back). The pad page's settings
+                    // apply where neither writes.
+                    var modFill = FillFromModHold(devOverrides, modHold, isDs5);
+                    devOverrides = modFill.Overrides;
+
                     // Resolve this device's per-device lighting config.
                     // Falls back to the slot's anchor config if missing
                     // (transient case before the dictionary is wired).
@@ -2492,8 +2693,13 @@ namespace PadForge.Common.Input
                         padForgeWantsRightAt, devOverrides.RightTriggerEffect != null, prevPadForgeWantsRightAt);
                     var leftTrigGate = GateMirroredSubsystem(
                         padForgeWantsLeftAt, devOverrides.LeftTriggerEffect != null, prevPadForgeWantsLeftAt);
-                    bool assertRightTrig = rightTrigGate.Assert;
-                    bool assertLeftTrig  = leftTrigGate.Assert;
+                    // One more write of PadForge's own value when a mod's hold
+                    // ends (#529). | rather than ||, so every pass records
+                    // what it wrote.
+                    bool assertRightTrig = rightTrigGate.Assert
+                        | ModHoldEnded(_prevModRightTrig, ud.InstanceGuid, modFill.RightTrigger);
+                    bool assertLeftTrig  = leftTrigGate.Assert
+                        | ModHoldEnded(_prevModLeftTrig, ud.InstanceGuid, modFill.LeftTrigger);
 
                     // Mic LED, same rule as the triggers. FollowDeviceMute
                     // counts as a deliberate intent: it resolves to Off or
@@ -2502,7 +2708,8 @@ namespace PadForge.Common.Input
                     bool prevWantsMicLed = _prevPadForgeWantsMicLed.TryGetValue(ud.InstanceGuid, out var pm) && pm;
                     var micLedGate = GateMirroredSubsystem(
                         padForgeWantsMicLed, devOverrides.MuteLed.HasValue, prevWantsMicLed);
-                    bool assertMicLed = micLedGate.Assert;
+                    bool assertMicLed = micLedGate.Assert
+                        | ModHoldEnded(_prevModMicLed, ud.InstanceGuid, modFill.MuteLight);
                     _prevPadForgeWantsMicLed[ud.InstanceGuid] = micLedGate.NextPrev;
 
                     // Player indicator, same rule. PadForge authors the row
@@ -2519,7 +2726,8 @@ namespace PadForge.Common.Input
                     bool prevWantsPips = _prevPadForgeWantsPips.TryGetValue(ud.InstanceGuid, out var pp) && pp;
                     var pipsGate = GateMirroredSubsystem(
                         padForgeWantsPips, devOverrides.PlayerIndicator.HasValue, prevWantsPips);
-                    bool assertPips = pipsGate.Assert;
+                    bool assertPips = pipsGate.Assert
+                        | ModHoldEnded(_prevModPips, ud.InstanceGuid, modFill.PlayerLights);
                     _prevPadForgeWantsPips[ud.InstanceGuid] = pipsGate.NextPrev;
 
                     // Bounded unmute burst. Counts down per dispatch and

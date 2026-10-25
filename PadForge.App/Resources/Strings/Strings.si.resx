@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>දුරස්ථ සබැඳි තොට</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>චලන සේවාදායක තොට</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Cemu, Dolphin, Yuzu ආදියට ගයිරෝ සහ ත්වරණමාන දත්ත සපයයි.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>ක්‍රීඩා මොඩ්</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>DSX සඳහා සාදන ලද ක්‍රීඩා මොඩ්වලට ඔබේ PlayStation පාලකවල අනුවර්තී ට්‍රිගර, ලයිට්බාර්, ක්‍රීඩක ආලෝක සහ නිහඬ කිරීමේ ආලෝකය සැකසීමට ඉඩ දෙයි.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX ක්‍රීඩා මොඩ් පිළිගන්න</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>ක්‍රීඩා මොඩ් තොට</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>DSX.exe ආදේශකයක් ධාවනය කරන්න</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>DualSense4GTAV වැනි සමහර මොඩ්, DSX නම් වැඩසටහනක් ධාවනය නොවන්නේ නම් ඉබේම අක්‍රිය වේ. සේවාදායකය සවන් දෙන අතරතුර, මෙය එම නමින් කුඩා ආදේශකයක් ධාවනය කරයි.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>GTA V, Red Dead Redemption 2, Skyrim සහ Forza සඳහා වූ මොඩ් වැනි, DSX සඳහා සාදන ලද මොඩ් සමඟ ක්‍රියා කරයි. සේවාදායකය සවන් දෙන අතරතුර, PadForge සිය තොට එම මොඩ් එය සොයන ස්ථානයේ ලියයි.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>:{0} හි සවන් දෙමින්. {1} අතථ්‍ය පාලකය {2} වෙත යවමින් සිටී.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>:{0} හි සවන් දෙමින්. {1} යවමින් සිටී, නමුත් කිසිදු අතථ්‍ය පාලකයක PlayStation පාලකයක් නැත.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>තොට {0} DSX වැනි වෙනත් වැඩසටහනක් භාවිත කරයි. එය වසන්න හෝ වෙනත් තොටක් තෝරන්න.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>ක්‍රීඩා මොඩ් එකක්</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>OpenTrack සමඟ සහ එහි UDP ප්‍රතිදානය යවන හෝ FreeTrack 2.0 හවුල් මතකයට ලියන ඕනෑම ට්‍රැකරයක් සමඟ ද, පසුබිමේ සැසියක් ධාවනය කළ හැකි මෙම පරිගණකයේ OpenXR ධාවන කාලයක් සමඟ ද ක්‍රියා කරයි.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-Keys කියවන්න</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Logitech G-key SDK හරහා G-keys කියවයි. Logitech Gaming Software 8.55 හෝ ඊට පසු අනුවාදයක් ධාවනය විය යුතුය. එම මෘදුකාංගයේ, PadForge පැතිකඩෙහි සෑම යතුරකටම G-key විධානය ඇදගෙන යන්න. එම පැතිකඩ ස්ථිර කරන්න, නැතහොත් යතුරු PadForge වෙත ළඟා වන්නේ එහි කවුළුව ඉදිරියෙන් ඇති විට පමණි. G600 හෝ G300 මූසිකයක් ද ඔන්බෝඩ් මතක ප්‍රකාරයෙන් පිටත තිබිය යුතුය.</value></data>
@@ -816,7 +827,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>දකුණු ට්‍රිගරය</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>වම් සහ දකුණු ට්‍රිගර මෝටර මාරු කරන්න</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>අනුවර්තී ට්‍රිගර කම්පන පරිවර්තනය කරන්න</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>ක්‍රීඩාවක් මෙම ස්ලොට් එක අතථ්‍ය DualSense එකක් ලෙස පාලනය කරන විට, එහි කම්පන ආකාරයේ අනුවර්තී ට්‍රිගර ප්‍රයෝග මෙම පාලකයේ ආවේග ට්‍රිගර මෝටර මත වාදනය වේ. ප්‍රතිරෝධ ආකාරයේ ප්‍රයෝගවලට කම්පන සමානකමක් නැති බැවින් ඒවා නොසලකා හරිනු ලැබේ.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>ක්‍රීඩාවක් මෙම ස්ලොට් එක අතථ්‍ය DualSense එකක් ලෙස පාලනය කරන විට, හෝ ක්‍රීඩා මොඩ් එකක් ට්‍රිගර ප්‍රයෝග එවන විට, කම්පන ආකාරයේ අනුවර්තී ට්‍රිගර ප්‍රයෝග මෙම පාලකයේ ආවේග ට්‍රිගර මෝටර මත වාදනය වේ. ප්‍රතිරෝධ ආකාරයේ ප්‍රයෝගවලට කම්පන සමානකමක් නැති බැවින් ඒවා නොසලකා හරිනු ලැබේ.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} මෙම ට්‍රිගර සකසමින් සිටී. එය නතර වූ විට මෙහි සැකසීම් නැවත ක්‍රියාත්මක වේ.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} ට්‍රිගර ප්‍රයෝග යවමින් සිටී. “අනුවර්තී ට්‍රිගර කම්පන පරිවර්තනය කරන්න” සක්‍රිය විට, ඒවායේ කම්පන මෙහි වාදනය වේ.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} මෙම ආලෝක සකසමින් සිටී. එය නතර වූ විට මෙහි සැකසීම් නැවත ක්‍රියාත්මක වේ.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>වම් ට්‍රිගරය පරීක්ෂා කරන්න</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>දකුණු ට්‍රිගරය පරීක්ෂා කරන්න</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>ට්‍රිගර මෝටර ක්‍රියාකාරිත්වය</value></data>
@@ -873,7 +887,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>අනුවර්තී ට්‍රිගර</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>අනුවර්තී ට්‍රිගර</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>පවරා ඇති භෞතික DualSense මත ට්‍රිගර ප්‍රතිපෝෂණ ප්‍රයෝග වින්‍යාස කරන්න. ක්‍රීඩාව මඟින් පාලනය වන ට්‍රිගර ප්‍රයෝග ස්වයංක්‍රීයව යොමු කෙරේ. මෙහි සැකසීම්, කිසිදු ක්‍රීඩාවක් ලියන්නේ නැති විට ක්‍රියාත්මක වන පරිශීලක-වින්‍යාසගත ස්ථරයක් එක් කරයි.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>පවරා ඇති භෞතික DualSense මත ට්‍රිගර ප්‍රතිපෝෂණ ප්‍රයෝග වින්‍යාස කරන්න. ක්‍රීඩාවකින් හෝ ක්‍රීඩා මොඩ් එකකින් එන ට්‍රිගර ප්‍රයෝග ස්වයංක්‍රීයව යොමු කෙරේ. මෙහි සැකසීම්, ඒ දෙකෙන් කිසිවක් ලියන්නේ නැති විට ක්‍රියාත්මක වන පරිශීලක-වින්‍යාසගත ස්ථරයක් එක් කරයි.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>ස්ටික්</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>එක් එක් ස්ටික් සඳහා ඩෙඩ්සෝන්, ප්‍රති-ඩෙඩ්සෝන්, සංවේදීතා වක්‍ර සහ මධ්‍ය ඕෆ්සෙට් ක්‍රමාංකනය. පහත සෑම කොටසක්ම සක්‍රිය ප්‍රතිදානයේ එක් ඇනලොග් ස්ටික් එකක් ඉලක්ක කරයි. විස්තෘත පැතිකඩවලට ස්ටික් හතරක් දක්වා තිබිය හැක. සම්මත ගේම්පෑඩවල ස්ටික් දෙකක් ඇත.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>ට්‍රිගර</value></data>
@@ -4321,6 +4335,12 @@ PadForge විසින් ඒවා දැන් අස්ථාපනය ක�
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>හසුරුව</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} මෙම පාලකයේ ට්‍රිගර සකසමින් සිටී.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} මෙම පාලකයේ ආලෝක සකසමින් සිටී.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} මෙම පාලකයේ ට්‍රිගර සහ ආලෝක සකසමින් සිටී.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} මෙම පාලකයේ ආවේග ට්‍රිගර මත ට්‍රිගර කම්පන වාදනය කරමින් සිටී.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>මොඩ් ප්‍රයෝග ඉවත් කරන්න</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>ක්‍රීඩා මොඩ් මෙම පාලකය මත සැකසූ දේ අවසන් කරයි. මොඩ් එකක් නැවත යවන තෙක් පාලකයේම සැකසීම් නැවත ක්‍රියාත්මක වේ.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>වම/දකුණ</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>ඉහළ/පහළ</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>ඇතුළට/පිටතට</value></data>

@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>پۆرتی بەستەری دوور</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>پۆرتی ڕاژەکاری جووڵە</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>داتای جایرۆ و ئەکسێلەرۆمیتەر دەدات بە Cemu، Dolphin، Yuzu و هتد.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>مۆدەکانی یاری</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>ڕێگە دەدات مۆدەکانی یاری کە بۆ DSX دروستکراون تریگەرە ئەداپتیڤەکان، شریتی ڕووناکی، ڕووناکییەکانی یاریزان و ڕووناکیی بێدەنگکردنی کۆنترۆڵەرەکانی PlayStation ەکەت ڕێک بخەن.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>وەرگرتنی مۆدەکانی یاریی DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>پۆرتی مۆدەکانی یاری</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>کارپێکردنی جێگرەوەیەکی DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>هەندێک مۆد، وەک DualSense4GTAV، خۆیان دەکوژێننەوە ئەگەر بەرنامەیەک بە ناوی DSX کار نەکات. ئەمە جێگرەوەیەکی بچووک بەو ناوە کارپێدەکات لە کاتێکدا ڕاژەکارەکە گوێ دەگرێت.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>لەگەڵ ئەو مۆدانە کار دەکات کە بۆ DSX دروستکراون، وەک ئەوانەی بۆ GTA V، Red Dead Redemption 2، Skyrim و Forza. لە کاتێکدا ڕاژەکارەکە گوێ دەگرێت، PadForge پۆرتەکەی لەو شوێنە دەنووسێت کە ئەو مۆدانە بۆی دەگەڕێن.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>گوێگرتن لەسەر :{0}. {1} بۆ کۆنترۆڵەری مەجازیی {2} دەنێرێت.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>گوێگرتن لەسەر :{0}. {1} دەنێرێت، بەڵام هیچ کۆنترۆڵەرێکی مەجازی کۆنترۆڵەرێکی PlayStation ی لەسەر نییە.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>پۆرتی {0} لەلایەن بەرنامەیەکی ترەوە بەکاردێت، وەک DSX. دایبخە یان پۆرتێکی تر هەڵبژێرە.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>مۆدێکی یاری</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>لەگەڵ OpenTrack و هەر شوێنپێهەڵگرێک کار دەکات کە دەرچوونی UDP دەنێرێت یان بیرگەی هاوبەشی FreeTrack 2.0 دەنووسێت، و لەگەڵ ڕەنتایمێکی OpenXR لەسەر ئەم کۆمپیوتەرە کە بتوانێت دانیشتنێک لە پاشبنەمادا بەڕێوە ببات.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>خوێندنەوەی کلیلەکانی G ی Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>کلیلەکانی G لە ڕێگەی Logitech G-key SDK دەخوێنێتەوە. پێویستی بە کارکردنی Logitech Gaming Software 8.55 یان نوێتر هەیە. لەو نەرمەکاڵایەدا، فەرمانی G-key ڕابکێشە سەر هەر کلیلێک لە پرۆفایلی PadForge دا. ئەو پرۆفایلە بکە بە بەردەوام، ئەگینا کلیلەکان تەنها کاتێک دەگەنە PadForge کە پەنجەرەکەی لە پێشەوەیە. ماوسی G600 یان G300 دەبێت لە دۆخی بیرگەی ناوخۆیی دەربهێنرێت.</value></data>
@@ -814,7 +825,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>تریگەری ڕاست</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>گۆڕینەوەی مۆتۆرەکانی تریگەری چەپ و ڕاست</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>وەرگێڕانی لەرزینەکانی تریگەری ئەداپتیڤ</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>کاتێک یارییەک ئەم شوێنە وەک DualSense ی مەجازی بەکاردەهێنێت، کاریگەرییە لەرزینئامێزەکانی تریگەری ئەداپتیڤ لەسەر مۆتۆرەکانی Impulse Trigger ی ئەم کۆنترۆڵەرە لێدەدرێن. کاریگەرییە بەرگرییەکان هاوتای لەرزینیان نییە و پشتگوێ دەخرێن.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>کاتێک یارییەک ئەم شوێنە وەک DualSense ی مەجازی بەکاردەهێنێت، یان مۆدێکی یاری کاریگەرییەکانی تریگەر دەنێرێت، کاریگەرییە لەرزینئامێزەکانی تریگەری ئەداپتیڤ لەسەر مۆتۆرەکانی Impulse Trigger ی ئەم کۆنترۆڵەرە لێدەدرێن. کاریگەرییە بەرگرییەکان هاوتای لەرزینیان نییە و پشتگوێ دەخرێن.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ئەم تریگەرانە ڕێک دەخات. کاتێک دەوەستێت ڕێکخستنەکانی ئێرە دەگەڕێنەوە.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} کاریگەرییەکانی تریگەر دەنێرێت. کاتێک «وەرگێڕانی لەرزینەکانی تریگەری ئەداپتیڤ» چالاک بێت، لەرزینەکانیان لێرە لێدەدرێن.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ئەم ڕووناکییانە ڕێک دەخات. کاتێک دەوەستێت ڕێکخستنەکانی ئێرە دەگەڕێنەوە.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>تاقیکردنەوەی تریگەری چەپ</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>تاقیکردنەوەی تریگەری ڕاست</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>چالاکیی مۆتۆری تریگەر</value></data>
@@ -871,7 +885,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>تریگەرە ئەداپتیڤەکان</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>تریگەرە ئەداپتیڤەکان</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>کاریگەرییەکانی فیدباکی تریگەر لەسەر DualSense ی فیزیکیی دیاریکراو ڕێک بخە. ئەو کاریگەرییانەی تریگەر کە یارییەکە دەیاننێرێت خۆکارانە دەگوازرێنەوە. ڕێکخستنەکانی ئێرە چینێکی ڕێکخراو لەلایەن بەکارهێنەرەوە زیاد دەکەن کە کاتێک هیچ یارییەک نانووسێت کار دەکات.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>کاریگەرییەکانی فیدباکی تریگەر لەسەر DualSense ی فیزیکیی دیاریکراو ڕێک بخە. ئەو کاریگەرییانەی تریگەر کە لە یارییەک یان مۆدێکی یارییەوە دێن خۆکارانە دەگوازرێنەوە. ڕێکخستنەکانی ئێرە چینێکی ڕێکخراو لەلایەن بەکارهێنەرەوە زیاد دەکەن کە کاتێک هیچ کامیان نانووسن کار دەکات.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>ستیکەکان</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>ناوچەی مردوو، دژە-ناوچەی مردوو، چەماوەی هەستیاری و کالیبرەکردنی لادانی ناوەند بۆ هەر ستیکێک. هەر بەشێکی خوارەوە یەک ستیکی ئەنالۆگ لەسەر دەرچوونی چالاک دەکاتە ئامانج. پرۆفایلە فراوانکراوەکان دەتوانن تا چوار ستیکیان هەبێت. گەیمپادە ستانداردەکان دووانیان هەیە.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>تریگەرەکان</value></data>
@@ -4351,6 +4365,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>دەسک</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} تریگەرەکانی ئەم کۆنترۆڵەرە ڕێک دەخات.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ڕووناکییەکانی ئەم کۆنترۆڵەرە ڕێک دەخات.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} تریگەر و ڕووناکییەکانی ئەم کۆنترۆڵەرە ڕێک دەخات.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} لەرزینەکانی تریگەر لەسەر تریگەرەکانی Impulse ی ئەم کۆنترۆڵەرە لێدەدات.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>سڕینەوەی کاریگەرییەکانی مۆد</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>ئەوەی مۆدەکانی یاری لەسەر ئەم کۆنترۆڵەرە ڕێکیان خستووە کۆتایی پێدەهێنێت. ڕێکخستنەکانی خۆی دەگەڕێنەوە تا مۆدێک دووبارە دەنێرێت.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>چەپ/ڕاست</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>سەرەوە/خوارەوە</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>ناوەوە/دەرەوە</value></data>

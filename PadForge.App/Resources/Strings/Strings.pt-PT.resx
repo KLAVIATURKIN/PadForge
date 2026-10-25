@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Porta da Ligação Remota</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Porta do servidor de movimento</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fornece dados de giroscópio e acelerómetro ao Cemu, Dolphin, Yuzu, etc.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mods de jogos</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Permite que os mods de jogos criados para o DSX definam os gatilhos adaptáveis, a barra de luz, as luzes de jogador e a luz de silenciar dos seus comandos PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Aceitar mods de jogos do DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Porta dos mods de jogos</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Executar um substituto do DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Alguns mods, como o DualSense4GTAV, desligam-se sozinhos se não houver um programa chamado DSX em execução. Isto executa um pequeno substituto com esse nome enquanto o servidor estiver à escuta.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Funciona com mods criados para o DSX, como os de GTA V, Red Dead Redemption 2, Skyrim e Forza. Enquanto o servidor estiver à escuta, o PadForge escreve a sua porta onde esses mods a procuram.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>À escuta em :{0}. {1} está a enviar para o comando virtual {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>À escuta em :{0}. {1} está a enviar, mas nenhum comando virtual tem um comando PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>A porta {0} está a ser usada por outro programa, como o DSX. Feche-o ou escolha outra porta.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Um mod de jogo</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funciona com o OpenTrack e com qualquer rastreador que envie a sua saída por UDP ou escreva na memória partilhada do FreeTrack 2.0, e com um runtime OpenXR nesta máquina que consiga executar uma sessão em segundo plano.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Ler teclas G da Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lê as teclas G através do SDK G-key da Logitech. Requer o Logitech Gaming Software 8.55 ou posterior em execução. Nesse programa, arraste o comando G-key para cada tecla do perfil do PadForge. Torne esse perfil persistente, caso contrário as teclas só chegam ao PadForge enquanto a janela deste estiver em primeiro plano. Um rato G600 ou G300 também tem de estar fora do modo de memória integrada.</value></data>
@@ -817,7 +828,10 @@ Existe uma cópia da versão anterior nesta pasta: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Gatilho direito</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Trocar os motores dos gatilhos esquerdo e direito</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Converter as vibrações dos gatilhos adaptáveis</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Quando um jogo controla este slot como um DualSense virtual, os seus efeitos de gatilho adaptável do tipo vibração são reproduzidos nos motores dos gatilhos de impulso deste comando. Os efeitos do tipo resistência não têm equivalente em vibração e são ignorados.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Quando um jogo controla este slot como um DualSense virtual, ou um mod de jogo envia efeitos de gatilho, os efeitos de gatilho adaptável do tipo vibração são reproduzidos nos motores dos gatilhos de impulso deste comando. Os efeitos do tipo resistência não têm equivalente em vibração e são ignorados.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} está a definir estes gatilhos. As definições aqui regressam quando terminar.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} está a enviar efeitos de gatilho. Com Converter as vibrações dos gatilhos adaptáveis ativado, as vibrações são reproduzidas aqui.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} está a definir estas luzes. As definições aqui regressam quando terminar.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Testar gatilho esquerdo</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Testar gatilho direito</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Atividade dos motores dos gatilhos</value></data>
@@ -874,7 +888,7 @@ Existe uma cópia da versão anterior nesta pasta: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Gatilhos adaptáveis</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Gatilhos adaptáveis</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configura os efeitos de resposta dos gatilhos no DualSense físico atribuído. Os efeitos de gatilho gerados pelo jogo são reencaminhados automaticamente. As definições aqui acrescentam uma camada configurada pelo utilizador que funciona quando nenhum jogo está a escrever.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configura os efeitos de resposta dos gatilhos no DualSense físico atribuído. Os efeitos de gatilho de um jogo ou de um mod de jogo são reencaminhados automaticamente. As definições aqui acrescentam uma camada configurada pelo utilizador que funciona quando nenhum dos dois está a escrever.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Manípulos</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Zonas mortas, anti-zonas mortas, curvas de sensibilidade e calibração do desvio do centro, por manípulo. Cada secção abaixo diz respeito a um manípulo analógico da saída ativa. Os perfis alargados podem ter até quatro manípulos. Os gamepads normais têm dois.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Gatilhos</value></data>
@@ -4365,6 +4379,12 @@ Pretende que o PadForge os desinstale agora? Esta operação requer elevação e
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Pega</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} está a definir os gatilhos deste comando.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} está a definir as luzes deste comando.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} está a definir os gatilhos e as luzes deste comando.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} está a reproduzir vibrações de gatilho nos gatilhos de impulso deste comando.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Limpar efeitos do mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Termina o que os mods de jogos definiram neste comando. As suas próprias definições regressam até um mod voltar a enviar.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Esquerda/Direita</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Cima/Baixo</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Dentro/Fora</value></data>

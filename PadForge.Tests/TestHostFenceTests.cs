@@ -189,6 +189,8 @@ namespace PadForge.Tests
         private const string WorkshopDialog = "PadForge.App/Views/WorkshopBrowseDialog.xaml.cs";
         private const string ControlPipe = Services + "ExternalControlService.cs";
         private const string Dsu = Services + "DsuMotionServer.cs";
+        private const string GameMods = Services + "GameModServer.cs";
+        private const string GameModFiles = Services + "GameModPortFiles.cs";
 
         private const string RefusesHost = "if (PadForge.Engine.Common.OutboundNetworkGate.RefusesHost(host))";
         private const string VendorRefuses = "if (PadForge.Engine.Common.VendorProgramGate.Refuses";
@@ -215,6 +217,8 @@ namespace PadForge.Tests
             (SteamHttpFile, "SteamHttp"),
             (ControlPipe, "ExternalControlService"),
             (Dsu, "DsuMotionServer"),
+            (GameMods, "GameModServer"),
+            (GameModFiles, "GameModPortFiles"),
         };
 
         private const string Flag = "OffLimitsForTest";
@@ -249,6 +253,8 @@ namespace PadForge.Tests
             Assert.True(SteamHttp.OffLimitsForTest);
             Assert.True(ExternalControlService.OffLimitsForTest);
             Assert.True(DsuMotionServer.OffLimitsForTest);
+            Assert.True(GameModServer.OffLimitsForTest);
+            Assert.True(GameModPortFiles.OffLimitsForTest);
         }
 
         /// <summary>Each flag is a plain field that starts false, and no
@@ -479,6 +485,10 @@ namespace PadForge.Tests
 
             // The port every DSU client polls.
             new object[] { Dsu, "public bool Start(int port = DefaultPort)", "if (OffLimitsForTest && port == DefaultPort) return false;", "new Socket(" },
+            // The port every DSX game mod sends to, and the files they read
+            // it from (#529).
+            new object[] { GameMods, "public bool Start(int port, bool standIn)", "if (OffLimitsForTest && port == DefaultPort)", "new Socket(" },
+            new object[] { GameModFiles, "internal static void Write(int port)", "if (OffLimitsForTest) return;", "WriteTo(" },
         };
 
         /// <summary>Where a member does other work first, its fence is
@@ -700,12 +710,14 @@ namespace PadForge.Tests
             Assert.Contains("var http = PadForge.Engine.Common.OutboundNetworkGate.NewHttpClient();",
                 OffLimitsSource.Read(WorkshopDialog), StringComparison.Ordinal);
 
-            // A datagram sent. The DSU server's socket is bound to loopback
-            // and the discovery socket is bound behind the listener gate.
+            // A datagram sent. The DSU server's and the game mod server's
+            // sockets are bound to loopback and the discovery socket is bound
+            // behind the listener gate.
             // The hole puncher sends through the link's adapter. The others
             // ask the gate (AskedFirst and AskedBeforeTheCall).
             Assert.Equal(Map(
                 (Services + "DsuMotionServer.cs", 3),
+                (GameMods, 1),
                 (Krpc, 1),
                 ("PadForge.Engine/RemoteLink/HolePuncher.cs", 2),
                 ("PadForge.Engine/RemoteLink/LinkDiscovery.cs", 1),

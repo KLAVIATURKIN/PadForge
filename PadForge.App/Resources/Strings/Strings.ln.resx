@@ -127,6 +127,16 @@
   <data name="FirstRun_Done" xml:space="preserve"><value>Esili</value></data>
   <data name="Tour_Slots_Title" xml:space="preserve"><value>Bisika</value></data>
   <data name="Dashboard_Slot" xml:space="preserve"><value>Esika</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Ba mod ya masano</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Epesaka ba mod ya masano oyo esalemi mpo na DSX nzela ya kobongisa ba gâchette adaptative, barre lumineuse, miinda ya basakani mpe mwinda ya mute ya ba manette na yo ya PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Kondima ba mod ya masano ya DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port ya ba mod ya masano</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Ba mod mosusu, lokola DualSense4GTAV, ekomikangaka soki programme moko na nkombo DSX ezali kotambola te. Oyo ebandisaka programme moke na nkombo wana ntango serveur ezali koyoka.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Esalaka na ba mod oyo esalemi mpo na DSX, lokola oyo ya GTA V, Red Dead Redemption 2, Skyrim mpe Forza. Ntango serveur ezali koyoka, PadForge ekomaka port na yango epai ba mod wana ezali koluka yango.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Ezali koyoka na :{0}. {1} ezali kotinda na manette virtuelle {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Ezali koyoka na :{0}. {1} ezali kotinda, kasi manette virtuelle moko te ezali na manette ya PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Programme mosusu, lokola DSX, ezali kosalela port {0}. Kanga yango to pona port mosusu.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Mod moko ya lisano</value></data>
 
   <!-- ═══ Settings ═══ -->
   <data name="Settings_Window" xml:space="preserve"><value>Lininisa</value></data>
@@ -306,6 +316,9 @@
   <data name="Pad_ImpulseTriggers_Header" xml:space="preserve"><value>Ba gâchette Impulse</value></data>
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Gâchette ya loboko ya mwasi</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Gâchette ya loboko ya mobali</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Ntango lisano moko ezali kotambwisa esika oyo lokola DualSense virtuelle, to mod moko ya lisano ezali kotinda ba effet ya gâchette, ba effet ya gâchette adaptative ya lolenge ya vibration ebetamaka na ba moteur ya ba gâchette Impulse ya manette oyo. Ba effet ya lolenge ya résistance ezali na vibration oyo ekokani na yango te, yango wana etikamaka pembeni.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ezali kobongisa ba gâchette oyo. Ba paramètres ya awa ekozonga ntango ekotika.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ezali kobongisa miinda oyo. Ba paramètres ya awa ekozonga ntango ekotika.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Meka gâchette ya loboko ya mwasi</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Meka gâchette ya loboko ya mobali</value></data>
   <data name="Pad_ResetImpulseTriggers" xml:space="preserve"><value>Zongisa ba gâchette Impulse</value></data>
@@ -333,6 +346,7 @@
   <data name="Pad_ResetAudioTriggerSensitivity" xml:space="preserve"><value>Zongisa sensibilité</value></data>
   <data name="Pad_ResetAudioLeftTrigger" xml:space="preserve"><value>Zongisa gâchette ya loboko ya mwasi</value></data>
   <data name="Pad_ResetAudioRightTrigger" xml:space="preserve"><value>Zongisa gâchette ya loboko ya mobali</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Bongisa ba effet ya gâchette na DualSense ya solo oyo epesami. Ba effet ya gâchette oyo euti na lisano to na mod ya lisano etindamaka yango moko. Ba paramètres ya awa ebakisaka couche moko ya mosaleli oyo esalaka ntango moko te kati na yango ezali kokoma.</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Ba stick</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Ba gâchette</value></data>
@@ -1576,6 +1590,12 @@ Olingi PadForge elongola yango sikoyo? Esengeli na ba droit ya administrateur mp
   <data name="Macro_KeyboardScreen_Kind" xml:space="preserve"><value>Écran</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ezali kobongisa ba gâchette ya manette oyo.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ezali kobongisa miinda ya manette oyo.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ezali kobongisa ba gâchette mpe miinda ya manette oyo.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} ezali kobeta ba vibration ya gâchette na ba gâchette Impulse ya manette oyo.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Longola ba effet ya mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Esilisaka oyo ba mod ya masano batiaki na manette oyo. Ba paramètres na yango moko ezongaka kino mod moko ekotinda lisusu.</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Likoló/Nsé</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Kati/Libándá</value></data>
   <data name="Falcon_Button_Format" xml:space="preserve"><value>Bouton {0}</value></data>

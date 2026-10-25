@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Порт Аддаленай сувязі</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Порт сервера руху</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Перадае даныя гіраскопа і акселерометра ў Cemu, Dolphin, Yuzu і г.д.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Моды гульняў</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Дазваляе модам гульняў, створаным для DSX, кіраваць адаптыўнымі куркамі, светлавой панэллю, індыкатарамі гульца і індыкатарам адключэння мікрафона вашых кантролераў PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Прымаць моды гульняў для DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Порт модаў гульняў</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Запускаць замену DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Некаторыя моды, напрыклад DualSense4GTAV, самі выключаюцца, калі не запушчана праграма з назвай DSX. Гэта запускае невялікую замену з такой назвай, пакуль сервер праслухоўвае порт.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Працуе з модамі, створанымі для DSX, напрыклад для GTA V, Red Dead Redemption 2, Skyrim і Forza. Пакуль сервер праслухоўвае порт, PadForge запісвае яго туды, дзе гэтыя моды яго шукаюць.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Праслухоўванне на :{0}. {1} адпраўляе на віртуальны кантролер {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Праслухоўванне на :{0}. {1} адпраўляе, але ні на адным віртуальным кантролеры няма кантролера PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Порт {0} выкарыстоўвае іншая праграма, напрыклад DSX. Закрыйце яе або абярыце іншы порт.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Мод гульні</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Працуе з OpenTrack і любым трэкерам, які адпраўляе даныя па UDP або запісвае іх у агульную памяць FreeTrack 2.0, а таксама з асяроддзем выканання OpenXR на гэтым камп'ютары, якое можа запускаць сеанс у фоне.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Чытаць G-клавішы Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Чытае G-клавішы праз Logitech G-key SDK. Патрабуецца запушчаная праграма Logitech Gaming Software 8.55 або навейшая. У гэтай праграме перацягніце каманду G-key на кожную клавішу ў профілі PadForge. Зрабіце гэты профіль пастаянным, інакш клавішы трапляюць у PadForge, толькі калі яго акно на пярэднім плане. Мыш G600 або G300 таксама павінна быць выведзена з рэжыму ўбудаванай памяці.</value></data>
@@ -832,7 +843,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Правы курок</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Памяняць месцамі маторы левага і правага куркоў</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Пераўтвараць вібрацыі адаптыўных куркоў</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Калі гульня кіруе гэтым слотам як віртуальным DualSense, яе вібрацыйныя эфекты адаптыўных куркоў прайграюцца на маторах імпульсных куркоў гэтага кантролера. Эфекты супраціўлення не маюць вібрацыйнага адпаведніка і ігнаруюцца.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Калі гульня кіруе гэтым слотам як віртуальным DualSense або мод гульні адпраўляе эфекты куркоў, вібрацыйныя эфекты адаптыўных куркоў прайграюцца на маторах імпульсных куркоў гэтага кантролера. Эфекты супраціўлення не маюць вібрацыйнага адпаведніка і ігнаруюцца.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} задае гэтыя куркі. Налады тут вернуцца, калі гэта спыніцца.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} адпраўляе эфекты куркоў. Калі ўключана «Пераўтвараць вібрацыі адаптыўных куркоў», іх вібрацыі прайграюцца тут.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} задае гэтую падсветку. Налады тут вернуцца, калі гэта спыніцца.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Праверыць левы курок</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Праверыць правы курок</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Актыўнасць матораў куркоў</value></data>
@@ -889,7 +903,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Адаптыўныя куркі</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Адаптыўныя куркі</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Наладжвайце эфекты зваротнай сувязі куркоў на прызначаным фізічным DualSense. Эфекты куркоў ад гульні перадаюцца аўтаматычна. Налады тут дадаюць карыстальніцкі слой, які працуе, калі гульня нічога не запісвае.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Наладжвайце эфекты зваротнай сувязі куркоў на прызначаным фізічным DualSense. Эфекты куркоў ад гульні або мода гульні перадаюцца аўтаматычна. Налады тут дадаюць карыстальніцкі слой, які працуе, калі ні адзін з іх нічога не запісвае.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Стыкі</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Мёртвыя зоны, антымёртвыя зоны, крывыя адчувальнасці і каліброўка зруху цэнтра для кожнага стыка. Кожны раздзел ніжэй адносіцца да аднаго аналагавага стыка на актыўным выхадзе. Пашыраныя профілі могуць мець да чатырох стыкаў. Стандартныя геймпады маюць два.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Куркі</value></data>
@@ -4385,6 +4399,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Ручка</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} задае курки гэтага кантролера.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} задае падсветку гэтага кантролера.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} задае курки і падсветку гэтага кантролера.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} прайгравае вібрацыі куркоў на імпульсных куркох гэтага кантролера.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Ачысціць эфекты модаў</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Спыняе тое, што моды задалі на гэтым кантролеры. Яго ўласныя налады вяртаюцца, пакуль мод не адправіць зноў.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Улева/управа</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Уверх/уніз</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Унутр/вонкі</value></data>

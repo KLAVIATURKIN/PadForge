@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>منفذ الربط عن بعد</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>منفذ خادم الحركة</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>يوفر بيانات الجيروسكوب ومقياس التسارع لبرامج Cemu وDolphin وYuzu وغيرها.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>تعديلات الألعاب</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>تتيح لتعديلات الألعاب المصممة لبرنامج DSX التحكم في الأزندة التكيفية وشريط الإضاءة وأضواء اللاعب وضوء الكتم في وحدات تحكم PlayStation لديك.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>قبول تعديلات ألعاب DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>منفذ تعديلات الألعاب</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>تشغيل بديل لبرنامج DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>بعض التعديلات، مثل DualSense4GTAV، توقف نفسها ما لم يكن برنامج باسم DSX قيد التشغيل. يشغّل هذا الخيار بديلا صغيرا بهذا الاسم أثناء استماع الخادم.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>يعمل مع التعديلات المصممة لبرنامج DSX، مثل تعديلات GTA V وRed Dead Redemption 2 وSkyrim وForza. أثناء استماع الخادم، يكتب PadForge منفذه في المكان الذي تبحث عنه تلك التعديلات.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>يستمع على :{0}. يرسل {1} إلى وحدة التحكم الظاهرية {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>يستمع على :{0}. يرسل {1}، لكن لا توجد وحدة تحكم ظاهرية عليها وحدة تحكم PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>المنفذ {0} قيد الاستخدام من برنامج آخر، مثل DSX. أغلقه أو اختر منفذا آخر.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>تعديل لعبة</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>يعمل مع OpenTrack وأي متتبع يرسل مخرجاته عبر UDP أو يكتب في الذاكرة المشتركة FreeTrack 2.0، ومع وقت تشغيل OpenXR على هذا الجهاز يستطيع تشغيل جلسة في الخلفية.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>قراءة مفاتيح G من Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>يقرأ مفاتيح G عبر Logitech G-key SDK. يتطلب تشغيل Logitech Gaming Software 8.55 أو أحدث. في ذلك البرنامج، اسحب أمر G-key إلى كل مفتاح في ملف تعريف PadForge. اجعل ملف التعريف هذا دائما، وإلا فلن تصل المفاتيح إلى PadForge إلا ونافذته في المقدمة. ويجب كذلك إخراج ماوس G600 أو G300 من وضع الذاكرة المدمجة.</value></data>
@@ -817,7 +828,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>الزناد الأيمن</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>تبديل محركي الزنادين الأيسر والأيمن</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>تحويل اهتزازات الأزندة التكيفية</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>عندما تشغّل لعبة هذه الخانة كوحدة DualSense ظاهرية، تعمل تأثيرات الأزندة التكيفية من نمط الاهتزاز على محركات الأزندة النبضية في وحدة التحكم هذه. تأثيرات نمط المقاومة ليس لها مقابل اهتزازي ويتم تجاهلها.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>عندما تشغّل لعبة هذه الخانة كوحدة DualSense ظاهرية، أو يرسل تعديل لعبة تأثيرات الأزندة، تعمل تأثيرات الأزندة التكيفية من نمط الاهتزاز على محركات الأزندة النبضية في وحدة التحكم هذه. تأثيرات نمط المقاومة ليس لها مقابل اهتزازي ويتم تجاهلها.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} يضبط هذه الأزندة. تعود الإعدادات هنا عندما يتوقف.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} يرسل تأثيرات الأزندة. عند تشغيل تحويل اهتزازات الأزندة التكيفية، تعمل اهتزازاتها هنا.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} يضبط هذه الأضواء. تعود الإعدادات هنا عندما يتوقف.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>اختبار الزناد الأيسر</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>اختبار الزناد الأيمن</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>نشاط محركات الأزندة</value></data>
@@ -874,7 +888,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>الأزندة التكيفية</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>الأزندة التكيفية</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>إعداد تأثيرات ردود فعل الأزندة على وحدة DualSense الفعلية المعينة. تأثيرات الأزندة التي تشغّلها اللعبة يتم تمريرها تلقائيا. الإعدادات هنا تضيف طبقة يحددها المستخدم تعمل عندما لا تكتب أي لعبة.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>إعداد تأثيرات ردود فعل الأزندة على وحدة DualSense الفعلية المعينة. تأثيرات الأزندة الواردة من لعبة أو من تعديل لعبة يتم تمريرها تلقائيا. الإعدادات هنا تضيف طبقة يحددها المستخدم تعمل عندما لا يكتب أي منهما.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>العصي</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>المناطق الميتة ومضادات المناطق الميتة ومنحنيات الحساسية ومعايرة إزاحة المركز لكل عصا. كل قسم أدناه يخص عصا تناظرية واحدة في الإخراج النشط. ملفات التعريف الموسعة يمكن أن تحتوي على ما يصل إلى أربع عصي. أذرع التحكم القياسية لها عصوان.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>الأزندة</value></data>
@@ -4366,6 +4380,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>بكسل</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>المقبض</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} يضبط أزندة وحدة التحكم هذه.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} يضبط أضواء وحدة التحكم هذه.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} يضبط أزندة وحدة التحكم هذه وأضواءها.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} يشغّل اهتزازات الأزندة على الأزندة النبضية في وحدة التحكم هذه.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>مسح تأثيرات التعديل</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>ينهي ما ضبطته تعديلات الألعاب على وحدة التحكم هذه. تعود إعداداتها الخاصة إلى أن يرسل تعديل مجددا.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>يسار/يمين</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>أعلى/أسفل</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>داخل/خارج</value></data>

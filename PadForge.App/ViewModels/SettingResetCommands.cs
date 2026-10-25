@@ -246,6 +246,8 @@ namespace PadForge.ViewModels
 
         internal static bool CanResetSetting(string name) => name is
             nameof(EnableDsuMotionServer) or
+            nameof(EnableGameModServer) or
+            nameof(GameModDsxStandIn) or
             nameof(EnableWebController) or
             nameof(EnableWebControllerPlainHttp) or
             nameof(WebControllerPlainHttpLocalOnly) or
@@ -263,6 +265,16 @@ namespace PadForge.ViewModels
                 case nameof(EnableDsuMotionServer):
                 {
                     EnableDsuMotionServer = false;
+                    break;
+                }
+                case nameof(EnableGameModServer):
+                {
+                    EnableGameModServer = false;
+                    break;
+                }
+                case nameof(GameModDsxStandIn):
+                {
+                    GameModDsxStandIn = false;
                     break;
                 }
                 case nameof(EnableWebController):

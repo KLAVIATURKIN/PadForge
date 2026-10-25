@@ -274,6 +274,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port Remote Link</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port du serveur de mouvement</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Fournit les données du gyroscope et de l'accéléromètre à Cemu, Dolphin, Yuzu, etc.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mods de jeu</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Permet aux mods de jeu conçus pour DSX de définir les gâchettes adaptatives, la barre lumineuse, les voyants de joueur et le voyant de micro coupé de vos manettes PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Accepter les mods de jeu DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port des mods de jeu</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Lancer un substitut DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Certains mods, comme DualSense4GTAV, se désactivent si aucun programme nommé DSX n'est en cours d'exécution. Cette option lance un petit substitut portant ce nom pendant que le serveur écoute.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Fonctionne avec les mods conçus pour DSX, comme ceux de GTA V, Red Dead Redemption 2, Skyrim et Forza. Pendant que le serveur écoute, PadForge écrit son port là où ces mods le cherchent.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Écoute sur :{0}. {1} envoie à la manette virtuelle {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Écoute sur :{0}. {1} envoie, mais aucune manette virtuelle n'a de manette PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} utilisé par un autre programme, comme DSX. Fermez-le ou choisissez un autre port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Un mod de jeu</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Fonctionne avec OpenTrack et tout tracker qui envoie sa sortie UDP ou écrit dans la mémoire partagée FreeTrack 2.0, ainsi qu’avec un runtime OpenXR installé sur cette machine capable d’exécuter une session en arrière-plan.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Lire les touches G Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Lit les touches G via le SDK G-key de Logitech. Nécessite Logitech Gaming Software 8.55 ou ultérieur en cours d’exécution. Dans ce logiciel, faites glisser la commande G-key sur chaque touche du profil PadForge. Rendez ce profil persistant, sinon les touches n’atteignent PadForge que lorsque sa fenêtre est au premier plan. Une souris G600 ou G300 ne doit pas non plus être en mode mémoire intégrée.</value></data>
@@ -1719,7 +1730,7 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="About_DualSenseYDesc" xml:space="preserve"><value>Implémentation de référence pour le passthrough audio USB de la manette. Par WujekFoliarz.</value></data>
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Gâchettes adaptatives</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Gâchettes adaptatives</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configure les effets des gâchettes sur la DualSense physique assignée. Les effets pilotés par le jeu sont transmis automatiquement. Les réglages ici ajoutent une couche utilisateur qui s'applique quand aucun jeu n'écrit.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Configure les effets des gâchettes sur la DualSense physique assignée. Les effets de gâchette venant d'un jeu ou d'un mod de jeu sont transmis automatiquement. Les réglages ici ajoutent une couche utilisateur qui s'applique quand ni l'un ni l'autre n'écrit.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Sticks</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Par stick : zones mortes, anti-zones mortes, courbes de sensibilité et calibrage du décalage du centre. Chaque section ci-dessous cible un stick analogique de la sortie active. Les profils étendus peuvent avoir jusqu'à quatre sticks. Les manettes standard en ont deux.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Gâchettes</value></data>
@@ -1958,7 +1969,10 @@ Une copie de la version précédente se trouve dans ce dossier : {1}</value></da
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Gâchette droite</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Inverser les moteurs des gâchettes gauche et droite</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Traduire les vibrations des gâchettes adaptatives</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Quand un jeu pilote cet emplacement comme une DualSense virtuelle, ses effets de gâchette adaptative de type vibration sont joués sur les moteurs de gâchette à impulsion de cette manette. Les effets de type résistance n'ont pas d'équivalent en vibration et sont ignorés.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Quand un jeu pilote cet emplacement comme une DualSense virtuelle, ou qu'un mod de jeu envoie des effets de gâchette, les effets de gâchette adaptative de type vibration sont joués sur les moteurs de gâchette à impulsion de cette manette. Les effets de type résistance n'ont pas d'équivalent en vibration et sont ignorés.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} définit ces gâchettes. Les réglages ici reviennent quand il s'arrête.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} envoie des effets de gâchette. Avec Traduire les vibrations des gâchettes adaptatives activé, leurs vibrations sont jouées ici.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} définit ces lumières. Les réglages ici reviennent quand il s'arrête.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Tester la gâchette gauche</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Tester la gâchette droite</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Activité du moteur de gâchette</value></data>
@@ -4336,6 +4350,12 @@ Voulez-vous que PadForge les désinstalle maintenant ? Cette opération nécessi
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Poignée</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} définit les gâchettes de cette manette.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} définit les lumières de cette manette.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} définit les gâchettes et les lumières de cette manette.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} joue des vibrations de gâchette sur les gâchettes Impulse de cette manette.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Effacer les effets des mods</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Met fin à ce que les mods de jeu ont défini sur cette manette. Ses propres réglages reviennent jusqu'à ce qu'un mod envoie de nouveau.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Gauche/Droite</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Haut/Bas</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Intérieur/Extérieur</value></data>

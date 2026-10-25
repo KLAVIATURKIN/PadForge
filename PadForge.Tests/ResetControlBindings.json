@@ -55,6 +55,18 @@
   },
   {
     "File": "PadForge.App/Views/DashboardPage.xaml",
+    "Id": "Reset_DashboardViewModel_EnableGameModServer_2230",
+    "Owner": "PadForge.ViewModels.DashboardViewModel",
+    "Property": "EnableGameModServer"
+  },
+  {
+    "File": "PadForge.App/Views/DashboardPage.xaml",
+    "Id": "Reset_DashboardViewModel_GameModDsxStandIn_2246",
+    "Owner": "PadForge.ViewModels.DashboardViewModel",
+    "Property": "GameModDsxStandIn"
+  },
+  {
+    "File": "PadForge.App/Views/DashboardPage.xaml",
     "Id": "Reset_DashboardViewModel_EnableMenuOverlay_2023",
     "Owner": "PadForge.ViewModels.DashboardViewModel",
     "Property": "EnableMenuOverlay"

@@ -227,6 +227,17 @@
   <data name="Tour_Services_Title" xml:space="preserve"><value>Mga serbisyo</value></data>
   <data name="Macro_EmptyHint" xml:space="preserve"><value>Pilia ang usa ka macro sa wala, o pislita ang Idugang aron maghimo og bag-o.</value></data>
   <data name="Dashboard_Services" xml:space="preserve"><value>Mga serbisyo</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mga game mod</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Gitugotan niini ang mga game mod nga gihimo para sa DSX nga mo-set sa mga adaptive trigger, lightbar, suga sa player ug suga sa mute sa imong mga PlayStation controller.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Dawata ang mga DSX game mod</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port sa game mod</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Padagana ang usa ka puli nga DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Ang ubang mod, sama sa DualSense4GTAV, mopalong sa ilang kaugalingon gawas kon adunay programa nga ginganlag DSX nga nagdagan. Kini nagpadagan og gamay nga puli nga ingon niana ang ngalan samtang naminaw ang server.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Mogana sa mga mod nga gihimo para sa DSX, sama sa para sa GTA V, Red Dead Redemption 2, Skyrim ug Forza. Samtang naminaw ang server, isulat sa PadForge ang port niini diin kini pangitaon sa maong mga mod.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Naminaw sa :{0}. {1} ang nagpadala ngadto sa virtual nga controller {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Naminaw sa :{0}. {1} ang nagpadala, apan walay virtual nga controller nga adunay PlayStation controller.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Gigamit na ang port {0} sa laing programa, sama sa DSX. Isira kini o pagpili og laing port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Usa ka game mod</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>Walay nakit-an nga suportado nga analog keyboard.</value></data>
   <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Sugdi ang Razer Synapse aron mabasa ang {0}.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>Walay nakit-an nga Bliss-Box port.</value></data>
@@ -561,6 +572,9 @@
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Wala nga trigger</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Tuo nga trigger</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Ilisi ang mga motor sa wala ug tuo nga trigger</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kon ang usa ka dula mokontrol niining slot isip virtual nga DualSense, o ang usa ka game mod mopadala og mga trigger effect, ang mga adaptive trigger effect nga sama sa vibration modagan sa mga impulse trigger motor niining controller. Ang mga effect nga sama sa resistance walay katumbas nga vibration ug dili tagdon.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ang nag-set niining mga trigger. Mobalik ang mga setting dinhi kon mohunong kini.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ang nag-set niining mga suga. Mobalik ang mga setting dinhi kon mohunong kini.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Sulayi ang wala nga trigger</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Sulayi ang tuo nga trigger</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Kalihokan sa motor sa trigger</value></data>
@@ -611,7 +625,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Mga adaptive trigger</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Mga adaptive trigger</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>I-configure ang mga feedback effect sa trigger sa gi-assign nga pisikal nga DualSense. Ang mga trigger effect gikan sa dula awtomatikong ipasa. Ang mga setting dinhi modugang og layer nga gi-configure sa user nga modagan kon walay dula nga nagsulat.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>I-configure ang mga feedback effect sa trigger sa gi-assign nga pisikal nga DualSense. Ang mga trigger effect gikan sa dula o sa game mod awtomatikong ipasa. Ang mga setting dinhi modugang og layer nga gi-configure sa user nga modagan kon walay usa kanila nga nagsulat.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Mga stick</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Deadzone, anti-deadzone, kurba sa sensitivity, ug kalibrasyon sa center offset para sa matag stick. Ang matag seksyon sa ubos nagtumong sa usa ka analog nga stick sa aktibong output. Ang Extended nga mga profile makabaton og hangtod upat ka stick. Ang standard nga mga gamepad adunay duha.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Mga trigger</value></data>
@@ -3319,6 +3333,12 @@ Gusto ba nimo nga i-uninstall kini sa PadForge karon? Kinahanglan kini og elevat
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Kuptanan</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ang nag-set sa mga trigger niining controller.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ang nag-set sa mga suga niining controller.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ang nag-set sa mga trigger ug suga niining controller.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} ang nagpadagan og mga vibration sa trigger sa mga impulse trigger niining controller.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Hawani ang mga mod effect</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Tapuson niini ang gi-set sa mga game mod niining controller. Mobalik ang kaugalingong mga setting niini hangtod mopadala na usab ang usa ka mod.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Wala/Tuo</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Taas/Ubos</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Sulod/Gawas</value></data>

@@ -274,6 +274,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Remote-Link-Port</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Motion-Server-Port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Stellt Gyroskop- und Beschleunigungsdaten für Cemu, Dolphin, Yuzu usw. bereit.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Spiel-Mods</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Lässt für DSX entwickelte Spiel-Mods die adaptiven Trigger, die Lightbar, die Spieler-LEDs und die Stummschalt-LED der PlayStation-Controller setzen.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>DSX-Spiel-Mods akzeptieren</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Spiel-Mod-Port</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Stellvertreter für DSX.exe ausführen</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Manche Mods, etwa DualSense4GTAV, schalten sich ab, wenn kein Programm namens DSX läuft. Das startet einen kleinen Stellvertreter dieses Namens, solange der Server lauscht.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Funktioniert mit für DSX entwickelten Mods, etwa für GTA V, Red Dead Redemption 2, Skyrim und Forza. Solange der Server lauscht, schreibt PadForge seinen Port dorthin, wo diese Mods danach suchen.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Lauscht auf :{0}. {1} sendet an virtuellen Controller {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Lauscht auf :{0}. {1} sendet, aber an keinem virtuellen Controller hängt ein PlayStation-Controller.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} wird von einem anderen Programm belegt, etwa DSX. Programm schließen oder anderen Port wählen.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Eine Spiel-Mod</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Funktioniert mit OpenTrack und jedem Tracker, der seine UDP-Ausgabe sendet oder den gemeinsamen FreeTrack-2.0-Speicher beschreibt, sowie mit einer auf diesem Rechner installierten OpenXR-Laufzeit, die eine Sitzung im Hintergrund ausführen kann.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Logitech G-Tasten lesen</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Liest G-Tasten über das Logitech G-key SDK. Erfordert eine laufende Logitech Gaming Software 8.55 oder neuer. Ziehen Sie dort im PadForge-Profil den Befehl „G-key“ auf jede Taste. Machen Sie dieses Profil dauerhaft, sonst erreichen die Tasten PadForge nur, während dessen Fenster im Vordergrund ist. Eine G600- oder G300-Maus darf außerdem nicht im Onboard-Modus sein.</value></data>
@@ -1719,7 +1730,7 @@ Eine Kopie der vorherigen Version liegt in diesem Ordner: {1}</value></data>
   <data name="About_DualSenseYDesc" xml:space="preserve"><value>Referenzimplementierung für USB-Controller-Audio-Passthrough. Von WujekFoliarz.</value></data>
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptive Trigger</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptive Trigger</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfiguriert die Trigger-Effekte am zugewiesenen physischen DualSense. Spielgesteuerte Trigger-Effekte werden automatisch weitergeleitet. Die hier gewählten Einstellungen bilden eine zusätzliche Schicht, die greift, wenn kein Spiel schreibt.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfiguriert die Trigger-Effekte am zugewiesenen physischen DualSense. Trigger-Effekte aus einem Spiel oder einer Spiel-Mod werden automatisch weitergeleitet. Die hier gewählten Einstellungen bilden eine zusätzliche Schicht, die greift, wenn keines von beiden schreibt.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Sticks</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Pro Stick: Deadzones, Anti-Deadzones, Sensitivitätskurven und Mittenversatz-Kalibrierung. Jeder Abschnitt unten betrifft eine Analog-Stick auf der aktiven Ausgabe. Erweiterte Profile können bis zu vier Sticks haben. Standard-Gamepads haben zwei.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Trigger</value></data>
@@ -1958,7 +1969,10 @@ Eine Kopie der vorherigen Version liegt in diesem Ordner: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Rechter Trigger</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Linken und rechten Trigger-Motor tauschen</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Adaptive-Trigger-Vibrationen übersetzen</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Wenn ein Spiel diesen Slot als virtuellen DualSense ansteuert, werden seine vibrationsartigen Adaptive-Trigger-Effekte auf den Impulstrigger-Motoren dieses Controllers wiedergegeben. Widerstandsartige Effekte haben kein Vibrationsäquivalent und werden ignoriert.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Wenn ein Spiel diesen Slot als virtuellen DualSense ansteuert oder eine Spiel-Mod Trigger-Effekte sendet, werden die vibrationsartigen Adaptive-Trigger-Effekte auf den Impulstrigger-Motoren dieses Controllers wiedergegeben. Widerstandsartige Effekte haben kein Vibrationsäquivalent und werden ignoriert.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} setzt diese Trigger. Die Einstellungen hier gelten wieder, sobald das aufhört.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} sendet Trigger-Effekte. Ist „Adaptive-Trigger-Vibrationen übersetzen“ aktiv, werden deren Vibrationen hier wiedergegeben.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} setzt diese Lichter. Die Einstellungen hier gelten wieder, sobald das aufhört.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Linken Trigger testen</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Rechten Trigger testen</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Trigger-Motoraktivität</value></data>
@@ -4336,6 +4350,12 @@ Sollen sie jetzt deinstalliert werden? Dies erfordert erhöhte Rechte und kann e
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Griff</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} setzt die Trigger dieses Controllers.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} setzt die Lichter dieses Controllers.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} setzt die Trigger und Lichter dieses Controllers.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} gibt Trigger-Vibrationen auf den Impulse-Triggern dieses Controllers wieder.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Mod-Effekte löschen</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Beendet, was Spiel-Mods an diesem Controller gesetzt haben. Seine eigenen Einstellungen gelten wieder, bis eine Mod erneut sendet.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Links/Rechts</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Oben/Unten</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Hinein/Heraus</value></data>

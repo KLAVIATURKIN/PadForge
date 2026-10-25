@@ -286,6 +286,64 @@ namespace PadForge.ViewModels
         }
 
         // ─────────────────────────────────────────────
+        //  Game Mods (#529)
+        // ─────────────────────────────────────────────
+        // The UDP server DSX game mods send to, a local server with a port
+        // like the Motion Server above, so the same card.
+
+        private bool _enableGameModServer;
+
+        /// <summary>Whether the server for DSX game mods listens.</summary>
+        public bool EnableGameModServer
+        {
+            get => _enableGameModServer;
+            set => SetProperty(ref _enableGameModServer, value);
+        }
+
+        private int _gameModServerPort = Services.GameModServer.DefaultPort;
+
+        /// <summary>The server's UDP port (default 6969, DSX's).</summary>
+        public int GameModServerPort
+        {
+            get => _gameModServerPort;
+            set => SetProperty(ref _gameModServerPort, Math.Clamp(value, 1024, 65535));
+        }
+
+        private RelayCommand _resetGameModPortCommand;
+        public RelayCommand ResetGameModPortCommand =>
+            _resetGameModPortCommand ??= new RelayCommand(() => GameModServerPort = Services.GameModServer.DefaultPort);
+
+        private bool _gameModDsxStandIn;
+
+        /// <summary>Whether a stand-in named DSX.exe runs while the server
+        /// listens, for the mods that turn themselves off without one.</summary>
+        public bool GameModDsxStandIn
+        {
+            get => _gameModDsxStandIn;
+            set => SetProperty(ref _gameModDsxStandIn, value);
+        }
+
+        private string _gameModServerStatus = Strings.Instance.Common_Stopped;
+
+        /// <summary>The server's line: why it is not listening, or who is
+        /// sending to which virtual controller.</summary>
+        public string GameModServerStatus
+        {
+            get => _gameModServerStatus;
+            set => SetProperty(ref _gameModServerStatus, value ?? Strings.Instance.Common_Stopped);
+        }
+
+        private bool _isGameModServerRunning;
+
+        /// <summary>Serving truth for the card's flame: the server listens,
+        /// whatever the switch says.</summary>
+        public bool IsGameModServerRunning
+        {
+            get => _isGameModServerRunning;
+            set => SetProperty(ref _isGameModServerRunning, value);
+        }
+
+        // ─────────────────────────────────────────────
         //  Head Tracking (#355)
         // ─────────────────────────────────────────────
         // A UDP listener on OpenTrack's port plus a FreeTrack 2.0 shared

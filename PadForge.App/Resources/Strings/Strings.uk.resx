@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Порт Віддаленого зв'язку</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Порт сервера руху</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Передає дані гіроскопа й акселерометра до Cemu, Dolphin, Yuzu тощо.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Ігрові моди</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Дає змогу ігровим модам, створеним для DSX, керувати адаптивними тригерами, світловою панеллю, індикаторами гравця та індикатором вимкнення мікрофона на ваших контролерах PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Приймати ігрові моди DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Порт ігрових модів</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Запускати замінник DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Деякі моди, як-от DualSense4GTAV, вимикаються, якщо не запущено програму з назвою DSX. Це запускає невеликий замінник із такою назвою, поки сервер прослуховує.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Працює з модами, створеними для DSX, зокрема для GTA V, Red Dead Redemption 2, Skyrim і Forza. Поки сервер прослуховує, PadForge записує свій порт там, де ці моди його шукають.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Прослуховує :{0}. {1} надсилає на віртуальний контролер {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Прослуховує :{0}. {1} надсилає, але жоден віртуальний контролер не має контролера PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Порт {0} зайнятий іншою програмою, наприклад DSX. Закрийте її або виберіть інший порт.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Ігровий мод</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Працює з OpenTrack і будь-яким трекером, що надсилає дані через UDP або записує спільну пам'ять FreeTrack 2.0, а також із середовищем виконання OpenXR на цьому комп'ютері, яке може вести сеанс у фоновому режимі.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Зчитувати G-клавіші Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Зчитує G-клавіші через Logitech G-key SDK. Потрібна запущена програма Logitech Gaming Software 8.55 або новіша. У ній перетягніть команду G-key на кожну клавішу в профілі PadForge. Зробіть цей профіль постійним, інакше клавіші надходитимуть до PadForge лише тоді, коли його вікно на передньому плані. Крім того, мишу G600 або G300 треба вивести з режиму вбудованої пам'яті.</value></data>
@@ -817,7 +828,10 @@
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Правий тригер</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Поміняти місцями мотори лівого й правого тригерів</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Перетворювати вібрації адаптивних тригерів</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Коли гра керує цим слотом як віртуальним DualSense, її вібраційні ефекти адаптивних тригерів відтворюються на моторах імпульсних тригерів цього контролера. Ефекти опору не мають вібраційного відповідника й ігноруються.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Коли гра керує цим слотом як віртуальним DualSense або ігровий мод надсилає ефекти тригерів, вібраційні ефекти адаптивних тригерів відтворюються на моторах імпульсних тригерів цього контролера. Ефекти опору не мають вібраційного відповідника й ігноруються.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} задає ці тригери. Налаштування тут повернуться після зупинки.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} надсилає ефекти тригерів. Якщо ввімкнено «Перетворювати вібрації адаптивних тригерів», їхні вібрації відтворюються тут.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} задає це підсвічування. Налаштування тут повернуться після зупинки.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Перевірити лівий тригер</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Перевірити правий тригер</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Активність моторів тригерів</value></data>
@@ -874,7 +888,7 @@
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Адаптивні тригери</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Адаптивні тригери</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Налаштуйте ефекти відгуку тригерів на призначеному фізичному DualSense. Ефекти тригерів, якими керує гра, пересилаються автоматично. Налаштування тут додають користувацький шар, який працює, коли жодна гра нічого не записує.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Налаштуйте ефекти відгуку тригерів на призначеному фізичному DualSense. Ефекти тригерів від гри або ігрового мода пересилаються автоматично. Налаштування тут додають користувацький шар, який працює, коли ні гра, ні мод нічого не записують.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Стіки</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Мертві зони, антимертві зони, криві чутливості та калібрування зміщення центру для кожного стіка. Кожен розділ нижче стосується одного аналогового стіка активного виходу. Розширені профілі можуть мати до чотирьох стіків. Стандартні геймпади мають два.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Тригери</value></data>
@@ -4361,6 +4375,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Рукоятка</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} задає тригери цього контролера.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} задає підсвічування цього контролера.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} задає тригери та підсвічування цього контролера.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} відтворює вібрації тригерів на імпульсних тригерах цього контролера.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Очистити ефекти модів</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Завершує те, що ігрові моди задали на цьому контролері. Його власні налаштування повертаються, доки мод не надішле знову.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Ліво/право</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Вгору/вниз</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Всередину/назовні</value></data>

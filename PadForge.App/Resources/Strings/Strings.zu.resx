@@ -210,6 +210,15 @@
   <data name="Dashboard_Services" xml:space="preserve"><value>Amasevisi</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Imbobo</value></data>
   <data name="Dashboard_WebControllerPort" xml:space="preserve"><value>Imbobo yesilawuli sewebhu</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Ama-mod emidlalo</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Ivumela ama-mod emidlalo enzelwe i-DSX ukuthi alawule ama-adaptive trigger, ibha yokukhanya, izibani zomdlali nesibani sokuthulisa ezilawulini zakho ze-PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Yamukela ama-mod emidlalo e-DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Imbobo yama-mod emidlalo</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Qalisa i-DSX.exe engumbambeli</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Amanye ama-mod, njenge-DualSense4GTAV, ayazicisha uma uhlelo olubizwa ngokuthi i-DSX lungasebenzi. Lokhu kuqalisa uhlelo oluncane olunalelo gama ngesikhathi iseva ilalele.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Isebenza nama-mod enzelwe i-DSX, njengalawo enzelwe i-GTA V, i-Red Dead Redemption 2, i-Skyrim ne-Forza. Ngesikhathi iseva ilalele, i-PadForge ibhala imbobo yayo lapho lawo ma-mod ayifuna khona.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Imbobo {0} isetshenziswa ngolunye uhlelo, njenge-DSX. Luvale noma ukhethe enye imbobo.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>I-mod yomdlalo</value></data>
   <data name="Dashboard_WebController" xml:space="preserve"><value>Isilawuli sewebhu</value></data>
   <data name="Dashboard_WebAccessCode" xml:space="preserve"><value>Ikhodi yokungena</value></data>
   <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>Ikhodi entsha</value></data>
@@ -476,6 +485,9 @@
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Ithrigha yesokunxele</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Ithrigha yesokudla</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Shintshanisa izimoto zethrigha yesokunxele neyesokudla</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Uma umdlalo ulawula lesi sikhala njenge-DualSense ebonakalayo, noma i-mod yomdlalo ithumela imiphumela yamathrigha, imiphumela yama-adaptive trigger yohlobo lokudlidliza idlala ezimotweni zama-impulse trigger alesi silawuli. Imiphumela yohlobo lokumelana ayinakho ukudlidliza okufanayo nayo, ngakho iyashaywa indiva.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} isetha lawa mathrigha. Izilungiselelo ezilapha zizobuya uma iyeka.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} isetha lezi zibani. Izilungiselelo ezilapha zizobuya uma iyeka.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Hlola ithrigha yesokunxele</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Hlola ithrigha yesokudla</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Setha kabusha ithrigha yesokunxele</value></data>
@@ -506,6 +518,7 @@
   <data name="Pad_ResetAudioTriggerSensitivity" xml:space="preserve"><value>Setha kabusha ukuzwela</value></data>
   <data name="Pad_ResetAudioLeftTrigger" xml:space="preserve"><value>Setha kabusha ithrigha yesokunxele</value></data>
   <data name="Pad_ResetAudioRightTrigger" xml:space="preserve"><value>Setha kabusha ithrigha yesokudla</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Lungiselela imiphumela yempendulo yamathrigha ku-DualSense yangempela enikeziwe. Imiphumela yamathrigha evela emdlalweni noma ku-mod yomdlalo idluliselwa ngokuzenzakalelayo. Izilungiselelo ezilapha zengeza ungqimba olusethwe ngumsebenzisi olusebenza uma kungekho noyedwa kubo obhalayo.</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Izinduku</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Amathrigha</value></data>
@@ -2212,6 +2225,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Isibambo</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} isetha amathrigha alesi silawuli.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} isetha izibani zalesi silawuli.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} isetha amathrigha nezibani zalesi silawuli.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} idlala ukudlidliza kwamathrigha kuma-impulse trigger alesi silawuli.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Sula imiphumela ye-mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Iqeda lokho ama-mod emidlalo akusethe kulesi silawuli. Izilungiselelo zaso zibuya kuze kube i-mod iphinde ithumele.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Kwesokunxele/Kwesokudla</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Phezulu/Phansi</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Ngaphakathi/Ngaphandle</value></data>

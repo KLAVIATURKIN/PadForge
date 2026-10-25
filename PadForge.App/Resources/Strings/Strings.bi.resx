@@ -163,6 +163,14 @@
   <data name="Dashboard_Slot" xml:space="preserve"><value>Slot</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Divaes</value></data>
   <data name="Dashboard_Port" xml:space="preserve"><value>Pot</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Ol mod blong gem</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>I letem ol mod blong gem we oli mekem blong DSX oli setem ol adaptive triga, laetba, ol laet blong plea mo laet blong mute blong ol PlayStation kontrola blong yu.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Akseptem ol mod blong gem blong DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Pot blong ol mod blong gem</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Sam mod, olsem DualSense4GTAV, oli stopem olgeta sapos wan program we nem blong hem DSX i no stap ron. Samting ia i ronem wan smol program wetem sem nem ia blong tekem ples blong hem, taem server i stap lesin.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>I wok wetem ol mod we oli mekem blong DSX, olsem olgeta blong GTA V, Red Dead Redemption 2, Skyrim mo Forza. Taem server i stap lesin, PadForge i raetem pot blong hem long ples we ol mod ia oli stap lukaotem.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Narafala program, olsem DSX, i yusum pot {0} finis. Klosem hem o jusum narafala pot.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Wan mod blong gem</value></data>
   <data name="Settings_AnalogKeyboardsStatus_None" xml:space="preserve"><value>I no faenem wan analog kiboad we PadForge i save ridim.</value></data>
   <data name="AnalogKeyboard_Synapse_Format" xml:space="preserve"><value>Statem Razer Synapse blong ridim {0}.</value></data>
   <data name="Settings_BlissBoxStatus_None" xml:space="preserve"><value>I no faenem wan pot blong Bliss-Box.</value></data>
@@ -338,6 +346,9 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Lef triga</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Raet triga</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Taem wan gem i yusum slot ia olsem wan virtual DualSense, o wan mod blong gem i sendem efek blong triga, ol efek blong adaptive triga we oli seksek oli plei long ol mota blong impulse triga blong kontrola ia. Ol efek we oli pusum triga i gobak oli no gat seksek we i sem olsem, ale oli no plei.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} i stap setem ol triga ia. Ol seting long ples ia bambae oli kambak taem hem i stop.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} i stap setem ol laet ia. Ol seting long ples ia bambae oli kambak taem hem i stop.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Testem lef triga</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Testem raet triga</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Putum bak lef triga</value></data>
@@ -361,6 +372,7 @@
   <data name="Pad_ResetAudioTriggerSensitivity" xml:space="preserve"><value>Putum bak sensitiviti</value></data>
   <data name="Pad_ResetAudioLeftTrigger" xml:space="preserve"><value>Putum bak lef triga</value></data>
   <data name="Pad_ResetAudioRightTrigger" xml:space="preserve"><value>Putum bak raet triga</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Setemap ol efek blong triga long DualSense we i stap long slot ia. Ol efek blong triga we oli kam long wan gem o long wan mod blong gem oli go stret long hem. Ol seting long ples ia oli putum wan layer we yu yu setem, we i wok taem i no gat wan long tufala i stap sendem efek.</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Ol stik</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Ol triga</value></data>
@@ -1452,6 +1464,12 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Hanel</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} i stap setem ol triga blong kontrola ia.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} i stap setem ol laet blong kontrola ia.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} i stap setem ol triga mo ol laet blong kontrola ia.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} i stap pleiem seksek long ol impulse triga blong kontrola ia.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Tekemaot efek blong mod</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>I stopem ol samting we ol mod blong gem oli setem long kontrola ia. Ol seting blong hem oli kambak kasem taem we wan mod i sendem bakegen.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Lef/Raet</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Antap/Daon</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Insaed/Aotsaed</value></data>

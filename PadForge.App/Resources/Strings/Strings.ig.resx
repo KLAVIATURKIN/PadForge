@@ -108,6 +108,11 @@
   <!-- ═══ Dashboard ═══ -->
   <data name="FirstRun_Next" xml:space="preserve"><value>Na-esote</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Ngwaọrụ</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mod egwuregwu</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Nabata mod egwuregwu DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port mod egwuregwu</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Mmemme ọzọ, dịka DSX, na-eji port {0}. Mechie ya ma ọ bụ họrọ port ọzọ.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Otu mod egwuregwu</value></data>
   <data name="RemoteLink_Connect" xml:space="preserve"><value>Jikọọ</value></data>
   <data name="Dashboard_NoDevice" xml:space="preserve"><value>Enweghị ngwaọrụ</value></data>
 
@@ -236,6 +241,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Trigger aka ekpe</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Trigger aka nri</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} na-ahazi trigger ndị a. Ntọala ndị dị ebe a ga-alọghachi mgbe ọ kwụsịrị.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} na-ahazi ọkụ ndị a. Ntọala ndị dị ebe a ga-alọghachi mgbe ọ kwụsịrị.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Nwalee trigger aka ekpe</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Nwalee trigger aka nri</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Tọgharịa trigger aka ekpe</value></data>
@@ -1153,6 +1160,10 @@
   <data name="Macro_Pan_Step" xml:space="preserve"><value>Nzọụkwụ</value></data>
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} na-ahazi trigger nke controller a.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} na-ahazi ọkụ nke controller a.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} na-ahazi trigger na ọkụ nke controller a.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Hichapụ mmetụta mod</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Aka ekpe/Aka nri</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Elu/Ala</value></data>
   <data name="Falcon_Button_Format" xml:space="preserve"><value>Bọtịn {0}</value></data>

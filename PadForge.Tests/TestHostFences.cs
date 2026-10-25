@@ -169,6 +169,22 @@ namespace PadForge.Tests
         internal static void Set() => DsuMotionServer.OffLimitsForTest = true;
     }
 
+    /// <summary>No game mod server is started on the port every DSX game
+    /// mod on the PC sends to (#529).</summary>
+    internal static class GameModPortOffLimits
+    {
+        [ModuleInitializer]
+        internal static void Set() => GameModServer.OffLimitsForTest = true;
+    }
+
+    /// <summary>The port files every DSX game mod on the PC reads are left
+    /// as they are (#529).</summary>
+    internal static class GameModPortFilesOffLimits
+    {
+        [ModuleInitializer]
+        internal static void Set() => GameModPortFiles.OffLimitsForTest = true;
+    }
+
     /// <summary>The GameInput service is left as it is. HIDMaestro's context
     /// asks sc.exe about the service as it is built, and where the service
     /// is stopped it sets it to start with Windows and starts it. The

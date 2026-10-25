@@ -295,6 +295,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Kaugühenduse port</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Liikumisserveri port</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Edastab güroskoobi ja kiirendusanduri andmeid emulaatoritele Cemu, Dolphin, Yuzu jt.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mängumodid</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Lubab DSX-i jaoks tehtud mängumodidel määrata teie PlayStation-kontrollerite adaptiivseid päästikuid, valgusriba, mängijatulesid ja vaigistustuld.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Võta vastu DSX-i mängumodid</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Mängumodi port</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Käivita DSX.exe asendaja</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Mõned modid, näiteks DualSense4GTAV, lülituvad ise välja, kui programmi nimega DSX ei tööta. See käivitab selle nimega väikese asendaja, kuni server kuulab.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Töötab DSX-i jaoks tehtud modidega, näiteks GTA V, Red Dead Redemption 2, Skyrim ja Forza omadega. Kuni server kuulab, kirjutab PadForge oma pordi sinna, kust need modid seda otsivad.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Kuulab pordil :{0}. {1} saadab virtuaalsele kontrollerile {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Kuulab pordil :{0}. {1} saadab, kuid ühelgi virtuaalsel kontrolleril pole PlayStation-kontrollerit.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} on kasutusel teises programmis, näiteks DSX-is. Sulgege see või valige teine port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Mängumod</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Töötab programmiga OpenTrack ja iga jälgijaga, mis saadab oma väljundi UDP kaudu või kirjutab FreeTrack 2.0 ühismällu, ning selles arvutis oleva OpenXR-i käituskeskkonnaga, mis suudab seanssi taustal käitada.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Loe Logitechi G-klahve</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Loeb G-klahve Logitechi G-key SDK kaudu. Vajab töötavat Logitech Gaming Software'i versiooni 8.55 või uuemat. Lohistage selles tarkvaras käsk „G-key“ PadForge'i profiilis igale klahvile. Muutke see profiil püsivaks, muidu jõuavad klahvid PadForge'i ainult siis, kui selle aken on esiplaanil. G600- või G300-hiir peab olema ka sisemälu režiimist väljas.</value></data>
@@ -817,7 +828,10 @@ Eelmise versiooni koopia on selles kaustas: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Parem päästik</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Vaheta vasaku ja parema päästiku mootorid</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Teisenda adaptiivsete päästikute vibratsioonid</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kui mäng juhib seda pesa virtuaalse DualSense'ina, esitatakse selle vibratsioonitüüpi adaptiivsete päästikute efektid selle kontrolleri impulsspäästikute mootoritel. Takistustüüpi efektidel pole vibratsioonivastet ja neid eiratakse.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Kui mäng juhib seda pesa virtuaalse DualSense'ina või mängumod saadab päästikuefekte, esitatakse vibratsioonitüüpi adaptiivsete päästikute efektid selle kontrolleri impulsspäästikute mootoritel. Takistustüüpi efektidel pole vibratsioonivastet ja neid eiratakse.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} määrab neid päästikuid. Siinsed sätted taastuvad, kui see lõpetab.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} saadab päästikuefekte. Kui säte „Teisenda adaptiivsete päästikute vibratsioonid“ on sees, esitatakse nende vibratsioonid siin.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} määrab neid tulesid. Siinsed sätted taastuvad, kui see lõpetab.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Testi vasakut päästikut</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Testi paremat päästikut</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Päästikumootorite tegevus</value></data>
@@ -874,7 +888,7 @@ Eelmise versiooni koopia on selles kaustas: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptiivsed päästikud</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptiivsed päästikud</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Seadistage määratud füüsilise DualSense'i päästikute tagasiside efektid. Mängu juhitud päästikuefektid edastatakse automaatselt. Siinsed sätted lisavad kasutaja seadistatud kihi, mis töötab siis, kui ükski mäng efekte ei kirjuta.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Seadistage määratud füüsilise DualSense'i päästikute tagasiside efektid. Mängu või mängumodi päästikuefektid edastatakse automaatselt. Siinsed sätted lisavad kasutaja seadistatud kihi, mis töötab siis, kui kumbki efekte ei kirjuta.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Kangid</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Kangipõhised surnud tsoonid, surnud tsooni kompensatsioonid, tundlikkuskõverad ja keskpunkti nihke kalibreerimine. Iga allolev jaotis on mõeldud aktiivse väljundi ühele analoogkangile. Laiendatud profiilidel võib olla kuni neli kangi. Tavalistel mängupultidel on neid kaks.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Päästikud</value></data>
@@ -4363,6 +4377,12 @@ Kas soovite, et PadForge need nüüd desinstalliks? Selleks on vaja kõrgendatud
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Käepide</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} määrab selle kontrolleri päästikuid.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} määrab selle kontrolleri tulesid.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} määrab selle kontrolleri päästikuid ja tulesid.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} esitab selle kontrolleri impulsspäästikutel päästikuvibratsioone.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Eemalda modiefektid</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Lõpetab selle, mida mängumodid on sellel kontrolleril määranud. Kontrolleri enda sätted taastuvad, kuni mod uuesti saadab.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Vasak/parem</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Üles/alla</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Sisse/välja</value></data>

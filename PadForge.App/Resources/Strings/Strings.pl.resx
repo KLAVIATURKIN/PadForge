@@ -310,6 +310,17 @@
   <data name="Dashboard_RemoteLinkPort" xml:space="preserve"><value>Port Łącza zdalnego</value></data>
   <data name="Dashboard_MotionServerPort" xml:space="preserve"><value>Port serwera ruchu</value></data>
   <data name="Dashboard_DsuFooter" xml:space="preserve"><value>Dostarcza dane żyroskopu i akcelerometru do programów Cemu, Dolphin, Yuzu itp.</value></data>
+  <data name="Dashboard_GameMods" xml:space="preserve"><value>Mody do gier</value></data>
+  <data name="Dashboard_GameModsDescription" xml:space="preserve"><value>Pozwala modom do gier stworzonym dla DSX ustawiać adaptacyjne spusty, pasek świetlny, diody gracza i diodę wyciszenia kontrolerów PlayStation.</value></data>
+  <data name="Dashboard_EnableGameMods" xml:space="preserve"><value>Akceptuj mody do gier DSX</value></data>
+  <data name="Dashboard_GameModPort" xml:space="preserve"><value>Port modów do gier</value></data>
+  <data name="Dashboard_GameModStandIn" xml:space="preserve"><value>Uruchom zastępnik DSX.exe</value></data>
+  <data name="Dashboard_GameModStandIn_Tooltip" xml:space="preserve"><value>Niektóre mody, takie jak DualSense4GTAV, wyłączają się, jeśli nie działa program o nazwie DSX. Ta opcja uruchamia mały zastępnik o tej nazwie, gdy serwer nasłuchuje.</value></data>
+  <data name="Dashboard_GameModsFooter" xml:space="preserve"><value>Działa z modami stworzonymi dla DSX, na przykład do GTA V, Red Dead Redemption 2, Skyrim i Forza. Gdy serwer nasłuchuje, PadForge zapisuje swój port tam, gdzie mody go szukają.</value></data>
+  <data name="GameMods_Sending_Format" xml:space="preserve"><value>Nasłuchuje na :{0}. {1} wysyła do wirtualnego kontrolera {2}.</value></data>
+  <data name="GameMods_SendingNoController_Format" xml:space="preserve"><value>Nasłuchuje na :{0}. {1} wysyła dane, ale żaden wirtualny kontroler nie ma kontrolera PlayStation.</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Port {0} jest zajęty przez inny program, na przykład DSX. Zamknij go lub wybierz inny port.</value></data>
+  <data name="GameMods_UnknownSender" xml:space="preserve"><value>Mod do gry</value></data>
   <data name="Dashboard_HeadTrackingFooter" xml:space="preserve"><value>Działa z OpenTrack i każdym trackerem, który wysyła dane wyjściowe przez UDP lub zapisuje pamięć współdzieloną FreeTrack 2.0, a także ze środowiskiem uruchomieniowym OpenXR na tym komputerze, które potrafi prowadzić sesję w tle.</value></data>
   <data name="Settings_GKeys" xml:space="preserve"><value>Odczytuj klawisze G firmy Logitech</value></data>
   <data name="Settings_GKeysTooltip" xml:space="preserve"><value>Odczytuje klawisze G przez Logitech G-key SDK. Wymaga uruchomionego programu Logitech Gaming Software 8.55 lub nowszego. W tym programie przeciągnij polecenie „G-key” na każdy klawisz w profilu PadForge. Ustaw ten profil jako trwały, bo inaczej klawisze docierają do programu PadForge tylko wtedy, gdy jego okno jest na pierwszym planie. Mysz G600 lub G300 musi też mieć wyłączony tryb pamięci wbudowanej.</value></data>
@@ -832,7 +843,10 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Prawy spust</value></data>
   <data name="Pad_ImpulseTriggers_SwapTriggers" xml:space="preserve"><value>Zamień silniki lewego i prawego spustu</value></data>
   <data name="Pad_ImpulseTriggers_AtTranslate" xml:space="preserve"><value>Konwertuj wibracje adaptacyjnych spustów</value></data>
-  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Gdy gra obsługuje ten slot jako wirtualny DualSense, jej wibracyjne efekty adaptacyjnych spustów są odtwarzane na silnikach spustów impulsowych tego kontrolera. Efekty oporu nie mają odpowiednika wibracyjnego i są ignorowane.</value></data>
+  <data name="Pad_ImpulseTriggers_AtTranslate_Tooltip" xml:space="preserve"><value>Gdy gra obsługuje ten slot jako wirtualny DualSense lub mod do gry wysyła efekty spustów, wibracyjne efekty adaptacyjnych spustów są odtwarzane na silnikach spustów impulsowych tego kontrolera. Efekty oporu nie mają odpowiednika wibracyjnego i są ignorowane.</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} ustawia te spusty. Ustawienia tutaj wrócą, gdy przestanie.</value></data>
+  <data name="Pad_GameModImpulse_Format" xml:space="preserve"><value>{0} wysyła efekty spustów. Gdy włączone jest Konwertuj wibracje adaptacyjnych spustów, ich wibracje są odtwarzane tutaj.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} ustawia to podświetlenie. Ustawienia tutaj wrócą, gdy przestanie.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Testuj lewy spust</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Testuj prawy spust</value></data>
   <data name="Pad_ImpulseTriggers_MotorActivity" xml:space="preserve"><value>Aktywność silników spustów</value></data>
@@ -889,7 +903,7 @@ Kopia poprzedniej wersji znajduje się w tym folderze: {1}</value></data>
   <!-- Adaptive Triggers tab (DualSense / DualSense Edge only) -->
   <data name="Pad_AdaptiveTriggers" xml:space="preserve"><value>Adaptacyjne spusty</value></data>
   <data name="Pad_AdaptiveTriggers_Header" xml:space="preserve"><value>Adaptacyjne spusty</value></data>
-  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfiguruje efekty spustów na przypisanym fizycznym kontrolerze DualSense. Efekty spustów sterowane przez grę są przekazywane automatycznie. Te ustawienia dodają warstwę użytkownika, która działa, gdy żadna gra nie wysyła efektów.</value></data>
+  <data name="Pad_AdaptiveTriggers_Subtitle" xml:space="preserve"><value>Konfiguruje efekty spustów na przypisanym fizycznym kontrolerze DualSense. Efekty spustów z gry lub moda do gry są przekazywane automatycznie. Te ustawienia dodają warstwę użytkownika, która działa, gdy żadne z nich nie wysyła efektów.</value></data>
   <data name="Pad_Sticks_Header" xml:space="preserve"><value>Drążki</value></data>
   <data name="Pad_Sticks_Subtitle" xml:space="preserve"><value>Martwe strefy, antymartwe strefy, krzywe czułości i kalibracja przesunięcia środka dla każdego drążka. Każda sekcja poniżej dotyczy jednego drążka analogowego aktywnego wyjścia. Profile rozszerzone mogą mieć do czterech drążków. Standardowe gamepady mają dwa.</value></data>
   <data name="Pad_Triggers_Header" xml:space="preserve"><value>Spusty</value></data>
@@ -4385,6 +4399,12 @@ Czy PadForge ma je teraz odinstalować? Wymaga to uprawnień administratora i mo
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Uchwyt</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} ustawia spusty tego kontrolera.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} ustawia podświetlenie tego kontrolera.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} ustawia spusty i podświetlenie tego kontrolera.</value></data>
+  <data name="Devices_GameModImpulse_Format" xml:space="preserve"><value>{0} odtwarza wibracje spustów na spustach impulsowych tego kontrolera.</value></data>
+  <data name="Devices_ClearModEffects" xml:space="preserve"><value>Wyczyść efekty modów</value></data>
+  <data name="Devices_ClearModEffects_Tooltip" xml:space="preserve"><value>Kończy to, co mody do gier ustawiły na tym kontrolerze. Jego własne ustawienia wracają, dopóki mod nie wyśle ponownie.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Lewo/prawo</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Góra/dół</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Do środka/na zewnątrz</value></data>

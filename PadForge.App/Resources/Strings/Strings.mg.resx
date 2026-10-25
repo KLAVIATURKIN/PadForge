@@ -148,6 +148,7 @@
   <data name="FirstRun_Next" xml:space="preserve"><value>Manaraka</value></data>
   <data name="FirstRun_Done" xml:space="preserve"><value>Vita</value></data>
   <data name="Pad_ScopeDevice" xml:space="preserve"><value>Fitaovana</value></data>
+  <data name="GameMods_PortInUse_Format" xml:space="preserve"><value>Ampiasain'ny programa hafa, toy ny DSX, ny port {0}. Akatony izy na mifidiana port hafa.</value></data>
   <data name="Dashboard_WebPlainLocalOnly" xml:space="preserve"><value>Ity PC ity ihany</value></data>
   <data name="Dashboard_WebNewAccessCode" xml:space="preserve"><value>Kaody vaovao</value></data>
   <data name="Dashboard_WebPlainLocalAddress" xml:space="preserve"><value>Adiresy amin'ity PC ity:</value></data>
@@ -330,6 +331,8 @@
   <!-- Impulse Triggers tab (Xbox One+ family) -->
   <data name="Pad_ImpulseTriggers_LeftTrigger" xml:space="preserve"><value>Gâchette havia</value></data>
   <data name="Pad_ImpulseTriggers_RightTrigger" xml:space="preserve"><value>Gâchette havanana</value></data>
+  <data name="Pad_GameModTriggers_Format" xml:space="preserve"><value>{0} no mandrindra ireo gâchette ireo. Miverina ireo fikirakirana eto rehefa mijanona izy.</value></data>
+  <data name="Pad_GameModLights_Format" xml:space="preserve"><value>{0} no mandrindra ireo jiro ireo. Miverina ireo fikirakirana eto rehefa mijanona izy.</value></data>
   <data name="Pad_ImpulseTriggers_TestLeftTrigger" xml:space="preserve"><value>Andramo ny gâchette havia</value></data>
   <data name="Pad_ImpulseTriggers_TestRightTrigger" xml:space="preserve"><value>Andramo ny gâchette havanana</value></data>
   <data name="Pad_ResetImpulseLeft" xml:space="preserve"><value>Averina ny gâchette havia</value></data>
@@ -1841,6 +1844,9 @@
   <data name="Common_Pixels" xml:space="preserve"><value>px</value></data>
   <data name="DeviceType_NovintFalcon" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Devices_FalconHandle" xml:space="preserve"><value>Tahony</value></data>
+  <data name="Devices_GameModTriggers_Format" xml:space="preserve"><value>{0} no mandrindra ny gâchette an'ity contrôleur ity.</value></data>
+  <data name="Devices_GameModLights_Format" xml:space="preserve"><value>{0} no mandrindra ny jiron'ity contrôleur ity.</value></data>
+  <data name="Devices_GameModTriggersAndLights_Format" xml:space="preserve"><value>{0} no mandrindra ny gâchette sy ny jiron'ity contrôleur ity.</value></data>
   <data name="Falcon_Axis_LeftRight" xml:space="preserve"><value>Havia/Havanana</value></data>
   <data name="Falcon_Axis_UpDown" xml:space="preserve"><value>Ambony/Ambany</value></data>
   <data name="Falcon_Axis_InOut" xml:space="preserve"><value>Anatiny/Ivelany</value></data>
