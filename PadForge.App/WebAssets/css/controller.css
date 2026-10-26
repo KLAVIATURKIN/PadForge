@@ -194,3 +194,28 @@ body {
         display: none;
     }
 }
+
+/* Integration activity stays visible above the controller, away from its controls. */
+body.integration-mode { --integration-toolbar-height: 44px; }
+body.integration-mode #controller-viewport { top: var(--integration-toolbar-height); }
+body.integration-mode #statusBar { height: var(--integration-toolbar-height); padding: 10px 180px; font-size: 16px; font-weight: 500; line-height: 24px; text-align: center; color: #e0e5f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+body.integration-mode #statusBar.faded { opacity: 1; }
+#integration-panel { position: fixed; top: 42px; right: 8px; z-index: 10000; width: min(460px, calc(100vw - 16px)); max-height: calc(100vh - 55px); overflow: auto; touch-action: auto; background: #16213ef5; color: #eee; border: 1px solid #445; border-radius: 10px; padding: 14px; font-size: 13px; user-select: text; }
+#integration-panel[hidden] { display: none; }
+#integration-panel button { margin: 6px 6px 6px 0; padding: 6px 9px; }
+#integration-panel table { width: 100%; text-align: left; border-collapse: collapse; margin-top: 10px; }
+#integration-panel th, #integration-panel td { padding: 4px; border-bottom: 1px solid #445; }
+#integration-panel p { margin: 7px 0; }
+
+.integration-toggle { background: #16213e; color: #b8c9e2; border: 1px solid #304367; border-radius: 8px; padding: 4px 10px; font: 600 12px 'Segoe UI', sans-serif; cursor: pointer; }
+#integration-panel button, #integration-panel select { background: #213550; color: #eee; border: 1px solid #536387; border-radius: 6px; font: inherit; padding: 6px 9px; }
+#integration-panel button { cursor: pointer; }
+#integration-panel button:hover { background: #304a70; }
+#integration-panel select { max-width: 100%; }
+
+body.integration-mode .utility-control { transition: opacity .45s ease, visibility .45s; }
+body.integration-mode.utilities-idle .utility-control { opacity: 0 !important; visibility: hidden; pointer-events: none; }
+@media (max-width: 600px) {
+    body.integration-mode { --integration-toolbar-height: 76px; }
+    body.integration-mode #statusBar { padding: 38px 14px 10px; font-size: 15px; }
+}

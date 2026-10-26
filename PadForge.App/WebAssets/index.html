@@ -91,6 +91,7 @@
 <body>
     <h1>PadForge</h1>
     <p class="subtitle">Choose a controller layout. Tap a color to pick a finish.</p>
+    <p style="margin:0 0 22px"><a href="/integration.html" style="color:#aec8ff">Controller integration: Twitch chat and physical gamepad</a></p>
     <div class="cards">
         <div class="card">
             <a class="face" href="/controller.html?layout=xbox360">
@@ -244,5 +245,18 @@
         xhr.send();
     })();
     </script>
+<script>
+// The normal picker keeps its layouts and gains the supplied WLG finish.
+document.querySelectorAll('.card').forEach(function (card) {
+    var face = card.querySelector('a.face');
+    if (!face) return;
+    var type = new URL(face.href).searchParams.get('layout');
+    if (['xbox360', 'xboxseries', 'dualsense'].indexOf(type) < 0) return;
+    var swatches = card.querySelector('.swatches');
+    if (!swatches) { swatches = document.createElement('div'); swatches.className = 'swatches'; card.appendChild(swatches); }
+    var link = document.createElement('a'); link.href = '/controller.html?layout=' + type + '&finish=wlg';
+    link.title = 'WLG'; link.setAttribute('aria-label', 'WLG'); link.style.background = '#b13b69'; swatches.appendChild(link);
+});
+</script>
 </body>
 </html>

@@ -1160,6 +1160,35 @@ namespace PadForge.ViewModels
                 }
             });
 
+        private string _webControllerIntegrationUrl;
+        public string WebControllerIntegrationUrl
+        {
+            get => _webControllerIntegrationUrl;
+            set => SetProperty(ref _webControllerIntegrationUrl, value);
+        }
+
+        private System.Windows.Media.ImageSource _webControllerIntegrationQr;
+        public System.Windows.Media.ImageSource WebControllerIntegrationQr
+        {
+            get => _webControllerIntegrationQr;
+            set => SetProperty(ref _webControllerIntegrationQr, value);
+        }
+
+        private bool _hasWebControllerIntegrationQr;
+        public bool HasWebControllerIntegrationQr
+        {
+            get => _hasWebControllerIntegrationQr;
+            set => SetProperty(ref _hasWebControllerIntegrationQr, value);
+        }
+
+        private RelayCommand _copyWebControllerIntegrationUrlCommand;
+        public RelayCommand CopyWebControllerIntegrationUrlCommand =>
+            _copyWebControllerIntegrationUrlCommand ??= new RelayCommand(() =>
+            {
+                if (!string.IsNullOrEmpty(WebControllerIntegrationUrl))
+                    try { PadForge.Common.ShellLaunch.SetClipboardText(WebControllerIntegrationUrl); } catch { }
+            });
+
         private bool _webControllerUseAccessCode;
 
         public bool WebControllerUseAccessCode

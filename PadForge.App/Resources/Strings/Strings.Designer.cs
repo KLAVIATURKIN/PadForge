@@ -435,6 +435,7 @@ public class Strings : INotifyPropertyChanged
     public string Dashboard_WebPlainPort => Get("Dashboard_WebPlainPort");
     public string Dashboard_WebPlainLocalOnly => Get("Dashboard_WebPlainLocalOnly");
     public string Dashboard_WebPlainLocalOnlyHint => Get("Dashboard_WebPlainLocalOnlyHint");
+    public string Dashboard_WebIntegration => Get("Dashboard_WebIntegration");
     public string Dashboard_WebProtocol => Get("Dashboard_WebProtocol");
     public string Dashboard_WebProtocolHint => Get("Dashboard_WebProtocolHint");
     public string Dashboard_WebUseAccessCode => Get("Dashboard_WebUseAccessCode");

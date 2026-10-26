@@ -11312,6 +11312,14 @@ namespace PadForge.Services
                 dash.WebControllerQr = qr;
                 dash.HasWebControllerQr = qr != null;
             }
+            string integrationUrl = server?.IntegrationUrl;
+            if (dash.WebControllerIntegrationUrl != integrationUrl)
+            {
+                dash.WebControllerIntegrationUrl = integrationUrl;
+                var qr = string.IsNullOrEmpty(integrationUrl) ? null : WebControllerServer.RenderQr(integrationUrl);
+                dash.WebControllerIntegrationQr = qr;
+                dash.HasWebControllerIntegrationQr = qr != null;
+            }
         }
 
         private void StopWebServer()

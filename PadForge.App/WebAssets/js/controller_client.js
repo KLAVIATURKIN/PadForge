@@ -20,11 +20,13 @@
     // ── Config ──
     var params = new URLSearchParams(location.search);
     var layoutType = params.get("layout") || "xbox360";
-    var finish = params.get("finish") || "";
+    var finish = params.get("finish") || params.get("color") || "";
+    var integrationMode = params.get("integration") === "1" || params.get("physical") === "1" || !!params.get("channel");
+    var inputMixer = null;
 
     // ── Client identity (per-tab AND per-layout-type so switching pages doesn't collide) ──
     var clientIdKey = "padforge_client_id_" + layoutType;
-    var clientId = sessionStorage.getItem(clientIdKey);
+    var clientId = params.get("client") || sessionStorage.getItem(clientIdKey);
     if (!clientId) {
         clientId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
         sessionStorage.setItem(clientIdKey, clientId);
@@ -43,6 +45,11 @@
     var reconnectPending = false;
 
     function send(obj) {
+        if (inputMixer && obj.type === "input") { inputMixer.input("touch", obj); return; }
+        rawSend(obj);
+    }
+
+    function rawSend(obj) {
         if (ws && ws.readyState === WebSocket.OPEN) {
             ws.send(JSON.stringify(obj));
         }
@@ -61,6 +68,10 @@
         });
         var wsUrl = proto + "//" + location.host + "/ws?id=" + encodeURIComponent(clientId) + "&layout=" + encodeURIComponent(layoutType);
         if (hasTouchpad) wsUrl += "&touchpad=1";
+        if (window.PadForgeIntegrationCore) {
+            try { wsUrl = window.PadForgeIntegrationCore.connectionUrl(location, params, clientId, layoutType, hasTouchpad); }
+            catch (error) { setStatus(error.message, true); return; }
+        }
         ws = new WebSocket(wsUrl);
 
         ws.onopen = function () {
@@ -76,6 +87,8 @@
             for (var ri = 0; ri < resyncFns.length; ri++) resyncFns[ri]();
             document.getElementById("controller-viewport").style.display = "";
             document.getElementById("disconnect-message").style.display = "none";
+            if (inputMixer) inputMixer.resync();
+            window.dispatchEvent(new CustomEvent("padforge-connection", {detail: true}));
             setStatus("Connected");
         };
 
@@ -86,6 +99,7 @@
             if (msg.type === "connected") {
                 setStatus(msg.name);
             } else if (msg.type === "rumble") {
+                window.dispatchEvent(new CustomEvent("padforge-rumble", {detail: msg}));
                 if (vibrate && (msg.left > 0 || msg.right > 0)) {
                     var intensity = Math.max(msg.left, msg.right) / 65535;
                     vibrate.call(navigator, Math.round(intensity * 200));
@@ -103,6 +117,7 @@
             console.log("[PadForge] WebSocket closed, code=" + ev.code);
             document.getElementById("controller-viewport").style.display = "none";
             document.getElementById("disconnect-message").style.display = "block";
+            window.dispatchEvent(new CustomEvent("padforge-connection", {detail: false}));
             scheduleReconnect();
         };
 
@@ -113,9 +128,9 @@
     }
 
     function scheduleReconnect() {
-        // A backgrounded tab reconnects when it returns to the foreground
-        // instead of burning a socket attempt every 3 s while invisible.
-        if (document.hidden) { reconnectPending = true; return; }
+        // Touch-only tabs reconnect on return. A Twitch integration keeps
+        // reconnecting in the background so chat control can continue.
+        if (document.hidden && !params.get("channel")) { reconnectPending = true; return; }
         setTimeout(connect, 3000);
     }
 
@@ -149,7 +164,7 @@
         statusEl.textContent = text;
         statusEl.classList.remove("faded");
         if (statusFadeTimer) { clearTimeout(statusFadeTimer); statusFadeTimer = null; }
-        if (!sticky) {
+        if (!sticky && !integrationMode) {
             statusFadeTimer = setTimeout(function () {
                 statusEl.classList.add("faded");
             }, 3000);
@@ -174,6 +189,7 @@
             location.reload();
         });
 
+        if (integrationMode) document.body.classList.add("integration-mode");
         setupMotionButton();
         fetchLayoutAndBuild();
     });
@@ -204,6 +220,7 @@
         if (typeof DeviceMotionEvent === "undefined") return;
         motionBtn = document.createElement("button");
         motionBtn.textContent = "⟳ Motion";
+        motionBtn.className = "utility-control";
         motionBtn.style.cssText = "position:fixed;bottom:10px;right:10px;z-index:45;" +
             "background:#16213e;color:#9aa;border:1px solid #0f3460;border-radius:8px;" +
             "padding:6px 12px;font:600 12px 'Segoe UI',sans-serif;opacity:0.85";
@@ -219,6 +236,7 @@
         if (!(navigator.maxTouchPoints > 0)) return;
         var note = document.createElement("a");
         note.textContent = "Motion needs HTTPS";
+        note.className = "utility-control";
         note.style.cssText = "position:fixed;bottom:10px;right:10px;z-index:45;" +
             "background:#16213e;color:#9aa;border:1px solid #0f3460;border-radius:8px;" +
             "padding:6px 12px;font:600 12px 'Segoe UI',sans-serif;opacity:0.85;text-decoration:none";
@@ -405,11 +423,13 @@
             }
             try { layout = JSON.parse(xhr.responseText); }
             catch (e) { setStatus("Failed to load layout", true); return; }
+            if (integrationMode && window.PadForgeIntegrationCore) inputMixer = new window.PadForgeIntegrationCore.InputMixer(rawSend, queueCombinedRender);
             connect();
             buildController();
             setupTouchZones();
             setupSticks();
             onResize();
+            publishIntegrationApi();
         };
         xhr.onerror = function () {
             setStatus("Failed to load layout", true);
@@ -498,7 +518,7 @@
     function onResize() {
         if (!layout) return;
         var vw = window.innerWidth;
-        var vh = window.innerHeight;
+        var vh = window.innerHeight - (integrationMode && statusEl ? statusEl.offsetHeight : 0);
         var ar = layout.baseWidth / layout.baseHeight;
 
         var w, h;
@@ -1289,6 +1309,52 @@
                 }, 100);
             }
         });
+    }
+
+    var combinedRenderPending = false;
+    function queueCombinedRender(message, state) {
+        if (combinedRenderPending) return;
+        combinedRenderPending = true;
+        // Touch handlers also paint their own local state. Reapply the combined
+        // state after the handler returns so a local release cannot hide a
+        // physical or chat hold, or move a stick away from its combined value.
+        Promise.resolve().then(function () {
+            combinedRenderPending = false;
+            state.forEach(function (current) { renderCombinedInput(current, state); });
+        });
+    }
+
+    function renderCombinedInput(message, state) {
+        if (!layout) return;
+        if (message.kind === "button") {
+            layout.overlays.forEach(function (ov) {
+                if (ov.inputKind === "button" && ov.inputCode === message.code)
+                    setOverlayActive(ov.target, !!message.value);
+            });
+        } else if (message.kind === "pov") lightDpadWedges(message.value);
+        else if (message.kind === "axis") {
+            if (message.code === 2 || message.code === 5) {
+                setTriggerFill(message.code === 2 ? "LeftTrigger" : "RightTrigger", message.value / 65535);
+            } else {
+                var left = message.code < 3, first = left ? 0 : 3;
+                var x = state.get("axis:" + first), y = state.get("axis:" + (first + 1));
+                moveStickOverlay(left ? "LeftThumbRing" : "RightThumbRing",
+                    ((x ? x.value : 32767) - 32767) / 32768,
+                    ((y ? y.value : 32767) - 32767) / 32768);
+            }
+        }
+    }
+
+    function publishIntegrationApi() {
+        window.PadForgeController = {
+            layout: layout, params: params,
+            input: function (source, message) { if (inputMixer) inputMixer.input(source, message); },
+            clear: function (source) { if (inputMixer) inputMixer.clear(source); },
+            status: setStatus,
+            isConnected: function () { return ws && ws.readyState === WebSocket.OPEN; },
+            capabilities: function (physicalRumble) { send({type: "caps", vibrate: !!vibrate || physicalRumble}); }
+        };
+        window.dispatchEvent(new Event("padforge-controller-ready"));
     }
 
     function moveStickOverlay(target, normX, normY) {

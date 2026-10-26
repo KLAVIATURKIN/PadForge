@@ -139,6 +139,15 @@ namespace PadForge.Services
             }
         }
 
+        public string IntegrationUrl => BuildIntegrationUrl(Url);
+
+        internal static string BuildIntegrationUrl(string controllerUrl)
+        {
+            if (string.IsNullOrEmpty(controllerUrl)) return null;
+            var uri = new UriBuilder(controllerUrl) { Path = "/integration.html" };
+            return uri.Uri.AbsoluteUri;
+        }
+
         /// <summary>True when serving HTTPS (a secure context, required for the
         /// phone motion sensors, #296 phase 0).</summary>
         public bool IsHttps => _https;
@@ -515,6 +524,20 @@ namespace PadForge.Services
                     return;
                 }
 
+                if (path == "/api/layouts")
+                {
+                    var bytes = JsonSerializer.SerializeToUtf8Bytes(LayoutDefs.Select(def => new
+                    {
+                        type = def.TypeKey, name = def.NameStem, basePath = def.BasePath, finishes = def.Finishes
+                    }));
+                    ctx.Response.ContentType = "application/json; charset=utf-8";
+                    ctx.Response.Headers["Cache-Control"] = "no-store";
+                    ctx.Response.ContentLength64 = bytes.Length;
+                    ctx.Response.OutputStream.Write(bytes, 0, bytes.Length);
+                    ctx.Response.Close();
+                    return;
+                }
+
                 if (path == "/api/layout")
                 {
                     ServeLayoutApi(ctx);
@@ -731,7 +754,7 @@ namespace PadForge.Services
         {
             if (path.EndsWith(".html")) return "text/html; charset=utf-8";
             if (path.EndsWith(".css")) return "text/css; charset=utf-8";
-            if (path.EndsWith(".js")) return "application/javascript; charset=utf-8";
+            if (path.EndsWith(".js") || path.EndsWith(".mjs")) return "application/javascript; charset=utf-8";
             if (path.EndsWith(".json")) return "application/json; charset=utf-8";
             if (path.EndsWith(".svg")) return "image/svg+xml";
             if (path.EndsWith(".png")) return "image/png";
@@ -742,6 +765,14 @@ namespace PadForge.Services
         // ─────────────────────────────────────────────
         //  WebSocket handling
         // ─────────────────────────────────────────────
+
+        internal static string ResolveClientName(string requested, string fallback)
+        {
+            if (string.IsNullOrWhiteSpace(requested)) return fallback;
+            var name = new string(requested.Where(c => !char.IsControl(c)).ToArray()).Trim();
+            if (name.Length == 0) return fallback;
+            return name.Length > 80 ? name.Substring(0, 80) : name;
+        }
 
         private async Task HandleWebSocketAsync(HttpListenerContext ctx, CancellationToken lifetime, long generation,
             bool requiresAccessCode = false, string admittedCode = null)
@@ -844,6 +875,9 @@ namespace PadForge.Services
                 // which is the source of issue: switching layouts in the
                 // browser silently overwrote the previous layout's row in
                 // the Devices list.
+                var controllerName = ResolveClientName(ctx.Request.QueryString["name"], null);
+                if (controllerName != null)
+                    name = $"{ResolveLayout(typeKey).NameStem} Web Controller: {controllerName}";
                 var device = new WebControllerDevice(compositeKey, name, isTouchpadClient, typeKey);
                 if (hasTouchpad && !isTouchpadClient)
                     device.HasTouchpad = true; // gamepad layout with a touchpad zone
@@ -1517,7 +1551,7 @@ namespace PadForge.Services
             new() { TypeKey = "xbox360", Folder = "XBOX360", NameStem = "Xbox 360",
                     BaseWidth = Xbox360Layout.BaseWidth, BaseHeight = Xbox360Layout.BaseHeight,
                     BasePath = Xbox360Layout.BasePath, StickMaxTravel = Xbox360Layout.StickMaxTravel,
-                    Overlays = Xbox360Layout.Overlays, Finishes = Array.Empty<string>() },
+                    Overlays = Xbox360Layout.Overlays, Finishes = new[] { "wlg" } },
             new() { TypeKey = "ds4", Folder = "DS4", NameStem = "DualShock 4",
                     BaseWidth = DS4Layout.BaseWidth, BaseHeight = DS4Layout.BaseHeight,
                     BasePath = DS4Layout.BasePath, StickMaxTravel = DS4Layout.StickMaxTravel,
@@ -1527,7 +1561,7 @@ namespace PadForge.Services
                     BaseWidth = DualSenseLayout.BaseWidth, BaseHeight = DualSenseLayout.BaseHeight,
                     BasePath = DualSenseLayout.BasePath, StickMaxTravel = DualSenseLayout.StickMaxTravel,
                     Overlays = DualSenseLayout.Overlays,
-                    Finishes = new[] { "CosmicRed", "GalacticPurple", "Midnight", "NovaPink", "StarlightBlue" } },
+                    Finishes = new[] { "CosmicRed", "GalacticPurple", "Midnight", "NovaPink", "StarlightBlue", "wlg" } },
             new() { TypeKey = "xboxone", Folder = "XBOXONE", NameStem = "Xbox One",
                     BaseWidth = XboxOneSLayout.BaseWidth, BaseHeight = XboxOneSLayout.BaseHeight,
                     BasePath = XboxOneSLayout.BasePath, StickMaxTravel = XboxOneSLayout.StickMaxTravel,
@@ -1536,7 +1570,7 @@ namespace PadForge.Services
                     BaseWidth = XboxSeriesXLayout.BaseWidth, BaseHeight = XboxSeriesXLayout.BaseHeight,
                     BasePath = XboxSeriesXLayout.BasePath, StickMaxTravel = XboxSeriesXLayout.StickMaxTravel,
                     Overlays = XboxSeriesXLayout.Overlays,
-                    Finishes = new[] { "Carbon", "DeepPink", "ElectricVolt", "PulseRed", "ShockBlue" } },
+                    Finishes = new[] { "Carbon", "DeepPink", "ElectricVolt", "PulseRed", "ShockBlue", "wlg" } },
             new() { TypeKey = "switchpro", Folder = "SWITCHPRO", NameStem = "Switch Pro",
                     BaseWidth = SwitchProLayout.BaseWidth, BaseHeight = SwitchProLayout.BaseHeight,
                     BasePath = SwitchProLayout.BasePath, StickMaxTravel = SwitchProLayout.StickMaxTravel,

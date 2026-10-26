@@ -4643,4 +4643,5 @@ Would you like PadForge to uninstall them now? This requires elevation and may t
     <value>Use Access Code</value>
   </data>
   <data name="Server_WebHttpsBindingFailed" xml:space="preserve"><value>Could not prepare HTTPS. Check certification/port binding permissions, or select HTTP explicitly.</value></data>
+  <data name="Dashboard_WebIntegration" xml:space="preserve"><value>Scan to open integration setup (Twitch chat and physical gamepad)</value></data>
 </root>

@@ -135,7 +135,10 @@ internal sealed class TouchpadPage : IDisposable
             Assert.True(end > start);
             engine.Execute("""
                 var ws=null, clientId='test-client', layoutType='xbox360', layout={id:'saved',name:'Saved',overlays:[]};
-                var vibrate=null, navigator={}, resyncFns=[], reconnects=0;
+                var vibrate=null, navigator={}, resyncFns=[], reconnects=0, inputMixer=null;
+                var window={dispatchEvent:()=>{}};
+                var params={get:()=>null};
+                function CustomEvent(type, options) { this.type=type; this.detail=options.detail; }
                 var console={log:()=>{},error:()=>{}};
                 function setStatus(text) { element('status').textContent=text; }
                 function scheduleReconnect() { reconnects++; }
