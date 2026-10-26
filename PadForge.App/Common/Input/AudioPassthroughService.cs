@@ -1554,6 +1554,12 @@ namespace PadForge.Common.Input
             public double MicUnity = 48.0;   // set at attach, never mutated
             public int SpkL, SpkR, HapL, HapR;   // interleave indices from ChannelRoles
             public int SrcRate = Rate;           // persona OUT stream rate (DS5 48k, DS4 32k)
+            // Bass Shakers (discussion #522): the haptic channels' loudness
+            // for the slot's Rumble to Audio voices. The follower's state is
+            // the pacing thread's alone. The poll thread's feedback lane
+            // reads the level and its time.
+            public double HapticMeanSquareL, HapticMeanSquareR;
+            public long HapticLevel, HapticLevelMs;
             // Speaker-out resampler state + scratch (pacing thread only).
             public double SpkPhase;
             public readonly float[] SpkCarry = new float[2];
@@ -1890,8 +1896,11 @@ namespace PadForge.Common.Input
             // sink on such a slot (the requester's routing find in
             // discussion #371). One volatile read when the feature is off.
             if (feed.HapL >= 0 && feed.HapR >= 0 && ch > Math.Max(feed.HapL, feed.HapR))
+            {
                 HapticToneService.SubmitPersonaHaptics(
                     feed.Slot, span, stride, feed.HapL * 2, feed.HapR * 2);
+                FollowPersonaHapticsForShakers(feed, span, stride);
+            }
 
             var targets = feed.Targets;
             if (targets.Length == 0) return;
@@ -1992,6 +2001,27 @@ namespace PadForge.Common.Input
 
             // #271 item 1's actuator submit moved above the Sony-target
             // gate (#381), where it runs for slots with no Sony pad too.
+        }
+
+        /// <summary>Gives the slot's Bass Shakers the loudness of one
+        /// window's haptic channels (discussion #522). A game that plays the
+        /// DualSense's haptics through this audio sends no rumble, so without
+        /// it the shaker stays silent while the pad vibrates. Runs on the
+        /// pacing thread under the feed's callback gate, before the
+        /// Sony-target gate, so a slot with no Sony pad still feeds its
+        /// shaker. The time is written before the level, so a reader that
+        /// sees a new level sees its time.</summary>
+        internal static void FollowPersonaHapticsForShakers(PersonaFeed feed, ReadOnlySpan<byte> span, int stride)
+        {
+            long level = 0L;
+            if (RumbleAudioService.WantsPersonaHaptics(feed.Slot))
+                level = RumbleAudioService.FollowPersonaHaptics(
+                    ref feed.HapticMeanSquareL, ref feed.HapticMeanSquareR,
+                    span, stride, feed.HapL * 2, feed.HapR * 2, feed.SrcRate);
+            else
+                feed.HapticMeanSquareL = feed.HapticMeanSquareR = 0.0;
+            System.Threading.Volatile.Write(ref feed.HapticLevelMs, Environment.TickCount64);
+            System.Threading.Volatile.Write(ref feed.HapticLevel, level);
         }
 
         /// <summary>Called from the reconcile's desired-state pass with

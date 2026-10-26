@@ -181,6 +181,78 @@ namespace PadForge.Common.Input
             return Volatile.Read(ref _testPacks[slot]);
         }
 
+        // ── Persona haptics (discussion #522) ──
+        // A game that plays the DualSense's haptics through the composite
+        // persona's audio channels 3 and 4 sends no rumble. Its output
+        // frames leave the rumble emulation bits clear, which is how audio
+        // haptics stay on (SDL_hidapi_ps5.c: "Leaving emulated rumble bits
+        // off will restore audio haptics"), so the inbound pack reads 0.
+        // The haptic channels' loudness stands in for it: the left actuator
+        // on the low voice and the right on the high voice, the sides SDL
+        // (rumble_left = low frequency) and hid-playstation (motor_left =
+        // strong magnitude) give the two motors.
+
+        /// <summary>The loudness follower's time constant, in seconds.</summary>
+        internal const double PersonaHapticTimeConstant = 0.020;
+
+        /// <summary>A persona level older than this is not merged: the host
+        /// closed the stream or the persona went away.</summary>
+        internal const long PersonaHapticStaleMs = 100;
+
+        /// <summary>Whether the slot routes rumble to audio. The persona
+        /// pacing thread asks once per window, so the follower costs nothing
+        /// while the slot's card is off.</summary>
+        internal static bool WantsPersonaHaptics(int slot)
+        {
+            var sets = SettingsManager.SlotMappingSets;
+            return sets != null && (uint)slot < (uint)sets.Length && sets[slot]?.RumbleAudio?.Enabled == true;
+        }
+
+        /// <summary>Follows the loudness of one interleaved s16 window's two
+        /// haptic channels and returns it as a pack with the left channel on
+        /// the low voice and the right on the high voice. The loudness is a
+        /// running mean square with a <see cref="PersonaHapticTimeConstant"/>
+        /// time constant, kept in <paramref name="meanSquareLeft"/> and
+        /// <paramref name="meanSquareRight"/> between windows, read the way
+        /// <see cref="Engine.Haptics.HapticToneReducer"/> reads PCM loudness:
+        /// RMS times 1.4, so a full-scale sine reads full, and nothing below
+        /// its silence floor. Pure over its arguments.</summary>
+        internal static long FollowPersonaHaptics(ref double meanSquareLeft, ref double meanSquareRight,
+            ReadOnlySpan<byte> pcm, int stride, int leftOffset, int rightOffset, int rateHz)
+        {
+            if (stride <= 0 || rateHz <= 0 || leftOffset < 0 || rightOffset < 0
+                || Math.Max(leftOffset, rightOffset) + 2 > stride)
+                return 0L;
+            double a = 1.0 - Math.Exp(-1.0 / (PersonaHapticTimeConstant * rateHz));
+            double l = meanSquareLeft, r = meanSquareRight;
+            for (int i = 0; i + stride <= pcm.Length; i += stride)
+            {
+                double xl = (short)(pcm[i + leftOffset] | (pcm[i + leftOffset + 1] << 8)) / 32768.0;
+                double xr = (short)(pcm[i + rightOffset] | (pcm[i + rightOffset + 1] << 8)) / 32768.0;
+                l += a * (xl * xl - l);
+                r += a * (xr * xr - r);
+            }
+            meanSquareLeft = l;
+            meanSquareRight = r;
+            return Engine.Common.LfeOutputState.Pack(HapticVoiceLevel(l), HapticVoiceLevel(r), 0, 0);
+        }
+
+        private static ushort HapticVoiceLevel(double meanSquare)
+        {
+            double amp = Math.Min(Math.Sqrt(meanSquare) * 1.4, 1.0);
+            return amp < Engine.Haptics.HapticToneReducer.SilenceRms ? (ushort)0 : (ushort)Math.Round(amp * 65535);
+        }
+
+        /// <summary>The slot's pack with a persona's haptic level merged in,
+        /// voice by voice, while the level is under
+        /// <see cref="PersonaHapticStaleMs"/> old. Poll thread.</summary>
+        internal static long MergePersonaHaptics(long pack, long level, long levelMs, long nowMs)
+        {
+            if (level == 0L || nowMs - levelMs > PersonaHapticStaleMs) return pack;
+            return Engine.Common.LfeOutputState.MaxMerge(pack,
+                Engine.Common.LfeOutputState.Low(level), Engine.Common.LfeOutputState.High(level), 0, 0);
+        }
+
         // ── Render-thread surface ────────────────────────────────────────
 
         /// <summary>The published pack (render thread + UI meters).</summary>

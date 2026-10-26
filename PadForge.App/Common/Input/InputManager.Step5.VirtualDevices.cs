@@ -297,6 +297,7 @@ namespace PadForge.Common.Input
             var sets = SettingsManager.SlotMappingSets;
             if (sets == null) return;
             int n = System.Math.Min(sets.Length, MaxPads);
+            long now = System.Environment.TickCount64;
             for (int slot = 0; slot < n; slot++)
             {
                 int gen = RumbleAudioService.GetGeneration(slot);
@@ -319,6 +320,18 @@ namespace PadForge.Common.Input
                         pack = Engine.Common.LfeOutputState.MaxMerge(pack,
                             vibe.LeftMotorSpeed, vibe.RightMotorSpeed,
                             vibe.LeftTriggerMotorSpeed, vibe.RightTriggerMotorSpeed);
+                    }
+                    // A game that plays the DualSense's haptics through the
+                    // composite persona's audio sends no rumble, so the
+                    // haptic channels' loudness joins the merge (discussion
+                    // #522). Read through the CURRENT feed position, which
+                    // a reorder moves with its controller, as the pack is.
+                    var personaFeed = System.Threading.Volatile.Read(ref _personaAudioFeeds[slot]);
+                    if (personaFeed != null)
+                    {
+                        long hapticLevel = System.Threading.Volatile.Read(ref personaFeed.HapticLevel);
+                        long hapticMs = System.Threading.Volatile.Read(ref personaFeed.HapticLevelMs);
+                        pack = RumbleAudioService.MergePersonaHaptics(pack, hapticLevel, hapticMs, now);
                     }
                     if (pack != 0)
                     {
