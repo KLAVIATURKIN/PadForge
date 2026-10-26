@@ -1554,10 +1554,10 @@ namespace PadForge.Common.Input
             public double MicUnity = 48.0;   // set at attach, never mutated
             public int SpkL, SpkR, HapL, HapR;   // interleave indices from ChannelRoles
             public int SrcRate = Rate;           // persona OUT stream rate (DS5 48k, DS4 32k)
-            // Bass Shakers (discussion #522): the haptic channels' loudness
-            // for the slot's Rumble to Audio voices. The follower's state is
-            // the pacing thread's alone. The poll thread's feedback lane
-            // reads the level and its time.
+            // Persona haptics as rumble (discussion #522): the haptic
+            // channels' loudness, which the slot's rumble readers and its
+            // Bass Shakers merge. The follower's state is the pacing
+            // thread's alone. The readers take the level and its time.
             public double HapticMeanSquareL, HapticMeanSquareR;
             public long HapticLevel, HapticLevelMs;
             // Speaker-out resampler state + scratch (pacing thread only).
@@ -1682,12 +1682,27 @@ namespace PadForge.Common.Input
 
             public int FramesAvailable { get { lock (_g) return (int)((_write - Math.Max(_read, 0)) / 2); } }
 
+            /// <summary>When a transport last polled the ring
+            /// (<see cref="RendersPersonaHaptics"/>), on the
+            /// Environment.TickCount64 clock. 0 until the first poll.</summary>
+            public long LastPolledMs => System.Threading.Volatile.Read(ref _lastPolledMs);
+            private long _lastPolledMs;
+
+            /// <summary>Marks the ring polled. The USB shaper polls through
+            /// <see cref="ReadFrames"/> every period. The Bluetooth tick
+            /// polls before it knows a whole tick is waiting, so its pad
+            /// counts as playing the haptics from the stream's first frame,
+            /// the way chiaki-ng counts a DualSense whose haptics output is
+            /// open (discussion #522).</summary>
+            public void NotePolled() => System.Threading.Volatile.Write(ref _lastPolledMs, Environment.TickCount64);
+
             /// <summary>Drain up to <paramref name="frames"/> stereo frames.
             /// Returns frames actually read; the rest of the caller's
             /// buffer is zero-filled. Same cushion/catastrophe policy as
             /// the speaker rings.</summary>
             public int ReadFrames(short[] dst, int frames)
             {
+                NotePolled();
                 lock (_g)
                 {
                     const int Cushion = 1920;      // 20 ms stereo samples
@@ -1899,7 +1914,7 @@ namespace PadForge.Common.Input
             {
                 HapticToneService.SubmitPersonaHaptics(
                     feed.Slot, span, stride, feed.HapL * 2, feed.HapR * 2);
-                FollowPersonaHapticsForShakers(feed, span, stride);
+                FollowPersonaHaptics(feed, span, stride, now);
             }
 
             var targets = feed.Targets;
@@ -2003,26 +2018,44 @@ namespace PadForge.Common.Input
             // gate (#381), where it runs for slots with no Sony pad too.
         }
 
-        /// <summary>Gives the slot's Bass Shakers the loudness of one
-        /// window's haptic channels (discussion #522). A game that plays the
-        /// DualSense's haptics through this audio sends no rumble, so without
-        /// it the shaker stays silent while the pad vibrates. Runs on the
+        /// <summary>Follows the loudness of one window's haptic channels
+        /// for the slot's rumble (discussion #522, <see cref="PersonaHapticRumble"/>).
+        /// A game that plays the DualSense's haptics through this audio sends
+        /// no rumble, so without it a pad with motors and the slot's Bass
+        /// Shakers stay still while a real DualSense vibrates. Runs on the
         /// pacing thread under the feed's callback gate, before the
-        /// Sony-target gate, so a slot with no Sony pad still feeds its
-        /// shaker. The time is written before the level, so a reader that
-        /// sees a new level sees its time.</summary>
-        internal static void FollowPersonaHapticsForShakers(PersonaFeed feed, ReadOnlySpan<byte> span, int stride)
+        /// Sony-target gate, so a slot with no Sony pad still follows. The
+        /// level is published at most every
+        /// <see cref="PersonaHapticRumble.PublishIntervalMs"/>, the time
+        /// before the level, so a reader that sees a new level sees its
+        /// time.</summary>
+        internal static void FollowPersonaHaptics(PersonaFeed feed, ReadOnlySpan<byte> span, int stride, long nowMs)
         {
-            long level = 0L;
-            if (RumbleAudioService.WantsPersonaHaptics(feed.Slot))
-                level = RumbleAudioService.FollowPersonaHaptics(
-                    ref feed.HapticMeanSquareL, ref feed.HapticMeanSquareR,
-                    span, stride, feed.HapL * 2, feed.HapR * 2, feed.SrcRate);
-            else
-                feed.HapticMeanSquareL = feed.HapticMeanSquareR = 0.0;
-            System.Threading.Volatile.Write(ref feed.HapticLevelMs, Environment.TickCount64);
+            long level = PersonaHapticRumble.Follow(
+                ref feed.HapticMeanSquareL, ref feed.HapticMeanSquareR,
+                span, stride, feed.HapL * 2, feed.HapR * 2, feed.SrcRate);
+            if (nowMs - feed.HapticLevelMs < PersonaHapticRumble.PublishIntervalMs) return;
+            System.Threading.Volatile.Write(ref feed.HapticLevelMs, nowMs);
             System.Threading.Volatile.Write(ref feed.HapticLevel, level);
         }
+
+        /// <summary>How long after its last poll a device's persona haptic
+        /// ring still counts as played: well past the USB shaper's period
+        /// and the Bluetooth tick, which poll it every few milliseconds while
+        /// the transport runs.</summary>
+        internal const long PersonaHapticReaderLiveMs = 500;
+
+        /// <summary>Whether <paramref name="device"/> is playing a persona's
+        /// haptic channels itself: its USB shaper (UAC channels 2/3) or its
+        /// Bluetooth tick (report 0x32) polled the device's haptic ring
+        /// within <see cref="PersonaHapticReaderLiveMs"/>. A DualShock 4 or a
+        /// pad whose route is down has a ring nothing polls, so it takes the
+        /// haptics as rumble instead (<see cref="PersonaHapticRumble"/>).
+        /// Lock-free, any thread.</summary>
+        internal static bool RendersPersonaHaptics(Guid device, long nowMs)
+            => device != Guid.Empty
+            && _personaHapticRings.TryGetValue(device, out var ring)
+            && nowMs - ring.LastPolledMs <= PersonaHapticReaderLiveMs;
 
         /// <summary>Called from the reconcile's desired-state pass with
         /// the slot's current Sony pad GUIDs, so the pacing-thread
@@ -4385,6 +4418,7 @@ namespace PadForge.Common.Input
         {
             signal = false;
             if (!_personaHapticRings.TryGetValue(s.DeviceGuid, out var ring)) return false;
+            ring.NotePolled();
             if (ring.FramesAvailable < Ds5HapticFramesPerTick) return false; // whole ticks only
             ring.ReadFrames(pcm, Ds5HapticFramesPerTick);
 

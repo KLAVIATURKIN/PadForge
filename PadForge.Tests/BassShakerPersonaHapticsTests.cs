@@ -35,7 +35,7 @@ namespace PadForge.Tests
 
         /// <summary>A 4-channel window of <paramref name="frames"/> frames:
         /// each channel a sine at its own amplitude (0 to 1) and frequency.</summary>
-        private static byte[] Window(int frames, int startFrame,
+        internal static byte[] Window(int frames, int startFrame,
             double speakerAmp, double hapticLeftAmp, double hapticRightAmp, double hz = 100)
         {
             var pcm = new byte[frames * Stride];
@@ -57,8 +57,8 @@ namespace PadForge.Tests
             pcm[at + 1] = (byte)((x >> 8) & 0xFF);
         }
 
-        /// <summary>Feeds <paramref name="ms"/> milliseconds in 4 ms windows,
-        /// the base DualSense persona's pacing, and returns the last pack.</summary>
+        /// <summary>Feeds <paramref name="ms"/> milliseconds in 4 ms windows
+        /// and returns the last pack.</summary>
         private static long Follow(ref double l, ref double r, int ms,
             double speakerAmp, double hapticLeftAmp, double hapticRightAmp, ref int frame)
         {
@@ -67,7 +67,7 @@ namespace PadForge.Tests
             for (int t = 0; t < ms; t += 4)
             {
                 var w = Window(windowFrames, frame, speakerAmp, hapticLeftAmp, hapticRightAmp);
-                pack = RumbleAudioService.FollowPersonaHaptics(ref l, ref r, w, Stride,
+                pack = PersonaHapticRumble.Follow(ref l, ref r, w, Stride,
                     HapticLeftOffset, HapticRightOffset, Rate);
                 frame += windowFrames;
             }
@@ -127,49 +127,51 @@ namespace PadForge.Tests
         {
             double l = 0.5, r = 0.5;
             var w = Window(192, 0, 0, 1, 1);
-            Assert.Equal(0L, RumbleAudioService.FollowPersonaHaptics(ref l, ref r, w, 6, 4, 6, Rate));
-            Assert.Equal(0L, RumbleAudioService.FollowPersonaHaptics(ref l, ref r, w, 0, 4, 6, Rate));
-            Assert.Equal(0L, RumbleAudioService.FollowPersonaHaptics(ref l, ref r, w, Stride, -2, 6, Rate));
+            Assert.Equal(0L, PersonaHapticRumble.Follow(ref l, ref r, w, 6, 4, 6, Rate));
+            Assert.Equal(0L, PersonaHapticRumble.Follow(ref l, ref r, w, 0, 4, 6, Rate));
+            Assert.Equal(0L, PersonaHapticRumble.Follow(ref l, ref r, w, Stride, -2, 6, Rate));
             Assert.Equal(0.5, l);
         }
 
         [Fact]
-        public void APersonaLevel_MergesVoiceByVoice_WhileItIsFresh()
+        public void APersonaLevel_CountsOnlyWhileItIsFresh()
         {
-            long pack = LfeOutputState.Pack(30000, 1000, 7, 9);
             long level = LfeOutputState.Pack(20000, 25000, 0, 0);
-            long merged = RumbleAudioService.MergePersonaHaptics(pack, level, levelMs: 1000, nowMs: 1000 + RumbleAudioService.PersonaHapticStaleMs);
-            Assert.Equal(LfeOutputState.Pack(30000, 25000, 7, 9), merged);
+            Assert.Equal(level, PersonaHapticRumble.Fresh(level, levelMs: 1000, nowMs: 1000 + PersonaHapticRumble.StaleMs));
 
             // Stale: the host closed the stream or the persona went away.
-            Assert.Equal(pack, RumbleAudioService.MergePersonaHaptics(pack, level, 1000, 1001 + RumbleAudioService.PersonaHapticStaleMs));
-            Assert.Equal(pack, RumbleAudioService.MergePersonaHaptics(pack, 0L, 1000, 1000));
+            Assert.Equal(0L, PersonaHapticRumble.Fresh(level, 1000, 1001 + PersonaHapticRumble.StaleMs));
+            Assert.Equal(0L, PersonaHapticRumble.Fresh(0L, 1000, 1000));
         }
 
         [Fact]
-        public void ThePersonaFollow_RunsOnlyWhileTheSlotRoutesRumbleToAudio()
+        public void ThePersonaFollow_RunsWhateverTheShakerCard_AndPublishesEveryTenMilliseconds()
         {
             var feed = new AudioPassthroughService.PersonaFeed { Owner = new(), Slot = Slot, HapL = 2, HapR = 3, SrcRate = Rate };
             var w = Window(192, 0, 0, 1, 1);
 
+            // The level feeds the slot's rumble as well as its shaker, so the
+            // follower runs with the card off.
             SettingsManager.SlotMappingSets = SetsWithShaker(enabled: false);
-            AudioPassthroughService.FollowPersonaHapticsForShakers(feed, w, Stride);
-            Assert.Equal(0L, feed.HapticLevel);
-            Assert.Equal(0.0, feed.HapticMeanSquareL);
-
-            SettingsManager.SlotMappingSets = SetsWithShaker(enabled: true);
-            for (int i = 0; i < 50; i++) AudioPassthroughService.FollowPersonaHapticsForShakers(feed, w, Stride);
+            const long T = 1_000_000;
+            for (int i = 0; i < 50; i++)
+                AudioPassthroughService.FollowPersonaHaptics(feed, w, Stride, T + 10 * i);
             Assert.NotEqual(0, LfeOutputState.Low(feed.HapticLevel));
             Assert.NotEqual(0, LfeOutputState.High(feed.HapticLevel));
-            Assert.InRange(Environment.TickCount64 - feed.HapticLevelMs, 0, 5000);
+            Assert.Equal(T + 490, feed.HapticLevelMs);
 
-            // Turning the card off clears the follower, so a later turn-on
-            // does not start from the old loudness.
-            SettingsManager.SlotMappingSets = SetsWithShaker(enabled: false);
-            AudioPassthroughService.FollowPersonaHapticsForShakers(feed, w, Stride);
-            Assert.Equal(0L, feed.HapticLevel);
-            Assert.Equal(0.0, feed.HapticMeanSquareL);
-            Assert.Equal(0.0, feed.HapticMeanSquareR);
+            // Windows inside the interval keep following and publish nothing,
+            // so motors are written no faster than a game's own rumble.
+            long published = feed.HapticLevel;
+            double meanSquare = feed.HapticMeanSquareL;
+            var silence = Window(192, 0, 0, 0, 0);
+            AudioPassthroughService.FollowPersonaHaptics(feed, silence, Stride, T + 499);
+            Assert.Equal(published, feed.HapticLevel);
+            Assert.Equal(T + 490, feed.HapticLevelMs);
+            Assert.True(feed.HapticMeanSquareL < meanSquare, "the follower kept following inside the interval");
+            AudioPassthroughService.FollowPersonaHaptics(feed, silence, Stride, T + 500);
+            Assert.Equal(T + 500, feed.HapticLevelMs);
+            Assert.True(LfeOutputState.Low(feed.HapticLevel) < LfeOutputState.Low(published));
         }
 
         [Fact]
@@ -198,7 +200,7 @@ namespace PadForge.Tests
             Assert.Equal(LfeOutputState.Pack(0, 20000, 0, 0), RumbleAudioService.ReadPack(Slot));
 
             // A level the stream stopped refreshing is dropped.
-            feed.HapticLevelMs = Environment.TickCount64 - 10 * RumbleAudioService.PersonaHapticStaleMs;
+            feed.HapticLevelMs = Environment.TickCount64 - 10 * PersonaHapticRumble.StaleMs;
             lane.Invoke(im, null);
             Assert.Equal(0L, RumbleAudioService.ReadPack(Slot));
 
@@ -214,21 +216,21 @@ namespace PadForge.Tests
         {
             string aps = File.ReadAllText(Path.Combine(RepoRoot(), "PadForge.App", "Common", "Input", "AudioPassthroughService.cs"));
             int fn = aps.IndexOf("private static void RoutePersonaFrames", StringComparison.Ordinal);
-            int follow = aps.IndexOf("FollowPersonaHapticsForShakers(feed, span, stride);", fn, StringComparison.Ordinal);
+            int follow = aps.IndexOf("FollowPersonaHaptics(feed, span, stride, now);", fn, StringComparison.Ordinal);
             int gate = aps.IndexOf("if (targets.Length == 0) return;", fn, StringComparison.Ordinal);
             Assert.True(fn > 0 && follow > fn && gate > follow,
-                "the shaker follow must run before the Sony-target gate, so a slot with no Sony pad still feeds its shaker");
+                "the follow must run before the Sony-target gate, so a slot with no Sony pad still follows");
 
             string vd = File.ReadAllText(Path.Combine(RepoRoot(), "PadForge.App", "Common", "Input", "InputManager.Step5.VirtualDevices.cs"));
             int laneAt = vd.IndexOf("private void UpdateRumbleAudioLane()", StringComparison.Ordinal);
-            int merge = vd.IndexOf("RumbleAudioService.MergePersonaHaptics(", laneAt, StringComparison.Ordinal);
+            int merge = vd.IndexOf("long hapticLevel = PersonaHapticLevel(slot, now);", laneAt, StringComparison.Ordinal);
             int masks = vd.IndexOf("pack &= ~(0xFFFFL << (idx * 16));", laneAt, StringComparison.Ordinal);
             int publish = vd.IndexOf("RumbleAudioService.PublishIfCurrent(slot, gen, pack);", laneAt, StringComparison.Ordinal);
             Assert.True(laneAt > 0 && merge > laneAt && masks > merge && publish > masks,
                 "the persona merge must come before the voice masks and the publish");
         }
 
-        private static string RepoRoot()
+        internal static string RepoRoot()
         {
             var dir = AppContext.BaseDirectory;
             for (int i = 0; i < 10 && dir != null; i++)

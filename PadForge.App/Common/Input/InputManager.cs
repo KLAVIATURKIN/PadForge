@@ -2739,7 +2739,8 @@ namespace PadForge.Common.Input
         /// per tick (issue #185). Mirrors <see cref="UpdateGyroEngageStates"/>:
         /// Input mode holds while the chosen descriptor is down (empty
         /// descriptor = always on, the family convention), Rumble mode holds
-        /// while any of the slot's four vibration motors is nonzero, and either
+        /// while any of the slot's four vibration motors is nonzero or its
+        /// persona haptics play (discussion #522), and either
         /// source keeps the cell up for its release delay after it drops so the
         /// tone does not clip off instantly. Always entries re-assert engaged
         /// each tick.</summary>
@@ -2803,11 +2804,14 @@ namespace PadForge.Common.Input
                     bool active;
                     if (cfg.Mode == 2)
                     {
-                        // Rumble: any motor the game drives, body or trigger.
+                        // Rumble: any motor the game drives, body or trigger,
+                        // and haptics it plays as audio on a DualSense
+                        // persona, its rumble on that slot (discussion #522).
                         var v = VibrationStates[slot];
-                        active = v != null
+                        active = (v != null
                             && (v.LeftMotorSpeed > 0 || v.RightMotorSpeed > 0
-                                || v.LeftTriggerMotorSpeed > 0 || v.RightTriggerMotorSpeed > 0);
+                                || v.LeftTriggerMotorSpeed > 0 || v.RightTriggerMotorSpeed > 0))
+                            || PersonaHapticLevel(slot, now) != 0L;
                     }
                     else
                     {

@@ -235,7 +235,7 @@ namespace PadForge.Common.Input
             // its share group, so the OWNER slot's timer runs whenever any
             // slot sharing its pad has a reason to rumble, and the final
             // stop frame lands only when the whole group goes quiet.
-            int needGameMask = 0, needAudioMask = 0;
+            int needGameMask = 0, needAudioMask = 0, sonyHapticMask = 0;
             for (int padIndex = 0; padIndex < MaxPads; padIndex++)
             {
                 // Empty pad — no VC means no dispatcher to poke. Skip the
@@ -271,6 +271,16 @@ namespace PadForge.Common.Input
                 // never reaches the motors.
                 if (!hasGameRumble && TouchpadPulseService.IsSlotActive(padIndex))
                     hasGameRumble = true;
+                // Haptics a game plays as audio on the slot's DualSense
+                // persona reach a DualShock 4 on it as rumble (discussion
+                // #522), which only the dispatcher writes, so the timer runs
+                // while they play. A DualSense playing the haptics itself
+                // takes none and wakes nothing.
+                if (SonyPadTakesPersonaHaptics(padIndex, pokeNow))
+                {
+                    sonyHapticMask |= 1 << padIndex;
+                    hasGameRumble = true;
+                }
 
                 // Config-derived poke facts come from the 250 ms snapshot
                 // below (the engage-family pattern): audio enables and
@@ -288,6 +298,7 @@ namespace PadForge.Common.Input
                 if (hasGameRumble) needGameMask |= 1 << padIndex;
                 if (hasAudioRumbleEnabled) needAudioMask |= 1 << padIndex;
             }
+            Volatile.Write(ref _sonyPersonaHapticSlots, sonyHapticMask);
 
             // Pass 2: group-OR poke.
             for (int padIndex = 0; padIndex < MaxPads; padIndex++)
@@ -320,6 +331,34 @@ namespace PadForge.Common.Input
         private long _sonyPokeCfgRefreshTick;
         private readonly bool[] _sonySteeringAngleEnabled = new bool[MaxPads];
 
+        // The Sony guids whose effects the dispatcher writes (DualSense,
+        // DualSense Edge, DualShock 4), refreshed with the masks above, and
+        // the bit per slot whose persona haptics one of them takes as rumble
+        // (discussion #522). The poke pass writes the bits every tick for
+        // the dispatcher's change detection, InputService's raw rumble read.
+        private readonly System.Collections.Generic.HashSet<Guid> _sonyEffectsGuidScratch = new();
+        private int _sonyPersonaHapticSlots;
+
+        /// <summary>Whether a pad the dispatcher writes on the slot takes the
+        /// slot's persona haptics as rumble: a DualShock 4, or a DualSense
+        /// whose haptic route is down. Poll thread, over the poke pass's
+        /// snapshot.</summary>
+        private bool SonyPadTakesPersonaHaptics(int slot, long nowMs)
+        {
+            if (PersonaHapticLevel(slot, nowMs) == 0L) return false;
+            foreach (var kv in _sonyGuidSlotMask)
+                if ((kv.Value & (1 << slot)) != 0 && _sonyEffectsGuidScratch.Contains(kv.Key)
+                    && PersonaHapticRumble.TakesRumble(slot, kv.Key, nowMs))
+                    return true;
+            return false;
+        }
+
+        /// <summary>The slot's persona haptic level while a pad the
+        /// dispatcher writes takes it as rumble, else 0. Any thread.</summary>
+        internal long SonyPersonaHapticLevel(int slot, long nowMs)
+            => (uint)slot < MaxPads && (Volatile.Read(ref _sonyPersonaHapticSlots) & (1 << slot)) != 0
+                ? PersonaHapticLevel(slot, nowMs) : 0L;
+
         private void RefreshSonyPokeCfg(SettingsCollection settings)
         {
             for (int slot = 0; slot < MaxPads; slot++) _sonyPokeCfg[slot] = default;
@@ -334,6 +373,7 @@ namespace PadForge.Common.Input
             // nesting devices->settings but never the reverse).
             _sonyGuidScratch.Clear();
             _sonyGuidSlotMask.Clear();
+            _sonyEffectsGuidScratch.Clear();
             var devicesForMask = SettingsManager.UserDevices;
             if (devicesForMask != null)
             {
@@ -345,6 +385,8 @@ namespace PadForge.Common.Input
                         if (ud.VendorId != 0x054C) continue; // Sony VID
                         if (ud.InstanceGuid == Guid.Empty) continue;
                         _sonyGuidScratch.Add(ud.InstanceGuid);
+                        if (TouchpadPulseService.IsSonyRumblePad(ud))
+                            _sonyEffectsGuidScratch.Add(ud.InstanceGuid);
                     }
                 }
             }
@@ -916,6 +958,7 @@ namespace PadForge.Common.Input
             // a loop accumulates stack per iteration).
             Span<byte> atLeftBlock = stackalloc byte[11];
             Span<byte> atRightBlock = stackalloc byte[11];
+            long hapticNow = Environment.TickCount64;
             for (int i = 0; i < slotCount; i++)
             {
                 var us = _instanceGuidBuffer[i];
@@ -929,6 +972,15 @@ namespace PadForge.Common.Input
 
                 var raw = VibrationStates[padIndex];
                 if (raw == null) continue;
+
+                // Haptics a game plays as audio on the slot's DualSense
+                // persona join as rumble, unless this device plays the haptic
+                // track itself (discussion #522, PersonaHapticRumble). They
+                // count as the game's force, so constant force rests while
+                // they play, and this device's gain, motor strengths and swap
+                // apply to them below.
+                if (_personaHapticScratch == null) _personaHapticScratch = new Vibration();
+                raw = WithPersonaHaptics(padIndex, ud.InstanceGuid, raw, _personaHapticScratch, hapticNow);
 
                 var devicePs = us.GetPadSetting();
 
@@ -1606,6 +1658,12 @@ namespace PadForge.Common.Input
         // merge layer that runs ahead of constant-force resolution.
         private Vibration _macroRumbleScratch;
 
+        // The persona haptics layer (discussion #522), which runs ahead of
+        // the macro merge: one for ApplyForceFeedback and a meter-path twin
+        // for ComputeFinalVibrationStates.
+        private Vibration _personaHapticScratch;
+        private Vibration _personaHapticMeterScratch;
+
         /// <summary>Pushes the audio detector's per-tick parameters
         /// (Sensitivity, CutoffHz) from the first audio-rumble-enabled
         /// PadSetting found across all slots. The detector is shared
@@ -1723,6 +1781,7 @@ namespace PadForge.Common.Input
             // never reached the rumble scale.
             if (settings != null && _padIndexBuffer.Length < settings.Count)
                 _padIndexBuffer = new UserSetting[settings.Count];
+            long meterNow = Environment.TickCount64;
             for (int padIndex = 0; padIndex < MaxPads; padIndex++)
             {
                 // Skip uncreated slots, matching the sibling per-slot loops (Step2
@@ -1736,11 +1795,17 @@ namespace PadForge.Common.Input
                 var selected = SelectedDeviceVibrationStates[padIndex];
                 if (raw == null || final == null || selected == null) continue;
 
-                // Macro rumble override is slot-level — apply once before
+                // Macro rumble override is slot-level. Apply it once before
                 // the per-device loop so audio rumble / constant force
-                // resolution sees the merged baseline.
+                // resolution sees the merged baseline. The slot's persona
+                // haptics join it the way they join each device's rumble
+                // below (discussion #522), so a slot with no device shows
+                // them as it shows the game's rumble.
                 if (_macroRumbleScratch == null) _macroRumbleScratch = new Vibration();
-                var withMacro = MacroRumbleOverride.Merge(raw, MacroRumbleOverrides[padIndex], _macroRumbleScratch);
+                if (_personaHapticMeterScratch == null) _personaHapticMeterScratch = new Vibration();
+                var withMacro = MacroRumbleOverride.Merge(
+                    PersonaHapticRumble.Merge(raw, PersonaHapticLevel(padIndex, meterNow), _personaHapticMeterScratch),
+                    MacroRumbleOverrides[padIndex], _macroRumbleScratch);
 
                 ushort bestL = 0, bestR = 0;
                 ushort selL = 0, selR = 0;
@@ -1786,9 +1851,12 @@ namespace PadForge.Common.Input
                     var us = _padIndexBuffer[i];
                     if (us == null) continue;
                     var devicePs = us.GetPadSetting();
+                    // The hardware path's persona haptics layer (discussion
+                    // #522), so the meters show what each device is sent.
+                    var rowRaw = WithPersonaHaptics(padIndex, us.InstanceGuid, raw, _personaHapticMeterScratch, meterNow);
                     // Rebuild from the baseline for each device. The previous device
                     // can have a different axis, strength, or enabled state.
-                    withMacro = ResolveUserRumble(padIndex, devicePs, raw, _macroRumbleScratch,
+                    withMacro = ResolveUserRumble(padIndex, devicePs, rowRaw, _macroRumbleScratch,
                         devicePs?.SteeringAngleRumbleEnabled == "1"
                         && SupportsSteeringAngleRumble(FindOnlineDeviceByInstanceGuid(us.InstanceGuid)));
 

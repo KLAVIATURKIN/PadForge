@@ -1077,14 +1077,37 @@ namespace PadForge.Common.Input
         [ThreadStatic]
         private static byte[] _personaScratch;
 
+        /// <summary>The (slot, device) pairs whose sink plays the slot's
+        /// persona haptics, rebuilt with the mask. The rumble paths read it
+        /// without a lock: such a pad plays the haptic track itself and
+        /// takes none of it as rumble (discussion #522,
+        /// <see cref="PersonaHapticRumble"/>).</summary>
+        private static (int Slot, Guid Device)[] _personaSinks = Array.Empty<(int, Guid)>();
+
         private static void RecomputePersonaMask()
         {
             int mask = 0;
+            var pairs = new List<(int Slot, Guid Device)>();
             lock (_lock)
                 foreach (var s in _sinks)
                     if (s.PersonaOn && s.Slot >= 0 && s.Slot < 32)
+                    {
                         mask |= 1 << s.Slot;
+                        pairs.Add((s.Slot, s.DeviceGuid));
+                    }
+            Volatile.Write(ref _personaSinks, pairs.ToArray());
             Volatile.Write(ref _personaSlotMask, mask);
+        }
+
+        /// <summary>Whether the device's sink on the slot plays the slot's
+        /// persona haptics (Play DualSense Haptics on This Controller).
+        /// Lock-free, any thread.</summary>
+        internal static bool RendersPersonaHaptics(int slot, Guid device)
+        {
+            var pairs = Volatile.Read(ref _personaSinks);
+            for (int i = 0; i < pairs.Length; i++)
+                if (pairs[i].Slot == slot && pairs[i].Device == device) return true;
+            return false;
         }
 
         private static void DetachPersonaInput(Sink s)

@@ -326,12 +326,12 @@ namespace PadForge.Common.Input
                     // haptic channels' loudness joins the merge (discussion
                     // #522). Read through the CURRENT feed position, which
                     // a reorder moves with its controller, as the pack is.
-                    var personaFeed = System.Threading.Volatile.Read(ref _personaAudioFeeds[slot]);
-                    if (personaFeed != null)
+                    long hapticLevel = PersonaHapticLevel(slot, now);
+                    if (hapticLevel != 0L)
                     {
-                        long hapticLevel = System.Threading.Volatile.Read(ref personaFeed.HapticLevel);
-                        long hapticMs = System.Threading.Volatile.Read(ref personaFeed.HapticLevelMs);
-                        pack = RumbleAudioService.MergePersonaHaptics(pack, hapticLevel, hapticMs, now);
+                        pack = Engine.Common.LfeOutputState.MaxMerge(pack,
+                            Engine.Common.LfeOutputState.Low(hapticLevel),
+                            Engine.Common.LfeOutputState.High(hapticLevel), 0, 0);
                     }
                     if (pack != 0)
                     {
@@ -3096,6 +3096,38 @@ namespace PadForge.Common.Input
         }
 
         private readonly AudioPassthroughService.PersonaFeed[] _personaAudioFeeds = new AudioPassthroughService.PersonaFeed[MaxPads];
+
+        /// <summary>The slot's persona haptic level as a pack, the left
+        /// actuator on the low motor and the right on the high motor, or 0
+        /// when the slot has no persona feed or the level is stale
+        /// (discussion #522, <see cref="PersonaHapticRumble"/>). Read through
+        /// the CURRENT feed position, which a reorder moves with its
+        /// controller. The level is read before its time, the reverse of the
+        /// pacing thread's writes. Any thread.</summary>
+        internal long PersonaHapticLevel(int slot, long nowMs)
+        {
+            if ((uint)slot >= MaxPads) return 0L;
+            var feed = Volatile.Read(ref _personaAudioFeeds[slot]);
+            if (feed == null) return 0L;
+            long level = Volatile.Read(ref feed.HapticLevel);
+            long levelMs = Volatile.Read(ref feed.HapticLevelMs);
+            return PersonaHapticRumble.Fresh(level, levelMs, nowMs);
+        }
+
+        /// <summary><paramref name="raw"/> with the slot's persona haptics
+        /// layered on for one device, the step every reader of the slot's
+        /// rumble takes before macro rumble and the device's settings:
+        /// <paramref name="raw"/> itself unless the slot has a fresh level and
+        /// the device takes it (<see cref="PersonaHapticRumble.TakesRumble"/>),
+        /// else <paramref name="scratch"/>. Any thread, with a scratch of the
+        /// caller's own.</summary>
+        internal Vibration WithPersonaHaptics(int slot, Guid device, Vibration raw, Vibration scratch, long nowMs)
+        {
+            long level = PersonaHapticLevel(slot, nowMs);
+            if (level == 0L || !PersonaHapticRumble.TakesRumble(slot, device, nowMs)) return raw;
+            return PersonaHapticRumble.Merge(raw, level, scratch);
+        }
+
         private volatile AudioPassthroughService.PersonaOwner _personaAudioOwner = new();
         internal Func<IVirtualController, HIDMaestro.HMUsbAudio> PersonaAudioProvider =
             controller => (controller as HMaestroVirtualController)?.UsbAudio;

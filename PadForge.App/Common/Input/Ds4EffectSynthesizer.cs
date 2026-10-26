@@ -115,8 +115,16 @@ namespace PadForge.Common.Input
             // Ds5EffectSynthesizer — see there for the long version.
 
             bool rumbleExternal = overrides.RumbleRight.HasValue && overrides.RumbleLeft.HasValue;
-            byte effectiveRumbleR = rumbleExternal ? overrides.RumbleRight.Value : rumbleRight;
-            byte effectiveRumbleL = rumbleExternal ? overrides.RumbleLeft.Value  : rumbleLeft;
+            // A release, every rumble bit clear, switches the virtual
+            // DualSense to audio haptics, which this pad cannot play. The
+            // release still holds the enable bit for its grace window so the
+            // stop lands (#434), and the bytes are PadForge's own: no game
+            // rumble, which the release zeroed, and the haptics as rumble
+            // (discussion #522).
+            bool rumbleReleased = rumbleExternal
+                && overrides.RumbleFlag0Bits == 0 && overrides.RumbleFlag2Bits == 0;
+            byte effectiveRumbleR = rumbleExternal && !rumbleReleased ? overrides.RumbleRight.Value : rumbleRight;
+            byte effectiveRumbleL = rumbleExternal && !rumbleReleased ? overrides.RumbleLeft.Value  : rumbleLeft;
 
             byte r, g, bRgb;
             if (overrides.LightbarRgb != null && overrides.LightbarRgb.Length >= 3)

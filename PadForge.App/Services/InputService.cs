@@ -129,6 +129,10 @@ namespace PadForge.Services
         private Vibration _constantForceScratchSony;
         private Vibration _macroRumbleScratchSony;
         private Vibration _constantTriggerForceScratchSony;
+        // The persona haptics layer (discussion #522) for the main-motor and
+        // trigger providers, one each.
+        private Vibration _personaHapticScratchSony;
+        private Vibration _personaHapticTriggerScratchSony;
         // #102 trigger-routing main-motor source for the Sony AT Vibration path.
         private Vibration _routeMainScratchSony;
         private Vibration _routeCfScratchSony;
@@ -1029,6 +1033,9 @@ namespace PadForge.Services
                     _macroRumbleScratchSony = new Vibration();
                 if (_constantForceScratchSony == null)
                     _constantForceScratchSony = new Vibration();
+                if (_personaHapticScratchSony == null)
+                    _personaHapticScratchSony = new Vibration();
+                long hapticNow = Environment.TickCount64;
 
                 ushort maxL = 0, maxR = 0;
                 bool anyRow = false;
@@ -1067,6 +1074,11 @@ namespace PadForge.Services
 
                             var slotRaw = _inputManager.VibrationStates[slot];
                             if (slotRaw == null) continue;
+                            // Persona haptics as rumble (discussion #522): a
+                            // DualShock 4 takes them, a DualSense playing the
+                            // haptic track itself does not.
+                            slotRaw = _inputManager.WithPersonaHaptics(slot, deviceGuid,
+                                slotRaw, _personaHapticScratchSony, hapticNow);
                             var rowPs = us.GetPadSetting();
 
                             var withMacro = _inputManager.ResolveUserRumble(slot, rowPs,
@@ -1127,6 +1139,8 @@ namespace PadForge.Services
                     // the passthrough target a second rumble writer.
                     var raw = _inputManager.VibrationStates[padIndex];
                     if (raw == null) return ((byte)0, (byte)0);
+                    raw = _inputManager.WithPersonaHaptics(padIndex, deviceGuid,
+                        raw, _personaHapticScratchSony, hapticNow);
                     var withMacro = MacroRumbleOverride.Merge(raw,
                         _inputManager.MacroRumbleOverrides[padIndex],
                         _macroRumbleScratchSony);
@@ -1155,7 +1169,12 @@ namespace PadForge.Services
                 if (padIndex < 0 || padIndex >= InputManager.MaxPads) return ((byte)0, (byte)0);
                 var raw = _inputManager.VibrationStates[padIndex];
                 if (raw == null) return ((byte)0, (byte)0);
-                return ((byte)(raw.RightMotorSpeed >> 8), (byte)(raw.LeftMotorSpeed >> 8));
+                // Persona haptics a pad on the slot takes as rumble change
+                // the per-device bytes too (discussion #522).
+                long haptic = _inputManager.SonyPersonaHapticLevel(padIndex, Environment.TickCount64);
+                ushort left = Math.Max(raw.LeftMotorSpeed, LfeOutputState.Low(haptic));
+                ushort right = Math.Max(raw.RightMotorSpeed, LfeOutputState.High(haptic));
+                return ((byte)(right >> 8), (byte)(left >> 8));
             };
 
             // Per-(slot, device) trigger magnitudes for the DualSense Adaptive
@@ -1201,6 +1220,9 @@ namespace PadForge.Services
                     _constantTriggerForceScratchSony = new Vibration();
                 if (_routeMainScratchSony == null) _routeMainScratchSony = new Vibration();
                 if (_routeCfScratchSony == null) _routeCfScratchSony = new Vibration();
+                if (_personaHapticTriggerScratchSony == null)
+                    _personaHapticTriggerScratchSony = new Vibration();
+                long hapticNow = Environment.TickCount64;
 
                 ushort maxL = 0, maxR = 0;
                 bool anyRow = false;
@@ -1228,6 +1250,10 @@ namespace PadForge.Services
 
                             var slotRaw = _inputManager.VibrationStates[slot];
                             if (slotRaw == null) continue;
+                            // The main-motor route reads the same rumble the
+                            // main-motor provider sends (discussion #522).
+                            slotRaw = _inputManager.WithPersonaHaptics(slot, deviceGuid,
+                                slotRaw, _personaHapticTriggerScratchSony, hapticNow);
                             var rowPs = us.GetPadSetting();
 
                             var effective = ConstantTriggerForceEvaluator.Resolve(
@@ -1254,6 +1280,8 @@ namespace PadForge.Services
                     // main-motor provider states.
                     var raw = _inputManager.VibrationStates[padIndex];
                     if (raw == null) return ((byte)0, (byte)0);
+                    raw = _inputManager.WithPersonaHaptics(padIndex, deviceGuid,
+                        raw, _personaHapticTriggerScratchSony, hapticNow);
                     var effective = ConstantTriggerForceEvaluator.Resolve(
                         raw, null, _constantTriggerForceScratchSony);
                     _inputManager.ScaleTriggerRumbleForDevice(
@@ -2940,10 +2968,13 @@ namespace PadForge.Services
                 // Third feed: the slot's vibration state is the command as it
                 // arrived from the game, before each device's settings are
                 // applied. The feedback tab's raw bar needs that one, not the
-                // slot maximum the preview tab uses.
+                // slot maximum the preview tab uses. Haptics the game plays
+                // as audio on a DualSense persona count as its command too
+                // (discussion #522).
                 var rawVibration = _inputManager.VibrationStates[i];
-                padVm.RawLeftMotorDisplay = rawVibration.LeftMotorSpeed / 65535.0;
-                padVm.RawRightMotorDisplay = rawVibration.RightMotorSpeed / 65535.0;
+                long rawHaptic = _inputManager.PersonaHapticLevel(i, Environment.TickCount64);
+                padVm.RawLeftMotorDisplay = Math.Max(rawVibration.LeftMotorSpeed, LfeOutputState.Low(rawHaptic)) / 65535.0;
+                padVm.RawRightMotorDisplay = Math.Max(rawVibration.RightMotorSpeed, LfeOutputState.High(rawHaptic)) / 65535.0;
                 padVm.UpdateFromTouchpadState(_inputManager.CombinedTouchpadStates[i]);
 
                 // For custom Extended slots, also push the combined RawHidState.
