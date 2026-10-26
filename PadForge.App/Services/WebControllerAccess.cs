@@ -6,17 +6,9 @@ using System.Text;
 namespace PadForge.Services
 {
     /// <summary>
-    /// The access code that guards the web controller's optional plain-HTTP
-    /// address. That address exists for browsers that refuse PadForge's
-    /// self-signed certificate and for a tunnel or reverse proxy that brings
-    /// its own, so it can be reachable from far outside the LAN. The web
-    /// controller has no other admission step, so without a code anyone who
-    /// found the address could drive a virtual controller.
-    ///
-    /// <para>The code rides the address as <c>?code=</c> and is traded for a
-    /// cookie on the first request, because every page, script, image, API
-    /// call and WebSocket handshake after that uses an absolute path with no
-    /// room for it. The main address never asks for a code.</para>
+    /// Optional access control for the web controller over HTTP.
+    /// The shared URL carries the code as <c>?code=</c>. Admission trades it
+    /// for a cookie used by subsequent pages, assets, API calls and WebSockets.
     /// </summary>
     internal static class WebControllerAccess
     {

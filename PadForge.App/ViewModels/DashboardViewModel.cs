@@ -1045,6 +1045,46 @@ namespace PadForge.ViewModels
             set => SetProperty(ref _webControllerPort, Math.Clamp(value, 1024, 65535));
         }
 
+        private bool _webControllerUseHttps; // false = HTTP by default
+
+        public bool WebControllerUseHttps
+        {
+            get => _webControllerUseHttps;
+            set
+            {
+                if (SetProperty(ref _webControllerUseHttps, value))
+                {
+                    OnPropertyChanged(nameof(WebControllerProtocolIndex));
+                    OnPropertyChanged(nameof(IsWebControllerHttp));
+                }
+            }
+        }
+
+        public int WebControllerProtocolIndex
+        {
+            get => _webControllerUseHttps ? 1 : 0;
+            set
+            {
+                if (value is 0 or 1)
+                    WebControllerUseHttps = value == 1;
+            }
+        }
+
+        // Apply the endpoint before enabling, so only the final configuration starts.
+        internal void ApplyWebControllerSettings(bool enabled, int port, bool useHttps)
+        {
+            port = port is >= 1024 and <= 65535 ? port : 8080;
+            if (EnableWebController == enabled && WebControllerPort == port && WebControllerUseHttps == useHttps)
+                return;
+
+            EnableWebController = false; // retire the old server before changing its endpoint
+            WebControllerPort = port;
+            WebControllerUseHttps = useHttps;
+            EnableWebController = enabled; // at most one start, with the final configuration
+        }
+
+        public bool IsWebControllerHttp => !WebControllerUseHttps;
+
         private RelayCommand _resetWebPortCommand;
         public RelayCommand ResetWebPortCommand =>
             _resetWebPortCommand ??= new RelayCommand(() => WebControllerPort = 8080);
@@ -1120,58 +1160,17 @@ namespace PadForge.ViewModels
                 }
             });
 
-        private string _webControllerHttpsWarning;
+        private bool _webControllerUseAccessCode;
 
-        /// <summary>Why the main address fell back to plain HTTP and phone
-        /// motion is off, or null while it serves HTTPS.</summary>
-        public string WebControllerHttpsWarning
+        public bool WebControllerUseAccessCode
         {
-            get => _webControllerHttpsWarning;
-            set => SetProperty(ref _webControllerHttpsWarning, value);
-        }
-
-        // The plain HTTP address. These are machine settings like Remote
-        // Link's, kept out of profiles: a foreground profile switch should
-        // never open or close a network port, and a plain bool in a profile
-        // reads as false in every profile saved before it existed.
-
-        private bool _enableWebControllerPlainHttp;
-
-        /// <summary>Also serve the web controller over plain HTTP on its own
-        /// port, behind the access code.</summary>
-        public bool EnableWebControllerPlainHttp
-        {
-            get => _enableWebControllerPlainHttp;
-            set => SetProperty(ref _enableWebControllerPlainHttp, value);
-        }
-
-        private int _webControllerPlainHttpPort = Services.WebControllerServer.DefaultPlainPort;
-
-        /// <summary>The plain HTTP address's port.</summary>
-        public int WebControllerPlainHttpPort
-        {
-            get => _webControllerPlainHttpPort;
-            set => SetProperty(ref _webControllerPlainHttpPort, Math.Clamp(value, 1024, 65535));
-        }
-
-        private RelayCommand _resetWebPlainPortCommand;
-        public RelayCommand ResetWebPlainPortCommand =>
-            _resetWebPlainPortCommand ??= new RelayCommand(
-                () => WebControllerPlainHttpPort = Services.WebControllerServer.DefaultPlainPort);
-
-        private bool _webControllerPlainHttpLocalOnly;
-
-        /// <summary>Admit only this PC on the plain address, for a tunnel or
-        /// reverse proxy running here. Also removes its firewall opening.</summary>
-        public bool WebControllerPlainHttpLocalOnly
-        {
-            get => _webControllerPlainHttpLocalOnly;
-            set => SetProperty(ref _webControllerPlainHttpLocalOnly, value);
+            get => _webControllerUseAccessCode;
+            set => SetProperty(ref _webControllerUseAccessCode, value);
         }
 
         private string _webControllerAccessCode = Services.WebControllerAccess.Generate();
 
-        /// <summary>The code the plain address requires. Always valid: it
+        /// <summary>The optional HTTP access code. Always valid: it
         /// starts as a fresh code, and a stored value that is not one of
         /// PadForge's codes is ignored, so the fresh one stays.</summary>
         public string WebControllerAccessCode
@@ -1186,74 +1185,14 @@ namespace PadForge.ViewModels
 
         private RelayCommand _newWebAccessCodeCommand;
         /// <summary>Replaces the access code. The server drops every session
-        /// that joined through the plain address with the old one.</summary>
+        /// that joined with the old code.</summary>
         public RelayCommand NewWebAccessCodeCommand =>
             _newWebAccessCodeCommand ??= new RelayCommand(
                 () => WebControllerAccessCode = Services.WebControllerAccess.Generate());
 
-        private bool _isWebControllerPlainRunning;
-
-        /// <summary>Serving truth for the plain address's flame.</summary>
-        public bool IsWebControllerPlainRunning
-        {
-            get => _isWebControllerPlainRunning;
-            set => SetProperty(ref _isWebControllerPlainRunning, value);
-        }
-
-        private string _webControllerPlainStatus;
-
-        /// <summary>Where the plain address runs, or why it does not. Null
-        /// while the server is stopped or the address is off.</summary>
-        public string WebControllerPlainStatus
-        {
-            get => _webControllerPlainStatus;
-            set => SetProperty(ref _webControllerPlainStatus, value);
-        }
-
-        private string _webControllerPlainUrl;
-
-        /// <summary>The plain address with its code, or null when it is not
-        /// served.</summary>
-        public string WebControllerPlainUrl
-        {
-            get => _webControllerPlainUrl;
-            set => SetProperty(ref _webControllerPlainUrl, value);
-        }
-
-        private System.Windows.Media.ImageSource _webControllerPlainQr;
-
-        /// <summary>A QR of <see cref="WebControllerPlainUrl"/>. Null in This
-        /// PC Only mode, where the address names localhost and a phone could
-        /// not open it.</summary>
-        public System.Windows.Media.ImageSource WebControllerPlainQr
-        {
-            get => _webControllerPlainQr;
-            set => SetProperty(ref _webControllerPlainQr, value);
-        }
-
-        private bool _hasWebControllerPlainQr;
-
-        /// <summary>True when a plain-address QR is available.</summary>
-        public bool HasWebControllerPlainQr
-        {
-            get => _hasWebControllerPlainQr;
-            set => SetProperty(ref _hasWebControllerPlainQr, value);
-        }
-
-        private RelayCommand _copyWebControllerPlainUrlCommand;
-        /// <summary>Copies the plain address, code included.</summary>
-        public RelayCommand CopyWebControllerPlainUrlCommand =>
-            _copyWebControllerPlainUrlCommand ??= new RelayCommand(() =>
-            {
-                if (!string.IsNullOrEmpty(_webControllerPlainUrl))
-                {
-                    try { PadForge.Common.ShellLaunch.SetClipboardText(_webControllerPlainUrl); } catch { }
-                }
-            });
-
-        // ─────────────────────────────────────────────
+        // ?????????????????????????????????????????????
         //  Remote Link (issue #138)
-        // ─────────────────────────────────────────────
+        // ?????????????????????????????????????????????
 
         /// <summary>The Settings view model, which holds the Remote Link peer manager +
         /// identity-protection state. Set once at startup so the Dashboard's Remote Link

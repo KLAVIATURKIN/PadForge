@@ -10785,9 +10785,8 @@ namespace PadForge.Services
                     StopWebServer();
             }
             else if (e.PropertyName is nameof(DashboardViewModel.WebControllerPort)
-                     or nameof(DashboardViewModel.EnableWebControllerPlainHttp)
-                     or nameof(DashboardViewModel.WebControllerPlainHttpPort)
-                     or nameof(DashboardViewModel.WebControllerPlainHttpLocalOnly))
+                     or nameof(DashboardViewModel.WebControllerUseHttps)
+                     or nameof(DashboardViewModel.WebControllerUseAccessCode))
             {
                 if (_mainVm.Dashboard.EnableWebController)
                 {
@@ -10798,10 +10797,10 @@ namespace PadForge.Services
             else if (e.PropertyName == nameof(DashboardViewModel.WebControllerAccessCode))
             {
                 // Live: the server drops the plain sessions that used the old
-                // code, and the main address's clients stay connected.
+                // code. Clients without access control stay connected.
                 if (_webServer != null)
                 {
-                    _webServer.SetPlainAccessCode(_mainVm.Dashboard.WebControllerAccessCode);
+                    _webServer.SetAccessCode(_mainVm.Dashboard.WebControllerAccessCode);
                     RefreshWebControllerAddresses(_webServer);
                 }
             }
@@ -11234,11 +11233,9 @@ namespace PadForge.Services
                 port = 8080;
             // The code goes in before the start, so a new code set while the
             // server starts replaces it instead of being overwritten by it.
-            _webServer.SetPlainAccessCode(_mainVm.Dashboard.WebControllerAccessCode);
-            var plain = _mainVm.Dashboard.EnableWebControllerPlainHttp
-                ? new WebControllerServer.PlainHttpOptions(
-                    _mainVm.Dashboard.WebControllerPlainHttpPort, _mainVm.Dashboard.WebControllerPlainHttpLocalOnly)
-                : null;
+            _webServer.SetAccessCode(_mainVm.Dashboard.WebControllerAccessCode);
+            bool useHttps = _mainVm.Dashboard.WebControllerUseHttps;
+            bool useAccessCode = _mainVm.Dashboard.WebControllerUseAccessCode;
 
             // Start off the UI thread. It runs netsh up to three times for the
             // HTTPS binding plus the firewall rule, each with a five-second
@@ -11250,7 +11247,7 @@ namespace PadForge.Services
             System.Threading.Tasks.Task.Run(() =>
             {
                 bool ok = false;
-                try { ok = launching.Start(port, plain); }
+                try { ok = launching.Start(port, useHttps, useAccessCode); }
                 catch { ok = false; }
                 _dispatcher.BeginInvoke(() =>
                 {
@@ -11302,11 +11299,8 @@ namespace PadForge.Services
             RefreshWebControllerAddresses(server);
         }
 
-        /// <summary>Brings both addresses on the card up to date: each URL,
-        /// its QR, the plain address's status line, and the reason when the
-        /// main address fell back to plain HTTP. A QR is rendered only when
-        /// its URL changes. The plain address gets none in This PC Only mode,
-        /// where it names localhost.</summary>
+        /// <summary>Updates the server address and QR code. A QR is rendered only
+        /// when its URL changes, including the optional access code.</summary>
         private void RefreshWebControllerAddresses(WebControllerServer server)
         {
             var dash = _mainVm.Dashboard;
@@ -11317,18 +11311,6 @@ namespace PadForge.Services
                 var qr = string.IsNullOrEmpty(url) ? null : WebControllerServer.RenderQr(url);
                 dash.WebControllerQr = qr;
                 dash.HasWebControllerQr = qr != null;
-            }
-            dash.WebControllerHttpsWarning = server?.HttpsUnavailable;
-            dash.WebControllerPlainStatus = server?.PlainStatus;
-            dash.IsWebControllerPlainRunning = server?.IsPlainServing == true;
-            string plainUrl = server?.PlainUrl;
-            if (dash.WebControllerPlainUrl != plainUrl)
-            {
-                dash.WebControllerPlainUrl = plainUrl;
-                bool scannable = !string.IsNullOrEmpty(plainUrl) && server?.IsPlainLocalOnly == false;
-                var qr = scannable ? WebControllerServer.RenderQr(plainUrl) : null;
-                dash.WebControllerPlainQr = qr;
-                dash.HasWebControllerPlainQr = qr != null;
             }
         }
 
@@ -18791,6 +18773,7 @@ namespace PadForge.Services
                 GameTelemetryFullSpeed = _mainVm.Dashboard.GameTelemetryFullSpeed,
                 EnableWebController = _mainVm.Dashboard.EnableWebController,
                 WebControllerPort = _mainVm.Dashboard.WebControllerPort,
+                WebControllerUseHttps = _mainVm.Dashboard.WebControllerUseHttps,
                 EnableTouchpadOverlay = _mainVm.Dashboard.EnableTouchpadOverlay,
                 EnableMenuOverlay = _mainVm.Dashboard.EnableMenuOverlay,
                 EnableShiftLayerFlyout = _mainVm.Dashboard.EnableShiftLayerFlyout,
@@ -19813,9 +19796,8 @@ namespace PadForge.Services
             _mainVm.Dashboard.EnableGameTelemetry = profile.EnableGameTelemetry;
 
             // ── Apply web controller server settings ──
-            _mainVm.Dashboard.EnableWebController = profile.EnableWebController;
-            if (profile.WebControllerPort >= 1024 && profile.WebControllerPort <= 65535)
-                _mainVm.Dashboard.WebControllerPort = profile.WebControllerPort;
+            _mainVm.Dashboard.ApplyWebControllerSettings(profile.EnableWebController,
+                profile.WebControllerPort, profile.WebControllerUseHttps);
 
             // ── Apply touchpad overlay settings ──
             _mainVm.Dashboard.EnableTouchpadOverlay = profile.EnableTouchpadOverlay;
@@ -20175,6 +20157,7 @@ namespace PadForge.Services
                     profile.GameTelemetryFullSpeed = snapshot.GameTelemetryFullSpeed;
                     profile.EnableWebController = snapshot.EnableWebController;
                     profile.WebControllerPort = snapshot.WebControllerPort;
+                    profile.WebControllerUseHttps = snapshot.WebControllerUseHttps;
                     profile.EnableTouchpadOverlay = snapshot.EnableTouchpadOverlay;
                     profile.EnableMenuOverlay = snapshot.EnableMenuOverlay;
                     profile.EnableShiftLayerFlyout = snapshot.EnableShiftLayerFlyout;

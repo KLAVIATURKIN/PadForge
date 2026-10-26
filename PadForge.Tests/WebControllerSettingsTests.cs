@@ -6,25 +6,24 @@ using PadForge.ViewModels;
 
 namespace PadForge.Tests;
 
-/// <summary>The plain HTTP address's settings are machine settings: they
-/// ride PadForge.xml through the real save and load, never a profile, and
-/// the access code is stored encrypted.</summary>
+/// <summary>Protocol and optional HTTP access settings survive the real save
+/// and load, and the access code is stored encrypted.</summary>
 public partial class ProfileServiceToggleTests
 {
     [Fact]
-    public void PlainHttpSettingsSurviveTheActualSaveAndLoad()
+    public void WebProtocolAndAccessSettingsSurviveTheActualSaveAndLoad()
     {
         var (vm, settings) = Arrange();
         var d = vm.Dashboard;
-        d.EnableWebControllerPlainHttp = true;
-        d.WebControllerPlainHttpPort = 9123;
-        d.WebControllerPlainHttpLocalOnly = true;
+        d.WebControllerUseHttps = true;
+        d.WebControllerPort = 9123;
+        d.WebControllerUseAccessCode = true;
         string code = d.WebControllerAccessCode;
 
         var built = BuildApp(settings);
-        Assert.True(built.EnableWebControllerPlainHttp);
-        Assert.Equal(9123, built.WebControllerPlainHttpPort);
-        Assert.True(built.WebControllerPlainHttpLocalOnly);
+        Assert.True(built.WebControllerUseHttps);
+        Assert.Equal(9123, built.WebControllerPort);
+        Assert.True(built.WebControllerUseAccessCode);
         Assert.NotNull(built.WebControllerAccessCodeProtected);
         Assert.DoesNotContain(code, built.WebControllerAccessCodeProtected);
 
@@ -32,9 +31,9 @@ public partial class ProfileServiceToggleTests
         var (vm2, settings2) = Arrange();
         Assert.NotEqual(code, vm2.Dashboard.WebControllerAccessCode);
         LoadApp(settings2, loaded);
-        Assert.True(vm2.Dashboard.EnableWebControllerPlainHttp);
-        Assert.Equal(9123, vm2.Dashboard.WebControllerPlainHttpPort);
-        Assert.True(vm2.Dashboard.WebControllerPlainHttpLocalOnly);
+        Assert.True(vm2.Dashboard.WebControllerUseHttps);
+        Assert.Equal(9123, vm2.Dashboard.WebControllerPort);
+        Assert.True(vm2.Dashboard.WebControllerUseAccessCode);
         Assert.Equal(code, vm2.Dashboard.WebControllerAccessCode);
 
         // An unchanged code keeps its encrypted form, so a save does not
@@ -47,22 +46,22 @@ public partial class ProfileServiceToggleTests
     }
 
     [Fact]
-    public void OlderSettingsLoadWithPlainHttpOffAndAFreshCode()
+    public void OlderSettingsDefaultToHttpWithoutAccessControl()
     {
         var serializer = new XmlSerializer(typeof(AppSettingsData));
         using var reader = new StringReader(
             "<AppSettingsData><EnableWebController>true</EnableWebController><WebControllerPort>8080</WebControllerPort></AppSettingsData>");
         var old = (AppSettingsData)serializer.Deserialize(reader);
-        Assert.False(old.EnableWebControllerPlainHttp);
-        Assert.Equal(WebControllerServer.DefaultPlainPort, old.WebControllerPlainHttpPort);
-        Assert.False(old.WebControllerPlainHttpLocalOnly);
+        Assert.False(old.WebControllerUseHttps);
+        Assert.Equal(8080, old.WebControllerPort);
+        Assert.False(old.WebControllerUseAccessCode);
         Assert.Null(old.WebControllerAccessCodeProtected);
 
         var (vm, settings) = Arrange();
         string fresh = vm.Dashboard.WebControllerAccessCode;
         Assert.True(WebControllerAccess.IsValid(fresh));
         LoadApp(settings, old);
-        Assert.False(vm.Dashboard.EnableWebControllerPlainHttp);
+        Assert.False(vm.Dashboard.WebControllerUseHttps);
         Assert.Equal(fresh, vm.Dashboard.WebControllerAccessCode);
     }
 
@@ -74,7 +73,7 @@ public partial class ProfileServiceToggleTests
     public void AReloadWithNoUsableCodeSavesTheCodeInUse()
     {
         var (_, settings) = Arrange();
-        string path = Path.Combine(Path.GetTempPath(), "PadForgePlainHttp_" + System.Guid.NewGuid().ToString("N") + ".xml");
+        string path = Path.Combine(Path.GetTempPath(), "PadForgeWebAccess_" + System.Guid.NewGuid().ToString("N") + ".xml");
         var pathField = typeof(SettingsService).GetField("_settingsFilePath", BindingFlags.Instance | BindingFlags.NonPublic);
         try
         {
@@ -102,37 +101,35 @@ public partial class ProfileServiceToggleTests
     }
 
     [Fact]
-    public void AnOutOfRangePlainPortLoadsAsTheDefault()
+    public void AnOutOfRangePortLoadsAsTheDefault()
     {
         var (vm, settings) = Arrange();
-        LoadApp(settings, new AppSettingsData { WebControllerPlainHttpPort = 80 });
-        Assert.Equal(WebControllerServer.DefaultPlainPort, vm.Dashboard.WebControllerPlainHttpPort);
+        LoadApp(settings, new AppSettingsData { WebControllerPort = 80 });
+        Assert.Equal(8080, vm.Dashboard.WebControllerPort);
     }
 
     [Fact]
-    public void PlainHttpNeverRidesProfiles()
+    public void AccessControlNeverRidesProfiles()
     {
-        foreach (var name in new[] { "EnableWebControllerPlainHttp", "WebControllerPlainHttpPort",
-                     "WebControllerPlainHttpLocalOnly", "WebControllerAccessCode", "WebControllerAccessCodeProtected" })
+        foreach (var name in new[] { "WebControllerUseAccessCode", "WebControllerAccessCode", "WebControllerAccessCodeProtected" })
             Assert.Null(typeof(ProfileData).GetProperty(name));
     }
 
     [Fact]
-    public void ThePlainHttpTogglesResetAndTheCodeRejectsForeignValues()
+    public void TheWebTogglesResetAndTheCodeRejectsForeignValues()
     {
         var d = new DashboardViewModel
         {
-            EnableWebControllerPlainHttp = true,
-            WebControllerPlainHttpLocalOnly = true,
-            WebControllerPlainHttpPort = 70000,
+            WebControllerUseHttps = true,
+            WebControllerUseAccessCode = true,
         };
-        Assert.Equal(65535, d.WebControllerPlainHttpPort);
-        d.ResetSettingCommand.Execute(nameof(DashboardViewModel.EnableWebControllerPlainHttp));
-        d.ResetSettingCommand.Execute(nameof(DashboardViewModel.WebControllerPlainHttpLocalOnly));
-        d.ResetWebPlainPortCommand.Execute(null);
-        Assert.False(d.EnableWebControllerPlainHttp);
-        Assert.False(d.WebControllerPlainHttpLocalOnly);
-        Assert.Equal(WebControllerServer.DefaultPlainPort, d.WebControllerPlainHttpPort);
+
+        d.ResetSettingCommand.Execute(nameof(DashboardViewModel.WebControllerUseHttps));
+        d.ResetSettingCommand.Execute(nameof(DashboardViewModel.WebControllerUseAccessCode));
+        d.ResetWebPortCommand.Execute(null);
+        Assert.False(d.WebControllerUseHttps);
+        Assert.False(d.WebControllerUseAccessCode);
+        Assert.Equal(8080, d.WebControllerPort);
 
         string code = d.WebControllerAccessCode;
         d.WebControllerAccessCode = null;
@@ -140,6 +137,37 @@ public partial class ProfileServiceToggleTests
         Assert.Equal(code, d.WebControllerAccessCode);
         d.WebControllerAccessCode = "mnpqrstvwx";
         Assert.Equal("MNPQRSTVWX", d.WebControllerAccessCode);
+    }
+
+    [Fact]
+    public void ProtocolDefaultsToHttpAndSwitchesBothDirections()
+    {
+        var dashboard = new DashboardViewModel();
+        Assert.Equal(0, dashboard.WebControllerProtocolIndex);
+        Assert.True(dashboard.IsWebControllerHttp);
+        Assert.False(dashboard.WebControllerUseAccessCode);
+        dashboard.WebControllerProtocolIndex = 1;
+        Assert.True(dashboard.WebControllerUseHttps);
+        Assert.False(dashboard.IsWebControllerHttp);
+        dashboard.WebControllerProtocolIndex = 0;
+        Assert.False(dashboard.WebControllerUseHttps);
+        Assert.True(dashboard.IsWebControllerHttp);
+    }
+
+    [Fact]
+    public void ApplyingWebSettingsStartsOnlyWithTheFinalEndpoint()
+    {
+        var dashboard = new DashboardViewModel { EnableWebController = true };
+        var starts = new System.Collections.Generic.List<(int, bool)>();
+        dashboard.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName == nameof(DashboardViewModel.EnableWebController) && dashboard.EnableWebController)
+                starts.Add((dashboard.WebControllerPort, dashboard.WebControllerUseHttps));
+        };
+        dashboard.ApplyWebControllerSettings(true, 9123, true);
+        Assert.Equal((9123, true), Assert.Single(starts));
+        dashboard.ApplyWebControllerSettings(true, 9123, true);
+        Assert.Single(starts);
     }
 
     private static AppSettingsData BuildApp(SettingsService settings)

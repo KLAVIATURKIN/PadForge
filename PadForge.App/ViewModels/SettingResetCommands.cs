@@ -250,8 +250,8 @@ namespace PadForge.ViewModels
             nameof(GameModDsxStandIn) or
             nameof(EnableGameTelemetry) or
             nameof(EnableWebController) or
-            nameof(EnableWebControllerPlainHttp) or
-            nameof(WebControllerPlainHttpLocalOnly) or
+            nameof(WebControllerUseHttps) or
+            nameof(WebControllerUseAccessCode) or
             nameof(EnableRemoteLink) or
             nameof(AutoReconnect) or
             nameof(EnableTouchpadOverlay) or
@@ -288,14 +288,14 @@ namespace PadForge.ViewModels
                     EnableWebController = false;
                     break;
                 }
-                case nameof(EnableWebControllerPlainHttp):
+                case nameof(WebControllerUseHttps):
                 {
-                    EnableWebControllerPlainHttp = false;
+                    WebControllerUseHttps = false;
                     break;
                 }
-                case nameof(WebControllerPlainHttpLocalOnly):
+                case nameof(WebControllerUseAccessCode):
                 {
-                    WebControllerPlainHttpLocalOnly = false;
+                    WebControllerUseAccessCode = false;
                     break;
                 }
                 case nameof(EnableRemoteLink):

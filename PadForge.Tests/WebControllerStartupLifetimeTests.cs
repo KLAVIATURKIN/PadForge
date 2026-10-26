@@ -28,12 +28,12 @@ namespace PadForge.Tests
             }, () => { oldListeners++; return new Listener(); });
             using var currentListener = new Listener();
             using var current = new WebControllerServer(pool.Acquire, () => currentListener);
-            var start = Task.Run(() => old.Start(18080));
+            var start = Task.Run(() => old.Start(18080, useHttps: true));
             try
             {
                 Assert.True(entered.Wait(TimeSpan.FromSeconds(5)));
                 old.Dispose();
-                Assert.True(current.Start(18080));
+                Assert.True(current.Start(18080, useHttps: true));
             }
             finally { release.Set(); }
             Assert.False(await start.WaitAsync(TimeSpan.FromSeconds(5)));
@@ -74,7 +74,7 @@ namespace PadForge.Tests
             using var listener = new Listener();
             using var server = new WebControllerServer(pool.Acquire, () => listener,
                 _ => throw new InvalidOperationException("thread start"));
-            Assert.False(server.Start(18080));
+            Assert.False(server.Start(18080, useHttps: true));
             Assert.False(server.IsRunning);
             Assert.Equal(1, listener.Closes);
             Drain(cleanup);
@@ -246,7 +246,7 @@ namespace PadForge.Tests
         }
 
         [Fact]
-        public void HttpsFallbackSurvivesFailureToCloseTheRejectedListener()
+        public void HttpsListenerFailureDoesNotFallBackToHttp()
         {
             var cleanup = new ConcurrentQueue<Action>();
             var pool = new WebControllerBindingPool(_ => true, _ => { }, cleanup.Enqueue);
@@ -255,14 +255,14 @@ namespace PadForge.Tests
             using var fallback = new Listener();
             int created = 0;
             using var server = new WebControllerServer(pool.Acquire, () => ++created == 1 ? rejected : fallback);
-            Assert.True(server.Start(18080));
+            Assert.False(server.Start(18080, useHttps: true));
             Assert.False(server.IsHttps);
-            Assert.True(server.IsRunning);
+            Assert.False(server.IsRunning);
             Assert.Equal(1, rejected.Closes);
             Assert.Equal(0, fallback.Closes);
             Drain(cleanup);
             server.Stop();
-            Assert.Equal(1, fallback.Closes);
+            Assert.Equal(0, fallback.Closes);
         }
 
         [Fact]

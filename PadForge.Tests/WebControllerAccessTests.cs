@@ -13,13 +13,9 @@ using PadForge.ViewModels;
 namespace PadForge.Tests
 {
     /// <summary>
-    /// The web controller's plain HTTP address: a second port on the main
-    /// address's listener, for browsers that refuse PadForge's certificate and
-    /// for a tunnel or reverse proxy that brings its own. It is guarded by an
-    /// access code carried as ?code= and traded for a cookie, because the
-    /// pages use absolute paths that have no room for it.
+    /// Optional HTTP access control, cookie admission and session revocation.
     /// </summary>
-    public sealed class WebControllerPlainHttpTests
+    public sealed class WebControllerAccessTests
     {
         // ── The access code ──
 
@@ -144,165 +140,51 @@ namespace PadForge.Tests
         // ── The server ──
 
         [Fact]
-        public void ThePlainPrefixJoinsTheMainOneOnTheSameListener()
-        {
-            var firewall = new List<WebControllerServer.PlainHttpOptions>();
-            var listener = new RecordingListener();
-            using var server = new WebControllerServer(_ => null, () => listener,
-                plainFirewall: firewall.Add);
-            string code = WebControllerAccess.Generate();
-            server.SetPlainAccessCode(code);
-            var plain = new WebControllerServer.PlainHttpOptions(18081, false);
-
-            Assert.True(server.Start(18080, plain));
-            Assert.Equal(new[] { "http://+:18080/", "http://+:18081/" }, listener.Prefixes);
-            Assert.True(server.IsPlainServing);
-            Assert.False(server.IsPlainLocalOnly);
-            Assert.StartsWith("http://", server.PlainUrl);
-            Assert.EndsWith(":18081/?code=" + code, server.PlainUrl);
-            Assert.Equal(string.Format(Strings.Instance.Server_RunningOn_Format,
-                server.PlainUrl.Substring(0, server.PlainUrl.IndexOf("/?", StringComparison.Ordinal))), server.PlainStatus);
-            Assert.Equal(new[] { plain }, firewall);
-
-            server.Stop();
-            Assert.False(server.IsPlainServing);
-            Assert.Null(server.PlainUrl);
-            Assert.Null(server.PlainStatus);
-            // Stopping closes the plain port's firewall opening.
-            Assert.Equal(new WebControllerServer.PlainHttpOptions[] { plain, null }, firewall);
-        }
-
-        [Fact]
-        public void ThisPcOnlyNamesLocalhost()
-        {
-            using var server = new WebControllerServer(_ => null, () => new RecordingListener());
-            server.SetPlainAccessCode("abcdefghjk");
-            Assert.True(server.Start(18080, new WebControllerServer.PlainHttpOptions(18081, true)));
-            Assert.True(server.IsPlainLocalOnly);
-            Assert.Equal("http://localhost:18081/?code=ABCDEFGHJK", server.PlainUrl);
-            Assert.Equal(string.Format(Strings.Instance.Server_RunningOn_Format, "http://localhost:18081"), server.PlainStatus);
-        }
-
-        [Fact]
-        public void TheMainPortIsNotSharedWithThePlainAddress()
-        {
-            var firewall = new List<WebControllerServer.PlainHttpOptions>();
-            var listener = new RecordingListener();
-            using var server = new WebControllerServer(_ => null, () => listener, plainFirewall: firewall.Add);
-            server.SetPlainAccessCode(WebControllerAccess.Generate());
-            Assert.True(server.Start(18080, new WebControllerServer.PlainHttpOptions(18080, false)));
-            Assert.True(server.IsRunning);
-            Assert.False(server.IsPlainServing);
-            Assert.Equal(new[] { "http://+:18080/" }, listener.Prefixes);
-            Assert.Equal(Strings.Instance.Server_PlainSamePort, server.PlainStatus);
-            // Nothing served, so the opening is closed rather than made.
-            Assert.Equal(new WebControllerServer.PlainHttpOptions[] { null }, firewall);
-        }
-
-        [Fact]
-        public void WithoutAValidCodeThePlainAddressStaysClosed()
+        public void HttpsBindingFailureDoesNotStartAnHttpListener()
         {
             var listener = new RecordingListener();
             using var server = new WebControllerServer(_ => null, () => listener);
-            server.SetPlainAccessCode("not a code");
-            Assert.True(server.Start(18080, new WebControllerServer.PlainHttpOptions(18081, false)));
-            Assert.False(server.IsPlainServing);
-            Assert.Null(server.PlainUrl);
-            Assert.Equal(new[] { "http://+:18080/" }, listener.Prefixes);
-            Assert.Equal(Strings.Instance.Server_FailedToStart, server.PlainStatus);
+            string status = null;
+            server.StatusChanged += (_, value) => status = value.Text;
+            Assert.False(server.Start(18080, useHttps: true));
+            Assert.False(server.IsRunning);
+            Assert.Empty(listener.Prefixes);
+            Assert.Null(server.Url);
+            Assert.Equal(Strings.Instance.Server_WebHttpsBindingFailed, status);
         }
 
         [Theory]
-        [InlineData(5, "denied")]
-        [InlineData(32, "inuse")]
-        [InlineData(183, "inuse")]
-        [InlineData(-1, "failed")]
-        public void ARefusedPlainPortLeavesTheMainAddressServing(int error, string kind)
-        {
-            var listener = new RecordingListener
-            {
-                OnAddPrefix = error < 0
-                    ? () => throw new InvalidOperationException("unexpected")
-                    : () => throw new HttpListenerException(error),
-            };
-            using var server = new WebControllerServer(_ => null, () => listener);
-            server.SetPlainAccessCode(WebControllerAccess.Generate());
-            Assert.True(server.Start(18080, new WebControllerServer.PlainHttpOptions(18081, false)));
-            Assert.True(server.IsRunning);
-            Assert.Equal(0, listener.Closes);
-            Assert.False(server.IsPlainServing);
-            string expected = kind switch
-            {
-                "denied" => string.Format(Strings.Instance.Server_AccessDenied_Format, 18081),
-                "inuse" => string.Format(Strings.Instance.Server_PortInUse_Format, 18081),
-                _ => Strings.Instance.Server_FailedToStart,
-            };
-            Assert.Equal(expected, server.PlainStatus);
-        }
-
-        [Fact]
-        public void NoPlainRequestMeansNoPlainStatus()
-        {
-            using var server = new WebControllerServer(_ => null, () => new RecordingListener());
-            Assert.True(server.Start(18080));
-            Assert.Null(server.PlainStatus);
-            Assert.Null(server.PlainUrl);
-            Assert.False(server.IsPlainServing);
-        }
-
-        // The failure kind travels as an int: the enum is internal, and a
-        // public test method cannot take it.
-        [Theory]
-        [InlineData((int)WebControllerTls.Failure.PortTakenByOtherApp)]
-        [InlineData((int)WebControllerTls.Failure.BindFailed)]
-        [InlineData((int)WebControllerTls.Failure.None)]
-        public void AnHttpFallbackSaysWhyPhoneMotionIsOff(int kind)
-        {
-            var failure = (WebControllerTls.Failure)kind;
-            using var server = new WebControllerServer(_ => null, () => new RecordingListener(),
-                httpsFailure: _ => failure);
-            Assert.True(server.Start(18080));
-            Assert.False(server.IsHttps);
-            string expected = failure switch
-            {
-                WebControllerTls.Failure.PortTakenByOtherApp => string.Format(Strings.Instance.Server_HttpsPortTaken_Format, 18080),
-                WebControllerTls.Failure.BindFailed => Strings.Instance.Server_HttpsBindFailed,
-                // An injected endpoint that attempted nothing has no reason.
-                _ => null,
-            };
-            Assert.Equal(expected, server.HttpsUnavailable);
-            server.Stop();
-            Assert.Null(server.HttpsUnavailable);
-        }
-
-        [Fact]
-        public void ARefusedHttpsListenerSaysSo()
+        [InlineData(false, false, "http://+:18080/")]
+        [InlineData(false, true, "http://+:18080/")]
+        [InlineData(true, false, "https://+:18080/")]
+        [InlineData(true, true, "https://+:18080/")]
+        public void SelectedProtocolUsesOnePrefixAndOnlyHttpCanRequireACode(bool https, bool access, string prefix)
         {
             var pool = new WebControllerBindingPool(_ => true, _ => { }, _ => { });
-            int created = 0;
-            using var server = new WebControllerServer(pool.Acquire, () => ++created == 1
-                ? new RecordingListener { OnStart = () => throw new HttpListenerException(5) }
-                : new RecordingListener());
-            Assert.True(server.Start(18080));
-            Assert.False(server.IsHttps);
-            Assert.Equal(string.Format(Strings.Instance.Server_HttpsListenerRejected_Format, 18080), server.HttpsUnavailable);
+            var listener = new RecordingListener();
+            using var server = new WebControllerServer(pool.Acquire, () => listener);
+            server.SetAccessCode("ABCDEFGHJK");
+            Assert.True(server.Start(18080, https, access));
+            Assert.Equal(new[] { prefix }, listener.Prefixes);
+            Assert.Equal(https, server.IsHttps);
+            Assert.Equal(!https && access, server.Url.Contains("?code="));
         }
 
         [Fact]
-        public void ANewCodeDropsOnlyThePlainSessions()
+        public void ANewCodeDropsOnlyAuthenticatedSessions()
         {
             using var server = new WebControllerServer(_ => null, () => new RecordingListener());
-            server.SetPlainAccessCode("ABCDEFGHJK");
-            var main = AddSession(server, "main", viaPlain: false);
-            var plainA = AddSession(server, "plainA", viaPlain: true);
-            var plainB = AddSession(server, "plainB", viaPlain: true);
+            server.SetAccessCode("ABCDEFGHJK");
+            var main = AddSession(server, "main", requiresAccessCode: false);
+            var plainA = AddSession(server, "plainA", requiresAccessCode: true);
+            var plainB = AddSession(server, "plainB", requiresAccessCode: true);
 
             // The same code, differently cased, and a code that is not one change nothing.
-            server.SetPlainAccessCode("abcdefghjk");
-            server.SetPlainAccessCode("bad");
+            server.SetAccessCode("abcdefghjk");
+            server.SetAccessCode("bad");
             Assert.False(plainA.IsCancellationRequested);
 
-            server.SetPlainAccessCode("MNPQRSTVWX");
+            server.SetAccessCode("MNPQRSTVWX");
             Assert.True(plainA.IsCancellationRequested);
             Assert.True(plainB.IsCancellationRequested);
             Assert.False(main.IsCancellationRequested);
@@ -320,14 +202,14 @@ namespace PadForge.Tests
                 gate.Wait(TimeSpan.FromSeconds(5));
                 return null;
             }, () => new RecordingListener());
-            server.SetPlainAccessCode("ABCDEFGHJK");
+            server.SetAccessCode("ABCDEFGHJK");
             var start = Task.Run(() =>
-                server.Start(18080, new WebControllerServer.PlainHttpOptions(18081, true)));
+                server.Start(18080, useAccessCode: true));
             Assert.True(entered.Wait(TimeSpan.FromSeconds(5)));
-            server.SetPlainAccessCode("MNPQRSTVWX");
+            server.SetAccessCode("MNPQRSTVWX");
             gate.Set();
             Assert.True(await start.WaitAsync(TimeSpan.FromSeconds(5)));
-            Assert.Equal("http://localhost:18081/?code=MNPQRSTVWX", server.PlainUrl);
+            Assert.EndsWith(":18080/?code=MNPQRSTVWX", server.Url);
         }
 
         // ── Over the wire ──
@@ -335,24 +217,17 @@ namespace PadForge.Tests
         /// <summary>The whole admission path on a real http.sys listener:
         /// the refusal, the code traded for a cookie, the cookie admitting
         /// the page's later requests, a new code shutting the old cookie out,
-        /// and the main address asking for nothing. The prefixes bind
+        /// on the single HTTP address. The test prefix binds
         /// 127.0.0.1 instead of +, which needs no elevation.</summary>
         [Fact]
         public async Task ThePlainAddressAdmitsOnlyTheCodeAndItsCookie()
         {
-            using var run = LoopbackRun.Start(localOnly: false);
+            using var run = LoopbackRun.Start();
             var server = run.Server;
             using var http = new HttpClient(new HttpClientHandler { UseCookies = false, AllowAutoRedirect = false })
             { Timeout = TimeSpan.FromSeconds(10) };
             string code = run.Code;
-            string plain = $"http://127.0.0.1:{run.PlainPort}";
-
-            // The main address asks for nothing and sets nothing.
-            using (var r = await http.GetAsync($"http://127.0.0.1:{run.MainPort}/"))
-            {
-                Assert.Equal(HttpStatusCode.OK, r.StatusCode);
-                Assert.False(r.Headers.Contains("Set-Cookie"));
-            }
+            string plain = $"http://127.0.0.1:{run.Port}";
 
             // No code, a wrong code: refused with a page that says what to do.
             using (var r = await http.GetAsync(plain + "/"))
@@ -388,7 +263,7 @@ namespace PadForge.Tests
 
             // A new code shuts the old cookie out, and the new code gets in.
             string next = WebControllerAccess.Generate();
-            server.SetPlainAccessCode(next);
+            server.SetAccessCode(next);
             Assert.Equal(HttpStatusCode.Forbidden, await Send(http, plain + "/controller.html", code));
             using (var r = await http.GetAsync(plain + "/?code=" + next))
                 Assert.Equal(HttpStatusCode.OK, r.StatusCode);
@@ -396,34 +271,30 @@ namespace PadForge.Tests
         }
 
         /// <summary>A new code ends the sockets opened through the plain
-        /// address and leaves the main address's socket open, and the old
+        /// address when access control is enabled, and the old
         /// cookie can no longer open one.</summary>
         [Fact]
-        public async Task ANewCodeClosesPlainSocketsAndLeavesMainSocketsOpen()
+        public async Task ANewCodeClosesAuthenticatedSockets()
         {
-            using var run = LoopbackRun.Start(localOnly: false);
+            using var run = LoopbackRun.Start();
             using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(20));
             string query = "/ws?type=xbox360&layout=xbox360&id=";
 
             using var plainSocket = new System.Net.WebSockets.ClientWebSocket();
             plainSocket.Options.SetRequestHeader("Cookie", "PadForgeWebCode=" + run.Code);
-            await plainSocket.ConnectAsync(new Uri($"ws://127.0.0.1:{run.PlainPort}{query}plain1"), timeout.Token);
-            using var mainSocket = new System.Net.WebSockets.ClientWebSocket();
-            await mainSocket.ConnectAsync(new Uri($"ws://127.0.0.1:{run.MainPort}{query}main1"), timeout.Token);
+            await plainSocket.ConnectAsync(new Uri($"ws://127.0.0.1:{run.Port}{query}plain1"), timeout.Token);
             Assert.Contains("\"connected\"", await ReceiveText(plainSocket, timeout.Token));
-            Assert.Contains("\"connected\"", await ReceiveText(mainSocket, timeout.Token));
-            Assert.Equal(2, run.Server.ClientCount);
+            Assert.Equal(1, run.Server.ClientCount);
 
-            run.Server.SetPlainAccessCode(WebControllerAccess.Generate());
+            run.Server.SetAccessCode(WebControllerAccess.Generate());
             await ReceiveUntilClosed(plainSocket, timeout.Token);
-            while (run.Server.ClientCount != 1)
+            while (run.Server.ClientCount != 0)
                 await Task.Delay(20, timeout.Token);
-            Assert.Equal(System.Net.WebSockets.WebSocketState.Open, mainSocket.State);
 
             using var again = new System.Net.WebSockets.ClientWebSocket();
             again.Options.SetRequestHeader("Cookie", "PadForgeWebCode=" + run.Code);
             await Assert.ThrowsAnyAsync<System.Net.WebSockets.WebSocketException>(() =>
-                again.ConnectAsync(new Uri($"ws://127.0.0.1:{run.PlainPort}{query}plain2"), timeout.Token));
+                again.ConnectAsync(new Uri($"ws://127.0.0.1:{run.Port}{query}plain2"), timeout.Token));
         }
 
         /// <summary>The sweep that a new code runs cannot see a plain session
@@ -433,7 +304,7 @@ namespace PadForge.Tests
         /// installed. Pinned by structure: no hook exists between admission
         /// and registration to interleave a live test.</summary>
         [Fact]
-        public void RegistrationRefusesAPlainSessionWhoseCodeWasReplaced()
+        public void RegistrationRefusesASessionWhoseCodeWasReplaced()
         {
             var root = new System.IO.DirectoryInfo(AppContext.BaseDirectory);
             while (root != null && !System.IO.File.Exists(System.IO.Path.Combine(root.FullName, "PadForge.sln"))) root = root.Parent;
@@ -443,15 +314,15 @@ namespace PadForge.Tests
 
             int guard = source.IndexOf("if (!IsServing(generation) || lifetime.IsCancellationRequested)", StringComparison.Ordinal);
             int lockStart = source.LastIndexOf("lock (_registrationLock)", guard, StringComparison.Ordinal);
-            int stale = source.IndexOf("if (viaPlain && admittedCode != _accessCode)", guard, StringComparison.Ordinal);
+            int stale = source.IndexOf("if (requiresAccessCode && admittedCode != _accessCode)", guard, StringComparison.Ordinal);
             int install = source.IndexOf("_clients[compositeKey] = session;", guard, StringComparison.Ordinal);
             Assert.True(lockStart >= 0 && guard > lockStart && stale > guard && install > stale);
             Assert.Equal(-1, source.IndexOf("lock (", guard, install - guard, StringComparison.Ordinal));
 
-            int setter = source.IndexOf("public void SetPlainAccessCode(string code)", StringComparison.Ordinal);
+            int setter = source.IndexOf("public void SetAccessCode(string code)", StringComparison.Ordinal);
             int setterLock = source.IndexOf("lock (_registrationLock)", setter, StringComparison.Ordinal);
             int write = source.IndexOf("_accessCode = normalized;", setter, StringComparison.Ordinal);
-            int sweep = source.IndexOf("_clients.Values.Where(s => s.ViaPlain)", setter, StringComparison.Ordinal);
+            int sweep = source.IndexOf("_clients.Values.Where(s => s.RequiresAccessCode)", setter, StringComparison.Ordinal);
             int setterEnd = source.IndexOf("\n        }", setter, StringComparison.Ordinal);
             Assert.True(setterLock > setter && write > setterLock && sweep > write && sweep < setterEnd);
             // The only other writer of the code would bypass the sweep.
@@ -479,43 +350,16 @@ namespace PadForge.Tests
             catch (System.Net.WebSockets.WebSocketException) { /* the server aborted it */ }
         }
 
-        /// <summary>On a real http.sys listener, a plain port another program
-        /// already holds is refused and the main address keeps serving: a
-        /// started HttpListener registers a new prefix before recording it,
-        /// so the refusal leaves the registered one alone.</summary>
         [Fact]
-        public async Task AHeldPlainPortLeavesTheMainAddressServing()
+        public async Task HttpWithoutAccessControlServesWithoutACode()
         {
-            var rng = new Random();
-            for (int attempt = 0; attempt < 10; attempt++)
-            {
-                int main = 20000 + rng.Next(20000);
-                int plain = main + 1;
-                using var holder = new HttpListener();
-                holder.Prefixes.Add($"http://127.0.0.1:{plain}/");
-                try { holder.Start(); } catch (HttpListenerException) { continue; }
-
-                using var server = new WebControllerServer(_ => null, () => new LoopbackListener());
-                server.SetPlainAccessCode(WebControllerAccess.Generate());
-                if (!server.Start(main, new WebControllerServer.PlainHttpOptions(plain, false))) continue;
-
-                Assert.False(server.IsPlainServing);
-                Assert.Equal(string.Format(Strings.Instance.Server_PortInUse_Format, plain), server.PlainStatus);
-                using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
-                using var r = await http.GetAsync($"http://127.0.0.1:{main}/");
-                Assert.Equal(HttpStatusCode.OK, r.StatusCode);
-                return;
-            }
-            throw new InvalidOperationException("no free loopback port pair");
-        }
-
-        [Fact]
-        public async Task ThisPcOnlyStillAdmitsThisPc()
-        {
-            using var run = LoopbackRun.Start(localOnly: true);
+            using var run = LoopbackRun.Start(useAccessCode: false);
             using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
-            using var r = await http.GetAsync($"http://127.0.0.1:{run.PlainPort}/?code={run.Code}");
-            Assert.Equal(HttpStatusCode.OK, r.StatusCode);
+            using var response = await http.GetAsync($"http://127.0.0.1:{run.Port}/");
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.False(response.Headers.Contains("Set-Cookie"));
+            Assert.DoesNotContain("code=", run.Server.Url);
+            Assert.False(run.Server.IsHttps);
         }
 
         private static async Task<HttpStatusCode> Send(HttpClient http, string url, string cookieCode)
@@ -526,29 +370,29 @@ namespace PadForge.Tests
             return r.StatusCode;
         }
 
-        /// <summary>A server on two free loopback ports, retried when another
+        /// <summary>A server on a free loopback port, retried when another
         /// process takes a probed port first.</summary>
         private sealed class LoopbackRun : IDisposable
         {
             public WebControllerServer Server;
-            public int MainPort, PlainPort;
+            public int Port;
             public string Code;
 
-            public static LoopbackRun Start(bool localOnly)
+            public static LoopbackRun Start(bool useAccessCode = true)
             {
                 var rng = new Random();
                 for (int attempt = 0; attempt < 10; attempt++)
                 {
                     int main = 20000 + rng.Next(20000);
-                    int plain = main + 1;
+                    int plain = main;
                     var server = new WebControllerServer(_ => null, () => new LoopbackListener());
                     string code = WebControllerAccess.Generate();
-                    server.SetPlainAccessCode(code);
-                    if (server.Start(main, new WebControllerServer.PlainHttpOptions(plain, localOnly)) && server.IsPlainServing)
-                        return new LoopbackRun { Server = server, MainPort = main, PlainPort = plain, Code = code };
+                    server.SetAccessCode(code);
+                    if (server.Start(main, useAccessCode: useAccessCode))
+                        return new LoopbackRun { Server = server, Port = plain, Code = code };
                     server.Dispose();
                 }
-                throw new InvalidOperationException("no free loopback port pair");
+                throw new InvalidOperationException("no free loopback port");
             }
 
             public void Dispose() => Server.Dispose();
@@ -572,12 +416,10 @@ namespace PadForge.Tests
         {
             private readonly ManualResetEventSlim _stopped = new();
             public readonly List<string> Prefixes = new();
-            public Action OnStart;
-            public Action OnAddPrefix;
             public int Closes;
             public bool IsListening { get; private set; }
-            public void Start(string prefix) { OnStart?.Invoke(); Prefixes.Add(prefix); IsListening = true; }
-            public void AddPrefix(string prefix) { OnAddPrefix?.Invoke(); Prefixes.Add(prefix); }
+            public void Start(string prefix) { Prefixes.Add(prefix); IsListening = true; }
+            public void AddPrefix(string prefix) => throw new InvalidOperationException("Only one prefix is supported.");
             public HttpListenerContext GetContext()
             {
                 _stopped.Wait(TimeSpan.FromSeconds(10));
@@ -587,13 +429,13 @@ namespace PadForge.Tests
             public void Close() { Closes++; Stop(); }
         }
 
-        private static CancellationTokenSource AddSession(WebControllerServer server, string key, bool viaPlain)
+        private static CancellationTokenSource AddSession(WebControllerServer server, string key, bool requiresAccessCode)
         {
             var type = typeof(WebControllerServer).GetNestedType("ClientSession", BindingFlags.NonPublic);
             var cts = new CancellationTokenSource();
             object session = Activator.CreateInstance(type, BindingFlags.Public | BindingFlags.Instance, null,
                 new object[] { null, null, cts }, null);
-            type.GetProperty("ViaPlain").SetValue(session, viaPlain);
+            type.GetProperty("RequiresAccessCode").SetValue(session, requiresAccessCode);
             object clients = typeof(WebControllerServer).GetField("_clients", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(server);
             clients.GetType().GetMethod("TryAdd").Invoke(clients, new[] { key, session });

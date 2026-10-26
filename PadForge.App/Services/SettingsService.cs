@@ -2581,7 +2581,7 @@ namespace PadForge.Services
 
             // Load web controller server settings.
             PadForge.Services.WebCustomLayoutStore.LoadFrom(appSettings.WebCustomLayoutsJson);
-            _mainVm.Dashboard.EnableWebController = appSettings.EnableWebController;
+
             // The service toggles' GLOBAL legs (the head tracking
             // inputs), the value that stands when the active profile has no
             // opinion. Under the guard, or the record-on-change hook would
@@ -2611,17 +2611,13 @@ namespace PadForge.Services
                 _mainVm.Dashboard.NotifyHeadTrackingRangesChanged();
             }
             finally { _applyingServiceToggles = false; }
-            _mainVm.Dashboard.WebControllerPort = appSettings.WebControllerPort > 0
-                ? appSettings.WebControllerPort : 8080;
-            _mainVm.Dashboard.EnableWebControllerPlainHttp = appSettings.EnableWebControllerPlainHttp;
-            _mainVm.Dashboard.WebControllerPlainHttpPort =
-                appSettings.WebControllerPlainHttpPort >= 1024 && appSettings.WebControllerPlainHttpPort <= 65535
-                    ? appSettings.WebControllerPlainHttpPort : WebControllerServer.DefaultPlainPort;
-            _mainVm.Dashboard.WebControllerPlainHttpLocalOnly = appSettings.WebControllerPlainHttpLocalOnly;
+            _mainVm.Dashboard.WebControllerUseAccessCode = appSettings.WebControllerUseAccessCode;
             // A missing, damaged or foreign code reads as null, which the view
             // model ignores, so the fresh code it started with stays.
             string storedAccessCode = WebControllerAccess.UnprotectFromStorage(appSettings.WebControllerAccessCodeProtected);
             _mainVm.Dashboard.WebControllerAccessCode = storedAccessCode;
+            _mainVm.Dashboard.ApplyWebControllerSettings(appSettings.EnableWebController,
+                appSettings.WebControllerPort, appSettings.WebControllerUseHttps);
             _accessCodeUnsavedOnLoad = storedAccessCode == null;
             if (storedAccessCode != null)
                 _protectedAccessCode = (storedAccessCode, appSettings.WebControllerAccessCodeProtected);
@@ -4360,9 +4356,8 @@ namespace PadForge.Services
                 _mainVm.Dashboard.ApplyGameTelemetrySettings(active.GameTelemetryFormat, active.GameTelemetryCustomFormat,
                     active.GameTelemetryPort, active.GameTelemetryForwardPort, active.GameTelemetryFullSpeed);
                 _mainVm.Dashboard.EnableGameTelemetry = active.EnableGameTelemetry;
-                _mainVm.Dashboard.EnableWebController = active.EnableWebController;
-                if (active.WebControllerPort >= 1024 && active.WebControllerPort <= 65535)
-                    _mainVm.Dashboard.WebControllerPort = active.WebControllerPort;
+                _mainVm.Dashboard.ApplyWebControllerSettings(active.EnableWebController,
+                    active.WebControllerPort, active.WebControllerUseHttps);
                 _mainVm.Dashboard.EnableTouchpadOverlay = active.EnableTouchpadOverlay;
                 _mainVm.Dashboard.EnableMenuOverlay = active.EnableMenuOverlay;
                 _mainVm.Dashboard.EnableShiftLayerFlyout = active.EnableShiftLayerFlyout;
@@ -4543,6 +4538,7 @@ namespace PadForge.Services
             profile.GameTelemetryFullSpeed = _mainVm.Dashboard.GameTelemetryFullSpeed;
             profile.EnableWebController = _mainVm.Dashboard.EnableWebController;
             profile.WebControllerPort = _mainVm.Dashboard.WebControllerPort;
+            profile.WebControllerUseHttps = _mainVm.Dashboard.WebControllerUseHttps;
             profile.EnableTouchpadOverlay = _mainVm.Dashboard.EnableTouchpadOverlay;
             profile.EnableMenuOverlay = _mainVm.Dashboard.EnableMenuOverlay;
             profile.EnableShiftLayerFlyout = _mainVm.Dashboard.EnableShiftLayerFlyout;
@@ -5036,9 +5032,8 @@ namespace PadForge.Services
                 HeadTrackingRotationRange = _mainVm.Dashboard.HeadTrackingRotationRange,
                 HeadTrackingTranslationRange = _mainVm.Dashboard.HeadTrackingTranslationRange,
                 WebControllerPort = _mainVm.Dashboard.WebControllerPort,
-                EnableWebControllerPlainHttp = _mainVm.Dashboard.EnableWebControllerPlainHttp,
-                WebControllerPlainHttpPort = _mainVm.Dashboard.WebControllerPlainHttpPort,
-                WebControllerPlainHttpLocalOnly = _mainVm.Dashboard.WebControllerPlainHttpLocalOnly,
+                WebControllerUseHttps = _mainVm.Dashboard.WebControllerUseHttps,
+                WebControllerUseAccessCode = _mainVm.Dashboard.WebControllerUseAccessCode,
                 WebControllerAccessCodeProtected = ProtectAccessCode(_mainVm.Dashboard.WebControllerAccessCode),
                 WebCustomLayoutsJson = PadForge.Services.WebCustomLayoutStore.Json,
                 EnableRemoteLink = _mainVm.Dashboard.EnableRemoteLink,
@@ -7036,22 +7031,13 @@ namespace PadForge.Services
         [XmlElement]
         public int WebControllerPort { get; set; } = 8080;
 
-        /// <summary>Also serve the web controller over plain HTTP on its own
-        /// port, behind the access code. The plain address settings are
-        /// machine-scoped like Remote Link's and never ride profiles: a
-        /// foreground profile switch should not open or close a port.</summary>
         [XmlElement]
-        public bool EnableWebControllerPlainHttp { get; set; }
+        public bool WebControllerUseHttps { get; set; }
 
         [XmlElement]
-        public int WebControllerPlainHttpPort { get; set; } = WebControllerServer.DefaultPlainPort;
+        public bool WebControllerUseAccessCode { get; set; }
 
-        /// <summary>Admit only this PC on the plain address, for a tunnel or
-        /// reverse proxy running here.</summary>
-        [XmlElement]
-        public bool WebControllerPlainHttpLocalOnly { get; set; }
-
-        /// <summary>The plain address's access code, encrypted for this
+        /// <summary>The optional HTTP access code, encrypted for this
         /// machine by <see cref="WebControllerAccess.ProtectForStorage"/>.
         /// Missing, damaged or foreign, it is replaced by a fresh code.</summary>
         [XmlElement]
@@ -8024,6 +8010,9 @@ namespace PadForge.Services
         /// <summary>Web controller server port for this profile.</summary>
         [XmlElement]
         public int WebControllerPort { get; set; } = 8080;
+
+        [XmlElement]
+        public bool WebControllerUseHttps { get; set; }
 
         [XmlElement]
         public bool EnableTouchpadOverlay { get; set; }

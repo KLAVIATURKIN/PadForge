@@ -4637,4 +4637,10 @@ Would you like PadForge to uninstall them now? This requires elevation and may t
   <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} on {1} while held</value></data>
   <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} on {1} until stopped</value></data>
   <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Stop trigger effect on {0}</value></data>
+  <data name="Dashboard_WebProtocol" xml:space="preserve"><value>Protocol</value></data>
+  <data name="Dashboard_WebProtocolHint" xml:space="preserve"><value>HTTP is default. HTTPS is needed for phone motion sensors.</value></data>
+  <data name="Dashboard_WebUseAccessCode" xml:space="preserve">
+    <value>Use Access Code</value>
+  </data>
+  <data name="Server_WebHttpsBindingFailed" xml:space="preserve"><value>Could not prepare HTTPS. Check certification/port binding permissions, or select HTTP explicitly.</value></data>
 </root>

@@ -174,6 +174,7 @@ public class Strings : INotifyPropertyChanged
     public string Server_AccessDenied_Format => Get("Server_AccessDenied_Format");
     public string Server_FailedToStart => Get("Server_FailedToStart");
     public string Server_HttpsPortTaken_Format => Get("Server_HttpsPortTaken_Format");
+    public string Server_WebHttpsBindingFailed => Get("Server_WebHttpsBindingFailed");
     public string Server_HttpsBindFailed => Get("Server_HttpsBindFailed");
     public string Server_HttpsListenerRejected_Format => Get("Server_HttpsListenerRejected_Format");
     public string Server_PlainSamePort => Get("Server_PlainSamePort");
@@ -434,6 +435,9 @@ public class Strings : INotifyPropertyChanged
     public string Dashboard_WebPlainPort => Get("Dashboard_WebPlainPort");
     public string Dashboard_WebPlainLocalOnly => Get("Dashboard_WebPlainLocalOnly");
     public string Dashboard_WebPlainLocalOnlyHint => Get("Dashboard_WebPlainLocalOnlyHint");
+    public string Dashboard_WebProtocol => Get("Dashboard_WebProtocol");
+    public string Dashboard_WebProtocolHint => Get("Dashboard_WebProtocolHint");
+    public string Dashboard_WebUseAccessCode => Get("Dashboard_WebUseAccessCode");
     public string Dashboard_WebAccessCode => Get("Dashboard_WebAccessCode");
     public string Dashboard_WebAccessCodeHint => Get("Dashboard_WebAccessCodeHint");
     public string Dashboard_WebNewAccessCode => Get("Dashboard_WebNewAccessCode");
