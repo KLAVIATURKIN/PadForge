@@ -136,6 +136,8 @@ namespace PadForge.ViewModels
                 Add(MacroActionType.RumbleStop, S.MacroAction_Type_RumbleStop, S.Macro_Cat_Rumble, S.MacroAction_RumbleStop_Tooltip);
                 Add(MacroActionType.RumbleTrigger, S.MacroAction_Type_RumbleTrigger, S.Macro_Cat_Rumble, S.MacroAction_RumbleTrigger_Tooltip);
                 Add(MacroActionType.RumbleTriggerStop, S.MacroAction_Type_RumbleTriggerStop, S.Macro_Cat_Rumble, S.MacroAction_RumbleTriggerStop_Tooltip);
+                Add(MacroActionType.TriggerEffect, S.MacroAction_Type_TriggerEffect, S.Macro_Cat_Rumble, S.MacroAction_TriggerEffect_Tooltip);
+                Add(MacroActionType.TriggerEffectStop, S.MacroAction_Type_TriggerEffectStop, S.Macro_Cat_Rumble, S.MacroAction_TriggerEffectStop_Tooltip);
                 Add(MacroActionType.LightbarColor, S.MacroAction_Type_LightbarColor, S.Macro_Cat_Leds, S.MacroAction_LightbarColor_Tooltip);
                 Add(MacroActionType.LightbarColorClear, S.MacroAction_Type_LightbarColorClear, S.Macro_Cat_Leds, S.MacroAction_LightbarColorClear_Tooltip);
                 Add(MacroActionType.LightbarModeSet, S.MacroAction_Type_LightbarModeSet, S.Macro_Cat_Leds, S.MacroAction_LightbarModeSet_Tooltip);

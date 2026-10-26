@@ -522,6 +522,23 @@ namespace PadForge.Common.Input
         }
 
         /// <summary>
+        /// Per-slot adaptive trigger programs played by
+        /// <c>MacroActionType.TriggerEffect</c> and ended by
+        /// <c>TriggerEffectStop</c> (issue #531). Read by the effect
+        /// dispatcher's Sony pass, after a game's own write and a game mod's
+        /// hold, and by the trigger-vibration translation for Xbox pads. Lives
+        /// with the engine, like <see cref="MacroRumbleOverrides"/>.
+        /// </summary>
+        public MacroTriggerEffectState[] MacroTriggerEffects { get; } = InitMacroTriggerEffects();
+
+        private static MacroTriggerEffectState[] InitMacroTriggerEffects()
+        {
+            var arr = new MacroTriggerEffectState[MaxPads];
+            for (int i = 0; i < arr.Length; i++) arr[i] = new MacroTriggerEffectState(i);
+            return arr;
+        }
+
+        /// <summary>
         /// Per-slot post-processed vibration. Each motor is the max
         /// across every device mapped to the slot, with each device's
         /// own PadSetting applied (gain/balance/swap, audio rumble,
@@ -4253,6 +4270,7 @@ namespace PadForge.Common.Input
             ShutdownHeadsetMotionInputs();
             ShutdownHandheldInputs();
             ShutdownHeadTrackerInputs();
+            ShutdownGameTelemetryInputs();
             ShutdownLogitechGKeysInputs();
             ShutdownKeyboardScreenInputs();
             ShutdownFalconInputs();

@@ -4033,7 +4033,7 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Mga layout ng report ng PlayStation Move, sensor calibration, at ang EXT accessory handshake, ni Thomas Perl, na-cross-check sa moveonpc wiki. Orihinal na C# ang implementasyon ng PadForge. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Mga sanggunian sa racing telemetry</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Mga layout ng shared-memory at UDP sa likod ng mga RPM shift LED ng wheel, binasa mula sa assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) at simapi (LGPL-3.0). Walang GPL o LGPL code na kasama.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Mga layout ng shared-memory at UDP sa likod ng Game Telemetry at ng mga RPM shift LED ng wheel, binasa mula sa assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) at vAzhureRacingHub (GPL-3.0). Walang GPL o LGPL code na kasama.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Dokumentasyon sa Bluetooth pairing at report ng DualShock 3. GPL-2.0 at GPL-3.0, binasa bilang dokumentasyon lamang, walang GPL code na kasama.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4274,4 +4274,130 @@ Gusto mo bang i-uninstall na ang mga ito ng PadForge ngayon? Nangangailangan ito
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>I-reset ang Force Limit</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>I-calibrate ang Abot</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Sinusukat kung gaano kalayo ang nilalakbay ng handle. Igalaw ito sa bawat gilid ng abot nito sa loob ng apat na segundong tumatakbo ang sweep. Humihinto muna ang mga force.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Game Telemetry</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Game Telemetry</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Inilalagay ang telemetry na ipinapadala ng mga driving game, at ang shared memory ng Assetto Corsa, sa Game Telemetry row ng Devices page. I-map ang bilis, mga pedal at gear nito tulad ng anumang input, magpasimula ng mga macro gamit ang mga ito, o subukan ang mga ito sa isang Custom Expression. Habang nakikinig ito, binabasa rin ng mga RPM shift LED ng wheel ang game mula rito.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Makinig para sa Game Telemetry</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Game</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Nakikilala ng Auto-Detect ang game mula sa mga packet nito. Kapag pinili ang Project CARS 2 at Automobilista 2, o ang mga truck simulator, itinatakda rin nito ang port na laging pinapadalhan ng mga game na iyon.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Game Telemetry Port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>I-forward sa Port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Kinokopya ang bawat packet sa port na ito sa PC na ito, para patuloy itong matanggap ng ibang program gaya ng SimHub. Walang ifo-forward kapag 0.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Buong Bilis (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Ang bilis na ginagawang buo ang galaw ng Speed axis.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Mga Custom Format…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Inilalarawan, field por field, ang mga packet ng game na hindi kilala ng PadForge.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>I-on ang telemetry output sa bawat game at ituro ito sa PC at port na ito. Ang F1, ang mga Codemasters game at EA SPORTS WRC ay gumagamit ng 20777 maliban kung babaguhin, ang Project CARS 2 at Automobilista 2 ay laging gumagamit ng 5606, at ang plugin ni MrHokss para sa mga truck simulator ay gumagamit ng 49001. Hindi nangangailangan ng port ang Assetto Corsa at ACC.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Auto-Detect</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport at Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 hanggang F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 at iba pang Codemasters game</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive at Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 at Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa at Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 at American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (Custom)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Naghihintay ng game sa UDP port {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Nakikinig sa UDP port {0}. {1} mula sa {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Ginagamit ng ibang program ang UDP port {0}.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Binabasa ang {0} mula sa shared memory.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Naghihintay sa Assetto Corsa o Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Nagfo-forward sa port {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Mga Custom na Telemetry Format</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Ilarawan ang mga packet na ipinapadala ng isang game, field por field, at babasahin din ng PadForge ang game na iyon. Nagiging axis sa Game Telemetry row at channel para sa mga Custom Expression trigger ang bawat variable. Pumili ng format ayon sa pangalan sa listahan ng Game, o bigyan ito ng haba o key para mahanap ito ng Auto-Detect.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Magdagdag ng Format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Pangalan</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Mga Packet</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binary</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Haba (Byte)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Mga packet lang na eksaktong ganito karaming byte ang babasahin gamit ang format na ito. Kapag 0, babasahin ang anumang packet, at hindi gagalawin ng Auto-Detect ang format, kaya piliin ito ayon sa pangalan.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Kinakailangang Key</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Mga JSON packet lang na may ganitong key ang babasahin gamit ang format na ito. Kapag walang laman, babasahin ang anumang packet, at hindi gagalawin ng Auto-Detect ang format, kaya piliin ito ayon sa pangalan.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Isinusulat ng packet ang bawat numero nang nauuna ang pinakamahalagang byte. Halos laging nauuna ang pinakamaliit na byte sa mga game sa PC.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Mga Value ng Gear</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>May sariling numero ang gear field para sa reverse at neutral, tulad ng 0 at 11 ng Forza. Kapag naka-off ito, reverse ang negatibong gear at neutral ang 0.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Reverse</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Neutral</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Mga Field</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Bumabasa ang bawat field ng numero sa offset nito, o sa ilalim ng key nito sa JSON (naaabot ng mga tuldok ang mga nested na object), at minumultiply ito sa scale. Pagkatapos ng scale, nasa km/h ang bilis, mula 0 hanggang 1 ang mga pedal, at mula -1 sa buong kaliwa hanggang 1 sa buong kanan ang steering. Ang axis ng isang variable ay mula sa Min nito kapag nakapahinga hanggang sa Max nito kapag buo.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Binabasa Papunta Sa</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Pangalan ng Variable</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Offset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Uri</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON Key</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Scale</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Magdagdag ng Field</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Alisin ang Field</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Kailangan ng pangalan ang Format {0} na walang : o |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Dalawang format ang may pangalang {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Kailangan ng pangalan ang isang variable sa {0} na walang : o |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>May field sa {0} na bumabasa lampas sa dulo ng {1}-byte nitong packet.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Kailangan ng JSON key ang isang field sa {0}.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variable</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Bilis (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Max RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Gear</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Throttle (0 hanggang 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Brake (0 hanggang 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Clutch (0 hanggang 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Handbrake (0 hanggang 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Steering (-1 hanggang 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Nagmamaneho (Hindi 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Game Telemetry</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Bilis (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% ng Max)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Gear (-1 Reverse, 0 Neutral)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Throttle (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Brake (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Clutch (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Handbrake (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Steering (-100 Kaliwa hanggang 100 Kanan)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Nagmamaneho (1 o 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Adaptive Trigger Effect</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Ihinto ang Adaptive Trigger Effect</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Nagpapatugtog ng DualSense adaptive trigger effect sa mga trigger ng slot na ito. Ang mga effect ay ang ipinapadala ng mga game mod para sa DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Tinatapos ang adaptive trigger effect na hawak ng isang macro sa napiling trigger. Ipares ito sa effect na tumatagal hanggang ihinto.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Kanan (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Kaliwa (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Pareho (L2 at R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Effect</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Off</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Pana</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Pagtakbo ng Kabayo</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Makina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Napakalambot</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Malambot</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Katamtaman</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Matigas</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Napakatigas</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Pinakamatigas</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Putol-putol</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Simulang Zone</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Huling Zone</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Lakas ng Snap</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Unang Paa</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Pangalawang Paa</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Lakas A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Lakas B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Panimulang Lakas</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Pangwakas na Lakas</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Lakas ng Zone {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Walang epekto ang mga value na ito, kaya walang pinapatugtog ang action. Dapat nasa kabila ng start zone ang end zone, at nasa kabila ng una ang pangalawang paa.</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Habang Hawak ang Trigger ng Macro</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Sa Takdang Oras</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Hanggang Ihinto</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Oras</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Tumutugtog sa bawat DualSense at DualSense Edge sa slot na ito. Mauuna ang trigger effect ng mismong game at ng game mod, at babalik ang setting ng Adaptive Triggers tab kapag natapos ang effect. Ang mga zone ay mula 0 kapag nakapahinga hanggang 9 kapag buo ang pindot. Hindi opisyal na DualSense effect ang Bow, Galloping at Machine, at maaari silang alisin ng firmware update. Ang mga Xbox controller na naka-on ang Isalin ang mga Adaptive Trigger Vibration ay nararamdaman ang mga vibrating effect bilang trigger rumble.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} sa {1} nang {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} sa {1} habang hawak</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} sa {1} hanggang ihinto</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Ihinto ang trigger effect sa {0}</value></data>
 </root>

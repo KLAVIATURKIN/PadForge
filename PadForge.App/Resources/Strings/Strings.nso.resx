@@ -1085,4 +1085,40 @@
   <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Moedi wa maatla</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Bušetša moedi wa maatla</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetry ya papadi</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetry ya papadi</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Theeletša telemetry ya papadi</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Papadi</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port ya telemetry ya papadi</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Fetišetša go port</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport le Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 go fihla go F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 le dipapadi tše dingwe tša Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive le Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 le Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa le Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 le American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>E letetše papadi go port ya UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>E theeleditše port ya UDP {0}. {1} go tšwa go {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Port ya UDP {0} e šomišwa ke lenaneo le lengwe.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>E letetše Assetto Corsa goba Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>E fetišetša go port {0}.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Leina</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Mohuta</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Lebelo (km/h)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetry ya papadi</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Lebelo (mph)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Motšhene</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Leoto la pele</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Leoto la bobedi</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Maatla A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Maatla B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Maatla a mathomo</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Maatla a mafelelo</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Ka nako ye e beilwego</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Go fihlela e emišwa</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Nako</value></data>
 </root>

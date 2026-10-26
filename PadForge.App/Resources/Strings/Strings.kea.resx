@@ -2564,6 +2564,7 @@
   <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Referénsias di telemetria di korida</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Formatus di memória partilhadu i UDP ki Telemetria di jogu i LEDs di mudansa di RPM di volanti ta uza, lidu di assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) i vAzhureRacingHub (GPL-3.0). Nenhun kódigu GPL o LGPL ka ta bai djuntu ku PadForge.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
   <data name="About_SpaceMouseRefs" xml:space="preserve"><value>Referénsias di SpaceMouse</value></data>
@@ -2696,4 +2697,111 @@
   <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Limiti di forsa</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Ripoi limiti di forsa</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetria di jogu</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetria di jogu</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Ta pô telemetria ki jogus di korida ta manda, i memória partilhadu di Assetto Corsa, na linha Telemetria di jogu na pájina Dispozitivus. Mapia velosidadi, pedal i mudansas sima kualker entrada, kumesa makrus ku es, o testa es na un Espreson personalizadu. Timenti e sta ta skuta, LEDs di RPM di un volanti ta lê jogu di li tanbe.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Skuta Telemetria di jogu</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Jogu</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Detekson otomátiku ta rikonhese jogu pa si pakotis. Si bu skodje Project CARS 2 i Automobilista 2, o simulador di kamion, PadForge ta difini tanbe porta ki kes jogu ta manda sénpri pa el.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Porta di Telemetria di jogu</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Manda pa porta</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Ta kopia tudu pakoti pa es porta na es PC, pa otu programa sima SimHub kontinua ta risebe-l. 0 ka ta manda nada.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Velosidadi máxima (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Velosidadi ki ta leva eixu Velosidadi ti fin.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Formatus personalizadu…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Ta diskrebe, kanpu pa kanpu, pakotis di un jogu ki PadForge ka ta konxe.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Liga saída di telemetria na kada jogu i aponta-l pa es PC i es porta. F1, jogus di Codemasters i EA SPORTS WRC ta uza 20777 si bu ka muda-l, Project CARS 2 i Automobilista 2 ta uza sénpri 5606, i plugin di MrHokss pa simulador di kamion ta uza 49001. Assetto Corsa i ACC ka ta mesti porta.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Detekson otomátiku</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport i Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ti F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 i otus jogu di Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive i Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 i Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa i Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 i American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (personalizadu)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Ta spera un jogu na porta UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Ta skuta na porta UDP {0}. {1} di {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Porta UDP {0} sta na uzu pa otu programa.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Ta lê {0} di memória partilhadu.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Ta spera Assetto Corsa o Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Ta manda pa porta {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Formatus di telemetria personalizadu</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Diskrebe pakotis ki un jogu ta manda, kanpu pa kanpu, i PadForge ta lê kel jogu tanbe. Kada variável ta bira un eixu na linha Telemetria di jogu i un kanal pa Espreson personalizadu. Skodje un formatu pa nómi na lista Jogu, o da-l un kumprimentu o un xavi pa Detekson otomátiku atxa-l.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Adisiona formatu</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Formatu {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nómi</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Pakotis</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binariu</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Kumprimentu (bytes)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Sô pakotis ku exatamenti es númeru di bytes ki ta lidu ku es formatu. Ku 0, kualker pakoti ta lidu, i Detekson otomátiku ta dexa es formatu, pur isu skodje-l pa nómi.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Xavi obrigatóriu</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Sô pakotis JSON ki ten es xavi ki ta lidu ku es formatu. Si fika vaziu, kualker pakoti ta lidu, i Detekson otomátiku ta dexa es formatu, pur isu skodje-l pa nómi.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Valoris di mudansa</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Kanpus</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Destinu</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Nómi di variável</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tipu</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Xavi JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Eskala</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Mín</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Máx</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Adisiona kanpu</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Tira kanpu</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Formatu {0} mesti un nómi sen : o |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Dôs formatu ten nómi {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Un variável na {0} mesti un nómi sen : o |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Un kanpu na {0} ta lê dipôs di fin di si pakoti di {1} bytes.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Un kanpu na {0} mesti un xavi JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variável</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Velosidadi (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM máximu</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Mudansa</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Aselerador (0 ti 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Travon (0 ti 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Travon di mon (0 ti 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Volanti (-1 ti 1)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetria di jogu</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Velosidadi (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% di máximu)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Aselerador (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Travon (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Travon di mon (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Volanti (-100 skerda ti 100 direita)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Gatilhu</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Direita (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Skerda (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Tudu dôs (L2 i R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efeitu</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Dizligadu</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Arku</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galopi</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Mákina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Mutu suavi</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Suavi</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Médiu</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Duru</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Mutu duru</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Más duru</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Rijidu</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Zona inisial</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Zona final</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Primeru pé</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Sigundu pé</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Forsa A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Forsa B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Períudu (désimus di sigundu)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Forsa inisial</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Forsa final</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Forsa di zona {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Kes valor ka ta faze nenhun efeitu, pur isu ason ka ta toka nada. Zona final ten ki sta dipôs di zona inisial, i sigundu pé dipôs di primeru.</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Duranti un tenpu difinidu</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Ti ki e para</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Tenpu</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} na {1} duranti {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} na {1} ti ki e para</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Para efeitu di gatilhu na {0}</value></data>
 </root>

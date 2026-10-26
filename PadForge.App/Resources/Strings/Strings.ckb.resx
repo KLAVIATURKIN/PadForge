@@ -4206,7 +4206,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>ڕیزبەندیی ڕاپۆرتەکانی PlayStation Move، کالیبرەکردنی هەستەوەر، و دەستتەوقەی پاشکۆی EXT، لەلایەن Thomas Perl، بەراورد کراو لەگەڵ ویکیی moveonpc. جێبەجێکردنی PadForge کۆدی C# ی ڕەسەنە. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>سەرچاوەکانی تێلێمەتریی پێشبڕکێ</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ڕیزبەندییەکانی بیرگەی هاوبەش و UDP لە پشت LED ەکانی گۆڕینی گێڕی RPM ی سوکان، خوێندراوە لە assettocorsasharedmemory (MIT)، forza-data-web (Apache-2.0)، forza-telemetry (MIT)، InSim.NET (LGPL-2.1)، irsdkSharp (MIT)، IRSDKSharper (GPL-3.0)، out-gauge-cluster (Apache-2.0)، pyirsdk (MIT)، rF2SharedMemoryMapPlugin (GPL-3.0)، rFactorSharedMemoryMap (GPL-2.0)، rust_ams2_sharedmem، scs-sdk-plugin (MIT) و simapi (LGPL-3.0). هیچ کۆدێکی GPL یان LGPL لەگەڵ بەرنامەکەدا نییە.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ڕیزبەندییەکانی بیرگەی هاوبەش و UDP لە پشت تێلێمەتریی یاری و LEDەکانی گۆڕینی گێڕی RPMی سوکان، خوێندراوە لە assettocorsasharedmemory (MIT)، CMTelemetry، dirt-rally-telemetry-dashboard (MIT)، ets2-telemetry-udp (MIT)، f1-24-udp (MIT)، fh6-tel (MIT)، forza-data-web (Apache-2.0)، forza-telemetry (MIT)، Forza-Telemetry-Splitter (MIT)، InSim.NET (LGPL-2.1)، irsdkSharp (MIT)، IRSDKSharper (GPL-3.0)، out-gauge-cluster (Apache-2.0)، PCars2UdpNet (MIT)، project-cars-2-udp (MIT)، pyirsdk (MIT)، rF2SharedMemoryMapPlugin (GPL-3.0)، rFactorSharedMemoryMap (GPL-2.0)، rust_ams2_sharedmem، scs-sdk-plugin (MIT)، simapi (LGPL-3.0)، tm-bt-led (MIT) و vAzhureRacingHub (GPL-3.0). هیچ کۆدێکی GPL یان LGPL لەگەڵ بەرنامەکەدا نییە.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>بەڵگەنامەی جووتکردن و ڕاپۆرتی Bluetooth ی DualShock 3. GPL-2.0 و GPL-3.0، تەنها وەک بەڵگەنامە خوێندراوەتەوە، هیچ کۆدێکی GPL لەگەڵ بەرنامەکەدا نییە.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4447,4 +4447,133 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>گەڕاندنەوەی سنووری هێز</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>کالیبرەکردنی مەودای جووڵە</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>پێوانەی ئەوە دەکات کە دەسکەکە چەند دەجووڵێت. بۆ ئەو چوار چرکەیەی پشکنینەکە کار دەکات، بیجووڵێنە بۆ هەموو لێوارەکانی مەودای جووڵەکەی. لەو ماوەیەدا هێزەکان ڕادەوەستن.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>تێلێمەتریی یاری</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>تێلێمەتریی یاری</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>ئەو تێلێمەترییەی یارییەکانی لێخوڕین دەینێرن، لەگەڵ بیرگەی هاوبەشی Assetto Corsa، دەخاتە سەر ڕیزی تێلێمەتریی یاری لە پەڕەی ئامێرەکان. خێرایی، پێدەڵەکان و گێڕەکانی وەک هەر تێهاتەیەکی تر ببەستەوە، ماکرۆیان پێ دەستپێبکە، یان لە دەربڕینی دڵخوازدا تاقییان بکەرەوە. کاتێک گوێ دەگرێت، LEDەکانی گۆڕینی گێڕی RPMی سوکانیش یارییەکە لێرەوە دەخوێننەوە.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>گوێگرتن لە تێلێمەتریی یاری</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>یاری</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>دۆزینەوەی خۆکار یارییەکە لە پاکەتەکانییەوە دەناسێتەوە. هەڵبژاردنی Project CARS 2 و Automobilista 2، یان سیمولەیتەرەکانی بارهەڵگر، ئەو پۆرتەش دادەنێت کە ئەو یاریانە هەمیشە بۆی دەنێرن.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>پۆرتی تێلێمەتریی یاری</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>ناردنەوە بۆ پۆرت</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>هەموو پاکەتێک بۆ ئەم پۆرتە لەسەر ئەم کۆمپیوتەرە کۆپی دەکات، بۆ ئەوەی بەرنامەیەکی تری وەک SimHub بەردەوام وەریبگرێت. 0 هیچ نانێرێتەوە.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>خێرایی تەواو (کم/کاتژمێر)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>ئەو خێراییەی تەوەری خێرایی تا کۆتایی دەجووڵێنێت.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>فۆرماتە دڵخوازەکان…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>پاکەتەکانی یارییەک کە PadForge نایناسێت، خانە بە خانە وەسف دەکات.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>ناردنی تێلێمەتری لە هەر یارییەکدا چالاک بکە و ئاڕاستەی ئەم کۆمپیوتەر و پۆرتەی بکە. F1، یارییەکانی Codemasters و EA SPORTS WRC پۆرتی 20777 بەکاردێنن مەگەر گۆڕدرابێت، Project CARS 2 و Automobilista 2 هەمیشە 5606 بەکاردێنن، و پلەگینەکەی MrHokss بۆ سیمولەیتەرەکانی بارهەڵگر 49001 بەکاردێنێت. Assetto Corsa و ACC پێویستیان بە پۆرت نییە.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>دۆزینەوەی خۆکار</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport و Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 تا F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 و یارییەکانی تری Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive و Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 و Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa و Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 و American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (دڵخواز)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>چاوەڕوانی یارییەک لەسەر پۆرتی UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>گوێگرتن لەسەر پۆرتی UDP {0}. {1} لە {2}ەوە.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>پۆرتی UDP {0} لەلایەن بەرنامەیەکی ترەوە بەکاردێت.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>{0} لە بیرگەی هاوبەشەوە دەخوێنرێتەوە.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>چاوەڕوانی Assetto Corsa یان Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>ناردنەوە بۆ پۆرتی {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>فۆرماتە دڵخوازەکانی تێلێمەتری</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>پاکەتەکانی یارییەک خانە بە خانە وەسف بکە، و PadForge ئەو یارییەش دەخوێنێتەوە. هەر گۆڕاوێک دەبێتە تەوەرێک لەسەر ڕیزی تێلێمەتریی یاری و کەناڵێک بۆ دەربڕینە دڵخوازەکان. فۆرماتێک بە ناو لە لیستی یاری هەڵبژێرە، یان درێژی یان کلیلێکی پێ بدە بۆ ئەوەی دۆزینەوەی خۆکار بیدۆزێتەوە.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>زیادکردنی فۆرمات</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>فۆرماتی {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>ناو</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>پاکەتەکان</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>دوانەیی</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>درێژی (بایت)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>تەنها ئەو پاکەتانەی ڕێک ئەم ژمارەیە بایتیان هەیە بەم فۆرماتە دەخوێنرێنەوە. بە 0، هەر پاکەتێک دەخوێنرێتەوە و دۆزینەوەی خۆکار ئەم فۆرماتە بەکارناهێنێت، بۆیە بە ناو هەڵیبژێرە.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>کلیلی پێویست</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>تەنها ئەو پاکەتانەی JSON کە ئەم کلیلەیان تێدایە بەم فۆرماتە دەخوێنرێنەوە. ئەگەر بەتاڵ بێت، هەر پاکەتێک دەخوێنرێتەوە و دۆزینەوەی خۆکار ئەم فۆرماتە بەکارناهێنێت، بۆیە بە ناو هەڵیبژێرە.</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>پاکەتەکە هەر ژمارەیەک بە گرنگترین بایتەکەی لە پێشەوە دەنووسێت. یارییەکانی سەر کۆمپیوتەر نزیکەی هەمیشە کەمگرنگترین بایت لە پێشەوە دەنووسن.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>بەهاکانی گێڕ</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>خانەی گێڕ ژمارەی تایبەتی خۆی بۆ دواوە و بێلایەن هەیە، وەک 0 و 11ی Forza. کاتێک ئەمە کوژاوەیە، گێڕی نەرێنی دواوەیە و 0 بێلایەنە.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>دواوە</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>بێلایەن</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>خانەکان</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>هەر خانەیەک ژمارەیەک لە ئۆفسێتەکەی دەخوێنێتەوە، یان لە ژێر کلیلەکەی لە JSONدا (خاڵەکان دەگەنە ناو ئۆبجێکتە ناوەکییەکان)، و لە ڕێژەکە دەیدات. دوای ڕێژە، خێرایی بە کم/کاتژمێرە، پێدەڵەکان لە 0 تا 1 دەڕۆن، و سووڕانی سوکان لە -1 لە تەواوی چەپ تا 1 لە تەواوی ڕاست. تەوەری گۆڕاوێک لە کەمترینەکەی لە کاتی پشوودا تا زۆرترینەکەی لە کاتی تەواودا دەڕوات.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>دەخوێنرێتە ناو</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>ناوی گۆڕاو</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>ئۆفسێت</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>جۆر</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>کلیلی JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>ڕێژە</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>کەمترین</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>زۆرترین</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>زیادکردنی خانە</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>لابردنی خانە</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>فۆرماتی {0} پێویستی بە ناوێکە بێ : یان |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>دوو فۆرمات هەمان ناوی {0}یان هەیە.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>گۆڕاوێک لە {0}دا پێویستی بە ناوێکە بێ : یان |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>خانەیەک لە {0}دا لە دوای کۆتایی پاکەتە {1} بایتییەکەی دەخوێنێتەوە.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>خانەیەک لە {0}دا پێویستی بە کلیلێکی JSON هەیە.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>گۆڕاو</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>خێرایی (کم/کاتژمێر)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>زۆرترین RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>گێڕ</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>گاز (0 تا 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>بریک (0 تا 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>کلەچ (0 تا 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>بریکی دەستی (0 تا 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>سووڕانی سوکان (-1 تا 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>لێخوڕین (جگە لە 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>تێلێمەتریی یاری</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>خێرایی (میل/کاتژمێر)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (%ی زۆرترین)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>گێڕ (-1 دواوە، 0 بێلایەن)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>گاز (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>بریک (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>کلەچ (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>بریکی دەستی (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>سووڕانی سوکان (-100 چەپ تا 100 ڕاست)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>لێخوڕین (1 یان 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>کاریگەریی تریگەری ئەداپتیڤ</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>وەستاندنی کاریگەریی تریگەری ئەداپتیڤ</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>کاریگەرییەکی تریگەری ئەداپتیڤی DualSense لەسەر تریگەرەکانی ئەم شوێنە لێدەدات. کاریگەرییەکان هەمان ئەوانەن کە مۆدەکانی یاری بۆ DSX دەینێرن.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>ئەو کاریگەرییەی تریگەری ئەداپتیڤ کۆتایی پێدەهێنێت کە ماکرۆیەک لەسەر تریگەری هەڵبژێردراو ڕایگرتووە. لەگەڵ کاریگەرییەکدا بەکاری بهێنە کە تا وەستاندن بەردەوام دەبێت.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>تریگەر</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>ڕاست (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>چەپ (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>هەردووکیان (L2 و R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>کاریگەری</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>کوژاوە</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>کەوان</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>غاردان</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>مەکینە</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>زۆر نەرم</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>نەرم</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>مامناوەند</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>ڕەق</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>زۆر ڕەق</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>ڕەقترین</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>سفت</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>پچڕپچڕ</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>پاڵسی لەرزین</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>ناوچەی دەستپێک</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>ناوچەی کۆتایی</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>هێزی پچڕان</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>پێی یەکەم</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>پێی دووەم</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>هێزی A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>هێزی B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>ماوە (دەیەکی چرکە)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>هێزی دەستپێک</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>هێزی کۆتایی</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>هێزی ناوچەی {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>ئەم بەهایانە هیچ کاریگەرییەک دروست ناکەن، بۆیە کردارەکە هیچ لێنادات. ناوچەی کۆتایی دەبێت لە دوای ناوچەی دەستپێک بێت، و پێی دووەم لە دوای پێی یەکەم.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>ڕاگرتن</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>تا چالاککەری ماکرۆکە ڕاگیرابێت</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>بۆ ماوەیەکی دیاریکراو</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>تا وەستاندن</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>کات</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>لەسەر هەر DualSense و DualSense Edge لەم شوێنەدا لێدەدرێت. کاریگەریی تریگەری خودی یارییەک و هی مۆدێکی یاری لە پێشترن، و ڕێکخستنی تابی تریگەرە ئەداپتیڤەکان کاتێک کاریگەرییەکە کۆتایی دێت دەگەڕێتەوە. ناوچەکان لە 0 لە کاتی پشوودا تا 9 کاتێک بە تەواوی ڕاکێشراوە دەڕۆن. کەوان، غاردان و مەکینە کاریگەریی فەرمیی DualSense نین، و لەوانەیە نوێکردنەوەیەکی فێرموێر لایانبەرێت. کۆنترۆڵەرەکانی Xbox کە وەرگێڕانی لەرزینەکانی تریگەری ئەداپتیڤیان چالاکە، کاریگەرییە لەرزۆکەکان وەک لەرزینی تریگەر هەست پێدەکەن.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} لەسەر {1} بۆ {2} ملیچرکە</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} لەسەر {1} تا ڕاگیرابێت</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} لەسەر {1} تا وەستاندن</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>وەستاندنی کاریگەریی تریگەر لەسەر {0}</value></data>
 </root>

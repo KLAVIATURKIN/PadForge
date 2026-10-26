@@ -4240,7 +4240,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move के रिपोर्ट लेआउट, सेंसर कैलिब्रेशन और EXT एक्सेसरी हैंडशेक, Thomas Perl द्वारा, moveonpc विकी से मिलाकर जाँचे गए। PadForge का इम्प्लीमेंटेशन मौलिक C# है। BSD 2-Clause।</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>रेसिंग टेलीमेट्री संदर्भ</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>व्हील के RPM शिफ़्ट LED के पीछे के साझा-मेमोरी और UDP लेआउट, जो assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) और simapi (LGPL-3.0) से पढ़े गए। कोई GPL या LGPL कोड साथ नहीं आता।</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>गेम टेलीमेट्री और व्हील के RPM शिफ़्ट LED के पीछे के साझा-मेमोरी और UDP लेआउट, जो assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) और vAzhureRacingHub (GPL-3.0) से पढ़े गए। कोई GPL या LGPL कोड साथ नहीं आता।</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 की Bluetooth पेयरिंग और रिपोर्ट का दस्तावेज़। GPL-2.0 और GPL-3.0, केवल दस्तावेज़ के रूप में पढ़ा गया, कोई GPL कोड साथ नहीं आता।</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>बल सीमा रीसेट करें</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>रीच कैलिब्रेट करें</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>मापता है कि हैंडल कितनी दूर तक जाता है। स्वीप चलने के चार सेकंड में उसे अपनी रीच के हर किनारे तक ले जाएँ। इस दौरान बल बंद रहते हैं।</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>गेम टेलीमेट्री</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>गेम टेलीमेट्री</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>ड्राइविंग गेम जो टेलीमेट्री भेजते हैं, और Assetto Corsa की साझा मेमोरी को डिवाइस पेज की गेम टेलीमेट्री पंक्ति पर दिखाता है। इसकी गति, पेडल और गियर को किसी भी इनपुट की तरह मैप करें, इनसे मैक्रो चलाएँ, या कस्टम एक्सप्रेशन में आज़माएँ। सुनते समय व्हील के RPM शिफ़्ट LED भी गेम को यहीं से पढ़ते हैं।</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>गेम टेलीमेट्री सुनें</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>गेम</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>स्वतः पहचान पैकेट से गेम पहचानती है। Project CARS 2 और Automobilista 2, या ट्रक सिमुलेटर चुनने पर वह पोर्ट भी सेट हो जाता है जिस पर ये गेम हमेशा भेजते हैं।</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>गेम टेलीमेट्री पोर्ट</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>इस पोर्ट पर अग्रेषित करें</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>हर पैकेट की एक प्रति इस PC के इस पोर्ट पर भेजता है, ताकि SimHub जैसा कोई दूसरा प्रोग्राम भी उसे पाता रहे। 0 होने पर कुछ अग्रेषित नहीं होता।</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>पूरी गति (किमी/घंटा)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>वह गति जो गति अक्ष को पूरा घुमा देती है।</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>कस्टम फ़ॉर्मैट…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>ऐसे गेम के पैकेट फ़ील्ड-दर-फ़ील्ड बताता है जिसे PadForge नहीं जानता।</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>हर गेम में टेलीमेट्री आउटपुट चालू करें और उसे इस PC और पोर्ट की ओर करें। F1, Codemasters गेम और EA SPORTS WRC बदले जाने तक 20777 का उपयोग करते हैं, Project CARS 2 और Automobilista 2 हमेशा 5606 का, और ट्रक सिमुलेटर के लिए MrHokss का प्लगइन 49001 का। Assetto Corsa और ACC को पोर्ट नहीं चाहिए।</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>स्वतः पहचान</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport और Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 से F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 और अन्य Codemasters गेम</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive और Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 और Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa और Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 और American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (कस्टम)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP पोर्ट {0} पर गेम की प्रतीक्षा है।</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP पोर्ट {0} पर सुन रहा है। {2} से {1}।</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP पोर्ट {0} किसी दूसरे प्रोग्राम के उपयोग में है।</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>साझा मेमोरी से {0} पढ़ रहा है।</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa या Assetto Corsa Competizione की प्रतीक्षा है।</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>पोर्ट {0} पर अग्रेषित कर रहा है।</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>कस्टम टेलीमेट्री फ़ॉर्मैट</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>गेम जो पैकेट भेजता है उन्हें फ़ील्ड-दर-फ़ील्ड बताएँ, और PadForge उस गेम को भी पढ़ने लगेगा। हर वैरिएबल गेम टेलीमेट्री पंक्ति पर एक अक्ष बनता है और कस्टम एक्सप्रेशन ट्रिगर के लिए एक चैनल। गेम सूची में फ़ॉर्मैट को नाम से चुनें, या उसे लंबाई या कुंजी दें ताकि स्वतः पहचान उसे ढूँढ ले।</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>फ़ॉर्मैट जोड़ें</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>फ़ॉर्मैट {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>नाम</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>पैकेट</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>बाइनरी</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>लंबाई (बाइट)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>इस फ़ॉर्मैट से केवल ठीक इतने बाइट के पैकेट पढ़े जाते हैं। 0 होने पर कोई भी पैकेट पढ़ा जाता है और स्वतः पहचान इस फ़ॉर्मैट को छोड़ देती है, इसलिए इसे नाम से चुनें।</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>आवश्यक कुंजी</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>इस फ़ॉर्मैट से केवल वही JSON पैकेट पढ़े जाते हैं जिनमें यह कुंजी हो। खाली होने पर कोई भी पैकेट पढ़ा जाता है और स्वतः पहचान इस फ़ॉर्मैट को छोड़ देती है, इसलिए इसे नाम से चुनें।</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>बिग-एंडियन</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>पैकेट हर संख्या को सबसे अधिक महत्व वाले बाइट से पहले लिखता है। PC पर गेम लगभग हमेशा सबसे कम महत्व वाला बाइट पहले लिखते हैं।</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>गियर मान</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>गियर फ़ील्ड में रिवर्स और न्यूट्रल के लिए अपनी संख्याएँ हैं, जैसे Forza के 0 और 11। यह बंद होने पर ऋणात्मक गियर रिवर्स है और 0 न्यूट्रल।</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>रिवर्स</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>न्यूट्रल</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>फ़ील्ड</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>हर फ़ील्ड अपने ऑफ़सेट पर, या JSON में अपनी कुंजी के अंतर्गत, एक संख्या पढ़ता है (बिंदु नेस्टेड ऑब्जेक्ट के अंदर पहुँचते हैं) और उसे स्केल से गुणा करता है। स्केल के बाद गति किमी/घंटा में होती है, पेडल 0 से 1 तक चलते हैं, और स्टीयरिंग पूरे बाएँ पर -1 से पूरे दाएँ पर 1 तक। वैरिएबल का अक्ष विश्राम पर उसके Min से पूरे पर उसके Max तक चलता है।</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>इसमें पढ़ता है</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>वैरिएबल का नाम</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>ऑफ़सेट</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>प्रकार</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON कुंजी</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>स्केल</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>फ़ील्ड जोड़ें</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>फ़ील्ड हटाएँ</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>फ़ॉर्मैट {0} को ऐसा नाम चाहिए जिसमें : या | न हो।</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>दो फ़ॉर्मैट का नाम {0} है।</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} के एक वैरिएबल को ऐसा नाम चाहिए जिसमें : या | न हो।</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} का एक फ़ील्ड अपने {1}-बाइट पैकेट के अंत से आगे पढ़ता है।</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} के एक फ़ील्ड को JSON कुंजी चाहिए।</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>वैरिएबल</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>गति (किमी/घंटा)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>अधिकतम RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>गियर</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>थ्रॉटल (0 से 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>ब्रेक (0 से 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>क्लच (0 से 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>हैंडब्रेक (0 से 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>स्टीयरिंग (-1 से 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>ड्राइविंग (0 नहीं)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>गेम टेलीमेट्री</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>गति (मील/घंटा)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (अधिकतम का %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>गियर (-1 रिवर्स, 0 न्यूट्रल)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>थ्रॉटल (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>ब्रेक (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>क्लच (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>हैंडब्रेक (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>स्टीयरिंग (-100 बाएँ से 100 दाएँ)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>ड्राइविंग (1 या 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>एडैप्टिव ट्रिगर इफ़ेक्ट</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>एडैप्टिव ट्रिगर इफ़ेक्ट रोकें</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>इस स्लॉट के ट्रिगर पर DualSense का एडैप्टिव ट्रिगर इफ़ेक्ट चलाता है। ये वही इफ़ेक्ट हैं जो DSX के लिए गेम मॉड भेजते हैं।</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>चुने गए ट्रिगर पर मैक्रो द्वारा थामा गया एडैप्टिव ट्रिगर इफ़ेक्ट समाप्त करता है। इसे ऐसे इफ़ेक्ट के साथ जोड़ें जो रोके जाने तक चलता है।</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ट्रिगर</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>दायाँ (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>बायाँ (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>दोनों (L2 और R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>इफ़ेक्ट</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>बंद</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>धनुष</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>सरपट दौड़</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>मशीन</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>बहुत नरम</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>नरम</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>मध्यम</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>सख़्त</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>बहुत सख़्त</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>सबसे सख़्त</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>कठोर</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>झटकेदार</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>कंपन स्पंद</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>प्रारंभ ज़ोन</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>अंत ज़ोन</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>स्नैप शक्ति</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>पहला कदम</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>दूसरा कदम</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>शक्ति A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>शक्ति B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>अवधि (सेकंड का दसवाँ भाग)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>प्रारंभिक शक्ति</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>अंतिम शक्ति</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>ज़ोन {0} की शक्ति</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>इन मानों से कोई इफ़ेक्ट नहीं बनता, इसलिए यह क्रिया कुछ नहीं चलाती। अंत ज़ोन प्रारंभ ज़ोन से आगे होना चाहिए, और दूसरा कदम पहले से आगे।</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>थामे रखता है</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>जब तक मैक्रो का ट्रिगर दबा रहे</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>तय समय तक</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>रोके जाने तक</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>समय</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>इस स्लॉट के हर DualSense और DualSense Edge पर चलता है। गेम का अपना ट्रिगर इफ़ेक्ट और गेम मॉड का इफ़ेक्ट पहले आता है, और इफ़ेक्ट समाप्त होने पर एडैप्टिव ट्रिगर टैब की सेटिंग लौट आती है। ज़ोन विश्राम पर 0 से पूरे खिंचाव पर 9 तक चलते हैं। धनुष, सरपट दौड़ और मशीन आधिकारिक DualSense इफ़ेक्ट नहीं हैं, और फ़र्मवेयर अपडेट उन्हें हटा सकता है। जिन Xbox कंट्रोलर पर एडैप्टिव ट्रिगर कंपन रूपांतरित करें चालू है, वे कंपन वाले इफ़ेक्ट को ट्रिगर रंबल की तरह महसूस करते हैं।</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1} पर {0}, {2} ms के लिए</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{1} पर {0}, दबे रहने तक</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{1} पर {0}, रोके जाने तक</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>{0} पर ट्रिगर इफ़ेक्ट रोकें</value></data>
 </root>

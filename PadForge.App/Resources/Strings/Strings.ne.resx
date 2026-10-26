@@ -4240,7 +4240,7 @@ PadForge ले तिनलाई अहिले अनइन्स्टल �
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move रिपोर्ट लेआउटहरू, सेन्सर क्यालिब्रेसन, र EXT एक्सेसरी ह्यान्डसेक, Thomas Perl द्वारा, moveonpc विकीसँग जाँचिएको। PadForge को कार्यान्वयन मौलिक C# हो। BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>रेसिङ टेलिमेट्री सन्दर्भहरू</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ह्विलका RPM शिफ्ट LED पछाडिका साझा-मेमोरी र UDP लेआउटहरू, assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) र simapi (LGPL-3.0) बाट पढिएका। कुनै GPL वा LGPL कोड समावेश छैन।</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>गेम टेलिमेट्री र ह्विलका RPM सिफ्ट LED पछाडिका साझा-मेमोरी र UDP लेआउटहरू, assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) र vAzhureRacingHub (GPL-3.0) बाट पढिएका। कुनै GPL वा LGPL कोड समावेश छैन।</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth जोडा बनाउने र रिपोर्टसम्बन्धी कागजात। GPL-2.0 र GPL-3.0, कागजातका रूपमा मात्र पढिएको, कुनै GPL कोड समावेश छैन।</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ PadForge ले तिनलाई अहिले अनइन्स्टल �
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>बल सीमा रिसेट गर्नुहोस्</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>पहुँच क्यालिब्रेट गर्नुहोस्</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ह्यान्डल कति टाढा जान्छ भनेर नाप्छ। मापन चल्ने चार सेकेन्डसम्म यसलाई पहुँचको हरेक किनारासम्म सार्नुहोस्। त्यस बेला बलहरू रोकिन्छन्।</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>गेम टेलिमेट्री</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>गेम टेलिमेट्री</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>ड्राइभिङ गेमहरूले पठाउने टेलिमेट्री र Assetto Corsa को साझा मेमोरीलाई यन्त्रहरू पृष्ठको गेम टेलिमेट्री पङ्क्तिमा राख्छ। यसको गति, पेडल र गियरलाई कुनै पनि इनपुटजस्तै म्याप गर्नुहोस्, तिनबाट म्याक्रोहरू सुरु गर्नुहोस्, वा अनुकूल अभिव्यक्तिमा परीक्षण गर्नुहोस्। यसले सुनिरहँदा ह्विलका RPM सिफ्ट LED ले पनि गेमलाई यहीँबाट पढ्छन्।</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>गेम टेलिमेट्रीका लागि सुन्नुहोस्</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>गेम</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>“स्वतः पत्ता लगाउने” ले गेमलाई त्यसका प्याकेटहरूबाट चिन्छ। Project CARS 2 र Automobilista 2, वा ट्रक सिमुलेटरहरू छान्दा ती गेमहरूले सधैँ पठाउने पोर्ट पनि सेट हुन्छ।</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>गेम टेलिमेट्री पोर्ट</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>पोर्टमा फर्वार्ड गर्नुहोस्</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>हरेक प्याकेट यही PC को यो पोर्टमा प्रतिलिपि गर्छ, ताकि SimHub जस्ता अर्को प्रोग्रामले त्यसलाई प्राप्त गरिरहोस्। 0 ले केही पनि फर्वार्ड गर्दैन।</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>पूर्ण गति (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>गति अक्षलाई पूरै सार्ने गति।</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>अनुकूल ढाँचाहरू…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge ले नचिनेको गेमका प्याकेटहरू फिल्ड-फिल्ड गरी वर्णन गर्छ।</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>प्रत्येक गेममा टेलिमेट्री आउटपुट खोल्नुहोस् र त्यसलाई यो PC र पोर्टतर्फ निर्देशित गर्नुहोस्। F1, Codemasters का गेमहरू र EA SPORTS WRC ले नबदलेसम्म 20777 प्रयोग गर्छन्, Project CARS 2 र Automobilista 2 ले सधैँ 5606 प्रयोग गर्छन्, र ट्रक सिमुलेटरहरूका लागि MrHokss को प्लगइनले 49001 प्रयोग गर्छ। Assetto Corsa र ACC लाई पोर्ट चाहिँदैन।</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>स्वतः पत्ता लगाउने</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport र Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 देखि F1 25 सम्म</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 र अन्य Codemasters गेमहरू</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive र Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 र Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa र Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 र American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (अनुकूल)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP पोर्ट {0} मा गेमको प्रतीक्षा गर्दै।</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP पोर्ट {0} मा सुनिरहेको। {2} बाट {1}।</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP पोर्ट {0} अर्को प्रोग्रामले प्रयोग गरिरहेको छ।</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>साझा मेमोरीबाट {0} पढ्दै।</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa वा Assetto Corsa Competizione को प्रतीक्षा गर्दै।</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>पोर्ट {0} मा फर्वार्ड गर्दै।</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>अनुकूल टेलिमेट्री ढाँचाहरू</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>गेमले पठाउने प्याकेटहरू फिल्ड-फिल्ड गरी वर्णन गर्नुहोस्, र PadForge ले त्यो गेम पनि पढ्छ। प्रत्येक चर गेम टेलिमेट्री पङ्क्तिमा एउटा अक्ष र अनुकूल अभिव्यक्ति ट्रिगरहरूका लागि एउटा च्यानल बन्छ। गेम सूचीमा नामबाट ढाँचा छान्नुहोस्, वा “स्वतः पत्ता लगाउने” ले फेला पारोस् भनेर त्यसलाई लम्बाइ वा कुञ्जी दिनुहोस्।</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>ढाँचा थप्नुहोस्</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>ढाँचा {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>नाम</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>प्याकेटहरू</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>बाइनरी</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>लम्बाइ (बाइट)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>ठ्याक्कै यति बाइटका प्याकेटहरू मात्र यो ढाँचाले पढिन्छन्। 0 भएमा जुनसुकै प्याकेट पढिन्छ, र “स्वतः पत्ता लगाउने” ले यो ढाँचा प्रयोग गर्दैन, त्यसैले यसलाई नामबाट छान्नुहोस्।</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>आवश्यक कुञ्जी</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>यो कुञ्जी भएका JSON प्याकेटहरू मात्र यो ढाँचाले पढिन्छन्। खाली छोडेमा जुनसुकै प्याकेट पढिन्छ, र “स्वतः पत्ता लगाउने” ले यो ढाँचा प्रयोग गर्दैन, त्यसैले यसलाई नामबाट छान्नुहोस्।</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>बिग-एन्डियन</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>प्याकेटले प्रत्येक सङ्ख्या सबैभन्दा महत्त्वपूर्ण बाइट पहिले राखेर लेख्छ। PC का गेमहरूले लगभग सधैँ सबैभन्दा कम महत्त्वपूर्ण बाइट पहिले लेख्छन्।</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>गियर मानहरू</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>गियर फिल्डमा रिभर्स र न्युट्रलका लागि आफ्नै सङ्ख्याहरू हुन्छन्, जस्तै Forza को 0 र 11। यो बन्द हुँदा ऋणात्मक गियर रिभर्स हो र 0 न्युट्रल हो।</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>रिभर्स</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>न्युट्रल</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>फिल्डहरू</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>प्रत्येक फिल्डले आफ्नो अफसेटमा, वा JSON मा आफ्नो कुञ्जीअन्तर्गत (थोप्लाले भित्रका वस्तुहरूसम्म पुर्‍याउँछ) एउटा सङ्ख्या पढ्छ र त्यसलाई स्केलले गुणन गर्छ। स्केलपछि गति km/h मा हुन्छ, पेडलहरू 0 देखि 1 सम्म चल्छन्, र स्टेयरिङ पूरै बायाँमा -1 देखि पूरै दायाँमा 1 सम्म। चरको अक्ष विश्राम अवस्थामा यसको न्यूनतमदेखि पूर्ण अवस्थामा यसको अधिकतमसम्म चल्छ।</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>गन्तव्य</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>चरको नाम</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>अफसेट</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>प्रकार</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON कुञ्जी</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>स्केल</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>न्यूनतम</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>अधिकतम</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>फिल्ड थप्नुहोस्</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>फिल्ड हटाउनुहोस्</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>ढाँचा {0} लाई : वा | बिनाको नाम चाहिन्छ।</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>दुई ढाँचाको नाम {0} छ।</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} मा भएको एउटा चरलाई : वा | बिनाको नाम चाहिन्छ।</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} मा भएको एउटा फिल्डले आफ्नो {1}-बाइटको प्याकेटको अन्त्यभन्दा पर पढ्छ।</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} मा भएको एउटा फिल्डलाई JSON कुञ्जी चाहिन्छ।</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>चर</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>गति (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>अधिकतम RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>गियर</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>थ्रोटल (0 देखि 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>ब्रेक (0 देखि 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>क्लच (0 देखि 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>ह्यान्डब्रेक (0 देखि 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>स्टेयरिङ (-1 देखि 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>ड्राइभ गर्दै (0 होइन)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>गेम टेलिमेट्री</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>गति (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (अधिकतमको %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>गियर (-1 रिभर्स, 0 न्युट्रल)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>थ्रोटल (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>ब्रेक (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>क्लच (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>ह्यान्डब्रेक (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>स्टेयरिङ (-100 बायाँ देखि 100 दायाँ)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>ड्राइभ गर्दै (1 वा 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>एड्याप्टिभ ट्रिगर प्रभाव</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>एड्याप्टिभ ट्रिगर प्रभाव रोक्नुहोस्</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>यो स्लटका ट्रिगरहरूमा DualSense एड्याप्टिभ ट्रिगर प्रभाव बजाउँछ। प्रभावहरू DSX का गेम मोडहरूले पठाउने प्रभावहरू नै हुन्।</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>छानिएको ट्रिगरमा म्याक्रोले राखेको एड्याप्टिभ ट्रिगर प्रभाव अन्त्य गर्छ। यसलाई रोकिएसम्म रहने प्रभावसँग प्रयोग गर्नुहोस्।</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ट्रिगर</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>दायाँ (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>बायाँ (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>दुवै (L2 र R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>प्रभाव</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>बन्द</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>धनु</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>घोडाको दौड</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>मेसिन</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>धेरै नरम</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>नरम</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>मध्यम</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>कडा</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>धेरै कडा</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>सबैभन्दा कडा</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>कठोर</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>खण्डित</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>भाइब्रेसन पल्स</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>सुरु क्षेत्र</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>अन्त्य क्षेत्र</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>स्न्याप बल</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>पहिलो खुट्टा</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>दोस्रो खुट्टा</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>बल A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>बल B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>अवधि (सेकेन्डको दशांश)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>सुरु बल</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>अन्त्य बल</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>क्षेत्र {0} बल</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>यी मानहरूले कुनै प्रभाव बनाउँदैनन्, त्यसैले कार्यले केही बजाउँदैन। अन्त्य क्षेत्र आफ्नो सुरु क्षेत्रभन्दा पर हुनुपर्छ, र दोस्रो खुट्टा पहिलोभन्दा पर।</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>रहने अवधि</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>म्याक्रोको ट्रिगर थिचिराखेसम्म</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>तोकिएको समयसम्म</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>रोकिएसम्म</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>समय</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>यो स्लटका हरेक DualSense र DualSense Edge मा बज्छ। गेमको आफ्नै ट्रिगर प्रभाव र गेम मोडको प्रभावलाई प्राथमिकता दिइन्छ, र प्रभाव सकिएपछि एड्याप्टिभ ट्रिगर ट्याबको सेटिङ फर्किन्छ। क्षेत्रहरू विश्राममा 0 देखि पूरा तान्दा 9 सम्म हुन्छन्। धनु, घोडाको दौड र मेसिन आधिकारिक DualSense प्रभावहरू होइनन्, र फर्मवेयर अपडेटले तिनलाई हटाउन सक्छ। “एड्याप्टिभ ट्रिगर भाइब्रेसनहरू रूपान्तरण गर्नुहोस्” खोलिएका Xbox कन्ट्रोलरहरूले भाइब्रेट हुने प्रभावहरूलाई ट्रिगर कम्पनका रूपमा महसुस गर्छन्।</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} {1} मा {2} ms का लागि</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} {1} मा थिचिराखेसम्म</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} {1} मा रोकिएसम्म</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>{0} मा ट्रिगर प्रभाव रोक्नुहोस्</value></data>
 </root>

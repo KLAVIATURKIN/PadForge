@@ -4240,7 +4240,7 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Tata letak laporan PlayStation Move, kalibrasi sensor, dan handshake aksesori EXT, karya Thomas Perl, diperiksa silang dengan wiki moveonpc. Implementasi PadForge adalah C# orisinal. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Referensi telemetri balap</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Tata letak memori bersama dan UDP di balik LED perpindahan gigi RPM setir, dibaca dari assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), dan simapi (LGPL-3.0). Tidak ada kode GPL atau LGPL yang disertakan.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Tata letak memori bersama dan UDP di balik Telemetri Game dan LED perpindahan gigi RPM setir, dibaca dari assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT), dan vAzhureRacingHub (GPL-3.0). Tidak ada kode GPL atau LGPL yang disertakan.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Dokumentasi penyandingan dan laporan Bluetooth DualShock 3. GPL-2.0 dan GPL-3.0, dibaca hanya sebagai dokumentasi, tidak ada kode GPL yang disertakan.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ Apakah Anda ingin PadForge menghapus instalannya sekarang? Tindakan ini memerluk
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Atur ulang batas gaya</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibrasikan jangkauan</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mengukur sejauh mana gagang bergerak. Gerakkan ke setiap tepi jangkauannya selama empat detik penyapuan berlangsung. Gaya dihentikan selama itu.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetri Game</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetri Game</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Menampilkan telemetri yang dikirim game balap, beserta memori bersama Assetto Corsa, di baris Telemetri Game pada halaman Perangkat. Petakan kecepatan, pedal, dan giginya seperti input apa pun, picu makro dengannya, atau ujilah dalam Ekspresi kustom. Selagi mendengarkan, LED perpindahan gigi RPM setir juga membaca game dari sini.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Dengarkan Telemetri Game</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Game</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Deteksi otomatis mengenali game dari paketnya. Memilih Project CARS 2 dan Automobilista 2, atau simulator truk, juga mengatur port yang selalu dipakai game tersebut untuk mengirim.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port Telemetri Game</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Teruskan ke port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Menyalin setiap paket ke port ini di PC ini, sehingga program lain seperti SimHub tetap menerimanya. 0 berarti tidak meneruskan apa pun.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Kecepatan penuh (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Kecepatan yang menggerakkan sumbu Kecepatan sepenuhnya.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Format kustom…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Menjelaskan paket game yang tidak dikenal PadForge, bidang demi bidang.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Aktifkan keluaran telemetri di setiap game dan arahkan ke PC dan port ini. F1, game Codemasters, dan EA SPORTS WRC memakai 20777 kecuali diubah, Project CARS 2 dan Automobilista 2 selalu memakai 5606, dan plugin MrHokss untuk simulator truk memakai 49001. Assetto Corsa dan ACC tidak memerlukan port.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Deteksi otomatis</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport dan Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 sampai F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 dan game Codemasters lainnya</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive dan Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 dan Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa dan Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 dan American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (kustom)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Menunggu game di port UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Mendengarkan di port UDP {0}. {1} dari {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Port UDP {0} sedang dipakai program lain.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Membaca {0} dari memori bersama.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Menunggu Assetto Corsa atau Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Meneruskan ke port {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Format telemetri kustom</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Jelaskan paket yang dikirim sebuah game, bidang demi bidang, dan PadForge akan membaca game itu juga. Setiap variabel menjadi sumbu pada baris Telemetri Game dan saluran untuk pemicu Ekspresi kustom. Pilih format berdasarkan nama di daftar Game, atau beri panjang atau kunci agar Deteksi otomatis menemukannya.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Tambah format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nama</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paket</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Biner</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Panjang (byte)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Hanya paket dengan tepat sebanyak byte ini yang dibaca dengan format ini. Dengan 0, setiap paket dibaca, dan Deteksi otomatis tidak menyentuh format ini, jadi pilih berdasarkan nama.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Kunci wajib</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Hanya paket JSON yang memuat kunci ini yang dibaca dengan format ini. Jika dikosongkan, setiap paket dibaca, dan Deteksi otomatis tidak menyentuh format ini, jadi pilih berdasarkan nama.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Paket menulis setiap angka dengan byte paling signifikan lebih dulu. Game di PC hampir selalu menulis byte paling tidak signifikan lebih dulu.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Nilai gigi</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Bidang gigi punya angka sendiri untuk mundur dan netral, seperti 0 dan 11 pada Forza. Jika ini nonaktif, gigi negatif berarti mundur dan 0 berarti netral.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Mundur</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Netral</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Bidang</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Setiap bidang membaca angka pada offset-nya, atau pada kuncinya di JSON (titik masuk ke objek bersarang), lalu mengalikannya dengan skala. Setelah skala, kecepatan dalam km/h, pedal berkisar dari 0 sampai 1, dan kemudi dari -1 saat penuh ke kiri sampai 1 saat penuh ke kanan. Sumbu sebuah variabel berkisar dari Min saat diam sampai Maks saat penuh.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Dibaca ke</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Nama variabel</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Offset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tipe</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Kunci JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Skala</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Maks</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Tambah bidang</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Hapus bidang</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Format {0} memerlukan nama tanpa : atau |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Dua format bernama {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Variabel di {0} memerlukan nama tanpa : atau |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Sebuah bidang di {0} membaca melewati ujung paketnya yang sepanjang {1} byte.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Sebuah bidang di {0} memerlukan kunci JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variabel</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Kecepatan (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM maks</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Gigi</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Gas (0 sampai 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Rem (0 sampai 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Kopling (0 sampai 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Rem tangan (0 sampai 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Kemudi (-1 sampai 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Berkendara (bukan 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetri Game</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Kecepatan (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% dari maks)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Gigi (-1 mundur, 0 netral)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Gas (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Rem (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Kopling (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Rem tangan (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Kemudi (-100 kiri sampai 100 kanan)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Berkendara (1 atau 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Efek pelatuk adaptif</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Hentikan efek pelatuk adaptif</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Memutar efek pelatuk adaptif DualSense pada pelatuk slot ini. Efeknya sama dengan yang dikirim mod game untuk DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Mengakhiri efek pelatuk adaptif yang ditahan makro pada pelatuk yang dipilih. Pasangkan dengan efek yang bertahan sampai dihentikan.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Pelatuk</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Kanan (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Kiri (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Keduanya (L2 dan R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efek</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Nonaktif</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Busur</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Berlari kencang</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Mesin</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Sangat lembut</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Lembut</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Sedang</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Keras</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Sangat keras</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Paling keras</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Kaku</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Terputus-putus</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Denyut getar</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Zona awal</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Zona akhir</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Kekuatan sentakan</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Pijakan pertama</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Pijakan kedua</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Kekuatan A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Kekuatan B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Periode (persepuluh detik)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Kekuatan awal</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Kekuatan akhir</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Kekuatan zona {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Nilai ini tidak menghasilkan efek, jadi aksi tidak memutar apa pun. Zona akhir harus melewati zona awal, dan pijakan kedua melewati yang pertama.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Bertahan</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Selama pemicu makro ditahan</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Selama waktu tertentu</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Sampai dihentikan</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Waktu</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Diputar pada setiap DualSense dan DualSense Edge di slot ini. Efek pelatuk dari game itu sendiri dan dari mod game didahulukan, dan pengaturan tab Pelatuk adaptif kembali saat efek berakhir. Zona berkisar dari 0 saat diam sampai 9 saat ditarik penuh. Busur, Berlari kencang, dan Mesin bukan efek resmi DualSense, dan pembaruan firmware bisa menghapusnya. Kontroler Xbox dengan Terjemahkan getaran pelatuk adaptif aktif merasakan efek getar sebagai getaran pelatuk.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} pada {1} selama {2} md</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} pada {1} selama ditahan</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} pada {1} sampai dihentikan</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Hentikan efek pelatuk pada {0}</value></data>
 </root>

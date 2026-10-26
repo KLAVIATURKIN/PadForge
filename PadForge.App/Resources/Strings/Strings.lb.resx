@@ -4196,7 +4196,7 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Report-Layouten, Sensorkalibréierung an EXT-Zubehéier-Handshake vum PlayStation Move, vum Thomas Perl, mam moveonpc-Wiki iwwerpréift. D'Implementatioun vu PadForge ass originale C#-Code. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Referenze fir Renntelemetrie</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Shared-Memory- an UDP-Layouten hannert den RPM-Schalt-LEDe vum Steierrad, gelies aus assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) a simapi (LGPL-3.0). Et gëtt kee GPL- oder LGPL-Code matgeliwwert.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Shared-Memory- an UDP-Layouten hannert der Spill-Telemetrie an den RPM-Schalt-LEDe vum Steierrad, gelies aus assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) a vAzhureRacingHub (GPL-3.0). Et gëtt kee GPL- oder LGPL-Code matgeliwwert.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Dokumentatioun zum Bluetooth-Koppelen an zu de Reporte vum DualShock 3. GPL-2.0 a GPL-3.0, nëmmen als Dokumentatioun gelies, et gëtt kee GPL-Code matgeliwwert.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4435,4 +4435,133 @@ Soll PadForge se elo desinstalléieren? Dat brauch Administratorrechter a ka e M
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Kraaftlimit zrécksetzen</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Reechwäit kalibréieren</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Moosst, wéi wäit de Grëff sech beweegt. Beweegt en während de véier Sekonnen, déi d'Messung dauert, bis un all Rand vu senger Reechwäit. D'Kräfte sinn an där Zäit aus.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Spill-Telemetrie</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Spill-Telemetrie</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Bréngt d'Telemetrie, déi Rennspiller schécken, an de Shared Memory vun Assetto Corsa op d'Rei „Spill-Telemetrie“ vun der Apparater-Säit. Ordnet hir Vitess, Pedalen a Gäng wéi all aneren Input zou, start Makroen domat oder test se an engem „Benotzerdefinéierten Ausdrock“. Soulaang se lauschtert, kréien d'RPM-Schalt-LEDe vun engem Steierrad d'Spilldaten och vun hei.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Op Spill-Telemetrie lauschteren</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Spill</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>„Automatesch Erkennung“ erkennt d'Spill un senge Paketen. Wann Dir Project CARS 2 an Automobilista 2 oder d'Camionssimulatoren auswielt, gëtt och de Port gesat, op deen dës Spiller ëmmer schécken.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Spill-Telemetrie-Port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Op Port weiderleeden</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Kopéiert all Paket op dëse Port op dësem PC, sou datt en anere Programm wéi SimHub se weider kritt. 0 leet näischt weider.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Maximal Vitess (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>D'Vitess, bei där d'Achs „Vitess“ voll ausschléit.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Benotzerdefinéiert Formater…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Beschreift d'Pakete vun engem Spill, dat PadForge net kennt, Feld fir Feld.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Schalt den Telemetrie-Output an all Spill un a riicht en op dëse PC an dëse Port. F1, d'Codemasters-Spiller an EA SPORTS WRC benotzen 20777, wann et net geännert gëtt, Project CARS 2 an Automobilista 2 benotzen ëmmer 5606, an de Plugin vu MrHokss fir d'Camionssimulatoren benotzt 49001. Assetto Corsa an ACC brauche kee Port.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Automatesch Erkennung</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport a Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 bis F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 an aner Codemasters-Spiller</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive a Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 an Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa an Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 an American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (Benotzerdefinéiert)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Waart op e Spill um UDP-Port {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Lauschtert um UDP-Port {0}. {1} vun {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Den UDP-Port {0} gëtt vun engem anere Programm benotzt.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>{0} gëtt aus dem Shared Memory gelies.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Waart op Assetto Corsa oder Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Leet op de Port {0} weider.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Benotzerdefinéiert Telemetrie-Formater</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Beschreift d'Paketen, déi e Spill schéckt, Feld fir Feld, da liest PadForge och dat Spill. All Variabel gëtt eng Achs op der Rei „Spill-Telemetrie“ an e Kanal fir Ausléiser vum „Benotzerdefinéierten Ausdrock“. Wielt e Format no sengem Numm an der Lëscht „Spill“, oder gitt him eng Längt oder e Schlëssel, sou datt „Automatesch Erkennung“ et fënnt.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Format derbäisetzen</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Numm</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paketen</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binär</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Längt (Bytes)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Nëmme Paketen mat genee esou vill Bytes ginn mat dësem Format gelies. Mat 0 gëtt all Paket gelies, an „Automatesch Erkennung“ léisst d'Format a Rou, also wielt et no sengem Numm.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Erfuerderleche Schlëssel</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Nëmme JSON-Paketen, déi dëse Schlëssel hunn, ginn mat dësem Format gelies. Wann en eidel bleift, gëtt all Paket gelies, an „Automatesch Erkennung“ léisst d'Format a Rou, also wielt et no sengem Numm.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>De Paket schreift all Zuel mam héchstwäertege Byte fir d'éischt. Spiller um PC schreiwen bal ëmmer de nidderegstwäertege Byte fir d'éischt.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Gangwäerter</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>D'Gangfeld huet seng eegen Zuele fir de Réckwärtsgang an de Leerlaf, sou wéi d'0 an d'11 bei Forza. Wann dat aus ass, ass en negativen Gang de Réckwärtsgang an 0 ass de Leerlaf.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Réckwärtsgang</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Leerlaf</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Felder</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>All Feld liest eng Zuel bei sengem Offset oder ënner sengem Schlëssel am JSON (Punkten féieren an verschachtelt Objeten) a multiplizéiert se mam Faktor. Nom Faktor ass d'Vitess a km/h, d'Pedale ginn vun 0 bis 1, an d'Steierung vu -1 ganz lénks bis 1 ganz riets. D'Achs vun enger Variabel geet vun hirem Min a Rou bis hirem Max bei vollem Ausschlag.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Zil</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Variabelnumm</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Offset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Typ</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON-Schlëssel</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Faktor</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Feld derbäisetzen</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Feld ewechhuelen</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Format {0} brauch en Numm ouni : oder |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Zwee Formater heeschen {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Eng Variabel an {0} brauch en Numm ouni : oder |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>E Feld an {0} liest iwwer d'Enn vu sengem {1}-Byte-Paket eraus.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>E Feld an {0} brauch e JSON-Schlëssel.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variabel</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Vitess (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Max. RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Gang</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Gas (0 bis 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Brems (0 bis 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Kupplung (0 bis 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Handbrems (0 bis 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Steierung (-1 bis 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Fueren (net 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Spill-Telemetrie</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Vitess (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% vum Max)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Gang (-1 Réckwärtsgang, 0 Leerlaf)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Gas (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Brems (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Kupplung (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Handbrems (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Steierung (-100 lénks bis 100 riets)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Fueren (1 oder 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Effekt fir adaptiv Trigger</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Effekt fir adaptiv Trigger stoppen</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Spillt en DualSense-Effekt fir adaptiv Trigger op den Trigger vun dësem Slot. D'Effekter sinn déi, déi Spill-Mods fir DSX schécken.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Beendegt den Effekt fir adaptiv Trigger, deen e Makro um gewielten Trigger hält. Kombinéiert en mat engem Effekt, deen hält, bis e gestoppt gëtt.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Riets (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Lénks (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Béid (L2 an R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Effekt</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Aus</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Bou</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galopp</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Maschinn</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Ganz mëll</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Mëll</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Mëttel</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Haart</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Ganz haart</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Am häertsten</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Steif</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Vibréierende Puls</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Startzon</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Ennzon</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Stäerkt vum Schnappen</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Éischte Fouss</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Zweete Fouss</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Stäerkt A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Stäerkt B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Period (Zéngtel vun enger Sekonn)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Startstäerkt</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Ennstäerkt</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Stäerkt Zon {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Mat dëse Wäerter entsteet keen Effekt, dofir spillt d'Aktioun näischt. Eng Ennzon muss hannert hirer Startzon leien, an den zweete Fouss hannert dem éischten.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Hält</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Soulaang den Ausléiser vum Makro gehale gëtt</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Fir eng festgeluecht Zäit</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Bis e gestoppt gëtt</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Zäit</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Spillt op all DualSense an DualSense Edge op dësem Slot. Den eegenen Trigger-Effekt vun engem Spill an deen vun engem Spill-Mod hu Virrang, an d'Astellung vum Tab „Adaptiv Trigger“ kënnt zréck, wann den Effekt ophält. Zonen ginn vun 0 a Rou bis 9 bei vollem Zéien. Bou, Galopp a Maschinn sinn keng offiziell DualSense-Effekter, an e Firmware-Update kéint se ewechhuelen. Xbox-Controller mat „Vibratioune vun adaptiven Trigger iwwersetzen“ aktivéiert spieren déi vibréierend Effekter als Trigger-Vibratioun.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} op {1} fir {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} op {1}, soulaang gehale gëtt</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} op {1}, bis e gestoppt gëtt</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Trigger-Effekt op {0} stoppen</value></data>
 </root>

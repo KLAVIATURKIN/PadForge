@@ -4240,7 +4240,7 @@ Vil du have, at PadForge afinstallerer dem nu? Det kræver administratorrettighe
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Report-layouts for PlayStation Move, sensorkalibrering og håndtrykket med EXT-tilbehør, af Thomas Perl, krydstjekket mod moveonpc-wikien. Implementeringen i PadForge er original C#. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Referencer til racertelemetri</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Layouts for delt hukommelse og UDP bag rattets gearskiftlys (RPM), læst fra assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) og simapi (LGPL-3.0). Ingen GPL- eller LGPL-kode følger med.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Layouts for delt hukommelse og UDP bag spiltelemetri og rattets gearskiftlys (RPM), læst fra assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) og vAzhureRacingHub (GPL-3.0). Ingen GPL- eller LGPL-kode følger med.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Dokumentation af Bluetooth-parring og reports for DualShock 3. GPL-2.0 og GPL-3.0, kun læst som dokumentation, ingen GPL-kode følger med.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ Vil du have, at PadForge afinstallerer dem nu? Det kræver administratorrettighe
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Nulstil kraftgrænse</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibrer rækkevidde</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Måler, hvor langt håndtaget bevæger sig. Flyt det til alle kanter af dets rækkevidde i de fire sekunder, målingen kører. Kræfterne hviler imens.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Spiltelemetri</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Spiltelemetri</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Viser den telemetri, som racerspil sender, og delt hukommelse fra Assetto Corsa på rækken Spiltelemetri på siden Enheder. Tildel dens hastighed, pedaler og gear som et hvilket som helst input, udløs makroer med dem, eller test dem i et brugerdefineret udtryk. Mens den lytter, læser et rats gearskiftlys (RPM) også spillet herfra.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Lyt efter spiltelemetri</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Spil</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Registrer automatisk genkender spillet på dets pakker. Vælger du Project CARS 2 og Automobilista 2 eller lastbilsimulatorerne, indstilles også den port, som disse spil altid sender til.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port for spiltelemetri</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Videresend til port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Kopierer hver pakke til denne port på denne pc, så et andet program som SimHub bliver ved med at modtage den. 0 videresender intet.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Fuld hastighed (km/t)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Den hastighed, der flytter hastighedsaksen helt.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Brugerdefinerede formater…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Beskriver pakkerne fra et spil, som PadForge ikke kender, felt for felt.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Slå telemetriudgang til i hvert spil, og peg den mod denne pc og port. F1, Codemasters-spillene og EA SPORTS WRC bruger 20777, medmindre det ændres, Project CARS 2 og Automobilista 2 bruger altid 5606, og MrHokss' plugin til lastbilsimulatorerne bruger 49001. Assetto Corsa og ACC behøver ingen port.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Registrer automatisk</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport og Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 til F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 og andre Codemasters-spil</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive og Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 og Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa og Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 og American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (brugerdefineret)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Venter på et spil på UDP-port {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Lytter på UDP-port {0}. {1} fra {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP-port {0} er i brug af et andet program.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Læser {0} fra delt hukommelse.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Venter på Assetto Corsa eller Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Videresender til port {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Brugerdefinerede telemetriformater</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Beskriv de pakker, et spil sender, felt for felt, så læser PadForge også det spil. Hver variabel bliver en akse på rækken Spiltelemetri og en kanal til udløsere af brugerdefinerede udtryk. Vælg et format ved navn på listen Spil, eller giv det en længde eller en nøgle, så Registrer automatisk kan finde det.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Tilføj format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Navn</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Pakker</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binær</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Længde (byte)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Kun pakker på præcis så mange byte læses med dette format. Ved 0 læses enhver pakke, og Registrer automatisk lader formatet være, så vælg det ved navn.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Påkrævet nøgle</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Kun JSON-pakker med denne nøgle læses med dette format. Hvis feltet er tomt, læses enhver pakke, og Registrer automatisk lader formatet være, så vælg det ved navn.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Pakken skriver hvert tal med den mest signifikante byte først. Spil på en pc skriver næsten altid den mindst signifikante byte først.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Gearværdier</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Gearfeltet har egne tal for bakgear og frigear, som 0 og 11 i Forza. Når dette er slået fra, er et negativt gear bakgear, og 0 er frigear.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Bakgear</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Frigear</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Felter</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Hvert felt læser et tal ved sin offset eller under sin nøgle i JSON (punktummer går ind i indlejrede objekter) og ganger det med skalaen. Efter skalaen er hastighed i km/t, pedalerne går fra 0 til 1, og styring fra -1 helt til venstre til 1 helt til højre. En variabels akse går fra dens Min i hvile til dens Maks ved fuldt udslag.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Læses ind i</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Variabelnavn</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Offset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Type</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON-nøgle</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Skala</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Maks</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Tilføj felt</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Fjern felt</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Format {0} skal have et navn uden : eller |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>To formater hedder {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>En variabel i {0} skal have et navn uden : eller |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Et felt i {0} læser forbi enden af sin pakke på {1} byte.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Et felt i {0} skal have en JSON-nøgle.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variabel</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Hastighed (km/t)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Maks. RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Gear</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Speeder (0 til 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Bremse (0 til 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Kobling (0 til 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Håndbremse (0 til 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Styring (-1 til 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Kører (ikke 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Spiltelemetri</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Hastighed (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% af maks.)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Gear (-1 bakgear, 0 frigear)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Speeder (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Bremse (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Kobling (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Håndbremse (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Styring (-100 venstre til 100 højre)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Kører (1 eller 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Adaptiv triggereffekt</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Stop adaptiv triggereffekt</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Afspiller en adaptiv triggereffekt fra DualSense på denne plads' triggere. Effekterne er dem, spilmods til DSX sender.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Afslutter den adaptive triggereffekt, som en makro holder på den valgte trigger. Brug den sammen med en effekt, der holder, til den stoppes.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Højre (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Venstre (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Begge (L2 og R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Effekt</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Fra</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Bue</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galop</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Maskine</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Meget blød</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Blød</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Middel</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Hård</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Meget hård</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Hårdest</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Stiv</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Hakkende</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Vibrerende puls</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Startzone</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Slutzone</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Snap-styrke</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Første fod</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Anden fod</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Styrke A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Styrke B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Periode (tiendedele sekunder)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Startstyrke</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Slutstyrke</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Styrke i zone {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Disse værdier giver ingen effekt, så handlingen afspiller intet. En slutzone skal ligge efter sin startzone, og anden fod efter første.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Holder</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Mens makroens trigger holdes nede</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>I et bestemt tidsrum</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Indtil den stoppes</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Tid</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Afspilles på alle DualSense og DualSense Edge på denne plads. Et spils egen triggereffekt og et spilmods effekt har forrang, og indstillingen på fanen Adaptive triggere vender tilbage, når effekten slutter. Zoner går fra 0 i hvile til 9 ved fuldt træk. Bue, Galop og Maskine er ikke officielle DualSense-effekter, og en firmwareopdatering kan fjerne dem. Xbox-controllere med Omsæt vibrationer fra adaptive triggere slået til mærker de vibrerende effekter som triggervibration.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} på {1} i {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} på {1}, mens den holdes nede</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} på {1}, indtil den stoppes</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Stop triggereffekt på {0}</value></data>
 </root>

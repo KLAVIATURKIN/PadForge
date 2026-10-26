@@ -4200,7 +4200,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>ໂຄງສ້າງລາຍງານ PlayStation Move, ການປັບທຽບເຊັນເຊີ ແລະ ການຈັບມືຂອງອຸປະກອນເສີມ EXT ໂດຍ Thomas Perl ກວດທຽບກັບວິກິ moveonpc ການຈັດຕັ້ງປະຕິບັດຂອງ PadForge ເປັນ C# ທີ່ຂຽນຂຶ້ນເອງ BSD 2-Clause</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>ແຫຼ່ງອ້າງອີງ telemetry ຂອງເກມແຂ່ງລົດ</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ໂຄງສ້າງໜ່ວຍຄວາມຈຳຮ່ວມ ແລະ UDP ທີ່ຢູ່ເບື້ອງຫຼັງໄຟ LED ບອກການປ່ຽນເກຍຕາມ RPM ຂອງພວງມາໄລ ອ້າງອີງຈາກ assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) ແລະ simapi (LGPL-3.0) ບໍ່ມີໂຄດ GPL ຫຼື LGPL ຖືກລວມມາ</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ໂຄງສ້າງໜ່ວຍຄວາມຈຳຮ່ວມ ແລະ UDP ທີ່ຢູ່ເບື້ອງຫຼັງ ເທເລເມທຣີເກມ ແລະ ໄຟ LED ບອກການປ່ຽນເກຍຕາມ RPM ຂອງພວງມາໄລ ອ້າງອີງຈາກ assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) ແລະ vAzhureRacingHub (GPL-3.0) ບໍ່ມີໂຄດ GPL ຫຼື LGPL ຖືກລວມມາ</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>ເອກະສານການຈັບຄູ່ Bluetooth ແລະ ລາຍງານຂອງ DualShock 3 GPL-2.0 ແລະ GPL-3.0, ອ່ານເປັນເອກະສານເທົ່ານັ້ນ, ບໍ່ມີໂຄດ GPL ຖືກລວມມາ</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4441,4 +4441,134 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>ຄືນຄ່າຂີດຈຳກັດແຮງ</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>ປັບທຽບໄລຍະເຄື່ອນທີ່</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ວັດແທກວ່າດ້າມຈັບເຄື່ອນທີ່ໄດ້ໄກເທົ່າໃດ. ເລື່ອນມັນໄປທຸກຂອບຂອງໄລຍະເຄື່ອນທີ່ຕະຫຼອດສີ່ວິນາທີທີ່ການກວາດເຮັດວຽກ. ແຮງຕ່າງໆຈະຢຸດພັກໃນລະຫວ່າງນັ້ນ.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>ເທເລເມທຣີເກມ</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>ເທເລເມທຣີເກມ</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>ນຳເທເລເມທຣີທີ່ເກມຂັບລົດສົ່ງອອກມາ ແລະ ໜ່ວຍຄວາມຈຳຮ່ວມຂອງ Assetto Corsa ໄປໃສ່ແຖວ ເທເລເມທຣີເກມ ໃນໜ້າ ອຸປະກອນ. ແມັບຄວາມໄວ, ແປ້ນຢຽບ ແລະ ເກຍຂອງມັນຄືກັບອິນພຸດອື່ນໆ, ໃຊ້ພວກມັນເປີດໃຊ້ມາໂຄຣ ຫຼື ທົດສອບພວກມັນໃນ ສູດກຳນົດເອງ. ໃນຂະນະທີ່ກຳລັງຟັງຢູ່, LED ບອກປ່ຽນເກຍ RPM ຂອງພວງມາໄລກໍອ່ານຂໍ້ມູນເກມຈາກບ່ອນນີ້ເຊັ່ນກັນ.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>ຟັງເທເລເມທຣີເກມ</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>ເກມ</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>ກວດຫາອັດຕະໂນມັດ ຈະລະບຸເກມຈາກແພັກເກັດຂອງມັນ. ການເລືອກ Project CARS 2 ແລະ Automobilista 2 ຫຼື ເກມຈຳລອງລົດບັນທຸກ ຈະຕັ້ງພອດທີ່ເກມເຫຼົ່ານັ້ນສົ່ງຫາສະເໝີໃຫ້ນຳ.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>ພອດເທເລເມທຣີເກມ</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>ສົ່ງຕໍ່ໄປຍັງພອດ</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>ສຳເນົາທຸກແພັກເກັດໄປຍັງພອດນີ້ໃນ PC ເຄື່ອງນີ້ ເພື່ອໃຫ້ໂປຣແກຣມອື່ນ ເຊັ່ນ SimHub ຍັງຮັບຂໍ້ມູນໄດ້ຕໍ່ໄປ. 0 ບໍ່ສົ່ງຕໍ່ຫຍັງເລີຍ.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>ຄວາມໄວເຕັມ (ກມ/ຊມ)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>ຄວາມໄວທີ່ເຮັດໃຫ້ແກນ ຄວາມໄວ ເຄື່ອນໄປຈົນສຸດ.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>ຮູບແບບກຳນົດເອງ…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>ອະທິບາຍແພັກເກັດຂອງເກມທີ່ PadForge ບໍ່ຮູ້ຈັກ ເທື່ອລະຟີລດ໌.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>ເປີດການສົ່ງອອກເທເລເມທຣີໃນແຕ່ລະເກມ ແລະ ຕັ້ງໃຫ້ສົ່ງມາຫາ PC ເຄື່ອງນີ້ ແລະ ພອດນີ້. F1, ເກມຂອງ Codemasters ແລະ EA SPORTS WRC ໃຊ້ 20777 ເວັ້ນເສຍແຕ່ຖືກປ່ຽນ, Project CARS 2 ແລະ Automobilista 2 ໃຊ້ 5606 ສະເໝີ, ແລະ ປລັກອິນຂອງ MrHokss ສຳລັບເກມຈຳລອງລົດບັນທຸກໃຊ້ 49001. Assetto Corsa ແລະ ACC ບໍ່ຕ້ອງໃຊ້ພອດ.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>ກວດຫາອັດຕະໂນມັດ</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ແລະ Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ຫາ F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 ແລະ ເກມອື່ນໆຂອງ Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ແລະ Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ແລະ Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ແລະ Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ແລະ American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (ກຳນົດເອງ)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>ກຳລັງລໍຖ້າເກມຢູ່ພອດ UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>ກຳລັງຟັງຢູ່ພອດ UDP {0}. {1} ຈາກ {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>ພອດ UDP {0} ຖືກໃຊ້ຢູ່ໂດຍໂປຣແກຣມອື່ນ.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>ກຳລັງອ່ານ {0} ຈາກໜ່ວຍຄວາມຈຳຮ່ວມ.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>ກຳລັງລໍຖ້າ Assetto Corsa ຫຼື Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>ກຳລັງສົ່ງຕໍ່ໄປຍັງພອດ {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>ຮູບແບບເທເລເມທຣີກຳນົດເອງ</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>ອະທິບາຍແພັກເກັດທີ່ເກມສົ່ງມາ ເທື່ອລະຟີລດ໌ ແລ້ວ PadForge ຈະອ່ານເກມນັ້ນໄດ້ນຳ. ແຕ່ລະຕົວແປຈະກາຍເປັນແກນໜຶ່ງໃນແຖວ ເທເລເມທຣີເກມ ແລະ ເປັນຊ່ອງສັນຍານສຳລັບການເປີດໃຊ້ດ້ວຍ ສູດກຳນົດເອງ. ເລືອກຮູບແບບຕາມຊື່ໃນລາຍການ ເກມ ຫຼື ກຳນົດຄວາມຍາວ ຫຼື ຄີໃຫ້ມັນ ເພື່ອໃຫ້ ກວດຫາອັດຕະໂນມັດ ຊອກພົບມັນ.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>ເພີ່ມຮູບແບບ</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>ຮູບແບບ {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>ຊື່</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>ແພັກເກັດ</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>ໄບນາຣີ</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>ຄວາມຍາວ (ໄບຕ໌)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>ຮູບແບບນີ້ອ່ານສະເພາະແພັກເກັດທີ່ມີຂະໜາດເທົ່ານີ້ໄບຕ໌ພໍດີ. ຖ້າເປັນ 0, ຈະອ່ານທຸກແພັກເກັດ ແລະ ກວດຫາອັດຕະໂນມັດ ຈະບໍ່ເລືອກຮູບແບບນີ້ ສະນັ້ນໃຫ້ເລືອກມັນຕາມຊື່.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>ຄີທີ່ຕ້ອງມີ</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>ຮູບແບບນີ້ອ່ານສະເພາະແພັກເກັດ JSON ທີ່ມີຄີນີ້. ຖ້າປະວ່າງໄວ້, ຈະອ່ານທຸກແພັກເກັດ ແລະ ກວດຫາອັດຕະໂນມັດ ຈະບໍ່ເລືອກຮູບແບບນີ້ ສະນັ້ນໃຫ້ເລືອກມັນຕາມຊື່.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>ບິກເອັນດຽນ</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>ແພັກເກັດຂຽນແຕ່ລະຕົວເລກໂດຍເອົາໄບຕ໌ທີ່ມີຄ່າສູງສຸດໄວ້ກ່ອນ. ເກມໃນ PC ເກືອບທັງໝົດຂຽນໄບຕ໌ທີ່ມີຄ່າຕ່ຳສຸດໄວ້ກ່ອນ.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>ຄ່າເກຍ</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>ຟີລດ໌ເກຍມີຕົວເລກຂອງຕົນເອງສຳລັບເກຍຖອຍຫຼັງ ແລະ ເກຍວ່າງ ເຊັ່ນ 0 ແລະ 11 ຂອງ Forza. ເມື່ອປິດໄວ້, ເກຍທີ່ເປັນຄ່າລົບແມ່ນເກຍຖອຍຫຼັງ ແລະ 0 ແມ່ນເກຍວ່າງ.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>ເກຍຖອຍຫຼັງ</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>ເກຍວ່າງ</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>ຟີລດ໌</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>ແຕ່ລະຟີລດ໌ອ່ານຕົວເລກທີ່ອອບເຊັດຂອງມັນ ຫຼື ພາຍໃຕ້ຄີຂອງມັນໃນ JSON (ຈຸດໃຊ້ເພື່ອເຂົ້າໄປໃນອອບເຈັກທີ່ຊ້ອນກັນ) ແລ້ວຄູນດ້ວຍມາດຕາສ່ວນ. ຫຼັງຈາກໃຊ້ມາດຕາສ່ວນແລ້ວ, ຄວາມໄວເປັນ ກມ/ຊມ, ແປ້ນຢຽບມີຄ່າຈາກ 0 ຫາ 1, ແລະ ການລ້ຽວຈາກ -1 ເມື່ອລ້ຽວຊ້າຍສຸດ ຫາ 1 ເມື່ອລ້ຽວຂວາສຸດ. ແກນຂອງຕົວແປມີຄ່າຈາກ ຕ່ຳສຸດ ເມື່ອຢູ່ນິ່ງ ຫາ ສູງສຸດ ເມື່ອເຕັມ.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>ອ່ານເຂົ້າ</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>ຊື່ຕົວແປ</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>ອອບເຊັດ</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>ປະເພດ</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>ຄີ JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>ມາດຕາສ່ວນ</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>ຕ່ຳສຸດ</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>ສູງສຸດ</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>ເພີ່ມຟີລດ໌</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>ລຶບຟີລດ໌</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>ຮູບແບບ {0} ຕ້ອງມີຊື່ທີ່ບໍ່ມີ : ຫຼື |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>ມີສອງຮູບແບບທີ່ມີຊື່ {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>ຕົວແປໜຶ່ງໃນ {0} ຕ້ອງມີຊື່ທີ່ບໍ່ມີ : ຫຼື |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>ຟີລດ໌ໜຶ່ງໃນ {0} ອ່ານເກີນທ້າຍແພັກເກັດ {1} ໄບຕ໌ຂອງມັນ.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>ຟີລດ໌ໜຶ່ງໃນ {0} ຕ້ອງມີຄີ JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>ຕົວແປ</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>ຄວາມໄວ (ກມ/ຊມ)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM ສູງສຸດ</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>ເກຍ</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>ຄັນເລັ່ງ (0 ຫາ 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>ເບຣກ (0 ຫາ 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>ຄລັດ (0 ຫາ 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>ເບຣກມື (0 ຫາ 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>ການລ້ຽວ (-1 ຫາ 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>ກຳລັງຂັບ (ບໍ່ແມ່ນ 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>ເທເລເມທຣີເກມ</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>ຄວາມໄວ (ໄມລ໌/ຊມ)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% ຂອງສູງສຸດ)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>ເກຍ (-1 ຖອຍຫຼັງ, 0 ວ່າງ)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>ຄັນເລັ່ງ (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>ເບຣກ (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>ຄລັດ (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>ເບຣກມື (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>ການລ້ຽວ (-100 ຊ້າຍ ຫາ 100 ຂວາ)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>ກຳລັງຂັບ (1 ຫຼື 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>ເອັບເຟັກທຣິກເກີປັບຕົວ</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>ຢຸດເອັບເຟັກທຣິກເກີປັບຕົວ</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>ຫຼິ້ນເອັບເຟັກທຣິກເກີປັບຕົວຂອງ DualSense ທີ່ທຣິກເກີຂອງຊ່ອງນີ້. ເອັບເຟັກເຫຼົ່ານີ້ແມ່ນອັນດຽວກັບທີ່ມອດເກມສຳລັບ DSX ສົ່ງມາ.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>ສິ້ນສຸດເອັບເຟັກທຣິກເກີປັບຕົວທີ່ມາໂຄຣຄ້າງໄວ້ທີ່ທຣິກເກີທີ່ເລືອກ. ໃຊ້ຄູ່ກັບເອັບເຟັກທີ່ຄ້າງໄວ້ຈົນກວ່າຈະຖືກຢຸດ.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ທຣິກເກີ</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>ຂວາ (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>ຊ້າຍ (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>ທັງສອງ (L2 ແລະ R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>ເອັບເຟັກ</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>ປິດ</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>ຄັນທະນູ</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>ມ້າຄວບ</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>ເຄື່ອງຈັກ</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>ອ່ອນຫຼາຍ</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>ອ່ອນ</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>ປານກາງ</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>ແຂງ</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>ແຂງຫຼາຍ</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>ແຂງທີ່ສຸດ</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>ແຂງຕັນ</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>ກະຕຸກ</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>ຈັງຫວະສັ່ນ</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>ໂຊນເລີ່ມຕົ້ນ</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>ໂຊນສິ້ນສຸດ</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>ຄວາມແຮງການດີດ</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>ຕີນທີໜຶ່ງ</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>ຕີນທີສອງ</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>ຄວາມແຮງ A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>ຄວາມແຮງ B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>ຄາບ (ສ່ວນສິບວິນາທີ)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>ຄວາມແຮງເລີ່ມຕົ້ນ</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>ຄວາມແຮງສິ້ນສຸດ</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>ຄວາມແຮງໂຊນ {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>ຄ່າເຫຼົ່ານີ້ບໍ່ເກີດເອັບເຟັກໃດໆ ສະນັ້ນການກະທຳນີ້ຈຶ່ງບໍ່ຫຼິ້ນຫຍັງ. ໂຊນສິ້ນສຸດຕ້ອງຢູ່ຫຼັງໂຊນເລີ່ມຕົ້ນ ແລະ ຕີນທີສອງຕ້ອງຢູ່ຫຼັງຕີນທີໜຶ່ງ.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>ຄ້າງໄວ້</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>ໃນຂະນະທີ່ກົດຄ້າງຕົວເປີດໃຊ້ຂອງມາໂຄຣ</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>ເປັນເວລາທີ່ກຳນົດ</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>ຈົນກວ່າຈະຖືກຢຸດ</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>ເວລາ</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>ຫຼິ້ນໃນທຸກ DualSense ແລະ DualSense Edge ໃນຊ່ອງນີ້. ເອັບເຟັກທຣິກເກີຂອງເກມເອງ ແລະ ຂອງມອດເກມ ມີສິດກ່ອນ, ແລະ ການຕັ້ງຄ່າໃນແຖບ ທຣິກເກີປັບຕົວ ຈະກັບມາເມື່ອເອັບເຟັກສິ້ນສຸດ. ໂຊນມີຄ່າຈາກ 0 ເມື່ອຢູ່ນິ່ງ ຫາ 9 ເມື່ອກົດສຸດ. ຄັນທະນູ, ມ້າຄວບ ແລະ ເຄື່ອງຈັກ ບໍ່ແມ່ນເອັບເຟັກທາງການຂອງ DualSense ແລະ ການອັບເດດເຟີມແວອາດລຶບພວກມັນອອກ. ຕົວຄວບຄຸມ Xbox ທີ່ເປີດ ແປງການສັ່ນຂອງທຣິກເກີປັບຕົວ ໄວ້ ຈະຮູ້ສຶກເອັບເຟັກແບບສັ່ນເປັນການສັ່ນຂອງທຣິກເກີ.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} ທີ່ {1} ເປັນເວລາ {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} ທີ່ {1} ໃນຂະນະກົດຄ້າງ</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} ທີ່ {1} ຈົນກວ່າຈະຖືກຢຸດ</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>ຢຸດເອັບເຟັກທຣິກເກີທີ່ {0}</value></data>
 </root>

@@ -40,6 +40,7 @@ namespace PadForge.Common
             InputDeviceType.PeripheralHaptics => "\uE877",  // the Force Feedback tab's glyph (#494)
             InputDeviceType.KeyboardScreenKeys => "\uE765", // KeyboardClassic: the keys sit on a keyboard (#519)
             InputDeviceType.NovintFalcon => "\uE7FC",       // Game: the Falcon is a game controller (#521)
+            InputDeviceType.GameTelemetry => "\uEC4A",      // SpeedHigh, a speedometer (#531; verified in live segmdl2.ttf)
             _ => "\uE7FC"                                // Game
         };
     }

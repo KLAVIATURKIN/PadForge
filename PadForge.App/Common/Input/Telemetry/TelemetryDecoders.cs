@@ -1,0 +1,462 @@
+using System;
+using System.Buffers.Binary;
+using System.Globalization;
+using System.Text.Json;
+
+namespace PadForge.Common.Input.Telemetry
+{
+    /// <summary>What a decoder made of a packet.</summary>
+    internal enum TelemetryDecode
+    {
+        /// <summary>Not this format.</summary>
+        No = 0,
+        /// <summary>This format, with nothing for the frame: an F1 packet
+        /// other than Car Telemetry, a Project CARS 2 game state.</summary>
+        Claimed = 1,
+        /// <summary>This format, and the frame holds a new reading.</summary>
+        Frame = 2,
+    }
+
+    /// <summary>
+    /// One decoder per built-in format (issue #531). Each reads only the
+    /// fields PadForge uses, at the offsets the cloned references give, into
+    /// a frame the caller has put at rest. Little-endian throughout, as every
+    /// one of these games sends.
+    /// </summary>
+    internal static class TelemetryDecoders
+    {
+        // ─────────────────────────────────────────────
+        //  Forza
+        // ─────────────────────────────────────────────
+
+        /// <summary>Forza's Data Out lengths: Sled (232), Motorsport 7 Dash
+        /// (311), Horizon (324, and 323, the shortest packet fh6-tel's parser
+        /// reads), Motorsport 2023 Dash (331). austinbaccus/forza-telemetry
+        /// Program.cs 204-216 picks the layout by these lengths.</summary>
+        internal static bool IsForzaLength(int length) => length is 232 or 311 or 323 or 324 or 331;
+
+        /// <summary>
+        /// Forza Data Out (forza-telemetry FMData.cs, fh6-tel parser.rs).
+        /// IsRaceOn s32 at 0, EngineMaxRpm at 8, CurrentEngineRpm at 16. A
+        /// Horizon packet carries 12 more bytes from 232 on, so its Dash
+        /// fields sit 12 later. Gear 0 is reverse and 11 neutral. A Sled
+        /// packet has no Dash fields, so its speed comes from the local
+        /// velocity at 32.
+        /// </summary>
+        internal static bool TryForza(ReadOnlySpan<byte> p, TelemetryFrame f)
+        {
+            int shift;
+            switch (p.Length)
+            {
+                case 232: f.Source = TelemetrySource.ForzaSled; shift = -1; break;
+                case 311: f.Source = TelemetrySource.ForzaMotorsport7; shift = 0; break;
+                case 331: f.Source = TelemetrySource.ForzaMotorsport; shift = 0; break;
+                case 323:
+                case 324: f.Source = TelemetrySource.ForzaHorizon; shift = 12; break;
+                default: return false;
+            }
+            f.Driving = I32(p, 0) != 0;
+            f.DrivingReported = true;
+            f.MaxRpm = F32(p, 8);
+            f.Rpm = F32(p, 16);
+            if (shift < 0)
+            {
+                float vx = F32(p, 32), vy = F32(p, 36), vz = F32(p, 40);
+                f.SpeedMs = MathF.Sqrt(vx * vx + vy * vy + vz * vz);
+                return true;
+            }
+            f.SpeedMs = F32(p, 244 + shift);
+            f.Throttle = p[303 + shift] / 255f;
+            f.Brake = p[304 + shift] / 255f;
+            f.Clutch = p[305 + shift] / 255f;
+            f.Handbrake = p[306 + shift] / 255f;
+            f.Gear = ForzaGear(p[307 + shift]);
+            f.Steering = (sbyte)p[308 + shift] / 127f;
+            return true;
+        }
+
+        /// <summary>0 is reverse and 11 neutral (fh6-tel CenterPanel.svelte
+        /// 16-17, forza-telemetry Dashboard.tsx 499). Anything else past the
+        /// tenth gear reads as neutral.</summary>
+        internal static int ForzaGear(byte raw) => raw switch
+        {
+            0 => -1,
+            >= 1 and <= 10 => raw,
+            _ => 0,
+        };
+
+        // ─────────────────────────────────────────────
+        //  F1 22 to F1 25
+        // ─────────────────────────────────────────────
+
+        /// <summary>What the F1 decoder keeps between packets: the year it
+        /// last heard and the max RPM from the last Car Status packet.</summary>
+        internal sealed class F1State
+        {
+            public int Year;
+            public float MaxRpm;
+        }
+
+        /// <summary>F1 22's packet sizes by id, from vAzhure F12022.cs. F1 22
+        /// has no year byte, so a packet must have one of these sizes too.</summary>
+        private static readonly int[] F1_22Sizes =
+            { 1464, 632, 972, 40, 1257, 1102, 1347, 1058, 1015, 1191, 948, 1155 };
+
+        /// <summary>
+        /// F1's UDP (MacManley/f1-24-udp PHeader.h, PacketCarTelemetryData.h,
+        /// PacketCarStatusData.h, and vAzhure F12022.cs to F12025.cs). The
+        /// year at byte 0. F1 22's header is 24 bytes (packet id at 5, player
+        /// car at 22), and later years add the year byte at 2 for 29 bytes
+        /// (packet id at 6, player car at 27). Car Telemetry (6) holds 22
+        /// entries of 60 bytes. Car Status (7) entries are 47 bytes in F1 22
+        /// and 55 later, max RPM at 17. Every F1 packet is claimed, so a
+        /// packet of another type never falls through to a rule that only
+        /// knows lengths (F1 24's Motion Ex is 237 bytes, EA Sports WRC's
+        /// length).
+        /// </summary>
+        internal static TelemetryDecode TryF1(ReadOnlySpan<byte> p, F1State state, TelemetryFrame f)
+        {
+            if (p.Length < 24) return TelemetryDecode.No;
+            int year = BinaryPrimitives.ReadUInt16LittleEndian(p);
+            if (year < 2022 || year > 2025) return TelemetryDecode.No;
+            int header, idAt, carAt, statusEntry;
+            if (year == 2022)
+            {
+                if (Array.IndexOf(F1_22Sizes, p.Length) < 0) return TelemetryDecode.No;
+                header = 24; idAt = 5; carAt = 22; statusEntry = 47;
+            }
+            else
+            {
+                if (p.Length < 29 || p[2] != year - 2000) return TelemetryDecode.No;
+                header = 29; idAt = 6; carAt = 27; statusEntry = 55;
+            }
+            int id = p[idAt];
+            if (id > 15) return TelemetryDecode.No;
+            if (state.Year != year)
+            {
+                state.Year = year;
+                state.MaxRpm = 0f;
+            }
+            int car = p[carAt];
+            if (car >= 22) return TelemetryDecode.Claimed;
+            if (id == 7)
+            {
+                if (p.Length >= header + 22 * statusEntry)
+                    state.MaxRpm = U16(p, header + car * statusEntry + 17);
+                return TelemetryDecode.Claimed;
+            }
+            if (id != 6 || p.Length < header + 22 * 60) return TelemetryDecode.Claimed;
+            int e = header + car * 60;
+            f.Source = TelemetrySource.F1;
+            f.F1Year = year;
+            f.SpeedMs = U16(p, e) / 3.6f;
+            f.Throttle = F32(p, e + 2);
+            f.Steering = F32(p, e + 6);
+            f.Brake = F32(p, e + 10);
+            f.Clutch = p[e + 14] / 100f;
+            int gear = (sbyte)p[e + 15];
+            f.Gear = gear < 0 ? -1 : gear;
+            f.Rpm = U16(p, e + 16);
+            f.MaxRpm = state.MaxRpm;
+            return TelemetryDecode.Frame;
+        }
+
+        // ─────────────────────────────────────────────
+        //  Codemasters (extradata 3)
+        // ─────────────────────────────────────────────
+
+        /// <summary>
+        /// The Codemasters packet DiRT Rally 2.0 sends with extradata 3: 66
+        /// little-endian floats (CMTelemetry codemasters.h). CMTelemetry's
+        /// struct carries four more floats, 280 bytes, with the same first
+        /// 66. Speed in m/s at 28, throttle 116, steer 120, brake 124,
+        /// clutch 128, gear 132 (-1 and 10 are reverse), engine rate 148 and
+        /// max RPM 252, both in tenths of an RPM (tm-bt-led dirt.js 148-151,
+        /// vAzhure UDPClient.cs 136-137).
+        /// </summary>
+        internal static bool TryCodemasters(ReadOnlySpan<byte> p, TelemetryFrame f)
+        {
+            if (p.Length != 264 && p.Length != 280) return false;
+            f.Source = TelemetrySource.Codemasters;
+            f.SpeedMs = F32(p, 28);
+            f.Throttle = F32(p, 116);
+            f.Steering = F32(p, 120);
+            f.Brake = F32(p, 124);
+            f.Clutch = F32(p, 128);
+            f.Gear = CodemastersGear(F32(p, 132));
+            f.Rpm = F32(p, 148) * 10f;
+            f.MaxRpm = F32(p, 252) * 10f;
+            return true;
+        }
+
+        /// <summary>-1 and 10 are reverse, 0 neutral (dirt-rally-telemetry-dashboard
+        /// Gear.java).</summary>
+        internal static int CodemastersGear(float raw)
+        {
+            if (!float.IsFinite(raw)) return 0;
+            int g = (int)MathF.Round(raw);
+            return g < 0 || g == 10 ? -1 : g;
+        }
+
+        // ─────────────────────────────────────────────
+        //  EA SPORTS WRC
+        // ─────────────────────────────────────────────
+
+        /// <summary>
+        /// EA SPORTS WRC's default <c>session_update</c> layout, from the
+        /// game's own readme/udp/wrc.json and readme/channels.json: packed
+        /// little-endian channels, 237 bytes. Some builds pad 3 bytes after
+        /// <c>shiftlights_rpm_valid</c> (240), and a layout that adds the
+        /// <c>packet_4cc</c> header puts 4 bytes in front (241, 244), which
+        /// tm-bt-led wrc.js reads the same way. Gear index at 37 with the
+        /// neutral and reverse indexes at 38 and 39, speed in m/s at 41, max
+        /// RPM 185, RPM 193, throttle 197, brake 201, clutch 205, steering
+        /// 209, handbrake 213.
+        /// </summary>
+        internal static bool TryEaSportsWrc(ReadOnlySpan<byte> p, TelemetryFrame f)
+        {
+            int start = p.Length is 241 or 244 ? 4 : 0;
+            int length = p.Length - start;
+            int pad;
+            if (length == 237) pad = 0;
+            else if (length == 240) pad = 3;
+            else return false;
+            var b = p.Slice(start);
+            f.Source = TelemetrySource.EaSportsWrc;
+            f.Gear = EaSportsWrcGear(b[37 + pad], b[38 + pad], b[39 + pad]);
+            f.SpeedMs = F32(b, 41 + pad);
+            f.MaxRpm = F32(b, 185 + pad);
+            f.Rpm = F32(b, 193 + pad);
+            f.Throttle = F32(b, 197 + pad);
+            f.Brake = F32(b, 201 + pad);
+            f.Clutch = F32(b, 205 + pad);
+            f.Steering = F32(b, 209 + pad);
+            f.Handbrake = F32(b, 213 + pad);
+            return true;
+        }
+
+        /// <summary>tm-bt-led wrc.js's reading: the neutral index is neutral,
+        /// the reverse index is reverse, and a gear past the neutral index
+        /// counts from it.</summary>
+        internal static int EaSportsWrcGear(int index, int neutral, int reverse)
+        {
+            if (index == neutral) return 0;
+            if (index == reverse) return -1;
+            return index > neutral ? index - neutral : index;
+        }
+
+        // ─────────────────────────────────────────────
+        //  OutGauge (BeamNG.drive, Live for Speed)
+        // ─────────────────────────────────────────────
+
+        /// <summary>
+        /// OutGauge (InSim.NET OutGaugePack.cs, BeamNG's protocol page): 92
+        /// bytes, 96 with an OutGauge ID. Car name at 4 ("beam" from BeamNG),
+        /// gear at 10 (0 reverse, 1 neutral, 2 first), speed in m/s at 12,
+        /// RPM 16, the dash lights switched on at 44 (bit 2 is the
+        /// handbrake), throttle, brake and clutch at 48, 52 and 56. No
+        /// steering and no max RPM.
+        /// </summary>
+        internal static bool TryOutGauge(ReadOnlySpan<byte> p, TelemetryFrame f)
+        {
+            if (p.Length != 92 && p.Length != 96) return false;
+            bool beam = p[4] == (byte)'b' && p[5] == (byte)'e' && p[6] == (byte)'a' && p[7] == (byte)'m';
+            f.Source = beam ? TelemetrySource.BeamNg : TelemetrySource.LiveForSpeed;
+            int gear = p[10];
+            f.Gear = gear == 0 ? -1 : gear - 1;
+            f.SpeedMs = F32(p, 12);
+            f.Rpm = F32(p, 16);
+            f.Handbrake = (BinaryPrimitives.ReadUInt32LittleEndian(p.Slice(44)) & 4u) != 0 ? 1f : 0f;
+            f.Throttle = F32(p, 48);
+            f.Brake = F32(p, 52);
+            f.Clutch = F32(p, 56);
+            return true;
+        }
+
+        // ─────────────────────────────────────────────
+        //  Project CARS 2, Automobilista 2
+        // ─────────────────────────────────────────────
+
+        /// <summary>The last game state Project CARS 2 sent, -1 before any.</summary>
+        internal sealed class ProjectCars2State
+        {
+            public int GameState = -1;
+        }
+
+        /// <summary>The packet sizes of Project CARS 2's UDP version 2
+        /// (PCars2UdpNet PCars2UDPClient.cs MarshalPacket).</summary>
+        private static readonly int[] ProjectCars2Sizes = { 559, 308, 1136, 1063, 24, 1040, 1164, 1452 };
+
+        /// <summary>
+        /// Project CARS 2's UDP version 2, which Automobilista 2 also sends
+        /// (MacManley/project-cars-2-udp PBase.h, PacketTelemetryData.h,
+        /// PacketGameStateData.h). A 12-byte header with the type at 10.
+        /// Telemetry (0, 559 bytes): brake, throttle and clutch at 29 to 31,
+        /// speed in m/s at 36, RPM and max RPM at 40 and 42, steering at 44,
+        /// gear in the low nibble of 45 with 15 meaning reverse (tm-bt-led
+        /// projectcars2.js 87-88), handbrake at 370. Game State (4, 24
+        /// bytes): the low three bits of 14, 2 while playing.
+        /// </summary>
+        internal static TelemetryDecode TryProjectCars2(ReadOnlySpan<byte> p, ProjectCars2State state, TelemetryFrame f)
+        {
+            if (p.Length < 12 || Array.IndexOf(ProjectCars2Sizes, p.Length) < 0) return TelemetryDecode.No;
+            int type = p[10];
+            if (type > 8) return TelemetryDecode.No;
+            if (type == 4 && p.Length == 24)
+            {
+                state.GameState = p[14] & 7;
+                return TelemetryDecode.Claimed;
+            }
+            if (type != 0 || p.Length != 559) return TelemetryDecode.Claimed;
+            f.Source = TelemetrySource.ProjectCars2;
+            f.Brake = p[29] / 255f;
+            f.Throttle = p[30] / 255f;
+            f.Clutch = p[31] / 255f;
+            f.SpeedMs = F32(p, 36);
+            f.Rpm = U16(p, 40);
+            f.MaxRpm = U16(p, 42);
+            f.Steering = (sbyte)p[44] / 127f;
+            int gear = p[45] & 15;
+            f.Gear = gear == 15 ? -1 : gear;
+            f.Handbrake = p[370] / 255f;
+            if (state.GameState >= 0)
+            {
+                f.DrivingReported = true;
+                f.Driving = state.GameState == 2;
+            }
+            return TelemetryDecode.Frame;
+        }
+
+        // ─────────────────────────────────────────────
+        //  Assetto Corsa, Assetto Corsa Competizione
+        // ─────────────────────────────────────────────
+
+        /// <summary>The bytes each page needs for the fields read below.</summary>
+        internal const int KunosPhysicsBytes = 368;
+        internal const int KunosStaticBytes = 416;
+        internal const int KunosGraphicsBytes = 8;
+
+        /// <summary>
+        /// The three shared memory pages both games write (tm-bt-led
+        /// AssettoCorsaSharedMemory/SharedFileOut.h, 4-byte packing). Physics:
+        /// gas at 4, brake 8, gear 16 (0 reverse, 1 neutral, 2 first), RPM
+        /// 20, steerAngle 24, speedKmh 28, clutch 364, which reads 1 at rest
+        /// (vAzhure GameListener.cs 221 inverts it). Static: smVersion at 0,
+        /// 1.8 and later for ACC, maxRpm at 412. Graphics: status at 4, 2
+        /// while live.
+        /// </summary>
+        internal static bool TryKunos(ReadOnlySpan<byte> physics, ReadOnlySpan<byte> statics,
+            ReadOnlySpan<byte> graphics, TelemetryFrame f)
+        {
+            if (physics.Length < KunosPhysicsBytes || statics.Length < KunosStaticBytes
+                || graphics.Length < KunosGraphicsBytes) return false;
+            f.Source = IsCompetizione(statics) ? TelemetrySource.AssettoCorsaCompetizione : TelemetrySource.AssettoCorsa;
+            f.Throttle = F32(physics, 4);
+            f.Brake = F32(physics, 8);
+            int gear = I32(physics, 16);
+            f.Gear = gear <= 0 ? -1 : gear - 1;
+            f.Rpm = I32(physics, 20);
+            f.Steering = F32(physics, 24);
+            f.SpeedMs = F32(physics, 28) / 3.6f;
+            f.Clutch = 1f - F32(physics, 364);
+            f.MaxRpm = I32(statics, 412);
+            f.DrivingReported = true;
+            f.Driving = I32(graphics, 4) == 2;
+            return true;
+        }
+
+        /// <summary>ACC's pages report smVersion 1.8 or later (tm-bt-led
+        /// assetto.js 89). The field is a UTF-16 string of up to 15 units.</summary>
+        internal static bool IsCompetizione(ReadOnlySpan<byte> statics)
+        {
+            Span<char> text = stackalloc char[15];
+            int n = 0;
+            for (; n < 15; n++)
+            {
+                char c = (char)BinaryPrimitives.ReadUInt16LittleEndian(statics.Slice(n * 2));
+                if (c == '\0') break;
+                text[n] = c;
+            }
+            return double.TryParse(text.Slice(0, n), NumberStyles.Float, CultureInfo.InvariantCulture, out double v)
+                && v >= 1.8;
+        }
+
+        // ─────────────────────────────────────────────
+        //  Euro Truck Simulator 2, American Truck Simulator
+        // ─────────────────────────────────────────────
+
+        /// <summary>
+        /// MrHokss's ets2-telemetry-udp plugin (src/telemetry.cpp,
+        /// udp_send_json): one JSON object per changed channel,
+        /// <c>{"speed","rpm","gear","dgear","steer","throttle","brake","clutch","cruise"}</c>.
+        /// The SCS SDK's channels (scssdk_telemetry_truck_common_channels.h):
+        /// speed in m/s and negative in reverse, gear negative in reverse,
+        /// steering counterclockwise, so a right turn is negative and the
+        /// sign is flipped here to match every other format.
+        /// </summary>
+        internal static bool TryTruckSimulator(ReadOnlySpan<byte> p, TelemetryFrame f)
+        {
+            if (!StartsWithObject(p)) return false;
+            bool speed = false, rpm = false, gear = false;
+            try
+            {
+                var reader = new Utf8JsonReader(p);
+                if (!reader.Read() || reader.TokenType != JsonTokenType.StartObject) return false;
+                while (reader.Read())
+                {
+                    if (reader.TokenType == JsonTokenType.EndObject) break;
+                    if (reader.TokenType != JsonTokenType.PropertyName) return false;
+                    bool isSpeed = reader.ValueTextEquals("speed"u8);
+                    bool isRpm = !isSpeed && reader.ValueTextEquals("rpm"u8);
+                    bool isGear = !isSpeed && !isRpm && reader.ValueTextEquals("gear"u8);
+                    bool isSteer = reader.ValueTextEquals("steer"u8);
+                    bool isThrottle = reader.ValueTextEquals("throttle"u8);
+                    bool isBrake = reader.ValueTextEquals("brake"u8);
+                    bool isClutch = reader.ValueTextEquals("clutch"u8);
+                    if (!reader.Read()) return false;
+                    if (reader.TokenType is JsonTokenType.StartObject or JsonTokenType.StartArray)
+                    {
+                        reader.Skip();
+                        continue;
+                    }
+                    if (reader.TokenType != JsonTokenType.Number) continue;
+                    double v = reader.GetDouble();
+                    if (isSpeed) { f.SpeedMs = (float)Math.Abs(v); speed = true; }
+                    else if (isRpm) { f.Rpm = (float)v; rpm = true; }
+                    else if (isGear) { f.Gear = v < 0 ? -1 : (int)Math.Round(v); gear = true; }
+                    else if (isSteer) f.Steering = (float)-v;
+                    else if (isThrottle) f.Throttle = (float)v;
+                    else if (isBrake) f.Brake = (float)v;
+                    else if (isClutch) f.Clutch = (float)v;
+                }
+            }
+            catch (JsonException)
+            {
+                return false;
+            }
+            if (!speed || !rpm || !gear) return false;
+            f.Source = TelemetrySource.TruckSimulator;
+            return true;
+        }
+
+        /// <summary>True when the first byte that is not white space opens a
+        /// JSON object.</summary>
+        internal static bool StartsWithObject(ReadOnlySpan<byte> p)
+        {
+            foreach (byte b in p)
+            {
+                if (b is (byte)' ' or (byte)'\t' or (byte)'\r' or (byte)'\n') continue;
+                return b == (byte)'{';
+            }
+            return false;
+        }
+
+        // ─────────────────────────────────────────────
+        //  Reads
+        // ─────────────────────────────────────────────
+
+        internal static float F32(ReadOnlySpan<byte> p, int at) => BinaryPrimitives.ReadSingleLittleEndian(p.Slice(at));
+        internal static int I32(ReadOnlySpan<byte> p, int at) => BinaryPrimitives.ReadInt32LittleEndian(p.Slice(at));
+        internal static int U16(ReadOnlySpan<byte> p, int at) => BinaryPrimitives.ReadUInt16LittleEndian(p.Slice(at));
+    }
+}

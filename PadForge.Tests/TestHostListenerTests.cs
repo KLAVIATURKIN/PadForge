@@ -217,6 +217,24 @@ namespace PadForge.Tests
                     FlagEach(@"\b" + tracker + @"\s*\??\.\s*Open\s*\(", _ => false,
                         "a head tracker built from the app's settings is never opened");
             }
+
+            // The Game Telemetry row (#531) by the head tracker's rule: every
+            // address unless told loopback, and the row built from the app's
+            // settings is never opened.
+            string[] rows = Names(code, @"\b(\w+)\s*=\s*(?:new\s+GameTelemetryDevice\s*\(|GameTelemetryDevice\.FromCurrentSettings\s*\()")
+                .Where(row => Regex.IsMatch(code, @"\b" + row + @"\s*\??\.\s*Open\s*\(")).ToArray();
+            if (rows.Length > 0)
+            {
+                foreach (Match built in Regex.Matches(code, @"new\s+GameTelemetryDevice\s*\("))
+                {
+                    if (Regex.IsMatch(StatementAt(code, built.Index), @"BindAddress\s*=\s*IPAddress\.Loopback")) continue;
+                    Flag(code.Substring(0, built.Index).Count(c => c == '\n'),
+                        "a game telemetry row in a file that opens one sets BindAddress = IPAddress.Loopback");
+                }
+                foreach (string row in Names(code, @"\b(\w+)\s*=\s*GameTelemetryDevice\.FromCurrentSettings\s*\(").Intersect(rows))
+                    FlagEach(@"\b" + row + @"\s*\??\.\s*Open\s*\(", _ => false,
+                        "a game telemetry row built from the app's settings is never opened");
+            }
             return found;
         }
 
@@ -237,6 +255,8 @@ namespace PadForge.Tests
             string head = File.ReadAllText(Path.Combine(tests, "HeadTrackingInputTests.cs"));
             Assert.True(Regex.Matches(head, @"UdpBindAddress = IPAddress\.Loopback").Count >= 3,
                 "HeadTrackingInputTests no longer holds its three head trackers on loopback");
+            string telemetry = File.ReadAllText(Path.Combine(tests, "GameTelemetryTests.cs"));
+            Assert.Contains("BindAddress = IPAddress.Loopback,", telemetry);
         }
 
         /// <summary>Each rule rejects the line it is for, so a rule that
@@ -260,6 +280,8 @@ namespace PadForge.Tests
         [InlineData("using var tracker = new HeadTrackerDevice(true, 4242, false, 0, null);\ntracker.Open();")]
         [InlineData("using var tracker = new HeadTrackerDevice(4242, false, 0, () => { ticks++; return ticks; });\ntracker.Open();")]
         [InlineData("using var tracker = HeadTrackerDevice.FromCurrentSettings();\ntracker.Open();")]
+        [InlineData("using var row = new GameTelemetryDevice(20777, reader, variables, 0, null);\nrow.Open();")]
+        [InlineData("using var row = GameTelemetryDevice.FromCurrentSettings();\nrow.Open();")]
         public void ALineThatOpensAListenerBeyondLoopbackIsFound(string source)
             => Assert.NotEmpty(Violations("control", source));
 
@@ -279,6 +301,8 @@ namespace PadForge.Tests
         [InlineData("using var tracker = new HeadTrackerDevice(false, 4242, true, 0, null);\ntracker.Open();")]
         [InlineData("using var tracker = new HeadTrackerDevice(4242, false, 0, null);\ntracker.AttachForTest();")]
         [InlineData("using var row = HeadTrackerDevice.FromCurrentSettings();\nAssert.True(row.UdpEnabled);")]
+        [InlineData("using var row = new GameTelemetryDevice(port, reader, variables, 0, null)\n{\n    BindAddress = IPAddress.Loopback,\n};\nrow.Open();")]
+        [InlineData("using var row = GameTelemetryDevice.FromCurrentSettings();\nAssert.Equal(20777, row.Port);")]
         public void ALoopbackListenerAndALineThatBindsNothingPass(string source)
             => Assert.Empty(Violations("control", source));
 
@@ -295,6 +319,9 @@ namespace PadForge.Tests
                 // A bind address the tests pass. Every address in the app.
                 ["PadForge.Engine/RemoteLink/LinkServer.cs"] = 3,
                 ["PadForge.App/Common/Input/HeadTrackerDevice.cs"] = 2,
+                // Its listening socket the same, its forward socket on
+                // loopback everywhere.
+                ["PadForge.App/Common/Input/Telemetry/GameTelemetryDevice.cs"] = 4,
                 // Loopback in the app too.
                 ["PadForge.App/Services/DsuMotionServer.cs"] = 2,
                 ["PadForge.App/Services/GameModServer.cs"] = 2,
@@ -330,6 +357,10 @@ namespace PadForge.Tests
             Assert.Contains("_udp.Bind(new IPEndPoint(bindAddress, port));", At("PadForge.Engine/RemoteLink/LinkServer.cs"));
             Assert.Contains("internal IPAddress UdpBindAddress { get; init; } = IPAddress.Any;", At("PadForge.App/Common/Input/HeadTrackerDevice.cs"));
             Assert.Contains("s.Bind(new IPEndPoint(UdpBindAddress, _port));", At("PadForge.App/Common/Input/HeadTrackerDevice.cs"));
+            string telemetry = At("PadForge.App/Common/Input/Telemetry/GameTelemetryDevice.cs");
+            Assert.Contains("internal IPAddress BindAddress { get; init; } = IPAddress.Any;", telemetry);
+            Assert.Contains("s.Bind(new IPEndPoint(BindAddress, _port));", telemetry);
+            Assert.Contains("forward.Bind(new IPEndPoint(IPAddress.Loopback, 0));", telemetry);
             Assert.Contains("_socket.Bind(new IPEndPoint(IPAddress.Loopback, port));", At("PadForge.App/Services/DsuMotionServer.cs"));
             Assert.Contains("_socket.Bind(new IPEndPoint(IPAddress.Loopback, port));", At("PadForge.App/Services/GameModServer.cs"));
         }
@@ -367,6 +398,7 @@ namespace PadForge.Tests
         public static IEnumerable<object[]> AskedBeforeTheBind() => new[]
         {
             new object[] { "PadForge.App/Common/Input/HeadTrackerDevice.cs", "internal sealed class HeadTrackerDevice : ISdlInputDevice", "PadForge.Engine.Common.NetworkListenerGate.Enter(UdpBindAddress);", "new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp)" },
+            new object[] { "PadForge.App/Common/Input/Telemetry/GameTelemetryDevice.cs", "public bool Open()", "NetworkListenerGate.Enter(BindAddress);", "new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp)" },
             new object[] { Telemetry + "CodemastersUdpTelemetrySource.cs", "public void Start()", EnterAny, "new UdpClient(" },
             new object[] { Telemetry + "ForzaUdpTelemetrySource.cs", "public void Start()", EnterAny, "new UdpClient(" },
             new object[] { Telemetry + "OutGaugeTelemetrySource.cs", "public void Start()", EnterAny, "new UdpClient(" },

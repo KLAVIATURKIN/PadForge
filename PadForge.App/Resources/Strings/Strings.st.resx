@@ -962,4 +962,51 @@
   <data name="Pad_Falcon_ForceCap_Tooltip" xml:space="preserve"><value>Matla a maholo ka ho fetisisa ao Falcon e a sebedisang mofeng, ho tloha ho 1 ho isa ho 8 N.</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Reset moedi wa matla</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Papadi</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Fetisetsa ho port</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport le Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ho isa ho F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 le dipapadi tse ding tsa Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive le Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 le Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa le Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 le American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>E emetse papadi ho port ya UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>E mametse port ya UDP {0}. {1} ho tswa ho {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Port ya UDP {0} e sebediswa ke lenaneo le leng.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>E emetse Assetto Corsa kapa Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>E fetisetsa ho port {0}.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Lebitso</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Bolelele (di-byte)</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Mofuta</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Lebelo (km/h)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Ho kganna (eseng 0)</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Lebelo (mph)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Ho kganna (1 kapa 0)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Ka ho le letona (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Ka ho le letshehadi (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Ka bobedi (L2 le R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Tima</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Seqha</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Motjhini</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Bonolo haholo</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Bonolo</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Mahareng</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Thata</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Thata haholo</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Thata ka ho fetisisa</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Sebaka sa ho qala</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Sebaka sa qetello</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Matla A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Matla B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Matla a ho qala</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Matla a qetello</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Matla a sebaka {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>E tshwara</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Nako e behilweng</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Ho fihlela e emiswa</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Nako</value></data>
 </root>

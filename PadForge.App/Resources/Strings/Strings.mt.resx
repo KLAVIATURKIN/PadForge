@@ -4151,7 +4151,7 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>It-tqassim tar-reports tal-PlayStation Move, il-kalibrazzjoni tas-sensuri u l-handshake tal-aċċessorju EXT, minn Thomas Perl, iċċekkjati mal-wiki moveonpc. L-implimentazzjoni ta' PadForge hija C# oriġinali. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Referenzi tat-telemetrija tat-tlielaq</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>It-tqassim tal-memorja kondiviża u tal-UDP wara l-LEDs tal-bdil tal-gerijiet skont l-RPM tar-rota tas-sewqan, moqri minn assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) u simapi (LGPL-3.0). L-ebda kodiċi GPL jew LGPL ma jiġi inkluż.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>It-tqassim tal-memorja kondiviża u tal-UDP wara t-Telemetrija tal-logħob u l-LEDs tal-bdil tal-gerijiet skont l-RPM tar-rota tas-sewqan, moqri minn assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) u vAzhureRacingHub (GPL-3.0). L-ebda kodiċi GPL jew LGPL ma jiġi inkluż.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Dokumentazzjoni dwar it-tqabbil Bluetooth u r-reports tad-DualShock 3. GPL-2.0 u GPL-3.0, moqrija biss bħala dokumentazzjoni, l-ebda kodiċi GPL ma jiġi inkluż.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4392,4 +4392,132 @@ Trid li PadForge jiddiżinstallahom issa? Dan jeħtieġ permessi ta' amministrat
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Irrisettja l-limitu tal-forza</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Ikkalibra l-medda</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Ikejjel kemm jimxi l-maqbad. Ċaqalqu sa kull tarf tal-medda tiegħu għall-erba' sekondi li jdum il-kejl. Il-forzi jieqfu sadanittant.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetrija tal-logħob</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetrija tal-logħob</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Ipoġġi t-telemetrija li jibagħtu l-logħob tas-sewqan, u l-memorja kondiviża ta' Assetto Corsa, fuq ir-ringiela Telemetrija tal-logħob fil-paġna Apparati. Immappja l-veloċità, il-pedali u l-gerijiet bħal kull input ieħor, ixgħel makros bihom, jew ittestjahom f'Espressjoni personalizzata. Waqt li jkun qed jisma', l-LEDs tal-gerijiet RPM ta' rota tas-sewqan jaqraw il-logħba minn hawn ukoll.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Isma' t-telemetrija tal-logħob</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Logħba</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Skoperta awtomatika tagħraf il-logħba mill-pakketti tagħha. Jekk tagħżel Project CARS 2 u Automobilista 2, jew is-simulaturi tat-trakkijiet, jiġi ssettjat ukoll il-port li dawk il-logħob dejjem jibagħtu lejh.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port tat-telemetrija tal-logħob</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Ibgħat lejn il-port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Jikkopja kull pakkett lejn dan il-port fuq dan il-PC, biex programm ieħor bħal SimHub ikompli jirċevih. 0 ma jibgħat xejn.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Veloċità sħiħa (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Il-veloċità li tmexxi l-assi Veloċità sal-aħħar.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Formati personalizzati…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Jiddeskrivi l-pakketti ta' logħba li PadForge ma jafx, qasam b'qasam.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Ixgħel l-output tat-telemetrija f'kull logħba u idderiġih lejn dan il-PC u l-port. F1, il-logħob ta' Codemasters u EA SPORTS WRC jużaw 20777 sakemm ma jinbidilx, Project CARS 2 u Automobilista 2 dejjem jużaw 5606, u l-plugin ta' MrHokss għas-simulaturi tat-trakkijiet juża 49001. Assetto Corsa u ACC ma jeħtieġu l-ebda port.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Skoperta awtomatika</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport u Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 sa F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 u logħob ieħor ta' Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive u Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 u Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa u Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 u American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (personalizzat)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Qed jistenna logħba fuq il-port UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Qed jisma' fuq il-port UDP {0}. {1} minn {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Il-port UDP {0} qed jintuża minn programm ieħor.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Qed jaqra {0} mill-memorja kondiviża.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Qed jistenna Assetto Corsa jew Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Qed jibgħat lejn il-port {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Formati personalizzati tat-telemetrija</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Iddeskrivi l-pakketti li tibgħat logħba, qasam b'qasam, u PadForge jaqra dik il-logħba wkoll. Kull varjabbli ssir assi fuq ir-ringiela Telemetrija tal-logħob u kanal għat-triggers ta' Espressjoni personalizzata. Agħżel format bl-isem tiegħu fil-lista Logħba, jew agħtih tul jew ċavetta biex Skoperta awtomatika ssibu.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Żid format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Isem</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Pakketti</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binarju</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Tul (bytes)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Il-pakketti b'eżattament dan in-numru ta' bytes biss jinqraw b'dan il-format. B'0, jinqara kull pakkett, u Skoperta awtomatika ma tikkunsidrax il-format, għalhekk agħżlu bl-isem.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Ċavetta meħtieġa</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Il-pakketti JSON li għandhom din iċ-ċavetta biss jinqraw b'dan il-format. Jekk titħalla vojta, jinqara kull pakkett, u Skoperta awtomatika ma tikkunsidrax il-format, għalhekk agħżlu bl-isem.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Il-pakkett jikteb kull numru bl-iktar byte sinifikanti l-ewwel. Il-logħob fuq PC kważi dejjem jiktbu l-inqas byte sinifikanti l-ewwel.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Valuri tal-gerijiet</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Il-qasam tal-ger għandu n-numri tiegħu għar-rivers u n-newtral, bħalma huma 0 u 11 ta' Forza. Meta dan ikun mitfi, ger negattiv huwa r-rivers u 0 huwa n-newtral.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Rivers</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Newtral</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Oqsma</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Kull qasam jaqra numru fl-offset tiegħu, jew taħt iċ-ċavetta tiegħu f'JSON (it-tikek jidħlu f'oġġetti ġewwa oħrajn), u jimmultiplikah bl-iskala. Wara l-iskala, il-veloċità tkun f'km/h, il-pedali jmorru minn 0 sa 1, u l-istering minn -1 kompletament lejn ix-xellug sa 1 kompletament lejn il-lemin. L-assi ta' varjabbli jmur mill-Minimu tagħha meta ma tkunx qed tintmess sal-Massimu tagħha meta tkun sħiħa.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Jaqra ġo</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Isem tal-varjabbli</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Offset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tip</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Ċavetta JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Skala</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Minimu</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Massimu</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Żid qasam</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Neħħi qasam</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Il-format {0} jeħtieġ isem mingħajr : jew |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Żewġ formati jisimhom {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Varjabbli f'{0} teħtieġ isem mingħajr : jew |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Qasam f'{0} jaqra lil hinn mit-tmiem tal-pakkett tiegħu ta' {1} byte.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Qasam f'{0} jeħtieġ ċavetta JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Varjabbli</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Veloċità (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM massimu</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Ger</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Aċċeleratur (0 sa 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Brejk (0 sa 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Klaċċ (0 sa 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Brejk tal-idejn (0 sa 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Stering (-1 sa 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Qed isuq (mhux 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetrija tal-logħob</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Veloċità (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% tal-massimu)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Ger (-1 rivers, 0 newtral)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Aċċeleratur (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Brejk (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Klaċċ (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Brejk tal-idejn (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Stering (-100 xellug sa 100 lemin)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Qed isuq (1 jew 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Effett tat-trigger adattiv</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Waqqaf l-effett tat-trigger adattiv</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Idoqq effett tat-trigger adattiv tad-DualSense fuq it-triggers ta' dan is-slot. L-effetti huma dawk li jibagħtu l-mods tal-logħob għal DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Itemm l-effett tat-trigger adattiv li makro qed iżomm fuq it-trigger magħżul. Għaqqdu ma' effett li jibqa' sakemm jitwaqqaf.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Lemin (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Xellug (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>It-tnejn (L2 u R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Effett</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Mitfi</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Qaws</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galopp</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Magna</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Artab ħafna</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Artab</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Medju</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Iebes</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Iebes ħafna</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>L-iktar iebes</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Riġidu</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Imqatta'</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Polz vibranti</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Żona tal-bidu</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Żona tat-tmiem</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>L-ewwel sieq</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>It-tieni sieq</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Saħħa A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Saħħa B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Saħħa tal-bidu</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Saħħa tat-tmiem</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Saħħa taż-żona {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Dawn il-valuri ma jagħmlu l-ebda effett, għalhekk l-azzjoni ma ddoqq xejn. Żona tat-tmiem trid tkun wara ż-żona tal-bidu tagħha, u t-tieni sieq wara l-ewwel.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Iżomm</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Waqt li t-trigger tal-makro jkun miżmum</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Għal ħin stabbilit</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Sakemm jitwaqqaf</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Ħin</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Idoqq fuq kull DualSense u DualSense Edge f'dan is-slot. L-effett tat-trigger tal-logħba stess u dak ta' mod tal-logħba jiġu l-ewwel, u l-issettjar tat-tab Triggers adattivi jerġa' lura meta jispiċċa l-effett. Iż-żoni jmorru minn 0 meta ma jintmissx sa 9 meta jinġibed kompletament. Qaws, Galopp u Magna mhumiex effetti uffiċjali tad-DualSense, u aġġornament tal-firmware jista' jneħħihom. Kontrolluri Xbox b'Ittraduċi l-vibrazzjonijiet tat-triggers adattivi mixgħul iħossu l-effetti li jivvibraw bħala rumble fit-triggers.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} fuq {1} għal {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} fuq {1} waqt li jinżamm</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} fuq {1} sakemm jitwaqqaf</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Waqqaf l-effett tat-trigger fuq {0}</value></data>
 </root>

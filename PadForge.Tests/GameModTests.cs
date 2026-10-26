@@ -648,8 +648,16 @@ namespace PadForge.Tests
             int fill = code.IndexOf("var modFill = FillFromModHold(devOverrides, modHold, isDs5);", StringComparison.Ordinal);
             int impulse = code.IndexOf("SlotImpulseTriggerForDeviceProvider?.Invoke(_padIndex, ud.InstanceGuid)", StringComparison.Ordinal);
             Assert.True(overrides > 0 && capture > overrides && decision > capture && fill > decision && impulse > fill);
-            Assert.Contains("| ModHoldEnded(_prevModRightTrig, ud.InstanceGuid, modFill.RightTrigger);", code);
-            Assert.Contains("| ModHoldEnded(_prevModLeftTrig, ud.InstanceGuid, modFill.LeftTrigger);", code);
+            // A macro's trigger effect (#531) is read beside the mod's hold
+            // and fills after it, so the order is game, mod, macro, then the
+            // injected effects.
+            int macroCapture = code.IndexOf("MacroTriggerEffectsProvider?.Invoke(_padIndex)?.Read(", StringComparison.Ordinal);
+            int macroFill = code.IndexOf("var macroFill = FillFromMacroEffects(devOverrides, macroLeftTrig, macroRightTrig, isDs5);", StringComparison.Ordinal);
+            Assert.True(macroCapture > capture && decision > macroCapture && macroFill > fill && impulse > macroFill);
+            Assert.Contains("| ModHoldEnded(_prevModRightTrig, ud.InstanceGuid, modFill.RightTrigger)", code);
+            Assert.Contains("| ModHoldEnded(_prevMacroRightTrig, ud.InstanceGuid, macroFill.RightTrigger);", code);
+            Assert.Contains("| ModHoldEnded(_prevModLeftTrig, ud.InstanceGuid, modFill.LeftTrigger)", code);
+            Assert.Contains("| ModHoldEnded(_prevMacroLeftTrig, ud.InstanceGuid, macroFill.LeftTrigger);", code);
             Assert.Contains("| ModHoldEnded(_prevModMicLed, ud.InstanceGuid, modFill.MuteLight);", code);
             Assert.Contains("| ModHoldEnded(_prevModPips, ud.InstanceGuid, modFill.PlayerLights);", code);
             Assert.Equal(2, CountOf(code, "LightPeripheral(ud, perDeviceCfgs, rawAudioPeak, nowMs, playerNumber, ModColor(modHold))"));

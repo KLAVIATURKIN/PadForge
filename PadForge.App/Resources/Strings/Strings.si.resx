@@ -4176,7 +4176,7 @@ PadForge විසින් ඒවා දැන් අස්ථාපනය ක�
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move වාර්තා පිරිසැලසුම්, සංවේදක ක්‍රමාංකනය, සහ EXT අමතර උපාංග හෑන්ඩ්ෂේක් එක, Thomas Perl විසින්, moveonpc wiki සමඟ හරස් පරීක්ෂා කරන ලදී. PadForge හි ක්‍රියාත්මක කිරීම මුල් C# වේ. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>රේසිං ටෙලිමෙට්‍රි මූලාශ්‍ර</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>සුක්කානම් RPM ගියර් මාරු LED පිටුපස ඇති හවුල් මතක සහ UDP පිරිසැලසුම්, assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) සහ simapi (LGPL-3.0) වෙතින් කියවන ලදී. කිසිදු GPL හෝ LGPL කේතයක් ඇතුළත් නොවේ.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ක්‍රීඩා ටෙලිමෙට්‍රි සහ සුක්කානම් RPM ගියර් මාරු LED පිටුපස ඇති හවුල් මතක සහ UDP පිරිසැලසුම්, assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) සහ vAzhureRacingHub (GPL-3.0) වෙතින් කියවන ලදී. කිසිදු GPL හෝ LGPL කේතයක් ඇතුළත් නොවේ.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth යුගල කිරීම සහ වාර්තා ලේඛන. GPL-2.0 සහ GPL-3.0, ලේඛන ලෙස පමණක් කියවන ලදී, කිසිදු GPL කේතයක් ඇතුළත් නොවේ.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4417,4 +4417,134 @@ PadForge විසින් ඒවා දැන් අස්ථාපනය ක�
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>බල සීමාව යළි සකසන්න</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>චලන පරාසය ක්‍රමාංකනය කරන්න</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>හසුරුව කොපමණ දුරක් ගමන් කරන්නේද යන්න මනියි. මැනීම ක්‍රියාත්මක වන තත්පර හතර තුළ එය එහි චලන පරාසයේ සෑම කෙළවරකටම ගෙන යන්න. ඒ අතරතුර බල ක්‍රියා නොකරයි.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>ක්‍රීඩා ටෙලිමෙට්‍රි</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>ක්‍රීඩා ටෙලිමෙට්‍රි</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>රිය පැදවීමේ ක්‍රීඩා යවන ටෙලිමෙට්‍රි සහ Assetto Corsa හි හවුල් මතකය උපාංග පිටුවේ ක්‍රීඩා ටෙලිමෙට්‍රි පේළියට ගෙන එයි. එහි වේගය, පැඩල සහ ගියර ඕනෑම ආදානයක් මෙන් සිතියම්ගත කරන්න, ඒවායින් මැක්‍රෝ ආරම්භ කරන්න, නැතහොත් අභිරුචි ප්‍රකාශනයකින් ඒවා පරීක්ෂා කරන්න. මෙය සවන් දෙන අතරතුර, සුක්කානමක RPM ගියර් මාරු LED ද ක්‍රීඩාවේ අගයන් මෙතැනින් කියවයි.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>ක්‍රීඩා ටෙලිමෙට්‍රි සඳහා සවන් දෙන්න</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>ක්‍රීඩාව</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>ස්වයංක්‍රීය හඳුනාගැනීම ක්‍රීඩාව එහි පැකට් මගින් හඳුනා ගනී. Project CARS 2 සහ Automobilista 2, හෝ ට්‍රක් සිමියුලේටර තෝරා ගත් විට, එම ක්‍රීඩා සැමවිටම යවන තොට ද සැකසේ.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>ක්‍රීඩා ටෙලිමෙට්‍රි තොට</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>තොටට යොමු කරන්න</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>සෑම පැකට්ටුවක්ම මෙම පරිගණකයේ මෙම තොටට පිටපත් කරයි, එවිට SimHub වැනි වෙනත් වැඩසටහනකට එය දිගටම ලැබේ. 0 නම් කිසිවක් යොමු නොකෙරේ.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>සම්පූර්ණ වේගය (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>වේග අක්ෂය සම්පූර්ණයෙන්ම චලනය කරන වේගය.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>අභිරුචි ආකෘති…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge නොදන්නා ක්‍රීඩාවක පැකට් ක්ෂේත්‍රයෙන් ක්ෂේත්‍රය විස්තර කරයි.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>එක් එක් ක්‍රීඩාවේ ටෙලිමෙට්‍රි ප්‍රතිදානය සක්‍රිය කර එය මෙම පරිගණකයට සහ තොටට යොමු කරන්න. F1, Codemasters ක්‍රීඩා සහ EA SPORTS WRC වෙනස් නොකළහොත් 20777 භාවිත කරයි, Project CARS 2 සහ Automobilista 2 සැමවිටම 5606 භාවිත කරයි, ට්‍රක් සිමියුලේටර සඳහා වන MrHokss ගේ ප්ලගිනය 49001 භාවිත කරයි. Assetto Corsa සහ ACC සඳහා තොටක් අවශ්‍ය නොවේ.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>ස්වයංක්‍රීය හඳුනාගැනීම</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport සහ Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 සිට F1 25 දක්වා</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 සහ අනෙකුත් Codemasters ක්‍රීඩා</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive සහ Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 සහ Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa සහ Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 සහ American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (අභිරුචි)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP තොට {0} හි ක්‍රීඩාවක් සඳහා රැඳී සිටිමින්.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP තොට {0} හි සවන් දෙමින්. {2} වෙතින් {1}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP තොට {0} වෙනත් වැඩසටහනක් භාවිත කරයි.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>හවුල් මතකයෙන් {0} කියවමින්.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa හෝ Assetto Corsa Competizione සඳහා රැඳී සිටිමින්.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>තොට {0} වෙත යොමු කරමින්.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>අභිරුචි ටෙලිමෙට්‍රි ආකෘති</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>ක්‍රීඩාවක් යවන පැකට් ක්ෂේත්‍රයෙන් ක්ෂේත්‍රය විස්තර කරන්න, එවිට PadForge එම ක්‍රීඩාව ද කියවයි. සෑම විචල්‍යයක්ම ක්‍රීඩා ටෙලිමෙට්‍රි පේළියේ අක්ෂයක් සහ අභිරුචි ප්‍රකාශන ප්‍රේරක සඳහා නාලිකාවක් බවට පත්වේ. ක්‍රීඩාව ලැයිස්තුවෙන් නමින් ආකෘතියක් තෝරන්න, නැතහොත් ස්වයංක්‍රීය හඳුනාගැනීම එය සොයා ගන්නා ලෙස එයට දිගක් හෝ යතුරක් දෙන්න.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>ආකෘතිය එක් කරන්න</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>ආකෘතිය {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>නම</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>පැකට්</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>ද්වීමය</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>දිග (බයිට)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>හරියටම මෙපමණ බයිට ඇති පැකට් පමණක් මෙම ආකෘතියෙන් කියවේ. 0 නම්, ඕනෑම පැකට්ටුවක් කියවෙන අතර ස්වයංක්‍රීය හඳුනාගැනීම මෙම ආකෘතිය මඟ හරියි, එබැවින් එය නමින් තෝරන්න.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>අවශ්‍ය යතුර</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>මෙම යතුර අඩංගු JSON පැකට් පමණක් මෙම ආකෘතියෙන් කියවේ. හිස්ව තැබුවහොත්, ඕනෑම පැකට්ටුවක් කියවෙන අතර ස්වයංක්‍රීය හඳුනාගැනීම මෙම ආකෘතිය මඟ හරියි, එබැවින් එය නමින් තෝරන්න.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>බිග්-එන්ඩියන්</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>පැකට්ටුව සෑම සංඛ්‍යාවක්ම වැඩිම වැදගත්කමක් ඇති බයිටය මුලින් තබා ලියයි. පරිගණකයේ ක්‍රීඩා සෑම විටම පාහේ අඩුම වැදගත්කමක් ඇති බයිටය මුලින් තබා ලියයි.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>ගියර් අගයන්</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Forza හි 0 සහ 11 මෙන්, ගියර් ක්ෂේත්‍රයට රිවර්ස් සහ නියුට්‍රල් සඳහා තමන්ගේම අංක ඇත. මෙය අක්‍රිය විට, සෘණ ගියරයක් රිවර්ස් වන අතර 0 නියුට්‍රල් වේ.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>රිවර්ස්</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>නියුට්‍රල්</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>ක්ෂේත්‍ර</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>සෑම ක්ෂේත්‍රයක්ම එහි ඕෆ්සෙට් එකෙහි, හෝ JSON හි එහි යතුර යටතේ (තිත් මගින් කැදැලි වස්තු තුළට යයි) ඇති සංඛ්‍යාවක් කියවා එය පරිමාණයෙන් ගුණ කරයි. පරිමාණයෙන් පසු, වේගය km/h වලින් වේ, පැඩල 0 සිට 1 දක්වා ද, සුක්කානම් හැසිරවීම සම්පූර්ණ වමේ -1 සිට සම්පූර්ණ දකුණේ 1 දක්වා ද විහිදේ. විචල්‍යයක අක්ෂය නිශ්චලව ඇති විට එහි අවම අගයේ සිට සම්පූර්ණයෙන් ඇති විට එහි උපරිම අගය දක්වා විහිදේ.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>ඉලක්කය</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>විචල්‍ය නාමය</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>ඕෆ්සෙට්</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>වර්ගය</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON යතුර</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>පරිමාණය</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>අවම</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>උපරිම</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>ක්ෂේත්‍රය එක් කරන්න</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>ක්ෂේත්‍රය ඉවත් කරන්න</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>ආකෘතිය {0} සඳහා : හෝ | නොමැති නමක් අවශ්‍යයි.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>ආකෘති දෙකක් {0} ලෙස නම් කර ඇත.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} හි විචල්‍යයකට : හෝ | නොමැති නමක් අවශ්‍යයි.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} හි ක්ෂේත්‍රයක් එහි {1}-බයිට පැකට්ටුවේ අවසානයෙන් ඔබ්බට කියවයි.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} හි ක්ෂේත්‍රයකට JSON යතුරක් අවශ්‍යයි.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>විචල්‍යය</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>වේගය (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>උපරිම RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>ගියරය</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>ත්‍රොට්ලය (0 සිට 1 දක්වා)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>තිරිංගය (0 සිට 1 දක්වා)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>ක්ලච් (0 සිට 1 දක්වා)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>අත් තිරිංගය (0 සිට 1 දක්වා)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>සුක්කානම් හැසිරවීම (-1 සිට 1 දක්වා)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>රිය පැදවීම (0 නොවේ)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>ක්‍රීඩා ටෙලිමෙට්‍රි</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>වේගය (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (උපරිමයේ %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>ගියරය (-1 රිවර්ස්, 0 නියුට්‍රල්)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>ත්‍රොට්ලය (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>තිරිංගය (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>ක්ලච් (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>අත් තිරිංගය (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>සුක්කානම් හැසිරවීම (-100 වම සිට 100 දකුණ දක්වා)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>රිය පැදවීම (1 හෝ 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>අනුවර්තී ට්‍රිගර ප්‍රයෝගය</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>අනුවර්තී ට්‍රිගර ප්‍රයෝගය නවත්වන්න</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>මෙම ස්ලොට් එකේ ට්‍රිගර මත DualSense අනුවර්තී ට්‍රිගර ප්‍රයෝගයක් වාදනය කරයි. මෙම ප්‍රයෝග DSX සඳහා වන ක්‍රීඩා මොඩ් යවන ප්‍රයෝගම වේ.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>තෝරාගත් ට්‍රිගරය මත මැක්‍රෝවක් රඳවා ඇති අනුවර්තී ට්‍රිගර ප්‍රයෝගය අවසන් කරයි. නවත්වන තුරු රැඳෙන ප්‍රයෝගයක් සමඟ මෙය භාවිත කරන්න.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ට්‍රිගරය</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>දකුණ (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>වම (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>දෙකම (L2 සහ R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>ප්‍රයෝගය</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>අක්‍රිය</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>දුන්න</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>අශ්ව දිවීම</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>යන්ත්‍රය</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>ඉතා මෘදු</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>මෘදු</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>මධ්‍යම</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>දැඩි</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>ඉතා දැඩි</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>දැඩිම</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>අනම්‍ය</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>කඩින් කඩ</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>කම්පන ස්පන්දනය</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>ආරම්භක කලාපය</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>අවසාන කලාපය</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>ස්නැප් ශක්තිය</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>පළමු පාදය</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>දෙවන පාදය</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>ශක්තිය A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>ශක්තිය B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>කාලාවර්තය (තත්පරයෙන් දහයෙන් පංගු)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>ආරම්භක ශක්තිය</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>අවසාන ශක්තිය</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>කලාප {0} ශක්තිය</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>මෙම අගයන් කිසිදු ප්‍රයෝගයක් නිපදවන්නේ නැත, එබැවින් ක්‍රියාව කිසිවක් වාදනය නොකරයි. අවසාන කලාපය ආරම්භක කලාපයට ඔබ්බෙන් ද, දෙවන පාදය පළමු පාදයට ඔබ්බෙන් ද තිබිය යුතුය.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>රැඳෙන්නේ</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>මැක්‍රෝවේ ප්‍රේරකය ඔබාගෙන සිටින තාක්</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>නියමිත කාලයක් සඳහා</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>නවත්වන තුරු</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>කාලය</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>මෙම ස්ලොට් එකේ සෑම DualSense සහ DualSense Edge එකක් මතම වාදනය වේ. ක්‍රීඩාවක තමන්ගේම ට්‍රිගර ප්‍රයෝගයට සහ ක්‍රීඩා මොඩ් එකක ප්‍රයෝගයට ප්‍රමුඛතාව ලැබෙන අතර, ප්‍රයෝගය අවසන් වූ විට අනුවර්තී ට්‍රිගර පටිත්තේ සැකසුම නැවත ක්‍රියාත්මක වේ. කලාප නිශ්චලව ඇති විට 0 සිට සම්පූර්ණයෙන් ඇද ඇති විට 9 දක්වා විහිදේ. දුන්න, අශ්ව දිවීම සහ යන්ත්‍රය නිල DualSense ප්‍රයෝග නොවන අතර, ස්ථිරාංග යාවත්කාලීනයකින් ඒවා ඉවත් විය හැක. “අනුවර්තී ට්‍රිගර කම්පන පරිවර්තනය කරන්න” සක්‍රිය කර ඇති Xbox පාලකවලට කම්පන ප්‍රයෝග ට්‍රිගර කම්පනය ලෙස දැනේ.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1} මත {2} ms සඳහා {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>ඔබාගෙන සිටින අතරතුර {1} මත {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>නවත්වන තුරු {1} මත {0}</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>{0} මත ට්‍රිගර ප්‍රයෝගය නවත්වන්න</value></data>
 </root>

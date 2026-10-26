@@ -176,6 +176,10 @@ namespace PadForge.Common.Input
         /// hold+fade pulse fired on lock entry; 0 otherwise.</summary>
         public static Func<int, float> SteeringTriggerVibProvider { get; set; }
 
+        /// <summary>A slot's adaptive trigger effects played by macros
+        /// (#531), or null. Read once per pass, after a game mod's hold.</summary>
+        public static Func<int, Common.Input.MacroTriggerEffectState> MacroTriggerEffectsProvider { get; set; }
+
         // Animated-lightbar polling cadence — 30Hz is enough to feel
         // responsive without flooding the BT HID write path. WriteFile
         // open+close is ~1ms per call; 30Hz = 30ms budget.
@@ -309,6 +313,9 @@ namespace PadForge.Common.Input
         private readonly Dictionary<Guid, bool> _prevModLeftTrig = new();
         private readonly Dictionary<Guid, bool> _prevModMicLed = new();
         private readonly Dictionary<Guid, bool> _prevModPips = new();
+        // The same for a macro's trigger effect (#531).
+        private readonly Dictionary<Guid, bool> _prevMacroRightTrig = new();
+        private readonly Dictionary<Guid, bool> _prevMacroLeftTrig = new();
 
         /// <summary>TickCount64 of the last change to what a game mod holds
         /// on this slot (#529), 0 before any.</summary>
@@ -520,13 +527,6 @@ namespace PadForge.Common.Input
             }
         }
 
-        /// <summary>Places a game mod's held values (#529) in every subsystem
-        /// a game is not writing within its grace window: a game's own write
-        /// wins, and the mod's hold applies otherwise. The triggers, the mute
-        /// light and the player row are the DualSense's, and the lightbar
-        /// is every Sony pad's. The mod's lightbar is not counted as a game's
-        /// (<c>LightbarEverExternal</c> stays as the game left it), so when
-        /// the hold ends PadForge's own color returns.</summary>
         /// <summary>A mod's held lightbar as 0x00RRGGBB, the form the lighting
         /// rows take a game's color in, or null.</summary>
         internal static int? ModColor(GameModEffects.Hold hold)
@@ -536,6 +536,13 @@ namespace PadForge.Common.Input
             return (c[0] << 16) | (c[1] << 8) | c[2];
         }
 
+        /// <summary>Places a game mod's held values (#529) in every subsystem
+        /// a game is not writing within its grace window: a game's own write
+        /// wins, and the mod's hold applies otherwise. The triggers, the mute
+        /// light and the player row are the DualSense's, and the lightbar
+        /// is every Sony pad's. The mod's lightbar is not counted as a game's
+        /// (<c>LightbarEverExternal</c> stays as the game left it), so when
+        /// the hold ends PadForge's own color returns.</summary>
         internal static ModFill FillFromModHold(ExternalSubsystemOverrides overrides,
             GameModEffects.Hold hold, bool isDs5)
         {
@@ -569,6 +576,30 @@ namespace PadForge.Common.Input
                     overrides.LightbarRgb = (byte[])hold.Lightbar.Clone();
             }
             return new ModFill(overrides, right, left, mute, pips);
+        }
+
+        /// <summary>Places a macro's adaptive trigger effects (#531) on the
+        /// DualSense triggers neither a game nor a game mod holds this pass.
+        /// A trigger it fills reads as held, so the end of the effect owes
+        /// one more write of PadForge's own value, the mod's rule.</summary>
+        internal static ModFill FillFromMacroEffects(ExternalSubsystemOverrides overrides,
+            byte[] left, byte[] right, bool isDs5)
+        {
+            bool r = false, l = false;
+            if (isDs5)
+            {
+                if (overrides.RightTriggerEffect == null && right != null && right.Length >= 11)
+                {
+                    overrides.RightTriggerEffect = right;
+                    r = true;
+                }
+                if (overrides.LeftTriggerEffect == null && left != null && left.Length >= 11)
+                {
+                    overrides.LeftTriggerEffect = left;
+                    l = true;
+                }
+            }
+            return new ModFill(overrides, r, l, false, false);
         }
 
         /// <summary>DS5-over-Bluetooth pads owed the connect one-shot that
@@ -662,6 +693,8 @@ namespace PadForge.Common.Input
                     _prevModLeftTrig.Remove(g);
                     _prevModMicLed.Remove(g);
                     _prevModPips.Remove(g);
+                    _prevMacroRightTrig.Remove(g);
+                    _prevMacroLeftTrig.Remove(g);
                     _audioMuteBurstLeft.Remove(g);
                     _prevHeadphoneVolume.Remove(g);
                     _prevAudioOutputPath.Remove(g);
@@ -970,6 +1003,25 @@ namespace PadForge.Common.Input
                     if (!haveRight && hold.RightTrigger != null)
                     {
                         hold.RightTrigger.AsSpan(0, 11).CopyTo(right);
+                        haveRight = true;
+                    }
+                }
+            }
+            // Then a macro's trigger effect (#531), in the Sony pass's order.
+            if (!haveLeft || !haveRight)
+            {
+                var macro = MacroTriggerEffectsProvider?.Invoke(padIndex);
+                if (macro != null && macro.Any)
+                {
+                    macro.Read(Environment.TickCount64, out var macroLeft, out var macroRight);
+                    if (!haveLeft && macroLeft != null)
+                    {
+                        macroLeft.AsSpan(0, 11).CopyTo(left);
+                        haveLeft = true;
+                    }
+                    if (!haveRight && macroRight != null)
+                    {
+                        macroRight.AsSpan(0, 11).CopyTo(right);
                         haveRight = true;
                     }
                 }
@@ -1484,7 +1536,10 @@ namespace PadForge.Common.Input
                 // seconds without a 0xA1 effects report (#528).
                 || AudioPassthroughService.SlotHasArmedDs4Mic(_padIndex)
                 // A game mod changed what it holds here (#529).
-                || ModChangedRecently(System.Threading.Volatile.Read(ref _modChangedMs), Environment.TickCount64);
+                || ModChangedRecently(System.Threading.Volatile.Read(ref _modChangedMs), Environment.TickCount64)
+                // A macro's trigger effect ends at a time (#531), which no
+                // event announces.
+                || MacroTriggerEffectsProvider?.Invoke(_padIndex)?.AnyTimed == true;
         }
 
         /// <summary>Whether a mod change at <paramref name="changedMs"/>
@@ -2175,6 +2230,11 @@ namespace PadForge.Common.Input
                 // the same lock for the same reason: a release and this pass
                 // are then ordered like everything else it writes.
                 var modHold = GameModEffects.ForSlot(_padIndex);
+                // What a macro plays on this slot's triggers (#531), the same
+                // way. Copies: Step 4b may change the store meanwhile.
+                byte[] macroLeftTrig = null, macroRightTrig = null;
+                MacroTriggerEffectsProvider?.Invoke(_padIndex)?.Read(
+                    Environment.TickCount64, out macroLeftTrig, out macroRightTrig);
 
                 foreach (var ud in devices.Items)
                 {
@@ -2555,6 +2615,11 @@ namespace PadForge.Common.Input
                     // apply where neither writes.
                     var modFill = FillFromModHold(devOverrides, modHold, isDs5);
                     devOverrides = modFill.Overrides;
+                    // A macro's trigger effect (#531) fills a trigger neither the
+                    // game nor a mod holds, before the impulse and steering fills,
+                    // which then stand back as they do for a mod.
+                    var macroFill = FillFromMacroEffects(devOverrides, macroLeftTrig, macroRightTrig, isDs5);
+                    devOverrides = macroFill.Overrides;
 
                     // Resolve this device's per-device lighting config.
                     // Falls back to the slot's anchor config if missing
@@ -2697,9 +2762,11 @@ namespace PadForge.Common.Input
                     // ends (#529). | rather than ||, so every pass records
                     // what it wrote.
                     bool assertRightTrig = rightTrigGate.Assert
-                        | ModHoldEnded(_prevModRightTrig, ud.InstanceGuid, modFill.RightTrigger);
+                        | ModHoldEnded(_prevModRightTrig, ud.InstanceGuid, modFill.RightTrigger)
+                        | ModHoldEnded(_prevMacroRightTrig, ud.InstanceGuid, macroFill.RightTrigger);
                     bool assertLeftTrig  = leftTrigGate.Assert
-                        | ModHoldEnded(_prevModLeftTrig, ud.InstanceGuid, modFill.LeftTrigger);
+                        | ModHoldEnded(_prevModLeftTrig, ud.InstanceGuid, modFill.LeftTrigger)
+                        | ModHoldEnded(_prevMacroLeftTrig, ud.InstanceGuid, macroFill.LeftTrigger);
 
                     // Mic LED, same rule as the triggers. FollowDeviceMute
                     // counts as a deliberate intent: it resolves to Off or

@@ -1242,4 +1242,46 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Batani 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Batani 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Masewera</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ndi Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 mpaka F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 ndi masewera ena a Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ndi Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ndi Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ndi Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ndi American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Kudikira masewera pa poti ya UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Kumvetsera pa poti ya UDP {0}. {1} kuchokera ku {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Poti ya UDP {0} ikugwiritsidwa ntchito ndi pulogalamu ina.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Kudikira Assetto Corsa kapena Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Dzina</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Mtundu</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Liwiro (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Giya</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Buleki (0 mpaka 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Kuyendetsa (osati 0)</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Liwiro (mph)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Buleki (%)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Kuyendetsa (1 kapena 0)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Kumanja (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Kumanzere (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Zonse ziwiri (L2 ndi R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Uta</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Makina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Zofewa kwambiri</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Zofewa</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Zapakatikati</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Zolimba</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Zolimba kwambiri</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Zolimba koposa</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Mphamvu A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Mphamvu B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Mphamvu yoyambira</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Mphamvu yomaliza</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Nthawi</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} pa {1} kwa {2} ms</value></data>
 </root>

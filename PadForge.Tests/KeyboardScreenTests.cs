@@ -413,7 +413,8 @@ namespace PadForge.Tests
             Assert.Equal(59, (int)MacroActionType.KeyboardScreenMode);
             Assert.Equal(60, (int)MacroActionType.Stopwatch);
             Assert.Equal(61, (int)MacroActionType.PanKeyboardScreen);
-            Assert.Equal(MacroActionType.PanKeyboardScreen, Enum.GetValues<MacroActionType>()[^1]);
+            // Adaptive Trigger Effect and its Stop follow at 62 and 63 (#531).
+            Assert.Equal(MacroActionType.PanKeyboardScreen, Enum.GetValues<MacroActionType>()[^3]);
             Assert.Equal(0, (int)KeyboardScreenMode.Off);
             Assert.Equal(8, (int)KeyboardScreenMode.Lightbar);
             Assert.Equal(KeyboardScreenMode.Lightbar, KeyboardScreenData.DefaultMode);

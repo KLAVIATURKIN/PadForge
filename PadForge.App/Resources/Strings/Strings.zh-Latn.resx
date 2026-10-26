@@ -4130,7 +4130,7 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="About_PcscSharpDesc" xml:space="preserve"><value>NFC biāoqiān shūrù bèihòu de WinSCard hánshù qiānmíng yǔ dúkǎqì jiānshì diàoyòng shùnxù, yóu Daniel Mueller tígōng. BSD 2-Clause.</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move bàogào bùjú, chuángǎnqì jiàozhǔn hé EXT pèijiàn wòshǒu, yóu Thomas Perl tígōng, bìng yǔ moveonpc wiki jiāochā héduì. PadForge de shíxiàn shì yuánchuàng de C# dàimǎ. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Sàichē yáocè cānkǎo láiyuán</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Fāngxiàngpán zhuànsù huàndǎng LED dēng bèihòu de gòngxiǎng nèicún hé UDP bùjú, qǔ zì assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) hé simapi (LGPL-3.0). Bù suí fù rènhé GPL huò LGPL dàimǎ.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Yóuxì yáocè hé fāngxiàngpán zhuànsù huàndǎng LED dēng bèihòu de gòngxiǎng nèicún hé UDP bùjú, qǔ zì assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) hé vAzhureRacingHub (GPL-3.0). Bù suí fù rènhé GPL huò LGPL dàimǎ.</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Lányá pèiduì yǔ bàogào wéndàng. GPL-2.0 hé GPL-3.0, jǐn zuòwéi wéndàng yuèdú, bù suí fù rènhé GPL dàimǎ.</value></data>
   <data name="About_SipSorceryDesc" xml:space="preserve"><value>Remote Link NAT chuāntòu bèihòu de STUN xiāoxi bùjú yǔ XOR-MAPPED-ADDRESS jiěmǎ, qǔ zì qí C# yuánmǎ, yóu Aaron Clauson tígōng. BSD 3-Clause, fùdài qí xǔkězhèng dì 2 jié de shǐyòng xiànzhì.</value></data>
   <data name="About_SpaceMouseRefs" xml:space="preserve"><value>SpaceMouse cānkǎo láiyuán</value></data>
@@ -4358,4 +4358,134 @@ Yào ràng PadForge xiànzài xièzài tāmen ma? Cǐ cāozuò xūyào tíshēng
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Chóngzhì lì shàngxiàn</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Jiàozhǔn xíngchéng</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Cèliáng wòbǐng yídòng de jùlí. Zài sǎomiáo yùnxíng de sì miǎo nèi, bǎ tā yídòng dào xíngchéng de měi gè biānyuán. Qījiān lì huì tíngzhǐ.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Yóuxì yáocè</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Yóuxì yáocè</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Bǎ sàichē yóuxì fāchū de yáocè shùjù hé Assetto Corsa de gòngxiǎng nèicún fàng dào Shèbèi yèmiàn de Yóuxì yáocè xíng shàng. Kě xiàng rènhé shūrù yīyàng yìngshè qí chēsù, tàbǎn hé dàngwèi, yòng tāmen chùfā hóng, huò zài Zìdìngyì biǎodáshì zhōng cèshì. Jiāntīng shí, fāngxiàngpán de RPM huàndǎng LED yě cóng zhèlǐ dúqǔ yóuxì shùjù.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Jiāntīng yóuxì yáocè</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Yóuxì</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Zìdòng shíbié huì gēnjù shùjùbāo pànduàn yóuxì. Xuǎnzé Project CARS 2 hé Automobilista 2, huò kǎchē móní yóuxì shí, yě huì shèzhì zhèxiē yóuxì gùdìng fāsòng de duānkǒu.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Yóuxì yáocè duānkǒu</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Zhuǎnfā dào duānkǒu</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Bǎ měi gè shùjùbāo fùzhì dào běn jī de zhè ge duānkǒu, shǐ SimHub děng lìng yī gè chéngxù réng néng jiēshōu. Shèwéi 0 zé bù zhuǎnfā.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Mǎnfú chēsù (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Shǐ chēsù zhóu dá dào mǎnfú de chēsù.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Zìdìngyì géshì…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Zhú zìduàn miáoshù PadForge bù rènshi de yóuxì de shùjùbāo.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Zài měi kuǎn yóuxì zhōng kāiqǐ yáocè shūchū, bìng bǎ tā zhǐ xiàng běn jī hé gāi duānkǒu. F1, Codemasters yóuxì hé EA SPORTS WRC mòrèn shǐyòng 20777, Project CARS 2 hé Automobilista 2 shǐzhōng shǐyòng 5606, MrHokss de kǎchē móní yóuxì chājiàn shǐyòng 49001. Assetto Corsa hé ACC bù xū duānkǒu.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Zìdòng shíbié</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport hé Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 zhì F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 jí qítā Codemasters yóuxì</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive hé Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 hé Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa hé Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 hé American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (Zìdìngyì)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Zhèngzài UDP duānkǒu {0} shàng děngdài yóuxì.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Zhèngzài UDP duānkǒu {0} shàng jiāntīng. {1}, láizì {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP duānkǒu {0} yǐ bèi lìng yī gè chéngxù zhànyòng.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Zhèngzài cóng gòngxiǎng nèicún dúqǔ {0}.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Zhèngzài děngdài Assetto Corsa huò Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Zhèngzài zhuǎnfā dào duānkǒu {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Zìdìngyì yáocè géshì</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Zhú zìduàn miáoshù yóuxì fāchū de shùjùbāo, PadForge biàn néng dúqǔ gāi yóuxì. Měi gè biànliàng dōu huì chéngwéi Yóuxì yáocè xíng shàng de yī gè zhóu, yě shì Zìdìngyì biǎodáshì chùfāqì de yī gè tōngdào. Kě zài yóuxì lièbiǎo zhōng àn míngchēng xuǎnzé géshì, yě kě wèi qí shèzhì chángdù huò jiàn, ràng Zìdòng shíbié zhǎodào tā.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Tiānjiā géshì</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Géshì {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Míngchēng</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Shùjùbāo</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Èrjìnzhì</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Chángdù (zìjié)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Zhǐyǒu zhènghǎo zhème duō zìjié de shùjùbāo cái huì àn cǐ géshì dúqǔ. Shèwéi 0 shí, rènhé shùjùbāo dōu huì dúqǔ, ér Zìdòng shíbié bù huì xuǎnyòng gāi géshì, qǐng àn míngchēng xuǎnzé.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Bìbèi de jiàn</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Zhǐyǒu dàiyǒu zhè ge jiàn de JSON shùjùbāo cái huì àn cǐ géshì dúqǔ. Liú kōng shí, rènhé shùjùbāo dōu huì dúqǔ, ér Zìdòng shíbié bù huì xuǎnyòng gāi géshì, qǐng àn míngchēng xuǎnzé.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Dàduānxù</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Shùjùbāo xiān xiě měi gè shùzì de zuì gāowèi zìjié. PC shàng de yóuxì jīhū zǒngshì xiān xiě zuì dīwèi zìjié.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Dàngwèi shùzhí</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Dàngwèi zìduàn wèi dàochē hé kōngdǎng shǐyòng zìjǐ de shùzì, rú Forza de 0 hé 11. Guānbì shí, fù de dàngwèi shì dàochē, 0 shì kōngdǎng.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Dàochē</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Kōngdǎng</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Zìduàn</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Měi gè zìduàn zài qí piānyí chù dú yī gè shùzì, huò zài JSON zhōng àn qí jiàn dúqǔ (diǎn kě shēnrù qiàntào duìxiàng), bìng chéngyǐ bǐlì. Chéngyǐ bǐlì zhīhòu, chēsù yǐ km/h wéi dānwèi, tàbǎn cóng 0 dào 1, fāngxiàng cóng zuǒ dǐ de -1 dào yòu dǐ de 1. Biànliàng de zhóu cóng jìngzhǐ shí de zuìxiǎozhí dào mǎnfú shí de zuìdàzhí.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Dúrù dào</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Biànliàng míngchēng</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Piānyí</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Lèixíng</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON jiàn</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Bǐlì</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Zuìxiǎozhí</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Zuìdàzhí</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Tiānjiā zìduàn</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Shānchú zìduàn</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Géshì {0} xūyào yī gè bù hán : huò | de míngchēng.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Yǒu liǎng gè géshì dōu jiào {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} zhōng de yī gè biànliàng xūyào yī gè bù hán : huò | de míngchēng.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} zhōng de yī gè zìduàn dúqǔ de wèizhì chāochū le qí {1} zìjié shùjùbāo de mòwěi.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} zhōng de yī gè zìduàn xūyào yī gè JSON jiàn.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Biànliàng</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Chēsù (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Zuìgāo RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Dàngwèi</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Yóumén (0 dào 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Shāchē (0 dào 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Líhéqì (0 dào 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Shǒushā (0 dào 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Fāngxiàng (-1 dào 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Xíngshǐ zhōng (fēi 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Yóuxì yáocè</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Chēsù (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (zhàn zuìgāo zhí de %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Dàngwèi (-1 dàochē, 0 kōngdǎng)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Yóumén (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Shāchē (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Líhéqì (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Shǒushā (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Fāngxiàng (-100 zuǒ dào 100 yòu)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Xíngshǐ zhōng (1 huò 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Zìshìyìng bānjī xiàoguǒ</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Tíngzhǐ zìshìyìng bānjī xiàoguǒ</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Zài cǐ cáowèi de bānjī shàng bòfàng DualSense zìshìyìng bānjī xiàoguǒ. Zhèxiē xiàoguǒ yǔ DSX de yóuxì mózǔ suǒ fāsòng de xiāngtóng.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Jiéshù hóng zài suǒ xuǎn bānjī shàng bǎochí de zìshìyìng bānjī xiàoguǒ. Qǐng yǔ yī gè bǎochí zhídào tíngzhǐ de xiàoguǒ dápèi shǐyòng.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Bānjī</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Yòu (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Zuǒ (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Liǎng gè (L2 hé R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Xiàoguǒ</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Guānbì</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Gōng</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Bēnchí</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Jīqì</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Jí ruǎn</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Ruǎn</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Zhōng</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Yìng</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Jí yìng</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Zuì yìng</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Gāngxìng</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Duàncù</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Zhèndòng màichōng</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Qǐshǐ qūyù</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Jiéshù qūyù</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Tánjī qiángdù</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Dìyī zú</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Dì-èr zú</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Qiángdù A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Qiángdù B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Zhōuqī (miǎo de shífēnzhī)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Qǐshǐ qiángdù</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Jiéshù qiángdù</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Qūyù {0} qiángdù</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Zhèxiē shùzhí bù néng chǎnshēng xiàoguǒ, yīncǐ gāi dòngzuò shénme yě bù bòfàng. Jiéshù qūyù bìxū wèiyú qǐshǐ qūyù zhīhòu, dì-èr zú yě bìxū wèiyú dìyī zú zhīhòu.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Bǎochí</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Hóng de chùfāqì ànzhù qījiān</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Bǎochí gùdìng shíjiān</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Zhídào tíngzhǐ</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Shíjiān</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Zài cǐ cáowèi de suǒyǒu DualSense hé DualSense Edge shàng bòfàng. Yóuxì zìshēn de bānjī xiàoguǒ hé yóuxì mózǔ de xiàoguǒ yōuxiān, xiàoguǒ jiéshù hòu, Zìshìyìng bānjī biāoqiān yè de shèzhì huì huīfù. Qūyù cóng jìngzhǐ shí de 0 dào wánquán ànxià shí de 9. Gōng, Bēnchí hé Jīqì bù shì guānfāng de DualSense xiàoguǒ, gùjiàn gēngxīn kěnéng huì yízhí tāmen. Kāiqǐ Zhuǎnhuàn zìshìyìng bānjī zhèndòng hòu, Xbox kòngzhìqì kě bǎ zhèndòng xiàoguǒ gǎnshòu wéi bānjī zhèndòng.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1}: {0}, chíxù {2} háomiǎo</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{1}: {0}, ànzhù qījiān</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{1}: {0}, zhídào tíngzhǐ</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Tíngzhǐ {0} de bānjī xiàoguǒ</value></data>
 </root>

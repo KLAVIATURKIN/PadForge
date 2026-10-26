@@ -1788,8 +1788,19 @@
                                                               SelectedValuePath="Tag" MinWidth="140" Margin="0,0,8,0">
                                                         <ComboBoxItem Content="{Binding Macro_InputDevice, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerSource.InputDevice}"/>
                                                         <ComboBoxItem Content="{Binding Macro_OutputController, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerSource.OutputController}"/>
+                                                        <ComboBoxItem Content="{Binding Macro_GameTelemetry, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerSource.GameTelemetry}"/>
                                                     </ComboBox>
                                                     <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="Source" SettingLabel="{Binding Macro_Source, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroExpressionVariable_Source_1644" Margin="4,0,8,0"/>
+                                                    <!-- Game telemetry channel (#531): speed, RPM, gear, the
+                                                         pedals in percent, or a custom format's variable, in
+                                                         the channel's own unit. -->
+                                                    <ComboBox ItemsSource="{x:Static vm:TelemetryChannelOptions.Items}"
+                                                              SelectedItem="{Binding TelemetryOption, Mode=TwoWay}"
+                                                              DisplayMemberPath="Display"
+                                                              MinWidth="220" Margin="0,0,8,0"
+                                                              AutomationProperties.Name="{Binding Macro_GameTelemetry, Source={x:Static strings:Strings.Instance}}"
+                                                              Visibility="{Binding Source, Converter={StaticResource EnumEqualityVisibilityConverter}, ConverterParameter=GameTelemetry}"/>
+                                                    <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="TelemetryChannel" SettingLabel="{Binding Macro_GameTelemetry, Source={x:Static strings:Strings.Instance}}" Visibility="{Binding Source, Converter={StaticResource EnumEqualityVisibilityConverter}, ConverterParameter=GameTelemetry}" AutomationProperties.AutomationId="Reset_MacroExpressionVariable_TelemetryChannel_1648" Margin="4,0,8,0"/>
                                                     <!-- OutputChannel dropdown — items are sourced from the
                                                          parent macro's OutputChannelOptions list, which renders
                                                          labels per the slot's VC family (matches the mapping
@@ -1815,9 +1826,11 @@
                                                          and Output Controller (captures the next change on the
                                                          slot's combined Gamepad output). Shares the
                                                          EmberIconButtonHot chrome with the merge-mapping
-                                                         per-source Record buttons for visual parity. -->
+                                                         per-source Record buttons for visual parity. A
+                                                         telemetry variable is picked, not recorded (#531). -->
                                                     <ui:Button Command="{Binding RecordCommand}"
                                                                Style="{StaticResource EmberIconButtonHot}"
+                                                               Visibility="{Binding Source, Converter={StaticResource EnumEqualityVisibilityConverter}, ConverterParameter=InputDevice|OutputController}"
                                                                VerticalAlignment="Center">
                                                         <controls:GlyphText Text="{Binding RecordIcon}" FontFamily="Segoe MDL2 Assets"
                                                                    Foreground="{DynamicResource EmberBrush}"/>
@@ -3266,6 +3279,112 @@
                                             <TextBlock Text="{Binding RumbleStopEditorTitle}"
                                                        FontWeight="SemiBold" Margin="0,0,0,4"/>
                                             <TextBlock Text="{Binding RumbleStopEditorBody}"
+                                                       FontSize="11" TextWrapping="Wrap"
+                                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Adaptive Trigger Effect card (#531): the trigger, the
+                                         effect, its parameters by name within the ranges the
+                                         #529 encoder takes, and how long it holds. -->
+                                    <Border Style="{StaticResource CardBorder}" Margin="0,0,0,6"
+                                            Visibility="{Binding IsTriggerEffectType, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding MacroAction_Type_TriggerEffect, Source={x:Static strings:Strings.Instance}}"
+                                                       FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding MacroAction_TriggerEffect_Side, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="120" Margin="0,0,8,0"/>
+                                                <ComboBox SelectedValue="{Binding TriggerEffectSide, Mode=TwoWay}"
+                                                          SelectedValuePath="Tag" MinWidth="180"
+                                                          AutomationProperties.Name="{Binding MacroAction_TriggerEffect_Side, Source={x:Static strings:Strings.Instance}}">
+                                                    <ComboBoxItem Content="{Binding MacroAction_TriggerEffect_SideRight, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerEffectSide.Right}"/>
+                                                    <ComboBoxItem Content="{Binding MacroAction_TriggerEffect_SideLeft, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerEffectSide.Left}"/>
+                                                    <ComboBoxItem Content="{Binding MacroAction_TriggerEffect_SideBoth, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerEffectSide.Both}"/>
+                                                </ComboBox>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="TriggerEffectSide" SettingLabel="{Binding MacroAction_TriggerEffect_Side, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_TriggerEffectSide_3300"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding MacroAction_TriggerEffect_Effect, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="120" Margin="0,0,8,0"/>
+                                                <ComboBox ItemsSource="{x:Static vm:TriggerEffectCatalog.Kinds}"
+                                                          SelectedItem="{Binding TriggerEffectKind, Mode=TwoWay}"
+                                                          DisplayMemberPath="Display" MinWidth="240"
+                                                          AutomationProperties.Name="{Binding MacroAction_TriggerEffect_Effect, Source={x:Static strings:Strings.Instance}}"/>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="TriggerEffectMode" SettingLabel="{Binding MacroAction_TriggerEffect_Effect, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_TriggerEffectMode_3312"/>
+                                            </StackPanel>
+                                            <!-- One row per parameter of the chosen effect, named, with
+                                                 the range the encoder accepts. -->
+                                            <ItemsControl ItemsSource="{Binding TriggerEffectRows}" KeyboardNavigation.TabNavigation="Continue">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type vm:TriggerEffectParameterValue}">
+                                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                                                            <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding Label}"
+                                                                       VerticalAlignment="Center" Width="120" Margin="0,0,8,0" TextTrimming="CharacterEllipsis"/>
+                                                            <Slider Value="{Binding Value, Mode=TwoWay}" Minimum="{Binding Min}" Maximum="{Binding Max}"
+                                                                    IsSnapToTickEnabled="True" TickFrequency="1" SmallChange="1" LargeChange="1"
+                                                                    Width="220" VerticalAlignment="Center"
+                                                                    AutomationProperties.Name="{Binding Label, TargetNullValue=''}"/>
+                                                            <TextBox Text="{Binding Value, Mode=TwoWay}" Width="60" Margin="8,0,0,0"
+                                                                     AutomationProperties.Name="{Binding Label, TargetNullValue=''}"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                            <TextBlock Text="{Binding MacroAction_TriggerEffect_Invalid, Source={x:Static strings:Strings.Instance}}"
+                                                       FontSize="11" TextWrapping="Wrap" Margin="0,2,0,4"
+                                                       Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                                       Visibility="{Binding TriggerEffectIsValid, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Invert}"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding MacroAction_TriggerEffect_Hold, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="120" Margin="0,0,8,0"/>
+                                                <ComboBox SelectedValue="{Binding TriggerEffectHold, Mode=TwoWay}"
+                                                          SelectedValuePath="Tag" MinWidth="240"
+                                                          AutomationProperties.Name="{Binding MacroAction_TriggerEffect_Hold, Source={x:Static strings:Strings.Instance}}">
+                                                    <ComboBoxItem Content="{Binding MacroAction_TriggerEffect_HoldRelease, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerEffectHold.UntilRelease}"/>
+                                                    <ComboBoxItem Content="{Binding MacroAction_TriggerEffect_HoldDuration, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerEffectHold.Duration}"/>
+                                                    <ComboBoxItem Content="{Binding MacroAction_TriggerEffect_HoldStopped, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerEffectHold.UntilStopped}"/>
+                                                </ComboBox>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="TriggerEffectHold" SettingLabel="{Binding MacroAction_TriggerEffect_Hold, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_TriggerEffectHold_3349"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,4"
+                                                        Visibility="{Binding IsTriggerEffectTimed, Converter={StaticResource BoolToVisibilityConverter}}">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding MacroAction_TriggerEffect_Duration, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="120" Margin="0,0,8,0"/>
+                                                <Slider Value="{Binding TriggerEffectMs, Mode=TwoWay}"
+                                                        Minimum="1" Maximum="10000" Width="220"
+                                                        VerticalAlignment="Center"
+                                                        AutomationProperties.Name="{Binding MacroAction_TriggerEffect_Duration, Source={x:Static strings:Strings.Instance}}"/>
+                                                <TextBox Text="{Binding TriggerEffectMs, Mode=TwoWay}" Width="80" Margin="8,0,0,0"
+                                                         AutomationProperties.Name="{Binding MacroAction_TriggerEffect_Duration, Source={x:Static strings:Strings.Instance}}"/>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="TriggerEffectMs" SettingLabel="{Binding MacroAction_TriggerEffect_Duration, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_TriggerEffectMs_3362" Margin="4,0,8,0"/>
+                                                <TextBlock Foreground="{DynamicResource TextFillColorTertiaryBrush}" Text="{Binding Common_Ms, Source={x:Static strings:Strings.Instance}}" VerticalAlignment="Center" Margin="4,0,0,0"/>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding MacroAction_TriggerEffect_Hint, Source={x:Static strings:Strings.Instance}}"
+                                                       FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                                       Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Stop Adaptive Trigger Effect card (#531): which trigger. -->
+                                    <Border Style="{StaticResource CardBorder}" Margin="0,0,0,6"
+                                            Visibility="{Binding IsTriggerEffectStopType, Converter={StaticResource BoolToVisibilityConverter}}">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding MacroAction_Type_TriggerEffectStop, Source={x:Static strings:Strings.Instance}}"
+                                                       FontWeight="SemiBold" Margin="0,0,0,6"/>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                                                <TextBlock Foreground="{DynamicResource TextFillColorSecondaryBrush}" Text="{Binding MacroAction_TriggerEffect_Side, Source={x:Static strings:Strings.Instance}}"
+                                                           VerticalAlignment="Center" Width="120" Margin="0,0,8,0"/>
+                                                <ComboBox SelectedValue="{Binding TriggerEffectSide, Mode=TwoWay}"
+                                                          SelectedValuePath="Tag" MinWidth="180"
+                                                          AutomationProperties.Name="{Binding MacroAction_TriggerEffect_Side, Source={x:Static strings:Strings.Instance}}">
+                                                    <ComboBoxItem Content="{Binding MacroAction_TriggerEffect_SideRight, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerEffectSide.Right}"/>
+                                                    <ComboBoxItem Content="{Binding MacroAction_TriggerEffect_SideLeft, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerEffectSide.Left}"/>
+                                                    <ComboBoxItem Content="{Binding MacroAction_TriggerEffect_SideBoth, Source={x:Static strings:Strings.Instance}}" Tag="{x:Static vm:MacroTriggerEffectSide.Both}"/>
+                                                </ComboBox>
+                                                <reset:SettingResetButton Command="{Binding ResetSettingCommand}" CommandParameter="TriggerEffectSide" SettingLabel="{Binding MacroAction_TriggerEffect_Side, Source={x:Static strings:Strings.Instance}}" AutomationProperties.AutomationId="Reset_MacroAction_TriggerEffectSide_3384"/>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding MacroAction_TriggerEffectStop_Tooltip, Source={x:Static strings:Strings.Instance}}"
                                                        FontSize="11" TextWrapping="Wrap"
                                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"/>
                                         </StackPanel>

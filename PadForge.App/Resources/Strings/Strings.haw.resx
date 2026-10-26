@@ -898,4 +898,38 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Pihi 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Pihi 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Pāʻani</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport a me Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 a hiki i F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 a me nā pāʻani ʻē aʻe o Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive a me Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 a me Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa a me Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 a me American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Ke kali nei i kekahi pāʻani ma ka port UDP {0}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Ke hoʻohana ʻia nei ka port UDP {0} e kekahi polokalamu ʻē aʻe.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Ke kali nei i Assetto Corsa a i ʻole Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Inoa</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>ʻAno</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Māmā (km/h)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Peleki (0 a hiki i 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Hoʻokele (-1 a hiki i 1)</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Māmā (mph)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Peleki (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Hoʻokele (-100 hema a hiki i 100 ʻākau)</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>ʻĀkau (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Hema (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Nā mea ʻelua (L2 a me R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Pio</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Kakaka</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Mīkini</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Palupalu loa</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Palupalu</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>ʻOʻoleʻa</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>ʻOʻoleʻa loa</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Ikaika A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Ikaika B</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Manawa</value></data>
 </root>

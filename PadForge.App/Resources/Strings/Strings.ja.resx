@@ -4191,7 +4191,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move のレポートレイアウト、センサーキャリブレーション、EXT アクセサリーのハンドシェイク。Thomas Perl 製。moveonpc wiki と照合。PadForge の実装は独自の C# です。BSD 2-Clause。</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>レーステレメトリーの参照元</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ステアリングホイールの RPM シフト LED を支える共有メモリーと UDP のレイアウト。assettocorsasharedmemory (MIT)、forza-data-web (Apache-2.0)、forza-telemetry (MIT)、InSim.NET (LGPL-2.1)、irsdkSharp (MIT)、IRSDKSharper (GPL-3.0)、out-gauge-cluster (Apache-2.0)、pyirsdk (MIT)、rF2SharedMemoryMapPlugin (GPL-3.0)、rFactorSharedMemoryMap (GPL-2.0)、rust_ams2_sharedmem、scs-sdk-plugin (MIT)、simapi (LGPL-3.0) から読み取り。GPL および LGPL のコードは同梱しません。</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ゲームテレメトリーとステアリングホイールの RPM シフト LED を支える共有メモリーと UDP のレイアウト。assettocorsasharedmemory (MIT)、CMTelemetry、dirt-rally-telemetry-dashboard (MIT)、ets2-telemetry-udp (MIT)、f1-24-udp (MIT)、fh6-tel (MIT)、forza-data-web (Apache-2.0)、forza-telemetry (MIT)、Forza-Telemetry-Splitter (MIT)、InSim.NET (LGPL-2.1)、irsdkSharp (MIT)、IRSDKSharper (GPL-3.0)、out-gauge-cluster (Apache-2.0)、PCars2UdpNet (MIT)、project-cars-2-udp (MIT)、pyirsdk (MIT)、rF2SharedMemoryMapPlugin (GPL-3.0)、rFactorSharedMemoryMap (GPL-2.0)、rust_ams2_sharedmem、scs-sdk-plugin (MIT)、simapi (LGPL-3.0)、tm-bt-led (MIT)、vAzhureRacingHub (GPL-3.0) から読み取り。GPL および LGPL のコードは同梱しません。</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 の Bluetooth ペアリングとレポートに関するドキュメント。GPL-2.0 および GPL-3.0、ドキュメントとしてのみ参照、GPL コードは同梱しません。</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4432,4 +4432,134 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>力の上限をリセット</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>可動範囲をキャリブレーション</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ハンドルが動く範囲を測定します。スイープが実行される 4 秒間に、ハンドルを可動範囲のすべての端まで動かしてください。その間、力は加わりません。</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>ゲームテレメトリー</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>ゲームテレメトリー</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>ドライビングゲームが送信するテレメトリーと Assetto Corsa の共有メモリーを、デバイスページの「ゲームテレメトリー」行に反映します。速度、ペダル、ギアを通常の入力と同様にマッピングしたり、マクロのトリガーにしたり、カスタム式で判定したりできます。受信中は、ホイールの RPM シフト LED もここからゲームの値を読み取ります。</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>ゲームテレメトリーを受信する</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>ゲーム</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>自動検出では、パケットからゲームを判別します。Project CARS 2 と Automobilista 2、またはトラックシミュレーターを選ぶと、それらのゲームが常に送信するポートも設定されます。</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>ゲームテレメトリーのポート</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>転送先ポート</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>すべてのパケットをこの PC のこのポートにもコピーし、SimHub などの別のプログラムが受信し続けられるようにします。0 の場合は転送しません。</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>最高速度 (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>速度の軸が最大まで動く速度です。</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>カスタム形式…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge が知らないゲームのパケットを、フィールドごとに記述します。</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>各ゲームでテレメトリー出力をオンにし、この PC とこのポートを指定してください。F1、Codemasters のゲーム、EA SPORTS WRC は変更しない限り 20777、Project CARS 2 と Automobilista 2 は常に 5606、MrHokss 氏のトラックシミュレーター用プラグインは 49001 を使います。Assetto Corsa と ACC にポートは不要です。</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>自動検出</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport と Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 から F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 とその他の Codemasters ゲーム</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive と Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 と Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa と Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 と American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (カスタム)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP ポート {0} でゲームを待っています。</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP ポート {0} で受信中。{2} から {1}。</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP ポート {0} は別のプログラムが使用中です。</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>共有メモリーから {0} を読み取り中です。</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa または Assetto Corsa Competizione を待っています。</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>ポート {0} に転送中です。</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>カスタムテレメトリー形式</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>ゲームが送信するパケットをフィールドごとに記述すると、PadForge がそのゲームも読み取れるようになります。各変数は、ゲームテレメトリー行の軸と、カスタム式トリガーのチャンネルになります。ゲームの一覧で名前を選ぶか、長さまたはキーを設定して自動検出で見つかるようにしてください。</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>形式を追加</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>形式 {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>名前</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>パケット</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>バイナリ</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>長さ (バイト)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>ちょうどこのバイト数のパケットだけが、この形式で読み取られます。0 の場合はどのパケットも読み取られ、自動検出はこの形式を対象にしないため、名前で選んでください。</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>必須キー</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>このキーを含む JSON パケットだけが、この形式で読み取られます。空欄の場合はどのパケットも読み取られ、自動検出はこの形式を対象にしないため、名前で選んでください。</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>ビッグエンディアン</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>パケットは、各数値を最上位バイトから順に書き込みます。PC のゲームはほとんどの場合、最下位バイトから書き込みます。</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>ギアの値</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>ギアのフィールドが、Forza の 0 と 11 のように、リバースとニュートラルに独自の数値を使います。オフの場合、負のギアはリバース、0 はニュートラルです。</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>リバース</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>ニュートラル</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>フィールド</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>各フィールドは、オフセットの位置にある数値 (JSON ではキーの下にある数値。ドットで入れ子のオブジェクトに入れます) を読み取り、スケールを掛けます。スケール適用後、速度は km/h、ペダルは 0 から 1、ステアリングは左いっぱいの -1 から右いっぱいの 1 になります。変数の軸は、静止時の最小値から最大時の最大値までを動きます。</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>読み取り先</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>変数名</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>オフセット</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>型</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON キー</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>スケール</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>最小</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>最大</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>フィールドを追加</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>フィールドを削除</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>形式 {0} には、: と | を含まない名前が必要です。</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>{0} という名前の形式が 2 つあります。</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} の変数には、: と | を含まない名前が必要です。</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} のフィールドが、{1} バイトのパケットの末尾を超えて読み取ろうとしています。</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} のフィールドには JSON キーが必要です。</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>変数</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>速度 (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>最大 RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>ギア</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>スロットル (0 から 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>ブレーキ (0 から 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>クラッチ (0 から 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>ハンドブレーキ (0 から 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>ステアリング (-1 から 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>走行中 (0 以外)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>ゲームテレメトリー</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>速度 (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (最大に対する %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>ギア (-1 リバース、0 ニュートラル)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>スロットル (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>ブレーキ (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>クラッチ (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>ハンドブレーキ (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>ステアリング (-100 左から 100 右)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>走行中 (1 または 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>アダプティブトリガーエフェクト</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>アダプティブトリガーエフェクト停止</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>このスロットのトリガーで、DualSense のアダプティブトリガーエフェクトを再生します。エフェクトは、DSX 向けゲーム MOD が送信するものと同じです。</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>マクロが保持しているアダプティブトリガーエフェクトを、選択したトリガーで終了します。停止されるまで保持されるエフェクトと組み合わせて使います。</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>トリガー</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>右 (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>左 (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>両方 (L2 と R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>エフェクト</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>オフ</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>弓</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>ギャロップ</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>マシン</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>とても柔らかい</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>柔らかい</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>中</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>硬い</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>とても硬い</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>最も硬い</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>固定</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>断続</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>振動パルス</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>開始ゾーン</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>終了ゾーン</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>スナップ強度</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>1 歩目</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>2 歩目</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>強度 A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>強度 B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>周期 (10 分の 1 秒)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>開始強度</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>終了強度</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>ゾーン {0} の強度</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>この値ではエフェクトが成立しないため、アクションは何も再生しません。終了ゾーンは開始ゾーンより後ろ、2 歩目は 1 歩目より後ろにしてください。</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>保持</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>マクロのトリガーを押している間</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>指定した時間</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>停止されるまで</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>時間</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>このスロットのすべての DualSense と DualSense Edge で再生されます。ゲーム自身のトリガーエフェクトとゲーム MOD のエフェクトが優先され、エフェクトが終わると「アダプティブトリガー」タブの設定に戻ります。ゾーンは、静止時の 0 から最大まで引いたときの 9 までです。弓、ギャロップ、マシンは DualSense の公式エフェクトではないため、ファームウェアの更新で使えなくなる可能性があります。「アダプティブトリガーの振動を変換」をオンにした Xbox コントローラーでは、振動するエフェクトがトリガーのランブルとして感じられます。</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1}に{0} ({2} ms)</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{1}に{0} (押している間)</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{1}に{0} (停止するまで)</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>{0}のトリガーエフェクトを停止</value></data>
 </root>

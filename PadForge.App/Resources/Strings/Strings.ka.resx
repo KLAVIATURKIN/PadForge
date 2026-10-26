@@ -4214,7 +4214,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move-ის ანგარიშების განლაგება, სენსორის კალიბრაცია და EXT აქსესუარის ხელის ჩამორთმევა, ავტორი Thomas Perl, გადამოწმებულია moveonpc wiki-სთან. PadForge-ის იმპლემენტაცია ორიგინალური C#-ია. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>რბოლის ტელემეტრიის წყაროები</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>გაზიარებული მეხსიერებისა და UDP განლაგებები საჭის RPM-ის გადართვის LED-ების უკან, წაკითხულია assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) და simapi (LGPL-3.0) წყაროებიდან. GPL ან LGPL კოდი არ შედის.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>გაზიარებული მეხსიერებისა და UDP განლაგებები თამაშის ტელემეტრიისა და საჭის RPM-ის გადართვის LED-ების უკან, წაკითხულია assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) და vAzhureRacingHub (GPL-3.0) წყაროებიდან. GPL ან LGPL კოდი არ შედის.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3-ის Bluetooth დაწყვილებისა და ანგარიშების დოკუმენტაცია. GPL-2.0 და GPL-3.0, წაკითხულია მხოლოდ როგორც დოკუმენტაცია, GPL კოდი არ შედის.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4447,4 +4447,129 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>ძალის ლიმიტის საწყისზე დაბრუნება</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>დიაპაზონის კალიბრაცია</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ზომავს, რამდენად შორს გადაადგილდება სახელური. ოთხი წამის განმავლობაში, სანამ გაზომვა მიმდინარეობს, გადაატარეთ ყველა კიდემდე. ძალები ამ დროს ითიშება.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>თამაშის ტელემეტრია</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>თამაშის ტელემეტრია</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>სარბოლო თამაშების მიერ გაგზავნილ ტელემეტრიას და Assetto Corsa-ს გაზიარებულ მეხსიერებას აჩენს მოწყობილობების გვერდის „თამაშის ტელემეტრია“ რიგში. მიაბით მისი სიჩქარე, პედლები და გადაცემები ნებისმიერი შესავალივით, გამოიყენეთ ისინი მაკროების გასაშვებად ან გამოსაცდელად საკუთარ გამოსახულებაში. მოსმენისას საჭის RPM-ის გადართვის LED-ები თამაშს აქედანაც კითხულობენ.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>თამაშის ტელემეტრიის მოსმენა</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>თამაში</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>„ავტომატური ამოცნობა“ თამაშს მისი პაკეტებით ადგენს. Project CARS 2-ისა და Automobilista 2-ის ან სატვირთო სიმულატორების არჩევა ასევე ადგენს პორტს, რომელზეც ეს თამაშები ყოველთვის აგზავნიან.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>თამაშის ტელემეტრიის პორტი</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>გადაგზავნა პორტზე</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>ყველა პაკეტს ამ კომპიუტერის ამ პორტზეც აკოპირებს, რათა სხვა პროგრამამ, მაგალითად SimHub-მა, მისი მიღება განაგრძოს. 0 არაფერს არ გადააგზავნის.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>სრული სიჩქარე (კმ/სთ)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>სიჩქარე, რომელიც სიჩქარის ღერძს ბოლომდე გადაანაცვლებს.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>საკუთარი ფორმატები…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>აღწერს იმ თამაშის პაკეტებს, რომელსაც PadForge არ იცნობს, ველ-ველად.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>ჩართეთ ტელემეტრიის გამოტანა თითოეულ თამაშში და მიუთითეთ ეს კომპიუტერი და პორტი. F1, Codemasters-ის თამაშები და EA SPORTS WRC, ცვლილების გარეშე, იყენებენ 20777-ს, Project CARS 2 და Automobilista 2 ყოველთვის იყენებენ 5606-ს, ხოლო MrHokss-ის დამატება სატვირთო სიმულატორებისთვის იყენებს 49001-ს. Assetto Corsa-სა და ACC-ს პორტი არ სჭირდებათ.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>ავტომატური ამოცნობა</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport და Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22-დან F1 25-მდე</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 და Codemasters-ის სხვა თამაშები</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive და Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 და Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa და Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 და American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (საკუთარი)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>მოლოდინი თამაშისთვის UDP პორტზე {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>ისმენს UDP პორტს {0}. {1}, {2}-დან.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP პორტი {0} სხვა პროგრამას უკავია.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>{0} იკითხება გაზიარებული მეხსიერებიდან.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>ველოდებით Assetto Corsa-ს ან Assetto Corsa Competizione-ს.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>გადაიგზავნება პორტზე {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>საკუთარი ტელემეტრიის ფორმატები</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>აღწერეთ პაკეტები, რომლებსაც თამაში აგზავნის, ველ-ველად, და PadForge ამ თამაშსაც წაიკითხავს. თითოეული ცვლადი ხდება ღერძი „თამაშის ტელემეტრია“ რიგში და არხი საკუთარი გამოსახულების გამშვებებისთვის. აირჩიეთ ფორმატი სახელით სიაში „თამაში“, ან მიუთითეთ მას სიგრძე ან გასაღები, რომ „ავტომატურმა ამოცნობამ“ იპოვოს.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>ფორმატის დამატება</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>ფორმატი {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>სახელი</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>პაკეტები</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>ბინარული</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>სიგრძე (ბაიტი)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>ამ ფორმატით იკითხება მხოლოდ ზუსტად ამდენი ბაიტის პაკეტები. 0-ის შემთხვევაში ნებისმიერი პაკეტი იკითხება, ხოლო „ავტომატური ამოცნობა“ ფორმატს არ ეხება, ამიტომ აირჩიეთ სახელით.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>აუცილებელი გასაღები</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>ამ ფორმატით იკითხება მხოლოდ JSON პაკეტები, რომლებშიც ეს გასაღებია. ცარიელის შემთხვევაში ნებისმიერი პაკეტი იკითხება, ხოლო „ავტომატური ამოცნობა“ ფორმატს არ ეხება, ამიტომ აირჩიეთ სახელით.</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>პაკეტი თითოეულ რიცხვს უფროსი ბაიტით იწყებს. კომპიუტერის თამაშები თითქმის ყოველთვის ჯერ უმცროს ბაიტს წერენ.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>გადაცემის მნიშვნელობები</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>გადაცემის ველს უკუსვლისა და ნეიტრალისთვის საკუთარი რიცხვები აქვს, როგორიცაა Forza-ს 0 და 11. გამორთულის შემთხვევაში უარყოფითი გადაცემა უკუსვლაა, 0 კი ნეიტრალი.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>უკუსვლა</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>ნეიტრალი</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>ველები</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>თითოეული ველი კითხულობს რიცხვს თავისი წანაცვლებით ან JSON-ში თავისი გასაღებით (წერტილები შიგა ობიექტებში აღწევენ) და ამრავლებს მასშტაბზე. მასშტაბის შემდეგ სიჩქარე კმ/სთ-შია, პედლები 0-დან 1-მდეა, საჭე კი -1-დან (სრულად მარცხნივ) 1-მდე (სრულად მარჯვნივ). ცვლადის ღერძი მოსვენებისას მის მინიმუმს უდრის, სრულზე კი მაქსიმუმს.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>ჩაიწერება</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>ცვლადის სახელი</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>წანაცვლება</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>ტიპი</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON გასაღები</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>მასშტაბი</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>მინიმუმი</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>მაქსიმუმი</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>ველის დამატება</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>ველის წაშლა</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>ფორმატს {0} სჭირდება სახელი, რომელშიც არ არის : ან |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>ორ ფორმატს ერთი სახელი აქვს: {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>ცვლადს ფორმატში {0} სჭირდება სახელი, რომელშიც არ არის : ან |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>ფორმატის {0} ერთი ველი კითხულობს {1} ბაიტიანი პაკეტის ბოლოს მიღმა.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>ფორმატის {0} ველს სჭირდება JSON გასაღები.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>ცვლადი</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>სიჩქარე (კმ/სთ)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>მაქსიმალური RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>გადაცემა</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>გაზი (0-დან 1-მდე)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>მუხრუჭი (0-დან 1-მდე)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>ხელის მუხრუჭი (0-დან 1-მდე)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>საჭე (-1-დან 1-მდე)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>მართვაშია (არა 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>თამაშის ტელემეტრია</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>სიჩქარე (მილი/სთ)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% მაქსიმუმიდან)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>გადაცემა (-1 უკუსვლა, 0 ნეიტრალი)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>გაზი (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>მუხრუჭი (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>ხელის მუხრუჭი (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>საჭე (-100 მარცხნივ, 100 მარჯვნივ)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>მართვაშია (1 ან 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>ადაპტური ტრიგერის ეფექტი</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>ადაპტური ტრიგერის ეფექტის შეჩერება</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>უშვებს DualSense-ის ადაპტური ტრიგერის ეფექტს ამ სლოტის ტრიგერებზე. ეფექტები იგივეა, რასაც DSX-ის თამაშის მოდები აგზავნიან.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>წყვეტს ადაპტური ტრიგერის ეფექტს, რომელსაც მაკრო არჩეულ ტრიგერზე ინარჩუნებს. გამოიყენეთ იმ ეფექტთან ერთად, რომელიც შეჩერებამდე გრძელდება.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ტრიგერი</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>მარჯვენა (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>მარცხენა (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>ორივე (L2 და R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>ეფექტი</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>გამორთულია</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>მშვილდი</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>ჭენება</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>მექანიზმი</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>ძალიან რბილი</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>რბილი</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>საშუალო</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>მყარი</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>ძალიან მყარი</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>ყველაზე მყარი</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>ხისტი</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>ვიბრაციული იმპულსი</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>საწყისი ზონა</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>საბოლოო ზონა</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>პირველი ნაბიჯი</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>მეორე ნაბიჯი</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>სიძლიერე A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>სიძლიერე B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>პერიოდი (წამის მეათედები)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>საწყისი სიძლიერე</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>საბოლოო სიძლიერე</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>ზონის {0} სიძლიერე</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>ამ მნიშვნელობებით ეფექტი არ მიიღება, ამიტომ მოქმედება არაფერს უშვებს. საბოლოო ზონა უნდა იყოს საწყისი ზონის შემდეგ, ხოლო მეორე ნაბიჯი – პირველის შემდეგ.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>გრძელდება</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>სანამ მაკროს გამშვები დაჭერილია</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>განსაზღვრული დროით</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>შეჩერებამდე</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>დრო</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>მოქმედებს ამ სლოტზე ყველა DualSense-სა და DualSense Edge-ზე. თამაშის საკუთარი ტრიგერის ეფექტი და თამაშის მოდისა პრიორიტეტულია, ხოლო ადაპტური ტრიგერების ჩანართის პარამეტრი ეფექტის დასრულებისას ბრუნდება. ზონები იწყება 0-დან მოსვენებისას და მთავრდება 9-ით სრულ დაჭერაზე. მშვილდი, ჭენება და მექანიზმი DualSense-ის ოფიციალური ეფექტები არ არის და ფირმვერის განახლებამ შეიძლება ისინი მოხსნას. Xbox-ის კონტროლერებზე, როცა ჩართულია „ადაპტური ტრიგერის ვიბრაციების გადათარგმნა“, ვიბრაციული ეფექტები ტრიგერის ვიბრაციად იგრძნობა.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}, ტრიგერი: {1}, {2} მწმ</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}, ტრიგერი: {1}, დაჭერისას</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}, ტრიგერი: {1}, შეჩერებამდე</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>ტრიგერის ეფექტის შეჩერება: {0}</value></data>
 </root>

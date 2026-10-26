@@ -4240,7 +4240,7 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move రిపోర్ట్ లేఅవుట్లు, సెన్సార్ క్రమాంకనం మరియు EXT యాక్సెసరీ హ్యాండ్షేక్, Thomas Perl ద్వారా, moveonpc వికీతో క్రాస్-చెక్ చేయబడింది. PadForge అమలు అసలైన C#. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>రేసింగ్ టెలిమెట్రీ సూచనలు</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>వీల్ RPM షిఫ్ట్ LEDల వెనుక ఉన్న షేర్డ్-మెమరీ మరియు UDP లేఅవుట్లు, assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) మరియు simapi (LGPL-3.0) నుండి చదవబడ్డాయి. GPL లేదా LGPL కోడ్ ఏదీ పంపిణీ చేయబడదు.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>గేమ్ టెలిమెట్రీ మరియు వీల్ RPM షిఫ్ట్ LEDల వెనుక ఉన్న షేర్డ్-మెమరీ మరియు UDP లేఅవుట్లు, assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) మరియు vAzhureRacingHub (GPL-3.0) నుండి చదవబడ్డాయి. GPL లేదా LGPL కోడ్ ఏదీ పంపిణీ చేయబడదు.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth జత చేయడం మరియు రిపోర్ట్ డాక్యుమెంటేషన్. GPL-2.0 మరియు GPL-3.0, డాక్యుమెంటేషన్గా మాత్రమే చదవబడింది, GPL కోడ్ ఏదీ పంపిణీ చేయబడదు.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ PadForge వాటిని ఇప్పుడు అన్ఇన్స్టా
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>ఫోర్స్ లిమిట్ రీసెట్ చేయి</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>పరిధిని క్రమాంకనం చేయి</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>హ్యాండిల్ ఎంత దూరం కదులుతుందో కొలుస్తుంది. స్వీప్ నడిచే నాలుగు సెకన్ల పాటు దాన్ని దాని పరిధి యొక్క ప్రతి అంచుకు కదిలించండి. ఈలోగా ఫోర్స్‌లు విశ్రాంతిలో ఉంటాయి.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>గేమ్ టెలిమెట్రీ</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>గేమ్ టెలిమెట్రీ</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>డ్రైవింగ్ గేమ్‌లు పంపే టెలిమెట్రీని, అలాగే Assetto Corsa షేర్డ్ మెమరీని, పరికరాల పేజీలోని గేమ్ టెలిమెట్రీ వరుసలో ఉంచుతుంది.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>గేమ్ టెలిమెట్రీ కోసం వినండి</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>గేమ్</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>ఆటో-డిటెక్ట్ ప్యాకెట్ల ఆధారంగా గేమ్ ఏదో గుర్తిస్తుంది. Project CARS 2 మరియు Automobilista 2, లేదా ట్రక్ సిమ్యులేటర్లను ఎంచుకుంటే, ఆ గేమ్లు ఎల్లప్పుడూ పంపే పోర్ట్ కూడా సెట్ అవుతుంది.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>గేమ్ టెలిమెట్రీ పోర్ట్</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>పోర్ట్‌కు ఫార్వర్డ్ చేయి</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>ప్రతి ప్యాకెట్ కాపీని ఈ PC లోని ఈ పోర్ట్ కు పంపుతుంది, కాబట్టి SimHub వంటి మరొక ప్రోగ్రామ్ కూడా దాన్ని అందుకుంటూనే ఉంటుంది. 0 అంటే ఏదీ ఫార్వర్డ్ కాదు.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>పూర్తి వేగం (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>వేగం అక్షాన్ని పూర్తిగా కదిలించే వేగం.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>కస్టమ్ ఫార్మాట్లు…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge కు తెలియని గేమ్ ప్యాకెట్లను ఫీల్డ్ వారీగా వివరిస్తుంది.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>ప్రతి గేమ్లో టెలిమెట్రీ అవుట్పుట్ ఆన్ చేసి, దాన్ని ఈ PC కి, ఈ పోర్ట్ కు పంపేలా సెట్ చేయండి. F1, Codemasters గేమ్లు, EA SPORTS WRC మార్చకపోతే 20777 వాడతాయి, Project CARS 2 మరియు Automobilista 2 ఎల్లప్పుడూ 5606 వాడతాయి, ట్రక్ సిమ్యులేటర్ల కోసం MrHokss ప్లగిన్ 49001 వాడుతుంది. Assetto Corsa మరియు ACC కి పోర్ట్ అవసరం లేదు.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>ఆటో-డిటెక్ట్</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport మరియు Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 నుండి F1 25 వరకు</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 మరియు ఇతర Codemasters గేమ్‌లు</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive మరియు Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 మరియు Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa మరియు Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 మరియు American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (కస్టమ్)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP పోర్ట్ {0} పై గేమ్ కోసం ఎదురుచూస్తోంది.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP పోర్ట్ {0} పై వింటోంది. {2} నుండి {1}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP పోర్ట్ {0} మరో ప్రోగ్రామ్ వాడుకలో ఉంది.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>షేర్డ్ మెమరీ నుండి {0} చదువుతోంది.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa లేదా Assetto Corsa Competizione కోసం వేచి ఉంది.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>పోర్ట్ {0} కు ఫార్వర్డ్ చేస్తోంది.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>కస్టమ్ టెలిమెట్రీ ఫార్మాట్లు</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>గేమ్ పంపే ప్యాకెట్లను ఫీల్డ్ వారీగా వివరించండి, PadForge ఆ గేమ్ను కూడా చదువుతుంది. ప్రతి వేరియబుల్ గేమ్ టెలిమెట్రీ వరుసలో ఒక అక్షంగా, కస్టమ్ ఎక్స్‌ప్రెషన్ ట్రిగ్గర్లకు ఒక ఛానెల్గా మారుతుంది. ఫార్మాట్ను గేమ్ జాబితాలో పేరుతో ఎంచుకోండి, లేదా ఆటో-డిటెక్ట్ దాన్ని కనుగొనేలా పొడవు లేదా కీ ఇవ్వండి.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>ఫార్మాట్ జోడించు</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>ఫార్మాట్ {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>పేరు</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>ప్యాకెట్లు</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>బైనరీ</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>పొడవు (బైట్లు)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>సరిగ్గా ఇన్ని బైట్ల ప్యాకెట్లు మాత్రమే ఈ ఫార్మాట్తో చదవబడతాయి. 0 అయితే ఏ ప్యాకెట్ అయినా చదవబడుతుంది, ఆటో-డిటెక్ట్ ఈ ఫార్మాట్ను వదిలేస్తుంది, కాబట్టి దీన్ని పేరుతో ఎంచుకోండి.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>అవసరమైన కీ</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>ఈ కీ ఉన్న JSON ప్యాకెట్లు మాత్రమే ఈ ఫార్మాట్తో చదవబడతాయి. ఖాళీగా ఉంచితే ఏ ప్యాకెట్ అయినా చదవబడుతుంది, ఆటో-డిటెక్ట్ ఈ ఫార్మాట్ను వదిలేస్తుంది, కాబట్టి దీన్ని పేరుతో ఎంచుకోండి.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>బిగ్-ఎండియన్</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>ప్యాకెట్ ప్రతి సంఖ్యను అత్యంత ముఖ్యమైన బైట్తో మొదలుపెట్టి రాస్తుంది. PC లోని గేమ్లు దాదాపు ఎల్లప్పుడూ తక్కువ ముఖ్యమైన బైట్ను ముందు రాస్తాయి.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>గేర్ విలువలు</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>గేర్ ఫీల్డ్లో రివర్స్, న్యూట్రల్ కోసం సొంత సంఖ్యలు ఉంటాయి, Forza యొక్క 0 మరియు 11 లాగా. ఇది ఆఫ్లో ఉంటే, ప్రతికూల గేర్ రివర్స్, 0 న్యూట్రల్.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>రివర్స్</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>న్యూట్రల్</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>ఫీల్డ్‌లు</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>ప్రతి ఫీల్డ్ దాని ఆఫ్సెట్ వద్ద, లేదా JSON లో దాని కీ కింద ఒక సంఖ్యను చదివి, స్కేల్తో గుణిస్తుంది (చుక్కలు లోపలి ఆబ్జెక్ట్లలోకి వెళ్తాయి). స్కేల్ తర్వాత, వేగం km/h లో ఉంటుంది, పెడల్స్ 0 నుండి 1 వరకు, స్టీరింగ్ పూర్తి ఎడమ వద్ద -1 నుండి పూర్తి కుడి వద్ద 1 వరకు ఉంటుంది. వేరియబుల్ అక్షం విశ్రాంతి వద్ద దాని కనిష్ఠం నుండి పూర్తి వద్ద దాని గరిష్ఠం వరకు ఉంటుంది.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>దీనిలోకి చదువుతుంది</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>వేరియబుల్ పేరు</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>ఆఫ్‌సెట్</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>రకం</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON కీ</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>స్కేల్</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>కనిష్ఠం</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>గరిష్ఠం</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>ఫీల్డ్ జోడించు</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>ఫీల్డ్ తొలగించు</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>ఫార్మాట్ {0} కు : లేదా | లేని పేరు కావాలి.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>రెండు ఫార్మాట్లకు {0} అనే పేరు ఉంది.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} లోని వేరియబుల్‌కు : లేదా | లేని పేరు కావాలి.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} లోని ఒక ఫీల్డ్ దాని {1}-బైట్ ప్యాకెట్ చివరను దాటి చదువుతోంది.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} లోని ఫీల్డ్‌కు JSON కీ కావాలి.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>వేరియబుల్</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>వేగం (కి.మీ/గం)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>గరిష్ఠ RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>గేర్</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>థ్రాటిల్ (0 నుండి 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>బ్రేక్ (0 నుండి 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>క్లచ్ (0 నుండి 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>హ్యాండ్ బ్రేక్ (0 నుండి 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>స్టీరింగ్ (-1 నుండి 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>డ్రైవింగ్ (0 కాదు)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>గేమ్ టెలిమెట్రీ</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>వేగం (మైళ్లు/గం)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (గరిష్ఠంలో %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>గేర్ (-1 రివర్స్, 0 న్యూట్రల్)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>థ్రాటిల్ (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>బ్రేక్ (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>క్లచ్ (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>హ్యాండ్ బ్రేక్ (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>స్టీరింగ్ (-100 ఎడమ నుండి 100 కుడి వరకు)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>డ్రైవింగ్ (1 లేదా 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>అడాప్టివ్ ట్రిగ్గర్ ఎఫెక్ట్</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>అడాప్టివ్ ట్రిగ్గర్ ఎఫెక్ట్ ఆపు</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>ఈ స్లాట్ ట్రిగ్గర్లపై DualSense అడాప్టివ్ ట్రిగ్గర్ ఎఫెక్ట్ను ప్లే చేస్తుంది. ఎఫెక్ట్లు DSX కోసం గేమ్ మోడ్లు పంపేవే.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>ఒక మాక్రో ఎంచుకున్న ట్రిగ్గర్పై పట్టి ఉంచిన అడాప్టివ్ ట్రిగ్గర్ ఎఫెక్ట్ను ముగిస్తుంది. ఆపే వరకు పట్టి ఉంచే ఎఫెక్ట్తో కలిపి వాడండి.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ట్రిగ్గర్</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>కుడి (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>ఎడమ (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>రెండూ (L2 మరియు R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>ఎఫెక్ట్</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>ఆఫ్</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>బో</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>గ్యాలపింగ్</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>మెషిన్</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>చాలా మృదువు</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>మృదువు</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>మధ్యస్థం</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>గట్టి</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>చాలా గట్టి</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>అత్యంత గట్టి</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>దృఢం</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>కుదుపులు</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>వైబ్రేటింగ్ పల్స్</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>ప్రారంభ జోన్</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>ముగింపు జోన్</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>స్నాప్ బలం</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>మొదటి అడుగు</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>రెండవ అడుగు</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>బలం A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>బలం B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>వ్యవధి (సెకనులో పదోవంతులు)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>ప్రారంభ బలం</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>ముగింపు బలం</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>జోన్ {0} బలం</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>ఈ విలువలు ఏ ఎఫెక్ట్నూ ఇవ్వవు, కాబట్టి చర్య ఏమీ ప్లే చేయదు. ముగింపు జోన్ ప్రారంభ జోన్ కంటే తర్వాత ఉండాలి, అలాగే రెండవ అడుగు మొదటి అడుగు కంటే తర్వాత ఉండాలి.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>నిలిపి ఉంచు</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>మాక్రో ట్రిగ్గర్ నొక్కి ఉంచినంత వరకు</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>నిర్ణీత సమయం వరకు</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>ఆపే వరకు</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>సమయం</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>ఈ స్లాట్లోని ప్రతి DualSense మరియు DualSense Edge పై ప్లే అవుతుంది. గేమ్ స్వంత ట్రిగ్గర్ ఎఫెక్ట్ మరియు గేమ్ మోడ్ ఎఫెక్ట్ ముందుగా ప్రాధాన్యం పొందుతాయి, ఎఫెక్ట్ ముగిసినప్పుడు అడాప్టివ్ ట్రిగ్గర్లు ట్యాబ్ సెట్టింగ్ తిరిగి వర్తిస్తుంది. జోన్లు విశ్రాంతి స్థితిలో 0 నుండి పూర్తిగా లాగినప్పుడు 9 వరకు ఉంటాయి. విల్లు, దౌడు మరియు యంత్రం అధికారిక DualSense ఎఫెక్ట్లు కావు, ఫర్మ్వేర్ అప్డేట్ వాటిని తొలగించవచ్చు. "అడాప్టివ్ ట్రిగ్గర్ వైబ్రేషన్లను అనువదించు" ఆన్ చేసిన Xbox కంట్రోలర్లలో వైబ్రేటింగ్ ఎఫెక్ట్లు ట్రిగ్గర్ రంబుల్గా అనిపిస్తాయి.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1} పై {0}, {2} ms పాటు</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{1} పై {0}, నొక్కి ఉంచినంత సేపు</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{1} పై {0}, ఆపే వరకు</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>{0} పై ట్రిగ్గర్ ఎఫెక్ట్ ఆపు</value></data>
 </root>

@@ -4240,7 +4240,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Διατάξεις αναφορών του PlayStation Move, βαθμονόμηση αισθητήρων και η χειραψία των αξεσουάρ EXT, του Thomas Perl, διασταυρωμένα με το wiki του moveonpc. Η υλοποίηση του PadForge είναι πρωτότυπος κώδικας C#. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Αναφορές τηλεμετρίας αγώνων</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Διατάξεις κοινόχρηστης μνήμης και UDP πίσω από τα LED αλλαγής ταχύτητας (RPM) των τιμονιερών, όπως διαβάστηκαν από τα assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) και simapi (LGPL-3.0). Δεν διανέμεται κώδικας GPL ή LGPL.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Διατάξεις κοινόχρηστης μνήμης και UDP πίσω από την Τηλεμετρία παιχνιδιών και τα LED αλλαγής ταχύτητας (RPM) των τιμονιερών, όπως διαβάστηκαν από τα assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) και vAzhureRacingHub (GPL-3.0). Δεν διανέμεται κώδικας GPL ή LGPL.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Τεκμηρίωση της σύζευξης Bluetooth και των αναφορών του DualShock 3. GPL-2.0 και GPL-3.0, μελετήθηκε μόνο ως τεκμηρίωση, δεν διανέμεται κώδικας GPL.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Επαναφορά ορίου δύναμης</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Βαθμονόμηση εύρους κίνησης</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Μετρά πόσο μακριά διανύει η λαβή. Μετακινήστε την σε κάθε άκρο του εύρους κίνησής της για τα τέσσερα δευτερόλεπτα που διαρκεί η σάρωση. Στο μεταξύ οι δυνάμεις σταματούν.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Τηλεμετρία παιχνιδιών</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Τηλεμετρία παιχνιδιών</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Εμφανίζει την τηλεμετρία που στέλνουν τα παιχνίδια οδήγησης, καθώς και την κοινόχρηστη μνήμη του Assetto Corsa, στη γραμμή Τηλεμετρία παιχνιδιών της σελίδας Συσκευές. Αντιστοιχίστε την ταχύτητα, τα πεντάλ και τις σχέσεις ταχυτήτων όπως κάθε είσοδο, ενεργοποιήστε μακροεντολές με αυτά ή δοκιμάστε τα σε μια Προσαρμοσμένη έκφραση. Όσο γίνεται ακρόαση, τα LED αλλαγής ταχύτητας (RPM) μιας τιμονιέρας διαβάζουν το παιχνίδι και από εδώ.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Ακρόαση τηλεμετρίας παιχνιδιών</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Παιχνίδι</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Ο αυτόματος εντοπισμός αναγνωρίζει το παιχνίδι από τα πακέτα του. Η επιλογή Project CARS 2 και Automobilista 2 ή των προσομοιωτών φορτηγών ορίζει επίσης τη θύρα στην οποία στέλνουν πάντα αυτά τα παιχνίδια.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Θύρα τηλεμετρίας παιχνιδιών</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Προώθηση στη θύρα</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Αντιγράφει κάθε πακέτο σε αυτή τη θύρα του ίδιου υπολογιστή, ώστε ένα άλλο πρόγραμμα, όπως το SimHub, να συνεχίσει να το λαμβάνει. Το 0 δεν προωθεί τίποτα.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Πλήρης ταχύτητα (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Η ταχύτητα που μετακινεί τον άξονα Ταχύτητα μέχρι το τέρμα.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Προσαρμοσμένες μορφές…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Περιγράφει, πεδίο προς πεδίο, τα πακέτα ενός παιχνιδιού που το PadForge δεν γνωρίζει.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Ενεργοποιήστε την έξοδο τηλεμετρίας σε κάθε παιχνίδι και στρέψτε την σε αυτόν τον υπολογιστή και αυτή τη θύρα. Τα F1, τα παιχνίδια Codemasters και το EA SPORTS WRC χρησιμοποιούν το 20777 αν δεν αλλαχθεί, τα Project CARS 2 και Automobilista 2 χρησιμοποιούν πάντα το 5606 και το πρόσθετο του MrHokss για τους προσομοιωτές φορτηγών χρησιμοποιεί το 49001. Τα Assetto Corsa και ACC δεν χρειάζονται θύρα.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Αυτόματος εντοπισμός</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport και Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 έως F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 και άλλα παιχνίδια Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive και Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 και Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa και Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 και American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (προσαρμοσμένο)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Αναμονή για παιχνίδι στη θύρα UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Ακρόαση στη θύρα UDP {0}. {1} από {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Η θύρα UDP {0} χρησιμοποιείται από άλλο πρόγραμμα.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Ανάγνωση του {0} από την κοινόχρηστη μνήμη.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Αναμονή για Assetto Corsa ή Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Προώθηση στη θύρα {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Προσαρμοσμένες μορφές τηλεμετρίας</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Περιγράψτε τα πακέτα που στέλνει ένα παιχνίδι, πεδίο προς πεδίο, και το PadForge θα διαβάζει και αυτό το παιχνίδι. Κάθε μεταβλητή γίνεται άξονας στη γραμμή Τηλεμετρία παιχνιδιών και κανάλι για ενεργοποιητές Προσαρμοσμένης έκφρασης. Επιλέξτε μια μορφή με το όνομά της στη λίστα Παιχνίδι ή δώστε της μήκος ή κλειδί, ώστε να τη βρίσκει ο αυτόματος εντοπισμός.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Προσθήκη μορφής</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Μορφή {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Όνομα</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Πακέτα</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Δυαδικά</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Μήκος (byte)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Μόνο τα πακέτα με ακριβώς τόσα byte διαβάζονται με αυτή τη μορφή. Με 0 διαβάζεται κάθε πακέτο και ο αυτόματος εντοπισμός αφήνει τη μορφή στην άκρη, οπότε επιλέξτε την με το όνομά της.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Απαιτούμενο κλειδί</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Μόνο τα πακέτα JSON που περιέχουν αυτό το κλειδί διαβάζονται με αυτή τη μορφή. Αν μείνει κενό, διαβάζεται κάθε πακέτο και ο αυτόματος εντοπισμός αφήνει τη μορφή στην άκρη, οπότε επιλέξτε την με το όνομά της.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Το πακέτο γράφει κάθε αριθμό με το πιο σημαντικό byte πρώτα. Τα παιχνίδια σε PC γράφουν σχεδόν πάντα πρώτα το λιγότερο σημαντικό byte.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Τιμές σχέσεων</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Το πεδίο της σχέσης έχει δικούς του αριθμούς για την όπισθεν και το νεκρό, όπως το 0 και το 11 του Forza. Όταν είναι απενεργοποιημένο, η αρνητική σχέση είναι όπισθεν και το 0 νεκρό.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Όπισθεν</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Νεκρό</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Πεδία</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Κάθε πεδίο διαβάζει έναν αριθμό στη θέση (offset) του ή κάτω από το κλειδί του στο JSON (οι τελείες φτάνουν σε εμφωλευμένα αντικείμενα) και τον πολλαπλασιάζει με την κλίμακα. Μετά την κλίμακα, η ταχύτητα είναι σε km/h, τα πεντάλ κυμαίνονται από 0 έως 1 και το τιμόνι από -1 στο τέρμα αριστερά έως 1 στο τέρμα δεξιά. Ο άξονας μιας μεταβλητής κυμαίνεται από το Ελάχιστο σε ηρεμία έως το Μέγιστο στο τέρμα.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Διαβάζεται ως</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Όνομα μεταβλητής</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Offset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Τύπος</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Κλειδί JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Κλίμακα</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Ελάχιστο</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Μέγιστο</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Προσθήκη πεδίου</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Αφαίρεση πεδίου</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Η μορφή {0} χρειάζεται όνομα χωρίς : ή |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Δύο μορφές ονομάζονται {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Μια μεταβλητή στη μορφή {0} χρειάζεται όνομα χωρίς : ή |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Ένα πεδίο στη μορφή {0} διαβάζει πέρα από το τέλος του πακέτου των {1} byte.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Ένα πεδίο στη μορφή {0} χρειάζεται κλειδί JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Μεταβλητή</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Ταχύτητα (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Μέγιστο RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Σχέση ταχυτήτων</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Γκάζι (0 έως 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Φρένο (0 έως 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Συμπλέκτης (0 έως 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Χειρόφρενο (0 έως 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Τιμόνι (-1 έως 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Οδήγηση (όχι 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Τηλεμετρία παιχνιδιών</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Ταχύτητα (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% του μέγιστου)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Σχέση ταχυτήτων (-1 όπισθεν, 0 νεκρό)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Γκάζι (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Φρένο (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Συμπλέκτης (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Χειρόφρενο (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Τιμόνι (-100 αριστερά έως 100 δεξιά)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Οδήγηση (1 ή 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Εφέ προσαρμοζόμενης σκανδάλης</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Διακοπή εφέ προσαρμοζόμενης σκανδάλης</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Παίζει ένα εφέ προσαρμοζόμενης σκανδάλης του DualSense στις σκανδάλες αυτής της υποδοχής. Τα εφέ είναι αυτά που στέλνουν τα mod παιχνιδιών για το DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Τερματίζει το εφέ προσαρμοζόμενης σκανδάλης που κρατά μια μακροεντολή στην επιλεγμένη σκανδάλη. Συνδυάστε το με ένα εφέ που κρατά μέχρι τη διακοπή.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Σκανδάλη</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Δεξιά (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Αριστερή (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Και οι δύο (L2 και R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Εφέ</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Ανενεργό</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Τόξο</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Καλπασμός</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Μηχανή</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Πολύ μαλακό</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Μαλακό</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Μέτριο</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Σκληρό</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Πολύ σκληρό</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Σκληρότατο</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Άκαμπτο</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Διακεκομμένο</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Παλμός δόνησης</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Ζώνη έναρξης</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Ζώνη λήξης</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Ισχύς απότομης αλλαγής</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Πρώτο πάτημα</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Δεύτερο πάτημα</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Ισχύς Α</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Ισχύς B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Περίοδος (δέκατα του δευτερολέπτου)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Ισχύς έναρξης</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Ισχύς λήξης</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Ισχύς ζώνης {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Αυτές οι τιμές δεν δημιουργούν εφέ, οπότε η ενέργεια δεν παίζει τίποτα. Η ζώνη λήξης πρέπει να είναι μετά τη ζώνη έναρξης και το δεύτερο πάτημα μετά το πρώτο.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Κρατά</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Όσο κρατιέται η σκανδάλη της μακροεντολής</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Για καθορισμένο χρόνο</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Μέχρι τη διακοπή</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Χρόνος</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Παίζει σε κάθε DualSense και DualSense Edge αυτής της υποδοχής. Το εφέ σκανδάλης ενός παιχνιδιού και ενός mod παιχνιδιού προηγούνται, και η ρύθμιση της καρτέλας Προσαρμοζόμενες σκανδάλες επιστρέφει όταν τελειώσει το εφέ. Οι ζώνες κυμαίνονται από 0 σε ηρεμία έως 9 στο τέρμα. Τα Τόξο, Καλπασμός και Μηχανή δεν είναι επίσημα εφέ του DualSense και μια ενημέρωση υλικολογισμικού θα μπορούσε να τα αφαιρέσει. Τα χειριστήρια Xbox με ενεργή τη ρύθμιση Μετατροπή δονήσεων προσαρμοζόμενων σκανδαλών αισθάνονται τα εφέ δόνησης ως δόνηση σκανδάλης.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} ({1}) για {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} ({1}) όσο κρατιέται</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} ({1}) μέχρι τη διακοπή</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Διακοπή εφέ σκανδάλης ({0})</value></data>
 </root>

@@ -21,11 +21,12 @@ namespace PadForge.Common.Telemetry
     /// forza-telemetry (independent C# readers, 2026-06-02). The user enables
     /// Data Out and points it at <see cref="TelemetryHub.DefaultForzaPort"/>.
     /// </summary>
-    internal sealed class ForzaUdpTelemetrySource : ITelemetrySource
+    internal sealed class ForzaUdpTelemetrySource : IUdpTelemetrySource
     {
         public string Name => "Forza";
 
         private readonly int _port;
+        public int Port => _port;
         private UdpClient _udp;
         private Thread _thread;
         private volatile bool _run;

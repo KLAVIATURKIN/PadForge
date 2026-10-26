@@ -1081,6 +1081,12 @@
                                    FontSize="11" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,8"
                                    Visibility="{Binding HeadTrackerStatus, Converter={StaticResource StringToVisibility}}"/>
 
+                        <!-- Game telemetry line (#531): the Dashboard card's line,
+                             bound to the text for the head tracker line's reason. -->
+                        <TextBlock common:LiveText.Polite="True" Text="{Binding GameTelemetryStatus}" TextWrapping="Wrap"
+                                   FontSize="11" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,8"
+                                   Visibility="{Binding GameTelemetryStatus, Converter={StaticResource StringToVisibility}}"/>
+
                         <Separator Margin="0,2,0,6"/>
 
                         <!-- Assign to slot -->

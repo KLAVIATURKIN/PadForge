@@ -4191,7 +4191,7 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Disposición de los informes, calibración de sensores y negociación de accesorios EXT del PlayStation Move, de Thomas Perl, contrastadas con la wiki de moveonpc. La implementación de PadForge es C# original. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Referencias de telemetría de carreras</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Disposiciones de memoria compartida y UDP detrás de los LED de cambio del volante, leídas de assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) y simapi (LGPL-3.0). No se distribuye código GPL ni LGPL.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Disposiciones de memoria compartida y UDP detrás de la telemetría de juego y de los LED de cambio del volante, leídas de assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) y vAzhureRacingHub (GPL-3.0). No se distribuye código GPL ni LGPL.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Documentación del emparejamiento Bluetooth y los informes del DualShock 3. GPL-2.0 y GPL-3.0, leído solo como documentación, no se distribuye código GPL.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4432,4 +4432,134 @@ Hay una copia de la versión anterior en esta carpeta: {1}</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Restablecer límite de fuerza</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Calibrar alcance</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mide hasta dónde llega el mango. Muévalo hasta todos los bordes de su alcance durante los cuatro segundos que dura el barrido. Mientras tanto, las fuerzas se detienen.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetría de juego</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetría de juego</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Lleva la telemetría que envían los juegos de conducción, y la memoria compartida de Assetto Corsa, a la fila Telemetría de juego de la página Dispositivos. Asigna su velocidad, pedales y marchas como cualquier entrada, activa macros con ellas o pruébalas en una expresión personalizada. Mientras escucha, los LED de cambio de un volante también leen el juego desde aquí.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Escuchar telemetría de juego</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Juego</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>La detección automática reconoce el juego por sus paquetes. Elegir Project CARS 2 y Automobilista 2, o los simuladores de camiones, también fija el puerto al que esos juegos siempre envían.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Puerto de telemetría de juego</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Reenviar al puerto</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Copia cada paquete a este puerto de este PC, para que otro programa como SimHub siga recibiéndolo. Con 0 no se reenvía nada.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Velocidad máxima (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>La velocidad que lleva el eje de velocidad hasta el final.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Formatos personalizados…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Describe, campo por campo, los paquetes de un juego que PadForge no conoce.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Activa la salida de telemetría en cada juego y apúntala a este PC y a este puerto. F1, los juegos de Codemasters y EA SPORTS WRC usan 20777 salvo que se cambie, Project CARS 2 y Automobilista 2 usan siempre 5606, y el plugin de MrHokss para los simuladores de camiones usa 49001. Assetto Corsa y ACC no necesitan puerto.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Detección automática</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport y Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 a F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 y otros juegos de Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive y Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 y Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa y Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 y American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (personalizado)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Esperando un juego en el puerto UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Escuchando en el puerto UDP {0}. {1} desde {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Otro programa está usando el puerto UDP {0}.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Leyendo {0} desde la memoria compartida.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Esperando a Assetto Corsa o Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Reenviando al puerto {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Formatos de telemetría personalizados</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Describe, campo por campo, los paquetes que envía un juego y PadForge también leerá ese juego. Cada variable se convierte en un eje de la fila Telemetría de juego y en un canal para los activadores de expresión personalizada. Elige un formato por su nombre en la lista Juego, o dale una longitud o una clave para que la detección automática lo encuentre.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Añadir formato</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Formato {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nombre</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paquetes</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binario</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Longitud (bytes)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Solo los paquetes de exactamente esta cantidad de bytes se leen con este formato. Con 0 se lee cualquier paquete y la detección automática no tiene en cuenta el formato, así que elígelo por su nombre.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Clave obligatoria</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Solo los paquetes JSON que contienen esta clave se leen con este formato. Si se deja vacía, se lee cualquier paquete y la detección automática no tiene en cuenta el formato, así que elígelo por su nombre.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>El paquete escribe cada número empezando por el byte más significativo. Los juegos de PC casi siempre empiezan por el byte menos significativo.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Valores de marcha</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>El campo de marcha usa sus propios números para la marcha atrás y el punto muerto, como el 0 y el 11 de Forza. Si está desactivado, una marcha negativa es marcha atrás y 0 es punto muerto.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Marcha atrás</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Punto muerto</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Campos</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Cada campo lee un número en su desfase, o bajo su clave en JSON (los puntos acceden a objetos anidados), y lo multiplica por la escala. Tras la escala, la velocidad está en km/h, los pedales van de 0 a 1 y la dirección de -1 a toda la izquierda a 1 a toda la derecha. El eje de una variable va de su mínimo en reposo a su máximo a fondo.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Se lee en</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Nombre de variable</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Desfase</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tipo</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Clave JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Escala</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Mín.</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Máx.</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Añadir campo</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Quitar campo</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>El formato {0} necesita un nombre sin : ni |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Dos formatos se llaman {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Una variable de {0} necesita un nombre sin : ni |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Un campo de {0} lee más allá del final de su paquete de {1} bytes.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Un campo de {0} necesita una clave JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variable</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Velocidad (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM máximas</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Marcha</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Acelerador (0 a 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Freno (0 a 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Embrague (0 a 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Freno de mano (0 a 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Dirección (-1 a 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Conduciendo (distinto de 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetría de juego</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Velocidad (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% del máximo)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Marcha (-1 marcha atrás, 0 punto muerto)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Acelerador (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Freno (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Embrague (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Freno de mano (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Dirección (-100 izquierda a 100 derecha)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Conduciendo (1 o 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Efecto de gatillo adaptativo</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Detener efecto de gatillo adaptativo</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Reproduce un efecto de gatillo adaptativo del DualSense en los gatillos de esta ranura. Los efectos son los que envían los mods de juegos para DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Termina el efecto de gatillo adaptativo que mantiene una macro en el gatillo elegido. Combínalo con un efecto que se mantenga hasta detenerlo.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Gatillo</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Derecho (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Izquierdo (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Ambos (L2 y R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efecto</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Desactivado</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Arco</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galope</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Máquina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Muy suave</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Suave</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Media</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Dura</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Muy dura</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>La más dura</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Rígida</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Entrecortada</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Pulso vibrante</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Zona inicial</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Zona final</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Intensidad del chasquido</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Primer paso</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Segundo paso</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Intensidad A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Intensidad B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Periodo (décimas de segundo)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Intensidad inicial</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Intensidad final</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Intensidad de la zona {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Estos valores no producen ningún efecto, así que la acción no reproduce nada. La zona final debe estar después de la zona inicial, y el segundo paso después del primero.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Se mantiene</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Mientras se mantiene el activador de la macro</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Durante un tiempo fijo</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Hasta detenerlo</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Tiempo</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Se reproduce en todos los DualSense y DualSense Edge de esta ranura. El efecto de gatillo propio de un juego y el de un mod de juego tienen prioridad, y el ajuste de la pestaña Gatillos adaptativos vuelve cuando termina el efecto. Las zonas van de 0 en reposo a 9 con el gatillo a fondo. Arco, Galope y Máquina no son efectos oficiales del DualSense y una actualización de firmware podría quitarlos. Los mandos Xbox con Traducir las vibraciones de los gatillos adaptativos activado notan los efectos de vibración como vibración de gatillo.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} en {1} durante {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} en {1} mientras se mantiene</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} en {1} hasta detenerlo</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Detener efecto de gatillo en {0}</value></data>
 </root>

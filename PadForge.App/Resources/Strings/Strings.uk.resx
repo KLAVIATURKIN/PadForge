@@ -4216,7 +4216,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Структури звітів PlayStation Move, калібрування датчиків і рукостискання аксесуара EXT, від Thomas Perl, звірені з вікі moveonpc. Реалізація PadForge є оригінальним кодом C#. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Джерела щодо гоночної телеметрії</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Структури спільної пам'яті та UDP для LED-індикаторів обертів керма, вивчені з assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) і simapi (LGPL-3.0). Код під GPL чи LGPL не постачається.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Структури спільної пам'яті та UDP для ігрової телеметрії та LED-індикаторів обертів керма, вивчені з assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) і vAzhureRacingHub (GPL-3.0). Код під GPL чи LGPL не постачається.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Документація щодо створення пари й звітів DualShock 3 через Bluetooth. GPL-2.0 і GPL-3.0, використано лише як документацію, код під GPL не постачається.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4457,4 +4457,134 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Скинути обмеження сили</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Калібрувати хід</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Вимірює, як далеко проходить рукоятка. Доведіть її до кожного краю ходу протягом чотирьох секунд обходу. Сили тим часом вимкнено.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Ігрова телеметрія</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Ігрова телеметрія</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Виводить телеметрію, яку надсилають гоночні ігри, і спільну пам'ять Assetto Corsa в рядок «Ігрова телеметрія» на сторінці Пристрої. Прив'язуйте її швидкість, педалі та передачі як будь-який вхід, запускайте з ними макроси або перевіряйте їх у власному виразі. Поки вона прослуховує, LED-індикатори обертів керма також беруть дані гри звідси.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Приймати ігрову телеметрію</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Гра</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Автовизначення розпізнає гру за її пакетами. Вибір Project CARS 2 і Automobilista 2 або симуляторів вантажівок також задає порт, на який ці ігри завжди надсилають дані.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Порт ігрової телеметрії</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Переслати на порт</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Копіює кожен пакет на цей порт на цьому ПК, щоб інша програма, наприклад SimHub, і далі його отримувала. 0 нічого не пересилає.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Повна швидкість (км/год)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Швидкість, за якої вісь швидкості доходить до краю.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Власні формати…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Описує пакети гри, якої PadForge не знає, поле за полем.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Увімкніть вивід телеметрії в кожній грі та вкажіть цей ПК і порт. F1, ігри Codemasters і EA SPORTS WRC використовують 20777, якщо не змінити, Project CARS 2 і Automobilista 2 завжди використовують 5606, а плагін MrHokss для симуляторів вантажівок використовує 49001. Assetto Corsa і ACC не потребують порту.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Автовизначення</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport і Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 – F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 та інші ігри Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive і Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 і Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa і Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 і American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (власний)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Очікування гри на UDP-порту {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Прослуховування UDP-порту {0}. {1} від {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP-порт {0} зайнятий іншою програмою.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Читання {0} зі спільної пам'яті.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Очікування Assetto Corsa або Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Пересилання на порт {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Власні формати телеметрії</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Опишіть пакети, які надсилає гра, поле за полем, і PadForge читатиме й цю гру. Кожна змінна стає віссю в рядку «Ігрова телеметрія» і каналом для тригерів власного виразу. Виберіть формат за назвою у списку ігор або задайте йому довжину чи ключ, щоб автовизначення його знаходило.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Додати формат</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Формат {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Назва</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Пакети</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Двійкові</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Довжина (байти)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Цим форматом читаються лише пакети точно такої кількості байтів. З 0 читається будь-який пакет, а автовизначення оминає формат, тож вибирайте його за назвою.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Обов'язковий ключ</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Цим форматом читаються лише пакети JSON, що містять цей ключ. Якщо порожньо, читається будь-який пакет, а автовизначення оминає формат, тож вибирайте його за назвою.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Старший байт першим</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Пакет записує кожне число, починаючи зі старшого байта. Ігри на ПК майже завжди записують спершу молодший байт.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Значення передач</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Поле передачі має власні числа для заднього ходу та нейтралі, як-от 0 і 11 у Forza. Коли вимкнено, від'ємна передача означає задній хід, а 0 означає нейтраль.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Задній хід</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Нейтраль</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Поля</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Кожне поле читає число за своїм зсувом або під своїм ключем у JSON (крапки заходять у вкладені об'єкти) і множить його на масштаб. Після масштабу швидкість у км/год, педалі йдуть від 0 до 1, а кермування від -1 повністю вліво до 1 повністю вправо. Вісь змінної йде від її мінімуму в спокої до максимуму на повну.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Читається в</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Назва змінної</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Зсув</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Тип</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Ключ JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Масштаб</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Мін.</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Макс.</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Додати поле</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Видалити поле</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Формат {0} потребує назви без : або |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Два формати мають назву {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Змінна у {0} потребує назви без : або |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Поле у {0} читає за межами свого {1}-байтового пакета.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Полю у {0} потрібен ключ JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Змінна</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Швидкість (км/год)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>Оберти</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Макс. оберти</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Передача</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Газ (від 0 до 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Гальмо (від 0 до 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Зчеплення (від 0 до 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Ручне гальмо (від 0 до 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Кермування (від -1 до 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Їзда (не 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Ігрова телеметрія</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Швидкість (миль/год)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>Оберти (% від макс.)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Передача (-1 задній хід, 0 нейтраль)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Газ (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Гальмо (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Зчеплення (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Ручне гальмо (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Кермування (від -100 вліво до 100 вправо)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Їзда (1 або 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Ефект адаптивного тригера</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Зупинити ефект адаптивного тригера</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Відтворює ефект адаптивного тригера DualSense на тригерах цього слота. Це ефекти, які надсилають ігрові моди для DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Завершує ефект адаптивного тригера, який утримує макрос на вибраному тригері. Поєднуйте з ефектом, що тримається до зупинки.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Тригер</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Правий (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Лівий (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Обидва (L2 і R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Ефект</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Вимкнено</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Лук</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Галоп</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Механізм</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Дуже м'який</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>М'який</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Середній</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Жорсткий</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Дуже жорсткий</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Найжорсткіший</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Непіддатливий</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Уривчастий</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Вібраційний імпульс</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Початкова зона</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Кінцева зона</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Сила клацання</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Перше копито</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Друге копито</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Сила A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Сила B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Період (десяті частки секунди)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Початкова сила</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Кінцева сила</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Сила зони {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>З цими значеннями ефекту немає, тож дія нічого не відтворює. Кінцева зона має бути далі за початкову, а друге копито далі за перше.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Тримається</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Поки утримується тригер макросу</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Заданий час</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>До зупинки</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Час</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Відтворюється на кожному DualSense і DualSense Edge на цьому слоті. Власний ефект тригера гри та ефект ігрового мода мають пріоритет, а налаштування вкладки «Адаптивні тригери» повертається, коли ефект закінчується. Зони йдуть від 0 у спокої до 9 при повному натисканні. Лук, Галоп і Механізм не є офіційними ефектами DualSense, і оновлення прошивки може їх прибрати. На контролерах Xbox з увімкненим параметром «Перетворювати вібрації адаптивних тригерів» вібраційні ефекти відчуваються як вібрація тригера.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} ({1}), {2} мс</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} ({1}), поки утримується</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} ({1}), до зупинки</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Зупинити ефект тригера: {0}</value></data>
 </root>

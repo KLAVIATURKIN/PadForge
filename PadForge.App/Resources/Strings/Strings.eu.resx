@@ -4212,7 +4212,7 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move-ren txosten-antolaketak, sentsoreen kalibrazioa eta EXT osagarrien handshake-a, egilea: Thomas Perl, moveonpc wikiarekin gurutzatuta egiaztatuak. PadForge-ren inplementazioa C# jatorrizkoa da. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Lasterketen telemetria-erreferentziak</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Bolantearen RPM aldaketa-LEDen atzean dauden memoria partekatuko eta UDP antolaketak, hauetatik irakurriak: assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) eta simapi (LGPL-3.0). Ez da GPL ez LGPL koderik banatzen.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Jokoaren telemetriaren eta bolantearen RPM aldaketa-LEDen atzean dauden memoria partekatuko eta UDP antolaketak, hauetatik irakurriak: assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) eta vAzhureRacingHub (GPL-3.0). Ez da GPL ez LGPL koderik banatzen.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3-ren Bluetooth parekatze- eta txosten-dokumentazioa. GPL-2.0 eta GPL-3.0, dokumentazio gisa soilik irakurria, ez da GPL koderik banatzen.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4453,4 +4453,134 @@ PadForge-k orain desinstalatzea nahi duzu? Horrek administratzaile-baimenak beha
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Berrezarri indar-muga</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibratu heina</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Heldulekua zenbat urrutira mugitzen den neurtzen du. Mugitu bere heinaren ertz guztietara miaketak irauten duen lau segundoetan. Indarrak atseden hartzen dute bitartean.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Jokoaren telemetria</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Jokoaren telemetria</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Gailuak orriko Jokoaren telemetria lerroan jartzen ditu gidatzeko jokoek bidaltzen duten telemetria eta Assetto Corsa-ren memoria partekatua. Esleitu haren abiadura, pedalak eta martxak edozein sarrera bezala, abiarazi makroak haiekin, edo probatu Adierazpen pertsonalizatu batean. Entzuten ari den bitartean, bolantearen RPM aldaketa-LEDek ere hemendik irakurtzen dute jokoa.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Entzun jokoaren telemetria</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Jokoa</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Automatikoki detektatu aukerak jokoa paketeetatik ezagutzen du. Project CARS 2 eta Automobilista 2 hautatzeak, edo kamioi-simulagailuak hautatzeak, joko horiek beti erabiltzen duten ataka ere ezartzen du.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Jokoaren telemetriaren ataka</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Birbidali atakara</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Pakete bakoitza PC honetako ataka honetara kopiatzen du, SimHub bezalako beste programa batek jasotzen jarrai dezan. 0 jartzen bada, ez da ezer birbidaltzen.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Abiadura osoa (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Abiadura ardatza erabat mugitzen duen abiadura.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Formatu pertsonalizatuak…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge-k ezagutzen ez duen joko baten paketeak deskribatzen ditu, eremuz eremu.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Aktibatu telemetriaren irteera joko bakoitzean eta zuzendu PC eta ataka honetara. F1, Codemasters jokoek eta EA SPORTS WRC jokoek 20777 erabiltzen dute aldatzen ez bada, Project CARS 2 eta Automobilista 2 jokoek beti 5606 erabiltzen dute, eta MrHokss-en kamioi-simulagailuetarako plugin-ak 49001 erabiltzen du. Assetto Corsa-k eta ACC jokoak ez dute atakarik behar.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Automatikoki detektatu</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport eta Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22tik F1 25era</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 eta Codemasters-en beste joko batzuk</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive eta Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 eta Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa eta Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 eta American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (pertsonalizatua)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>{0} UDP atakan joko baten zain.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>{0} UDP atakan entzuten. {1}, {2} helbidetik.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>{0} UDP ataka beste programa batek erabiltzen du.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>{0} memoria partekatutik irakurtzen.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa edo Assetto Corsa Competizione zain.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>{0} atakara birbidaltzen.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Telemetria-formatu pertsonalizatuak</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Deskribatu jokoak bidaltzen dituen paketeak, eremuz eremu, eta PadForge-k joko hori ere irakurriko du. Aldagai bakoitza ardatz bihurtzen da Jokoaren telemetria lerroan, eta kanal bat Adierazpen pertsonalizatuko abiarazleentzat. Hautatu formatu bat izenez Joko zerrendan, edo eman luzera bat edo gako bat Automatikoki detektatu aukerak aurki dezan.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Gehitu formatua</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>{0}. formatua</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Izena</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paketeak</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Bitarra</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Luzera (byte)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Zehazki byte kopuru hau duten paketeak soilik irakurtzen dira formatu honekin. 0 bada, edozein pakete irakurtzen da, eta Automatikoki detektatu aukerak formatua alde batera uzten du, beraz hautatu izenez.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Beharrezko gakoa</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Gako hau duten JSON paketeak soilik irakurtzen dira formatu honekin. Hutsik utziz gero, edozein pakete irakurtzen da, eta Automatikoki detektatu aukerak formatua alde batera uzten du, beraz hautatu izenez.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Paketeak zenbaki bakoitza byte esanguratsuena lehenik idatziz gordetzen du. PCko jokoek ia beti byte esanguratsuena azkenik idazten dute.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Martxa-balioak</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Martxa-eremuak atzeranzkoaren eta neutroaren zenbaki propioak ditu, Forza-ren 0 eta 11 bezala. Desaktibatuta dagoenean, martxa negatiboa atzeranzkoa da eta 0 neutroa.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Atzeranzkoa</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Neutroa</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Eremuak</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Eremu bakoitzak zenbaki bat irakurtzen du bere desplazamenduan, edo JSON-en bere gakoaren azpian (puntuek objektu habiaratuetara iristen dira), eta eskalaz biderkatzen du. Eskalaren ondoren, abiadura km/h-tan dago, pedalak 0tik 1era doaz, eta bolantea -1etik (ezkerrera osorik) 1era (eskuinera osorik). Aldagai baten ardatza gutxieneko balioatik (atsedenean) gehienekora (osorik) doa.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Hona irakurtzen</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Aldagaiaren izena</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Desplazamendua</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Mota</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON gakoa</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Eskala</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Gutx.</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Gehi.</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Gehitu eremua</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Kendu eremua</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>{0}. formatuak izena behar du, : edo | gabe.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Bi formatuk {0} izena dute.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} formatuko aldagai batek izena behar du, : edo | gabe.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} formatuko eremu batek bere {1} byteko paketearen amaieratik harago irakurtzen du.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} formatuko eremu batek JSON gakoa behar du.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Aldagaia</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Abiadura (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM maximoa</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Martxa</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Azeleragailua (0tik 1era)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Balaztak (0tik 1era)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Enbragea (0tik 1era)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Esku-balazta (0tik 1era)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Bolantea (-1etik 1era)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Gidatzen (ez 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Jokoaren telemetria</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Abiadura (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (maximoaren %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Martxa (-1 atzeranzkoa, 0 neutroa)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Azeleragailua (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Balaztak (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Enbragea (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Esku-balazta (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Bolantea (-100 ezkerrera, 100 eskuinera)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Gidatzen (1 edo 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Katu moldagarrien efektua</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Gelditu katu moldagarrien efektua</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>DualSense-ren katu moldagarrien efektu bat jotzen du zirrikitu honetako katuetan. Efektuak DSX-rako joko-modek bidaltzen dituztenak dira.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Makro batek aukeratutako katuan eusten duen katu moldagarrien efektua amaitzen du. Erabili gelditu arte eusten duen efektu batekin.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Katua</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Eskuina (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Ezkerra (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Biak (L2 eta R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efektua</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Desaktibatuta</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Arkua</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galopea</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Makina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Oso leuna</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Leuna</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Ertaina</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Gogorra</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Oso gogorra</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Gogorrena</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Zurruna</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Irregularra</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Pultsu bibratzailea</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Hasierako zona</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Amaierako zona</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Kliskaren indarra</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Lehen oina</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Bigarren oina</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>A indarra</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>B indarra</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Epea (segundoaren hamarrenak)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Hasierako indarra</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Amaierako indarra</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>{0}. zonaren indarra</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Balio hauek ez dute efekturik sortzen, beraz ekintzak ez du ezer jotzen. Amaierako zonak hasierako zona gainditu behar du, eta bigarren oinak lehenengoa.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Eustea</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Makroaren aktibatzaileari eusten zaion bitartean</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Denbora jakin batez</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Gelditu arte</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Denbora</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>DualSense eta DualSense Edge guztietan jotzen da zirrikitu honetan. Jokoaren berezko katu-efektuak eta joko-modenak lehentasuna dute, eta Katu moldagarriak fitxako ezarpena itzultzen da efektua amaitzean. Zonak 0tik (atsedenean) 9ra (erabat tiratuta) doaz. Arkua, Galopea eta Makina ez dira DualSense-ren efektu ofizialak, eta firmware eguneratze batek kendu ditzake. Xbox kontrolagailuek, Bihurtu katu moldagarrien bibrazioak aktibatuta dutenean, bibrazio-efektuak katuen bibrazio gisa sentitzen dituzte.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}, {1} katuan, {2} ms-z</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}, {1} katuan, eutsi bitartean</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}, {1} katuan, gelditu arte</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Gelditu katu-efektua: {0}</value></data>
 </root>

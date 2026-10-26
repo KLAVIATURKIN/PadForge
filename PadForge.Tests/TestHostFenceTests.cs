@@ -191,6 +191,8 @@ namespace PadForge.Tests
         private const string Dsu = Services + "DsuMotionServer.cs";
         private const string GameMods = Services + "GameModServer.cs";
         private const string GameModFiles = Services + "GameModPortFiles.cs";
+        private const string Telemetry = Input + "Telemetry/GameTelemetryDevice.cs";
+        private const string Kunos = Input + "Telemetry/KunosSharedMemory.cs";
 
         private const string RefusesHost = "if (PadForge.Engine.Common.OutboundNetworkGate.RefusesHost(host))";
         private const string VendorRefuses = "if (PadForge.Engine.Common.VendorProgramGate.Refuses";
@@ -219,6 +221,8 @@ namespace PadForge.Tests
             (Dsu, "DsuMotionServer"),
             (GameMods, "GameModServer"),
             (GameModFiles, "GameModPortFiles"),
+            (Telemetry, "GameTelemetryDevice"),
+            (Kunos, "KunosSharedMemory"),
         };
 
         private const string Flag = "OffLimitsForTest";
@@ -255,6 +259,8 @@ namespace PadForge.Tests
             Assert.True(DsuMotionServer.OffLimitsForTest);
             Assert.True(GameModServer.OffLimitsForTest);
             Assert.True(GameModPortFiles.OffLimitsForTest);
+            Assert.True(PadForge.Common.Input.Telemetry.GameTelemetryDevice.OffLimitsForTest);
+            Assert.True(PadForge.Common.Input.Telemetry.KunosSharedMemory.OffLimitsForTest);
         }
 
         /// <summary>Each flag is a plain field that starts false, and no
@@ -489,6 +495,10 @@ namespace PadForge.Tests
             // it from (#529).
             new object[] { GameMods, "public bool Start(int port, bool standIn)", "if (OffLimitsForTest && port == DefaultPort)", "new Socket(" },
             new object[] { GameModFiles, "internal static void Write(int port)", "if (OffLimitsForTest) return;", "WriteTo(" },
+            // The ports games send their telemetry to, and the memory
+            // Assetto Corsa writes (#531).
+            new object[] { Telemetry, "public bool Open()", "if (_reader.ReadsUdp && OffLimitsForTest && IsSharedPort(_port))", "new Socket(" },
+            new object[] { Kunos, "private bool TryOpen()", "if (OffLimitsForTest && (_physicsName == PhysicsName || _staticName == StaticName || _graphicsName == GraphicsName))", "MemoryMappedFile.OpenExisting(" },
         };
 
         /// <summary>Where a member does other work first, its fence is
@@ -718,6 +728,9 @@ namespace PadForge.Tests
             Assert.Equal(Map(
                 (Services + "DsuMotionServer.cs", 3),
                 (GameMods, 1),
+                // The telemetry row's forward socket is bound to loopback and
+                // sends to 127.0.0.1 only (#531).
+                (Telemetry, 1),
                 (Krpc, 1),
                 ("PadForge.Engine/RemoteLink/HolePuncher.cs", 2),
                 ("PadForge.Engine/RemoteLink/LinkDiscovery.cs", 1),

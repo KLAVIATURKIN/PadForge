@@ -2561,6 +2561,14 @@ namespace PadForge.Services
                 ? appSettings.GameModServerPort : GameModServer.DefaultPort;
             _mainVm.Dashboard.GameModDsxStandIn = appSettings.GameModDsxStandIn;
 
+            // Game telemetry (#531): the custom formats first, so a saved
+            // custom game finds its format, then the game and the ports,
+            // then the switch, so the row opens under the saved port.
+            _mainVm.Dashboard.GameTelemetryFormats = appSettings.GameTelemetryFormats ?? new();
+            _mainVm.Dashboard.ApplyGameTelemetrySettings(appSettings.GameTelemetryFormat, appSettings.GameTelemetryCustomFormat,
+                appSettings.GameTelemetryPort, appSettings.GameTelemetryForwardPort, appSettings.GameTelemetryFullSpeed);
+            _mainVm.Dashboard.EnableGameTelemetry = appSettings.EnableGameTelemetry;
+
             // Head tracking (#355): sources and ranges first, then the
             // toggle (under the guard below), so the row opens under the
             // saved port.
@@ -4033,7 +4041,7 @@ namespace PadForge.Services
         /// action Duplicate command (#112) reuses the same field mapping.</summary>
         public static MacroAction BuildMacroAction(ActionData ad)
         {
-            return new MacroAction
+            var action = new MacroAction
             {
                 Type = ad.Type,
                 ButtonFlags = ad.ButtonFlags,
@@ -4122,8 +4130,15 @@ namespace PadForge.Services
                 ScreenMode = ad.ScreenMode,
                 StopwatchAction = ad.StopwatchAction,
                 PanDirection = ad.PanDirection,
-                PanStep = ad.PanStep
+                PanStep = ad.PanStep,
+                TriggerEffectSide = ad.TriggerEffectSide,
+                TriggerEffectHold = ad.TriggerEffectHold,
+                TriggerEffectMs = ad.TriggerEffectMs
             };
+            // The effect's mode and values together (#531): set apart, the
+            // mode's change would start the values over.
+            action.LoadTriggerEffect(ad.TriggerEffectMode, ad.TriggerEffectParameters);
+            return action;
         }
 
         /// <summary>
@@ -4342,6 +4357,9 @@ namespace PadForge.Services
                 if (active.GameModServerPort >= 1024 && active.GameModServerPort <= 65535)
                     _mainVm.Dashboard.GameModServerPort = active.GameModServerPort;
                 _mainVm.Dashboard.GameModDsxStandIn = active.GameModDsxStandIn;
+                _mainVm.Dashboard.ApplyGameTelemetrySettings(active.GameTelemetryFormat, active.GameTelemetryCustomFormat,
+                    active.GameTelemetryPort, active.GameTelemetryForwardPort, active.GameTelemetryFullSpeed);
+                _mainVm.Dashboard.EnableGameTelemetry = active.EnableGameTelemetry;
                 _mainVm.Dashboard.EnableWebController = active.EnableWebController;
                 if (active.WebControllerPort >= 1024 && active.WebControllerPort <= 65535)
                     _mainVm.Dashboard.WebControllerPort = active.WebControllerPort;
@@ -4517,6 +4535,12 @@ namespace PadForge.Services
             profile.EnableGameModServer = _mainVm.Dashboard.EnableGameModServer;
             profile.GameModServerPort = _mainVm.Dashboard.GameModServerPort;
             profile.GameModDsxStandIn = _mainVm.Dashboard.GameModDsxStandIn;
+            profile.EnableGameTelemetry = _mainVm.Dashboard.EnableGameTelemetry;
+            profile.GameTelemetryPort = _mainVm.Dashboard.GameTelemetryPort;
+            profile.GameTelemetryFormat = _mainVm.Dashboard.GameTelemetryFormat;
+            profile.GameTelemetryCustomFormat = _mainVm.Dashboard.GameTelemetryCustomFormat;
+            profile.GameTelemetryForwardPort = _mainVm.Dashboard.GameTelemetryForwardPort;
+            profile.GameTelemetryFullSpeed = _mainVm.Dashboard.GameTelemetryFullSpeed;
             profile.EnableWebController = _mainVm.Dashboard.EnableWebController;
             profile.WebControllerPort = _mainVm.Dashboard.WebControllerPort;
             profile.EnableTouchpadOverlay = _mainVm.Dashboard.EnableTouchpadOverlay;
@@ -4986,6 +5010,13 @@ namespace PadForge.Services
                 EnableGameModServer = _mainVm.Dashboard.EnableGameModServer,
                 GameModServerPort = _mainVm.Dashboard.GameModServerPort,
                 GameModDsxStandIn = _mainVm.Dashboard.GameModDsxStandIn,
+                EnableGameTelemetry = _mainVm.Dashboard.EnableGameTelemetry,
+                GameTelemetryPort = _mainVm.Dashboard.GameTelemetryPort,
+                GameTelemetryFormat = _mainVm.Dashboard.GameTelemetryFormat,
+                GameTelemetryCustomFormat = _mainVm.Dashboard.GameTelemetryCustomFormat,
+                GameTelemetryForwardPort = _mainVm.Dashboard.GameTelemetryForwardPort,
+                GameTelemetryFullSpeed = _mainVm.Dashboard.GameTelemetryFullSpeed,
+                GameTelemetryFormats = _mainVm.Dashboard.GameTelemetryFormats,
                 EnableWebController = _mainVm.Dashboard.EnableWebController,
                 HeadTrackingEnabled = _mainVm.Dashboard.HeadTrackingEnabled,
                 HeadTrackingIndependentInputs = true,
@@ -5506,7 +5537,12 @@ namespace PadForge.Services
                 ScreenMode = a.ScreenMode,
                 StopwatchAction = a.StopwatchAction,
                 PanDirection = a.PanDirection,
-                PanStep = a.PanStep
+                PanStep = a.PanStep,
+                TriggerEffectSide = a.TriggerEffectSide,
+                TriggerEffectMode = a.TriggerEffectMode,
+                TriggerEffectParameters = a.Type == MacroActionType.TriggerEffect ? a.TriggerEffectParameters : null,
+                TriggerEffectHold = a.TriggerEffectHold,
+                TriggerEffectMs = a.TriggerEffectMs
             };
         }
 
@@ -6943,6 +6979,33 @@ namespace PadForge.Services
         [XmlElement]
         public bool GameModDsxStandIn { get; set; }
 
+        /// <summary>The Game Telemetry row (#531).</summary>
+        [XmlElement]
+        public bool EnableGameTelemetry { get; set; }
+
+        [XmlElement]
+        public int GameTelemetryPort { get; set; } = PadForge.Common.Input.Telemetry.GameTelemetryRuntime.DefaultPort;
+
+        [XmlElement]
+        public PadForge.Common.Input.Telemetry.GameTelemetryFormat GameTelemetryFormat { get; set; }
+
+        /// <summary>The custom format read while the game is Custom.</summary>
+        [XmlElement]
+        public string GameTelemetryCustomFormat { get; set; } = string.Empty;
+
+        /// <summary>The port every packet is copied to, 0 for none.</summary>
+        [XmlElement]
+        public int GameTelemetryForwardPort { get; set; }
+
+        /// <summary>The speed in km/h that moves the Speed axis all the way.</summary>
+        [XmlElement]
+        public int GameTelemetryFullSpeed { get; set; } = PadForge.Common.Input.Telemetry.GameTelemetryRuntime.DefaultFullSpeedKmh;
+
+        /// <summary>The custom formats, one list for every profile.</summary>
+        [XmlArray("GameTelemetryFormats")]
+        [XmlArrayItem("Format")]
+        public List<PadForge.Common.Input.Telemetry.CustomTelemetryFormat> GameTelemetryFormats { get; set; } = new();
+
         [XmlElement]
         public bool EnableWebController { get; set; }
 
@@ -7659,6 +7722,15 @@ namespace PadForge.Services
         [XmlElement] public KeyboardScreenPanDirection PanDirection { get; set; } = KeyboardScreenPanDirection.Right;
         /// <summary>How far one pan moves, in the picture's pixels.</summary>
         [XmlElement] public int PanStep { get; set; } = ViewModels.MacroAction.DefaultPanStep;
+
+        /// <summary>Adaptive Trigger Effect and its Stop (#531): the trigger,
+        /// the DSX trigger mode, its values in the encoder's order, how long
+        /// it holds, and the time when it holds for one.</summary>
+        [XmlElement] public ViewModels.MacroTriggerEffectSide TriggerEffectSide { get; set; } = ViewModels.MacroTriggerEffectSide.Right;
+        [XmlElement] public int TriggerEffectMode { get; set; } = ViewModels.TriggerEffectCatalog.ResistanceMode;
+        [XmlElement] public string TriggerEffectParameters { get; set; }
+        [XmlElement] public ViewModels.MacroTriggerEffectHold TriggerEffectHold { get; set; } = ViewModels.MacroTriggerEffectHold.UntilRelease;
+        [XmlElement] public int TriggerEffectMs { get; set; } = 500;
     }
 
     /// <summary>
@@ -7924,6 +7996,26 @@ namespace PadForge.Services
         /// <summary>Whether the DSX.exe stand-in ran in this profile.</summary>
         [XmlElement]
         public bool GameModDsxStandIn { get; set; }
+
+        /// <summary>Whether the Game Telemetry row (#531) listened in this
+        /// profile, and its port, game, forward port and Full Speed.</summary>
+        [XmlElement]
+        public bool EnableGameTelemetry { get; set; }
+
+        [XmlElement]
+        public int GameTelemetryPort { get; set; } = PadForge.Common.Input.Telemetry.GameTelemetryRuntime.DefaultPort;
+
+        [XmlElement]
+        public PadForge.Common.Input.Telemetry.GameTelemetryFormat GameTelemetryFormat { get; set; }
+
+        [XmlElement]
+        public string GameTelemetryCustomFormat { get; set; } = string.Empty;
+
+        [XmlElement]
+        public int GameTelemetryForwardPort { get; set; }
+
+        [XmlElement]
+        public int GameTelemetryFullSpeed { get; set; } = PadForge.Common.Input.Telemetry.GameTelemetryRuntime.DefaultFullSpeedKmh;
 
         /// <summary>Whether the web controller server was enabled in this profile.</summary>
         [XmlElement]

@@ -4240,7 +4240,7 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move -ohjaimen raporttirakenteet, anturien kalibrointi ja EXT-lisälaitteen kättely, tekijä Thomas Perl, tarkistettu moveonpc-wikiä vasten. PadForge-sovelluksen toteutus on alkuperäistä C#-koodia. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Ajopelien telemetriaviitteet</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Jaetun muistin ja UDP:n rakenteet rattien kierrosluvun vaihtovalojen taustalla, luettu lähteistä assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) ja simapi (LGPL-3.0). GPL- tai LGPL-koodia ei toimiteta.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Jaetun muistin ja UDP:n rakenteet Pelitelemetrian ja rattien kierrosluvun vaihtovalojen taustalla, luettu lähteistä assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) ja vAzhureRacingHub (GPL-3.0). GPL- tai LGPL-koodia ei toimiteta.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 -ohjaimen Bluetooth-pariliitoksen ja raporttien dokumentaatio. GPL-2.0 ja GPL-3.0, käytetty vain dokumentaationa, GPL-koodia ei toimiteta.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ Haluatko, että PadForge poistaa niiden asennuksen nyt? Tämä vaatii järjestel
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Palauta voimarajoitus</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibroi ulottuma</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mittaa, kuinka pitkälle kahva liikkuu. Siirrä se ulottuman jokaiseen reunaan neljän sekunnin ajan, jonka mittaus kestää. Voimat lepäävät sillä välin.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Pelitelemetria</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Pelitelemetria</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Tuo ajopelien lähettämän telemetrian ja Assetto Corsa -pelin jaetun muistin Laitteet-sivun Pelitelemetria-riville. Määritä sen nopeus, polkimet ja vaihteet kuten mitä tahansa syötettä, käynnistä niillä makroja tai testaa niitä Mukautetussa lausekkeessa. Kun kuuntelu on päällä, rattien kierrosluvun vaihtovalot lukevat pelin tiedot myös täältä.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Kuuntele Pelitelemetriaa</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Peli</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Automaattitunnistus tunnistaa pelin paketeista. Kun valitset Project CARS 2 ja Automobilista 2 tai rekkasimulaattorit, asetetaan myös portti, johon nämä pelit aina lähettävät.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Pelitelemetrian portti</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Välitä porttiin</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Kopioi jokaisen paketin tämän tietokoneen tähän porttiin, jotta toinen ohjelma, kuten SimHub, saa sen edelleen. Arvolla 0 mitään ei välitetä.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Täysi nopeus (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Nopeus, jolla Nopeus-akseli liikkuu aivan loppuun.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Mukautetut formaatit…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Kuvaa sellaisen pelin paketit, jota PadForge ei tunne, kenttä kerrallaan.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Ota telemetriatulostus käyttöön kussakin pelissä ja osoita se tähän tietokoneeseen ja porttiin. F1, Codemasters-pelit ja EA SPORTS WRC käyttävät porttia 20777, ellei sitä muuteta, Project CARS 2 ja Automobilista 2 käyttävät aina porttia 5606 ja MrHokss-nimisen tekijän rekkasimulaattoreille tekemä laajennus porttia 49001. Assetto Corsa ja ACC eivät tarvitse porttia.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Automaattitunnistus</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ja Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 – F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 ja muut Codemasters-pelit</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ja Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ja Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ja Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ja American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (mukautettu)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Odotetaan peliä UDP-portissa {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Kuunnellaan UDP-porttia {0}. {1} osoitteesta {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP-portti {0} on toisen ohjelman käytössä.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Luetaan peliä {0} jaetusta muistista.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Odotetaan peliä Assetto Corsa tai Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Välitetään porttiin {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Mukautetut telemetriaformaatit</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Kuvaa pelin lähettämät paketit kenttä kerrallaan, niin PadForge lukee myös sitä peliä. Jokaisesta muuttujasta tulee akseli Pelitelemetria-riville ja kanava Mukautetun lausekkeen laukaisimille. Valitse formaatti nimellä Peli-luettelosta tai anna sille pituus tai avain, jotta Automaattitunnistus löytää sen.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Lisää formaatti</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Formaatti {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nimi</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paketit</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binääri</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Pituus (tavua)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Vain täsmälleen näin monen tavun paketit luetaan tällä formaatilla. Arvolla 0 jokainen paketti luetaan, eikä Automaattitunnistus valitse formaattia, joten valitse se nimellä.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Pakollinen avain</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Vain JSON-paketit, joissa on tämä avain, luetaan tällä formaatilla. Tyhjänä jokainen paketti luetaan, eikä Automaattitunnistus valitse formaattia, joten valitse se nimellä.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Paketti kirjoittaa jokaisen luvun merkitsevin tavu ensin. PC:n pelit kirjoittavat lähes aina vähiten merkitsevän tavun ensin.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Vaihteiden arvot</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Vaihdekentällä on omat lukunsa peruutukselle ja vapaalle, kuten Forza-pelissä 0 ja 11. Kun tämä ei ole päällä, negatiivinen vaihde on peruutus ja 0 on vapaa.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Peruutus</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Vapaa</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Kentät</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Jokainen kenttä lukee luvun siirtymästään tai JSON-paketissa avaimensa alta (pisteet yltävät sisäkkäisiin objekteihin) ja kertoo sen kertoimella. Kertoimen jälkeen nopeus on km/h, polkimet vaihtelevat välillä 0–1 ja ohjaus välillä -1 (täysin vasemmalla) – 1 (täysin oikealla). Muuttujan akseli vaihtelee levossa Min-arvosta täydellä Maks-arvoon.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Lukee kohteeseen</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Muuttujan nimi</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Siirtymä</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tyyppi</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON-avain</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Kerroin</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Maks</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Lisää kenttä</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Poista kenttä</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Formaatti {0} tarvitsee nimen, jossa ei ole merkkejä : tai |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Kahdella formaatilla on nimi {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Muuttuja kohteessa {0} tarvitsee nimen, jossa ei ole merkkejä : tai |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Kenttä formaatissa {0} lukee yli {1} tavun paketin lopun.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Formaatin {0} kenttä tarvitsee JSON-avaimen.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Muuttuja</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Nopeus (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>Kierrosluku</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Maksimikierrosluku</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Vaihde</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Kaasu (0–1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Jarru (0–1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Kytkin (0–1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Käsijarru (0–1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Ohjaus (-1 – 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Ajossa (ei 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Pelitelemetria</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Nopeus (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>Kierrosluku (% maksimista)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Vaihde (-1 peruutus, 0 vapaa)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Kaasu (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Jarru (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Kytkin (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Käsijarru (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Ohjaus (-100 vasen – 100 oikea)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Ajossa (1 tai 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Mukautuvan liipaisimen tehoste</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Lopeta mukautuvan liipaisimen tehoste</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Toistaa DualSense-ohjaimen mukautuvan liipaisintehosteen tämän paikan liipaisimilla. Tehosteet ovat samat, joita DSX:n pelimodit lähettävät.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Lopettaa mukautuvan liipaisintehosteen, jota makro pitää valitulla liipaisimella. Käytä sitä yhdessä tehosteen kanssa, joka pysyy päällä, kunnes se pysäytetään.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Liipaisin</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Oikea (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Vasen (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Molemmat (L2 ja R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Tehoste</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Pois</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Jousi</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Laukka</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Kone</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Erittäin pehmeä</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Pehmeä</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Keskikova</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Kova</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Erittäin kova</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Kovin</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Jäykkä</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Töksähtelevä</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Värähtelevä pulssi</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Alkuvyöhyke</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Loppuvyöhyke</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Napsahduksen voimakkuus</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Ensimmäinen askel</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Toinen askel</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Voimakkuus A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Voimakkuus B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Jakso (kymmenyssekuntia)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Alkuvoimakkuus</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Loppuvoimakkuus</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Vyöhykkeen {0} voimakkuus</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Näillä arvoilla ei synny tehostetta, joten toiminto ei toista mitään. Loppuvyöhykkeen on oltava alkuvyöhykkeen jälkeen ja toisen askeleen ensimmäisen askeleen jälkeen.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Pitää</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Kun makron laukaisin on painettuna</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Asetetun ajan</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Kunnes pysäytetään</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Aika</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Toistuu kaikilla tämän paikan DualSense- ja DualSense Edge -ohjaimilla. Pelin oma liipaisintehoste ja pelimodin tehoste ovat etusijalla, ja Mukautuvat liipaisimet -välilehden asetus palaa, kun tehoste päättyy. Vyöhykkeet vaihtelevat 0:sta levossa 9:ään täydellä painalluksella. Jousi, Laukka ja Kone eivät ole virallisia DualSense-tehosteita, ja laiteohjelmistopäivitys voi poistaa ne. Xbox-ohjaimilla, joilla Muunna mukautuvien liipaisimien värinät on päällä, värähtelevät tehosteet tuntuvat liipaisimien tärinänä.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}: {1}, {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}: {1}, kun painettuna</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}: {1}, kunnes pysäytetään</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Lopeta liipaisintehoste: {0}</value></data>
 </root>

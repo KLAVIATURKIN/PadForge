@@ -1518,4 +1518,38 @@
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Mesarem hamas longwe</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mesarem hamas longwe hanel i save go. Muvum i go kasem evri saed blong hem long fo sekon we mesarem i ron. Ol fos oli stop long taem ia.</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Gem</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Sendem i go long pot</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Ful spid (km/h)</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport mo Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 kasem F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 mo ol narafala gem blong Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive mo Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 mo Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa mo Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 mo American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Stap wet long wan gem long UDP pot {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Stap lisin long UDP pot {0}. {1} i kam long {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Narafala program i yusum UDP pot {0} finis.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Stap wet long Assetto Corsa o Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Stap sendem i go long pot {0}.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nem</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Kaen</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Spid (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Spid (mph)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Triga</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Raet (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Lef (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Tufala (L2 mo R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Of</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Bonara</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Masin</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Kasem we i stop</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Taem</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} long {1} blong {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} long {1} taem yu holem</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} long {1} kasem we i stop</value></data>
 </root>

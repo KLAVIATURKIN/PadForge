@@ -4221,7 +4221,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>تخطيطات تقارير PlayStation Move، ومعايرة المستشعرات، ومصافحة ملحق EXT، من إعداد Thomas Perl، مع المطابقة مع ويكي moveonpc. تنفيذ PadForge مكتوب بلغة C# أصلية. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>مراجع بيانات القياس في ألعاب السباق</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>تخطيطات الذاكرة المشتركة و UDP التي تقف وراء مصابيح RPM لتبديل السرعة في عجلة القيادة، تمت قراءتها من assettocorsasharedmemory (MIT) وforza-data-web (Apache-2.0) وforza-telemetry (MIT) وInSim.NET (LGPL-2.1) وirsdkSharp (MIT) وIRSDKSharper (GPL-3.0) وout-gauge-cluster (Apache-2.0) وpyirsdk (MIT) وrF2SharedMemoryMapPlugin (GPL-3.0) وrFactorSharedMemoryMap (GPL-2.0) وrust_ams2_sharedmem وscs-sdk-plugin (MIT) وsimapi (LGPL-3.0). لا يتضمن البرنامج أي شيفرة GPL أو LGPL.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>تخطيطات الذاكرة المشتركة و UDP التي تقف وراء بيانات قياس الألعاب ومصابيح LED لتبديل السرعة حسب RPM في عجلة القيادة، تمت قراءتها من assettocorsasharedmemory (MIT) وCMTelemetry وdirt-rally-telemetry-dashboard (MIT) وets2-telemetry-udp (MIT) وf1-24-udp (MIT) وfh6-tel (MIT) وforza-data-web (Apache-2.0) وforza-telemetry (MIT) وForza-Telemetry-Splitter (MIT) وInSim.NET (LGPL-2.1) وirsdkSharp (MIT) وIRSDKSharper (GPL-3.0) وout-gauge-cluster (Apache-2.0) وPCars2UdpNet (MIT) وproject-cars-2-udp (MIT) وpyirsdk (MIT) وrF2SharedMemoryMapPlugin (GPL-3.0) وrFactorSharedMemoryMap (GPL-2.0) وrust_ams2_sharedmem وscs-sdk-plugin (MIT) وsimapi (LGPL-3.0) وtm-bt-led (MIT) وvAzhureRacingHub (GPL-3.0). لا يتضمن البرنامج أي شيفرة GPL أو LGPL.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>توثيق إقران DualShock 3 عبر Bluetooth وتقاريره. GPL-2.0 و GPL-3.0، تمت قراءته كتوثيق فقط، ولا يتضمن البرنامج أي شيفرة GPL.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4462,4 +4462,134 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>إعادة ضبط حد القوة</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>معايرة المدى</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>يقيس المسافة التي يقطعها المقبض. حرّكه إلى كل حافة من مداه خلال الثواني الأربع التي يستغرقها المسح. تتوقف القوى في هذه الأثناء.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>بيانات قياس الألعاب</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>بيانات قياس الألعاب</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>يعرض بيانات القياس التي ترسلها ألعاب القيادة، والذاكرة المشتركة للعبة Assetto Corsa، في صف بيانات قياس الألعاب بصفحة الأجهزة. عيّن سرعتها ودواساتها وتروسها كأي دخل، وشغّل بها وحدات الماكرو، أو اختبرها في تعبير مخصص. وأثناء الاستماع، تقرأ مصابيح LED لتبديل السرعة حسب RPM في العجلة اللعبة من هنا أيضًا.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>الاستماع إلى بيانات قياس الألعاب</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>اللعبة</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>الخيار اكتشاف تلقائي يميّز اللعبة من حزمها. واختيار Project CARS 2 وAutomobilista 2، أو ألعاب الشاحنات، يضبط أيضًا المنفذ الذي ترسل إليه تلك الألعاب دائمًا.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>منفذ بيانات قياس الألعاب</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>إعادة التوجيه إلى منفذ</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>ينسخ كل حزمة إلى هذا المنفذ على هذا الكمبيوتر، ليواصل برنامج آخر مثل SimHub استقبالها. القيمة 0 لا توجّه شيئًا.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>السرعة الكاملة (كم/س)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>السرعة التي تحرك محور السرعة إلى نهايته.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>تنسيقات مخصصة…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>يصف حزم لعبة لا يعرفها PadForge، حقلًا حقلًا.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>فعّل إخراج بيانات القياس في كل لعبة ووجّهه إلى هذا الكمبيوتر والمنفذ. تستخدم F1 وألعاب Codemasters وEA SPORTS WRC المنفذ 20777 ما لم يُغيَّر، وتستخدم Project CARS 2 وAutomobilista 2 المنفذ 5606 دائمًا، وتستخدم إضافة MrHokss لألعاب الشاحنات المنفذ 49001. لا تحتاج Assetto Corsa وACC إلى منفذ.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>اكتشاف تلقائي</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport وForza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 إلى F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 وألعاب Codemasters الأخرى</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive وLive for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 وAutomobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa وAssetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 وAmerican Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (مخصص)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>في انتظار لعبة على منفذ UDP رقم {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>يستمع على منفذ UDP رقم {0}. {1} من {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>منفذ UDP رقم {0} قيد الاستخدام من برنامج آخر.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>قراءة {0} من الذاكرة المشتركة.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>في انتظار Assetto Corsa أو Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>إعادة التوجيه إلى المنفذ {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>تنسيقات بيانات القياس المخصصة</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>صِف الحزم التي ترسلها اللعبة، حقلًا حقلًا، وسيقرأ PadForge تلك اللعبة أيضًا. يصبح كل متغير محورًا في صف بيانات قياس الألعاب وقناة لمشغلات التعبير المخصص. اختر التنسيق بالاسم من قائمة الألعاب، أو امنحه طولًا أو مفتاحًا ليجده اكتشاف تلقائي.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>إضافة تنسيق</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>تنسيق {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>الاسم</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>الحزم</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>ثنائي</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>الطول (بايت)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>لا تُقرأ بهذا التنسيق إلا الحزم التي يبلغ طولها هذا العدد من البايتات بالضبط. مع 0 تُقرأ أي حزمة، ولا يختار اكتشاف تلقائي هذا التنسيق، لذا اختره بالاسم.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>المفتاح المطلوب</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>لا تُقرأ بهذا التنسيق إلا حزم JSON التي تحمل هذا المفتاح. إذا تُرك فارغًا تُقرأ أي حزمة، ولا يختار اكتشاف تلقائي هذا التنسيق، لذا اختره بالاسم.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>كبير النهاية (Big-Endian)</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>تكتب الحزمة كل رقم بدءًا بالبايت الأكثر أهمية. تكتب ألعاب الكمبيوتر بدءًا بالبايت الأقل أهمية في جميع الحالات تقريبًا.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>قيم التروس</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>يملك حقل الترس أرقامه الخاصة للرجوع والمحايد، كما في 0 و11 في Forza. عند إيقاف هذا الخيار، يعني الترس السالب الرجوع ويعني 0 المحايد.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>رجوع</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>محايد</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>الحقول</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>يقرأ كل حقل رقمًا عند إزاحته، أو تحت مفتاحه في JSON (تصل النقاط إلى الكائنات المتداخلة)، ويضربه في المقياس. بعد المقياس تكون السرعة بالكم/س، وتتراوح الدواسات من 0 إلى 1، ويتراوح التوجيه من -1 عند أقصى اليسار إلى 1 عند أقصى اليمين. يمتد محور المتغير من قيمته الأدنى عند السكون إلى قيمته الأقصى عند الاكتمال.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>يقرأ إلى</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>اسم المتغير</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>الإزاحة</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>النوع</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>مفتاح JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>المقياس</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>الأدنى</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>الأقصى</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>إضافة حقل</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>إزالة الحقل</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>يحتاج التنسيق {0} إلى اسم لا يحتوي على : أو |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>يوجد تنسيقان باسم {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>يحتاج متغير في {0} إلى اسم لا يحتوي على : أو |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>يقرأ حقل في {0} ما بعد نهاية حزمته البالغة {1} بايت.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>يحتاج حقل في {0} إلى مفتاح JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>متغير</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>السرعة (كم/س)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>أقصى RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>الترس</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>دواسة الوقود (0 إلى 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>الفرامل (0 إلى 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>القابض (0 إلى 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>فرامل اليد (0 إلى 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>التوجيه (-1 إلى 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>القيادة (غير 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>بيانات قياس الألعاب</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>السرعة (ميل/س)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% من الأقصى)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>الترس (-1 رجوع، 0 محايد)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>دواسة الوقود (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>الفرامل (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>القابض (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>فرامل اليد (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>التوجيه (-100 يسار إلى 100 يمين)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>القيادة (1 أو 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>تأثير الزناد التكيفي</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>إيقاف تأثير الزناد التكيفي</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>يشغّل تأثير الزناد التكيفي في DualSense على أزندة هذه الخانة. التأثيرات هي التي ترسلها تعديلات ألعاب DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>ينهي تأثير الزناد التكيفي الذي يثبته ماكرو على الزناد المحدد. استخدمه مع تأثير يستمر حتى إيقافه.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>الزناد</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>الأيمن (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>الأيسر (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>كلاهما (L2 وR2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>التأثير</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>إيقاف</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>قوس</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>عدو الخيل</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>آلة</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>ناعم جدًا</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>ناعم</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>متوسط</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>صلب</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>صلب جدًا</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>الأصلب</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>جامد</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>متقطع</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>نبضة اهتزازية</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>منطقة البداية</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>منطقة النهاية</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>شدة الإفلات</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>القدم الأولى</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>القدم الثانية</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>الشدة A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>الشدة B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>الفترة (أعشار الثانية)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>شدة البداية</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>شدة النهاية</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>شدة المنطقة {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>هذه القيم لا تنتج تأثيرًا، لذا لا يشغّل الإجراء شيئًا. يجب أن تقع منطقة النهاية بعد منطقة البداية، والقدم الثانية بعد الأولى.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>يستمر</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>طالما يُضغط على مدخل تفعيل الماكرو</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>لمدة محددة</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>حتى الإيقاف</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>المدة</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>يعمل على كل DualSense وDualSense Edge في هذه الخانة. تأثير الزناد الخاص باللعبة وتأثير تعديل اللعبة لهما الأولوية، ويعود إعداد تبويب الأزندة التكيفية عند انتهاء التأثير. تمتد المناطق من 0 عند السكون إلى 9 عند الضغط الكامل. قوس وعدو الخيل وآلة ليست تأثيرات رسمية في DualSense، وقد يزيلها تحديث للبرنامج الثابت. تشعر وحدات تحكم Xbox عند تفعيل تحويل اهتزازات الأزندة التكيفية بالتأثيرات الاهتزازية على هيئة اهتزاز في الزناد.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} على {1} لمدة {2} مللي ثانية</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} على {1} أثناء الضغط</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} على {1} حتى الإيقاف</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>إيقاف تأثير الزناد على {0}</value></data>
 </root>

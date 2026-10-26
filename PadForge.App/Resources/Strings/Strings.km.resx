@@ -4215,7 +4215,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>ប្លង់របាយការណ៍ PlayStation Move ការក្រិតឧបករណ៍ចាប់សញ្ញា និងការចាប់ដៃគ្នានៃគ្រឿងបន្ថែម EXT ដោយ Thomas Perl ដែលផ្ទៀងផ្ទាត់ជាមួយវិគី moveonpc។ ការអនុវត្តរបស់ PadForge ជា C# ដើម។ BSD 2-Clause។</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>ឯកសារយោងតេឡេម៉ែត្រការប្រណាំង</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ប្លង់អង្គចងចាំរួម និង UDP នៅពីក្រោយ LED ប្ដូរលេខ RPM នៃចង្កូត ដែលអានពី assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) និង simapi (LGPL-3.0)។ មិនមានកូដ GPL ឬ LGPL ណាមួយត្រូវបានដាក់បញ្ចូលទេ។</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ប្លង់អង្គចងចាំរួម និង UDP នៅពីក្រោយតេឡេម៉ែត្រហ្គេម និង LED ប្ដូរលេខ RPM នៃចង្កូត ដែលអានពី assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) និង vAzhureRacingHub (GPL-3.0)។ មិនមានកូដ GPL ឬ LGPL ណាមួយត្រូវបានដាក់បញ្ចូលទេ។</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>ឯកសារការផ្គូផ្គង និងរបាយការណ៍ Bluetooth របស់ DualShock 3។ GPL-2.0 និង GPL-3.0 អានជាឯកសារតែប៉ុណ្ណោះ មិនមានកូដ GPL ណាមួយត្រូវបានដាក់បញ្ចូលទេ។</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4456,4 +4456,133 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>កំណត់ដែនកំណត់កម្លាំងឡើងវិញ</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>ក្រិតចម្ងាយផ្លាស់ទី</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>វាស់ថាដៃកាន់ផ្លាស់ទីបានឆ្ងាយប៉ុណ្ណា។ ផ្លាស់ទីវាទៅគ្រប់គែមនៃចម្ងាយផ្លាស់ទីរបស់វា ក្នុងរយៈពេលបួនវិនាទីដែលការវាស់ដំណើរការ។ កម្លាំងត្រូវបានផ្អាកក្នុងពេលនោះ។</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>តេឡេម៉ែត្រហ្គេម</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>តេឡេម៉ែត្រហ្គេម</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>ដាក់តេឡេម៉ែត្រដែលហ្គេមបើកបរផ្ញើ និងអង្គចងចាំរួមរបស់ Assetto Corsa នៅលើជួរដេកតេឡេម៉ែត្រហ្គេមនៃទំព័រឧបករណ៍។ ម៉ាបល្បឿន ឈ្នាន់ និងលេខប្រអប់លេខរបស់វាដូចការបញ្ចូលផ្សេងទៀត ប្រើវាដើម្បីចាប់ផ្ដើមម៉ាក្រូ ឬសាកល្បងវានៅក្នុងកន្សោមផ្ទាល់ខ្លួន។ ពេលវាកំពុងស្ដាប់ LED ប្ដូរលេខ RPM នៃចង្កូតក៏អានហ្គេមពីទីនេះដែរ។</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>ស្ដាប់តេឡេម៉ែត្រហ្គេម</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>ហ្គេម</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>«រកឃើញស្វ័យប្រវត្តិ» ស្គាល់ហ្គេមតាមកញ្ចប់ទិន្នន័យរបស់វា។ ការជ្រើសរើស Project CARS 2 និង Automobilista 2 ឬកម្មវិធីក្លែងធ្វើឡានដឹកទំនិញ ក៏កំណត់ច្រកដែលហ្គេមទាំងនោះតែងតែផ្ញើទៅដែរ។</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>ច្រកតេឡេម៉ែត្រហ្គេម</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>បញ្ជូនបន្តទៅច្រក</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>ចម្លងកញ្ចប់ទិន្នន័យនីមួយៗទៅច្រកនេះនៅលើ PC នេះ ដើម្បីឱ្យកម្មវិធីផ្សេងទៀតដូចជា SimHub នៅតែទទួលបានវា។ 0 មិនបញ្ជូនបន្តអ្វីទេ។</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>ល្បឿនពេញ (គ.ម/ម៉ោង)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>ល្បឿនដែលរុញអ័ក្សល្បឿនដល់ចុងបំផុត។</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>ទម្រង់ផ្ទាល់ខ្លួន…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>ពិពណ៌នាកញ្ចប់ទិន្នន័យរបស់ហ្គេមដែល PadForge មិនស្គាល់ តាមវាលនីមួយៗ។</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>បើកលទ្ធផលតេឡេម៉ែត្រនៅក្នុងហ្គេមនីមួយៗ ហើយចង្អុលវាមក PC និងច្រកនេះ។ F1 ហ្គេម Codemasters និង EA SPORTS WRC ប្រើ 20777 លុះត្រាតែបានផ្លាស់ប្ដូរ Project CARS 2 និង Automobilista 2 តែងតែប្រើ 5606 ហើយកម្មវិធីជំនួយរបស់ MrHokss សម្រាប់កម្មវិធីក្លែងធ្វើឡានដឹកទំនិញប្រើ 49001។ Assetto Corsa និង ACC មិនត្រូវការច្រកទេ។</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>រកឃើញស្វ័យប្រវត្តិ</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport និង Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ដល់ F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 និងហ្គេម Codemasters ផ្សេងទៀត</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive និង Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 និង Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa និង Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 និង American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (ផ្ទាល់ខ្លួន)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>កំពុងរង់ចាំហ្គេមនៅលើច្រក UDP {0}។</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>កំពុងស្ដាប់នៅលើច្រក UDP {0}។ {1} ពី {2}។</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>ច្រក UDP {0} កំពុងត្រូវបានប្រើដោយកម្មវិធីផ្សេង។</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>កំពុងអាន {0} ពីអង្គចងចាំរួម។</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>កំពុងរង់ចាំ Assetto Corsa ឬ Assetto Corsa Competizione។</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>កំពុងបញ្ជូនបន្តទៅច្រក {0}។</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>ទម្រង់តេឡេម៉ែត្រផ្ទាល់ខ្លួន</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>ពិពណ៌នាកញ្ចប់ទិន្នន័យដែលហ្គេមផ្ញើ តាមវាលនីមួយៗ ហើយ PadForge ក៏អានហ្គេមនោះដែរ។ អថេរនីមួយៗក្លាយជាអ័ក្សមួយនៅលើជួរដេកតេឡេម៉ែត្រហ្គេម និងជាឆានែលមួយសម្រាប់ការចាប់ផ្ដើមម៉ាក្រូដោយកន្សោមផ្ទាល់ខ្លួន។ ជ្រើសរើសទម្រង់តាមឈ្មោះនៅក្នុងបញ្ជីហ្គេម ឬផ្ដល់ប្រវែង ឬកូនសោមួយឱ្យវា ដើម្បីឱ្យ «រកឃើញស្វ័យប្រវត្តិ» រកឃើញវា។</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>បន្ថែមទម្រង់</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>ទម្រង់ {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>ឈ្មោះ</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>កញ្ចប់ទិន្នន័យ</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>គោលពីរ</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>ប្រវែង (បៃ)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>មានតែកញ្ចប់ទិន្នន័យដែលមានចំនួនបៃនេះពិតប្រាកដប៉ុណ្ណោះ ដែលត្រូវបានអានដោយទម្រង់នេះ។ ជាមួយ 0 កញ្ចប់ណាមួយក៏ត្រូវបានអានដែរ ហើយ «រកឃើញស្វ័យប្រវត្តិ» មិនប្រើទម្រង់នេះទេ ដូច្នេះត្រូវជ្រើសរើសវាតាមឈ្មោះ។</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>កូនសោដែលត្រូវការ</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>មានតែកញ្ចប់ JSON ដែលមានកូនសោនេះប៉ុណ្ណោះ ដែលត្រូវបានអានដោយទម្រង់នេះ។ បើទុកទទេ កញ្ចប់ណាមួយក៏ត្រូវបានអានដែរ ហើយ «រកឃើញស្វ័យប្រវត្តិ» មិនប្រើទម្រង់នេះទេ ដូច្នេះត្រូវជ្រើសរើសវាតាមឈ្មោះ។</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>កញ្ចប់ទិន្នន័យសរសេរលេខនីមួយៗដោយបៃសំខាន់បំផុតមុនគេ។ ហ្គេមនៅលើ PC ស្ទើរតែតែងតែសរសេរបៃសំខាន់តិចបំផុតមុនគេ។</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>តម្លៃលេខប្រអប់លេខ</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>វាលលេខប្រអប់លេខមានលេខផ្ទាល់ខ្លួនសម្រាប់លេខថយក្រោយ និងលេខសូន្យ ដូចជា 0 និង 11 របស់ Forza។ ពេលការកំណត់នេះបិទ លេខអវិជ្ជមានគឺលេខថយក្រោយ ហើយ 0 គឺលេខសូន្យ។</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>ថយក្រោយ</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>លេខសូន្យ</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>វាល</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>វាលនីមួយៗអានលេខមួយនៅគម្លាតរបស់វា ឬនៅក្រោមកូនសោរបស់វាក្នុង JSON (ចំណុចចូលទៅក្នុងវត្ថុដែលនៅខាងក្នុង) ហើយគុណវានឹងមាត្រដ្ឋាន។ បន្ទាប់ពីមាត្រដ្ឋាន ល្បឿនគិតជា គ.ម/ម៉ោង ឈ្នាន់មានតម្លៃពី 0 ដល់ 1 ហើយចង្កូតពី -1 នៅឆ្វេងបំផុត ដល់ 1 នៅស្ដាំបំផុត។ អ័ក្សរបស់អថេរមានតម្លៃពីអប្បបរមារបស់វានៅពេលសម្រាក ដល់អតិបរមារបស់វានៅពេលពេញ។</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>អានចូល</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>ឈ្មោះអថេរ</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>គម្លាត</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>ប្រភេទ</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>កូនសោ JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>មាត្រដ្ឋាន</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>អប្បបរមា</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>អតិបរមា</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>បន្ថែមវាល</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>លុបវាល</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>ទម្រង់ {0} ត្រូវការឈ្មោះដែលគ្មាន : ឬ |។</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>ទម្រង់ពីរមានឈ្មោះ {0}។</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>អថេរមួយនៅក្នុង {0} ត្រូវការឈ្មោះដែលគ្មាន : ឬ |។</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>វាលមួយនៅក្នុង {0} អានហួសចុងកញ្ចប់ទិន្នន័យ {1} បៃរបស់វា។</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>វាលមួយនៅក្នុង {0} ត្រូវការកូនសោ JSON។</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>អថេរ</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>ល្បឿន (គ.ម/ម៉ោង)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM អតិបរមា</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>លេខប្រអប់លេខ</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>ឈ្នាន់ហ្គាស (0 ដល់ 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>ហ្វ្រាំង (0 ដល់ 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>អំប្រាយ៉ា (0 ដល់ 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>ហ្វ្រាំងដៃ (0 ដល់ 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>ចង្កូត (-1 ដល់ 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>កំពុងបើកបរ (មិនមែន 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>តេឡេម៉ែត្រហ្គេម</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>ល្បឿន (ម៉ាយ/ម៉ោង)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% នៃអតិបរមា)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>លេខប្រអប់លេខ (-1 ថយក្រោយ, 0 លេខសូន្យ)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>ឈ្នាន់ហ្គាស (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>ហ្វ្រាំង (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>អំប្រាយ៉ា (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>ហ្វ្រាំងដៃ (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>ចង្កូត (-100 ឆ្វេង ដល់ 100 ស្ដាំ)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>កំពុងបើកបរ (1 ឬ 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>បែបផែនទ្រីហ្គឺបន្សាំ</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>បញ្ឈប់បែបផែនទ្រីហ្គឺបន្សាំ</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>ចាក់បែបផែនទ្រីហ្គឺបន្សាំ DualSense លើទ្រីហ្គឺរបស់រន្ធនេះ។ បែបផែនទាំងនេះគឺជាបែបផែនដែលម៉ូដហ្គេមសម្រាប់ DSX ផ្ញើ។</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>បញ្ចប់បែបផែនទ្រីហ្គឺបន្សាំដែលម៉ាក្រូរក្សាទុកនៅលើទ្រីហ្គឺដែលបានជ្រើស។ ប្រើវាជាមួយបែបផែនដែលបន្តរហូតដល់ត្រូវបានបញ្ឈប់។</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ទ្រីហ្គឺ</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>ស្ដាំ (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>ឆ្វេង (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>ទាំងពីរ (L2 និង R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>បែបផែន</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>បិទ</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>ធ្នូ</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>ការបោលសេះ</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>ម៉ាស៊ីន</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>ទន់ខ្លាំង</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>ទន់</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>មធ្យម</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>រឹង</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>រឹងខ្លាំង</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>រឹងបំផុត</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>រឹងតឹង</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>រអាក់រអួល</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>ជីពចរញ័រ</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>តំបន់ចាប់ផ្ដើម</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>តំបន់បញ្ចប់</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>កម្លាំងផ្ទាត់</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>ជើងទីមួយ</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>ជើងទីពីរ</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>កម្លាំង A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>កម្លាំង B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>រយៈពេល (ភាគដប់នៃវិនាទី)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>កម្លាំងចាប់ផ្ដើម</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>កម្លាំងបញ្ចប់</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>កម្លាំងតំបន់ {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>តម្លៃទាំងនេះមិនបង្កើតបែបផែនណាមួយទេ ដូច្នេះសកម្មភាពនេះមិនចាក់អ្វីទេ។ តំបន់បញ្ចប់ត្រូវតែនៅហួសតំបន់ចាប់ផ្ដើមរបស់វា ហើយជើងទីពីរត្រូវនៅហួសជើងទីមួយ។</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>រក្សា</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>ពេលការបញ្ចូលបើកម៉ាក្រូត្រូវបានសង្កត់ជាប់</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>សម្រាប់រយៈពេលកំណត់</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>រហូតដល់ត្រូវបានបញ្ឈប់</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>រយៈពេល</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>ចាក់នៅលើ DualSense និង DualSense Edge នីមួយៗនៅលើរន្ធនេះ។ បែបផែនទ្រីហ្គឺរបស់ហ្គេមផ្ទាល់ និងរបស់ម៉ូដហ្គេម មានអាទិភាពមុន ហើយការកំណត់នៃផ្ទាំង «ទ្រីហ្គឺបន្សាំ» ត្រឡប់មកវិញនៅពេលបែបផែនបញ្ចប់។ តំបន់មានពី 0 នៅពេលសម្រាក ដល់ 9 នៅពេលទាញពេញ។ ធ្នូ ការបោលសេះ និងម៉ាស៊ីន មិនមែនជាបែបផែនផ្លូវការរបស់ DualSense ទេ ហើយការធ្វើបច្ចុប្បន្នភាពហ្វឺមវែរអាចលុបវាចោល។ ឧបករណ៍បញ្ជា Xbox ដែលបើក «បម្លែងការញ័រទ្រីហ្គឺបន្សាំ» មានអារម្មណ៍ថាបែបផែនញ័រជាការញ័រទ្រីហ្គឺ។</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} លើ {1} រយៈពេល {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} លើ {1} ពេលសង្កត់ជាប់</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} លើ {1} រហូតដល់ត្រូវបានបញ្ឈប់</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>បញ្ឈប់បែបផែនទ្រីហ្គឺលើ {0}</value></data>
 </root>

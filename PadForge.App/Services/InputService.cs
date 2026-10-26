@@ -1175,6 +1175,13 @@ namespace PadForge.Services
                 (_inputManager != null && padIndex >= 0 && padIndex < InputManager.MaxPads)
                     ? _inputManager.GetSteeringTrigVib(padIndex) : 0f;
 
+            // Adaptive trigger effects macros play (#531): the slot's store,
+            // and the wake-up that has the dispatcher write a change.
+            UserEffectsDispatcher.MacroTriggerEffectsProvider = padIndex =>
+                (_inputManager != null && padIndex >= 0 && padIndex < InputManager.MaxPads)
+                    ? _inputManager.MacroTriggerEffects[padIndex] : null;
+            MacroTriggerEffectState.Changed = UserEffectsDispatcher.NotifyModEffectsChanged;
+
             UserEffectsDispatcher.SlotImpulseTriggerForDeviceProvider = (padIndex, deviceGuid) =>
             {
                 if (_inputManager == null) return ((byte)0, (byte)0);
@@ -2590,7 +2597,8 @@ namespace PadForge.Services
                 _inputManager = null;
                 _inputManagerStatic = null;
                 // The dashboard tick stops with the engine, so the head
-                // tracking card settles to Stopped here, and the G-Keys,
+                // tracking and game telemetry (#531) cards settle to Stopped
+                // here, and the G-Keys,
                 // analog keyboards and Bliss-Box lines and a port's Devices
                 // line and actions collapse (#469). Queued after the null
                 // above, so a tick that raced the teardown cannot rewrite a
@@ -2598,6 +2606,7 @@ namespace PadForge.Services
                 _dispatcher.BeginInvoke(() =>
                 {
                     UpdateHeadTrackingStatus();
+                    UpdateGameTelemetryStatus();
                     UpdateGKeysStatus();
                     UpdateAnalogKeyboardsStatus();
                     UpdateBlissBoxStatus();
@@ -2613,6 +2622,8 @@ namespace PadForge.Services
                 UserEffectsDispatcher.SlotImpulseTriggerForDeviceProvider = null;
                 UserEffectsDispatcher.SteeringAtResistanceProvider = null;
                 UserEffectsDispatcher.SteeringTriggerVibProvider = null;
+                UserEffectsDispatcher.MacroTriggerEffectsProvider = null;
+                MacroTriggerEffectState.Changed = null;
                 UserEffectsDispatcher.TestRumbleTargetGuidProvider = null;
                 UserEffectsDispatcher.SlotBatteryPercentProvider = null;
                 UserEffectsDispatcher.SlotPerDeviceConfigsProvider = null;
@@ -3661,6 +3672,8 @@ namespace PadForge.Services
             // Head tracking card (#355): the Devices row's source line, on
             // the dashboard cadence. Two volatile reads when nothing moved.
             UpdateHeadTrackingStatus();
+            // Game telemetry card (#531): same cadence, same shape.
+            UpdateGameTelemetryStatus();
             // G-Keys card (#454): same cadence, same shape.
             UpdateGKeysStatus();
             // Analog keyboards (#468): same cadence, same shape.
@@ -4516,11 +4529,13 @@ namespace PadForge.Services
                     namedObjects: ud.CapType == InputDeviceType.VrController
                                || ud.CapType == InputDeviceType.LogitechGKeys
                                || ud.CapType == InputDeviceType.KeyboardScreenKeys
+                               || ud.CapType == InputDeviceType.GameTelemetry
                                   ? ud.DeviceObjects : null,
                     analogKeyOrder: ud.CapType == InputDeviceType.AnalogKeyboard
                         ? PadForge.Common.Input.AnalogKeyboardRuntime.KeysFor(ud)
                         : null,
-                    isFalcon: ud.CapType == InputDeviceType.NovintFalcon);
+                    isFalcon: ud.CapType == InputDeviceType.NovintFalcon,
+                    isGameTelemetry: ud.CapType == InputDeviceType.GameTelemetry);
                 devVm.HasGyroData = ud.HasGyro;
                 devVm.HasAccelData = ud.HasAccel;
                 devVm.HasAccelAuxData = ud.HasAccelAux;
@@ -5340,6 +5355,38 @@ namespace PadForge.Services
             UpdateFalconDeviceRow(row, ud);
             UpdateAnalogKeyboardDeviceRow(row, ud);
             UpdateGameModDeviceRow(row, ud);
+            // These two read the live row, which a stopped engine has
+            // retired, so here they clear the line the row showed while the
+            // engine ran.
+            UpdateHeadTrackerDevicePanel(_mainVm.Devices, ud);
+            UpdateGameTelemetryDevicePanel(_mainVm.Devices, ud);
+        }
+
+        /// <summary>The head tracker's source line (issue #355): which source
+        /// is live, rebuilt only when the device says its status moved.</summary>
+        private static void UpdateHeadTrackerDevicePanel(DevicesViewModel devVm, UserDevice ud)
+        {
+            if (!devVm.IsHeadTrackerDevice) return;
+            if (ud.Device is PadForge.Common.Input.HeadTrackerDevice ht)
+            {
+                int version = ht.StatusVersion;
+                // The INSTANCE is part of the cache key. A reopen restarts
+                // StatusVersion at 0, so a version-only check kept the
+                // retired device's line, port number and all.
+                if (!ReferenceEquals(devVm.HeadTrackerStatusDevice, ht)
+                    || devVm.HeadTrackerStatusVersion != version
+                    || string.IsNullOrEmpty(devVm.HeadTrackerStatus))
+                {
+                    devVm.HeadTrackerStatusDevice = ht;
+                    devVm.HeadTrackerStatusVersion = version;
+                    devVm.HeadTrackerStatus = BuildHeadTrackerStatus(ht);
+                }
+            }
+            else
+            {
+                devVm.HeadTrackerStatus = string.Empty;
+                devVm.HeadTrackerStatusDevice = null;
+            }
         }
 
         /// <summary>
@@ -5391,7 +5438,8 @@ namespace PadForge.Services
 
             // A Bliss-Box port's line, actions and pressure chips (#469), a
             // keyboard screen's line and dialog (#519), a Falcon's line and
-            // Calibrate Reach (#521), an analog keyboard's Synapse line (#468).
+            // Calibrate Reach (#521), an analog keyboard's Synapse line (#468),
+            // and the head tracker's and game telemetry's lines (#355, #531).
             UpdateDevicePanelLines(selected, ud);
 
             // Rebuild collections when the selected device changes, or when
@@ -5425,11 +5473,13 @@ namespace PadForge.Services
                     namedObjects: ud.CapType == InputDeviceType.VrController
                                || ud.CapType == InputDeviceType.LogitechGKeys
                                || ud.CapType == InputDeviceType.KeyboardScreenKeys
+                               || ud.CapType == InputDeviceType.GameTelemetry
                                   ? ud.DeviceObjects : null,
                     analogKeyOrder: ud.CapType == InputDeviceType.AnalogKeyboard
                         ? PadForge.Common.Input.AnalogKeyboardRuntime.KeysFor(ud)
                         : null,
-                    isFalcon: ud.CapType == InputDeviceType.NovintFalcon);
+                    isFalcon: ud.CapType == InputDeviceType.NovintFalcon,
+                    isGameTelemetry: ud.CapType == InputDeviceType.GameTelemetry);
                 devVm.HasGyroData = ud.HasGyro;
                 devVm.HasAccelData = ud.HasAccel;
                 devVm.HasAccelAuxData = ud.HasAccelAux;
@@ -5589,32 +5639,6 @@ namespace PadForge.Services
                     if (row.Button >= 0 && row.Button < btns.Length && btns[row.Button])
                         row.LastActiveTick = now;
                     row.IsActive = row.LastActiveTick != 0 && (now - row.LastActiveTick) < NfcPreviewHoldMs;
-                }
-            }
-
-            // Head tracker source line (issue #355): which source is live,
-            // rebuilt only when the device says its status moved.
-            if (devVm.IsHeadTrackerDevice)
-            {
-                if (ud.Device is PadForge.Common.Input.HeadTrackerDevice ht)
-                {
-                    int version = ht.StatusVersion;
-                    // The INSTANCE is part of the cache key. A reopen restarts
-                    // StatusVersion at 0, so a version-only check kept the
-                    // retired device's line, port number and all.
-                    if (!ReferenceEquals(devVm.HeadTrackerStatusDevice, ht)
-                        || devVm.HeadTrackerStatusVersion != version
-                        || string.IsNullOrEmpty(devVm.HeadTrackerStatus))
-                    {
-                        devVm.HeadTrackerStatusDevice = ht;
-                        devVm.HeadTrackerStatusVersion = version;
-                        devVm.HeadTrackerStatus = BuildHeadTrackerStatus(ht);
-                    }
-                }
-                else
-                {
-                    devVm.HeadTrackerStatus = string.Empty;
-                    devVm.HeadTrackerStatusDevice = null;
                 }
             }
 
@@ -12315,7 +12339,9 @@ namespace PadForge.Services
                                 // The keyboard screen keys carry their own names (#519).
                                 || devType == InputDeviceType.KeyboardScreenKeys
                                 // So do a Novint Falcon's handle axes (#521).
-                                || devType == InputDeviceType.NovintFalcon)
+                                || devType == InputDeviceType.NovintFalcon
+                                // And the Game Telemetry row's axes and gears (#531).
+                                || devType == InputDeviceType.GameTelemetry)
                                 try { objects = dev.GetDeviceObjects(); } catch { }
                             var info = new RemotePeerDeviceInfo
                             {
@@ -13368,6 +13394,10 @@ namespace PadForge.Services
             _headTrackingStatusDevice = null;
             _headTrackingStatusVersion = int.MinValue;
             UpdateHeadTrackingStatus();
+
+            // Game telemetry (#531): the same, for the same reason.
+            ResetGameTelemetryStatusCache();
+            UpdateGameTelemetryStatus();
 
             // Web controller server
             if (_webServer == null)
@@ -15667,6 +15697,7 @@ namespace PadForge.Services
                 InputDeviceType.PeripheralHaptics => "PeripheralHaptics",
                 InputDeviceType.KeyboardScreenKeys => "KeyboardScreenKeys",
                 InputDeviceType.NovintFalcon => "NovintFalcon",
+                InputDeviceType.GameTelemetry => "GameTelemetry",
                 _ => "Device"
             };
             // Vendor daemon notice (#343): the sweep scans on its cadence;
@@ -17698,6 +17729,13 @@ namespace PadForge.Services
             }
             int padIndex = _recordingVariablePadIndex;
             if (padIndex < 0 || padIndex >= InputManager.MaxPads) return;
+            // A telemetry variable is picked from a list (#531). A device
+            // scan here would rebind it to whatever moved.
+            if (_recordingVariable.Source == MacroTriggerSource.GameTelemetry)
+            {
+                StopExpressionVariableRecording();
+                return;
+            }
 
             // Route based on the variable's Source choice. Virtual Controller
             // samples the slot's combined output; Assigned Devices walks only
@@ -18714,6 +18752,12 @@ namespace PadForge.Services
                 EnableGameModServer = _mainVm.Dashboard.EnableGameModServer,
                 GameModServerPort = _mainVm.Dashboard.GameModServerPort,
                 GameModDsxStandIn = _mainVm.Dashboard.GameModDsxStandIn,
+                EnableGameTelemetry = _mainVm.Dashboard.EnableGameTelemetry,
+                GameTelemetryPort = _mainVm.Dashboard.GameTelemetryPort,
+                GameTelemetryFormat = _mainVm.Dashboard.GameTelemetryFormat,
+                GameTelemetryCustomFormat = _mainVm.Dashboard.GameTelemetryCustomFormat,
+                GameTelemetryForwardPort = _mainVm.Dashboard.GameTelemetryForwardPort,
+                GameTelemetryFullSpeed = _mainVm.Dashboard.GameTelemetryFullSpeed,
                 EnableWebController = _mainVm.Dashboard.EnableWebController,
                 WebControllerPort = _mainVm.Dashboard.WebControllerPort,
                 EnableTouchpadOverlay = _mainVm.Dashboard.EnableTouchpadOverlay,
@@ -19732,6 +19776,11 @@ namespace PadForge.Services
                 _mainVm.Dashboard.GameModServerPort = profile.GameModServerPort;
             _mainVm.Dashboard.GameModDsxStandIn = profile.GameModDsxStandIn;
 
+            // ── Apply the game telemetry settings (#531) ──
+            _mainVm.Dashboard.ApplyGameTelemetrySettings(profile.GameTelemetryFormat, profile.GameTelemetryCustomFormat,
+                profile.GameTelemetryPort, profile.GameTelemetryForwardPort, profile.GameTelemetryFullSpeed);
+            _mainVm.Dashboard.EnableGameTelemetry = profile.EnableGameTelemetry;
+
             // ── Apply web controller server settings ──
             _mainVm.Dashboard.EnableWebController = profile.EnableWebController;
             if (profile.WebControllerPort >= 1024 && profile.WebControllerPort <= 65535)
@@ -20087,6 +20136,12 @@ namespace PadForge.Services
                     profile.EnableGameModServer = snapshot.EnableGameModServer;
                     profile.GameModServerPort = snapshot.GameModServerPort;
                     profile.GameModDsxStandIn = snapshot.GameModDsxStandIn;
+                    profile.EnableGameTelemetry = snapshot.EnableGameTelemetry;
+                    profile.GameTelemetryPort = snapshot.GameTelemetryPort;
+                    profile.GameTelemetryFormat = snapshot.GameTelemetryFormat;
+                    profile.GameTelemetryCustomFormat = snapshot.GameTelemetryCustomFormat;
+                    profile.GameTelemetryForwardPort = snapshot.GameTelemetryForwardPort;
+                    profile.GameTelemetryFullSpeed = snapshot.GameTelemetryFullSpeed;
                     profile.EnableWebController = snapshot.EnableWebController;
                     profile.WebControllerPort = snapshot.WebControllerPort;
                     profile.EnableTouchpadOverlay = snapshot.EnableTouchpadOverlay;

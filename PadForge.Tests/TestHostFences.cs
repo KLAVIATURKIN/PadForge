@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using PadForge.Common;
 using PadForge.Common.Input;
+using PadForge.Common.Input.Telemetry;
 using PadForge.Engine.Common;
 using PadForge.Engine.Common.AnalogKeyboard;
 using PadForge.Engine.Tablets;
@@ -175,6 +176,22 @@ namespace PadForge.Tests
     {
         [ModuleInitializer]
         internal static void Set() => GameModServer.OffLimitsForTest = true;
+    }
+
+    /// <summary>No telemetry row binds a port the PC's games send to
+    /// (#531).</summary>
+    internal static class GameTelemetryPortOffLimits
+    {
+        [ModuleInitializer]
+        internal static void Set() => GameTelemetryDevice.OffLimitsForTest = true;
+    }
+
+    /// <summary>The shared memory Assetto Corsa and ACC write is not
+    /// opened (#531).</summary>
+    internal static class KunosOffLimits
+    {
+        [ModuleInitializer]
+        internal static void Set() => KunosSharedMemory.OffLimitsForTest = true;
     }
 
     /// <summary>The port files every DSX game mod on the PC reads are left

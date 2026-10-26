@@ -19,13 +19,14 @@ namespace PadForge.Common.Telemetry
     ///
     /// <para>Default port 4444 (user-configurable in each game's OutGauge config).</para>
     /// </summary>
-    internal sealed class OutGaugeTelemetrySource : ITelemetrySource
+    internal sealed class OutGaugeTelemetrySource : IUdpTelemetrySource
     {
         public string Name => "OutGauge";
 
         private const int RpmOffset = 16;
 
         private readonly int _port;
+        public int Port => _port;
         private UdpClient _udp;
         private Thread _thread;
         private volatile bool _run;

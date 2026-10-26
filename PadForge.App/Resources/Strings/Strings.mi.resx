@@ -1689,4 +1689,82 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Pātene 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Pātene 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetry kēmu</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetry kēmu</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Whakarongo ki te telemetry kēmu</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Kēmu</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port telemetry kēmu</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Tuku ki te port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Ka tāruatia ia mōkihi ki tēnei port i tēnei PC, kia whiwhi tonu tētahi atu hōtaka pērā i SimHub. Ki te 0, kāore he mea e tukuna.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Tere mōrahi (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Ko te tere e neke katoa ai te tuaka Tere.</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Ka whakaahua i ngā mōkihi o tētahi kēmu kāore e mōhiotia ana e PadForge, ia āpure, ia āpure.</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport me Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ki F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 me ētahi atu kēmu Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive me Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 me Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa me Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 me American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>E tatari ana ki tētahi kēmu i te port UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>E whakarongo ana i te port UDP {0}. {1} mai i {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Kei te whakamahia te port UDP {0} e tētahi atu hōtaka.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>E tatari ana ki Assetto Corsa, ki Assetto Corsa Competizione rānei.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>E tuku ana ki te port {0}.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Tāpiri hōputu</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Hōputu {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Ingoa</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Ngā mōkihi</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Roa (paita)</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Whakamuri</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Ngā āpure</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Ingoa taurangi</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Momo</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Iti rawa</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Nui rawa</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Tāpiri āpure</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Tango āpure</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Me whai ingoa te hōputu {0} kāore he : rānei, he | rānei.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>E rua ngā hōputu e tapaina ana ko {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Me whai ingoa tētahi taurangi i {0} kāore he : rānei, he | rānei.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Me whai kī JSON tētahi āpure i {0}.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Taurangi</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Tere (km/h)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Perei (0 ki te 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Urungi (-1 ki te 1)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetry kēmu</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Tere (mph)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Perei (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Urungi (-100 Mauī ki te 100 Matau)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Matau (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Mauī (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Ērua (L2 me R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Pānga</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Weto</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Mīhini</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Ngohengohe rawa</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Ngohengohe</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Waenga</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Mārō</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Mārō rawa</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Rohe tīmatanga</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Rohe mutunga</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Waewae tuatahi</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Waewae tuarua</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Kaha A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Kaha B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Kaha tīmatanga</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Kaha mutunga</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Kaha o te rohe {0}</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>I te wā e puritia ana te trigger o te mākoro</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Mō tētahi wā kua whakaritea</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Kia whakamutua rā anō</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Wā</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} i {1} mō {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} i {1} i te wā e puritia ana</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} i {1} kia whakamutua rā anō</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Whakamutu pānga trigger i {0}</value></data>
 </root>

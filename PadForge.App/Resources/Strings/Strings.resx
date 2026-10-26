@@ -4266,7 +4266,7 @@ Would you like PadForge to uninstall them now? This requires elevation and may t
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move report layouts, sensor calibration, and the EXT accessory handshake, by Thomas Perl, cross-checked against the moveonpc wiki. PadForge's implementation is original C#. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Racing telemetry references</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Shared-memory and UDP layouts behind the wheel RPM shift LEDs, read from assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) and simapi (LGPL-3.0). No GPL or LGPL code ships.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Shared-memory and UDP layouts behind Game Telemetry and the wheel RPM shift LEDs, read from assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) and vAzhureRacingHub (GPL-3.0). No GPL or LGPL code ships.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth pairing and report documentation. GPL-2.0 and GPL-3.0, read as documentation only, no GPL code ships.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4507,4 +4507,134 @@ Would you like PadForge to uninstall them now? This requires elevation and may t
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Reset Force Limit</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Calibrate Reach</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Measures how far the handle travels. Move it to every edge of its reach for the four seconds the sweep runs. The forces rest meanwhile.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Game Telemetry</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Game Telemetry</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Puts the telemetry driving games send, and Assetto Corsa's shared memory, on the Game Telemetry row of the Devices page. Map its speed, pedals and gears like any input, trigger macros with them, or test them in a Custom Expression. While it listens, a wheel's RPM shift LEDs read the game from here too.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Listen for Game Telemetry</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Game</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Auto-Detect tells the game from its packets. Picking Project CARS 2 and Automobilista 2, or the truck simulators, also sets the port those games always send to.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Game Telemetry Port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Forward to Port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Copies every packet to this port on this PC, so another program such as SimHub keeps receiving it. 0 forwards nothing.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Full Speed (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>The speed that moves the Speed axis all the way.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Custom Formats…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Describes the packets of a game PadForge does not know, field by field.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Turn on telemetry output in each game and point it at this PC and port. F1, the Codemasters games and EA SPORTS WRC use 20777 unless changed, Project CARS 2 and Automobilista 2 always use 5606, and MrHokss's plugin for the truck simulators uses 49001. Assetto Corsa and ACC need no port.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Auto-Detect</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport and Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 to F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 and Other Codemasters Games</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive and Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 and Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa and Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 and American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (Custom)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Waiting for a game on UDP port {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Listening on UDP port {0}. {1} from {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP port {0} is in use by another program.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Reading {0} from shared memory.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Waiting for Assetto Corsa or Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Forwarding to port {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Custom Telemetry Formats</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Describe the packets a game sends, field by field, and PadForge reads that game too. Each variable becomes an axis on the Game Telemetry row and a channel for Custom Expression triggers. Pick a format by name in the Game list, or give it a length or a key so Auto-Detect finds it.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Add Format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Name</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Packets</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binary</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Length (Bytes)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Only packets of exactly this many bytes are read with this format. With 0, any packet is read, and Auto-Detect leaves the format alone, so pick it by name.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Required Key</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Only JSON packets that carry this key are read with this format. Left empty, any packet is read, and Auto-Detect leaves the format alone, so pick it by name.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>The packet writes each number with its most significant byte first. Games on a PC almost always write the least significant byte first.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Gear Values</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>The gear field has its own numbers for reverse and neutral, as Forza's 0 and 11 are. When this is off, a negative gear is reverse and 0 is neutral.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Reverse</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Neutral</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Fields</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Each field reads a number at its offset, or under its key in JSON (dots reach into nested objects), and multiplies it by the scale. After the scale, speed is in km/h, the pedals run from 0 to 1, and steering from -1 at full left to 1 at full right. A variable's axis runs from its Min at rest to its Max at full.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Reads Into</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Variable Name</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Offset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Type</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON Key</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Scale</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Add Field</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Remove Field</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Format {0} needs a name without : or |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Two formats are named {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>A variable in {0} needs a name without : or |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>A field in {0} reads past the end of its {1}-byte packet.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>A field in {0} needs a JSON key.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variable</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Speed (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Max RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Gear</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Throttle (0 to 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Brake (0 to 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Clutch (0 to 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Handbrake (0 to 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Steering (-1 to 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Driving (Not 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Game Telemetry</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Speed (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% of Max)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Gear (-1 Reverse, 0 Neutral)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Throttle (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Brake (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Clutch (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Handbrake (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Steering (-100 Left to 100 Right)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Driving (1 or 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Adaptive Trigger Effect</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Stop Adaptive Trigger Effect</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Plays a DualSense adaptive trigger effect on this slot's triggers. The effects are the ones game mods for DSX send.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Ends the adaptive trigger effect a macro holds on the chosen trigger. Pair it with an effect that holds until stopped.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Right (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Left (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Both (L2 and R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Effect</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Off</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Bow</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galloping</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Machine</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Very Soft</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Soft</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Medium</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Hard</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Very Hard</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Hardest</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Rigid</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Choppy</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Vibrating Pulse</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Start Zone</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>End Zone</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Snap Strength</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>First Foot</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Second Foot</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Strength A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Strength B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Period (Tenths of a Second)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Start Strength</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>End Strength</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Zone {0} Strength</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>These values make no effect, so the action plays nothing. An end zone has to be past its start zone, and the second foot past the first.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Holds</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>While the Macro's Trigger Is Held</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>For a Set Time</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Until Stopped</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Time</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Plays on every DualSense and DualSense Edge on this slot. A game's own trigger effect and a game mod's come first, and the Adaptive Triggers tab's setting returns when the effect ends. Zones run from 0 at rest to 9 at full pull. Bow, Galloping and Machine are not official DualSense effects, and a firmware update could remove them. Xbox controllers with Translate Adaptive Trigger Vibrations on feel the vibrating effects as trigger rumble.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} on {1} for {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} on {1} while held</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} on {1} until stopped</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Stop trigger effect on {0}</value></data>
 </root>

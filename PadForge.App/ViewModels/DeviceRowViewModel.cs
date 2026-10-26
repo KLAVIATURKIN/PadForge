@@ -271,6 +271,7 @@ namespace PadForge.ViewModels
                     OnPropertyChanged(nameof(IsHandheldDevice));
                     OnPropertyChanged(nameof(IsSystemMotionDevice));
                     OnPropertyChanged(nameof(IsHeadTrackerDevice));
+                    OnPropertyChanged(nameof(IsGameTelemetryDevice));
                     OnPropertyChanged(nameof(ShowLearnHandheldButton));
                     OnPropertyChanged(nameof(HasHandheldDaemonWarning));
                     OnPropertyChanged(nameof(IsTabletDevice));
@@ -309,6 +310,7 @@ namespace PadForge.ViewModels
             "PeripheralLighting" => Strings.Instance.DeviceType_PeripheralLighting,
             "KeyboardScreenKeys" => Strings.Instance.DeviceType_KeyboardScreenKeys,
             "NovintFalcon" => Strings.Instance.DeviceType_NovintFalcon,
+            "GameTelemetry" => Strings.Instance.DeviceType_GameTelemetry,
             _ => Strings.Instance.DeviceType_Device
         };
 
@@ -657,6 +659,9 @@ namespace PadForge.ViewModels
         /// <summary>True for the head tracker row (issue #355).</summary>
         public bool IsHeadTrackerDevice => DeviceTypeKey == "HeadTracker";
 
+        /// <summary>True for the Game Telemetry row (issue #531).</summary>
+        public bool IsGameTelemetryDevice => DeviceTypeKey == "GameTelemetry";
+
         /// <summary>Whether to show the Learn / Manage Hidden Buttons button
         /// (issue #343). Owner only: a peer row's buttons are learned on the
         /// machine that has them (the #248 lesson).</summary>
@@ -760,6 +765,9 @@ namespace PadForge.ViewModels
              // A Falcon (#521) is read through Force Dimension's library on
              // its WinUSB driver, so HidHide has no HID instance to cloak.
              || _devicePath.StartsWith("falcon://", StringComparison.Ordinal)
+             // The Game Telemetry row (#531) is fed by a game's packets and
+             // shared memory, with no HID instance behind it.
+             || _devicePath.StartsWith("telemetry://", StringComparison.Ordinal)
              // An analog keyboard row (#468) reads the keyboard's vendor
              // collection. Cloaking it would hide the keyboard's analog
              // interface from its own vendor software, which Razer's needs
@@ -1237,7 +1245,7 @@ namespace PadForge.ViewModels
         /// a row has nothing to submit. A device on a linked PC is hardware
         /// and keeps the button: its row carries the remote device's own
         /// vendor id, product id and SDL GUID.</summary>
-        public bool ShowSubmitMapping => DeviceTypeKey != "Gamepad" && DeviceTypeKey != "Mouse" && DeviceTypeKey != "Keyboard" && DeviceTypeKey != "Touchpad" && DeviceTypeKey != "Tablet" && DeviceTypeKey != "Midi" && DeviceTypeKey != "Nfc" && DeviceTypeKey != "HeadsetMotion" && DeviceTypeKey != "Microphone" && DeviceTypeKey != "HandheldButtons" && DeviceTypeKey != "ConsumerControl" && DeviceTypeKey != "SystemMotion" && DeviceTypeKey != "HeadTracker" && DeviceTypeKey != "VrController" && DeviceTypeKey != "LogitechGKeys" && DeviceTypeKey != "AnalogKeyboard" && DeviceTypeKey != "WebMenus" && DeviceTypeKey != "PeripheralLighting" && DeviceTypeKey != "PeripheralHaptics" && DeviceTypeKey != "KeyboardScreenKeys" && DeviceTypeKey != "NovintFalcon";
+        public bool ShowSubmitMapping => DeviceTypeKey != "Gamepad" && DeviceTypeKey != "Mouse" && DeviceTypeKey != "Keyboard" && DeviceTypeKey != "Touchpad" && DeviceTypeKey != "Tablet" && DeviceTypeKey != "Midi" && DeviceTypeKey != "Nfc" && DeviceTypeKey != "HeadsetMotion" && DeviceTypeKey != "Microphone" && DeviceTypeKey != "HandheldButtons" && DeviceTypeKey != "ConsumerControl" && DeviceTypeKey != "SystemMotion" && DeviceTypeKey != "HeadTracker" && DeviceTypeKey != "VrController" && DeviceTypeKey != "LogitechGKeys" && DeviceTypeKey != "AnalogKeyboard" && DeviceTypeKey != "WebMenus" && DeviceTypeKey != "PeripheralLighting" && DeviceTypeKey != "PeripheralHaptics" && DeviceTypeKey != "KeyboardScreenKeys" && DeviceTypeKey != "NovintFalcon" && DeviceTypeKey != "GameTelemetry";
 
         /// <summary>True for an NFC reader (issue #150): shows the "Register/Manage
         /// NFC Tags" button, which opens the tap-to-name registration flow.

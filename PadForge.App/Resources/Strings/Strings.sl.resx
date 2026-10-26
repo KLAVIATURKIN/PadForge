@@ -4240,7 +4240,7 @@ Ali želite, da jih PadForge zdaj odstrani? To zahteva skrbniške pravice in lah
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Razporeditve poročil PlayStation Move, umerjanje senzorjev in rokovanje z dodatki EXT avtorja Thomas Perl, preverjeno z wikijem moveonpc. Implementacija v programu PadForge je izvirna koda C#. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Reference za dirkalno telemetrijo</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Razporeditve skupnega pomnilnika in UDP za lučke za prestavljanje (RPM) na volanu, prebrane iz assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) in simapi (LGPL-3.0). Nobena koda GPL ali LGPL ni vključena.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Razporeditve skupnega pomnilnika in UDP za telemetrijo iger ter lučke za prestavljanje (RPM) na volanu, prebrane iz assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) in vAzhureRacingHub (GPL-3.0). Nobena koda GPL ali LGPL ni vključena.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Dokumentacija seznanjanja in poročil DualShock 3 prek Bluetootha. GPL-2.0 in GPL-3.0, prebrano le kot dokumentacija, nobena koda GPL ni vključena.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ Ali želite, da jih PadForge zdaj odstrani? To zahteva skrbniške pravice in lah
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Ponastavi omejitev sile</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Umeri doseg</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Izmeri, kako daleč potuje ročaj. Premakni ga do vseh robov dosega v štirih sekundah, kolikor traja pometanje. Sile medtem mirujejo.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetrija iger</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetrija iger</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Telemetrijo, ki jo pošiljajo dirkalne igre, in skupni pomnilnik igre Assetto Corsa prikaže v vrstici Telemetrija iger na strani Naprave. Hitrost, pedale in prestave lahko preslikate kot vsak vhod, z njimi sprožite makre ali jih preizkusite v izrazu po meri. Med poslušanjem lučke za prestavljanje (RPM) na volanu igro berejo tudi od tu.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Poslušaj telemetrijo iger</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Igra</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Samodejno zaznavanje prepozna igro po njenih paketih. Izbira iger Project CARS 2 in Automobilista 2 ali simulatorjev tovornjakov nastavi tudi vrata, na katera te igre vedno pošiljajo.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Vrata telemetrije iger</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Posreduj na vrata</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Vsak paket kopira na ta vrata v tem računalniku, tako da ga drug program, na primer SimHub, še naprej prejema. Z 0 se ne posreduje nič.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Polna hitrost (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Hitrost, pri kateri se os hitrosti premakne do konca.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Formati po meri…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Opiše pakete igre, ki jo PadForge ne pozna, polje za poljem.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>V vsaki igri vklopite izhod telemetrije in ga usmerite na ta računalnik in vrata. F1, igre Codemasters in EA SPORTS WRC privzeto uporabljajo 20777, Project CARS 2 in Automobilista 2 vedno uporabljata 5606, vtičnik MrHokss za simulatorje tovornjakov pa 49001. Assetto Corsa in ACC vrat ne potrebujeta.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Samodejno zaznavanje</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport in Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 do F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 in druge igre Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive in Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 in Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa in Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 in American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (po meri)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Čakanje na igro na vratih UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Posluša na vratih UDP {0}. {1} z naslova {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Vrata UDP {0} uporablja drug program.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Branje igre {0} iz skupnega pomnilnika.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Čakanje na igro Assetto Corsa ali Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Posredovanje na vrata {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Formati telemetrije po meri</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Opišite pakete, ki jih igra pošilja, polje za poljem, in PadForge bo prebral tudi to igro. Vsaka spremenljivka postane os v vrstici Telemetrija iger in kanal za sprožilce z izrazom po meri. Format izberite po imenu na seznamu iger ali mu določite dolžino ali ključ, da ga najde samodejno zaznavanje.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Dodaj format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Ime</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paketi</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binarno</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Dolžina (bajti)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>S tem formatom se preberejo samo paketi z natanko toliko bajti. Pri 0 se prebere vsak paket, samodejno zaznavanje pa formata ne uporabi, zato ga izberite po imenu.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Zahtevani ključ</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>S tem formatom se preberejo samo paketi JSON s tem ključem. Če je prazno, se prebere vsak paket, samodejno zaznavanje pa formata ne uporabi, zato ga izberite po imenu.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Paket zapiše vsako število z najpomembnejšim bajtom naprej. Igre na računalniku skoraj vedno zapišejo najmanj pomemben bajt naprej.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Vrednosti prestav</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Polje prestave ima lastni števili za vzvratno in prosto, kot sta pri igri Forza 0 in 11. Ko je to izklopljeno, negativna prestava pomeni vzvratno, 0 pa prosto.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Vzvratna</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Prosta</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Polja</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Vsako polje prebere število na svojem odmiku ali pod svojim ključem v JSON (pike segajo v gnezdene objekte) in ga pomnoži z merilom. Po merilu je hitrost v km/h, pedali segajo od 0 do 1, volan pa od -1 povsem levo do 1 povsem desno. Os spremenljivke poteka od njenega najmanjšega pri mirovanju do največjega pri polnem odklonu.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Bere v</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Ime spremenljivke</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Odmik</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Vrsta</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Ključ JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Merilo</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Najm.</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Najv.</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Dodaj polje</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Odstrani polje</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Format {0} potrebuje ime brez znakov : ali |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Dva formata imata ime {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Spremenljivka v {0} potrebuje ime brez znakov : ali |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Polje v {0} bere čez konec paketa z {1} bajti.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Polje v {0} potrebuje ključ JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Spremenljivka</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Hitrost (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Največji RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Prestava</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Plin (0 do 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Zavora (0 do 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Sklopka (0 do 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Ročna zavora (0 do 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Volan (-1 do 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Vožnja (ni 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetrija iger</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Hitrost (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% največjega)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Prestava (-1 vzvratna, 0 prosta)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Plin (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Zavora (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Sklopka (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Ročna zavora (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Volan (-100 levo do 100 desno)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Vožnja (1 ali 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Učinek prilagodljivega sprožilca</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Ustavi učinek prilagodljivega sprožilca</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Predvaja učinek prilagodljivega sprožilca DualSense na sprožilcih te reže. Učinki so enaki tistim, ki jih pošiljajo modifikacije iger za DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Konča učinek prilagodljivega sprožilca, ki ga makro drži na izbranem sprožilcu. Uporabite ga skupaj z učinkom, ki traja do ustavitve.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Sprožilec</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Desni (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Levi (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Oba (L2 in R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Učinek</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Izklopljeno</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Lok</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galop</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Stroj</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Zelo mehko</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Mehko</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Srednje</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Trdo</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Zelo trdo</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Najtrše</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Togo</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Sunkovito</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Vibrirajoči utrip</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Začetna cona</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Končna cona</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Moč škljocanja</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Prva noga</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Druga noga</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Moč A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Moč B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Perioda (desetinke sekunde)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Začetna moč</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Končna moč</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Moč cone {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>S temi vrednostmi učinka ni, zato dejanje ne predvaja ničesar. Končna cona mora biti za začetno, druga noga pa za prvo.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Traja</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Medtem ko je sprožilec makra držan</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Določen čas</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Do ustavitve</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Čas</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Predvaja se na vseh krmilnikih DualSense in DualSense Edge v tej reži. Lasten učinek sprožilca igre in učinek modifikacije igre imata prednost, nastavitev na zavihku Prilagodljivi sprožilci pa se vrne, ko se učinek konča. Cone potekajo od 0 pri mirovanju do 9 pri polnem pritisku. Lok, Galop in Stroj niso uradni učinki DualSense, zato bi jih posodobitev vdelane programske opreme lahko odstranila. Krmilniki Xbox z vklopljeno možnostjo Pretvori vibracije prilagodljivih sprožilcev vibrirajoče učinke začutijo kot vibriranje sprožilcev.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}, sprožilec: {1}, {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}, sprožilec: {1}, med držanjem</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}, sprožilec: {1}, do ustavitve</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Ustavi učinek sprožilca: {0}</value></data>
 </root>

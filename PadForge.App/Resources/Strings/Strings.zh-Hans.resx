@@ -4191,7 +4191,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move 报告布局、传感器校准与 EXT 配件握手流程，由 Thomas Perl 提供，并与 moveonpc wiki 交叉核对。PadForge 的实现为原创 C# 代码。BSD 2-Clause。</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>赛车遥测参考来源</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>方向盘转速换挡灯背后的共享内存与 UDP 布局，取自 assettocorsasharedmemory (MIT)、forza-data-web (Apache-2.0)、forza-telemetry (MIT)、InSim.NET (LGPL-2.1)、irsdkSharp (MIT)、IRSDKSharper (GPL-3.0)、out-gauge-cluster (Apache-2.0)、pyirsdk (MIT)、rF2SharedMemoryMapPlugin (GPL-3.0)、rFactorSharedMemoryMap (GPL-2.0)、rust_ams2_sharedmem、scs-sdk-plugin (MIT) 和 simapi (LGPL-3.0)。不随附任何 GPL 或 LGPL 代码。</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>游戏遥测与方向盘转速换挡灯背后的共享内存与 UDP 布局，取自 assettocorsasharedmemory (MIT)、CMTelemetry、dirt-rally-telemetry-dashboard (MIT)、ets2-telemetry-udp (MIT)、f1-24-udp (MIT)、fh6-tel (MIT)、forza-data-web (Apache-2.0)、forza-telemetry (MIT)、Forza-Telemetry-Splitter (MIT)、InSim.NET (LGPL-2.1)、irsdkSharp (MIT)、IRSDKSharper (GPL-3.0)、out-gauge-cluster (Apache-2.0)、PCars2UdpNet (MIT)、project-cars-2-udp (MIT)、pyirsdk (MIT)、rF2SharedMemoryMapPlugin (GPL-3.0)、rFactorSharedMemoryMap (GPL-2.0)、rust_ams2_sharedmem、scs-sdk-plugin (MIT)、simapi (LGPL-3.0)、tm-bt-led (MIT) 和 vAzhureRacingHub (GPL-3.0)。不随附任何 GPL 或 LGPL 代码。</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 蓝牙配对与报告文档。GPL-2.0 和 GPL-3.0，仅作文档参考，不随附任何 GPL 代码。</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4432,4 +4432,134 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>重置力限制</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>校准行程</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>测量握柄的移动范围。在扫描进行的 4 秒内，将其移动到行程的每个边缘。期间各种力会停止。</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>游戏遥测</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>游戏遥测</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>将驾驶类游戏发送的遥测数据以及 Assetto Corsa 的共享内存，放到“设备”页面的“游戏遥测”行上。可像任何输入一样映射其速度、踏板和档位，用它们触发宏，或在自定义表达式中测试。监听期间，方向盘的转速换挡灯也从这里读取游戏数据。</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>监听游戏遥测</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>游戏</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>自动检测会根据数据包判断游戏。选择 Project CARS 2 和 Automobilista 2，或卡车模拟游戏，还会设置这些游戏固定发送到的端口。</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>游戏遥测端口</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>转发到端口</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>将每个数据包复制到本机的这个端口，使 SimHub 等其他程序继续收到数据。0 表示不转发。</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>满速 (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>使速度轴达到最大值的速度。</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>自定义格式…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>逐字段描述 PadForge 不认识的游戏的数据包。</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>在每个游戏中开启遥测输出，并指向本机和此端口。F1、Codemasters 游戏和 EA SPORTS WRC 默认使用 20777，Project CARS 2 和 Automobilista 2 始终使用 5606，MrHokss 的卡车模拟游戏插件使用 49001。Assetto Corsa 和 ACC 无需端口。</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>自动检测</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport 和 Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 至 F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 及其他 Codemasters 游戏</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive 和 Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 和 Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa 和 Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 和 American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0}（自定义）</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>正在 UDP 端口 {0} 上等待游戏。</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>正在监听 UDP 端口 {0}。来自 {2} 的 {1}。</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP 端口 {0} 已被其他程序占用。</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>正在从共享内存读取 {0}。</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>正在等待 Assetto Corsa 或 Assetto Corsa Competizione。</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>正在转发到端口 {0}。</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>自定义遥测格式</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>逐字段描述游戏发送的数据包，PadForge 即可读取该游戏。每个变量会成为“游戏遥测”行上的一个轴，以及自定义表达式触发器的一个通道。可在“游戏”列表中按名称选择格式，或为其指定长度或键，让自动检测找到它。</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>添加格式</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>格式 {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>名称</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>数据包</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>二进制</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>长度（字节）</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>只有恰好这么多字节的数据包才按此格式读取。设为 0 时，任何数据包都会被读取，而自动检测会跳过该格式，因此请按名称选择。</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>必需的键</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>只有包含此键的 JSON 数据包才按此格式读取。留空时，任何数据包都会被读取，而自动检测会跳过该格式，因此请按名称选择。</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>大端序</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>数据包写入每个数字时，先写最高有效字节。PC 上的游戏几乎总是先写最低有效字节。</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>档位值</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>档位字段对倒档和空档使用自己的数值，如 Forza 的 0 和 11。关闭时，负档位为倒档，0 为空档。</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>倒档</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>空档</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>字段</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>每个字段在其偏移处读取一个数字，或在 JSON 中按其键读取（用点号进入嵌套对象），再乘以比例。经过比例换算后，速度单位为 km/h，踏板范围为 0 到 1，转向从完全向左的 -1 到完全向右的 1。变量的轴从静止时的最小值变化到满量程时的最大值。</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>读取到</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>变量名称</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>偏移</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>类型</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON 键</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>比例</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>最小值</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>最大值</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>添加字段</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>移除字段</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>格式 {0} 需要名称，且名称不能包含 : 或 |。</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>有两个格式都名为 {0}。</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} 中的变量需要名称，且名称不能包含 : 或 |。</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} 中的某个字段读取位置超出了其 {1} 字节数据包的末尾。</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} 中的字段需要 JSON 键。</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>变量</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>速度 (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>转速</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>最大转速</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>档位</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>油门 (0 到 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>刹车 (0 到 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>离合 (0 到 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>手刹 (0 到 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>转向 (-1 到 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>行驶中（非 0）</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>游戏遥测</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>速度 (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>转速（占最大值的百分比）</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>档位（-1 为倒档，0 为空档）</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>油门 (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>刹车 (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>离合 (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>手刹 (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>转向（-100 为左，100 为右）</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>行驶中（1 或 0）</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>自适应扳机效果</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>停止自适应扳机效果</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>在此插槽的扳机上播放 DualSense 自适应扳机效果。这些效果与 DSX 游戏模组发送的相同。</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>结束宏在所选扳机上保持的自适应扳机效果。请与保持到停止为止的效果搭配使用。</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>扳机</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>右 (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>左 (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>两者 (L2 和 R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>效果</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>关闭</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>弓</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>奔马</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>机械</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>极软</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>软</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>中</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>硬</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>极硬</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>最硬</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>刚性</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>断续</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>脉冲震动</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>起始区</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>结束区</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>触发力度</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>第一脚</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>第二脚</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>强度 A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>强度 B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>周期（十分之一秒）</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>起始强度</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>结束强度</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>区 {0} 强度</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>这些值不会产生任何效果，因此该操作不会播放任何内容。结束区必须在起始区之后，第二脚必须在第一脚之后。</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>保持</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>宏的触发器按住期间</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>持续设定时间</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>直到停止</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>时间</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>在此插槽上的每个 DualSense 和 DualSense Edge 上播放。游戏自身的扳机效果和游戏模组的扳机效果优先，效果结束后恢复自适应扳机选项卡中的设置。区的范围从静止时的 0 到完全按下时的 9。弓、奔马和机械不是 DualSense 的官方效果，固件更新可能会移除它们。开启“转换自适应扳机震动”后，Xbox 控制器会把震动效果感受为扳机震动。</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1} 上的{0}，持续 {2} 毫秒</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{1} 上的{0}，按住期间</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{1} 上的{0}，直到停止</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>停止 {0} 上的扳机效果</value></data>
 </root>

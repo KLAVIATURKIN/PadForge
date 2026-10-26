@@ -101,10 +101,11 @@ namespace PadForge.Tests
         public void SwitchLayer_StaysAt55()
         {
             // No longer the tail: Set Chroma Color appended 56 (#468),
-            // Show Dreamcast Screen 57 (#469) and the keyboard screen
-            // actions 58 to 61 (#519).
+            // Show Dreamcast Screen 57 (#469), the keyboard screen
+            // actions 58 to 61 (#519) and the Adaptive Trigger Effect
+            // pair 62 and 63 (#531).
             var values = Enum.GetValues<MacroActionType>();
-            Assert.Equal(MacroActionType.SwitchLayer, values[^7]);
+            Assert.Equal(MacroActionType.SwitchLayer, values[^9]);
             Assert.Equal(55, (int)MacroActionType.SwitchLayer);
             Assert.Equal(54, (int)MacroActionType.VoiceListenWhileHeld);
         }

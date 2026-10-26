@@ -1920,4 +1920,64 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Avereno ny fetran'ny hery</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Refeso ny halavirana</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mandrefy ny halaviran'ny dian'ny tahony. Afindrao amin'ny sisiny rehetra izy mandritra ny efatra segondra hanaovana ny fandrefesana. Mijanona ny hery mandritra izany.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Télémétrie lalao</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Télémétrie lalao</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Mihaino ny télémétrie lalao</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Lalao</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port ho an'ny télémétrie lalao</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Alefa any amin'ny port</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Hafainganana feno (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Format manokana…</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Famantarana ho azy</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport sy Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ka hatramin'ny F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 sy lalao Codemasters hafa</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive sy Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 sy Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa sy Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 sy American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (Manokana)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Miandry lalao amin'ny port UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Mihaino amin'ny port UDP {0}. {1} avy amin'ny {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Ampiasain'ny programa hafa ny port UDP {0}.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Miandry Assetto Corsa na Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Mandefa any amin'ny port {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Format télémétrie manokana</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Ampio format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Anarana</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Karazana</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Mila anarana tsy misy : na | ny format {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Format roa no mitondra ny anarana {0}.</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Hafainganana (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM faratampony</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Télémétrie lalao</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Hafainganana (mph)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Gâchette</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Ankavanana (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Ankavia (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Izy roa (L2 sy R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Tsy miasa</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Milina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Malefaka be</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Malefaka</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Antonony</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Mafy</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Mafy be</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Mafy indrindra</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Henjana</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Faritra fanombohana</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Faritra fiafarana</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Hery A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Hery B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Hery am-piandohana</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Hery am-piafarana</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Herin'ny faritra {0}</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Mandritra ny fotoana voafaritra</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Fotoana</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} amin'ny {1} mandritra ny {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} amin'ny {1} raha mbola tazomina</value></data>
 </root>

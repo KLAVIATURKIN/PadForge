@@ -4240,7 +4240,7 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Structura rapoartelor PlayStation Move, calibrarea senzorilor și negocierea cu accesoriile EXT, de Thomas Perl, verificate cu wiki-ul moveonpc. Implementarea din PadForge este cod C# original. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Referințe pentru telemetria de curse</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Structurile de memorie partajată și UDP din spatele LED-urilor RPM de schimbare a treptei ale volanului, citite din assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) și simapi (LGPL-3.0). Nu este inclus niciun cod GPL sau LGPL.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Structurile de memorie partajată și UDP din spatele Telemetriei de joc și al LED-urilor RPM de schimbare a treptei ale volanului, citite din assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) și vAzhureRacingHub (GPL-3.0). Nu este inclus niciun cod GPL sau LGPL.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Documentație despre asocierea Bluetooth și rapoartele DualShock 3. GPL-2.0 și GPL-3.0, citit doar ca documentație, nu este inclus niciun cod GPL.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ Doriți ca PadForge să le dezinstaleze acum? Este nevoie de drepturi de adminis
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Resetare limită de forță</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Calibrare cursă</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Măsoară cât de departe se deplasează mânerul. Mutați-l la fiecare margine a cursei sale în cele patru secunde cât rulează măsurarea. Între timp, forțele se opresc.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetrie de joc</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetrie de joc</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Afișează telemetria trimisă de jocurile de curse, precum și memoria partajată din Assetto Corsa, pe rândul Telemetrie de joc din pagina Dispozitive. Mapați viteza, pedalele și treptele ca orice intrare, declanșați macrocomenzi cu ele sau testați-le într-o expresie personalizată. Cât timp ascultă, LED-urile RPM de schimbare a treptei ale unui volan citesc jocul și de aici.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Ascultă telemetria de joc</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Joc</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Detectare automată recunoaște jocul după pachetele sale. Alegerea Project CARS 2 și Automobilista 2, sau a simulatoarelor de camioane, setează și portul la care trimit mereu aceste jocuri.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port telemetrie de joc</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Redirecționare către port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Copiază fiecare pachet către acest port de pe acest PC, astfel încât un alt program, precum SimHub, să îl primească în continuare. 0 nu redirecționează nimic.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Viteză maximă (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Viteza la care axa Viteză ajunge la capăt.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Formate personalizate…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Descrie, câmp cu câmp, pachetele unui joc necunoscut de PadForge.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Activați ieșirea de telemetrie în fiecare joc și indicați spre acest PC și acest port. F1, jocurile Codemasters și EA SPORTS WRC folosesc 20777 dacă nu se schimbă, Project CARS 2 și Automobilista 2 folosesc mereu 5606, iar pluginul lui MrHokss pentru simulatoarele de camioane folosește 49001. Assetto Corsa și ACC nu au nevoie de port.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Detectare automată</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport și Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 până la F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 și alte jocuri Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive și Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 și Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa și Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 și American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (personalizat)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Se așteaptă un joc pe portul UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Se ascultă pe portul UDP {0}. {1} de la {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Portul UDP {0} este folosit de alt program.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Se citește {0} din memoria partajată.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Se așteaptă Assetto Corsa sau Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Redirecționare către portul {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Formate de telemetrie personalizate</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Descrieți, câmp cu câmp, pachetele pe care le trimite un joc, iar PadForge va citi și acel joc. Fiecare variabilă devine o axă pe rândul Telemetrie de joc și un canal pentru declanșatoarele Expresie personalizată. Alegeți un format după nume în lista Joc sau dați-i o lungime ori o cheie, ca Detectare automată să îl găsească.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Adăugare format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nume</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Pachete</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binar</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Lungime (octeți)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Cu acest format se citesc doar pachetele de exact atâția octeți. Cu 0, se citește orice pachet, iar Detectare automată ignoră formatul, deci alegeți-l după nume.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Cheie obligatorie</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Cu acest format se citesc doar pachetele JSON care conțin această cheie. Dacă rămâne goală, se citește orice pachet, iar Detectare automată ignoră formatul, deci alegeți-l după nume.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Pachetul scrie fiecare număr începând cu octetul cel mai semnificativ. Jocurile de pe PC scriu aproape întotdeauna întâi octetul cel mai puțin semnificativ.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Valori pentru trepte</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Câmpul treptei are numere proprii pentru marșarier și neutru, cum sunt 0 și 11 la Forza. Când este dezactivat, o treaptă negativă înseamnă marșarier, iar 0 înseamnă neutru.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Marșarier</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Neutru</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Câmpuri</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Fiecare câmp citește un număr de la poziția sa (offset) sau de sub cheia sa în JSON (punctele intră în obiectele imbricate) și îl înmulțește cu scara. După scară, viteza este în km/h, pedalele merg de la 0 la 1, iar direcția de la -1 la stânga completă până la 1 la dreapta completă. Axa unei variabile merge de la valoarea Min în repaus până la valoarea Max la maxim.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Citește în</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Nume variabilă</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Offset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tip</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Cheie JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Scară</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Adăugare câmp</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Eliminare câmp</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Formatul {0} are nevoie de un nume fără : sau |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Două formate se numesc {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>O variabilă din {0} are nevoie de un nume fără : sau |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Un câmp din {0} citește dincolo de sfârșitul pachetului său de {1} octeți.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Un câmp din {0} are nevoie de o cheie JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variabilă</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Viteză (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM maxim</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Treaptă</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Accelerație (0 la 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Frână (0 la 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Ambreiaj (0 la 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Frână de mână (0 la 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Direcție (-1 la 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Condus (diferit de 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetrie de joc</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Viteză (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% din maxim)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Treaptă (-1 marșarier, 0 neutru)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Accelerație (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Frână (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Ambreiaj (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Frână de mână (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Direcție (-100 stânga la 100 dreapta)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Condus (1 sau 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Efect pentru trăgacele adaptive</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Oprire efect pentru trăgacele adaptive</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Redă un efect al trăgacelor adaptive DualSense pe trăgacele acestui slot. Efectele sunt cele trimise de modificările de joc pentru DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Încheie efectul trăgacelor adaptive pe care îl menține o macrocomandă pe trăgaciul ales. Folosiți-l împreună cu un efect care se menține până la oprire.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trăgaci</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Dreapta (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Stânga (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Ambele (L2 și R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efect</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Dezactivat</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Arc</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galop</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Mașină</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Foarte moale</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Moale</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Mediu</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Tare</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Foarte tare</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Cel mai tare</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Rigid</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Sacadat</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Puls vibrant</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Zonă de început</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Zonă de sfârșit</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Forța declicului</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Primul pas</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Al doilea pas</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Forță A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Forță B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Perioadă (zecimi de secundă)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Forță la început</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Forță la sfârșit</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Forța zonei {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Aceste valori nu produc niciun efect, deci acțiunea nu redă nimic. Zona de sfârșit trebuie să fie după zona de început, iar al doilea pas după primul.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Menținere</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Cât timp este menținut activatorul macrocomenzii</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Pentru o durată stabilită</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Până la oprire</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Durată</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Se redă pe toate controlerele DualSense și DualSense Edge de pe acest slot. Efectul propriu al unui joc și cel al unei modificări de joc au prioritate, iar setarea din fila Trăgace adaptive revine când efectul se încheie. Zonele merg de la 0 în repaus până la 9 la apăsare completă. Arc, Galop și Mașină nu sunt efecte oficiale DualSense, iar o actualizare de firmware le-ar putea elimina. Controlerele Xbox cu Conversie vibrații trăgace adaptive activată simt efectele vibrante ca vibrații de trăgaci.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} pe {1} timp de {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} pe {1} cât timp este menținut</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} pe {1} până la oprire</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Oprire efect de trăgaci pe {0}</value></data>
 </root>

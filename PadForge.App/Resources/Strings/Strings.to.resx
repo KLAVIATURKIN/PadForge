@@ -689,4 +689,36 @@
   <data name="Settings_Falcon_Title" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Pad_Falcon_Header" xml:space="preserve"><value>Novint Falcon</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Vaʻinga</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport mo Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ki he F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 mo e ngaahi vaʻinga kehe ʻa Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive mo Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 mo Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa mo Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 mo American Truck Simulator</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Hingoa</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Faʻahinga</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Siʻi taha</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Lahi taha</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Toʻomataʻu (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Toʻohema (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Fakatouʻosi (L2 mo R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Kaufana</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Misini</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Molū ʻaupito</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Molū</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Lotoloto</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Fefeka</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Fefeka ʻaupito</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Fefeka taha</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>ʻUluaki vaʻe</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Vaʻe hono ua</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Mālohi A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Mālohi B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Mālohi ʻi he kamataʻanga</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Mālohi ʻi he ngataʻanga</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Taimi</value></data>
 </root>

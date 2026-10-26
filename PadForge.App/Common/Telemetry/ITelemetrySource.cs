@@ -47,4 +47,14 @@ namespace PadForge.Common.Telemetry
         /// isn't running or hasn't sent data recently.</summary>
         bool TryGetSnapshot(out GameTelemetrySnapshot snap);
     }
+
+    /// <summary>
+    /// A source that binds a UDP port. While the Game Telemetry row (issue
+    /// #531) listens on the same port, the hub keeps this source closed and
+    /// the lights read the game from the row (<see cref="TelemetryHub.YieldPort"/>).
+    /// </summary>
+    internal interface IUdpTelemetrySource : ITelemetrySource
+    {
+        int Port { get; }
+    }
 }

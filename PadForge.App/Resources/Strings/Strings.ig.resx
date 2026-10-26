@@ -1183,4 +1183,55 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Bọtịn 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Bọtịn 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetry egwuregwu</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetry egwuregwu</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Gee ntị na telemetry egwuregwu</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Egwuregwu</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port telemetry egwuregwu</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Ziga na port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Na-eziga packet ọ bụla na port a na PC a, ka mmemme ọzọ dị ka SimHub nwee ike ịnata ya. 0 anaghị eziga ihe ọ bụla.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Ọsọ zuru ezu (km/h)</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Chọpụta akpaaka</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport na Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ruo F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 na egwuregwu Codemasters ndị ọzọ</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive na Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 na Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa na Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 na American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (nke onwe)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Na-echere egwuregwu na port UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Na-ege ntị na port UDP {0}. {1} si {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Mmemme ọzọ na-eji port UDP {0}.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Na-echere Assetto Corsa ma ọ bụ Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Na-eziga na port {0}.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Aha</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Ụdị</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Ọsọ (km/h)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetry egwuregwu</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Ọsọ (mph)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Aka nri (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Aka ekpe (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Ha abụọ (L2 na R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Mmetụta</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Gbanyụọ</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Dị nro nke ukwuu</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Dị nro</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Etiti</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Siri ike</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Siri ike nke ukwuu</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Kacha sie ike</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Ike A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Ike B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Ike mmalite</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Ike njedebe</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Ruo oge a kara aka</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Ruo mgbe a kwụsịrị ya</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Oge</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} na {1} maka {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} na {1} mgbe a na-ejide ya</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} na {1} ruo mgbe a kwụsịrị ya</value></data>
 </root>

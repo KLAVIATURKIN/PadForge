@@ -1739,4 +1739,72 @@
   <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Agbára ìmìtìtì</value></data>
   <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>Tún agbára ìmìtìtì tò</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetry eré</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetry eré</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Tẹ́tí sí telemetry eré</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Eré</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Pọ́ọ̀tì telemetry eré</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Firánṣẹ́ sí pọ́ọ̀tì</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Ó ń fi ẹ̀dà gbogbo packet ránṣẹ́ sí pọ́ọ̀tì yìí lórí PC yìí, kí ètò mìíràn bíi SimHub lè máa gbà á. 0 kò fi nǹkan kan ránṣẹ́.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Ìyára kíkún (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Tan ìjáde telemetry nínú eré kọ̀ọ̀kan kí o sì darí rẹ̀ sí PC àti pọ́ọ̀tì yìí. F1, àwọn eré Codemasters àti EA SPORTS WRC ń lo 20777 àyàfi tí a bá yí i padà, Project CARS 2 àti Automobilista 2 máa ń lo 5606 nígbà gbogbo, plugin MrHokss fún àwọn simulator ọkọ̀ akẹ́rù sì ń lo 49001. Assetto Corsa àti ACC kò nílò pọ́ọ̀tì.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Ìdámọ̀ aládàáṣe</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport àti Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 dé F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 àti àwọn eré Codemasters mìíràn</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive àti Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 àti Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa àti Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 àti American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Ń dúró de eré kan lórí pọ́ọ̀tì UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Ń tẹ́tí sí pọ́ọ̀tì UDP {0}. {1} láti {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Ètò mìíràn ń lo pọ́ọ̀tì UDP {0}.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Ń dúró de Assetto Corsa tàbí Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Ń firánṣẹ́ sí pọ́ọ̀tì {0}.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Orúkọ</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Irú</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Ìyára (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM gíga jùlọ</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Gíà</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Bíréèkì (0 dé 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Bíréèkì ọwọ́ (0 dé 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Ìdarí (-1 dé 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Wíwakọ̀ (Kì í ṣe 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetry eré</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Ìyára (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% ti RPM gíga jùlọ)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Bíréèkì (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Bíréèkì ọwọ́ (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Ìdarí (-100 Òsì dé 100 Ọ̀tún)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Wíwakọ̀ (1 tàbí 0)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Tírígà</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Ọ̀tún (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Òsì (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Méjèèjì (L2 àti R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Ipa</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Pa</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Ọrun</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Rọ̀ gan-an</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Rọ̀</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Àárín</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Le</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Le gan-an</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Le jùlọ</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Agbègbè ìbẹ̀rẹ̀</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Agbègbè ìparí</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Agbára A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Agbára B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Agbára ìbẹ̀rẹ̀</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Agbára ìparí</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Agbára agbègbè {0}</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Fún àkókò kan pàtó</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Títí a ó fi dá a dúró</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Àkókò</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} lórí {1} fún {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} lórí {1} nígbà tí a bá dì í mú</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} lórí {1} títí a ó fi dá a dúró</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Dá ipa tírígà dúró lórí {0}</value></data>
 </root>

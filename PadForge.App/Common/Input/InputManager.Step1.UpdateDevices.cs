@@ -451,6 +451,8 @@ namespace PadForge.Common.Input
 
             // --- Phase 1i: head tracker, OpenTrack UDP + FreeTrack (issue #355) ---
             changed |= UpdateHeadTrackerDevice();
+            // --- Phase 1i2: game telemetry, UDP + Assetto Corsa's shared memory (issue #531) ---
+            changed |= UpdateGameTelemetryDevice();
             changed |= UpdateLogitechGKeysDevice();
             // --- Phase 1j2: the keyboard screens, a row each (issue #519) ---
             changed |= UpdateKeyboardScreenDevices();

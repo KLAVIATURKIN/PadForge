@@ -4218,7 +4218,7 @@ Kas soovite, et PadForge need nüüd desinstalliks? Selleks on vaja kõrgendatud
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move'i aruannete paigutused, andurite kalibreerimine ja EXT-lisaseadme kätlus, autor Thomas Perl, võrreldud moveonpc wikiga. PadForge'i teostus on originaalne C#-kood. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Võidusõidu telemeetria viited</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Ühismälu ja UDP paigutused, millele tuginevad rooli käiguvahetuse pöörete LED-id, loetud projektidest assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) ja simapi (LGPL-3.0). GPL- ega LGPL-koodi ei levitata.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Ühismälu ja UDP paigutused, millele tuginevad mängu telemeetria ja rooli käiguvahetuse pöörete LED-id, loetud projektidest assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) ja vAzhureRacingHub (GPL-3.0). GPL- ega LGPL-koodi ei levitata.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetoothi sidumise ja aruannete dokumentatsioon. GPL-2.0 ja GPL-3.0, kasutatud ainult dokumentatsioonina, GPL-koodi ei levitata.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4459,4 +4459,134 @@ Kas soovite, et PadForge need nüüd desinstalliks? Selleks on vaja kõrgendatud
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Lähtesta jõupiir</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibreeri ulatus</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mõõdab, kui kaugele käepide liigub. Liiguta seda ulatuse igasse serva neli sekundit, kui mõõtmine kestab. Jõud on selle ajal välja lülitatud.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Mängu telemeetria</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Mängu telemeetria</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Toob võidusõidumängude saadetava telemeetria ja Assetto Corsa ühismälu seadmete lehe reale Mängu telemeetria. Vastenda selle kiirust, pedaale ja käike nagu mis tahes sisendit, käivita nendega makrosid või testi neid kohandatud avaldises. Kuulamise ajal loevad rooli käiguvahetuse pöörete LED-id mängu andmeid samuti siit.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Kuula mängu telemeetriat</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Mäng</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Automaattuvastus tunneb mängu ära selle pakettide järgi. Project CARS 2 ja Automobilista 2 või veokisimulaatorite valimine määrab ka pordi, kuhu need mängud alati saadavad.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Mängu telemeetria port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Edasta porti</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Kopeerib iga paketi selle arvuti sellele pordile, et mõni teine programm, näiteks SimHub, saaks seda edasi vastu võtta. Väärtus 0 ei edasta midagi.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Täiskiirus (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Kiirus, mis viib kiiruse telje lõpuni.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Kohandatud vormingud…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Kirjeldab väljade kaupa pakette mängust, mida PadForge ei tunne.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Lülita igas mängus telemeetria väljund sisse ja suuna see sellele arvutile ja pordile. F1, Codemasters'i mängud ja EA SPORTS WRC kasutavad vaikimisi porti 20777, Project CARS 2 ja Automobilista 2 alati porti 5606 ning MrHokss'i veokisimulaatorite plugin porti 49001. Assetto Corsa ja ACC ei vaja porti.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Automaattuvastus</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ja Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 kuni F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 ja muud Codemasters'i mängud</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ja Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ja Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ja Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ja American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (kohandatud)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Ootab mängu UDP pordil {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Kuulab UDP pordil {0}. {1} aadressilt {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP port {0} on teise programmi kasutuses.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Loeb mängu {0} ühismälust.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Ootab mängu Assetto Corsa või Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Edastab pordile {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Kohandatud telemeetria vormingud</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Kirjelda mängu saadetavad paketid väljade kaupa ja PadForge loeb ka seda mängu. Iga muutuja muutub Mängu telemeetria rea teljeks ja kohandatud avaldise päästikute kanaliks. Vali vorming mängude loendis nime järgi või anna sellele pikkus või võti, et automaattuvastus selle leiaks.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Lisa vorming</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Vorming {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nimi</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paketid</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binaar</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Pikkus (baiti)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Selle vorminguga loetakse ainult täpselt nii mitme baidi pikkusi pakette. Väärtuse 0 korral loetakse iga pakett ja automaattuvastus jätab vormingu rahule, seega vali see nime järgi.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Nõutav võti</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Selle vorminguga loetakse ainult JSON-pakette, milles on see võti. Tühjaks jäetuna loetakse iga pakett ja automaattuvastus jätab vormingu rahule, seega vali see nime järgi.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Pakett kirjutab iga arvu kõige olulisema baidiga ees. Arvutimängud kirjutavad peaaegu alati kõige vähem olulise baidi esimesena.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Käikude väärtused</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Käiguväli kasutab tagurduse ja vaba käigu jaoks oma numbreid, nagu Forza 0 ja 11. Kui see on väljas, on negatiivne käik tagurdus ja 0 on vaba käik.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Tagurdus</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Vaba käik</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Väljad</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Iga väli loeb arvu oma nihkest või JSON-is oma võtme alt (punktid viivad pesastatud objektidesse) ja korrutab selle skaalaga. Pärast skaalat on kiirus km/h, pedaalid ulatuvad 0-st 1-ni ja roolinurk -1-st (täiesti vasakul) 1-ni (täiesti paremal). Muutuja telg ulatub väärtusest Min puhkeolekus väärtuseni Max täisasendis.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Loeb muutujasse</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Muutuja nimi</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Nihe</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tüüp</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON-võti</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Skaala</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Lisa väli</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Eemalda väli</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Vorming {0} vajab nime, milles pole : ega |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Kaks vormingut on nimega {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Vormingu {0} muutuja vajab nime, milles pole : ega |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Vormingu {0} väli loeb üle {1}-baidise paketi lõpu.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Vormingu {0} väli vajab JSON-võtit.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Muutuja</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Kiirus (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>Pöörded (p/min)</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Maksimaalsed pöörded (p/min)</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Käik</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Gaas (0 kuni 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Pidur (0 kuni 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Sidur (0 kuni 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Käsipidur (0 kuni 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Rool (-1 kuni 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Sõidab (mitte 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Mängu telemeetria</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Kiirus (mi/h)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>Pöörded (% maksimumist)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Käik (-1 tagurdus, 0 vaba käik)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Gaas (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Pidur (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Sidur (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Käsipidur (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Rool (-100 vasak kuni 100 parem)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Sõidab (1 või 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Adaptiivse päästiku efekt</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Peata adaptiivse päästiku efekt</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Esitab DualSense'i adaptiivse päästiku efekti selle pesa päästikutel. Efektid on needsamad, mida DSX-i mängumodid saadavad.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Lõpetab adaptiivse päästiku efekti, mida makro hoiab valitud päästikul. Kasuta seda koos efektiga, mis kestab peatamiseni.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Päästik</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Parem (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Vasak (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Mõlemad (L2 ja R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efekt</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Väljas</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Amb</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galopp</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Masin</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Väga pehme</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Pehme</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Keskmine</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Kõva</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Väga kõva</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Kõvim</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Jäik</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Katkendlik</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Vibreeriv impulss</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Algustsoon</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Lõpptsoon</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Klõpsu tugevus</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Esimene jalg</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Teine jalg</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Tugevus A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Tugevus B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Periood (kümnendiksekundit)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Algtugevus</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Lõpptugevus</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Tsooni {0} tugevus</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Need väärtused ei anna efekti, seega toiming ei esita midagi. Lõpptsoon peab olema algustsoonist kaugemal ja teine jalg esimesest kaugemal.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Hoiab</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Kuni makro aktivaator on all</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Kindla aja jooksul</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Kuni peatamiseni</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Aeg</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Esitatakse igal sellel pesal olevalt DualSense'il ja DualSense Edge'il. Mängu enda päästikuefekt ja mängumodi oma on eelisjärjekorras ning vahekaardi Adaptiivsed päästikud säte naaseb, kui efekt lõpeb. Tsoonid ulatuvad 0-st puhkeolekus 9-ni täielikul tõmbel. Amb, Galopp ja Masin ei ole ametlikud DualSense'i efektid ja püsivara värskendus võib need eemaldada. Xbox-kontrollerid, kus on sisse lülitatud Teisenda adaptiivsete päästikute vibratsioonid, tunnevad vibreerivaid efekte päästiku vibratsioonina.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}: {1}, {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}: {1}, kuni hoitakse</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}: {1}, kuni peatamiseni</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Peata päästiku efekt: {0}</value></data>
 </root>

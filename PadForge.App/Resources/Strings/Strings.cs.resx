@@ -4240,7 +4240,7 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Rozložení reportů PlayStation Move, kalibrace senzorů a handshake příslušenství EXT, autor Thomas Perl, křížově ověřeno podle wiki moveonpc. Implementace v programu PadForge je původní kód v C#. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Reference k závodní telemetrii</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Rozložení sdílené paměti a UDP, která stojí za kontrolkami řazení podle otáček na volantu, čtená z assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) a simapi (LGPL-3.0). Žádný kód pod GPL ani LGPL se nedodává.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Rozložení sdílené paměti a UDP, která stojí za herní telemetrií a kontrolkami řazení podle otáček na volantu, čtená z assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) a vAzhureRacingHub (GPL-3.0). Žádný kód pod GPL ani LGPL se nedodává.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Dokumentace párování a reportů Bluetooth ovladače DualShock 3. GPL-2.0 a GPL-3.0, čteno jen jako dokumentace, žádný kód pod GPL se nedodává.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ Má je PadForge teď odinstalovat? Vyžaduje to zvýšená oprávnění a může
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Resetovat limit síly</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibrovat dosah</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Změří, jak daleko se rukojeť pohybuje. Po čtyři sekundy měření ji přesuňte ke všem okrajům dosahu. Síly se mezitím vypnou.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Herní telemetrie</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Herní telemetrie</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Zpřístupní telemetrii, kterou posílají závodní hry, i sdílenou paměť hry Assetto Corsa na řádku Herní telemetrie na stránce Zařízení. Mapujte její rychlost, pedály a převodové stupně jako libovolný vstup, spouštějte s nimi makra nebo je testujte ve Vlastním výrazu. Dokud naslouchá, čtou z ní hru i kontrolky řazení podle otáček na volantu.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Naslouchat herní telemetrii</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Hra</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Automatická detekce pozná hru podle jejích paketů. Výběr Project CARS 2 a Automobilista 2 nebo simulátorů kamionů také nastaví port, na který tyto hry vždy posílají.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port herní telemetrie</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Přeposílat na port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Kopíruje každý paket na tento port na tomto PC, aby ho dál přijímal jiný program, například SimHub. Hodnota 0 nepřeposílá nic.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Plná rychlost (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Rychlost, při které osa Rychlost dosáhne plného rozsahu.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Vlastní formáty…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Popíše pakety hry, kterou PadForge nezná, pole po poli.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>V každé hře zapněte výstup telemetrie a nasměrujte ho na tento počítač a port. F1, hry od Codemasters a EA SPORTS WRC používají 20777, pokud se nezmění, Project CARS 2 a Automobilista 2 vždy používají 5606 a plugin od MrHokss pro simulátory kamionů používá 49001. Assetto Corsa a ACC port nepotřebují.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Automatická detekce</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport a Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 až F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 a další hry od Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive a Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 a Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa a Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 a American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (vlastní)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Čeká se na hru na portu UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Naslouchá na portu UDP {0}. {1} z {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Port UDP {0} používá jiný program.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Čtení {0} ze sdílené paměti.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Čeká se na Assetto Corsa nebo Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Přeposílání na port {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Vlastní formáty telemetrie</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Popište pakety, které hra posílá, pole po poli, a PadForge bude číst i tuto hru. Každá proměnná se stane osou na řádku Herní telemetrie a kanálem pro spouštěče Vlastního výrazu. Formát vyberte podle názvu v seznamu Hra, nebo mu zadejte délku či klíč, aby ho Automatická detekce našla.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Přidat formát</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Formát {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Název</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Pakety</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binární</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Délka (bajty)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>S tímto formátem se čtou jen pakety přesně této délky v bajtech. Při hodnotě 0 se čte jakýkoli paket a Automatická detekce formát přeskočí, takže ho vyberte podle názvu.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Požadovaný klíč</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>S tímto formátem se čtou jen pakety JSON, které obsahují tento klíč. Když je prázdný, čte se jakýkoli paket a Automatická detekce formát přeskočí, takže ho vyberte podle názvu.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Paket zapisuje každé číslo nejvýznamnějším bajtem napřed. Hry na PC téměř vždy zapisují nejdříve nejméně významný bajt.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Hodnoty převodových stupňů</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Pole převodového stupně má vlastní čísla pro zpátečku a neutrál, jako je u hry Forza 0 a 11. Když je vypnuto, záporný stupeň je zpátečka a 0 je neutrál.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Zpátečka</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Neutrál</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Pole</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Každé pole čte číslo na svém offsetu, nebo v JSON pod svým klíčem (tečky vedou do vnořených objektů), a násobí ho měřítkem. Po vynásobení je rychlost v km/h, pedály jdou od 0 do 1 a řízení od -1 při plném vychýlení doleva do 1 při plném vychýlení doprava. Osa proměnné jde od jejího Min v klidu po její Max při plném.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Čte do</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Název proměnné</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Offset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Typ</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Klíč JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Měřítko</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Přidat pole</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Odebrat pole</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Formát {0} potřebuje název bez znaků : nebo |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Dva formáty se jmenují {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Proměnná ve formátu {0} potřebuje název bez znaků : nebo |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Pole ve formátu {0} čte za koncem {1}bajtového paketu.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Pole ve formátu {0} potřebuje klíč JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Proměnná</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Rychlost (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>Otáčky</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Maximální otáčky</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Převodový stupeň</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Plyn (0 až 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Brzda (0 až 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Spojka (0 až 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Ruční brzda (0 až 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Řízení (-1 až 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Jízda (jiné než 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Herní telemetrie</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Rychlost (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>Otáčky (% maxima)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Převodový stupeň (-1 zpátečka, 0 neutrál)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Plyn (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Brzda (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Spojka (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Ruční brzda (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Řízení (-100 doleva až 100 doprava)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Jízda (1 nebo 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Efekt adaptivní spouště</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Zastavit efekt adaptivní spouště</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Přehraje efekt adaptivní spouště DualSense na spouštích tohoto slotu. Efekty jsou ty, které posílají herní mody pro DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Ukončí efekt adaptivní spouště, který makro drží na zvolené spoušti. Použijte ho spolu s efektem, který trvá, dokud není zastaven.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Spoušť</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Pravá (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Levá (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Obě (L2 a R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efekt</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Vypnuto</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Luk</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Cval</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Stroj</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Velmi měkký</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Měkký</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Střední</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Tvrdý</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Velmi tvrdý</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Nejtvrdší</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Pevný</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Trhaný</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Vibrující puls</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Počáteční zóna</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Koncová zóna</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Síla cvaknutí</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>První došlap</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Druhý došlap</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Síla A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Síla B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Perioda (desetiny sekundy)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Počáteční síla</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Koncová síla</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Síla zóny {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Tyto hodnoty nevytvářejí žádný efekt, takže akce nic nepřehraje. Koncová zóna musí být za počáteční a druhý došlap za prvním.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Drží</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Dokud je držen aktivátor makra</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Po nastavenou dobu</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Do zastavení</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Doba</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Přehraje se na každém DualSense a DualSense Edge v tomto slotu. Vlastní efekt spouště hry a efekt herního modu mají přednost a nastavení karty Adaptivní spouště se vrátí, když efekt skončí. Zóny jdou od 0 v klidu do 9 při plném stisku. Luk, Cval a Stroj nejsou oficiální efekty DualSense a aktualizace firmwaru je může odstranit. Ovladače Xbox se zapnutým přepínačem Převádět vibrace adaptivních spouští cítí vibrující efekty jako vibrace spouští.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1}: {0} po dobu {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{1}: {0}, dokud je držen</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{1}: {0}, do zastavení</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Zastavit efekt spouště: {0}</value></data>
 </root>

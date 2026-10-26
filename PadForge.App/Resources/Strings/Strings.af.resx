@@ -4031,7 +4031,7 @@ Wil jy hê PadForge moet dit nou deïnstalleer? Dit vereis verhoogde regte en ka
   <data name="About_PcscSharpDesc" xml:space="preserve"><value>WinSCard-handtekeninge en die leser-moniteringsaanroepvolgorde agter NFC-etiketinvoer, deur Daniel Mueller. BSD 2-Clause.</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move-verslaguitlegte, sensorkalibrasie en die EXT-bykomstigheidshandskudding, deur Thomas Perl, nagegaan teen die moveonpc-wiki. PadForge se implementering is oorspronklike C#. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Verwysings vir resiestelemetrie</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Gedeeldegeheue- en UDP-uitlegte agter die stuurwiel se RPM-skakel-LED's, gelees uit assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) en simapi (LGPL-3.0). Geen GPL- of LGPL-kode word gelewer nie.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Gedeeldegeheue- en UDP-uitlegte agter Speletjietelemetrie en die stuurwiel se RPM-skakel-LED's, gelees uit assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) en vAzhureRacingHub (GPL-3.0). Geen GPL- of LGPL-kode word gelewer nie.</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth-koppeling- en verslagdokumentasie. GPL-2.0 en GPL-3.0, slegs as dokumentasie gelees, geen GPL-kode word gelewer nie.</value></data>
   <data name="About_SipSorceryDesc" xml:space="preserve"><value>Die STUN-boodskapuitleg en XOR-MAPPED-ADDRESS-dekodering agter Afstandskakel se NAT-deurgang, uit sy C#-bronkode oorgeneem, deur Aaron Clauson. BSD 3-Clause, met die gebruiksbeperking in afdeling 2 van sy lisensie.</value></data>
   <data name="About_SpaceMouseRefs" xml:space="preserve"><value>SpaceMouse-verwysings</value></data>
@@ -4258,4 +4258,134 @@ Wil jy hê PadForge moet dit nou deïnstalleer? Dit vereis verhoogde regte en ka
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Stel kraglimiet terug</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibreer reikwydte</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Meet hoe ver die handvatsel beweeg. Beweeg dit na elke rand van sy reikwydte gedurende die vier sekondes wat die meting loop. Die kragte rus intussen.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Speletjietelemetrie</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Speletjietelemetrie</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Plaas die telemetrie wat bestuurspeletjies stuur, en Assetto Corsa se gedeelde geheue, op die Speletjietelemetrie-ry van die Toestelle-bladsy. Wys sy spoed, pedale en ratte toe soos enige invoer, aktiveer makro's daarmee, of toets dit in 'n Pasgemaakte uitdrukking. Terwyl dit luister, lees 'n stuurwiel se RPM-skakel-LED's die speletjie ook hiervandaan.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Luister vir Speletjietelemetrie</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Speletjie</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Outo-bespeur herken die speletjie aan sy pakkette. As jy Project CARS 2 en Automobilista 2 kies, of die vragmotorsimulators, stel dit ook die poort waarheen daardie speletjies altyd stuur.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Speletjietelemetrie-poort</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Stuur aan na poort</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Kopieer elke pakkie na hierdie poort op hierdie rekenaar, sodat 'n ander program soos SimHub dit steeds ontvang. 0 stuur niks aan nie.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Volspoed (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Die spoed wat die Spoed-as heeltemal beweeg.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Pasgemaakte formate…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Beskryf die pakkette van 'n speletjie wat PadForge nie ken nie, veld vir veld.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Skakel telemetrie-uitvoer in elke speletjie aan en rig dit na hierdie rekenaar en poort. F1, die Codemasters-speletjies en EA SPORTS WRC gebruik 20777 tensy dit verander is, Project CARS 2 en Automobilista 2 gebruik altyd 5606, en MrHokss se inprop vir die vragmotorsimulators gebruik 49001. Assetto Corsa en ACC het geen poort nodig nie.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Outo-bespeur</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport en Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 tot F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 en ander Codemasters-speletjies</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive en Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 en Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa en Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 en American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (pasgemaak)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Wag vir 'n speletjie op UDP-poort {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Luister op UDP-poort {0}. {1} vanaf {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP-poort {0} word deur 'n ander program gebruik.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Lees {0} uit gedeelde geheue.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Wag vir Assetto Corsa of Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Stuur aan na poort {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Pasgemaakte telemetrieformate</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Beskryf die pakkette wat 'n speletjie stuur, veld vir veld, en PadForge lees daardie speletjie ook. Elke veranderlike word 'n as op die Speletjietelemetrie-ry en 'n kanaal vir Pasgemaakte-uitdrukking-snellers. Kies 'n formaat volgens naam in die Speletjie-lys, of gee dit 'n lengte of 'n sleutel sodat Outo-bespeur dit vind.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Voeg formaat by</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Formaat {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Naam</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Pakkette</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binêr</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Lengte (grepe)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Net pakkette van presies soveel grepe word met hierdie formaat gelees. By 0 word enige pakkie gelees, en Outo-bespeur laat die formaat uit, so kies dit volgens naam.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Vereiste sleutel</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Net JSON-pakkette wat hierdie sleutel dra, word met hierdie formaat gelees. As dit leeg is, word enige pakkie gelees, en Outo-bespeur laat die formaat uit, so kies dit volgens naam.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Die pakkie skryf elke getal met sy mees beduidende greep eerste. Speletjies op 'n rekenaar skryf byna altyd die minste beduidende greep eerste.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Ratwaardes</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Die ratveld het sy eie getalle vir trurat en neutraal, soos Forza se 0 en 11. As dit af is, is 'n negatiewe rat trurat en 0 neutraal.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Trurat</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Neutraal</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Velde</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Elke veld lees 'n getal by sy offset, of onder sy sleutel in JSON (kolletjies reik in geneste voorwerpe), en vermenigvuldig dit met die skaal. Ná die skaal is spoed in km/h, loop die pedale van 0 tot 1, en stuur van -1 heeltemal links tot 1 heeltemal regs. 'n Veranderlike se as loop van sy Min in rus tot sy Maks by vol.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Lees in</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Veranderlike se naam</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Offset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tipe</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON-sleutel</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Skaal</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Maks</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Voeg veld by</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Verwyder veld</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Formaat {0} het 'n naam sonder : of | nodig.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Twee formate heet {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>'n Veranderlike in {0} het 'n naam sonder : of | nodig.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>'n Veld in {0} lees verby die einde van sy pakkie van {1} grepe.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>'n Veld in {0} het 'n JSON-sleutel nodig.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Veranderlike</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Spoed (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Maks. RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Rat</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Versneller (0 tot 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Rem (0 tot 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Koppelaar (0 tot 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Handrem (0 tot 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Stuur (-1 tot 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Ry (nie 0 nie)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Speletjietelemetrie</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Spoed (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% van maks.)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Rat (-1 trurat, 0 neutraal)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Versneller (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Rem (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Koppelaar (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Handrem (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Stuur (-100 links tot 100 regs)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Ry (1 of 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Aanpasbare-snellereffek</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Stop aanpasbare-snellereffek</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Speel 'n aanpasbare DualSense-snellereffek op hierdie gleuf se snellers. Die effekte is dié wat speletjie-mods vir DSX stuur.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Beëindig die aanpasbare-snellereffek wat 'n makro op die gekose sneller hou. Gebruik dit saam met 'n effek wat hou totdat dit gestop word.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Sneller</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Regs (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Links (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Albei (L2 en R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Effek</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Af</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Boog</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galop</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Masjien</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Baie sag</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Sag</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Medium</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Hard</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Baie hard</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Hardste</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Styf</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Hakkerig</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Vibrerende puls</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Beginsone</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Eindsone</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Knipsterkte</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Eerste voet</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Tweede voet</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Sterkte A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Sterkte B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Periode (tiendes van 'n sekonde)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Beginsterkte</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Eindsterkte</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Sone {0}-sterkte</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Hierdie waardes lewer geen effek nie, so die aksie speel niks. 'n Eindsone moet ná sy beginsone wees, en die tweede voet ná die eerste.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Hou</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Terwyl die makro se sneller gehou word</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Vir 'n vasgestelde tyd</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Totdat dit gestop word</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Tyd</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Speel op elke DualSense en DualSense Edge op hierdie gleuf. 'n Speletjie se eie snellereffek en 'n speletjie-mod s'n kry voorrang, en die instelling van die Aanpasbare snellers-oortjie keer terug wanneer die effek eindig. Sones loop van 0 in rus tot 9 by vol trek. Boog, Galop en Masjien is nie amptelike DualSense-effekte nie, en 'n firmware-opdatering kan hulle verwyder. Xbox-controllers met Vertaal aanpasbare-snellervibrasies aan voel die vibrerende effekte as snellervibrasie.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} op {1} vir {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} op {1} terwyl dit gehou word</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} op {1} totdat dit gestop word</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Stop snellereffek op {0}</value></data>
 </root>

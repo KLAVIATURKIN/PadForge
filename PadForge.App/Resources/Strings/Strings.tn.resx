@@ -961,4 +961,46 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Konopo 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Konopo 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Motshameko</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport le Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 go ya go F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 le metshameko e mengwe ya Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive le Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 le Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa le Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 le American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>E letile motshameko mo port ya UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>E reetsa mo port ya UDP {0}. {1} go tswa go {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Port ya UDP {0} e dirisiwa ke porogeramo e nngwe.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>E letile Assetto Corsa kgotsa Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Leina</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Mofuta</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Bonnye</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Bogolo</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Lebelo (km/h)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Go kgweetsa (e seng 0)</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Lebelo (mph)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Go kgweetsa (1 kgotsa 0)</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Moja (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Molema (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Bobedi (L2 le R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Tima</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Motšhini</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Bonolo thata</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Bonolo</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Magareng</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Thata</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Lonao lwa ntlha</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Lonao lwa bobedi</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Maatla A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Maatla B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Maatla a go simolola</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Maatla a bofelo</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Ka nako e e beilweng</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Go fitlhela e emisiwa</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Nako</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} mo go {1} fa e santse e tshwerwe</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} mo go {1} go fitlhela e emisiwa</value></data>
 </root>

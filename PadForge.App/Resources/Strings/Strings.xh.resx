@@ -1559,4 +1559,82 @@
   <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Umda wamandla</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Seta kwakhona umda wamandla</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>I-telemetry yemidlalo</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>I-telemetry yemidlalo</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Mamela i-telemetry yemidlalo</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Umdlalo</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Izibuko le-telemetry yemidlalo</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Dlulisela kwizibuko</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Ikopa ipakethi nganye iyise kweli zibuko kule PC, ukuze enye inkqubo efana ne-SimHub iqhubeke iyifumana. Ngo-0 akukho nto idluliselwayo.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Isantya esipheleleyo (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Isantya esihambisa i-axis yesantya ngokupheleleyo.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Iifomathi zakho…</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Fumanisa ngokuzenzekelayo</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ne-Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ukuya ku-F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 neminye imidlalo ye-Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ne-Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ne-Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ne-Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ne-American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (yakho)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Kulindwa umdlalo kwizibuko le-UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Kuphulaphulwa kwizibuko le-UDP {0}. {1} ivela ku-{2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Izibuko le-UDP {0} lisetyenziswa yenye inkqubo.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Kulindwa i-Assetto Corsa okanye i-Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Kudluliselwa kwizibuko {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Iifomathi zakho ze-telemetry</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Yongeza ifomathi</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Ifomathi {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Igama</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Iipakethi</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Ubude (iibhayithi)</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Amaxabiso egiya</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Igama lesiguquguqu</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Uhlobo</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Ubuncinci</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Ubuninzi</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Ifomathi {0} ifuna igama elingenayo : okanye |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Iifomathi ezimbini zibizwa ngokuthi {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Isiguquguqu kwi-{0} sifuna igama elingenayo : okanye |.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Isiguquguqu</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Isantya (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Ubuninzi be-RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Igiya</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Ibhreki (0 ukuya ku-1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Ukuqhuba (hayi 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>I-telemetry yemidlalo</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Isantya (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% yobuninzi)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Ibhreki (%)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Ukuqhuba (1 okanye 0)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>I-trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Ekunene (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Ekhohlo (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Zombini (L2 kunye ne-R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Isiphumo</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Cimile</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Isaphetha</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Umatshini</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Ithambile kakhulu</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Ithambile</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Phakathi</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Lukhuni</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Lukhuni kakhulu</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Indawo yokuqala</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Indawo yokugqibela</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Amandla A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Amandla B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Amandla okuqala</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Amandla okugqibela</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Amandla endawo {0}</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Okwexesha elimisiweyo</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Ide imiswe</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Ixesha</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} ku-{1} ngelixa ibanjiwe</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} ku-{1} ide imiswe</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Misa isiphumo se-trigger ku-{0}</value></data>
 </root>

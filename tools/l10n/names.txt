@@ -27,6 +27,7 @@
 6-15
 A2DP
 AAGaming
+ACC
 Access-GearVR-Controller-from-PC
 ACPI
 ADPCM
@@ -34,6 +35,7 @@ AGPL
 AGPL-3.0
 AL2009man
 Alt+F4
+American Truck Simulator
 ams2
 AnalogKeys
 AnalogSense
@@ -52,13 +54,18 @@ ArduinoHidForWindows
 ARM
 ARM64
 Artemis.Plugins
+Assetto Corsa
+Assetto Corsa Competizione
+assettocorsasharedmemory
 atan2
 AudioEndPointLibrary
 AULA
 AutoCalibrationRB
 AutoEq
 AutoHotkey
+Automobilista 2
 B
+BeamNG.drive
 BGP100
 Bliss-Box
 Bluepad32
@@ -83,6 +90,8 @@ CH
 ChaCha20-Poly1305
 chmfp
 CLAPACK
+CMTelemetry
+Codemasters
 COM
 ComeUntoChrist.org
 CommunityToolkit.Mvvm
@@ -98,6 +107,8 @@ dekuNukem
 DenkiSuki
 DeviceBuddy
 DirectInput
+DiRT Rally 2.0
+dirt-rally-telemetry-dashboard
 DJI
 dji-firmware-tools
 DJI-RC-Emulator
@@ -118,28 +129,40 @@ DsHidMini
 DSU
 duaLib
 DualSense
+DualSense Edge
 DualSenseSupport
 DualSenseY-v2
 DualShock
 DUML
 DX1
 dx1-studio
+EA SPORTS WRC
 Ed25519
 EDRefCard2
 ergodex-dx1-linux
+ets2-telemetry-udp
+Euro Truck Simulator 2
 EX
 EXT
 ExtraWide
 F0
 F1
+f1-24-udp
 F2
 f2c
 FamBoy32-dev
 FFmpeg
+fh6-tel
 FlexInput
 FLY
 fortius_1942
 FortiusANT
+Forza
+Forza Horizon
+Forza Motorsport
+forza-data-web
+forza-telemetry
+Forza-Telemetry-Splitter
 FPS
 FreeTrack
 G300
@@ -234,6 +257,7 @@ kettlerUSB2BLE
 KeyAxis
 kHz
 L1
+L2
 L3
 LampArray
 LaunchBox
@@ -254,6 +278,7 @@ libSteelBattalion
 libusb-1.0.dll
 libwinpthread-1.dll
 Linux
+Live for Speed
 LiveHaptics
 LLC
 LLVM
@@ -275,6 +300,7 @@ MOGA
 MogaSerial
 MouseWare
 MPL-2.0
+MrHokss
 msvcp140.dll
 Multi-Function
 MVVM
@@ -316,6 +342,7 @@ OpenVR
 OpenXInput
 OpenXR
 OSD
+out-gauge-cluster
 P0
 p4io-mdxfdrv
 p4ken
@@ -327,6 +354,7 @@ PadForge.exe
 PadForge.xml
 PashOK7
 PC/SC
+PCars2UdpNet
 PCM
 PCSX2
 PhoenixRC
@@ -343,15 +371,19 @@ PolyForm
 PortMidi
 POV
 PowerShell
+Project CARS 2
+project-cars-2-udp
 PS
 PS3
 PS5
 PSM
+pyirsdk
 PySpaceMouse
 QMK
 QR
 QR-Code-generator
 R1
+R2
 R3
 rb3
 RB4InstrumentMapper
@@ -374,12 +406,14 @@ RP2040MacropadHidSample
 RPCS3
 RRGGBB
 RtMidi
+rust_ams2_sharedmem
 Ryochan7
 SAxense
 SBC
 sc2-research
 scePad
 ScpToolkit
+scs-sdk-plugin
 SDK
 SDL
 SDL3
@@ -392,6 +426,7 @@ Sergey004
 SHA-256
 ShapeRecognizer
 SideWinder
+simapi
 SimHub
 SIMULATOR
 SIPSorcery
@@ -423,6 +458,7 @@ t19xx_usb
 TaikoZucchini
 TechAntohere
 TinyUSB
+tm-bt-led
 TrackIR
 TransposonY
 TriggerEffectGenerator
@@ -438,6 +474,7 @@ usbip-win2
 USIO
 v1993
 v3
+vAzhureRacingHub
 vcruntime140
 vcruntime140.dll
 VID

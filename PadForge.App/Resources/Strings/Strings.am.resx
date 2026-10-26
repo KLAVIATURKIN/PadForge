@@ -4183,7 +4183,7 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>የPlayStation Move ሪፖርት አቀማመጦች፣ የዳሳሽ ማስተካከያ እና የEXT ተቀጥላ የእጅ መጨባበጥ፣ በThomas Perl፣ ከmoveonpc ዊኪ ጋር የተረጋገጡ። የPadForge ትግበራ ኦሪጅናል C# ነው። BSD 2-Clause።</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>የእሽቅድምድም ቴሌሜትሪ ማጣቀሻዎች</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ከመሪው RPM የማርሽ መቀየሪያ LED መብራቶች በስተጀርባ ያሉት የጋራ ማህደረ ትውስታ እና የUDP አቀማመጦች፣ ከassettocorsasharedmemory (MIT)፣ forza-data-web (Apache-2.0)፣ forza-telemetry (MIT)፣ InSim.NET (LGPL-2.1)፣ irsdkSharp (MIT)፣ IRSDKSharper (GPL-3.0)፣ out-gauge-cluster (Apache-2.0)፣ pyirsdk (MIT)፣ rF2SharedMemoryMapPlugin (GPL-3.0)፣ rFactorSharedMemoryMap (GPL-2.0)፣ rust_ams2_sharedmem፣ scs-sdk-plugin (MIT) እና simapi (LGPL-3.0) የተነበቡ። ምንም የGPL ወይም LGPL ኮድ አይካተትም።</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ከጨዋታ ቴሌሜትሪ እና ከመሪው RPM የማርሽ መቀየሪያ LED መብራቶች በስተጀርባ ያሉት የጋራ ማህደረ ትውስታ እና የUDP አቀማመጦች፣ ከassettocorsasharedmemory (MIT)፣ CMTelemetry፣ dirt-rally-telemetry-dashboard (MIT)፣ ets2-telemetry-udp (MIT)፣ f1-24-udp (MIT)፣ fh6-tel (MIT)፣ forza-data-web (Apache-2.0)፣ forza-telemetry (MIT)፣ Forza-Telemetry-Splitter (MIT)፣ InSim.NET (LGPL-2.1)፣ irsdkSharp (MIT)፣ IRSDKSharper (GPL-3.0)፣ out-gauge-cluster (Apache-2.0)፣ PCars2UdpNet (MIT)፣ project-cars-2-udp (MIT)፣ pyirsdk (MIT)፣ rF2SharedMemoryMapPlugin (GPL-3.0)፣ rFactorSharedMemoryMap (GPL-2.0)፣ rust_ams2_sharedmem፣ scs-sdk-plugin (MIT)፣ simapi (LGPL-3.0)፣ tm-bt-led (MIT) እና vAzhureRacingHub (GPL-3.0) የተነበቡ። ምንም የGPL ወይም LGPL ኮድ አይካተትም።</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>የDualShock 3 Bluetooth ማጣመር እና የሪፖርት ሰነዶች። GPL-2.0 እና GPL-3.0፣ እንደ ሰነድ ብቻ ተነቧል፣ ምንም የGPL ኮድ አይካተትም።</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4424,4 +4424,133 @@ PadForge አሁን እንዲያራግፋቸው ይፈልጋሉ? ይህ የአስ
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>የኃይል ገደብን ዳግም አስጀምር</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>ርቀትን አስተካክል</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>እጀታው ምን ያህል እንደሚጓዝ ይለካል። ልኬቱ በሚሄድባቸው አራት ሰከንዶች ውስጥ ወደ እያንዳንዱ የርቀቱ ጠርዝ አንቀሳቅሰው። በዚህ ጊዜ ኃይሎቹ ያርፋሉ።</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>የጨዋታ ቴሌሜትሪ</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>የጨዋታ ቴሌሜትሪ</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>የማሽከርከር ጨዋታዎች የሚልኩትን ቴሌሜትሪ እና የAssetto Corsa የጋራ ማህደረ ትውስታን በመሣሪያዎች ገጽ ላይ ባለው የጨዋታ ቴሌሜትሪ ረድፍ ላይ ያስቀምጣል። ፍጥነቱን፣ ፔዳሎቹን እና ማርሾቹን እንደማንኛውም ግብዓት አዛምድ፣ በእነሱ ማክሮዎችን አስነሳ፣ ወይም በብጁ አገላለጽ ውስጥ ሞክራቸው። በሚያዳምጥበት ጊዜ የመሪ RPM የማርሽ LED መብራቶችም ጨዋታውን ከዚህ ያነባሉ።</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>የጨዋታ ቴሌሜትሪን አዳምጥ</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>ጨዋታ</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>ራስ-ሰር ማወቂያ ጨዋታውን ከፓኬቶቹ ይለያል። Project CARS 2 እና Automobilista 2 ወይም የጭነት መኪና ሲሙሌተሮች ሲመረጡ፣ እነዚያ ጨዋታዎች ሁልጊዜ የሚልኩበት ወደብም ይዘጋጃል።</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>የጨዋታ ቴሌሜትሪ ወደብ</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>ወደ ወደብ አስተላልፍ</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>እያንዳንዱን ፓኬት በዚህ ኮምፒውተር ላይ ወዳለው ወደዚህ ወደብ ይገለብጣል፣ ስለዚህ እንደ SimHub ያለ ሌላ ፕሮግራም መቀበሉን ይቀጥላል። 0 ምንም አያስተላልፍም።</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>ሙሉ ፍጥነት (ኪ.ሜ/ሰ)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>የፍጥነት ዘንጉን እስከመጨረሻው የሚያንቀሳቅሰው ፍጥነት።</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>ብጁ ቅርጸቶች…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge የማያውቀውን ጨዋታ ፓኬቶች መስክ በመስክ ይገልጻል።</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>በእያንዳንዱ ጨዋታ ውስጥ የቴሌሜትሪ ውፅዓትን አብራ እና ወደዚህ ኮምፒውተር እና ወደብ እንዲልክ አዘጋጀው። F1፣ የCodemasters ጨዋታዎች እና EA SPORTS WRC ካልተቀየረ በስተቀር 20777ን ይጠቀማሉ፣ Project CARS 2 እና Automobilista 2 ሁልጊዜ 5606ን ይጠቀማሉ፣ የMrHokss ተሰኪ ለጭነት መኪና ሲሙሌተሮች ደግሞ 49001ን ይጠቀማል። Assetto Corsa እና ACC ወደብ አያስፈልጋቸውም።</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>ራስ-ሰር ማወቂያ</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport እና Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>ከF1 22 እስከ F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 እና ሌሎች የCodemasters ጨዋታዎች</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive እና Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 እና Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa እና Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 እና American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (ብጁ)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>በUDP ወደብ {0} ላይ ጨዋታ በመጠበቅ ላይ።</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>በUDP ወደብ {0} ላይ በማዳመጥ ላይ። {1} ከ{2}።</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP ወደብ {0} በሌላ ፕሮግራም ጥቅም ላይ ነው።</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>{0} ከጋራ ማህደረ ትውስታ እየተነበበ ነው።</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa ወይም Assetto Corsa Competizione በመጠበቅ ላይ።</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>ወደ ወደብ {0} በማስተላለፍ ላይ።</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>ብጁ የቴሌሜትሪ ቅርጸቶች</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>አንድ ጨዋታ የሚልካቸውን ፓኬቶች መስክ በመስክ ግለጽ፣ PadForge ያንን ጨዋታም ያነባል። እያንዳንዱ ተለዋዋጭ በጨዋታ ቴሌሜትሪ ረድፍ ላይ ዘንግ እና ለብጁ አገላለጽ ቀስቅሴዎች ቻናል ይሆናል። በጨዋታ ዝርዝሩ ውስጥ ቅርጸትን በስም ምረጥ፣ ወይም ራስ-ሰር ማወቂያ እንዲያገኘው ርዝመት ወይም ቁልፍ ስጠው።</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>ቅርጸት አክል</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>ቅርጸት {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>ስም</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>ፓኬቶች</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>ሁለትዮሽ</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>ርዝመት (ባይት)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>በትክክል ይህን ያህል ባይት ያላቸው ፓኬቶች ብቻ በዚህ ቅርጸት ይነበባሉ። 0 ሲሆን ማንኛውም ፓኬት ይነበባል፣ ራስ-ሰር ማወቂያም ቅርጸቱን አይነካውም፣ ስለዚህ በስም ምረጠው።</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>የሚያስፈልግ ቁልፍ</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>ይህን ቁልፍ የያዙ የJSON ፓኬቶች ብቻ በዚህ ቅርጸት ይነበባሉ። ባዶ ከተተወ ማንኛውም ፓኬት ይነበባል፣ ራስ-ሰር ማወቂያም ቅርጸቱን አይነካውም፣ ስለዚህ በስም ምረጠው።</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>ፓኬቱ እያንዳንዱን ቁጥር ከፍተኛ ጉልህ ባይቱን መጀመሪያ አድርጎ ይጽፋል። በኮምፒውተር ላይ ያሉ ጨዋታዎች ከሞላ ጎደል ሁልጊዜ ዝቅተኛ ጉልህ ባይቱን መጀመሪያ ይጽፋሉ።</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>የማርሽ እሴቶች</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>የማርሽ መስኩ ለኋላ ማርሽ እና ለነፃ ማርሽ የራሱ ቁጥሮች አሉት፣ ልክ እንደ Forza 0 እና 11። ይህ ሲጠፋ፣ አሉታዊ ማርሽ ኋላ ማርሽ ሲሆን 0 ደግሞ ነፃ ማርሽ ነው።</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>ኋላ ማርሽ</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>ነፃ ማርሽ</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>መስኮች</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>እያንዳንዱ መስክ በማካካሻው ላይ ወይም በJSON ውስጥ በቁልፉ ስር ያለውን ቁጥር ያነባል (ነጥቦች ወደ ውስጣዊ ነገሮች ይደርሳሉ)፣ እና በማባዣው ያባዛዋል። ከማባዣው በኋላ ፍጥነት በኪ.ሜ/ሰ ነው፣ ፔዳሎቹ ከ0 እስከ 1 ይሄዳሉ፣ መሪ ማዞርም ሙሉ ግራ ላይ ከ-1 እስከ ሙሉ ቀኝ ላይ 1 ይሄዳል። የአንድ ተለዋዋጭ ዘንግ በእረፍት ላይ ከዝቅተኛ እሴቱ እስከ ሙሉ ላይ ከፍተኛ እሴቱ ይሄዳል።</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>መድረሻ</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>የተለዋዋጭ ስም</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>ማካካሻ</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>ዓይነት</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>የJSON ቁልፍ</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>ማባዣ</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>ዝቅተኛ</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>ከፍተኛ</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>መስክ አክል</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>መስክ አስወግድ</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>ቅርጸት {0} ያለ : ወይም | ስም ያስፈልገዋል።</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>ሁለት ቅርጸቶች {0} ተብለው ተሰይመዋል።</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>በ{0} ውስጥ ያለ ተለዋዋጭ ያለ : ወይም | ስም ያስፈልገዋል።</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>በ{0} ውስጥ ያለ መስክ ከ{1}-ባይት ፓኬቱ መጨረሻ አልፎ ያነባል።</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>በ{0} ውስጥ ያለ መስክ የJSON ቁልፍ ያስፈልገዋል።</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>ተለዋዋጭ</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>ፍጥነት (ኪ.ሜ/ሰ)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>ከፍተኛ RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>ማርሽ</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>ነዳጅ መስጫ (ከ0 እስከ 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>ፍሬን (ከ0 እስከ 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>ክላች (ከ0 እስከ 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>የእጅ ፍሬን (ከ0 እስከ 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>መሪ ማዞር (ከ-1 እስከ 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>በማሽከርከር ላይ (0 ያልሆነ)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>የጨዋታ ቴሌሜትሪ</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>ፍጥነት (ማይል/ሰ)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (ከከፍተኛው %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>ማርሽ (-1 ኋላ፣ 0 ነፃ)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>ነዳጅ መስጫ (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>ፍሬን (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>ክላች (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>የእጅ ፍሬን (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>መሪ ማዞር (-100 ግራ እስከ 100 ቀኝ)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>በማሽከርከር ላይ (1 ወይም 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>የአዳፕቲቭ ትሪገር ተፅዕኖ</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>የአዳፕቲቭ ትሪገር ተፅዕኖ አቁም</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>በዚህ ቦታ ትሪገሮች ላይ የDualSense አዳፕቲቭ ትሪገር ተፅዕኖ ያጫውታል። ተፅዕኖዎቹ የDSX የጨዋታ ሞዶች የሚልኳቸው ናቸው።</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>አንድ ማክሮ በተመረጠው ትሪገር ላይ የያዘውን የአዳፕቲቭ ትሪገር ተፅዕኖ ያቆማል። እስኪቆም ድረስ ከሚቆይ ተፅዕኖ ጋር አጣምረው።</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ትሪገር</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>ቀኝ (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>ግራ (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>ሁለቱም (L2 እና R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>ተፅዕኖ</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>ጠፍቷል</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>ቀስት</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>ሽምጥ</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>ማሽን</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>በጣም ለስላሳ</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>ለስላሳ</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>መካከለኛ</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>ጠንካራ</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>በጣም ጠንካራ</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>እጅግ ጠንካራ</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>ግትር</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>የሚቆራረጥ</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>የንዝረት ምት</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>የመነሻ ቀጠና</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>የመጨረሻ ቀጠና</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>የመላቀቅ ጥንካሬ</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>የመጀመሪያ እግር</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>ሁለተኛ እግር</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>ጥንካሬ A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>ጥንካሬ B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>ዑደት (በአሥረኛ ሰከንድ)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>የመነሻ ጥንካሬ</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>የመጨረሻ ጥንካሬ</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>የቀጠና {0} ጥንካሬ</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>እነዚህ እሴቶች ምንም ተፅዕኖ አይፈጥሩም፣ ስለዚህ እርምጃው ምንም አያጫውትም። የመጨረሻ ቀጠና ከመነሻ ቀጠናው ማለፍ አለበት፣ ሁለተኛው እግርም ከመጀመሪያው ማለፍ አለበት።</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>የሚቆየው</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>የማክሮው ቀስቅሴ ተጭኖ እስካለ ድረስ</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>ለተወሰነ ጊዜ</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>እስኪቆም ድረስ</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>ጊዜ</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>በዚህ ቦታ ላይ ባሉ ሁሉም DualSense እና DualSense Edge ላይ ይጫወታል። የጨዋታው የራሱ ትሪገር ተፅዕኖ እና የጨዋታ ሞድ ተፅዕኖ ቅድሚያ ያገኛሉ፣ ተፅዕኖው ሲያበቃም የአዳፕቲቭ ትሪገሮች ትር ቅንብር ይመለሳል። ቀጠናዎች በእረፍት ላይ ከ0 እስከ ሙሉ ሲጎተት 9 ይደርሳሉ። ቀስት፣ ሽምጥ እና ማሽን ይፋዊ የDualSense ተፅዕኖዎች አይደሉም፣ የፈርምዌር ዝማኔም ሊያስወግዳቸው ይችላል። «የአዳፕቲቭ ትሪገር ንዝረቶችን ተርጉም» የበራላቸው የXbox መቆጣጠሪያዎች የሚንዘሩትን ተፅዕኖዎች እንደ ትሪገር ንዝረት ይሰማቸዋል።</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} በ{1} ላይ ለ{2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} በ{1} ላይ ተጭኖ እያለ</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} በ{1} ላይ እስኪቆም ድረስ</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>በ{0} ላይ የትሪገር ተፅዕኖ አቁም</value></data>
 </root>

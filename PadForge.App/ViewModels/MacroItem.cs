@@ -2988,6 +2988,8 @@ namespace PadForge.ViewModels
                     OnPropertyChanged(nameof(IsTextBlockType));
                     OnPropertyChanged(nameof(IsRumbleReactiveHold));
                     OnPropertyChanged(nameof(IsRumbleStickyHold));
+                    OnPropertyChanged(nameof(IsTriggerEffectType));
+                    OnPropertyChanged(nameof(IsTriggerEffectStopType));
 
                     // Seed a freshly-typed pin action with the primary monitor's
                     // current center (issue #109). XML defaults cannot run code, so
@@ -3089,6 +3091,14 @@ namespace PadForge.ViewModels
         /// <summary>True when Type is RumbleTriggerStop (issue #102).</summary>
         [System.Xml.Serialization.XmlIgnore]
         public bool IsRumbleTriggerStopType => _type == MacroActionType.RumbleTriggerStop;
+
+        /// <summary>True when Type is TriggerEffect (issue #531).</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool IsTriggerEffectType => _type == MacroActionType.TriggerEffect;
+
+        /// <summary>True when Type is TriggerEffectStop (issue #531).</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool IsTriggerEffectStopType => _type == MacroActionType.TriggerEffectStop;
 
         /// <summary>True for either rumble-set action (main motors or trigger).
         /// Both share the strength / hold-mode / duration param editor.</summary>
@@ -4385,6 +4395,164 @@ namespace PadForge.ViewModels
             {
                 int clamped = Math.Clamp(value, 0, 5000);
                 if (SetProperty(ref _rumbleFadeMs, clamped))
+                    OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        // ── Adaptive trigger effect (for TriggerEffect / TriggerEffectStop, issue #531) ──
+
+        private MacroTriggerEffectSide _triggerEffectSide = MacroTriggerEffectSide.Right;
+        /// <summary>The trigger the effect plays on, or that Stop ends.</summary>
+        public MacroTriggerEffectSide TriggerEffectSide
+        {
+            get => _triggerEffectSide;
+            set
+            {
+                if (SetProperty(ref _triggerEffectSide, value))
+                    OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        private int _triggerEffectMode = TriggerEffectCatalog.ResistanceMode;
+        /// <summary>The DSX trigger mode the #529 encoder takes. A change of
+        /// effect starts the parameters at that effect's values.</summary>
+        public int TriggerEffectMode
+        {
+            get => _triggerEffectMode;
+            set
+            {
+                if (!SetProperty(ref _triggerEffectMode, value)) return;
+                if (!_loadingTriggerEffect)
+                    _triggerEffectValues = TriggerEffectCatalog.Defaults(value);
+                RebuildTriggerEffectRows();
+                OnPropertyChanged(nameof(TriggerEffectKind));
+                OnPropertyChanged(nameof(TriggerEffectParameters));
+                OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        /// <summary>The picker's selection, the effect for <see cref="TriggerEffectMode"/>.</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public TriggerEffectKind TriggerEffectKind
+        {
+            get => TriggerEffectCatalog.Find(_triggerEffectMode);
+            set
+            {
+                if (value != null) TriggerEffectMode = value.Mode;
+            }
+        }
+
+        private int[] _triggerEffectValues = TriggerEffectCatalog.Defaults(TriggerEffectCatalog.ResistanceMode);
+        private bool _loadingTriggerEffect;
+
+        /// <summary>The effect's values in the encoder's order, as text for
+        /// the settings file.</summary>
+        public string TriggerEffectParameters
+        {
+            get => TriggerEffectCatalog.FormatValues(_triggerEffectValues);
+            set
+            {
+                _triggerEffectValues = TriggerEffectCatalog.ParseValues(value);
+                // A list saved short of what the effect takes, or none, gets
+                // the effect's values for the rest.
+                var defaults = TriggerEffectCatalog.Defaults(_triggerEffectMode);
+                if (_triggerEffectValues.Length < defaults.Length)
+                {
+                    var full = defaults;
+                    Array.Copy(_triggerEffectValues, full, _triggerEffectValues.Length);
+                    _triggerEffectValues = full;
+                }
+                foreach (var row in _triggerEffectRows) row.RaisePropertyChangedForValue();
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>Sets the mode and the values from a settings file without
+        /// the mode's change resetting the values.</summary>
+        internal void LoadTriggerEffect(int mode, string values)
+        {
+            _loadingTriggerEffect = true;
+            try
+            {
+                TriggerEffectMode = mode;
+                TriggerEffectParameters = values;
+            }
+            finally
+            {
+                _loadingTriggerEffect = false;
+            }
+        }
+
+        internal int TriggerEffectValue(int index)
+            => index >= 0 && index < _triggerEffectValues.Length ? _triggerEffectValues[index] : 0;
+
+        internal void SetTriggerEffectValue(int index, int value)
+        {
+            if (index < 0) return;
+            if (index >= _triggerEffectValues.Length)
+                Array.Resize(ref _triggerEffectValues, index + 1);
+            if (_triggerEffectValues[index] == value) return;
+            _triggerEffectValues[index] = value;
+            OnPropertyChanged(nameof(TriggerEffectParameters));
+            OnPropertyChanged(nameof(TriggerEffectIsValid));
+        }
+
+        /// <summary>The values as the encoder takes them.</summary>
+        internal int[] TriggerEffectValues => (int[])_triggerEffectValues.Clone();
+
+        private readonly System.Collections.ObjectModel.ObservableCollection<TriggerEffectParameterValue> _triggerEffectRows = new();
+
+        /// <summary>The editor's rows, one per parameter of the effect.</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public System.Collections.ObjectModel.ObservableCollection<TriggerEffectParameterValue> TriggerEffectRows
+        {
+            get
+            {
+                if (_triggerEffectRows.Count == 0) RebuildTriggerEffectRows();
+                return _triggerEffectRows;
+            }
+        }
+
+        private void RebuildTriggerEffectRows()
+        {
+            _triggerEffectRows.Clear();
+            var kind = TriggerEffectCatalog.Find(_triggerEffectMode);
+            if (kind == null) return;
+            for (int i = 0; i < kind.Parameters.Length; i++)
+                _triggerEffectRows.Add(new TriggerEffectParameterValue(this, i, kind.Parameters[i]));
+            OnPropertyChanged(nameof(TriggerEffectIsValid));
+        }
+
+        /// <summary>False when the encoder refuses the values, an end zone
+        /// not past its start or a second foot not past the first. The
+        /// action then plays nothing and the editor says why.</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public bool TriggerEffectIsValid => TriggerEffectCatalog.Encode(_triggerEffectMode, _triggerEffectValues) != null;
+
+        private MacroTriggerEffectHold _triggerEffectHold = MacroTriggerEffectHold.UntilRelease;
+        /// <summary>How long the effect holds.</summary>
+        public MacroTriggerEffectHold TriggerEffectHold
+        {
+            get => _triggerEffectHold;
+            set
+            {
+                if (!SetProperty(ref _triggerEffectHold, value)) return;
+                OnPropertyChanged(nameof(IsTriggerEffectTimed));
+                OnPropertyChanged(nameof(DisplayText));
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnore]
+        public bool IsTriggerEffectTimed => _triggerEffectHold == MacroTriggerEffectHold.Duration;
+
+        private int _triggerEffectMs = 500;
+        /// <summary>The effect's length when it holds for a time, 1 to 60000 ms.</summary>
+        public int TriggerEffectMs
+        {
+            get => _triggerEffectMs;
+            set
+            {
+                if (SetProperty(ref _triggerEffectMs, Math.Clamp(value, 1, 60000)))
                     OnPropertyChanged(nameof(DisplayText));
             }
         }
@@ -6010,6 +6178,10 @@ namespace PadForge.ViewModels
                     MacroActionType.RumbleStop => Strings.Instance.MacroAction_RumbleStop,
                     MacroActionType.RumbleTrigger => FormatRumbleTriggerSummary(),
                     MacroActionType.RumbleTriggerStop => Strings.Instance.MacroAction_RumbleTriggerStop,
+                    MacroActionType.TriggerEffect => FormatTriggerEffectSummary(),
+                    MacroActionType.TriggerEffectStop => string.Format(
+                        Strings.Instance.MacroAction_TriggerEffectStop_Format,
+                        TriggerEffectSideName(_triggerEffectSide)),
                     MacroActionType.PlaySound => string.IsNullOrEmpty(_soundFilePath)
                         ? Strings.Instance.MacroAction_Type_PlaySound
                         : string.Format(
@@ -6199,6 +6371,28 @@ namespace PadForge.ViewModels
                 ? string.Format(Strings.Instance.MacroAction_Rumble_Sticky_Format, triggers)
                 : string.Format(Strings.Instance.MacroAction_Rumble_Reactive_Format, triggers, _rumbleHoldMs + _rumbleFadeMs);
         }
+
+        /// <summary>"Galloping on R2 for 500 ms", "Feedback on both
+        /// triggers until released" (issue #531).</summary>
+        private string FormatTriggerEffectSummary()
+        {
+            var s = Strings.Instance;
+            string effect = TriggerEffectCatalog.Find(_triggerEffectMode)?.Display ?? _triggerEffectMode.ToString();
+            string side = TriggerEffectSideName(_triggerEffectSide);
+            return _triggerEffectHold switch
+            {
+                MacroTriggerEffectHold.Duration => string.Format(s.MacroAction_TriggerEffect_Timed_Format, effect, side, _triggerEffectMs),
+                MacroTriggerEffectHold.UntilStopped => string.Format(s.MacroAction_TriggerEffect_Sticky_Format, effect, side),
+                _ => string.Format(s.MacroAction_TriggerEffect_Held_Format, effect, side),
+            };
+        }
+
+        internal static string TriggerEffectSideName(MacroTriggerEffectSide side) => side switch
+        {
+            MacroTriggerEffectSide.Left => Strings.Instance.MacroAction_TriggerEffect_SideLeft,
+            MacroTriggerEffectSide.Both => Strings.Instance.MacroAction_TriggerEffect_SideBoth,
+            _ => Strings.Instance.MacroAction_TriggerEffect_SideRight,
+        };
 
         /// <summary>Counts the modes selected in
         /// <see cref="LightbarCycleModesCsv"/>. Used for the cycle
@@ -6459,7 +6653,13 @@ namespace PadForge.ViewModels
         InputDevice,
 
         /// <summary>Record from the slot's combined virtual controller output.</summary>
-        OutputController
+        OutputController,
+
+        /// <summary>A Custom Expression variable that reads a game's
+        /// telemetry in its own units (issue #531): km/h, RPM, a gear
+        /// number, percent. Only variables offer it. Appended: the clipboard
+        /// writes this enum as a number.</summary>
+        GameTelemetry
     }
 
     public enum MacroRepeatMode
@@ -6952,7 +7152,20 @@ namespace PadForge.ViewModels
         /// <see cref="MacroAction.PanDirection"/>, stopping at the picture's
         /// edges (#519), for a map larger than the screen. One-shot. Ordinal
         /// pinned.</summary>
-        PanKeyboardScreen = 61
+        PanKeyboardScreen = 61,
+
+        /// <summary>Plays a DualSense adaptive trigger effect on the slot's
+        /// left trigger, right trigger or both (#531): one of the trigger
+        /// modes DSX game mods send, encoded by the #529 encoder, held for a
+        /// time, until the macro's trigger releases, or until a
+        /// <see cref="TriggerEffectStop"/>. A game's own trigger effect and a
+        /// game mod's come first. One-shot. Ordinal pinned.</summary>
+        TriggerEffect = 62,
+
+        /// <summary>Ends the effects <see cref="TriggerEffect"/> holds on the
+        /// slot's left trigger, right trigger or both (#531). One-shot.
+        /// Ordinal pinned.</summary>
+        TriggerEffectStop = 63
     }
 
     /// <summary>One parsed part of a <see cref="MacroActionType.CycleTapList"/>
@@ -7311,8 +7524,53 @@ namespace PadForge.ViewModels
                     // so the variable becomes immediately useful.
                     if (_source == MacroTriggerSource.OutputController && _outputChannel == MacroOutputChannel.None)
                         OutputChannel = MacroOutputChannel.A;
+                    // The same for telemetry: speed is the first thing most
+                    // telemetry triggers test.
+                    if (_source == MacroTriggerSource.GameTelemetry && _telemetryChannel == Common.Input.Telemetry.TelemetryChannel.None)
+                        TelemetryChannel = Common.Input.Telemetry.TelemetryChannel.SpeedKmh;
                     OnPropertyChanged(nameof(DisplaySummary));
                 }
+            }
+        }
+
+        private Common.Input.Telemetry.TelemetryChannel _telemetryChannel = Common.Input.Telemetry.TelemetryChannel.None;
+        /// <summary>The telemetry channel read when Source is GameTelemetry
+        /// (issue #531).</summary>
+        public Common.Input.Telemetry.TelemetryChannel TelemetryChannel
+        {
+            get => _telemetryChannel;
+            set
+            {
+                if (!SetProperty(ref _telemetryChannel, value)) return;
+                OnPropertyChanged(nameof(DisplaySummary));
+                OnPropertyChanged(nameof(TelemetryOption));
+            }
+        }
+
+        private string _telemetryVariable = string.Empty;
+        /// <summary>The custom variable's name when the channel is Variable.</summary>
+        public string TelemetryVariable
+        {
+            get => _telemetryVariable;
+            set
+            {
+                if (!SetProperty(ref _telemetryVariable, value ?? string.Empty)) return;
+                OnPropertyChanged(nameof(DisplaySummary));
+                OnPropertyChanged(nameof(TelemetryOption));
+            }
+        }
+
+        /// <summary>The picker's selection: the channel and the variable's
+        /// name as one entry of <see cref="TelemetryChannelOptions.Items"/>.</summary>
+        [System.Xml.Serialization.XmlIgnore]
+        public TelemetryChannelOption TelemetryOption
+        {
+            get => TelemetryChannelOptions.Find(_telemetryChannel, _telemetryVariable);
+            set
+            {
+                if (value == null) return;
+                TelemetryVariable = value.Variable;
+                TelemetryChannel = value.Channel;
             }
         }
 
@@ -7364,19 +7622,31 @@ namespace PadForge.ViewModels
             get
             {
                 if (_source == MacroTriggerSource.OutputController) return _outputChannel != MacroOutputChannel.None;
+                if (_source == MacroTriggerSource.GameTelemetry)
+                    return _telemetryChannel != Common.Input.Telemetry.TelemetryChannel.None
+                        && (_telemetryChannel != Common.Input.Telemetry.TelemetryChannel.Variable || _telemetryVariable.Length > 0);
                 return _rawButton >= 0 || !string.IsNullOrEmpty(_pov) || _axisTarget != MacroAxisTarget.None;
             }
         }
 
         /// <summary>Compact tagged form used for XML round-tripping.
         /// "in:GUID:btn:N", "in:GUID:pov:idx:cd", "in:GUID:ax:Target",
-        /// "out:Channel". Empty for unbound.</summary>
+        /// "out:Channel", "tel:Channel", "tel:var:Name" (issue #531). Empty
+        /// for unbound. A variable's name never holds ':' or '|', which the
+        /// custom format editor refuses.</summary>
         public string Spec
         {
             get
             {
                 if (_source == MacroTriggerSource.OutputController)
                     return _outputChannel == MacroOutputChannel.None ? "" : $"out:{_outputChannel}";
+                if (_source == MacroTriggerSource.GameTelemetry)
+                {
+                    if (!IsBound) return "";
+                    return _telemetryChannel == Common.Input.Telemetry.TelemetryChannel.Variable
+                        ? $"tel:var:{_telemetryVariable}"
+                        : $"tel:{_telemetryChannel}";
+                }
                 if (_deviceGuid == Guid.Empty) return "";
                 if (_rawButton >= 0) return $"in:{_deviceGuid}:btn:{_rawButton}";
                 if (!string.IsNullOrEmpty(_pov)) return $"in:{_deviceGuid}:pov:{_pov}";
@@ -7391,6 +7661,8 @@ namespace PadForge.ViewModels
                 _pov = null;
                 _axisTarget = MacroAxisTarget.None;
                 _outputChannel = MacroOutputChannel.None;
+                _telemetryChannel = Common.Input.Telemetry.TelemetryChannel.None;
+                _telemetryVariable = string.Empty;
                 if (!string.IsNullOrEmpty(value))
                 {
                     var parts = value.Split(':');
@@ -7398,6 +7670,18 @@ namespace PadForge.ViewModels
                     {
                         _source = MacroTriggerSource.OutputController;
                         if (Enum.TryParse<MacroOutputChannel>(parts[1], out var ch)) _outputChannel = ch;
+                    }
+                    else if (parts.Length >= 2 && parts[0] == "tel")
+                    {
+                        _source = MacroTriggerSource.GameTelemetry;
+                        if (parts[1] == "var" && parts.Length >= 3)
+                        {
+                            _telemetryChannel = Common.Input.Telemetry.TelemetryChannel.Variable;
+                            _telemetryVariable = parts[2];
+                        }
+                        else if (Enum.TryParse<Common.Input.Telemetry.TelemetryChannel>(parts[1], out var tc)
+                                 && Enum.IsDefined(tc) && tc != Common.Input.Telemetry.TelemetryChannel.Variable)
+                            _telemetryChannel = tc;
                     }
                     else if (parts.Length >= 4 && parts[0] == "in" && Guid.TryParse(parts[1], out var g))
                     {
@@ -7422,6 +7706,9 @@ namespace PadForge.ViewModels
                 OnPropertyChanged(nameof(Pov));
                 OnPropertyChanged(nameof(AxisTarget));
                 OnPropertyChanged(nameof(OutputChannel));
+                OnPropertyChanged(nameof(TelemetryChannel));
+                OnPropertyChanged(nameof(TelemetryVariable));
+                OnPropertyChanged(nameof(TelemetryOption));
                 OnPropertyChanged(nameof(DisplaySummary));
             }
         }
@@ -7438,6 +7725,8 @@ namespace PadForge.ViewModels
                 if (!IsBound) return Strings.Instance.Macro_NotSet;
                 if (_source == MacroTriggerSource.OutputController)
                     return _outputChannel.ToString();
+                if (_source == MacroTriggerSource.GameTelemetry)
+                    return TelemetryChannelNames.DisplayName(_telemetryChannel, _telemetryVariable);
 
                 string devName = ResolveDeviceName();
                 string prefix = string.IsNullOrEmpty(devName) ? "" : devName + " · ";
@@ -7535,6 +7824,8 @@ namespace PadForge.ViewModels
                 Pov = null;
                 AxisTarget = MacroAxisTarget.None;
                 OutputChannel = MacroOutputChannel.None;
+                TelemetryChannel = Common.Input.Telemetry.TelemetryChannel.None;
+                TelemetryVariable = string.Empty;
                 LiveText = "";
                 OnPropertyChanged(nameof(DisplaySummary));
                 OnPropertyChanged(nameof(Spec));

@@ -4203,6 +4203,7 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Cynlluniau adroddiad PlayStation Move, graddnodi synhwyrydd, a chyfarchiad ategolyn EXT, gan Thomas Perl, wedi'i groeswirio yn erbyn wici moveonpc. C# gwreiddiol yw gweithrediad PadForge. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Cyfeiriadau telemetreg rasio</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Cynlluniau cof a rennir a UDP y tu ôl i Telemetreg Gêm a goleuadau LED shifft RPM yr olwyn lywio, wedi'u darllen o assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) a vAzhureRacingHub (GPL-3.0). Nid oes unrhyw god GPL nac LGPL yn cael ei gynnwys.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Dogfennaeth paru ac adroddiadau Bluetooth DualShock 3. GPL-2.0 a GPL-3.0, wedi'i ddarllen fel dogfennaeth yn unig, ni ddosberthir cod GPL.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4432,4 +4433,132 @@ Hoffech chi i PadForge eu dadosod nawr? Mae hyn angen caniatâd gweinyddwr ac ef
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Ailosod Terfyn Grym</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Graddnodi Cyrhaeddiad</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Yn mesur pa mor bell y mae'r carn yn teithio. Symudwch ef i bob ymyl ei gyrhaeddiad am y pedair eiliad y mae'r mesuriad yn rhedeg. Mae'r grymoedd yn gorffwys yn y cyfamser.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetreg Gêm</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetreg Gêm</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Rhoi'r telemetreg y mae gemau gyrru yn ei anfon, a chof a rennir Assetto Corsa, ar res Telemetreg Gêm tudalen Dyfeisiau. Mapiwch ei gyflymder, ei bedalau a'i gerau fel unrhyw fewnbwn, sbardunwch macros gyda nhw, neu profwch nhw mewn Mynegiad Personol. Tra bydd yn gwrando, mae goleuadau LED shifft RPM olwyn lywio yn darllen y gêm oddi yma hefyd.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Gwrando am Delemetreg Gêm</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Gêm</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Mae Canfod yn Awtomatig yn adnabod y gêm o'i phecynnau. Mae dewis Project CARS 2 ac Automobilista 2, neu'r efelychwyr tryciau, hefyd yn gosod y porth y mae'r gemau hynny bob amser yn anfon iddo.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Porth Telemetreg Gêm</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Anfon ymlaen i Borth</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Yn copïo pob pecyn i'r porth hwn ar y cyfrifiadur hwn, fel bod rhaglen arall megis SimHub yn dal i'w dderbyn. Mae 0 yn anfon dim ymlaen.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Cyflymder Llawn (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Y cyflymder sy'n symud yr echelin Cyflymder yr holl ffordd.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Fformatau Personol…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Yn disgrifio pecynnau gêm nad yw PadForge yn ei hadnabod, fesul maes.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Trowch allbwn telemetreg ymlaen ym mhob gêm a'i anelu at y cyfrifiadur a'r porth hwn. Mae F1, gemau Codemasters ac EA SPORTS WRC yn defnyddio 20777 oni chaiff ei newid, mae Project CARS 2 ac Automobilista 2 bob amser yn defnyddio 5606, ac mae ategyn MrHokss ar gyfer yr efelychwyr tryciau yn defnyddio 49001. Nid oes angen porth ar Assetto Corsa ac ACC.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Canfod yn Awtomatig</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport a Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 i F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 a Gemau Codemasters Eraill</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive a Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ac Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ac Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ac American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (Personol)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Aros am gêm ar borth UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Yn gwrando ar borth UDP {0}. {1} o {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Mae rhaglen arall yn defnyddio porth UDP {0}.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Yn darllen {0} o'r cof a rennir.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Aros am Assetto Corsa neu Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Yn anfon ymlaen i borth {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Fformatau Telemetreg Personol</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Disgrifiwch y pecynnau y mae gêm yn eu hanfon, fesul maes, a bydd PadForge yn darllen y gêm honno hefyd. Mae pob newidyn yn dod yn echelin ar res Telemetreg Gêm ac yn sianel ar gyfer sbardunau Mynegiad Personol. Dewiswch fformat yn ôl enw yn y rhestr Gêm, neu rhowch hyd neu allwedd iddo fel bod Canfod yn Awtomatig yn dod o hyd iddo.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Ychwanegu Fformat</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Fformat {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Enw</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Pecynnau</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Deuaidd</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Hyd (Beitiau)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Dim ond pecynnau o'r union nifer hwn o feitiau sy'n cael eu darllen gyda'r fformat hwn. Gyda 0, mae unrhyw becyn yn cael ei ddarllen, ac mae Canfod yn Awtomatig yn gadael y fformat heb ei gyffwrdd, felly dewiswch ef yn ôl enw.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Allwedd Ofynnol</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Dim ond pecynnau JSON sy'n cynnwys yr allwedd hon sy'n cael eu darllen gyda'r fformat hwn. Os caiff ei adael yn wag, caiff unrhyw becyn ei ddarllen, ac mae Canfod yn Awtomatig yn gadael y fformat heb ei gyffwrdd, felly dewiswch ef yn ôl enw.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Mae'r pecyn yn ysgrifennu pob rhif gyda'i beit mwyaf arwyddocaol yn gyntaf. Mae gemau ar gyfrifiadur personol bron bob amser yn ysgrifennu'r beit lleiaf arwyddocaol yn gyntaf.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Gwerthoedd Gêr</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Mae gan y maes gêr ei rifau ei hun ar gyfer bacio a niwtral, fel 0 ac 11 Forza. Pan fydd hwn wedi'i ddiffodd, gêr negyddol yw bacio a 0 yw niwtral.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Bacio</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Niwtral</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Meysydd</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Mae pob maes yn darllen rhif ar ei wrthbwyso, neu o dan ei allwedd mewn JSON (mae dotiau'n cyrraedd i mewn i wrthrychau nythol), ac yn ei luosi â'r raddfa. Ar ôl y raddfa, mae cyflymder mewn km/h, mae'r pedalau'n rhedeg o 0 i 1, a'r llywio o -1 ar y chwith llawn i 1 ar y dde llawn. Mae echelin newidyn yn rhedeg o'i Isafswm wrth orffwys i'w Uchafswm yn llawn.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Yn Darllen i Mewn</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Enw'r Newidyn</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Gwrthbwyso</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Math</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Allwedd JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Graddfa</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Isafswm</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Uchafswm</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Ychwanegu Maes</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Tynnu Maes</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Mae angen enw ar fformat {0} heb : na |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Mae dau fformat o'r enw {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Mae angen enw heb : na | ar newidyn yn {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Mae maes yn {0} yn darllen heibio i ddiwedd ei becyn {1}-beit.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Mae angen allwedd JSON ar faes yn {0}.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Newidyn</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Cyflymder (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM Uchaf</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Gêr</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Cyflymydd (0 i 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Brêc (0 i 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Cydiwr (0 i 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Brêc Llaw (0 i 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Llywio (-1 i 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Gyrru (Nid 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetreg Gêm</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Cyflymder (mya)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% o'r Uchafswm)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Gêr (-1 Bacio, 0 Niwtral)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Cyflymydd (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Brêc (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Cydiwr (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Brêc Llaw (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Llywio (-100 Chwith i 100 Dde)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Gyrru (1 neu 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Effaith Sbardun Addasol</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Atal Effaith Sbardun Addasol</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Yn chwarae effaith sbardun addasol DualSense ar sbardunau'r slot hwn. Yr effeithiau yw'r rhai y mae modiau gêm ar gyfer DSX yn eu hanfon.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Yn terfynu'r effaith sbardun addasol y mae macro yn ei dal ar y sbardun a ddewiswyd. Defnyddiwch hi ynghyd ag effaith sy'n dal nes ei hatal.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Sbardun</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Dde (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Chwith (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Y Ddau (L2 ac R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Effaith</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>I ffwrdd</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Bwa</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Carlamu</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Peiriant</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Meddal Iawn</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Meddal</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Canolig</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Caled</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Caled Iawn</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Caletaf</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Anhyblyg</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Curiad Dirgrynol</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Ardal Gychwyn</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Ardal Ddiwedd</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Troed Gyntaf</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Ail Droed</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Cryfder A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Cryfder B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Cyfnod (Degfedau o Eiliad)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Cryfder Cychwyn</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Cryfder Diwedd</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Cryfder Ardal {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Nid yw'r gwerthoedd hyn yn creu effaith, felly nid yw'r weithred yn chwarae dim. Rhaid i ardal ddiwedd fod ar ôl ei hardal gychwyn, a'r ail droed ar ôl y gyntaf.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Yn Dal</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Tra bo Sbardun y Macro yn cael ei Ddal</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Am Amser Penodol</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Nes ei Atal</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Amser</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Yn chwarae ar bob DualSense a DualSense Edge ar y slot hwn. Mae effaith sbardun gêm ei hun ac effaith modiau gêm yn cael blaenoriaeth, ac mae gosodiad y tab Sbardunau Addasol yn dychwelyd pan ddaw'r effaith i ben. Mae ardaloedd yn rhedeg o 0 wrth orffwys i 9 wrth dynnu'n llawn. Nid yw Bwa, Carlamu a Pheiriant yn effeithiau DualSense swyddogol, a gallai diweddariad cadarnwedd eu tynnu. Mae rheolyddion Xbox gyda Cyfieithu Dirgryniadau Sbardun Addasol ymlaen yn teimlo'r effeithiau dirgrynol fel dirgryniad sbardun.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} ar {1} am {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} ar {1} tra'n cael ei ddal</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} ar {1} nes ei atal</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Atal effaith sbardun ar {0}</value></data>
 </root>

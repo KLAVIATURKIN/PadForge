@@ -4240,7 +4240,7 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move rapor düzenleri, sensör kalibrasyonu ve EXT aksesuar el sıkışması. Geliştiren: Thomas Perl. moveonpc wiki'siyle çapraz denetlendi. PadForge'un uygulaması özgün C# kodudur. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Yarış telemetrisi referansları</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Direksiyon devir vites LED'lerinin arkasındaki paylaşılan bellek ve UDP düzenleri. assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) ve simapi (LGPL-3.0) projelerinden okundu. Hiçbir GPL veya LGPL kodu dağıtılmıyor.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Oyun telemetrisi ve direksiyon devir vites LED'lerinin arkasındaki paylaşılan bellek ve UDP düzenleri. assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) ve vAzhureRacingHub (GPL-3.0) projelerinden okundu. Hiçbir GPL veya LGPL kodu dağıtılmıyor.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth eşleştirme ve rapor belgeleri. GPL-2.0 ve GPL-3.0, yalnızca belge olarak okundu, hiçbir GPL kodu dağıtılmıyor.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ PadForge bunları şimdi kaldırsın mı? Bu işlem yönetici izni gerektirir ve
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Kuvvet sınırını sıfırla</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Erişimi kalibre et</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Tutamağın ne kadar uzağa gittiğini ölçer. Tarama sürdüğü dört saniye boyunca tutamağı erişim alanının her kenarına götürün. Bu sırada kuvvetler durur.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Oyun telemetrisi</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Oyun telemetrisi</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Yarış oyunlarının gönderdiği telemetriyi ve Assetto Corsa'nın paylaşılan belleğini Cihazlar sayfasındaki Oyun telemetrisi satırına getirir. Hızı, pedalları ve vitesleri herhangi bir giriş gibi eşleyin, makroları bunlarla tetikleyin ya da Özel ifade içinde sınayın. Dinleme sürerken direksiyonun devir vites LED'leri de oyunu buradan okur.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Oyun telemetrisini dinle</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Oyun</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Otomatik algıla, oyunu paketlerinden tanır. Project CARS 2 ve Automobilista 2 ya da kamyon simülatörleri seçilirse, bu oyunların her zaman gönderdiği port da ayarlanır.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Oyun telemetrisi portu</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Porta ilet</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Her paketi bu bilgisayardaki bu porta kopyalar, böylece SimHub gibi başka bir program da almaya devam eder. 0 hiçbir şey iletmez.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Tam hız (km/sa)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Hız eksenini sonuna kadar hareket ettiren hız.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Özel biçimler…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge'un tanımadığı bir oyunun paketlerini alan alan tanımlar.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Her oyunda telemetri çıkışını açın ve bu bilgisayara ile porta yöneltin. F1, Codemasters oyunları ve EA SPORTS WRC değiştirilmedikçe 20777, Project CARS 2 ve Automobilista 2 her zaman 5606, MrHokss'un kamyon simülatörleri eklentisi ise 49001 kullanır. Assetto Corsa ve ACC için port gerekmez.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Otomatik algıla</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ve Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22'den F1 25'e</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 ve diğer Codemasters oyunları</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ve Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ve Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ve Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ve American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (Özel)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP port {0} üzerinde oyun bekleniyor.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP port {0} dinleniyor. {2} adresinden {1}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP port {0} başka bir program tarafından kullanılıyor.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>{0}, paylaşılan bellekten okunuyor.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa veya Assetto Corsa Competizione bekleniyor.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>{0} portuna iletiliyor.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Özel telemetri biçimleri</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Bir oyunun gönderdiği paketleri alan alan tanımlayın, PadForge o oyunu da okusun. Her değişken, Oyun telemetrisi satırında bir eksen ve Özel ifade tetikleyicileri için bir kanal olur. Biçimi Oyun listesinden adıyla seçin ya da Otomatik algıla ile bulunabilmesi için bir uzunluk veya anahtar verin.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Biçim ekle</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Biçim {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Ad</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paketler</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>İkili</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Uzunluk (bayt)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Bu biçimle yalnızca tam olarak bu kadar bayt uzunluğundaki paketler okunur. 0 ise her paket okunur ve Otomatik algıla biçime dokunmaz, bu yüzden biçimi adıyla seçin.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Gerekli anahtar</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Bu biçimle yalnızca bu anahtarı taşıyan JSON paketleri okunur. Boş bırakılırsa her paket okunur ve Otomatik algıla biçime dokunmaz, bu yüzden biçimi adıyla seçin.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Paket her sayıyı en anlamlı bayttan başlayarak yazar. PC'deki oyunlar neredeyse her zaman önce en az anlamlı baytı yazar.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Vites değerleri</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Vites alanının geri ve boş vites için Forza'nın 0 ve 11 değerleri gibi kendi sayıları vardır. Kapalıyken negatif vites geri, 0 ise boş vitestir.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Geri</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Boş</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Alanlar</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Her alan, ofsetindeki ya da JSON'da anahtarının altındaki bir sayıyı okur (noktalar iç içe nesnelere uzanır) ve ölçekle çarpar. Ölçekten sonra hız km/sa cinsindedir, pedallar 0 ile 1 arasında çalışır, direksiyon ise tam solda -1'den tam sağda 1'e kadar gider. Bir değişkenin ekseni, boştaki En az değerinden tam durumdaki En çok değerine uzanır.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Hedef</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Değişken adı</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Ofset</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tür</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON anahtarı</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Ölçek</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>En az</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>En çok</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Alan ekle</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Alanı kaldır</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>{0}. biçimin adında : veya | bulunmamalı.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>İki biçime de {0} adı verilmiş.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} içindeki bir değişkenin adında : veya | bulunmamalı.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} içindeki bir alan, {1} baytlık paketin sonunun ötesini okuyor.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} içindeki bir alan için JSON anahtarı gerekli.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Değişken</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Hız (km/sa)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>Devir</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Maks. devir</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Vites</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Gaz (0 ile 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Fren (0 ile 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Debriyaj (0 ile 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>El freni (0 ile 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Direksiyon (-1 ile 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Sürüş (0 değil)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Oyun telemetrisi</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Hız (mil/sa)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>Devir (maks. devrin yüzdesi)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Vites (-1 geri, 0 boş)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Gaz (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Fren (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Debriyaj (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>El freni (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Direksiyon (-100 sol, 100 sağ)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Sürüş (1 veya 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Uyarlanabilir tetik efekti</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Uyarlanabilir tetik efektini durdur</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Bu yuvanın tetiklerinde bir DualSense uyarlanabilir tetik efekti oynatır. Efektler, DSX için oyun modlarının gönderdiği efektlerdir.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Bir makronun seçilen tetikte tuttuğu uyarlanabilir tetik efektini sonlandırır. Durdurulana kadar süren bir efektle birlikte kullanın.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Tetik</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Sağ (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Sol (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Her ikisi (L2 ve R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efekt</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Kapalı</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Yay</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Dörtnala</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Makine</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Çok yumuşak</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Yumuşak</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Orta</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Sert</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Çok sert</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>En sert</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Katı</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Kesik kesik</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Titreşimli darbe</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Başlangıç bölgesi</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Bitiş bölgesi</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Çıtlama gücü</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Birinci adım</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>İkinci adım</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Güç A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Güç B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Periyot (saniyenin onda biri)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Başlangıç gücü</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Bitiş gücü</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>{0}. bölge gücü</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Bu değerler bir efekt oluşturmuyor, bu yüzden eylem hiçbir şey oynatmaz. Bitiş bölgesi başlangıç bölgesinden sonra, ikinci adım da birinci adımdan sonra olmalı.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Tutulma</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Makronun etkinleştiricisi basılı tutulduğu sürece</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Belirli bir süre</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Durdurulana kadar</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Süre</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Bu yuvadaki her DualSense ve DualSense Edge üzerinde oynar. Oyunun kendi tetik efekti ve bir oyun modunun efekti önceliklidir, efekt bitince Uyarlanabilir tetikler sekmesindeki ayar geri gelir. Bölgeler boşta 0'dan tam çekişte 9'a kadar gider. Yay, Dörtnala ve Makine resmî DualSense efektleri değildir ve bir donanım yazılımı güncellemesi bunları kaldırabilir. Uyarlanabilir tetik titreşimlerini çevir açıkken Xbox kontrolcüleri titreşimli efektleri tetik titreşimi olarak hisseder.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}, {1} üzerinde {2} ms boyunca</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}, {1} üzerinde basılı tutulduğu sürece</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}, {1} üzerinde durdurulana kadar</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>{0} üzerindeki tetik efektini durdur</value></data>
 </root>

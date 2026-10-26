@@ -4240,7 +4240,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>โครงสร้างรายงานของ PlayStation Move การปรับเทียบเซนเซอร์ และการแฮนด์เชกของอุปกรณ์เสริม EXT โดย Thomas Perl ตรวจสอบเทียบกับวิกิ moveonpc โค้ดของ PadForge เขียนขึ้นใหม่ด้วย C# สัญญาอนุญาต BSD 2-Clause</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>แหล่งอ้างอิงเทเลเมทรีการแข่งรถ</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>โครงสร้างหน่วยความจำที่ใช้ร่วมกันและ UDP ที่อยู่เบื้องหลังไฟ LED เปลี่ยนเกียร์ตาม RPM ของพวงมาลัย อ่านจาก assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) และ simapi (LGPL-3.0) ไม่มีโค้ด GPL หรือ LGPL รวมอยู่ในโปรแกรม</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>โครงสร้างหน่วยความจำที่ใช้ร่วมกันและ UDP ที่อยู่เบื้องหลังเทเลเมทรีเกมและไฟ LED เปลี่ยนเกียร์ตาม RPM ของพวงมาลัย อ่านจาก assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) และ vAzhureRacingHub (GPL-3.0) ไม่มีโค้ด GPL หรือ LGPL รวมอยู่ในโปรแกรม</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>เอกสารอ้างอิงการจับคู่ Bluetooth และรายงานของ DualShock 3 สัญญาอนุญาต GPL-2.0 และ GPL-3.0 ใช้อ่านเป็นเอกสารอ้างอิงเท่านั้น ไม่มีโค้ด GPL รวมอยู่ในโปรแกรม</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>รีเซ็ตขีดจำกัดแรง</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>ปรับเทียบระยะเอื้อม</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>วัดว่าด้ามจับเคลื่อนที่ได้ไกลเพียงใด ขยับให้สุดทุกขอบของระยะเอื้อมตลอดสี่วินาทีที่การวัดทำงาน ระหว่างนั้นแรงทั้งหมดจะหยุดพัก</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>เทเลเมทรีเกม</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>เทเลเมทรีเกม</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>นำเทเลเมทรีที่เกมแข่งรถส่งมา และหน่วยความจำที่ใช้ร่วมกันของ Assetto Corsa ไปไว้ในแถวเทเลเมทรีเกมของหน้าอุปกรณ์ แมปความเร็ว แป้นเหยียบ และเกียร์ได้เหมือนอินพุตทั่วไป ใช้สั่งแมโคร หรือทดสอบในนิพจน์กำหนดเอง ขณะรับข้อมูลอยู่ ไฟ LED เปลี่ยนเกียร์ตาม RPM ของพวงมาลัยก็อ่านข้อมูลเกมจากที่นี่ด้วย</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>รับเทเลเมทรีเกม</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>เกม</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>ตัวเลือก ตรวจหาอัตโนมัติ จะดูจากแพ็กเก็ตว่าเป็นเกมใด หากเลือก Project CARS 2 และ Automobilista 2 หรือเกมจำลองรถบรรทุก ระบบจะตั้งพอร์ตที่เกมเหล่านั้นส่งไปเสมอให้ด้วย</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>พอร์ตเทเลเมทรีเกม</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>ส่งต่อไปยังพอร์ต</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>คัดลอกทุกแพ็กเก็ตไปยังพอร์ตนี้บนพีซีเครื่องนี้ เพื่อให้โปรแกรมอื่นอย่าง SimHub ยังรับข้อมูลได้ ค่า 0 คือไม่ส่งต่อ</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>ความเร็วเต็มช่วง (กม./ชม.)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>ความเร็วที่ทำให้แกนความเร็วขยับจนสุด</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>รูปแบบกำหนดเอง…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>อธิบายแพ็กเก็ตของเกมที่ PadForge ไม่รู้จัก ทีละฟิลด์</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>เปิดการส่งออกเทเลเมทรีในแต่ละเกม แล้วชี้มาที่พีซีเครื่องนี้และพอร์ตนี้ F1 เกมของ Codemasters และ EA SPORTS WRC ใช้ 20777 หากไม่ได้เปลี่ยน Project CARS 2 และ Automobilista 2 ใช้ 5606 เสมอ และปลั๊กอินของ MrHokss สำหรับเกมจำลองรถบรรทุกใช้ 49001 Assetto Corsa และ ACC ไม่ต้องใช้พอร์ต</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>ตรวจหาอัตโนมัติ</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport และ Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ถึง F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 และเกม Codemasters อื่น ๆ</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive และ Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 และ Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa และ Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 และ American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (กำหนดเอง)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>กำลังรอเกมที่พอร์ต UDP {0}</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>กำลังรับข้อมูลที่พอร์ต UDP {0} {1} จาก {2}</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>พอร์ต UDP {0} ถูกโปรแกรมอื่นใช้งานอยู่</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>กำลังอ่าน {0} จากหน่วยความจำที่ใช้ร่วมกัน</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>กำลังรอ Assetto Corsa หรือ Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>กำลังส่งต่อไปยังพอร์ต {0}</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>รูปแบบเทเลเมทรีกำหนดเอง</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>อธิบายแพ็กเก็ตที่เกมส่งมาทีละฟิลด์ แล้ว PadForge จะอ่านเกมนั้นได้ด้วย ตัวแปรแต่ละตัวจะกลายเป็นแกนในแถวเทเลเมทรีเกม และเป็นช่องสำหรับตัวสั่งนิพจน์กำหนดเอง เลือกรูปแบบตามชื่อในรายการเกม หรือกำหนดความยาวหรือคีย์ เพื่อให้ ตรวจหาอัตโนมัติ หาเจอ</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>เพิ่มรูปแบบ</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>รูปแบบ {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>ชื่อ</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>แพ็กเก็ต</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>ไบนารี</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>ความยาว (ไบต์)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>รูปแบบนี้จะอ่านเฉพาะแพ็กเก็ตที่มีขนาดเท่านี้พอดี หากเป็น 0 จะอ่านทุกแพ็กเก็ต และ ตรวจหาอัตโนมัติ จะไม่เลือกรูปแบบนี้ ให้เลือกตามชื่อ</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>คีย์ที่ต้องมี</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>รูปแบบนี้จะอ่านเฉพาะแพ็กเก็ต JSON ที่มีคีย์นี้ หากเว้นว่างไว้ จะอ่านทุกแพ็กเก็ต และ ตรวจหาอัตโนมัติ จะไม่เลือกรูปแบบนี้ ให้เลือกตามชื่อ</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>บิกเอนเดียน</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>แพ็กเก็ตเขียนตัวเลขแต่ละตัวโดยเริ่มจากไบต์ที่สำคัญที่สุดก่อน เกมบนพีซีเกือบทั้งหมดเริ่มจากไบต์ที่สำคัญน้อยที่สุดก่อน</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>ค่าเกียร์</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>ฟิลด์เกียร์มีตัวเลขเฉพาะสำหรับเกียร์ถอยหลังและเกียร์ว่าง เช่น 0 และ 11 ของ Forza เมื่อปิดตัวเลือกนี้ เกียร์ที่เป็นลบคือถอยหลัง และ 0 คือเกียร์ว่าง</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>ถอยหลัง</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>เกียร์ว่าง</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>ฟิลด์</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>แต่ละฟิลด์อ่านตัวเลขที่ออฟเซ็ตของมัน หรือใต้คีย์ของมันใน JSON (จุดใช้เข้าไปในออบเจ็กต์ซ้อน) แล้วคูณด้วยสเกล หลังคูณสเกล ความเร็วเป็น กม./ชม. แป้นเหยียบมีค่าตั้งแต่ 0 ถึง 1 และพวงมาลัยตั้งแต่ -1 เมื่อหักซ้ายสุดถึง 1 เมื่อหักขวาสุด แกนของตัวแปรไล่จากค่าต่ำสุดเมื่อไม่ได้ใช้ ไปถึงค่าสูงสุดเมื่อใช้เต็มที่</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>อ่านเข้าสู่</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>ชื่อตัวแปร</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>ออฟเซ็ต</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>ชนิด</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>คีย์ JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>สเกล</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>ต่ำสุด</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>สูงสุด</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>เพิ่มฟิลด์</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>ลบฟิลด์</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>รูปแบบ {0} ต้องมีชื่อที่ไม่มี : หรือ |</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>มีสองรูปแบบที่ชื่อ {0}</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>ตัวแปรใน {0} ต้องมีชื่อที่ไม่มี : หรือ |</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>ฟิลด์ใน {0} อ่านเลยท้ายแพ็กเก็ตขนาด {1} ไบต์</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>ฟิลด์ใน {0} ต้องมีคีย์ JSON</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>ตัวแปร</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>ความเร็ว (กม./ชม.)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM สูงสุด</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>เกียร์</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>คันเร่ง (0 ถึง 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>เบรก (0 ถึง 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>คลัตช์ (0 ถึง 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>เบรกมือ (0 ถึง 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>พวงมาลัย (-1 ถึง 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>กำลังขับ (ไม่ใช่ 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>เทเลเมทรีเกม</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>ความเร็ว (ไมล์/ชม.)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% ของค่าสูงสุด)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>เกียร์ (-1 ถอยหลัง, 0 เกียร์ว่าง)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>คันเร่ง (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>เบรก (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>คลัตช์ (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>เบรกมือ (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>พวงมาลัย (-100 ซ้าย ถึง 100 ขวา)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>กำลังขับ (1 หรือ 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>เอฟเฟกต์อะแดปทีฟทริกเกอร์</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>หยุดเอฟเฟกต์อะแดปทีฟทริกเกอร์</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>เล่นเอฟเฟกต์อะแดปทีฟทริกเกอร์ของ DualSense บนทริกเกอร์ของช่องนี้ เอฟเฟกต์เหล่านี้เป็นชุดเดียวกับที่ม็อดเกมของ DSX ส่งมา</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>สิ้นสุดเอฟเฟกต์อะแดปทีฟทริกเกอร์ที่แมโครค้างไว้บนทริกเกอร์ที่เลือก ใช้คู่กับเอฟเฟกต์ที่ค้างจนกว่าจะหยุด</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ทริกเกอร์</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>ขวา (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>ซ้าย (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>ทั้งสอง (L2 และ R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>เอฟเฟกต์</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>ปิด</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>ธนู</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>ม้าควบ</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>เครื่องจักร</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>นุ่มมาก</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>นุ่ม</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>ปานกลาง</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>แข็ง</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>แข็งมาก</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>แข็งที่สุด</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>แข็งทื่อ</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>กระตุก</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>พัลส์สั่น</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>โซนเริ่มต้น</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>โซนสิ้นสุด</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>แรงดีด</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>ก้าวแรก</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>ก้าวที่สอง</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>ความแรง A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>ความแรง B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>คาบ (หน่วยเป็นหนึ่งส่วนสิบวินาที)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>ความแรงเริ่มต้น</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>ความแรงสิ้นสุด</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>ความแรงโซน {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>ค่าเหล่านี้ไม่ทำให้เกิดเอฟเฟกต์ การทำงานนี้จึงไม่เล่นอะไร โซนสิ้นสุดต้องอยู่เลยโซนเริ่มต้น และก้าวที่สองต้องอยู่เลยก้าวแรก</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>ค้างไว้</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>ขณะกดค้างทริกเกอร์ของแมโคร</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>ตามเวลาที่กำหนด</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>จนกว่าจะหยุด</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>เวลา</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>เล่นบน DualSense และ DualSense Edge ทุกตัวของช่องนี้ เอฟเฟกต์ทริกเกอร์ของเกมเองและของม็อดเกมมาก่อน และการตั้งค่าในแท็บอะแดปทีฟทริกเกอร์จะกลับมาเมื่อเอฟเฟกต์จบ โซนไล่จาก 0 เมื่อไม่ได้ดึงไปถึง 9 เมื่อดึงสุด ธนู ม้าควบ และเครื่องจักรไม่ใช่เอฟเฟกต์ทางการของ DualSense และการอัปเดตเฟิร์มแวร์อาจเอาออก คอนโทรลเลอร์ Xbox ที่เปิด แปลงการสั่นของอะแดปทีฟทริกเกอร์ จะรู้สึกเอฟเฟกต์แบบสั่นเป็นการสั่นของทริกเกอร์</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} บน{1} เป็นเวลา {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} บน{1} ขณะกดค้าง</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} บน{1} จนกว่าจะหยุด</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>หยุดเอฟเฟกต์ทริกเกอร์บน{0}</value></data>
 </root>

@@ -4191,7 +4191,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move 리포트 레이아웃, 센서 보정, EXT 액세서리 핸드셰이크. Thomas Perl 제작. moveonpc 위키와 교차 확인. PadForge의 구현은 독자적인 C#입니다. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>레이싱 텔레메트리 참조</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>휠 RPM 시프트 LED를 뒷받침하는 공유 메모리 및 UDP 레이아웃으로, assettocorsasharedmemory(MIT), forza-data-web(Apache-2.0), forza-telemetry(MIT), InSim.NET(LGPL-2.1), irsdkSharp(MIT), IRSDKSharper(GPL-3.0), out-gauge-cluster(Apache-2.0), pyirsdk(MIT), rF2SharedMemoryMapPlugin(GPL-3.0), rFactorSharedMemoryMap(GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin(MIT), simapi(LGPL-3.0)에서 읽었습니다. GPL 및 LGPL 코드는 포함하지 않습니다.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>게임 텔레메트리와 휠 RPM 시프트 LED를 뒷받침하는 공유 메모리 및 UDP 레이아웃으로, assettocorsasharedmemory(MIT), CMTelemetry, dirt-rally-telemetry-dashboard(MIT), ets2-telemetry-udp(MIT), f1-24-udp(MIT), fh6-tel(MIT), forza-data-web(Apache-2.0), forza-telemetry(MIT), Forza-Telemetry-Splitter(MIT), InSim.NET(LGPL-2.1), irsdkSharp(MIT), IRSDKSharper(GPL-3.0), out-gauge-cluster(Apache-2.0), PCars2UdpNet(MIT), project-cars-2-udp(MIT), pyirsdk(MIT), rF2SharedMemoryMapPlugin(GPL-3.0), rFactorSharedMemoryMap(GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin(MIT), simapi(LGPL-3.0), tm-bt-led(MIT), vAzhureRacingHub(GPL-3.0)에서 읽었습니다. GPL 및 LGPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth 페어링 및 리포트 문서. GPL-2.0 및 GPL-3.0, 문서로만 참고했으며 GPL 코드는 포함하지 않습니다.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4432,4 +4432,134 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>힘 제한 재설정</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>이동 범위 보정</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>핸들이 움직이는 거리를 측정합니다. 측정이 진행되는 4초 동안 핸들을 이동 범위의 모든 끝까지 움직이세요. 그동안 힘은 멈춥니다.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>게임 텔레메트리</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>게임 텔레메트리</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>레이싱 게임이 보내는 텔레메트리와 Assetto Corsa의 공유 메모리를 장치 페이지의 게임 텔레메트리 행에 표시합니다. 속도, 페달, 기어를 다른 입력처럼 매핑하고, 이를 이용해 매크로를 실행하거나 사용자 지정 식에서 검사할 수 있습니다. 수신 중에는 휠의 RPM 시프트 LED도 여기서 게임 정보를 읽습니다.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>게임 텔레메트리 수신</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>게임</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>자동 감지는 패킷을 보고 게임을 알아냅니다. Project CARS 2 및 Automobilista 2나 트럭 시뮬레이터를 선택하면 해당 게임이 항상 보내는 포트도 함께 설정됩니다.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>게임 텔레메트리 포트</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>전달할 포트</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>모든 패킷을 이 PC의 이 포트로 복사하여 SimHub 같은 다른 프로그램도 계속 받을 수 있게 합니다. 0이면 아무것도 전달하지 않습니다.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>최고 속도 (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>속도 축이 끝까지 움직이는 속도입니다.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>사용자 지정 형식…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge가 모르는 게임의 패킷을 필드별로 설명합니다.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>각 게임에서 텔레메트리 출력을 켜고 이 PC와 포트를 지정하세요. F1, Codemasters 게임, EA SPORTS WRC는 변경하지 않으면 20777을, Project CARS 2와 Automobilista 2는 항상 5606을, MrHokss의 트럭 시뮬레이터용 플러그인은 49001을 사용합니다. Assetto Corsa와 ACC는 포트가 필요 없습니다.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>자동 감지</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport 및 Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 ~ F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 및 기타 Codemasters 게임</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive 및 Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 및 Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa 및 Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 및 American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (사용자 지정)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP 포트 {0}에서 게임을 기다리는 중입니다.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP 포트 {0}에서 수신 대기 중. {2}에서 보낸 {1}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP 포트 {0}을(를) 다른 프로그램이 사용 중입니다.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>공유 메모리에서 {0}을(를) 읽는 중입니다.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa 또는 Assetto Corsa Competizione을 기다리는 중입니다.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>포트 {0}(으)로 전달 중입니다.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>사용자 지정 텔레메트리 형식</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>게임이 보내는 패킷을 필드별로 설명하면 PadForge가 그 게임도 읽습니다. 각 변수는 게임 텔레메트리 행의 축이 되고 사용자 지정 식 트리거의 채널이 됩니다. 게임 목록에서 이름으로 형식을 선택하거나, 길이나 키를 지정해 자동 감지가 찾게 하세요.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>형식 추가</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>형식 {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>이름</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>패킷</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>바이너리</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>길이 (바이트)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>정확히 이 바이트 수의 패킷만 이 형식으로 읽습니다. 0이면 모든 패킷을 읽으며, 자동 감지는 이 형식을 건너뛰므로 이름으로 선택하세요.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>필수 키</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>이 키가 있는 JSON 패킷만 이 형식으로 읽습니다. 비워 두면 모든 패킷을 읽으며, 자동 감지는 이 형식을 건너뛰므로 이름으로 선택하세요.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>빅 엔디언</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>패킷이 각 숫자를 최상위 바이트부터 씁니다. PC 게임은 거의 항상 최하위 바이트부터 씁니다.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>기어 값</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>기어 필드가 Forza의 0과 11처럼 후진과 중립에 고유한 숫자를 사용합니다. 꺼져 있으면 음수 기어는 후진, 0은 중립입니다.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>후진</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>중립</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>필드</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>각 필드는 오프셋 위치(JSON에서는 키, 점으로 중첩 개체에 접근)의 숫자를 읽고 배율을 곱합니다. 배율을 적용한 뒤 속도는 km/h, 페달은 0에서 1, 스티어링은 왼쪽 끝 -1에서 오른쪽 끝 1입니다. 변수의 축은 정지 시 최솟값에서 최대일 때 최댓값까지 움직입니다.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>읽는 대상</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>변수 이름</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>오프셋</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>형식</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON 키</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>배율</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>최소</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>최대</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>필드 추가</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>필드 제거</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>형식 {0}의 이름에는 : 또는 |를 사용할 수 없습니다.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>{0}이라는 이름의 형식이 둘 있습니다.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0}의 변수 이름에는 : 또는 |를 사용할 수 없습니다.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0}의 필드가 {1}바이트 패킷의 끝을 넘어 읽습니다.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0}의 필드에는 JSON 키가 필요합니다.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>변수</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>속도 (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>최대 RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>기어</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>스로틀 (0에서 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>브레이크 (0에서 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>클러치 (0에서 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>핸드브레이크 (0에서 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>스티어링 (-1에서 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>주행 (0이 아님)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>게임 텔레메트리</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>속도 (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (최대 대비 %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>기어 (-1 후진, 0 중립)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>스로틀 (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>브레이크 (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>클러치 (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>핸드브레이크 (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>스티어링 (-100 왼쪽 ~ 100 오른쪽)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>주행 (1 또는 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>어댑티브 트리거 효과</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>어댑티브 트리거 효과 정지</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>이 슬롯의 트리거에서 DualSense 어댑티브 트리거 효과를 재생합니다. DSX용 게임 모드가 보내는 효과와 같습니다.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>선택한 트리거에서 매크로가 유지 중인 어댑티브 트리거 효과를 끝냅니다. 정지할 때까지 유지되는 효과와 함께 사용하세요.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>트리거</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>오른쪽 (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>왼쪽 (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>양쪽 (L2 및 R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>효과</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>끔</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>활</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>질주</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>기계</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>매우 부드럽게</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>부드럽게</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>보통</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>단단하게</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>매우 단단하게</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>가장 단단하게</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>고정</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>끊김</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>진동 펄스</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>시작 구간</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>끝 구간</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>스냅 강도</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>첫 번째 발</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>두 번째 발</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>강도 A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>강도 B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>주기 (1/10초)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>시작 강도</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>끝 강도</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>구간 {0} 강도</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>이 값으로는 효과가 만들어지지 않아 동작이 아무것도 재생하지 않습니다. 끝 구간은 시작 구간보다 뒤여야 하고, 두 번째 발은 첫 번째 발보다 뒤여야 합니다.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>유지</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>매크로의 트리거를 누르는 동안</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>정해진 시간 동안</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>정지할 때까지</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>시간</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>이 슬롯의 모든 DualSense와 DualSense Edge에서 재생됩니다. 게임 자체의 트리거 효과와 게임 모드의 효과가 우선하며, 효과가 끝나면 어댑티브 트리거 탭의 설정으로 돌아갑니다. 구간은 정지 시 0에서 끝까지 당겼을 때 9까지입니다. 활, 질주, 기계는 공식 DualSense 효과가 아니므로 펌웨어 업데이트로 사라질 수 있습니다. 적응형 트리거 진동 변환을 켠 Xbox 컨트롤러에서는 진동 효과가 트리거 진동으로 느껴집니다.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1}에서 {0}, {2} ms 동안</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{1}에서 {0}, 누르는 동안</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{1}에서 {0}, 정지할 때까지</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>{0}의 트리거 효과 정지</value></data>
 </root>

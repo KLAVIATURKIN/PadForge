@@ -1103,4 +1103,56 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Butones 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Butones 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetry ti game</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetry ti game</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Dumngeg iti telemetry ti game</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Ipatulod iti port</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Kapardas (km/h)</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ken Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 agingga iti F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 ken dadduma pay a game ti Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ken Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ken Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ken Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ken American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Agur-uray iti game iti UDP port {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Agdengdengngeg iti UDP port {0}. {1} manipud iti {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Ti UDP port {0} ket us-usaren ti sabali a programa.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Agbasbasa iti {0} manipud iti shared memory.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Agur-uray iti Assetto Corsa wenno Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Ipatpatulod iti port {0}.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Inayon ti format</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nagan</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Kaatiddog (bytes)</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Kita</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Dua a format ti addaan iti nagan a {0}.</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Kapardas (km/h)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Preno (0 agingga iti 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Manibela (-1 agingga iti 1)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetry ti game</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Kapardas (mph)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Preno (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Manibela (-100 kannigid agingga iti 100 kanawan)</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Kanawan (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Kannigid (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Dua (L2 ken R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Epekto</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Naiddep</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Makina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Nalukneng unay</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Nalukneng</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Natangken</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Natangken unay</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Pigsa A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Pigsa B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Pigsa ti rugi</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Pigsa ti gibus</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Pigsa ti zone {0}</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Agingga a maisardeng</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Oras</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} iti {1} iti las-ud ti {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} iti {1} agingga a maisardeng</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Isardeng ti epekto ti trigger iti {0}</value></data>
 </root>

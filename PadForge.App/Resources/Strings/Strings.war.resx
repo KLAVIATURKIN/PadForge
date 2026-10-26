@@ -1239,4 +1239,33 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Button 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Button 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Dula</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ngan Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 tubtob ha F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 ngan iba pa nga mga dula han Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ngan Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ngan Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ngan Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ngan American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Naghuhulat hin dula ha UDP port {0}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Ginagamit an UDP port {0} han iba nga programa.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Naghuhulat ha Assetto Corsa o Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Ngaran</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Klase</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Tuo (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Wala (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Duha (L2 ngan R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Epekto</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Makina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Duro ka malumo</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Malumo</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Matig-a</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Duro ka matig-a</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Pinakamatig-a</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Tubtob maundang</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Oras</value></data>
 </root>

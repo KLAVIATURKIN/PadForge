@@ -4240,7 +4240,7 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Uppsetning skýrslna PlayStation Move, kvörðun skynjara og handaband EXT-aukahluta, eftir Thomas Perl, borið saman við moveonpc-wiki. Útfærsla PadForge er upprunalegur C#-kóði. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Viðmiðanir fyrir fjarmælingar í kappakstri</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Uppsetning sameiginlegs minnis og UDP á bak við LED-skiptiljós stýrisins (RPM), lesið úr assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) og simapi (LGPL-3.0). Enginn GPL- eða LGPL-kóði fylgir.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Uppsetning sameiginlegs minnis og UDP á bak við Leikjafjarmælingar og LED-skiptiljós stýrisins (RPM), lesið úr assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) og vAzhureRacingHub (GPL-3.0). Enginn GPL- eða LGPL-kóði fylgir.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Skjölun á Bluetooth-pörun og skýrslum DualShock 3. GPL-2.0 og GPL-3.0, lesið eingöngu sem skjölun, enginn GPL-kóði fylgir.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ Viltu að PadForge fjarlægi þá núna? Þetta krefst stjórnandaréttinda og g
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Endurstilla kraftmörk</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kvarða seilingu</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mælir hve langt handfangið færist. Færðu það að hverri brún seilingarinnar þær fjórar sekúndur sem yfirferðin stendur. Kraftarnir hvíla á meðan.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Leikjafjarmælingar</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Leikjafjarmælingar</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Setur fjarmælingar sem kappakstursleikir senda, og sameiginlegt minni Assetto Corsa, á línuna Leikjafjarmælingar á tækjasíðunni. Varpaðu hraða, pedölum og gírum eins og hverju öðru inntaki, ræstu fjölvi með þeim eða prófaðu þau í sérsniðinni segð. Meðan hlustað er les LED-skiptiljós (RPM) stýris leikinn líka héðan.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Hlusta eftir leikjafjarmælingum</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Leikur</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Sjálfvirk greining þekkir leikinn af pökkunum. Ef Project CARS 2 og Automobilista 2 eða vörubílahermarnir eru valdir stillist líka gáttin sem þessir leikir senda alltaf á.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Gátt leikjafjarmælinga</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Áframsenda á gátt</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Afritar hvern pakka á þessa gátt í þessari tölvu svo annað forrit, svo sem SimHub, haldi áfram að fá hann. 0 áframsendir ekkert.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Fullur hraði (km/klst.)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Hraðinn sem færir hraðaásinn alla leið.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Sérsniðin snið…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Lýsir pökkum leiks sem PadForge þekkir ekki, reit fyrir reit.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Kveiktu á fjarmælingaútgangi í hverjum leik og beindu honum á þessa tölvu og gátt. F1, Codemasters-leikir og EA SPORTS WRC nota 20777 nema því sé breytt, Project CARS 2 og Automobilista 2 nota alltaf 5606 og viðbót MrHokss fyrir vörubílahermana notar 49001. Assetto Corsa og ACC þurfa enga gátt.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Sjálfvirk greining</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport og Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 til F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 og aðrir Codemasters-leikir</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive og Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 og Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa og Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 og American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (sérsniðið)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Bíð eftir leik á UDP-gátt {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Hlusta á UDP-gátt {0}. {1} frá {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP-gátt {0} er í notkun hjá öðru forriti.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Les {0} úr sameiginlegu minni.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Bíð eftir Assetto Corsa eða Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Áframsendi á gátt {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Sérsniðin fjarmælingasnið</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Lýstu pökkunum sem leikur sendir, reit fyrir reit, og PadForge les þann leik líka. Hver breyta verður að ás á línunni Leikjafjarmælingar og rás fyrir kveikjur sérsniðinnar segðar. Veldu snið eftir nafni í leikjalistanum eða gefðu því lengd eða lykil svo Sjálfvirk greining finni það.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Bæta við sniði</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Snið {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Heiti</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Pakkar</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Tvíundar</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Lengd (bæti)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Aðeins pakkar sem eru nákvæmlega svona mörg bæti að lengd eru lesnir með þessu sniði. Með 0 er hver pakki lesinn og Sjálfvirk greining lætur sniðið vera, svo veldu það eftir nafni.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Nauðsynlegur lykill</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Aðeins JSON-pakkar sem bera þennan lykil eru lesnir með þessu sniði. Sé þetta tómt er hver pakki lesinn og Sjálfvirk greining lætur sniðið vera, svo veldu það eftir nafni.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Pakkinn skrifar hverja tölu með mikilvægasta bætið fyrst. Leikir á tölvu skrifa næstum alltaf minnst mikilvæga bætið fyrst.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Gírgildi</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Gírreiturinn hefur eigin tölur fyrir bakkgír og hlutlausan, eins og 0 og 11 hjá Forza. Þegar slökkt er á þessu er neikvæður gír bakkgír og 0 hlutlaus.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Bakkgír</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Hlutlaus</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Reitir</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Hver reitur les tölu á hliðrun sinni, eða undir lykli sínum í JSON (punktar ná inn í hreiðraða hluti), og margfaldar hana með kvarðanum. Eftir kvarðann er hraði í km/klst., pedalar fara frá 0 til 1 og stýring frá -1 alveg til vinstri til 1 alveg til hægri. Ás breytu fer frá lágmarki hennar í hvíld til hámarks þegar hún er full.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Les í</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Heiti breytu</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Hliðrun</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Gerð</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON-lykill</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Kvarði</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Lágmark</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Hámark</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Bæta við reit</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Fjarlægja reit</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Snið {0} þarf heiti án : eða |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Tvö snið heita {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Breyta í {0} þarf heiti án : eða |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Reitur í {0} les út fyrir enda {1} bæta pakkans.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Reitur í {0} þarf JSON-lykil.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Breyta</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Hraði (km/klst.)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Hámarks-RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Gír</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Inngjöf (0 til 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Hemill (0 til 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Kúpling (0 til 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Handbremsa (0 til 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Stýring (-1 til 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Akstur (ekki 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Leikjafjarmælingar</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Hraði (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% af hámarki)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Gír (-1 bakkgír, 0 hlutlaus)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Inngjöf (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Hemill (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Kúpling (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Handbremsa (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Stýring (-100 vinstri til 100 hægri)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Akstur (1 eða 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Áhrif aðlögunarhæfs gikks</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Stöðva áhrif aðlögunarhæfs gikks</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Spilar áhrif aðlögunarhæfs gikks á DualSense á gikkjum þessarar raufar. Áhrifin eru þau sömu og leikjabreytingar fyrir DSX senda.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Lýkur áhrifum aðlögunarhæfs gikks sem fjölvi heldur á völdum gikk. Notaðu það með áhrifum sem haldast þar til þau eru stöðvuð.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Gikkur</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Hægri (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Vinstri (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Báðir (L2 og R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Áhrif</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Slökkt</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Bogi</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Stökk</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Vél</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Mjög mjúkt</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Mjúkt</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Miðlungs</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Hart</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Mjög hart</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Harðast</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Stíft</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Hnökrótt</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Titrandi púls</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Upphafssvæði</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Lokasvæði</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Smellstyrkur</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Fyrri fótur</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Seinni fótur</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Styrkur A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Styrkur B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Lota (tíundu hlutar úr sekúndu)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Upphafsstyrkur</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Lokastyrkur</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Styrkur svæðis {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Þessi gildi mynda engin áhrif, svo aðgerðin spilar ekkert. Lokasvæði þarf að vera aftar en upphafssvæði og seinni fótur aftar en sá fyrri.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Heldur</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Meðan kveikja fjölvans er haldið inni</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Í tiltekinn tíma</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Þar til stöðvað</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Tími</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Spilast á hverjum DualSense og DualSense Edge á þessari rauf. Eigin gikkáhrif leiks og leikjabreytingar ganga fyrir og stilling flipans Aðlögunarhæfir gikkir kemur aftur þegar áhrifunum lýkur. Svæði ná frá 0 í hvíld til 9 þegar gikkurinn er alveg inni. Bogi, Stökk og Vél eru ekki opinber DualSense-áhrif og fastbúnaðaruppfærsla gæti fjarlægt þau. Á Xbox-stýringum með kveikt á Umbreyta titringi aðlögunarhæfra gikkja finnast titringsáhrifin sem gikktitringur.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} á {1} í {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} á {1} meðan haldið er inni</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} á {1} þar til stöðvað</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Stöðva gikkáhrif á {0}</value></data>
 </root>

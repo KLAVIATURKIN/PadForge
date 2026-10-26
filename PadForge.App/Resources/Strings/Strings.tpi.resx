@@ -1688,4 +1688,47 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Baten 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Baten 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Gem</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Salim i go long pot</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport na Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 i go inap F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 na ol arapela gem bilong Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive na Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 na Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa na Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 na American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Wet long wanpela gem long UDP pot {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Harim UDP pot {0}. {1} i kam long {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Narapela program i yusim UDP pot {0}.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Wet long Assetto Corsa o Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Salim i go long pot {0}.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nem</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Kain</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Spit (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Gia</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Brek (0 i go inap 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Stiaring (-1 i go inap 1)</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Spit (mph)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Brek (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Stiaring (-100 han kais i go inap 100 han sut)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Triga</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Han sut (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Han kais (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Tupela (L2 na R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Of</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Malumalu tru</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Malumalu</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Strongpela</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Strongpela tru</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Namba wan fut</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Namba tu fut</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Strong A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Strong B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Strong bilong stat</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Strong bilong pinis</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Inap long em i stop</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Taim</value></data>
 </root>

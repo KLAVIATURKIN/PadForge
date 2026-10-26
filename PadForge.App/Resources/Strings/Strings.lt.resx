@@ -4215,7 +4215,7 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>„PlayStation Move“ ataskaitų struktūros, jutiklių kalibravimas ir EXT priedo užmezgimo procedūra, autorius Thomas Perl, patikrinta pagal moveonpc wiki. „PadForge“ realizacija – originalus C# kodas. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Lenktynių telemetrijos šaltiniai</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Bendrosios atminties ir UDP struktūros, kuriomis grindžiami vairo RPM pavarų perjungimo LED, perskaitytos iš assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) ir simapi (LGPL-3.0). Joks GPL ar LGPL kodas neplatinamas.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Bendrosios atminties ir UDP struktūros, kuriomis grindžiama žaidimų telemetrija ir vairo RPM pavarų perjungimo LED, perskaitytos iš assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) ir vAzhureRacingHub (GPL-3.0). Joks GPL ar LGPL kodas neplatinamas.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>„DualShock 3“ „Bluetooth“ susiejimo ir ataskaitų dokumentacija. GPL-2.0 ir GPL-3.0, skaityta tik kaip dokumentacija, joks GPL kodas neplatinamas.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4456,4 +4456,134 @@ Ar norite, kad „PadForge“ jas dabar pašalintų? Tam reikia administratoriau
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Nustatyti jėgos ribą iš naujo</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibruoti siekį</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Matuoja, kiek toli nukeliauja rankena. Keturias sekundes, kol vyksta matavimas, pastumkite ją į kiekvieną siekio kraštą. Tuo metu jėgos nusiramina.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Žaidimų telemetrija</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Žaidimų telemetrija</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Rodo vairavimo žaidimų siunčiamą telemetriją ir Assetto Corsa bendrąją atmintį Įrenginių puslapio eilutėje Žaidimų telemetrija. Priskirkite jos greitį, pedalus ir pavaras kaip bet kurį įvestį, paleiskite jomis makrokomandas arba išbandykite jas pasirinktinėje išraiškoje. Kol klausoma, vairo RPM pavarų perjungimo LED žaidimą taip pat skaito iš čia.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Klausytis žaidimų telemetrijos</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Žaidimas</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Aptikti automatiškai atpažįsta žaidimą pagal jo paketus. Pasirinkus Project CARS 2 ir Automobilista 2 arba sunkvežimių simuliatorius, taip pat nustatomas prievadas, į kurį tie žaidimai visada siunčia.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Žaidimų telemetrijos prievadas</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Persiųsti į prievadą</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Kopijuoja kiekvieną paketą į šį šio kompiuterio prievadą, kad kita programa, pavyzdžiui, SimHub, ir toliau jį gautų. 0 nepersiunčia nieko.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Visas greitis (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Greitis, kuriuo greičio ašis pasislenka iki galo.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Pasirinktiniai formatai…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Laukas po lauko aprašo žaidimo, kurio PadForge nepažįsta, paketus.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Įjunkite telemetrijos išvestį kiekviename žaidime ir nukreipkite ją į šį kompiuterį bei prievadą. F1, Codemasters žaidimai ir EA SPORTS WRC naudoja 20777, jei nepakeista, Project CARS 2 ir Automobilista 2 visada naudoja 5606, o MrHokss papildinys sunkvežimių simuliatoriams naudoja 49001. Assetto Corsa ir ACC prievado nereikia.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Aptikti automatiškai</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ir Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>nuo F1 22 iki F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 ir kiti Codemasters žaidimai</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ir Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ir Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ir Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ir American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (pasirinktinis)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Laukiama žaidimo UDP prievade {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Klausomasi UDP prievade {0}. {1} iš {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP prievadą {0} naudoja kita programa.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Skaitoma {0} iš bendrosios atminties.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Laukiama Assetto Corsa arba Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Persiunčiama į prievadą {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Pasirinktiniai telemetrijos formatai</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Laukas po lauko aprašykite žaidimo siunčiamus paketus, ir PadForge skaitys ir tą žaidimą. Kiekvienas kintamasis tampa žaidimų telemetrijos eilutės ašimi ir pasirinktinės išraiškos paleidiklių kanalu. Formatą pasirinkite pagal pavadinimą sąraše Žaidimas arba nurodykite jo ilgį ar raktą, kad Aptikti automatiškai jį rastų.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Pridėti formatą</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Formatas {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Pavadinimas</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paketai</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Dvejetainis</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Ilgis (baitai)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Su šiuo formatu skaitomi tik tiksliai tiek baitų turintys paketai. Su 0 skaitomas bet kuris paketas, o Aptikti automatiškai formato nenaudoja, todėl pasirinkite jį pagal pavadinimą.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Privalomas raktas</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Su šiuo formatu skaitomi tik JSON paketai, turintys šį raktą. Palikus tuščią, skaitomas bet kuris paketas, o Aptikti automatiškai formato nenaudoja, todėl pasirinkite jį pagal pavadinimą.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Paketas kiekvieną skaičių rašo pradėdamas reikšmingiausiu baitu. Kompiuterių žaidimai beveik visada pirmiausia rašo mažiausiai reikšmingą baitą.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Pavarų reikšmės</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Pavaros lauke atbulinei ir neutraliai pavaroms skirti savi skaičiai, kaip Forza 0 ir 11. Kai išjungta, neigiama pavara yra atbulinė, o 0 neutrali.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Atbulinė</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Neutrali</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Laukai</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Kiekvienas laukas nuskaito skaičių jo poslinkyje arba JSON po jo raktu (taškai pasiekia įdėtus objektus) ir padaugina jį iš mastelio. Po mastelio greitis yra km/h, pedalai kinta nuo 0 iki 1, o vairas nuo -1 pilnai kairėn iki 1 pilnai dešinėn. Kintamojo ašis kinta nuo Min ramybės padėtyje iki Maks. pilnoje.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Nuskaitoma į</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Kintamojo pavadinimas</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Poslinkis</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tipas</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON raktas</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Mastelis</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Maks.</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Pridėti lauką</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Pašalinti lauką</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Formatui {0} reikia pavadinimo be : ir |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Du formatai pavadinti {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Kintamajam formate {0} reikia pavadinimo be : ir |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Laukas formate {0} skaito už {1} baitų paketo pabaigos.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Laukui formate {0} reikia JSON rakto.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Kintamasis</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Greitis (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Maks. RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Pavara</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Akceleratorius (nuo 0 iki 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Stabdis (nuo 0 iki 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Sankaba (nuo 0 iki 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Rankinis stabdis (nuo 0 iki 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Vairo pasukimas (nuo -1 iki 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Vairavimas (ne 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Žaidimų telemetrija</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Greitis (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% nuo maks.)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Pavara (-1 atbulinė, 0 neutrali)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Akceleratorius (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Stabdis (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Sankaba (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Rankinis stabdis (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Vairo pasukimas (nuo -100 kairėn iki 100 dešinėn)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Vairavimas (1 arba 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Adaptyviojo gaiduko efektas</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Stabdyti adaptyviojo gaiduko efektą</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Paleidžia DualSense adaptyviojo gaiduko efektą šio lizdo gaiduguose. Efektai yra tie, kuriuos siunčia DSX žaidimų modifikacijos.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Baigia adaptyviojo gaiduko efektą, kurį makrokomanda laiko pasirinktame gaiduke. Naudokite kartu su efektu, kuris laikomas, kol bus sustabdytas.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Gaidukas</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Dešinysis (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Kairysis (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Abu (L2 ir R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efektas</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Išjungta</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Lankas</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Šuoliavimas</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Mašina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Labai minkštas</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Minkštas</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Vidutinis</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Kietas</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Labai kietas</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Kietiausias</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Standus</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Trūkčiojantis</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Vibruojantis impulsas</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Pradžios zona</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Pabaigos zona</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Spragtelėjimo stiprumas</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Pirmoji pėda</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Antroji pėda</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>A stiprumas</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>B stiprumas</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Periodas (dešimtosios sekundės dalys)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Pradžios stiprumas</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Pabaigos stiprumas</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Zonos {0} stiprumas</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Su šiomis reikšmėmis efekto nėra, todėl veiksmas nieko nepaleidžia. Pabaigos zona turi būti toliau už pradžios zoną, o antroji pėda už pirmąją.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Laikymas</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Kol laikomas makrokomandos aktyviklis</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Nustatytą laiką</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Kol bus sustabdyta</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Laikas</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Veikia kiekviename šio lizdo DualSense ir DualSense Edge. Paties žaidimo gaiduko efektas ir žaidimo modifikacijos efektas turi pirmenybę, o skirtuko Adaptyvieji gaidukai nustatymas grįžta, kai efektas baigiasi. Zonos kinta nuo 0 ramybės padėtyje iki 9 pilnai nuspaudus. Lankas, Šuoliavimas ir Mašina nėra oficialūs DualSense efektai, todėl programinės aparatinės įrangos naujinimas gali juos pašalinti. Xbox valdikliai, kuriuose įjungta Konvertuoti adaptyviųjų gaidukų vibracijas, vibruojančius efektus jaučia kaip gaiduko vibraciją.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}: {1}, {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}: {1}, kol laikoma</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}: {1}, kol bus sustabdyta</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Stabdyti gaiduko efektą: {0}</value></data>
 </root>

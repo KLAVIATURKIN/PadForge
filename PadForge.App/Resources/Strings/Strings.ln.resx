@@ -1627,4 +1627,78 @@ Olingi PadForge elongola yango sikoyo? Esengeli na ba droit ya administrateur mp
   <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Ndelo ya makasi</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Kozongisa ndelo ya makasi</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Télémétrie ya masano</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Télémétrie ya masano</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Koyoka télémétrie ya masano</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Lisano</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port ya télémétrie ya masano</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Kotinda na port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Ezali kotinda paquet nyonso na port oyo na PC oyo, mpo programme mosusu lokola SimHub ekoba kozwa yango. 0 etindaka eloko te.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Ba format personnalisé…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Ezali kolimbola ba paquet ya lisano oyo PadForge eyebi te, champ na champ.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Détection automatique</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport na Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 tii F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 na masano mosusu ya Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive na Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 na Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa na Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 na American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (personnalisé)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Ezali kozela lisano na port UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Ezali koyoka na port UDP {0}. {1} euti na {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Port UDP {0} ezali kosalelama na programme mosusu.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Ezali kotanga {0} na mémoire partagée.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Ezali kozela Assetto Corsa to Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Ezali kotinda na port {0}.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Kobakisa format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nkombo</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Ba paquet</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binaire</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Ba champ</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Nkombo ya variable</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Décalage</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Lolenge</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Clé JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Échelle</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Kobakisa champ</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Kolongola champ</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Format {0} esengeli kozala na nkombo oyo ezali na : to | te.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Ba format mibale ezali na nkombo {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Variable moko na {0} esengeli kozala na nkombo oyo ezali na : to | te.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Champ moko na {0} esengeli kozala na clé JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variable</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Vitesse (km/h)</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Accélérateur (0 tii 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Frein (0 tii 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Embrayage (0 tii 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Frein à main (0 tii 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Direction (-1 tii 1)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Télémétrie ya masano</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Vitesse (mph)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Accélérateur (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Frein (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Embrayage (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Frein à main (%)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Gâchette</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Ya mobali (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Ya mwasi (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Mibale nyonso (L2 na R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Effet</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Ezimi</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Zone ya ebandeli</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Zone ya nsuka</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Makasi A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Makasi B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Makasi ya ebandeli</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Makasi ya nsuka</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Makasi ya zone {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Ntango</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} na {1} mpo na {2} ms</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Kotelemisa effet ya gâchette na {0}</value></data>
 </root>

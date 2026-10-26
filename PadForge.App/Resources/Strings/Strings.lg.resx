@@ -679,4 +679,27 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Eppeesa 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Eppeesa 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Omuzannyo</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ne Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 okutuuka ku F1 25</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ne Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ne Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ne Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ne American Truck Simulator</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Erinnya</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Ekika</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Obwangu (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Giya</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Buleeki (0 okutuuka ku 1)</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Obwangu (mph)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Buleeki (%)</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Ddyo (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Kkono (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Ekyuma</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Amaanyi A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Amaanyi B</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Ekiseera</value></data>
 </root>

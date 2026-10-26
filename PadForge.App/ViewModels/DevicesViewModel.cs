@@ -614,7 +614,8 @@ namespace PadForge.ViewModels
 
         private string _headTrackerStatus = string.Empty;
         /// <summary>Which head-tracking source is live, for the details
-        /// pane (issue #355). Written by the preview loop.</summary>
+        /// pane (issue #355). Written by InputService's panel lines, which
+        /// clear it once a stopped engine retires the device.</summary>
         public string HeadTrackerStatus
         {
             get => _headTrackerStatus;
@@ -633,6 +634,43 @@ namespace PadForge.ViewModels
         /// since been fixed. Comparing the instance as well as the version
         /// is what makes the cache honest across a swap.</summary>
         internal object HeadTrackerStatusDevice { get; set; }
+
+        private bool _isGameTelemetryDevice;
+        /// <summary>Whether the selected device is the Game Telemetry row
+        /// (issue #531): named axes and gears, plus the listener's line.</summary>
+        public bool IsGameTelemetryDevice
+        {
+            get => _isGameTelemetryDevice;
+            set => SetProperty(ref _isGameTelemetryDevice, value);
+        }
+
+        private string _gameTelemetryStatus = string.Empty;
+        /// <summary>What the listener hears, for the details pane (issue
+        /// #531): the Dashboard card's line. Written by InputService's panel
+        /// lines, which clear it once a stopped engine retires the row.</summary>
+        public string GameTelemetryStatus
+        {
+            get => _gameTelemetryStatus;
+            set => SetProperty(ref _gameTelemetryStatus, value ?? string.Empty);
+        }
+
+        /// <summary>The device's StatusVersion and instance the current
+        /// <see cref="GameTelemetryStatus"/> was built from, the head
+        /// tracker's cache pair.</summary>
+        internal int GameTelemetryStatusVersion { get; set; } = -1;
+        internal object GameTelemetryStatusDevice { get; set; }
+
+        /// <summary>An axis's name from a row's own objects, or null.</summary>
+        internal static string NamedAxis(IReadOnlyList<PadForge.Engine.DeviceObjectItem> objects, int slot)
+        {
+            if (objects == null) return null;
+            foreach (var o in objects)
+                if (o != null && !o.IsButton && o.InputIndex == slot
+                    && (o.ObjectType & PadForge.Engine.DeviceObjectTypeFlags.Axis) != 0
+                    && !string.IsNullOrEmpty(o.Name))
+                    return o.Name;
+            return null;
+        }
 
         /// <summary>Named learned-button rows for the handheld preview
         /// (issue #343), each lighting while its button is down. Reuses the
@@ -895,7 +933,7 @@ namespace PadForge.ViewModels
         /// are stored verbatim and used by the InputService update loop
         /// to read the matching <c>state.Buttons[Index]</c>.
         /// </summary>
-        internal void RebuildRawStateCollections(IReadOnlyList<int> axisIndices, IReadOnlyList<int> buttonIndices, int povCount, bool isKeyboard = false, bool isMouse = false, bool isTouchpad = false, bool isMidi = false, bool isNfc = false, IReadOnlyList<ConsumerButtonDisplayItem> consumerButtons = null, bool isHeadsetMotion = false, int voiceButtonBase = -1, bool isMicrophone = false, bool isHandheld = false, bool isSystemMotion = false, bool isHeadTracker = false, IReadOnlyList<PadForge.Engine.DeviceObjectItem> namedObjects = null, int[] analogKeyOrder = null, bool isFalcon = false)
+        internal void RebuildRawStateCollections(IReadOnlyList<int> axisIndices, IReadOnlyList<int> buttonIndices, int povCount, bool isKeyboard = false, bool isMouse = false, bool isTouchpad = false, bool isMidi = false, bool isNfc = false, IReadOnlyList<ConsumerButtonDisplayItem> consumerButtons = null, bool isHeadsetMotion = false, int voiceButtonBase = -1, bool isMicrophone = false, bool isHandheld = false, bool isSystemMotion = false, bool isHeadTracker = false, IReadOnlyList<PadForge.Engine.DeviceObjectItem> namedObjects = null, int[] analogKeyOrder = null, bool isFalcon = false, bool isGameTelemetry = false)
         {
             // Analog keyboards (#468): key chips, gathered as keys move.
             IsAnalogKeyboardDevice = analogKeyOrder != null;
@@ -919,6 +957,8 @@ namespace PadForge.ViewModels
             if (!isHeadTracker) { HeadTrackerStatus = string.Empty; HeadTrackerStatusVersion = -1; HeadTrackerStatusDevice = null; }
             IsFalconDevice = isFalcon;
             FalconDotX = FalconDotY = 0.5;
+            IsGameTelemetryDevice = isGameTelemetry;
+            if (!isGameTelemetry) { GameTelemetryStatus = string.Empty; GameTelemetryStatusVersion = -1; GameTelemetryStatusDevice = null; }
             IsMicrophoneDevice = isMicrophone;
             ShowVoicePhrases = voiceButtonBase >= 0;
             RebuildVoicePhrases(voiceButtonBase);
@@ -949,7 +989,10 @@ namespace PadForge.ViewModels
                     // Head tracker axes carry their names (#355), like the
                     // picker: Head Yaw reads better than Axis 0.
                     string axisName = isHeadTracker ? HeadTrackerAxisName(slot)
-                        : isFalcon ? FalconAxisName(slot) : null;
+                        : isFalcon ? FalconAxisName(slot)
+                        // Telemetry axes carry their names too (#531): Speed,
+                        // Brake, a custom variable's own.
+                        : isGameTelemetry ? NamedAxis(namedObjects, slot) : null;
                     RawAxes.Add(new AxisDisplayItem { Index = slot, Name = axisName ?? string.Format(Strings.Instance.Devices_Axis_Format, slot) });
                 }
             }
@@ -1035,6 +1078,10 @@ namespace PadForge.ViewModels
             HeadTrackerStatus = string.Empty;
             HeadTrackerStatusVersion = -1;
             HeadTrackerStatusDevice = null;
+            IsGameTelemetryDevice = false;
+            GameTelemetryStatus = string.Empty;
+            GameTelemetryStatusVersion = -1;
+            GameTelemetryStatusDevice = null;
             HandheldButtons.Clear();
             ConsumerButtons.Clear();
             LiveMidi = null;

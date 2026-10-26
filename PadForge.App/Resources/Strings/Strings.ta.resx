@@ -4240,7 +4240,7 @@ PadForge இப்போதே அவற்றை நிறுவல் நீ�
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move ரிப்போர்ட் அமைப்புகள், சென்சார் அளவுத்திருத்தம், EXT துணைக்கருவி ஹேண்ட்ஷேக், Thomas Perl உருவாக்கியவை, moveonpc விக்கியுடன் சரிபார்க்கப்பட்டவை. PadForge-இன் செயலாக்கம் புதிதாக எழுதப்பட்ட C#. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>ரேசிங் டெலிமெட்ரி மேற்கோள்கள்</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>வீல் RPM ஷிஃப்ட் LED-களுக்குப் பின்னால் உள்ள பகிர்ந்த நினைவக மற்றும் UDP அமைப்புகள், இவற்றிலிருந்து படிக்கப்பட்டவை: assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0). GPL அல்லது LGPL குறியீடு எதுவும் சேர்க்கப்படவில்லை.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>கேம் டெலிமெட்ரி மற்றும் வீல் RPM ஷிஃப்ட் LED-களுக்குப் பின்னால் உள்ள பகிர்ந்த நினைவக மற்றும் UDP அமைப்புகள், இவற்றிலிருந்து படிக்கப்பட்டவை: assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT), vAzhureRacingHub (GPL-3.0). GPL அல்லது LGPL குறியீடு எதுவும் சேர்க்கப்படவில்லை.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth இணைசேர்ப்பு மற்றும் ரிப்போர்ட் ஆவணம். GPL-2.0 மற்றும் GPL-3.0, ஆவணமாக மட்டுமே படிக்கப்பட்டது, GPL குறியீடு எதுவும் சேர்க்கப்படவில்லை.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ PadForge இப்போதே அவற்றை நிறுவல் நீ�
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>விசை வரம்பை மீட்டமை</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>எட்டும் தொலைவை அளவுத்திருத்து</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>கைப்பிடி எவ்வளவு தூரம் நகர்கிறது என்பதை அளக்கிறது. அளவீடு நடக்கும் நான்கு வினாடிகளுக்கு அதன் எட்டும் தொலைவின் ஒவ்வொரு விளிம்புக்கும் நகர்த்துங்கள். அந்த நேரத்தில் விசைகள் ஓய்வில் இருக்கும்.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>கேம் டெலிமெட்ரி</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>கேம் டெலிமெட்ரி</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>ஓட்டுதல் கேம்கள் அனுப்பும் டெலிமெட்ரியையும் Assetto Corsa-வின் பகிர்ந்த நினைவகத்தையும் சாதனங்கள் பக்கத்தின் கேம் டெலிமெட்ரி வரிசையில் காட்டுகிறது. அதன் வேகம், பெடல்கள், கியர்களை எந்த உள்ளீட்டையும் போல மேப் செய்யலாம், அவற்றால் மேக்ரோக்களை இயக்கலாம் அல்லது தனிப்பயன் கோவையில் சோதிக்கலாம். இது செவிமடுக்கும் போது, வீலின் RPM ஷிஃப்ட் LED-களும் கேமை இங்கிருந்தே படிக்கும்.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>கேம் டெலிமெட்ரியைச் செவிமடு</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>கேம்</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>தானாகக் கண்டறி பாக்கெட்டுகளைக் கொண்டு கேமை அறியும். Project CARS 2 மற்றும் Automobilista 2 அல்லது டிரக் சிமுலேட்டர்களைத் தேர்ந்தெடுத்தால், அந்த கேம்கள் எப்போதும் அனுப்பும் போர்ட்டும் அமைக்கப்படும்.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>கேம் டெலிமெட்ரி போர்ட்</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>போர்ட்டுக்கு அனுப்பு</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>ஒவ்வொரு பாக்கெட்டையும் இந்த PC-யிலுள்ள இந்த போர்ட்டுக்கும் நகலெடுக்கிறது, அதனால் SimHub போன்ற மற்றொரு நிரலும் அதைத் தொடர்ந்து பெறும். 0 எதையும் அனுப்பாது.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>முழு வேகம் (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>வேக அச்சை முழுவதும் நகர்த்தும் வேகம்.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>தனிப்பயன் வடிவங்கள்…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge அறியாத கேமின் பாக்கெட்டுகளை புலம் புலமாக விவரிக்கிறது.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>ஒவ்வொரு கேமிலும் டெலிமெட்ரி வெளியீட்டை இயக்கி, இந்த PC-யையும் போர்ட்டையும் குறிப்பிடுங்கள். F1, Codemasters கேம்கள், EA SPORTS WRC ஆகியவை மாற்றாவிட்டால் 20777-ஐப் பயன்படுத்தும். Project CARS 2, Automobilista 2 எப்போதும் 5606-ஐயும், டிரக் சிமுலேட்டர்களுக்கான MrHokss-இன் செருகுநிரல் 49001-ஐயும் பயன்படுத்தும். Assetto Corsa, ACC-க்கு போர்ட் தேவையில்லை.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>தானாகக் கண்டறி</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport மற்றும் Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 முதல் F1 25 வரை</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 மற்றும் பிற Codemasters கேம்கள்</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive மற்றும் Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 மற்றும் Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa மற்றும் Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 மற்றும் American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (தனிப்பயன்)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP போர்ட் {0}-இல் கேமுக்காகக் காத்திருக்கிறது.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP போர்ட் {0}-இல் செவிமடுக்கிறது. {2}-இலிருந்து {1}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP போர்ட் {0} மற்றொரு நிரலால் பயன்படுத்தப்படுகிறது.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>பகிர்ந்த நினைவகத்திலிருந்து {0}-ஐப் படிக்கிறது.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa அல்லது Assetto Corsa Competizione-க்காகக் காத்திருக்கிறது.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>போர்ட் {0}-க்கு அனுப்புகிறது.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>தனிப்பயன் டெலிமெட்ரி வடிவங்கள்</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>ஒரு கேம் அனுப்பும் பாக்கெட்டுகளை புலம் புலமாக விவரியுங்கள், PadForge அந்த கேமையும் படிக்கும். ஒவ்வொரு மாறியும் கேம் டெலிமெட்ரி வரிசையில் ஓர் அச்சாகவும், தனிப்பயன் கோவை தூண்டுதல்களுக்கு ஒரு சேனலாகவும் மாறும். கேம் பட்டியலில் வடிவத்தைப் பெயரால் தேர்ந்தெடுங்கள், அல்லது தானாகக் கண்டறி அதைக் கண்டுபிடிக்க நீளத்தையோ கீயையோ கொடுங்கள்.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>வடிவத்தைச் சேர்</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>வடிவம் {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>பெயர்</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>பாக்கெட்டுகள்</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>பைனரி</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>நீளம் (பைட்டுகள்)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>சரியாக இத்தனை பைட்டுகள் கொண்ட பாக்கெட்டுகள் மட்டுமே இந்த வடிவத்தில் படிக்கப்படும். 0 எனில் எந்த பாக்கெட்டும் படிக்கப்படும், தானாகக் கண்டறி இந்த வடிவத்தைத் தவிர்க்கும், எனவே பெயரால் தேர்ந்தெடுங்கள்.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>தேவையான கீ</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>இந்த கீ உள்ள JSON பாக்கெட்டுகள் மட்டுமே இந்த வடிவத்தில் படிக்கப்படும். காலியாக விட்டால் எந்த பாக்கெட்டும் படிக்கப்படும், தானாகக் கண்டறி இந்த வடிவத்தைத் தவிர்க்கும், எனவே பெயரால் தேர்ந்தெடுங்கள்.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>பிக்-எண்டியன்</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>பாக்கெட் ஒவ்வொரு எண்ணையும் மிக முக்கிய பைட்டை முதலில் வைத்து எழுதுகிறது. PC-யில் உள்ள கேம்கள் கிட்டத்தட்ட எப்போதும் குறைந்த முக்கிய பைட்டை முதலில் எழுதும்.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>கியர் மதிப்புகள்</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>கியர் புலத்தில் ரிவர்ஸ், நியூட்ரலுக்குத் தனி எண்கள் உள்ளன, Forza-வின் 0 மற்றும் 11 போல. இது அணைந்திருந்தால், எதிர்மறை கியர் ரிவர்ஸ், 0 நியூட்ரல்.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>ரிவர்ஸ்</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>நியூட்ரல்</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>புலங்கள்</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>ஒவ்வொரு புலமும் அதன் ஆஃப்செட்டில், அல்லது JSON-இல் அதன் கீயின் கீழ் (புள்ளிகள் உள்ளமை பொருள்களுக்குள் செல்லும்) ஓர் எண்ணைப் படித்து, அளவுகோலால் பெருக்கும். அளவுகோலுக்குப் பிறகு, வேகம் km/h-இல் இருக்கும், பெடல்கள் 0 முதல் 1 வரை, ஸ்டீயரிங் முழு இடதில் -1 முதல் முழு வலதில் 1 வரை செல்லும். ஒரு மாறியின் அச்சு ஓய்வில் அதன் குறைந்தபட்சத்திலிருந்து முழுவில் அதன் அதிகபட்சம் வரை செல்லும்.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>படிக்கும் இடம்</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>மாறிப் பெயர்</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>ஆஃப்செட்</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>வகை</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON கீ</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>அளவுகோல்</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>குறைந்தபட்சம்</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>அதிகபட்சம்</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>புலத்தைச் சேர்</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>புலத்தை நீக்கு</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>வடிவம் {0}-க்கு : அல்லது | இல்லாத பெயர் தேவை.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>இரண்டு வடிவங்களுக்கு {0} என்று பெயரிடப்பட்டுள்ளது.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0}-இல் உள்ள மாறிக்கு : அல்லது | இல்லாத பெயர் தேவை.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0}-இல் உள்ள ஒரு புலம் அதன் {1}-பைட் பாக்கெட்டின் முடிவைத் தாண்டிப் படிக்கிறது.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0}-இல் உள்ள ஒரு புலத்திற்கு JSON கீ தேவை.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>மாறி</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>வேகம் (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>அதிகபட்ச RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>கியர்</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>த்ராட்டில் (0 முதல் 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>பிரேக் (0 முதல் 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>கிளட்ச் (0 முதல் 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>ஹேண்ட்பிரேக் (0 முதல் 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>ஸ்டீயரிங் (-1 முதல் 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>ஓட்டுதல் (0 அல்ல)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>கேம் டெலிமெட்ரி</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>வேகம் (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (அதிகபட்சத்தின் %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>கியர் (-1 ரிவர்ஸ், 0 நியூட்ரல்)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>த்ராட்டில் (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>பிரேக் (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>கிளட்ச் (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>ஹேண்ட்பிரேக் (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>ஸ்டீயரிங் (-100 இடது முதல் 100 வலது வரை)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>ஓட்டுதல் (1 அல்லது 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>அடாப்டிவ் டிரிகர் விளைவு</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>அடாப்டிவ் டிரிகர் விளைவை நிறுத்து</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>இந்த ஸ்லாட்டின் டிரிகர்களில் DualSense அடாப்டிவ் டிரிகர் விளைவை இயக்குகிறது. விளைவுகள் DSX-க்கான கேம் மோட்கள் அனுப்புபவையே.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>தேர்ந்தெடுத்த டிரிகரில் மேக்ரோ பிடித்திருக்கும் அடாப்டிவ் டிரிகர் விளைவை முடிக்கிறது. நிறுத்தும் வரை நீடிக்கும் விளைவுடன் இணைத்துப் பயன்படுத்துங்கள்.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>டிரிகர்</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>வலது (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>இடது (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>இரண்டும் (L2 மற்றும் R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>விளைவு</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>ஆஃப்</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>வில்</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>குதிரை ஓட்டம்</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>இயந்திரம்</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>மிக மென்மை</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>மென்மை</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>நடுத்தரம்</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>கடினம்</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>மிகக் கடினம்</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>உச்சக் கடினம்</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>இறுக்கம்</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>துண்டிப்பு</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>அதிர்வுத் துடிப்பு</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>தொடக்க மண்டலம்</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>முடிவு மண்டலம்</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>ஸ்னாப் வலிமை</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>முதல் அடி</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>இரண்டாம் அடி</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>வலிமை A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>வலிமை B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>காலம் (வினாடியின் பத்தில் ஒரு பங்கு)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>தொடக்க வலிமை</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>முடிவு வலிமை</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>மண்டலம் {0} வலிமை</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>இந்த மதிப்புகள் எந்த விளைவையும் உருவாக்கவில்லை, எனவே செயல் எதையும் இயக்காது. முடிவு மண்டலம் தொடக்க மண்டலத்தைத் தாண்டியிருக்க வேண்டும், இரண்டாம் அடி முதல் அடியைத் தாண்டியிருக்க வேண்டும்.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>நீடிப்பு</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>மேக்ரோவின் டிரிகர் பிடிக்கப்பட்டிருக்கும் வரை</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>குறிப்பிட்ட நேரத்திற்கு</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>நிறுத்தும் வரை</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>நேரம்</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>இந்த ஸ்லாட்டில் உள்ள ஒவ்வொரு DualSense மற்றும் DualSense Edge-லும் இயங்கும். கேமின் சொந்த டிரிகர் விளைவும் கேம் மோடின் விளைவும் முன்னுரிமை பெறும், விளைவு முடிந்ததும் அடாப்டிவ் டிரிகர்கள் தாவலின் அமைப்பு திரும்பும். மண்டலங்கள் ஓய்வில் 0 முதல் முழு இழுப்பில் 9 வரை செல்லும். வில், குதிரை ஓட்டம், இயந்திரம் ஆகியவை அதிகாரப்பூர்வ DualSense விளைவுகள் அல்ல, நிலைபொருள் புதுப்பிப்பு அவற்றை நீக்கக்கூடும். அடாப்டிவ் டிரிகர் அதிர்வுகளை மாற்று இயக்கப்பட்ட Xbox கட்டுப்படுத்திகள் அதிர்வு விளைவுகளை டிரிகர் அதிர்வாக உணரும்.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1}: {0}, {2} ms-க்கு</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{1}: {0}, பிடித்திருக்கும் வரை</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{1}: {0}, நிறுத்தும் வரை</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>டிரிகர் விளைவை நிறுத்து: {0}</value></data>
 </root>

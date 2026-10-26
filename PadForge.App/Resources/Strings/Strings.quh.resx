@@ -1335,4 +1335,78 @@
   <data name="Pad_Falcon_Button3" xml:space="preserve"><value>Botón 3</value></data>
   <data name="Pad_Falcon_Button4" xml:space="preserve"><value>Botón 4</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Pukllay telemetría</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Pukllay telemetría</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Pukllay telemetríata uyariy</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Pukllay</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Pukllay telemetríap puerton</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Puertoman apachiy</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport, Forza Horizon ima</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22-manta F1 25-kama</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0, wak Codemasters pukllaykuna ima</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive, Live for Speed ima</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2, Automobilista 2 ima</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa, Assetto Corsa Competizione ima</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2, American Truck Simulator ima</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP {0} puertopi huk pukllayta suyachkan.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP {0} puertota wak programa llamk'achichkan.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa-ta utaq Assetto Corsa Competizione-ta suyachkan.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>{0} puertoman apachichkan.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Formatota yapay</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Formato {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Suti</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paquetekuna</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binario</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Qhipaman</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Neutro</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Campokuna</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Variablep sutin</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Laya</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Escala</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Campota yapay</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Campota qhichuy</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Iskay formatokuna {0} sutiyuq.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variable</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Velocidad (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Cambio</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Acelerador (0-manta 1-kama)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Freno (0-manta 1-kama)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Embrague (0-manta 1-kama)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Freno de mano (0-manta 1-kama)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Volante (-1-manta 1-kama)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Pukllay telemetría</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Velocidad (mph)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Cambio (-1 qhipaman, 0 neutro)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Acelerador (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Freno (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Embrague (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Freno de mano (%)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Gatillo</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Paña (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Lluq'i (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Iskayninku (L2, R2 ima)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efecto</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Wañuchisqa</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Máquina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Ancha llamp'u</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Llamp'u</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Chawpi</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Qallariy zona</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Tukukuy zona</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Kallpa A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Kallpa B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Qallariypi kallpa</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Tukukuypi kallpa</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Zona {0}: kallpa</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Sayachinankama</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Tiempo</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}, {1}-pi, {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}, {1}-pi, hap'isqa kachkaptin</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}, {1}-pi, sayachinankama</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Gatillo efectota {0}-pi sayachiy</value></data>
 </root>

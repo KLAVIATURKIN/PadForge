@@ -29,6 +29,8 @@ namespace PadForge.ViewModels
             // language's word, the audio mirror picker's old defect. A list
             // nobody has read yet is built in the new language anyway.
             if (_openXrRuntimes != null) RefreshOpenXrRuntimes();
+            // The game picker's entries are built from strings (#531).
+            foreach (var option in GameTelemetryOptions) option.RaiseDisplayChanged();
         }
 
         // ─────────────────────────────────────────────
@@ -341,6 +343,238 @@ namespace PadForge.ViewModels
         {
             get => _isGameModServerRunning;
             set => SetProperty(ref _isGameModServerRunning, value);
+        }
+
+        // ─────────────────────────────────────────────
+        //  Game Telemetry (#531)
+        // ─────────────────────────────────────────────
+        // A UDP listener for the telemetry driving games send, plus Assetto
+        // Corsa's shared memory, surfaced as the Game Telemetry row. The
+        // setters mirror into GameTelemetryRuntime, the head tracking card's
+        // shape, so a change lands whoever writes it. The switch, the port,
+        // the game, the forward port and Full Speed ride profiles. The custom
+        // formats are one list for every profile.
+
+        private bool _enableGameTelemetry;
+
+        /// <summary>Whether the Game Telemetry row listens.</summary>
+        public bool EnableGameTelemetry
+        {
+            get => _enableGameTelemetry;
+            set
+            {
+                if (SetProperty(ref _enableGameTelemetry, value))
+                    PadForge.Common.Input.Telemetry.GameTelemetryRuntime.Enabled = value;
+            }
+        }
+
+        private int _gameTelemetryPort = PadForge.Common.Input.Telemetry.GameTelemetryRuntime.DefaultPort;
+
+        /// <summary>The UDP port the games send to (default 20777).</summary>
+        public int GameTelemetryPort
+        {
+            get => _gameTelemetryPort;
+            set
+            {
+                int v = Math.Clamp(value, 1024, 65535);
+                if (SetProperty(ref _gameTelemetryPort, v))
+                    PadForge.Common.Input.Telemetry.GameTelemetryRuntime.Port = v;
+            }
+        }
+
+        private RelayCommand _resetGameTelemetryPortCommand;
+        public RelayCommand ResetGameTelemetryPortCommand =>
+            _resetGameTelemetryPortCommand ??= new RelayCommand(() =>
+                GameTelemetryPort = PadForge.Common.Input.Telemetry.GameTelemetryRuntime.DefaultPort);
+
+        private PadForge.Common.Input.Telemetry.GameTelemetryFormat _gameTelemetryFormat;
+
+        /// <summary>The game picked, or Auto. Picking Project CARS 2 or the
+        /// ETS2 plugin moves the port to the one that sender is fixed to.</summary>
+        public PadForge.Common.Input.Telemetry.GameTelemetryFormat GameTelemetryFormat
+        {
+            get => _gameTelemetryFormat;
+            set
+            {
+                if (!SetProperty(ref _gameTelemetryFormat, value)) return;
+                PadForge.Common.Input.Telemetry.GameTelemetryRuntime.Format = value;
+                OnPropertyChanged(nameof(SelectedGameTelemetryOption));
+            }
+        }
+
+        private string _gameTelemetryCustomFormat = string.Empty;
+
+        /// <summary>The custom format read while the game is Custom.</summary>
+        public string GameTelemetryCustomFormat
+        {
+            get => _gameTelemetryCustomFormat;
+            set
+            {
+                if (!SetProperty(ref _gameTelemetryCustomFormat, value ?? string.Empty)) return;
+                PadForge.Common.Input.Telemetry.GameTelemetryRuntime.CustomFormatName = _gameTelemetryCustomFormat;
+                OnPropertyChanged(nameof(SelectedGameTelemetryOption));
+            }
+        }
+
+        /// <summary>Auto, each game family, then each custom format.</summary>
+        public ObservableCollection<GameTelemetryOption> GameTelemetryOptions { get; } = BuildGameTelemetryOptions(null);
+
+        /// <summary>The picker's selection, the pair of the game and the
+        /// custom format's name.</summary>
+        public GameTelemetryOption SelectedGameTelemetryOption
+        {
+            get
+            {
+                foreach (var option in GameTelemetryOptions)
+                    if (option.Matches(_gameTelemetryFormat, _gameTelemetryCustomFormat)) return option;
+                return GameTelemetryOptions.Count > 0 ? GameTelemetryOptions[0] : null;
+            }
+            set
+            {
+                if (value == null) return;
+                GameTelemetryCustomFormat = value.CustomName;
+                GameTelemetryFormat = value.Format;
+                // These two senders cannot change their port.
+                if (value.Format == PadForge.Common.Input.Telemetry.GameTelemetryFormat.ProjectCars2)
+                    GameTelemetryPort = PadForge.Common.Input.Telemetry.GameTelemetryRuntime.ProjectCars2Port;
+                else if (value.Format == PadForge.Common.Input.Telemetry.GameTelemetryFormat.TruckSimulator)
+                    GameTelemetryPort = PadForge.Common.Input.Telemetry.GameTelemetryRuntime.TruckSimulatorPort;
+            }
+        }
+
+        private RelayCommand _resetGameTelemetryGameCommand;
+        public RelayCommand ResetGameTelemetryGameCommand =>
+            _resetGameTelemetryGameCommand ??= new RelayCommand(() =>
+            {
+                GameTelemetryCustomFormat = string.Empty;
+                GameTelemetryFormat = PadForge.Common.Input.Telemetry.GameTelemetryFormat.Auto;
+            });
+
+        private int _gameTelemetryForwardPort;
+
+        /// <summary>The port every packet is copied to on 127.0.0.1, 0 for none.</summary>
+        public int GameTelemetryForwardPort
+        {
+            get => _gameTelemetryForwardPort;
+            set
+            {
+                int v = Math.Clamp(value, 0, 65535);
+                if (SetProperty(ref _gameTelemetryForwardPort, v))
+                    PadForge.Common.Input.Telemetry.GameTelemetryRuntime.ForwardPort = v;
+            }
+        }
+
+        private RelayCommand _resetGameTelemetryForwardPortCommand;
+        public RelayCommand ResetGameTelemetryForwardPortCommand =>
+            _resetGameTelemetryForwardPortCommand ??= new RelayCommand(() => GameTelemetryForwardPort = 0);
+
+        private int _gameTelemetryFullSpeed = PadForge.Common.Input.Telemetry.GameTelemetryRuntime.DefaultFullSpeedKmh;
+
+        /// <summary>The speed, in km/h, that moves the Speed axis all the way.</summary>
+        public int GameTelemetryFullSpeed
+        {
+            get => _gameTelemetryFullSpeed;
+            set
+            {
+                int v = Math.Clamp(value, 10, 1000);
+                if (SetProperty(ref _gameTelemetryFullSpeed, v))
+                    PadForge.Common.Input.Telemetry.GameTelemetryRuntime.FullSpeedKmh = v;
+            }
+        }
+
+        private RelayCommand _resetGameTelemetryFullSpeedCommand;
+        public RelayCommand ResetGameTelemetryFullSpeedCommand =>
+            _resetGameTelemetryFullSpeedCommand ??= new RelayCommand(() =>
+                GameTelemetryFullSpeed = PadForge.Common.Input.Telemetry.GameTelemetryRuntime.DefaultFullSpeedKmh);
+
+        private System.Collections.Generic.List<PadForge.Common.Input.Telemetry.CustomTelemetryFormat> _gameTelemetryFormats = new();
+
+        /// <summary>The custom formats. Setting them rebuilds the picker and
+        /// reopens the row, whose axes follow the variables.</summary>
+        public System.Collections.Generic.List<PadForge.Common.Input.Telemetry.CustomTelemetryFormat> GameTelemetryFormats
+        {
+            get => _gameTelemetryFormats;
+            set
+            {
+                _gameTelemetryFormats = value ?? new();
+                PadForge.Common.Input.Telemetry.GameTelemetryRuntime.Formats = _gameTelemetryFormats.ToArray();
+                // The expression variables' picker lists the variables.
+                TelemetryChannelOptions.Refresh();
+                var rebuilt = BuildGameTelemetryOptions(_gameTelemetryFormats);
+                GameTelemetryOptions.Clear();
+                foreach (var option in rebuilt) GameTelemetryOptions.Add(option);
+                // A deleted or renamed format leaves nothing to read, so the
+                // picker goes back to Auto-Detect rather than show a game
+                // that is not listening.
+                if (_gameTelemetryFormat == PadForge.Common.Input.Telemetry.GameTelemetryFormat.Custom)
+                {
+                    bool found = false;
+                    foreach (var option in GameTelemetryOptions)
+                        if (option.Matches(_gameTelemetryFormat, _gameTelemetryCustomFormat)) { found = true; break; }
+                    if (!found)
+                    {
+                        GameTelemetryCustomFormat = string.Empty;
+                        GameTelemetryFormat = PadForge.Common.Input.Telemetry.GameTelemetryFormat.Auto;
+                    }
+                }
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(SelectedGameTelemetryOption));
+            }
+        }
+
+        /// <summary>Applies a saved game, port, forward port and Full Speed,
+        /// from the settings file or a profile, the switch excepted (its
+        /// caller sets it last). A custom game whose format is gone reads as
+        /// Auto-Detect, and an out-of-range number keeps the current value,
+        /// the port rule every other card's load follows.</summary>
+        public void ApplyGameTelemetrySettings(PadForge.Common.Input.Telemetry.GameTelemetryFormat format,
+            string customName, int port, int forwardPort, int fullSpeed)
+        {
+            if (!Enum.IsDefined(format)) format = PadForge.Common.Input.Telemetry.GameTelemetryFormat.Auto;
+            bool known = format != PadForge.Common.Input.Telemetry.GameTelemetryFormat.Custom;
+            if (!known)
+                foreach (var option in GameTelemetryOptions)
+                    if (option.Matches(format, customName)) { known = true; break; }
+            GameTelemetryCustomFormat = known && format == PadForge.Common.Input.Telemetry.GameTelemetryFormat.Custom
+                ? customName ?? string.Empty : string.Empty;
+            GameTelemetryFormat = known ? format : PadForge.Common.Input.Telemetry.GameTelemetryFormat.Auto;
+            if (port >= 1024 && port <= 65535) GameTelemetryPort = port;
+            if (forwardPort >= 0 && forwardPort <= 65535) GameTelemetryForwardPort = forwardPort;
+            if (fullSpeed >= 10 && fullSpeed <= 1000) GameTelemetryFullSpeed = fullSpeed;
+        }
+
+        private static ObservableCollection<GameTelemetryOption> BuildGameTelemetryOptions(
+            System.Collections.Generic.IEnumerable<PadForge.Common.Input.Telemetry.CustomTelemetryFormat> formats)
+        {
+            var list = new ObservableCollection<GameTelemetryOption>();
+            foreach (PadForge.Common.Input.Telemetry.GameTelemetryFormat format in Enum.GetValues(typeof(PadForge.Common.Input.Telemetry.GameTelemetryFormat)))
+                if (format != PadForge.Common.Input.Telemetry.GameTelemetryFormat.Custom)
+                    list.Add(new GameTelemetryOption(format, string.Empty));
+            if (formats != null)
+                foreach (var custom in formats)
+                    if (custom != null && PadForge.Common.Input.Telemetry.CustomTelemetryFormat.IsValidName(custom.Name))
+                        list.Add(new GameTelemetryOption(PadForge.Common.Input.Telemetry.GameTelemetryFormat.Custom, custom.Name));
+            return list;
+        }
+
+        private string _gameTelemetryStatus = Strings.Instance.Common_Stopped;
+
+        /// <summary>The listener's line: the game it hears, or why it hears
+        /// nothing.</summary>
+        public string GameTelemetryStatus
+        {
+            get => _gameTelemetryStatus;
+            set => SetProperty(ref _gameTelemetryStatus, value ?? Strings.Instance.Common_Stopped);
+        }
+
+        private bool _isGameTelemetryRunning;
+
+        /// <summary>Serving truth for the card's flame: the row is open,
+        /// whatever the switch says.</summary>
+        public bool IsGameTelemetryRunning
+        {
+            get => _isGameTelemetryRunning;
+            set => SetProperty(ref _isGameTelemetryRunning, value);
         }
 
         // ─────────────────────────────────────────────

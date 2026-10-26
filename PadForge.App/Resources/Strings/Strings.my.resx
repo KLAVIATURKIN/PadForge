@@ -4210,7 +4210,7 @@ PadForge က ၎င်းတို့ကို ယခုပင် ဖြုတ�
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move report အပြင်အဆင်များ၊ အာရုံခံကိရိယာ ချိန်ညှိခြင်းနှင့် EXT accessory handshake၊ ရေးသားသူ Thomas Perl၊ moveonpc wiki နှင့် အပြန်အလှန်စစ်ဆေးထားသည်။ PadForge ၏ အကောင်အထည်ဖော်မှုသည် မူရင်း C# ဖြစ်သည်။ BSD 2-Clause။</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>ကားပြိုင် telemetry ကိုးကားချက်များ</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>စတီယာရင်ဘီး RPM shift LED များ နောက်ကွယ်ရှိ shared-memory နှင့် UDP အပြင်အဆင်များကို assettocorsasharedmemory (MIT)၊ forza-data-web (Apache-2.0)၊ forza-telemetry (MIT)၊ InSim.NET (LGPL-2.1)၊ irsdkSharp (MIT)၊ IRSDKSharper (GPL-3.0)၊ out-gauge-cluster (Apache-2.0)၊ pyirsdk (MIT)၊ rF2SharedMemoryMapPlugin (GPL-3.0)၊ rFactorSharedMemoryMap (GPL-2.0)၊ rust_ams2_sharedmem၊ scs-sdk-plugin (MIT) နှင့် simapi (LGPL-3.0) မှ ဖတ်ရှုထားသည်။ GPL သို့မဟုတ် LGPL ကုဒ် မပါဝင်ပါ။</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ဂိမ်း တယ်လီမီထရီနှင့် စတီယာရင်ဘီး RPM shift LED များ နောက်ကွယ်ရှိ shared-memory နှင့် UDP အပြင်အဆင်များကို assettocorsasharedmemory (MIT)၊ CMTelemetry၊ dirt-rally-telemetry-dashboard (MIT)၊ ets2-telemetry-udp (MIT)၊ f1-24-udp (MIT)၊ fh6-tel (MIT)၊ forza-data-web (Apache-2.0)၊ forza-telemetry (MIT)၊ Forza-Telemetry-Splitter (MIT)၊ InSim.NET (LGPL-2.1)၊ irsdkSharp (MIT)၊ IRSDKSharper (GPL-3.0)၊ out-gauge-cluster (Apache-2.0)၊ PCars2UdpNet (MIT)၊ project-cars-2-udp (MIT)၊ pyirsdk (MIT)၊ rF2SharedMemoryMapPlugin (GPL-3.0)၊ rFactorSharedMemoryMap (GPL-2.0)၊ rust_ams2_sharedmem၊ scs-sdk-plugin (MIT)၊ simapi (LGPL-3.0)၊ tm-bt-led (MIT) နှင့် vAzhureRacingHub (GPL-3.0) မှ ဖတ်ရှုထားသည်။ GPL သို့မဟုတ် LGPL ကုဒ် မပါဝင်ပါ။</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth တွဲချိတ်ခြင်းနှင့် report စာရွက်စာတမ်း။ GPL-2.0 နှင့် GPL-3.0၊ စာရွက်စာတမ်းအဖြစ်သာ ဖတ်ရှုထားပြီး GPL ကုဒ် မပါဝင်ပါ။</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4451,4 +4451,132 @@ PadForge က ၎င်းတို့ကို ယခုပင် ဖြုတ�
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>အားကန့်သတ်ချက် ပြန်လည်သတ်မှတ်</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>ရွေ့လျားအကွာအဝေး ချိန်ညှိ</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>လက်ကိုင် မည်မျှ ရွေ့နိုင်သည်ကို တိုင်းတာသည်။ တိုင်းတာမှု ကြာသော လေးစက္ကန့်အတွင်း ၎င်းကို ရွေ့လျားအကွာအဝေး၏ အစွန်းတိုင်းသို့ ရွှေ့ပါ။ ထိုအတောအတွင်း အားများ ရပ်နားထားသည်။</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>ဂိမ်း တယ်လီမီထရီ</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>ဂိမ်း တယ်လီမီထရီ</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>ကားမောင်းဂိမ်းများ ပို့သည့် တယ်လီမီထရီနှင့် Assetto Corsa ၏ shared memory ကို စက်ပစ္စည်းများ စာမျက်နှာရှိ ဂိမ်း တယ်လီမီထရီ အတန်းပေါ်တွင် ပြသည်။ ၎င်း၏ အမြန်နှုန်း၊ ခြေနင်းများနှင့် ဂီယာများကို အခြား input များကဲ့သို့ မက်ပင်းလုပ်နိုင်သည်၊ ၎င်းတို့ဖြင့် မက်ခရိုများကို စတင်နိုင်သည် သို့မဟုတ် စိတ်ကြိုက် ဖော်ပြချက်တွင် စမ်းသပ်နိုင်သည်။ နားထောင်နေစဉ် စတီယာရင်ဘီး၏ RPM ဂီယာပြောင်း LED များသည်လည်း ဂိမ်းကို ဤနေရာမှ ဖတ်သည်။</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>ဂိမ်း တယ်လီမီထရီကို နားထောင်ရန်</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>ဂိမ်း</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>အလိုအလျောက် ရှာဖွေခြင်းသည် ဂိမ်းကို ၎င်း၏ packet များမှ ခွဲခြားသိရှိသည်။ Project CARS 2 နှင့် Automobilista 2 ကို သို့မဟုတ် ထရပ်ကား simulator များကို ရွေးပါက ထိုဂိမ်းများ အမြဲပို့သည့် ပေါ့တ်ကိုလည်း သတ်မှတ်ပေးသည်။</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>ဂိမ်း တယ်လီမီထရီ ပေါ့တ်</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>ပေါ့တ်သို့ လွှဲပို့ရန်</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>packet တိုင်းကို ဤ PC ရှိ ဤပေါ့တ်သို့ မိတ္တူကူးပို့သဖြင့် SimHub ကဲ့သို့ အခြားပရိုဂရမ်က ဆက်လက်လက်ခံနိုင်သည်။ 0 ဆိုလျှင် ဘာမှ မလွှဲပို့ပါ။</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>အပြည့် အမြန်နှုန်း (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>အမြန်နှုန်း ဝင်ရိုးကို အဆုံးထိ ရွှေ့စေသည့် အမြန်နှုန်း။</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>စိတ်ကြိုက် ဖော်မတ်များ…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge မသိသော ဂိမ်းတစ်ခု၏ packet များကို အကွက်တစ်ခုချင်းစီ ဖော်ပြသည်။</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>ဂိမ်းတစ်ခုစီတွင် တယ်လီမီထရီ အထွက်ကို ဖွင့်ပြီး ဤ PC နှင့် ပေါ့တ်သို့ ညွှန်ပါ။ F1၊ Codemasters ဂိမ်းများနှင့် EA SPORTS WRC သည် မပြောင်းလဲပါက 20777 ကို သုံးသည်၊ Project CARS 2 နှင့် Automobilista 2 သည် 5606 ကို အမြဲသုံးပြီး ထရပ်ကား simulator များအတွက် MrHokss ၏ plugin သည် 49001 ကို သုံးသည်။ Assetto Corsa နှင့် ACC တွင် ပေါ့တ် မလိုပါ။</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>အလိုအလျောက် ရှာဖွေခြင်း</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport နှင့် Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 မှ F1 25 အထိ</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 နှင့် အခြား Codemasters ဂိမ်းများ</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive နှင့် Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 နှင့် Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa နှင့် Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 နှင့် American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (စိတ်ကြိုက်)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP ပေါ့တ် {0} တွင် ဂိမ်းကို စောင့်နေသည်။</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP ပေါ့တ် {0} တွင် နားထောင်နေသည်။ {2} မှ {1}။</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP ပေါ့တ် {0} ကို အခြားပရိုဂရမ်က အသုံးပြုနေသည်။</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>{0} ကို shared memory မှ ဖတ်နေသည်။</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa သို့မဟုတ် Assetto Corsa Competizione ကို စောင့်နေသည်။</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>ပေါ့တ် {0} သို့ လွှဲပို့နေသည်။</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>စိတ်ကြိုက် တယ်လီမီထရီ ဖော်မတ်များ</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>ဂိမ်းတစ်ခု ပို့သည့် packet များကို အကွက်တစ်ခုချင်းစီ ဖော်ပြပါက PadForge သည် ထိုဂိမ်းကိုလည်း ဖတ်သည်။ ကိန်းရှင်တစ်ခုစီသည် ဂိမ်း တယ်လီမီထရီ အတန်းပေါ်ရှိ ဝင်ရိုးတစ်ခုနှင့် စိတ်ကြိုက် ဖော်ပြချက်ဖြင့် မက်ခရို စတင်ရာတွင် သုံးသည့် channel တစ်ခု ဖြစ်လာသည်။ ဂိမ်း စာရင်းတွင် ဖော်မတ်ကို အမည်ဖြင့် ရွေးပါ၊ သို့မဟုတ် အလိုအလျောက် ရှာဖွေခြင်း က ရှာတွေ့နိုင်ရန် အရှည် သို့မဟုတ် key တစ်ခု ပေးပါ။</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>ဖော်မတ် ထည့်ရန်</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>ဖော်မတ် {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>အမည်</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Packet များ</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>ဘိုင်နရီ</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>အရှည် (ဘိုက်)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>ဤဘိုက်အရေအတွက် အတိအကျရှိသော packet များကိုသာ ဤဖော်မတ်ဖြင့် ဖတ်သည်။ 0 ဆိုလျှင် မည်သည့် packet ကိုမဆို ဖတ်ပြီး အလိုအလျောက် ရှာဖွေခြင်း က ဤဖော်မတ်ကို မရွေးသဖြင့် အမည်ဖြင့် ရွေးပါ။</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>လိုအပ်သော key</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>ဤ key ပါသော JSON packet များကိုသာ ဤဖော်မတ်ဖြင့် ဖတ်သည်။ ဗလာထားပါက မည်သည့် packet ကိုမဆို ဖတ်ပြီး အလိုအလျောက် ရှာဖွေခြင်း က ဤဖော်မတ်ကို မရွေးသဖြင့် အမည်ဖြင့် ရွေးပါ။</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>packet သည် ကိန်းတစ်ခုစီကို အရေးအပါဆုံး ဘိုက်ကို ရှေ့ဆုံးထား၍ ရေးသည်။ PC ပေါ်ရှိ ဂိမ်းများသည် အရေးအပါအနည်းဆုံး ဘိုက်ကို ရှေ့ဆုံးထား၍ အမြဲနီးပါး ရေးကြသည်။</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>ဂီယာ တန်ဖိုးများ</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>ဂီယာ အကွက်တွင် Forza ၏ 0 နှင့် 11 ကဲ့သို့ နောက်ဆုတ်ဂီယာနှင့် နျူထရယ်အတွက် ကိုယ်ပိုင် ကိန်းများ ရှိသည်။ ဤအရာ ပိတ်ထားလျှင် အနုတ်ဂီယာသည် နောက်ဆုတ်ဂီယာ ဖြစ်ပြီး 0 သည် နျူထရယ် ဖြစ်သည်။</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>နောက်ဆုတ်</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>နျူထရယ်</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>အကွက်များ</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>အကွက်တစ်ခုစီသည် ၎င်း၏ ဘိုက်နေရာရှိ ကိန်းကို သို့မဟုတ် JSON တွင် ၎င်း၏ key အောက်ရှိ ကိန်းကို ဖတ်ပြီး (အစက်များဖြင့် အတွင်းထပ် object များထဲသို့ ရောက်နိုင်သည်) မြှောက်ကိန်းဖြင့် မြှောက်သည်။ မြှောက်ပြီးနောက် အမြန်နှုန်းသည် km/h ဖြင့် ဖြစ်ပြီး ခြေနင်းများသည် 0 မှ 1 အထိ၊ စတီယာရင်သည် ဘယ်ဘက်အဆုံး -1 မှ ညာဘက်အဆုံး 1 အထိ ဖြစ်သည်။ ကိန်းရှင်တစ်ခု၏ ဝင်ရိုးသည် ငြိမ်နေချိန် ၎င်း၏ အနည်းဆုံး မှ အပြည့်ရောက်ချိန် ၎င်း၏ အများဆုံး အထိ ဖြစ်သည်။</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>ဖတ်ထည့်မည့်နေရာ</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>ကိန်းရှင် အမည်</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>ဘိုက်နေရာ</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>အမျိုးအစား</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON key</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>မြှောက်ကိန်း</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>အနည်းဆုံး</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>အများဆုံး</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>အကွက် ထည့်ရန်</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>အကွက် ဖယ်ရှားရန်</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>ဖော်မတ် {0} တွင် : သို့မဟုတ် | မပါသော အမည် လိုအပ်သည်။</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>ဖော်မတ် နှစ်ခုကို {0} ဟု အမည်ပေးထားသည်။</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} ရှိ ကိန်းရှင်တစ်ခုတွင် : သို့မဟုတ် | မပါသော အမည် လိုအပ်သည်။</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} ရှိ အကွက်တစ်ခုသည် ၎င်း၏ {1} ဘိုက် packet ၏ အဆုံးကို ကျော်၍ ဖတ်နေသည်။</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} ရှိ အကွက်တစ်ခုတွင် JSON key လိုအပ်သည်။</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>ကိန်းရှင်</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>အမြန်နှုန်း (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>အများဆုံး RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>ဂီယာ</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>လီဗာ (0 မှ 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>ဘရိတ် (0 မှ 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>ကလပ် (0 မှ 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>လက်ဘရိတ် (0 မှ 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>စတီယာရင် (-1 မှ 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>မောင်းနှင်နေခြင်း (0 မဟုတ်)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>ဂိမ်း တယ်လီမီထရီ</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>အမြန်နှုန်း (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (အများဆုံး၏ %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>ဂီယာ (-1 နောက်ဆုတ်၊ 0 နျူထရယ်)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>လီဗာ (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>ဘရိတ် (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>ကလပ် (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>လက်ဘရိတ် (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>စတီယာရင် (-100 ဘယ် မှ 100 ညာ)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>မောင်းနှင်နေခြင်း (1 သို့မဟုတ် 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>အလိုက်သင့် ထရီဂါ အက်ဖက်</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>အလိုက်သင့် ထရီဂါ အက်ဖက် ရပ်</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>ဤဆလော့၏ ထရီဂါများပေါ်တွင် DualSense အလိုက်သင့် ထရီဂါ အက်ဖက်ကို ဖွင့်သည်။ ဤအက်ဖက်များသည် DSX အတွက် ဂိမ်းမော့ဒ်များ ပို့သည့် အက်ဖက်များ ဖြစ်သည်။</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>ရွေးထားသော ထရီဂါပေါ်တွင် မက်ခရိုတစ်ခု ထိန်းထားသည့် အလိုက်သင့် ထရီဂါ အက်ဖက်ကို အဆုံးသတ်သည်။ ရပ်သည်အထိ ထိန်းထားသည့် အက်ဖက်တစ်ခုနှင့် တွဲသုံးပါ။</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ထရီဂါ</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>ညာ (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>ဘယ် (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>နှစ်ခုလုံး (L2 နှင့် R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>အက်ဖက်</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>ပိတ်</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>လေးမြား</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>မြင်းပြေး</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>စက်</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>အလွန်ပျော့</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>ပျော့</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>အလယ်အလတ်</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>မာ</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>အလွန်မာ</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>အမာဆုံး</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>တောင့်တင်း</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>တဆတ်ဆတ်</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>တုန်ခါ ခုန်ချက်</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>စတင်ဇုန်</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>အဆုံးဇုန်</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>ပထမ ခြေထောက်</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>ဒုတိယ ခြေထောက်</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>အားကောင်းမှု A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>အားကောင်းမှု B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>ကာလ (တစ်စက္ကန့်၏ ဆယ်ပုံတစ်ပုံ)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>စတင် အားကောင်းမှု</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>အဆုံး အားကောင်းမှု</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>ဇုန် {0} အားကောင်းမှု</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>ဤတန်ဖိုးများဖြင့် အက်ဖက် မဖြစ်ပေါ်သဖြင့် လုပ်ဆောင်ချက်သည် ဘာမှ မဖွင့်ပါ။ အဆုံးဇုန်သည် ၎င်း၏ စတင်ဇုန်ကို ကျော်ရမည်ဖြစ်ပြီး ဒုတိယ ခြေထောက်သည် ပထမ ခြေထောက်ကို ကျော်ရမည်။</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>ထိန်းထားချိန်</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>မက်ခရို၏ အသက်သွင်းခလုတ်ကို ဖိထားစဉ်</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>သတ်မှတ်ချိန်အတွင်း</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>ရပ်သည်အထိ</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>အချိန်</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>ဤဆလော့ရှိ DualSense နှင့် DualSense Edge တိုင်းတွင် ဖွင့်သည်။ ဂိမ်း၏ ကိုယ်ပိုင် ထရီဂါ အက်ဖက်နှင့် ဂိမ်းမော့ဒ်၏ အက်ဖက်တို့က ဦးစားပေးခံရပြီး အက်ဖက် ပြီးဆုံးသောအခါ အလိုက်သင့် ထရီဂါများ တက်ဘ်၏ ဆက်တင် ပြန်လည်သက်ရောက်သည်။ ဇုန်များသည် ငြိမ်နေချိန် 0 မှ အပြည့်ဆွဲချိန် 9 အထိ ဖြစ်သည်။ လေးမြား၊ မြင်းပြေး နှင့် စက် တို့သည် တရားဝင် DualSense အက်ဖက်များ မဟုတ်သဖြင့် ဖမ်းဝဲ အပ်ဒိတ်တစ်ခုက ၎င်းတို့ကို ဖယ်ရှားနိုင်သည်။ “အလိုက်သင့်ထရီဂါ တုန်ခါမှုများကို ပြောင်းလဲအသုံးချရန်” ဖွင့်ထားသော Xbox ကွန်ထရိုလာများသည် တုန်ခါသည့် အက်ဖက်များကို ထရီဂါ တုန်ခါမှုအဖြစ် ခံစားရသည်။</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{2} ms ကြာ {1} ပေါ်တွင် {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>ဖိထားစဉ် {1} ပေါ်တွင် {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>ရပ်သည်အထိ {1} ပေါ်တွင် {0}</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>{0} ပေါ်ရှိ ထရီဂါ အက်ဖက် ရပ်</value></data>
 </root>

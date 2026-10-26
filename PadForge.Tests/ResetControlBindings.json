@@ -67,6 +67,12 @@
   },
   {
     "File": "PadForge.App/Views/DashboardPage.xaml",
+    "Id": "Reset_DashboardViewModel_EnableGameTelemetry_2300",
+    "Owner": "PadForge.ViewModels.DashboardViewModel",
+    "Property": "EnableGameTelemetry"
+  },
+  {
+    "File": "PadForge.App/Views/DashboardPage.xaml",
     "Id": "Reset_DashboardViewModel_EnableMenuOverlay_2023",
     "Owner": "PadForge.ViewModels.DashboardViewModel",
     "Property": "EnableMenuOverlay"
@@ -148,6 +154,12 @@
     "Id": "Reset_MacroExpressionVariable_Source_1644",
     "Owner": "PadForge.ViewModels.MacroExpressionVariable",
     "Property": "Source"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroExpressionVariable_TelemetryChannel_1648",
+    "Owner": "PadForge.ViewModels.MacroExpressionVariable",
+    "Property": "TelemetryChannel"
   },
   {
     "File": "PadForge.App/Views/PadPage.xaml",
@@ -436,6 +448,36 @@
     "Id": "Reset_MacroAction_RumbleFadeMs_2792",
     "Owner": "PadForge.ViewModels.MacroAction",
     "Property": "RumbleFadeMs"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_TriggerEffectSide_3300",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "TriggerEffectSide"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_TriggerEffectMode_3312",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "TriggerEffectMode"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_TriggerEffectHold_3349",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "TriggerEffectHold"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_TriggerEffectMs_3362",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "TriggerEffectMs"
+  },
+  {
+    "File": "PadForge.App/Views/PadPage.xaml",
+    "Id": "Reset_MacroAction_TriggerEffectSide_3384",
+    "Owner": "PadForge.ViewModels.MacroAction",
+    "Property": "TriggerEffectSide"
   },
   {
     "File": "PadForge.App/Views/PadPage.xaml",

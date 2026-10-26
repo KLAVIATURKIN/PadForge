@@ -294,6 +294,13 @@ namespace PadForge.Common.Input
             for (int i = 0; i < MaxPads; i++)
             {
                 var macros = MacroSnapshots[i];
+                // An effect held until its macro's trigger releases ends
+                // when that macro leaves the slot or is turned off (#531):
+                // neither reaches the release hook again.
+                var heldEffects = MacroTriggerEffects[i];
+                if (heldEffects.AnyOwned)
+                    heldEffects.ReleaseOwnersNotIn(owner => owner is MacroItem m && m.IsEnabled
+                        && macros != null && Array.IndexOf(macros, m) >= 0);
                 if (macros == null || macros.Length == 0)
                     continue;
 
@@ -854,6 +861,11 @@ namespace PadForge.Common.Input
                 // the stop leg).
                 if (triggerActive)
                     macro.ReleaseLingerStartUtc = DateTime.MinValue;
+                // An adaptive trigger effect held until this macro's
+                // trigger releases ends here (#531), whatever the run is
+                // doing: the effect follows the trigger, not the run.
+                else
+                    ReleaseHeldTriggerEffects(macro);
                 if (macro.IsExecuting &&
                     macro.TriggerMode != MacroTriggerMode.Always &&
                     // #238: Toggle and Turbo carry until-release semantics
@@ -1688,6 +1700,12 @@ namespace PadForge.Common.Input
             if (v.Source == MacroTriggerSource.OutputController)
                 return ReadOutputChannel(v.OutputChannel, in gp);
 
+            // A game's telemetry in its own units (#531). The row publishes
+            // it on its Step 2 read, earlier in this pass, and no slot needs
+            // the row assigned.
+            if (v.Source == MacroTriggerSource.GameTelemetry)
+                return Telemetry.GameTelemetryRuntime.Read(v.TelemetryChannel, v.TelemetryVariable);
+
             var ud = FindSlotDeviceByInstanceGuid(v.DeviceGuid, slotIndex);
             if (ud == null || !ud.IsOnline || ud.InputState == null) return 0f;
 
@@ -1731,6 +1749,9 @@ namespace PadForge.Common.Input
             if (v == null || !v.IsBound) return 0f;
             if (v.Source == MacroTriggerSource.OutputController)
                 return ReadOutputChannelRaw(v.OutputChannel, in raw);
+            // The gamepad lane's telemetry read, the same on every lane (#531).
+            if (v.Source == MacroTriggerSource.GameTelemetry)
+                return Telemetry.GameTelemetryRuntime.Read(v.TelemetryChannel, v.TelemetryVariable);
 
             var ud = FindSlotDeviceByInstanceGuid(v.DeviceGuid, slotIndex);
             if (ud == null || !ud.IsOnline || ud.InputState == null) return 0f;
@@ -3162,6 +3183,26 @@ namespace PadForge.Common.Input
                     break;
                 }
 
+                case MacroActionType.TriggerEffect:
+                {
+                    // Single-frame fire like Rumble (#531): hold the
+                    // program in the slot's store and advance. The
+                    // dispatcher writes it, and its time, the macro's
+                    // release or a Stop ends it.
+                    ApplyTriggerEffectAction(macro, action);
+                    AdvanceAction(macro);
+                    break;
+                }
+
+                case MacroActionType.TriggerEffectStop:
+                {
+                    int slotIndex = macro.PadIndex;
+                    if (slotIndex >= 0 && slotIndex < MaxPads)
+                        MacroTriggerEffects[slotIndex].Stop(action.TriggerEffectSide);
+                    AdvanceAction(macro);
+                    break;
+                }
+
                 case MacroActionType.PlaySound:
                 {
                     // Single-frame fire like Rumble: hand the file to the
@@ -3985,6 +4026,34 @@ namespace PadForge.Common.Input
                 if (holdMs == 0 && fadeMs == 0) holdMs = 1;
                 ovr.FireReactive(left, right, holdMs, fadeMs);
             }
+        }
+
+        /// <summary>Plays an Adaptive Trigger Effect action (#531): the
+        /// #529 encoder's block for the action's effect and values, held on
+        /// the slot for its time, until the macro's trigger releases, or
+        /// until a Stop. Values the encoder refuses (an end zone not past its
+        /// start) play nothing, and the editor says so.</summary>
+        private void ApplyTriggerEffectAction(MacroItem macro, MacroAction action)
+        {
+            int slotIndex = macro.PadIndex;
+            if (slotIndex < 0 || slotIndex >= MaxPads) return;
+            var block = ViewModels.TriggerEffectCatalog.Encode(action.TriggerEffectMode, action.TriggerEffectValues);
+            if (block == null) return;
+            long until = action.TriggerEffectHold == ViewModels.MacroTriggerEffectHold.Duration
+                ? Environment.TickCount64 + Math.Max(1, action.TriggerEffectMs)
+                : long.MaxValue;
+            object owner = action.TriggerEffectHold == ViewModels.MacroTriggerEffectHold.UntilRelease ? macro : null;
+            MacroTriggerEffects[slotIndex].Play(block, action.TriggerEffectSide, until, owner);
+        }
+
+        /// <summary>Ends the effects a macro holds until its trigger
+        /// releases. One volatile read while it holds none.</summary>
+        private void ReleaseHeldTriggerEffects(MacroItem macro)
+        {
+            int slotIndex = macro.PadIndex;
+            if (slotIndex < 0 || slotIndex >= MaxPads) return;
+            var held = MacroTriggerEffects[slotIndex];
+            if (held.AnyOwned) held.ReleaseOwner(macro);
         }
 
         /// <summary>Parses "RRGGBB,RRGGBB,..." into palette entries.
@@ -5023,6 +5092,11 @@ namespace PadForge.Common.Input
                 // linger mirrors the Gamepad-path block (translator v22).
                 if (triggerActive)
                     macro.ReleaseLingerStartUtc = DateTime.MinValue;
+                // An adaptive trigger effect held until this macro's
+                // trigger releases ends here (#531), whatever the run is
+                // doing: the effect follows the trigger, not the run.
+                else
+                    ReleaseHeldTriggerEffects(macro);
                 if (macro.IsExecuting &&
                     macro.TriggerMode != MacroTriggerMode.Always &&
                     // #238: Toggle and Turbo carry until-release semantics
@@ -5626,6 +5700,26 @@ namespace PadForge.Common.Input
                     int slotIndex = macro.PadIndex;
                     if (slotIndex >= 0 && slotIndex < MaxPads)
                         MacroTriggerRumbleOverrides[slotIndex].Clear();
+                    AdvanceAction(macro);
+                    break;
+                }
+
+                case MacroActionType.TriggerEffect:
+                {
+                    // Single-frame fire like Rumble (#531): hold the
+                    // program in the slot's store and advance. The
+                    // dispatcher writes it, and its time, the macro's
+                    // release or a Stop ends it.
+                    ApplyTriggerEffectAction(macro, action);
+                    AdvanceAction(macro);
+                    break;
+                }
+
+                case MacroActionType.TriggerEffectStop:
+                {
+                    int slotIndex = macro.PadIndex;
+                    if (slotIndex >= 0 && slotIndex < MaxPads)
+                        MacroTriggerEffects[slotIndex].Stop(action.TriggerEffectSide);
                     AdvanceAction(macro);
                     break;
                 }

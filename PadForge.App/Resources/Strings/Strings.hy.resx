@@ -4180,7 +4180,7 @@
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move-ի ռեպորտների դասավորությունները, սենսորների չափաբերումը և EXT աքսեսուարի ձեռքսեղմումը՝ Thomas Perl, ստուգված moveonpc վիքիով։ PadForge-ի իրականացումը օրիգինալ C# է։ BSD 2-Clause։</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Մրցավազքի հեռաչափության հղումներ</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Ընդհանուր հիշողության և UDP դասավորությունները ղեկի RPM փոխման LED-ների հիմքում, կարդացված assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) և simapi (LGPL-3.0) նախագծերից։ GPL կամ LGPL կոդ չի տեղակայվում։</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Ընդհանուր հիշողության և UDP դասավորությունները խաղի հեռաչափության և ղեկի RPM փոխման LED-ների հիմքում, կարդացված assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) և vAzhureRacingHub (GPL-3.0) նախագծերից։ GPL կամ LGPL կոդ չի տեղակայվում։</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3-ի Bluetooth զուգակցման և ռեպորտների փաստաթղթավորում։ GPL-2.0 և GPL-3.0, կարդացվել է միայն որպես փաստաթղթավորում, GPL կոդ չի տեղակայվում։</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4421,4 +4421,134 @@
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Վերականգնել ուժի սահմանը</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Չափաբերել տիրույթը</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Չափում է, թե որքան հեռու է շարժվում բռնակը։ Սկանավորման չորս վայրկյանի ընթացքում տեղափոխեք այն իր տիրույթի յուրաքանչյուր եզր։ Այդ ընթացքում ուժերը դադարում են։</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Խաղի հեռաչափություն</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Խաղի հեռաչափություն</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Վարման խաղերի ուղարկած հեռաչափությունը և Assetto Corsa-ի ընդհանուր հիշողությունը դնում է Սարքեր էջի «Խաղի հեռաչափություն» տողում։ Նրա արագությունը, ոտնակները և փոխանցումները կապակցեք ինչպես ցանկացած մուտք, դրանցով գործարկեք մակրոներ կամ ստուգեք Հարմարեցված արտահայտության մեջ։ Լսելու ընթացքում ղեկի RPM փոխման LED-ները խաղի տվյալները նույնպես կարդում են այստեղից։</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Լսել խաղի հեռաչափությունը</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Խաղ</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Ավտոմատ հայտնաբերումը խաղը որոշում է փաթեթներից։ Project CARS 2 և Automobilista 2 կամ բեռնատարների սիմուլյատորներն ընտրելիս սահմանվում է նաև այն պորտը, որին այդ խաղերը միշտ ուղարկում են։</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Խաղի հեռաչափության պորտ</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Փոխանցել պորտին</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Յուրաքանչյուր փաթեթ պատճենում է այս համակարգչի այս պորտին, որպեսզի մեկ այլ ծրագիր, օրինակ SimHub-ը, շարունակի ստանալ այն։ 0-ի դեպքում ոչինչ չի փոխանցվում։</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Լրիվ արագություն (կմ/ժ)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Այն արագությունը, որի դեպքում արագության առանցքը հասնում է ծայրագույն դիրքին։</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Հարմարեցված ձևաչափեր…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Նկարագրում է PadForge-ին անծանոթ խաղի փաթեթները՝ դաշտ առ դաշտ։</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Միացրեք հեռաչափության ելքը յուրաքանչյուր խաղում և նշեք այս համակարգիչը և պորտը։ F1-ը, Codemasters-ի խաղերը և EA SPORTS WRC-ն առանց փոփոխության օգտագործում են 20777, Project CARS 2-ը և Automobilista 2-ը միշտ՝ 5606, իսկ MrHokss-ի պլագինը բեռնատարների սիմուլյատորների համար՝ 49001։ Assetto Corsa-ն և ACC-ն պորտ չեն պահանջում։</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Ավտոմատ հայտնաբերում</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport և Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22-ից F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 և Codemasters-ի այլ խաղեր</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive և Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 և Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa և Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 և American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (հարմարեցված)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Սպասում է խաղի UDP {0} պորտում։</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Լսում է UDP {0} պորտը։ {1}՝ {2}-ից։</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP {0} պորտն օգտագործում է մեկ այլ ծրագիր։</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>{0}-ը կարդացվում է ընդհանուր հիշողությունից։</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Սպասում է Assetto Corsa-ին կամ Assetto Corsa Competizione-ին։</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Փոխանցում է {0} պորտին։</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Հարմարեցված հեռաչափության ձևաչափեր</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Նկարագրեք խաղի ուղարկած փաթեթները՝ դաշտ առ դաշտ, և PadForge-ը կկարդա նաև այդ խաղը։ Յուրաքանչյուր փոփոխական դառնում է առանցք «Խաղի հեռաչափություն» տողում և ալիք Հարմարեցված արտահայտության գործարկիչների համար։ Ձևաչափն ընտրեք անունով Խաղ ցանկում կամ տվեք նրան երկարություն կամ բանալի, որպեսզի Ավտոմատ հայտնաբերումը գտնի այն։</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Ավելացնել ձևաչափ</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Ձևաչափ {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Անուն</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Փաթեթներ</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Երկուական</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Երկարություն (բայթ)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Այս ձևաչափով կարդացվում են միայն հենց այդքան բայթանոց փաթեթները։ 0-ի դեպքում կարդացվում է ցանկացած փաթեթ, իսկ Ավտոմատ հայտնաբերումը ձևաչափը չի դիտարկում, ուստի ընտրեք այն անունով։</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Պարտադիր բանալի</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Այս ձևաչափով կարդացվում են միայն այս բանալին պարունակող JSON փաթեթները։ Դատարկ թողնելու դեպքում կարդացվում է ցանկացած փաթեթ, իսկ Ավտոմատ հայտնաբերումը ձևաչափը չի դիտարկում, ուստի ընտրեք այն անունով։</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Փաթեթը յուրաքանչյուր թիվ գրում է բարձր կարգի բայթից սկսած։ Համակարգչային խաղերը գրեթե միշտ սկսում են ցածր կարգի բայթից։</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Փոխանցման արժեքներ</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Փոխանցման դաշտն ունի հետընթացի և չեզոքի իր թվերը, ինչպես Forza-ի 0-ն ու 11-ը։ Երբ անջատված է, բացասական փոխանցումը հետընթաց է, իսկ 0-ն՝ չեզոք։</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Հետընթաց</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Չեզոք</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Դաշտեր</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Յուրաքանչյուր դաշտ կարդում է թիվ իր տեղաշարժից կամ JSON-ում իր բանալու տակից (կետերը թույլ են տալիս մտնել ներդրված օբյեկտների մեջ) և բազմապատկում այն մասշտաբով։ Մասշտաբից հետո արագությունը կմ/ժ է, ոտնակները տատանվում են 0-ից 1, իսկ ղեկը՝ -1-ից (ամբողջովին ձախ) մինչև 1 (ամբողջովին աջ)։ Փոփոխականի առանցքը տատանվում է հանգստի վիճակի Նվազագույն արժեքից մինչև լրիվ դիրքի Առավելագույն արժեքը։</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Նպատակակետ</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Փոփոխականի անուն</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Տեղաշարժ</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Տեսակ</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON բանալի</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Մասշտաբ</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Նվազագույն</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Առավելագույն</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Ավելացնել դաշտ</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Հեռացնել դաշտ</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>{0}-րդ ձևաչափը կարիք ունի անվան՝ առանց : կամ | նիշերի։</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Երկու ձևաչափ ունեն նույն անունը՝ {0}։</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>«{0}» ձևաչափի փոփոխականը կարիք ունի անվան՝ առանց : կամ | նիշերի։</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>«{0}» ձևաչափի դաշտը կարդում է իր {1} բայթանոց փաթեթի վերջից այն կողմ։</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>«{0}» ձևաչափի դաշտը կարիք ունի JSON բանալու։</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Փոփոխական</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Արագություն (կմ/ժ)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Առավելագույն RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Փոխանցում</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Գազ (0-ից 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Արգելակ (0-ից 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Կցորդիչ (0-ից 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Ձեռքի արգելակ (0-ից 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Ղեկավարում (-1-ից 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Վարում (ոչ 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Խաղի հեռաչափություն</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Արագություն (մղոն/ժ)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (առավելագույնի %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Փոխանցում (-1՝ հետընթաց, 0՝ չեզոք)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Գազ (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Արգելակ (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Կցորդիչ (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Ձեռքի արգելակ (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Ղեկավարում (-100՝ ձախ, 100՝ աջ)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Վարում (1 կամ 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Հարմարվող ձգանի էֆեկտ</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Դադարեցնել հարմարվող ձգանի էֆեկտը</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Նվագարկում է DualSense-ի հարմարվող ձգանի էֆեկտ այս սլոթի ձգանների վրա։ Էֆեկտները նույնն են, ինչ ուղարկում են DSX-ի խաղի մոդերը։</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Ավարտում է մակրոյի պահած հարմարվող ձգանի էֆեկտը ընտրված ձգանի վրա։ Օգտագործեք այն մինչև դադարեցումը պահվող էֆեկտի հետ։</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Ձգան</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Աջ (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Ձախ (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Երկուսը (L2 և R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Էֆեկտ</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Անջատված</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Աղեղ</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Վարգ</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Մեքենա</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Շատ փափուկ</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Փափուկ</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Միջին</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Կոշտ</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Շատ կոշտ</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Ամենակոշտ</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Ամուր</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Ընդհատվող</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Թրթռացող իմպուլս</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Սկզբնական գոտի</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Վերջնական գոտի</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Կտտոցի ուժգնություն</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Առաջին քայլ</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Երկրորդ քայլ</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Ուժգնություն A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Ուժգնություն B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Պարբերություն (վայրկյանի տասնորդական)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Սկզբնական ուժգնություն</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Վերջնական ուժգնություն</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Գոտի {0}-ի ուժգնություն</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Այս արժեքները էֆեկտ չեն տալիս, ուստի գործողությունը ոչինչ չի նվագարկում։ Վերջնական գոտին պետք է լինի սկզբնականից հետո, իսկ երկրորդ քայլը՝ առաջինից հետո։</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Պահում է</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Մինչ մակրոյի գործարկիչը պահված է</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Որոշակի ժամանակ</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Մինչև դադարեցումը</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Ժամանակ</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Նվագարկվում է այս սլոթի յուրաքանչյուր DualSense-ի և DualSense Edge-ի վրա։ Խաղի սեփական ձգանի էֆեկտը և խաղի մոդինը առաջնային են, իսկ Հարմարվող ձգաններ ներդիրի կարգավորումը վերադառնում է էֆեկտի ավարտին։ Գոտիները տատանվում են 0-ից (հանգիստ) մինչև 9 (լրիվ սեղմում)։ Աղեղը, Վարգը և Մեքենան DualSense-ի պաշտոնական էֆեկտներ չեն, և որոնվածքի թարմացումը կարող է հեռացնել դրանք։ Երբ «Թարգմանել հարմարվող ձգանների թրթռումները» միացված է, Xbox-ի կառավարիչները թրթռացող էֆեկտները զգում են որպես ձգանի թրթռոց։</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}՝ {1}, {2} մվ</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}՝ {1}, մինչ պահված է</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}՝ {1}, մինչև դադարեցումը</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Դադարեցնել ձգանի էֆեկտը՝ {0}</value></data>
 </root>

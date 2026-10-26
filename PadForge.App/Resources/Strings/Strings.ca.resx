@@ -4220,7 +4220,7 @@ Vols que PadForge els desinstal·li ara? Cal elevar els permisos i pot trigar un
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Disposició dels informes, calibratge dels sensors i negociació dels accessoris EXT del PlayStation Move, de Thomas Perl, contrastats amb el wiki de moveonpc. La implementació de PadForge és C# original. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Referències de telemetria de curses</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Disposicions de memòria compartida i UDP dels LED de canvi de marxa (RPM) dels volants, extretes d'assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) i simapi (LGPL-3.0). No s'hi inclou cap codi GPL ni LGPL.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Disposicions de memòria compartida i UDP darrere de la telemetria de joc i dels LED de canvi de marxa (RPM) dels volants, extretes d'assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) i vAzhureRacingHub (GPL-3.0). No s'hi inclou cap codi GPL ni LGPL.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Documentació de l'aparellament Bluetooth i dels informes del DualShock 3. GPL-2.0 i GPL-3.0, llegit només com a documentació, no s'hi inclou cap codi GPL.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4461,4 +4461,134 @@ Vols que PadForge els desinstal·li ara? Cal elevar els permisos i pot trigar un
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Restableix el límit de força</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Calibra l'abast</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mesura fins on arriba el mànec. Mou-lo fins a cada extrem del seu abast durant els quatre segons que dura el recorregut. Mentrestant, les forces descansen.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetria de joc</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetria de joc</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Mostra la telemetria que envien els jocs de conducció, i la memòria compartida d'Assetto Corsa, a la fila Telemetria de joc de la pàgina Dispositius. Assigna'n la velocitat, els pedals i les marxes com qualsevol entrada, activa macros amb aquests valors o prova'ls en una expressió personalitzada. Mentre escolta, els LED de canvi de marxa (RPM) d'un volant també llegeixen el joc des d'aquí.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Escolta la telemetria de joc</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Joc</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Detecció automàtica reconeix el joc pels seus paquets. Si tries Project CARS 2 i Automobilista 2, o els simuladors de camions, també s'estableix el port al qual aquests jocs sempre envien.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port de telemetria de joc</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Reenvia al port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Copia cada paquet en aquest port d'aquest PC, de manera que un altre programa, com SimHub, continuï rebent-lo. Amb 0 no es reenvia res.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Velocitat màxima (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>La velocitat que mou l'eix de velocitat fins al final.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Formats personalitzats…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Descriu, camp per camp, els paquets d'un joc que PadForge no coneix.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Activa la sortida de telemetria a cada joc i apunta-la a aquest PC i port. F1, els jocs de Codemasters i EA SPORTS WRC usen el 20777 si no es canvia, Project CARS 2 i Automobilista 2 sempre usen el 5606, i el connector de MrHokss per als simuladors de camions usa el 49001. Assetto Corsa i ACC no necessiten port.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Detecció automàtica</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport i Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 a F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 i altres jocs de Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive i Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 i Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa i Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 i American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (personalitzat)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Esperant un joc al port UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Escoltant al port UDP {0}. {1} des de {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>El port UDP {0} l'està usant un altre programa.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Llegint {0} de la memòria compartida.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Esperant Assetto Corsa o Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Reenviant al port {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Formats de telemetria personalitzats</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Descriu els paquets que envia un joc, camp per camp, i PadForge també llegirà aquest joc. Cada variable es converteix en un eix de la fila Telemetria de joc i en un canal per als activadors d'expressió personalitzada. Tria un format pel nom a la llista Joc, o dona-li una longitud o una clau perquè la detecció automàtica el trobi.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Afegeix un format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nom</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paquets</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binari</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Longitud (bytes)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Només es llegeixen amb aquest format els paquets d'exactament aquest nombre de bytes. Amb 0, es llegeix qualsevol paquet i la detecció automàtica deixa el format de banda, així que tria'l pel nom.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Clau obligatòria</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Només es llegeixen amb aquest format els paquets JSON que porten aquesta clau. Si es deixa buit, es llegeix qualsevol paquet i la detecció automàtica deixa el format de banda, així que tria'l pel nom.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>El paquet escriu cada nombre començant pel byte més significatiu. Els jocs de PC gairebé sempre escriuen primer el byte menys significatiu.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Valors de marxa</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>El camp de marxa té els seus propis nombres per a la marxa enrere i el punt mort, com el 0 i l'11 de Forza. Quan està desactivat, una marxa negativa és la marxa enrere i el 0 és el punt mort.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Marxa enrere</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Punt mort</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Camps</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Cada camp llegeix un nombre al seu desplaçament, o sota la seva clau en JSON (els punts arriben dins d'objectes aniuats), i el multiplica per l'escala. Després de l'escala, la velocitat és en km/h, els pedals van de 0 a 1 i la direcció va de -1 a tot a l'esquerra fins a 1 a tot a la dreta. L'eix d'una variable va del seu mínim en repòs al seu màxim a fons.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Llegeix a</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Nom de la variable</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Desplaçament</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tipus</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Clau JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Escala</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Mín.</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Màx.</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Afegeix un camp</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Elimina el camp</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>El format {0} necessita un nom sense : ni |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Hi ha dos formats amb el nom {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Una variable de {0} necessita un nom sense : ni |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Un camp de {0} llegeix més enllà del final del seu paquet de {1} bytes.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Un camp de {0} necessita una clau JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Variable</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Velocitat (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM màximes</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Marxa</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Accelerador (0 a 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Fre (0 a 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Embragatge (0 a 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Fre de mà (0 a 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Direcció (-1 a 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Conducció (no 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetria de joc</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Velocitat (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% del màxim)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Marxa (-1 marxa enrere, 0 punt mort)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Accelerador (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Fre (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Embragatge (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Fre de mà (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Direcció (-100 esquerra a 100 dreta)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Conducció (1 o 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Efecte de gallet adaptatiu</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Atura l'efecte de gallet adaptatiu</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Reprodueix un efecte de gallet adaptatiu del DualSense als gallets d'aquesta ranura. Els efectes són els que envien els mods de joc per a DSX.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Finalitza l'efecte de gallet adaptatiu que una macro manté al gallet triat. Combina-la amb un efecte que es mantingui fins que s'aturi.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Gallet</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Dret (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Esquerre (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Tots dos (L2 i R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efecte</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Desactivat</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Arc</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Galop</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Màquina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Molt suau</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Suau</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Mitjà</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Dur</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Molt dur</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>El més dur</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Rígid</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Entretallat</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Pols vibrant</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Zona d'inici</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Zona final</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Força del cop</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Primer pas</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Segon pas</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Força A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Força B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Període (dècimes de segon)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Força inicial</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Força final</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Força de la zona {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Aquests valors no produeixen cap efecte, així que l'acció no reprodueix res. La zona final ha de ser posterior a la zona d'inici, i el segon pas, posterior al primer.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Es manté</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Mentre es manté premut el gallet de la macro</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Durant un temps fix</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Fins que s'aturi</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Temps</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Es reprodueix en tots els DualSense i DualSense Edge d'aquesta ranura. L'efecte de gallet del mateix joc i el d'un mod de joc tenen prioritat, i la configuració de la pestanya Gallets adaptatius torna quan l'efecte acaba. Les zones van de 0 en repòs a 9 a fons. Arc, Galop i Màquina no són efectes oficials del DualSense i una actualització del microprogramari els podria eliminar. Els comandaments Xbox amb Tradueix les vibracions dels gallets adaptatius activat noten els efectes vibratoris com a vibració del gallet.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} a {1} durant {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} a {1} mentre es manté premut</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} a {1} fins que s'aturi</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Atura l'efecte de gallet a {0}</value></data>
 </root>

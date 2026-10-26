@@ -4240,7 +4240,7 @@ Vai vēlaties, lai PadForge tos tagad atinstalē? Tam nepieciešamas paaugstinā
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move ziņojumu izkārtojumi, sensoru kalibrēšana un EXT piederumu rokasspiediens, autors Thomas Perl, pārbaudīti ar moveonpc wiki. PadForge implementācija ir oriģināls C# kods. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Sacīkšu telemetrijas atsauces</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Koplietojamās atmiņas un UDP izkārtojumi, uz kuriem balstās stūres RPM pārnesumu maiņas LED, iegūti no assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) un simapi (LGPL-3.0). GPL vai LGPL kods netiek izplatīts.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Koplietojamās atmiņas un UDP izkārtojumi, uz kuriem balstās spēļu telemetrija un stūres RPM pārnesumu maiņas LED, iegūti no assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) un vAzhureRacingHub (GPL-3.0). GPL vai LGPL kods netiek izplatīts.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth savienošanas pārī un ziņojumu dokumentācija. GPL-2.0 un GPL-3.0, izmantota tikai kā dokumentācija, GPL kods netiek izplatīts.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4481,4 +4481,134 @@ Vai vēlaties, lai PadForge tos tagad atinstalē? Tam nepieciešamas paaugstinā
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Atiestatīt spēka ierobežojumu</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibrēt aptvērumu</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Izmēra, cik tālu rokturis pārvietojas. Pārvietojiet to līdz katrai aptvēruma malai četras sekundes, kamēr notiek mērījums. Spēki šajā laikā ir izslēgti.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Spēļu telemetrija</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Spēļu telemetrija</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Ievieto telemetriju, ko sūta braukšanas spēles, kā arī Assetto Corsa koplietojamo atmiņu lapas Ierīces rindā Spēļu telemetrija. Piesaistiet tās ātrumu, pedāļus un pārnesumus kā jebkuru ievadi, aktivizējiet ar tiem makrosus vai pārbaudiet tos pielāgotā izteiksmē. Kamēr tā klausās, stūres RPM pārnesumu maiņas LED arī nolasa spēli no šejienes.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Klausīties spēļu telemetriju</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Spēle</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Automātiska noteikšana atpazīst spēli pēc tās paketēm. Izvēloties Project CARS 2 un Automobilista 2 vai kravas auto simulatorus, tiek iestatīts arī ports, uz kuru šīs spēles vienmēr sūta.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Spēļu telemetrijas ports</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Pārsūtīt uz portu</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Kopē katru paketi uz šo portu šajā datorā, lai cita programma, piemēram, SimHub, turpinātu to saņemt. Ar 0 nekas netiek pārsūtīts.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Pilns ātrums (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Ātrums, kas ātruma asi pārvieto līdz galam.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Pielāgoti formāti…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Apraksta tādas spēles paketes, kuru PadForge nepazīst, lauku pa laukam.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Katrā spēlē ieslēdziet telemetrijas izvadi un norādiet uz šo datoru un portu. F1, Codemasters spēles un EA SPORTS WRC izmanto 20777, ja tas nav mainīts, Project CARS 2 un Automobilista 2 vienmēr izmanto 5606, bet MrHokss izveidotais spraudnis kravas auto simulatoriem izmanto 49001. Assetto Corsa un ACC ports nav vajadzīgs.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Automātiska noteikšana</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport un Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 līdz F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 un citas Codemasters spēles</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive un Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 un Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa un Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 un American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (pielāgots)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Gaida spēli UDP portā {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Klausās UDP portā {0}. {1} no {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP portu {0} izmanto cita programma.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Nolasa {0} no koplietojamās atmiņas.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Gaida Assetto Corsa vai Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Pārsūta uz portu {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Pielāgoti telemetrijas formāti</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Aprakstiet spēles sūtītās paketes lauku pa laukam, un PadForge lasīs arī šo spēli. Katrs mainīgais kļūst par asi rindā Spēļu telemetrija un par kanālu pielāgotas izteiksmes aktivizatoriem. Izvēlieties formātu pēc nosaukuma sarakstā Spēle vai norādiet tam garumu vai atslēgu, lai Automātiska noteikšana to atrastu.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Pievienot formātu</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Formāts {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Nosaukums</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Paketes</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binārs</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Garums (baiti)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Ar šo formātu tiek lasītas tikai paketes ar tieši tik daudz baitiem. Ar 0 tiek lasīta jebkura pakete, un Automātiska noteikšana formātu neņem vērā, tāpēc izvēlieties to pēc nosaukuma.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Obligātā atslēga</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Ar šo formātu tiek lasītas tikai JSON paketes, kurās ir šī atslēga. Ja lauks ir tukšs, tiek lasīta jebkura pakete, un Automātiska noteikšana formātu neņem vērā, tāpēc izvēlieties to pēc nosaukuma.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Pakete katru skaitli raksta, sākot ar vissvarīgāko baitu. PC spēles gandrīz vienmēr raksta, sākot ar vismazāk svarīgo baitu.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Pārnesumu vērtības</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Pārnesuma laukam ir savi skaitļi atpakaļgaitai un neitrālajam, kā Forza spēlē 0 un 11. Ja tas ir izslēgts, negatīvs pārnesums ir atpakaļgaita un 0 ir neitrālais.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Atpakaļgaita</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Neitrāls</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Lauki</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Katrs lauks nolasa skaitli pie savas nobīdes vai JSON formātā zem savas atslēgas (punkti ved iekšā ligzdotos objektos) un reizina to ar mērogu. Pēc mēroga ātrums ir km/h, pedāļi mainās no 0 līdz 1, bet stūrēšana no -1 pilnībā pa kreisi līdz 1 pilnībā pa labi. Mainīgā ass mainās no tā Min miera stāvoklī līdz tā Maks pilnā stāvoklī.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Nolasa uz</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Mainīgā nosaukums</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Nobīde</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tips</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON atslēga</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Mērogs</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Maks</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Pievienot lauku</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Noņemt lauku</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Formātam {0} nepieciešams nosaukums bez : vai |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Diviem formātiem ir nosaukums {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Mainīgajam formātā {0} nepieciešams nosaukums bez : vai |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Lauks formātā {0} lasa aiz {1} baitu paketes beigām.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Laukam formātā {0} nepieciešama JSON atslēga.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Mainīgais</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Ātrums (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Maks. RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Pārnesums</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Gāze (no 0 līdz 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Bremze (no 0 līdz 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Sajūgs (no 0 līdz 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Rokas bremze (no 0 līdz 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Stūrēšana (no -1 līdz 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Braukšana (nav 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Spēļu telemetrija</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Ātrums (jūdzes/h)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% no maksimuma)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Pārnesums (-1 atpakaļgaita, 0 neitrāls)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Gāze (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Bremze (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Sajūgs (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Rokas bremze (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Stūrēšana (-100 pa kreisi līdz 100 pa labi)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Braukšana (1 vai 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Adaptīvās mēlītes efekts</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Apturēt adaptīvās mēlītes efektu</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Atskaņo DualSense adaptīvās mēlītes efektu šī slota mēlītēm. Efekti ir tie, ko sūta DSX spēļu modifikācijas.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Beidz adaptīvās mēlītes efektu, ko makross notur uz izvēlētās mēlītes. Izmantojiet kopā ar efektu, kas darbojas līdz apturēšanai.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Mēlīte</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Labā (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Kreisā (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Abas (L2 un R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efekts</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Izslēgts</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Loks</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Auļošana</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Mašīna</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Ļoti mīksts</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Mīksts</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Vidējs</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Ciets</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Ļoti ciets</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Visciešākais</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Stīvs</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Raustīgs</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Vibrējošs impulss</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Sākuma zona</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Beigu zona</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Trieciena stiprums</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Pirmā pēda</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Otrā pēda</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>A stiprums</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>B stiprums</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Periods (sekundes desmitdaļas)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Sākuma stiprums</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Beigu stiprums</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Zonas {0} stiprums</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Ar šīm vērtībām efekta nav, tāpēc darbība neatskaņo neko. Beigu zonai jābūt aiz sākuma zonas, bet otrajai pēdai aiz pirmās.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Notur</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Kamēr tiek turēts makrosa aktivizators</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Uz noteiktu laiku</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Līdz apturēšanai</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Laiks</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Atskaņo uz katra šī slota DualSense un DualSense Edge. Spēles paša mēlītes efektam un spēļu modifikācijas efektam ir prioritāte, un cilnes Adaptīvās mēlītes iestatījums atgriežas, kad efekts beidzas. Zonas ir no 0 miera stāvoklī līdz 9 pilnā nospiedumā. Loks, Auļošana un Mašīna nav oficiāli DualSense efekti, un aparātprogrammatūras atjauninājums tos varētu noņemt. Xbox kontrolleriem ar ieslēgtu Pārveidot adaptīvo mēlīšu vibrācijas vibrējošie efekti ir jūtami kā mēlīšu vibrācija.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}, {1}, {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}, {1}, kamēr tiek turēts</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}, {1}, līdz apturēšanai</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Apturēt mēlītes efektu: {0}</value></data>
 </root>

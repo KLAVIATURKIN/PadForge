@@ -3572,7 +3572,7 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Dispozisyon rapò PlayStation Move, kalibrasyon detektè, ak echanj idantifikasyon akseswa EXT, pa Thomas Perl, verifye ak wiki moveonpc la. Aplikasyon PadForge la se C# orijinal. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Referans telemetri kous</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Dispozisyon memwa pataje ak UDP ki dèyè LED chanjman vitès RPM volan an, li nan assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) ak simapi (LGPL-3.0). Okenn kòd GPL oswa LGPL pa enkli.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Dispozisyon memwa pataje ak UDP ki dèyè Telemetri jwèt ak LED chanjman vitès RPM volan an, li nan assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) ak vAzhureRacingHub (GPL-3.0). Okenn kòd GPL oswa LGPL pa enkli.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>Dokimantasyon asosyasyon Bluetooth ak rapò DualShock 3. GPL-2.0 ak GPL-3.0, li kòm dokimantasyon sèlman, okenn kòd GPL pa enkli.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -3809,4 +3809,121 @@ Gen yon kopi vèsyon anvan an nan dosye sa a: {1}</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Reyinisyalize limit fòs</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Kalibre distans</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Mezire konbyen manch lan deplase. Deplase l rive nan chak bout distans li pandan kat segonn mezi a dire. Fòs yo kanpe pandan tan sa a.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetri jwèt</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetri jwèt</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Mete telemetri jwèt kous yo voye, ak memwa pataje Assetto Corsa, sou ranje Telemetri jwèt la nan paj Aparèy la. Asiyen vitès li, pedal li yo ak bwat vitès li tankou nenpòt antre, deklanche makwo avèk yo, oswa teste yo nan yon Ekspresyon pèsonalize. Pandan l ap koute, LED chanjman vitès RPM yon volan li jwèt la isit la tou.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Koute telemetri jwèt</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Jwèt</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Deteksyon otomatik rekonèt jwèt la nan pakè li yo. Si ou chwazi Project CARS 2 ak Automobilista 2, oswa similatè kamyon yo, sa mete tou pò kote jwèt sa yo toujou voye done yo.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Pò telemetri jwèt</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Transfere nan pò</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Kopye chak pakè nan pò sa a sou PC sa a, pou yon lòt pwogram tankou SimHub kontinye resevwa l. 0 pa transfere anyen.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Vitès maksimòm (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Vitès ki deplase aks Vitès la jiska bout.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Fòma pèsonalize…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>Dekri pakè yon jwèt PadForge pa konnen, chan pa chan.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Aktive sòti telemetri nan chak jwèt epi dirije l sou PC sa a ak pò sa a. F1, jwèt Codemasters yo ak EA SPORTS WRC itilize 20777 si ou pa chanje l, Project CARS 2 ak Automobilista 2 toujou itilize 5606, epi plugin MrHokss la pou similatè kamyon yo itilize 49001. Assetto Corsa ak ACC pa bezwen pò.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Deteksyon otomatik</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport ak Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 rive F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 ak lòt jwèt Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive ak Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 ak Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa ak Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 ak American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (pèsonalize)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Ap tann yon jwèt sou pò UDP {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Ap koute sou pò UDP {0}. {1} soti nan {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Yon lòt pwogram ap itilize pò UDP {0}.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Ap li {0} nan memwa pataje.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Ap tann Assetto Corsa oswa Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Ap transfere nan pò {0}.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Fòma telemetri pèsonalize</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Dekri pakè yon jwèt voye, chan pa chan, epi PadForge ap li jwèt sa a tou. Chak varyab vin yon aks sou ranje Telemetri jwèt la ak yon kanal pou deklanchè Ekspresyon pèsonalize yo. Chwazi yon fòma pa non li nan lis Jwèt la, oswa ba li yon longè oswa yon kle pou Deteksyon otomatik jwenn li.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Ajoute fòma</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Fòma {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Non</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Pakè</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Binè</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Longè (okte)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Fòma sa a li sèlman pakè ki gen egzakteman kantite okte sa a. Avèk 0, li nenpòt pakè, epi Deteksyon otomatik pa itilize fòma a, kidonk chwazi l pa non li.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Kle obligatwa</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Fòma sa a li sèlman pakè JSON ki gen kle sa a. Si ou kite l vid, li nenpòt pakè, epi Deteksyon otomatik pa itilize fòma a, kidonk chwazi l pa non li.</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Pakè a ekri chak nonb ak okte ki pi enpòtan an an premye. Jwèt sou PC prèske toujou ekri okte ki mwens enpòtan an an premye.</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Chan</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Chak chan li yon nonb nan pozisyon li, oswa anba kle li nan JSON (pwen yo antre nan objè ki anndan lòt objè), epi li miltipliye l pa echèl la. Apre echèl la, vitès la an km/h, pedal yo soti 0 rive 1, epi direksyon an soti -1 nèt a goch rive 1 nèt a dwat. Aks yon varyab soti nan Min li lè l an repo rive nan Max li lè l nèt.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Destinasyon</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Non varyab</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Pozisyon</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tip</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Kle JSON</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Echèl</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Ajoute chan</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Retire chan</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Fòma {0} bezwen yon non san : oswa |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>De fòma rele {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Yon varyab nan {0} bezwen yon non san : oswa |.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>Yon chan nan {0} li pi lwen pase fen pakè {1} okte li a.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Yon chan nan {0} bezwen yon kle JSON.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Varyab</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Vitès (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>RPM maksimòm</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Akseleratè (0 rive 1)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Fren (0 rive 1)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Anbreyaj (0 rive 1)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Fren a men (0 rive 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Direksyon (-1 rive 1)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Ap kondi (pa 0)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetri jwèt</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Vitès (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% maksimòm nan)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Akseleratè (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Fren (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Anbreyaj (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Fren a men (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Direksyon (-100 goch rive 100 dwat)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Ap kondi (1 oswa 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Efè gachèt adaptatif</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Kanpe efè gachèt adaptatif</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Jwe yon efè gachèt adaptatif DualSense sou gachèt plas sa a. Efè yo se sa mod jwèt pou DSX voye yo.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Fini efè gachèt adaptatif yon makwo kenbe sou gachèt ou chwazi a. Mete l ansanm ak yon efè ki kenbe jiskaske yo kanpe l.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Gachèt</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Dwat (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Goch (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Toude (L2 ak R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Efè</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Etenn</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Trè mou</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Mou</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Mwayen</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Di</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Trè di</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Pi di a</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Rijid</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Zòn kòmansman</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Zòn fen</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Premye pye</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Dezyèm pye</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Fòs A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Fòs B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Peryòd (dizyèm segonn)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Fòs kòmansman</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Fòs fen</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Fòs zòn {0}</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Valè sa yo pa fè okenn efè, kidonk aksyon an pa jwe anyen. Yon zòn fen dwe pi lwen pase zòn kòmansman li, epi dezyèm pye a pi lwen pase premye a.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Kenbe</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Pandan yo kenbe aktivatè makwo a</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Pou yon tan fiks</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Jiskaske yo kanpe l</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Tan</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Jwe sou chak DualSense ak DualSense Edge nan plas sa a. Efè gachèt pwòp yon jwèt ak efè yon mod jwèt pase anvan, epi paramèt tab Gachèt adaptatif la retounen lè efè a fini. Zòn yo soti 0 an repo rive 9 lè gachèt la peze nèt. Bow, Galloping ak Machine pa efè DualSense ofisyèl, epi yon mizajou firmware ka retire yo. Kontwolè Xbox ki gen Tradui vibrasyon gachèt adaptatif yo aktive santi efè vibrasyon yo kòm vibrasyon gachèt.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} sou {1} pandan {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} sou {1} pandan yo kenbe l</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} sou {1} jiskaske yo kanpe l</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Kanpe efè gachèt sou {0}</value></data>
 </root>

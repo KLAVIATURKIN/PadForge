@@ -1301,6 +1301,7 @@
   <data name="About_OpenTabletDriver" xml:space="preserve"><value>OpenTabletDriver</value></data>
   <data name="About_PcscSharp" xml:space="preserve"><value>pcsc-sharp</value></data>
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Ang mga layout sang shared memory kag UDP sa likod sang telemetry sang dula kag sang RPM shift LED sang manibela, ginbasa halin sa assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) kag vAzhureRacingHub (GPL-3.0). Wala sing GPL ukon LGPL nga code nga ginaupod.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
   <data name="About_SpecialK" xml:space="preserve"><value>Special K</value></data>
@@ -1396,4 +1397,81 @@
   <data name="Pad_Falcon_Shake" xml:space="preserve"><value>Kusog sang uyog</value></data>
   <data name="Pad_Falcon_ResetShake" xml:space="preserve"><value>I-reset ang kusog sang uyog</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Telemetry sang dula</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Telemetry sang dula</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Pamatii ang telemetry sang dula</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Dula</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Port sang telemetry sang dula</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Ipasa sa port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Ginakopya ang kada packet sa sini nga port sa sini nga PC, para padayon nga makabaton sini ang iban nga programa pareho sang SimHub. Ang 0 wala sing ginapasa.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Bug-os nga tulin (km/h)</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport kag Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 tubtob F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 kag iban pa nga mga dula sang Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive kag Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 kag Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa kag Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 kag American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Nagahulat sang dula sa UDP port {0}.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Nagapamati sa UDP port {0}. {1} halin sa {2}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Ginagamit sang iban nga programa ang UDP port {0}.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Ginabasa ang {0} halin sa shared memory.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Nagahulat sang Assetto Corsa ukon Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Ginapasa sa port {0}.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Idugang ang format</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Format {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Ngalan</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Mga packet</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Kalabaon (bytes)</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Kinahanglan nga key</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Mga balor sang gear</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Atras</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Mga field</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Ngalan sang variable</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Tipo</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Key sang JSON</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Min</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Max</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Idugang ang field</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Kuhaa ang field</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>Kinahanglan sang format {0} ang ngalan nga wala sing : ukon |.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Duha ka format ang ginhingalanan nga {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>Kinahanglan sang isa ka variable sa {0} ang ngalan nga wala sing : ukon |.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>Kinahanglan sang isa ka field sa {0} ang JSON key.</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Tulin (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Pinakataas nga RPM</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Preno (0 tubtob 1)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Manibela (-1 tubtob 1)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Telemetry sang dula</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Tulin (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (% sang pinakataas)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Preno (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Manibela (-100 wala tubtob 100 tuo)</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Tuo (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Wala (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Pareho (L2 kag R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Epekto</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Makina</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Mahumok gid</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Mahumok</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Matig-a</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Matig-a gid</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Pinakamatig-a</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Sugod nga zone</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Katapusan nga zone</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Kusog A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Kusog B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Kusog sa sugod</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Kusog sa katapusan</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>Kusog sang zone {0}</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Samtang ginauyatan ang trigger sang macro</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Tubtob mauntat</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Tion</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} sa {1} sa sulod sang {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} sa {1} samtang ginauyatan</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} sa {1} tubtob mauntat</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Untata ang epekto sang trigger sa {0}</value></data>
 </root>

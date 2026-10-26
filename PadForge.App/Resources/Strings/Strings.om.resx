@@ -1810,4 +1810,53 @@
   <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Daangaa humnaa</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Daangaa humnaa deebisi</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Tapha</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Gara poortiitti dabarsi</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Saffisa guutuu (km/h)</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport fi Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 hanga F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 fi taphoota Codemasters biroo</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive fi Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 fi Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa fi Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 fi American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Tapha poortii UDP {0} irratti eegaa jira.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>Poortii UDP {0} irratti dhaggeeffachaa jira. {1} {2} irraa.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Poortiin UDP {0} sagantaa biraatiin hojii irra jira.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa yookiin Assetto Corsa Competizione eegaa jira.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Gara poortii {0} dabarsaa jira.</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Foormaatii {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Maqaa</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Dheerina (baayitii)</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Furtuu barbaachisaa</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Duubatti</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Maqaa jijjiiramaa</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Gosa</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>Furtuu JSON</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Jijjiiramaa</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Saffisa (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Konkolaachisuu (0 miti)</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Saffisa (mph)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Konkolaachisuu (1 yookiin 0)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Tiriigarii</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Mirga (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Bitaa (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Lachuu (L2 fi R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Cufaa</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Baay'ee laafaa</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Laafaa</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Giddu-galeessa</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Jabaa</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Baay'ee jabaa</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Hunda caalaa jabaa</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Cimina A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Cimina B</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Yeroo murtaa'eef</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Hanga dhaabbatutti</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Yeroo</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0} {1} irratti yeroo qabamu</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} {1} irratti hanga dhaabbatutti</value></data>
 </root>

@@ -879,24 +879,36 @@ Protocol documentation references (no code from these projects ships)
   Burk and Roger B. Dannenberg) and RtMidi (https://github.com/thestk/rtmidi,
   MIT-style RtMidi license, Gary P. Scavone): the WinMM call sequences behind
   the legacy MIDI API, which open a port, send to it and close it.
-  Racing telemetry references: the shared-memory and UDP layouts behind the
-  wheel RPM shift LEDs, read from forza-data-web
+  Racing telemetry references: the shared-memory and UDP layouts behind Game
+  Telemetry and the wheel RPM shift LEDs, read from CMTelemetry
+  (https://github.com/gazz/CMTelemetry, no license published),
+  dirt-rally-telemetry-dashboard
+  (https://github.com/gabrielgouv/dirt-rally-telemetry-dashboard, MIT),
+  ets2-telemetry-udp (https://github.com/MrHokss/ets2-telemetry-udp, MIT),
+  f1-24-udp (https://github.com/MacManley/f1-24-udp, MIT), fh6-tel
+  (https://github.com/TheBanHammer/fh6-tel, MIT), forza-data-web
   (https://github.com/geeooff/forza-data-web, Apache-2.0), forza-telemetry
-  (https://github.com/austinbaccus/forza-telemetry, MIT), InSim.NET
+  (https://github.com/austinbaccus/forza-telemetry, MIT),
+  Forza-Telemetry-Splitter
+  (https://github.com/jakemismas/Forza-Telemetry-Splitter, MIT), InSim.NET
   (https://github.com/alexmcbride/insimdotnet, LGPL-2.1), irsdkSharp
   (https://github.com/SlevinthHeaven/irsdkSharp, MIT), IRSDKSharper
   (https://github.com/mherbold/IRSDKSharper, GPL-3.0), out-gauge-cluster
-  (https://github.com/fuelsoft/out-gauge-cluster, Apache-2.0), pyirsdk
+  (https://github.com/fuelsoft/out-gauge-cluster, Apache-2.0), PCars2UdpNet
+  (https://github.com/RacingSimTools/PCars2UdpNet, MIT), project-cars-2-udp
+  (https://github.com/MacManley/project-cars-2-udp, MIT), pyirsdk
   (https://github.com/kutu/pyirsdk, MIT), rF2SharedMemoryMapPlugin
   (https://github.com/TheIronWolfModding/rF2SharedMemoryMapPlugin, GPL-3.0),
   rFactorSharedMemoryMap
   (https://github.com/dallongo/rFactorSharedMemoryMap, GPL-2.0),
   rust_ams2_sharedmem (https://github.com/chris-ldgk/rust_ams2_sharedmem, no
   license published), scs-sdk-plugin
-  (https://github.com/RenCloud/scs-sdk-plugin, MIT) and simapi
-  (https://github.com/Spacefreak18/simapi, LGPL-3.0). The Assetto Corsa
-  layout comes from assettocorsasharedmemory, credited in its own entry
-  above.
+  (https://github.com/RenCloud/scs-sdk-plugin, MIT), simapi
+  (https://github.com/Spacefreak18/simapi, LGPL-3.0), tm-bt-led
+  (https://github.com/mplutka/tm-bt-led, MIT) and vAzhureRacingHub
+  (https://github.com/vazhure/vAzhureRacingHub, GPL-3.0). The RPM lights'
+  Assetto Corsa layout comes from assettocorsasharedmemory, credited in its
+  own entry above.
   Ring-Con references: the Ring-Con start and stop sequences behind the SDL
   fork's Switch driver and the strain scale PadForge reads, read from
   demo-of-ring-con-with-web-hid

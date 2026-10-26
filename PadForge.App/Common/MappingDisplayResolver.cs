@@ -2356,6 +2356,8 @@ namespace PadForge.Common
              ud.CapType != InputDeviceType.KeyboardScreenKeys &&
              // A Falcon's handle axes and grip buttons are named (#521).
              ud.CapType != InputDeviceType.NovintFalcon &&
+             // Telemetry axes and gears are named (Speed, Gear 3, #531).
+             ud.CapType != InputDeviceType.GameTelemetry &&
              // Analog keys are named for their legends (#468).
              ud.CapType != InputDeviceType.AnalogKeyboard &&
              ud.CapType != InputDeviceType.Tablet));

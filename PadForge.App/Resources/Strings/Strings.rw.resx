@@ -1618,4 +1618,51 @@
   <data name="Pad_Falcon_ForceCap" xml:space="preserve"><value>Imbaraga ntarengwa</value></data>
   <data name="Pad_Falcon_NewtonsUnit" xml:space="preserve"><value>N</value></data>
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Subiza imbaraga ntarengwa uko zari ziri</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Umukino</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Ohereza kuri port</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Yohereza buri paketi kuri iyi port kuri iyi PC, kugira ngo indi porogaramu nka SimHub ikomeze kuyakira. 0 nta cyo yohereza.</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport na Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 kugeza kuri F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 n'indi mikino ya Codemasters</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive na Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 na Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa na Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 na American Truck Simulator</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>Gutegereza umukino kuri port ya UDP {0}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>Port ya UDP {0} irimo gukoreshwa n'indi porogaramu.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Gutegereza Assetto Corsa cyangwa Assetto Corsa Competizione.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>Kohereza kuri port {0}.</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Izina</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Uburebure (bytes)</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Ubwoko</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Umuvuduko (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Vitesi</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Feri (0 kugeza 1)</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Umuvuduko (mph)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Feri (%)</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Trigger</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Iburyo (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Ibumoso (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Byombi (L2 na R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Bizimye</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Umuheto</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Imashini</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Byoroshye cyane</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Byoroshye</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Biringaniye</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Bikomeye</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Bikomeye cyane</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Bikomeye kurusha byose</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Imbaraga A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Imbaraga B</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Imbaraga zo gutangira</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Imbaraga zo kurangiza</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Mu gihe cyagenwe</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Kugeza bihagaritswe</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Igihe</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0} kuri {1} mu gihe cya {2} ms</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0} kuri {1} kugeza bihagaritswe</value></data>
 </root>

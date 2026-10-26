@@ -4215,7 +4215,7 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move есеп орналасулары, сенсорды калибрлеу және EXT қосалқы құралының қол алысуы, автор Thomas Perl, moveonpc уикиімен салыстырылған. PadForge-дың іске асыруы түпнұсқа C#. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Жарыс телеметриясының сілтемелері</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Рөлдің RPM ауыстыру LED-дерінің астарындағы ортақ жады мен UDP орналасулары. Оқылған көздер: assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT) және simapi (LGPL-3.0). GPL немесе LGPL коды жеткізілмейді.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Ойын телеметриясының және рөлдің RPM ауыстыру LED-дерінің астарындағы ортақ жады мен UDP орналасулары. Оқылған көздер: assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT) және vAzhureRacingHub (GPL-3.0). GPL немесе LGPL коды жеткізілмейді.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 Bluetooth жұптастыруы және есеп құжаттамасы. GPL-2.0 және GPL-3.0, тек құжаттама ретінде оқылған, GPL коды жеткізілмейді.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4456,4 +4456,134 @@ PadForge оларды қазір жойсын ба? Ол үшін әкімші �
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Күш шегін қалпына келтіру</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Ауқымды калибрлеу</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Тұтқаның қаншалықты алысқа жылжитынын өлшейді. Сыпыру жүретін төрт секунд бойы оны ауқымының барлық шетіне жылжытыңыз. Осы кезде күштер тоқтайды.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Ойын телеметриясы</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Ойын телеметриясы</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Жарыс ойындары жіберетін телеметрияны және Assetto Corsa-ның ортақ жадын Құрылғылар бетіндегі Ойын телеметриясы жолына шығарады. Оның жылдамдығын, педальдары мен берілістерін кез келген кіріс сияқты тағайындаңыз, олармен макростарды іске қосыңыз немесе Теңшелетін өрнекте тексеріңіз. Ол тыңдап тұрғанда, рөлдің RPM беріліс ауыстыру LED шамдары да ойынды осы жерден оқиды.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Ойын телеметриясын тыңдау</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Ойын</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Авто анықтау ойынды пакеттері бойынша таниды. Project CARS 2 және Automobilista 2 немесе жүк көлігі симуляторларын таңдау сол ойындар үнемі жіберетін портты да орнатады.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Ойын телеметриясы порты</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Портқа жіберу</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Әр пакетті осы компьютердегі осы портқа көшіреді, сонда SimHub сияқты басқа бағдарлама оны қабылдауды жалғастырады. 0 ештеңе жібермейді.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Толық жылдамдық (км/сағ)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Жылдамдық осін соңына дейін жылжытатын жылдамдық.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Теңшелетін пішімдер…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge танымайтын ойынның пакеттерін өріс бойынша сипаттайды.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Әр ойында телеметрия шығысын қосып, оны осы компьютер мен портқа бағыттаңыз. F1, Codemasters ойындары және EA SPORTS WRC өзгертілмесе 20777 портын пайдаланады, Project CARS 2 және Automobilista 2 әрдайым 5606 портын, ал MrHokss-тің жүк көлігі симуляторларына арналған плагині 49001 портын пайдаланады. Assetto Corsa және ACC үшін порт қажет емес.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Авто анықтау</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport және Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 – F1 25</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 және басқа Codemasters ойындары</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive және Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 және Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa және Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 және American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (теңшелетін)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>{0} UDP портында ойын күтілуде.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>{0} UDP портын тыңдап тұр. {1}, {2} мекенжайынан.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>{0} UDP портын басқа бағдарлама пайдаланып тұр.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>Ортақ жадтан {0} оқылуда.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa немесе Assetto Corsa Competizione күтілуде.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>{0} портына жіберілуде.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Теңшелетін телеметрия пішімдері</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Ойын жіберетін пакеттерді өріс бойынша сипаттаңыз, сонда PadForge сол ойынды да оқиды. Әр айнымалы Ойын телеметриясы жолында ось болады және Теңшелетін өрнек триггерлері үшін арна болады. Пішімді Ойын тізімінен атымен таңдаңыз немесе Авто анықтау тапсын деп оған ұзындық не кілт беріңіз.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Пішім қосу</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Пішім {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Атауы</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Пакеттер</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Екілік</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Ұзындығы (байт)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Осы пішіммен тек дәл осыншама байттан тұратын пакеттер оқылады. 0 болса, кез келген пакет оқылады, ал Авто анықтау пішімге тиіспейді, сондықтан оны атымен таңдаңыз.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Міндетті кілт</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Осы пішіммен тек осы кілті бар JSON пакеттері оқылады. Бос болса, кез келген пакет оқылады, ал Авто анықтау пішімге тиіспейді, сондықтан оны атымен таңдаңыз.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>Big-Endian</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Пакет әр санды ең үлкен разрядты байттан бастап жазады. Компьютердегі ойындар санды әрдайым дерлік ең кіші разрядты байттан бастап жазады.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Беріліс мәндері</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Беріліс өрісінде артқа және бейтарап үшін өз сандары бар, мысалы Forza-да 0 және 11. Бұл өшірулі болса, теріс беріліс артқа, ал 0 бейтарап болады.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Артқа</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Бейтарап</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Өрістер</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Әр өріс санды өз ығысуынан немесе JSON-да өз кілтінен оқиды (нүктелер ішкі нысандарға жеткізеді) және оны масштабқа көбейтеді. Масштабтан кейін жылдамдық км/сағ болады, педальдар 0-ден 1-ге дейін, ал руль толық солдағы -1-ден толық оңдағы 1-ге дейін жүреді. Айнымалының осі тыныштықтағы Мин. мәнінен толық күйдегі Макс. мәніне дейін жүреді.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Қайда оқылады</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Айнымалы атауы</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Ығысу</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Түрі</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON кілті</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Масштаб</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Мин.</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Макс.</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Өріс қосу</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Өрісті жою</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>{0}-пішімнің атауында : немесе | болмауы керек.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Екі пішімнің аты {0}.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} ішіндегі айнымалының атауында : немесе | болмауы керек.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} ішіндегі өріс {1} байттық пакеттің соңынан асып оқиды.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} ішіндегі өріске JSON кілті қажет.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Айнымалы</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Жылдамдық (км/сағ)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Макс. RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Беріліс</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Газ (0-ден 1-ге дейін)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Тежегіш (0-ден 1-ге дейін)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Ілінісу (0-ден 1-ге дейін)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Қол тежегіші (0-ден 1-ге дейін)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Руль (-1-ден 1-ге дейін)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Жүріп келеді (0 емес)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Ойын телеметриясы</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Жылдамдық (миля/сағ)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (макс. мәннен %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Беріліс (-1 артқа, 0 бейтарап)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Газ (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Тежегіш (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Ілінісу (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Қол тежегіші (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Руль (-100 солға, 100 оңға)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Жүріп келеді (1 немесе 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Бейімделгіш триггер эффектісі</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Бейімделгіш триггер эффектісін тоқтату</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Осы ұяшықтың триггерлерінде DualSense бейімделгіш триггер эффектісін ойнатады. Эффектілер DSX үшін ойын модтары жіберетіндер.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Макрос ұстап тұрған бейімделгіш триггер эффектісін таңдалған триггерде аяқтайды. Оны тоқтатылғанша ұсталатын эффектімен бірге қолданыңыз.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Триггер</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Оң жақ (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Сол жақ (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Екеуі де (L2 және R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Эффект</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Өшірулі</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Садақ</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Шапқылау</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Машина</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Өте жұмсақ</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Жұмсақ</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Орташа</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Қатты</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Өте қатты</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Ең қатты</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Қатаң</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Үзік-үзік</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Дірілдеген импульс</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Бастапқы аймақ</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Соңғы аймақ</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Сыртылдау күші</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Бірінші қадам</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Екінші қадам</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>A күші</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>B күші</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Кезең (секундтың оннан бір бөлігі)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Бастапқы күш</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Соңғы күш</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>{0}-аймақ күші</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Бұл мәндер эффект жасамайды, сондықтан әрекет ештеңе ойнатпайды. Соңғы аймақ бастапқы аймақтан кейін, ал екінші қадам біріншіден кейін болуы керек.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Ұстайды</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Макрос триггері ұсталып тұрғанда</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Белгіленген уақытқа</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Тоқтатылғанша</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Уақыт</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Осы ұяшықтағы әрбір DualSense және DualSense Edge құрылғысында ойнайды. Ойынның өз триггер эффектісі мен ойын модының эффектісі бірінші орында, ал эффект аяқталғанда Бейімделгіш триггерлер қойындысының параметрі қайтады. Аймақтар тыныштықтағы 0-ден толық басылған 9-ға дейін жүреді. Bow, Galloping және Machine ресми DualSense эффектілері емес, микробағдарламаны жаңарту оларды жоюы мүмкін. Бейімделгіш триггер дірілдерін түрлендіру қосулы Xbox контроллерлері дірілдеу эффектілерін триггер дірілі ретінде сезінеді.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{0}: {1}, {2} мс</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{0}: {1}, ұсталып тұрғанда</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{0}: {1}, тоқтатылғанша</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>Триггер эффектісін тоқтату: {0}</value></data>
 </root>

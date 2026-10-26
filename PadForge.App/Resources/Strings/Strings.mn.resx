@@ -4200,7 +4200,7 @@ PadForge одоо тэдгээрийг устгах уу? Үүнд админи�
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>PlayStation Move-ийн тайлангийн бүтэц, мэдрэгчийн калибровк, EXT дагалдах хэрэгслийн холболт тогтоох дараалал, Thomas Perl-ийн бүтээл, moveonpc вики-тэй тулган шалгасан. PadForge-ийн хэрэгжүүлэлт нь эх C# код. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>Уралдааны телеметрийн эх сурвалжууд</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Жолооны RPM шилжүүлэх LED-ийн ард байгаа хуваалцсан санах ой ба UDP бүтцүүдийг assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0)-аас уншсан. GPL эсвэл LGPL код багтаагүй.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>Тоглоомын телеметр болон жолооны RPM шилжүүлэх LED-ийн ард байгаа хуваалцсан санах ой ба UDP бүтцүүдийг assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT), vAzhureRacingHub (GPL-3.0)-аас уншсан. GPL эсвэл LGPL код багтаагүй.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3-ын Bluetooth хослуулалт ба тайлангийн баримт бичиг. GPL-2.0 ба GPL-3.0, зөвхөн баримт бичиг болгон уншсан, GPL код багтаагүй.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4441,4 +4441,133 @@ PadForge одоо тэдгээрийг устгах уу? Үүнд админи�
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>Хүчний хязгаарыг дахин тохируулах</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>Хүрэх зайг калибровк хийх</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>Бариул хэр хол хөдлөхийг хэмжинэ. Хэмжилт явагдах дөрвөн секундын турш бариулыг хүрэх зайнх нь бүх зах хүртэл хөдөлгөнө үү. Энэ хугацаанд хүч ажиллахгүй.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>Тоглоомын телеметр</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>Тоглоомын телеметр</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>Жолоодлогын тоглоомуудын илгээдэг телеметр болон Assetto Corsa-гийн хуваалцсан санах ойг Төхөөрөмжүүд хуудасны Тоглоомын телеметр мөрөнд гаргана. Түүний хурд, дөрөө, араануудыг бусад оролтын адил оноож, тэдгээрээр макро ажиллуулах эсвэл Өөрийн илэрхийлэлд шалгах боломжтой. Сонсож байх үед жолооны RPM шилжүүлэх LED-үүд ч тоглоомын мэдээллийг эндээс уншина.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>Тоглоомын телеметрийг сонсох</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>Тоглоом</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>Автоматаар илрүүлэх нь тоглоомыг пакетуудаас нь таньдаг. Project CARS 2 болон Automobilista 2, эсвэл ачааны машины симуляторуудыг сонгоход эдгээр тоглоомын үргэлж илгээдэг портыг мөн тохируулна.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>Тоглоомын телеметрийн порт</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>Порт руу дамжуулах</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>Пакет бүрийг энэ компьютерын энэ порт руу хуулж, SimHub зэрэг өөр програм үргэлжлүүлэн хүлээн авах боломжтой болгоно. 0 бол юу ч дамжуулахгүй.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>Бүрэн хурд (км/ц)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>Хурд тэнхлэгийг бүрэн хөдөлгөх хурд.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>Өөрийн форматууд…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge-ийн мэдэхгүй тоглоомын пакетуудыг талбар талбараар нь тодорхойлно.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>Тоглоом бүрт телеметрийн гаралтыг асааж, энэ компьютер болон порт руу чиглүүлнэ үү. F1, Codemasters-ийн тоглоомууд болон EA SPORTS WRC өөрчлөөгүй бол 20777-г, Project CARS 2 болон Automobilista 2 үргэлж 5606-г, ачааны машины симуляторуудад зориулсан MrHokss-ийн плагин 49001-г ашигладаг. Assetto Corsa болон ACC порт шаардахгүй.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>Автоматаар илрүүлэх</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport болон Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22-оос F1 25 хүртэл</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0 болон бусад Codemasters тоглоомууд</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive болон Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2 болон Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa болон Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2 болон American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (Өөрийн)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP {0} порт дээр тоглоом хүлээж байна.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP {0} порт дээр сонсож байна. {2} хаягаас {1}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP {0} портыг өөр програм ашиглаж байна.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>{0}-г хуваалцсан санах ойгоос уншиж байна.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa эсвэл Assetto Corsa Competizione-г хүлээж байна.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>{0} порт руу дамжуулж байна.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>Өөрийн телеметрийн форматууд</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>Тоглоомын илгээдэг пакетуудыг талбар талбараар нь тодорхойлбол PadForge тэр тоглоомыг ч уншина. Хувьсагч бүр Тоглоомын телеметр мөрөнд тэнхлэг, Өөрийн илэрхийлэл өдөөгчид суваг болно. Форматыг Тоглоом жагсаалтаас нэрээр нь сонгох, эсвэл Автоматаар илрүүлэх түүнийг олохын тулд урт эсвэл түлхүүр өгнө үү.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>Формат нэмэх</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>Формат {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>Нэр</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>Пакет</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>Хоёртын</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>Урт (байт)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>Яг ийм тооны байттай пакетуудыг л энэ форматаар уншина. 0 бол дурын пакетыг уншиж, Автоматаар илрүүлэх энэ форматыг ашиглахгүй тул нэрээр нь сонгоно уу.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>Шаардлагатай түлхүүр</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>Энэ түлхүүрийг агуулсан JSON пакетуудыг л энэ форматаар уншина. Хоосон бол дурын пакетыг уншиж, Автоматаар илрүүлэх энэ форматыг ашиглахгүй тул нэрээр нь сонгоно уу.</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>Пакет тоо бүрийг хамгийн их жинтэй байтаас нь эхлэн бичдэг. Компьютер дээрх тоглоомууд бараг үргэлж хамгийн бага жинтэй байтыг эхэлж бичдэг.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>Арааны утгууд</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Арааны талбар ухрах ба сул араанд өөрийн гэсэн тоотой, Forza-гийн 0 ба 11 шиг. Үүнийг унтраасан үед сөрөг араа нь ухрах, 0 нь сул араа байна.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>Ухрах</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>Сул</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>Талбарууд</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>Талбар бүр өөрийн офсет дээрх тоог, эсвэл JSON-д өөрийн түлхүүрийн доорх тоог (цэгээр дотоод объект руу ордог) уншиж, масштабаар үржүүлнэ. Масштабын дараа хурд км/ц-аар, дөрөө 0-ээс 1 хүртэл, жолоодлого бүрэн зүүн -1-ээс бүрэн баруун 1 хүртэл байна. Хувьсагчийн тэнхлэг тайван үеийн Доод утгаас бүрэн үеийн Дээд утга хүртэл явна.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>Зорилт</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>Хувьсагчийн нэр</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>Офсет</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>Төрөл</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON түлхүүр</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>Масштаб</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>Доод</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>Дээд</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>Талбар нэмэх</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>Талбар хасах</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>{0}-р форматад : эсвэл | тэмдэггүй нэр хэрэгтэй.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>Хоёр формат {0} гэсэн нэртэй байна.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0} доторх хувьсагчид : эсвэл | тэмдэггүй нэр хэрэгтэй.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0} доторх талбар {1} байт пакетынхаа төгсгөлөөс хэтэрч уншиж байна.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0} доторх талбарт JSON түлхүүр хэрэгтэй.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>Хувьсагч</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>Хурд (км/ц)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>Дээд RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>Араа</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>Хурдасгуур (0-ээс 1 хүртэл)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>Тоормос (0-ээс 1 хүртэл)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>Шүүрэлт (0-ээс 1 хүртэл)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>Гар тоормос (0-ээс 1 хүртэл)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>Жолоодлого (-1-ээс 1 хүртэл)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>Жолоодож байна (0 биш)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>Тоглоомын телеметр</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>Хурд (миль/ц)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (дээд утгын %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>Араа (-1 ухрах, 0 сул)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>Хурдасгуур (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>Тоормос (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>Шүүрэлт (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>Гар тоормос (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>Жолоодлого (-100 зүүн, 100 баруун)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>Жолоодож байна (1 эсвэл 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>Дасан зохицох гохны эффект</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>Дасан зохицох гохны эффект зогсоох</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>Энэ слотын гохнууд дээр DualSense дасан зохицох гохны эффект тоглуулна. Эффектүүд нь DSX-д зориулсан тоглоомын модуудын илгээдэг эффектүүд юм.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>Макроны сонгосон гох дээр барьж буй дасан зохицох гохны эффектийг дуусгана. Зогсоох хүртэл үргэлжлэх эффекттэй хослуулж ашиглана уу.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>Гох</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>Баруун (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>Зүүн (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>Хоёулаа (L2 ба R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>Эффект</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>Унтраалттай</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>Нум</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>Давхих</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>Машин</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>Маш зөөлөн</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>Зөөлөн</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>Дунд</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>Хатуу</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>Маш хатуу</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>Хамгийн хатуу</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>Хөшүүн</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>Тасалдсан</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>Чичрэх импульс</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>Эхлэх бүс</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>Төгсөх бүс</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>Тасрах хүч</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>Эхний хөл</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>Хоёр дахь хөл</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>Хүч A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>Хүч B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>Үечлэл (секундын аравны нэгээр)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>Эхлэх хүч</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>Төгсөх хүч</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>{0}-р бүсийн хүч</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>Эдгээр утгаар эффект үүсэхгүй тул үйлдэл юу ч тоглуулахгүй. Төгсөх бүс эхлэх бүсээсээ хойш, хоёр дахь хөл эхнийхээсээ хойш байх ёстой.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>Үргэлжлэх</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>Макроны өдөөгчийг дарж барих хугацаанд</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>Тогтоосон хугацаанд</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>Зогсоох хүртэл</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>Хугацаа</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>Энэ слот дээрх бүх DualSense болон DualSense Edge дээр тоглоно. Тоглоомын өөрийн гохны эффект болон тоглоомын модын эффект түрүүлж, эффект дуусахад Дасан зохицох гох табын тохиргоо буцаж ажиллана. Бүсүүд тайван үеийн 0-ээс бүрэн дарсан үеийн 9 хүртэл. Нум, Давхих, Машин нь DualSense-ийн албан ёсны эффект биш бөгөөд фирмвэрийн шинэчлэл тэдгээрийг устгаж болно. Дасан зохицох гохны чичиргээг хөрвүүлэх асаалттай Xbox контроллерууд чичирхийлэх эффектүүдийг гохны чичиргээ болгон мэдэрнэ.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1} дээр {0}, {2} мс</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{1} дээр {0}, дарж барих үед</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{1} дээр {0}, зогсоох хүртэл</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>{0} дээрх гохны эффектийг зогсоох</value></data>
 </root>

@@ -248,6 +248,7 @@ namespace PadForge.ViewModels
             nameof(EnableDsuMotionServer) or
             nameof(EnableGameModServer) or
             nameof(GameModDsxStandIn) or
+            nameof(EnableGameTelemetry) or
             nameof(EnableWebController) or
             nameof(EnableWebControllerPlainHttp) or
             nameof(WebControllerPlainHttpLocalOnly) or
@@ -275,6 +276,11 @@ namespace PadForge.ViewModels
                 case nameof(GameModDsxStandIn):
                 {
                     GameModDsxStandIn = false;
+                    break;
+                }
+                case nameof(EnableGameTelemetry):
+                {
+                    EnableGameTelemetry = false;
                     break;
                 }
                 case nameof(EnableWebController):
@@ -635,7 +641,8 @@ namespace PadForge.ViewModels
 
         internal static bool CanResetSetting(string name) => name is
             nameof(Source) or
-            nameof(OutputChannel);
+            nameof(OutputChannel) or
+            nameof(TelemetryChannel);
 
         private void ResetSetting(string name)
         {
@@ -649,6 +656,13 @@ namespace PadForge.ViewModels
                 case nameof(OutputChannel):
                 {
                     OutputChannel = MacroOutputChannel.None;
+                    break;
+                }
+                case nameof(TelemetryChannel):
+                {
+                    // Speed, the channel picking the source seeds (#531).
+                    TelemetryVariable = string.Empty;
+                    TelemetryChannel = PadForge.Common.Input.Telemetry.TelemetryChannel.SpeedKmh;
                     break;
                 }
                 default: return;
@@ -1165,6 +1179,10 @@ namespace PadForge.ViewModels
             nameof(RumbleHoldMode) or
             nameof(RumbleHoldMs) or
             nameof(RumbleStrengthLeft) or
+            nameof(TriggerEffectSide) or
+            nameof(TriggerEffectMode) or
+            nameof(TriggerEffectHold) or
+            nameof(TriggerEffectMs) or
             nameof(RumbleStrengthRight) or
             nameof(SetGyroEngagedMode) or
             nameof(ShowVolumeOsd) or
@@ -1379,6 +1397,27 @@ namespace PadForge.ViewModels
                 case nameof(RumbleFadeMs):
                 {
                     RumbleFadeMs = 200;
+                    break;
+                }
+                case nameof(TriggerEffectSide):
+                {
+                    TriggerEffectSide = MacroTriggerEffectSide.Right;
+                    break;
+                }
+                case nameof(TriggerEffectMode):
+                {
+                    // Back to Feedback, with its own starting values (#531).
+                    TriggerEffectMode = TriggerEffectCatalog.ResistanceMode;
+                    break;
+                }
+                case nameof(TriggerEffectHold):
+                {
+                    TriggerEffectHold = MacroTriggerEffectHold.UntilRelease;
+                    break;
+                }
+                case nameof(TriggerEffectMs):
+                {
+                    TriggerEffectMs = 500;
                     break;
                 }
                 case nameof(RumbleHoldMode):

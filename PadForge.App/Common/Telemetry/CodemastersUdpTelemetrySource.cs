@@ -27,12 +27,14 @@ namespace PadForge.Common.Telemetry
     /// different layout and is rejected. EA WRC UDP was not confirmed and is not
     /// claimed here.
     /// </summary>
-    internal sealed class CodemastersUdpTelemetrySource : ITelemetrySource
+    internal sealed class CodemastersUdpTelemetrySource : IUdpTelemetrySource
     {
         public string Name => "F1 / Codemasters";
 
-        private const int Port = 20777;
+        private const int ListenPort = 20777;
         private const int F1Header = 29;
+
+        public int Port => ListenPort;
 
         private UdpClient _udp;
         private Thread _thread;
@@ -48,7 +50,7 @@ namespace PadForge.Common.Telemetry
             {
                 // Every address, which the test host binds none of (NetworkListenerGate).
                 PadForge.Engine.Common.NetworkListenerGate.Enter(IPAddress.Any);
-                _udp = new UdpClient(new IPEndPoint(IPAddress.Any, Port));
+                _udp = new UdpClient(new IPEndPoint(IPAddress.Any, ListenPort));
             }
             catch { _udp = null; return; } // 20777 is already bound, by SimHub for one. Stay idle.
             _run = true;

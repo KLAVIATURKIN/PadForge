@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace PadForge.Common.Telemetry
@@ -27,10 +28,51 @@ namespace PadForge.Common.Telemetry
         private static GameTelemetrySnapshot _current;
         private static bool _hasCurrent;
 
+        // Ports the Game Telemetry row holds (issue #531), under _lock. Two
+        // sockets cannot share a port, and the row decodes every format these
+        // UDP sources read, so a source on a held port stays closed while
+        // the GameTelemetryRowSource pair reads the row.
+        private static readonly HashSet<int> _yieldedPorts = new();
+
         /// <summary>Forza Data Out listen port. Takes effect on the next start.</summary>
         public static void SetForzaPort(int port)
         {
             if (port > 0 && port <= 65535) _forzaPort = port;
+        }
+
+        /// <summary>Closes the source on <paramref name="port"/> if one is open,
+        /// and keeps it closed until <see cref="ReclaimPort"/>. The Game
+        /// Telemetry row calls this before it binds.</summary>
+        public static void YieldPort(int port)
+        {
+            lock (_lock)
+            {
+                if (!_yieldedPorts.Add(port)) return;
+                var sources = _sources;
+                if (sources == null) return;
+                foreach (var s in sources)
+                    if (s is IUdpTelemetrySource udp && udp.Port == port) { try { s.Stop(); } catch { } }
+            }
+        }
+
+        /// <summary>Gives <paramref name="port"/> back after the row closed its
+        /// socket. A running hub opens its source there again.</summary>
+        public static void ReclaimPort(int port)
+        {
+            lock (_lock)
+            {
+                if (!_yieldedPorts.Remove(port)) return;
+                var sources = _sources;
+                if (!_running || sources == null) return;
+                foreach (var s in sources)
+                    if (s is IUdpTelemetrySource udp && udp.Port == port) { try { s.Start(); } catch { } }
+            }
+        }
+
+        /// <summary>Test seam: whether the row holds <paramref name="port"/>.</summary>
+        internal static bool IsPortYielded(int port)
+        {
+            lock (_lock) return _yieldedPorts.Contains(port);
         }
 
         /// <summary>Signals that a consumer needs telemetry this frame. Starts the
@@ -52,12 +94,17 @@ namespace PadForge.Common.Telemetry
             }
         }
 
-        // All registered sources, polled in array order — the first with a fresh
+        // All registered sources, polled in array order. The first with a fresh
         // in-session snapshot wins. Only one racing title runs at a time in
         // practice, so order is mostly a tie-breaker. Add a new game by dropping
-        // its ITelemetrySource into this array.
+        // its ITelemetrySource into this array. The Game Telemetry row comes
+        // first when its game sent a max RPM: while it is live, the game it
+        // reads is the one the user set it up for, on a port no source below
+        // can hold. A max the row learned from the highest RPM seen comes
+        // last, behind any source with the game's own.
         private static ITelemetrySource[] BuildSources() => new ITelemetrySource[]
         {
+            new GameTelemetryRowSource(learnedMax: false), // the Game Telemetry row (#531), the game's max RPM
             new ForzaUdpTelemetrySource(_forzaPort),     // UDP 5300
             new AssettoCorsaTelemetrySource(),           // acpmf shared memory (AC / ACC)
             new IRacingTelemetrySource(),                // irsdk shared memory
@@ -68,6 +115,7 @@ namespace PadForge.Common.Telemetry
             new RFactor1TelemetrySource(),               // rFactor 1 / AMS1 / GSCE shared memory (plugin)
             new CodemastersUdpTelemetrySource(),         // UDP 20777: F1 23/24 + DiRT/GRID
             new OutGaugeTelemetrySource(),               // UDP 4444: BeamNG + Live for Speed
+            new GameTelemetryRowSource(learnedMax: true),  // the row again, a max RPM it learned
         };
 
         private static void Start()
@@ -76,7 +124,11 @@ namespace PadForge.Common.Telemetry
             {
                 if (_running) return;
                 _sources = BuildSources();
-                foreach (var s in _sources) { try { s.Start(); } catch { } }
+                foreach (var s in _sources)
+                {
+                    if (s is IUdpTelemetrySource udp && _yieldedPorts.Contains(udp.Port)) continue;
+                    try { s.Start(); } catch { }
+                }
                 _running = true;
                 _poll = new Thread(Loop) { IsBackground = true, Name = "TelemetryHub" };
                 _poll.Start();

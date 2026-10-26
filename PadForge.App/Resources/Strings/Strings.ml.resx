@@ -4185,7 +4185,7 @@ PadForge ഇവ ഇപ്പോൾ അൺഇൻസ്റ്റാൾ ചെയ�
   <data name="About_Psmoveapi" xml:space="preserve"><value>psmoveapi</value></data>
   <data name="About_PsmoveapiDesc" xml:space="preserve"><value>Thomas Perl-ന്റെ PlayStation Move റിപ്പോർട്ട് ലേഔട്ടുകൾ, സെൻസർ കാലിബ്രേഷൻ, EXT ആക്സസറി ഹാൻഡ്ഷേക്ക്, moveonpc വിക്കിയുമായി പരിശോധിച്ചത്. PadForge-ന്റെ നിർവഹണം സ്വന്തമായി എഴുതിയ C# ആണ്. BSD 2-Clause.</value></data>
   <data name="About_TelemetryRefs" xml:space="preserve"><value>റേസിംഗ് ടെലിമെട്രി റഫറൻസുകൾ</value></data>
-  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>വീൽ RPM ഷിഫ്റ്റ് LED-കൾക്ക് പിന്നിലെ ഷെയേർഡ്-മെമ്മറി, UDP ലേഔട്ടുകൾ, assettocorsasharedmemory (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0) എന്നിവയിൽ നിന്ന് വായിച്ചത്. GPL അല്ലെങ്കിൽ LGPL കോഡ് ഒന്നും ഉൾപ്പെടുത്തുന്നില്ല.</value></data>
+  <data name="About_TelemetryRefsDesc" xml:space="preserve"><value>ഗെയിം ടെലിമെട്രിക്കും വീൽ RPM ഷിഫ്റ്റ് LED-കൾക്കും പിന്നിലെ ഷെയേർഡ്-മെമ്മറി, UDP ലേഔട്ടുകൾ, assettocorsasharedmemory (MIT), CMTelemetry, dirt-rally-telemetry-dashboard (MIT), ets2-telemetry-udp (MIT), f1-24-udp (MIT), fh6-tel (MIT), forza-data-web (Apache-2.0), forza-telemetry (MIT), Forza-Telemetry-Splitter (MIT), InSim.NET (LGPL-2.1), irsdkSharp (MIT), IRSDKSharper (GPL-3.0), out-gauge-cluster (Apache-2.0), PCars2UdpNet (MIT), project-cars-2-udp (MIT), pyirsdk (MIT), rF2SharedMemoryMapPlugin (GPL-3.0), rFactorSharedMemoryMap (GPL-2.0), rust_ams2_sharedmem, scs-sdk-plugin (MIT), simapi (LGPL-3.0), tm-bt-led (MIT), vAzhureRacingHub (GPL-3.0) എന്നിവയിൽ നിന്ന് വായിച്ചത്. GPL അല്ലെങ്കിൽ LGPL കോഡ് ഒന്നും ഉൾപ്പെടുത്തുന്നില്ല.</value></data>
   <data name="About_Ds3Research" xml:space="preserve"><value>ScpToolkit / sixad / transbt</value></data>
   <data name="About_Ds3ResearchDesc" xml:space="preserve"><value>DualShock 3 ബ്ലൂടൂത്ത് ജോടിയാക്കൽ, റിപ്പോർട്ട് ഡോക്യുമെന്റേഷൻ. GPL-2.0, GPL-3.0, ഡോക്യുമെന്റേഷനായി മാത്രം വായിച്ചത്, GPL കോഡ് ഒന്നും ഉൾപ്പെടുത്തുന്നില്ല.</value></data>
   <data name="About_SipSorcery" xml:space="preserve"><value>SIPSorcery</value></data>
@@ -4426,4 +4426,134 @@ PadForge ഇവ ഇപ്പോൾ അൺഇൻസ്റ്റാൾ ചെയ�
   <data name="Pad_Falcon_ResetForceCap" xml:space="preserve"><value>ഫോഴ്സ് പരിധി പുനഃസജ്ജമാക്കുക</value></data>
   <data name="Falcon_Calibrate" xml:space="preserve"><value>ചലനപരിധി കാലിബ്രേറ്റ് ചെയ്യുക</value></data>
   <data name="Falcon_Calibrate_Tooltip" xml:space="preserve"><value>ഹാൻഡിൽ എത്ര ദൂരം നീങ്ങുന്നു എന്ന് അളക്കുന്നു. സ്വീപ്പ് നടക്കുന്ന നാല് സെക്കൻഡ് ഹാൻഡിൽ അതിന്റെ ചലനപരിധിയുടെ എല്ലാ അരികുകളിലേക്കും നീക്കുക. അതിനിടെ ബലങ്ങൾ വിശ്രമിക്കും.</value></data>
+  <data name="DeviceType_GameTelemetry" xml:space="preserve"><value>ഗെയിം ടെലിമെട്രി</value></data>
+  <data name="Dashboard_GameTelemetry" xml:space="preserve"><value>ഗെയിം ടെലിമെട്രി</value></data>
+  <data name="Dashboard_GameTelemetryDescription" xml:space="preserve"><value>ഡ്രൈവിംഗ് ഗെയിമുകൾ അയയ്ക്കുന്ന ടെലിമെട്രിയും Assetto Corsa-യുടെ ഷെയേർഡ് മെമ്മറിയും ഉപകരണങ്ങൾ പേജിലെ ഗെയിം ടെലിമെട്രി വരിയിൽ എത്തിക്കുന്നു. അതിലെ വേഗം, പെഡലുകൾ, ഗിയറുകൾ എന്നിവ ഏതൊരു ഇൻപുട്ടിനെയും പോലെ മാപ്പ് ചെയ്യാം, അവ ഉപയോഗിച്ച് മാക്രോകൾ ട്രിഗർ ചെയ്യാം, അല്ലെങ്കിൽ ഇഷ്ടാനുസൃത എക്സ്പ്രഷനിൽ പരീക്ഷിക്കാം. ഇത് കേൾക്കുമ്പോൾ, വീലിന്റെ RPM ഷിഫ്റ്റ് LED-കളും ഗെയിമിനെ ഇവിടെ നിന്നാണ് വായിക്കുന്നത്.</value></data>
+  <data name="Dashboard_EnableGameTelemetry" xml:space="preserve"><value>ഗെയിം ടെലിമെട്രി കേൾക്കുക</value></data>
+  <data name="Dashboard_GameTelemetryGame" xml:space="preserve"><value>ഗെയിം</value></data>
+  <data name="Dashboard_GameTelemetryGame_Tooltip" xml:space="preserve"><value>പാക്കറ്റുകൾ നോക്കി ഗെയിമിനെ ഓട്ടോ-ഡിറ്റക്റ്റ് തിരിച്ചറിയുന്നു. Project CARS 2 and Automobilista 2 അല്ലെങ്കിൽ ട്രക്ക് സിമുലേറ്ററുകൾ തിരഞ്ഞെടുത്താൽ, ആ ഗെയിമുകൾ എപ്പോഴും അയയ്ക്കുന്ന പോർട്ടും സജ്ജമാകും.</value></data>
+  <data name="Dashboard_GameTelemetryPort" xml:space="preserve"><value>ഗെയിം ടെലിമെട്രി പോർട്ട്</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort" xml:space="preserve"><value>ഈ പോർട്ടിലേക്ക് ഫോർവേഡ് ചെയ്യുക</value></data>
+  <data name="Dashboard_GameTelemetryForwardPort_Tooltip" xml:space="preserve"><value>ഓരോ പാക്കറ്റും ഈ PC-യിലെ ഈ പോർട്ടിലേക്കും പകർത്തുന്നു, അതിനാൽ SimHub പോലുള്ള മറ്റൊരു പ്രോഗ്രാമിനും അത് ലഭിച്ചുകൊണ്ടിരിക്കും. 0 ആണെങ്കിൽ ഒന്നും ഫോർവേഡ് ചെയ്യില്ല.</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed" xml:space="preserve"><value>പൂർണ്ണ വേഗം (km/h)</value></data>
+  <data name="Dashboard_GameTelemetryFullSpeed_Tooltip" xml:space="preserve"><value>വേഗം ആക്സിസിനെ പൂർണ്ണമായി ചലിപ്പിക്കുന്ന വേഗം.</value></data>
+  <data name="Dashboard_GameTelemetryFormats" xml:space="preserve"><value>ഇഷ്ടാനുസൃത ഫോർമാറ്റുകൾ…</value></data>
+  <data name="Dashboard_GameTelemetryFormats_Tooltip" xml:space="preserve"><value>PadForge-ന് അറിയാത്ത ഒരു ഗെയിമിന്റെ പാക്കറ്റുകൾ ഫീൽഡ് ഫീൽഡായി വിവരിക്കുന്നു.</value></data>
+  <data name="Dashboard_GameTelemetryFooter" xml:space="preserve"><value>ഓരോ ഗെയിമിലും ടെലിമെട്രി ഔട്ട്പുട്ട് ഓണാക്കി ഈ PC-യിലേക്കും പോർട്ടിലേക്കും നൽകുക. F1, Codemasters ഗെയിമുകൾ, EA SPORTS WRC എന്നിവ മാറ്റിയില്ലെങ്കിൽ 20777 ഉപയോഗിക്കും, Project CARS 2, Automobilista 2 എന്നിവ എപ്പോഴും 5606 ഉപയോഗിക്കും, ട്രക്ക് സിമുലേറ്ററുകൾക്കുള്ള MrHokss-ന്റെ പ്ലഗിൻ 49001 ഉപയോഗിക്കും. Assetto Corsa, ACC എന്നിവയ്ക്ക് പോർട്ട് വേണ്ട.</value></data>
+  <data name="Telemetry_Game_Auto" xml:space="preserve"><value>ഓട്ടോ-ഡിറ്റക്റ്റ്</value></data>
+  <data name="Telemetry_Game_Forza" xml:space="preserve"><value>Forza Motorsport, Forza Horizon</value></data>
+  <data name="Telemetry_Game_F1" xml:space="preserve"><value>F1 22 മുതൽ F1 25 വരെ</value></data>
+  <data name="Telemetry_Game_Codemasters" xml:space="preserve"><value>DiRT Rally 2.0, മറ്റ് Codemasters ഗെയിമുകൾ</value></data>
+  <data name="Telemetry_Game_EaSportsWrc" xml:space="preserve"><value>EA SPORTS WRC</value></data>
+  <data name="Telemetry_Game_OutGauge" xml:space="preserve"><value>BeamNG.drive, Live for Speed</value></data>
+  <data name="Telemetry_Game_ProjectCars2" xml:space="preserve"><value>Project CARS 2, Automobilista 2</value></data>
+  <data name="Telemetry_Game_AssettoCorsa" xml:space="preserve"><value>Assetto Corsa, Assetto Corsa Competizione</value></data>
+  <data name="Telemetry_Game_TruckSimulator" xml:space="preserve"><value>Euro Truck Simulator 2, American Truck Simulator</value></data>
+  <data name="Telemetry_Game_Custom_Format" xml:space="preserve"><value>{0} (ഇഷ്ടാനുസൃതം)</value></data>
+  <data name="Telemetry_Status_Waiting_Format" xml:space="preserve"><value>UDP പോർട്ട് {0}-ൽ ഒരു ഗെയിമിനായി കാത്തിരിക്കുന്നു.</value></data>
+  <data name="Telemetry_Status_Receiving_Format" xml:space="preserve"><value>UDP പോർട്ട് {0}-ൽ കേൾക്കുന്നു. {2}-ൽ നിന്നുള്ള {1}.</value></data>
+  <data name="Telemetry_Status_PortInUse_Format" xml:space="preserve"><value>UDP പോർട്ട് {0} മറ്റൊരു പ്രോഗ്രാം ഉപയോഗിക്കുന്നു.</value></data>
+  <data name="Telemetry_Status_SharedMemory_Format" xml:space="preserve"><value>ഷെയേർഡ് മെമ്മറിയിൽ നിന്ന് {0} വായിക്കുന്നു.</value></data>
+  <data name="Telemetry_Status_WaitingSharedMemory" xml:space="preserve"><value>Assetto Corsa അല്ലെങ്കിൽ Assetto Corsa Competizione-നായി കാത്തിരിക്കുന്നു.</value></data>
+  <data name="Telemetry_Status_Forwarding_Format" xml:space="preserve"><value>പോർട്ട് {0}-ലേക്ക് ഫോർവേഡ് ചെയ്യുന്നു.</value></data>
+  <data name="Telemetry_Formats_Title" xml:space="preserve"><value>ഇഷ്ടാനുസൃത ടെലിമെട്രി ഫോർമാറ്റുകൾ</value></data>
+  <data name="Telemetry_Formats_Description" xml:space="preserve"><value>ഒരു ഗെയിം അയയ്ക്കുന്ന പാക്കറ്റുകൾ ഫീൽഡ് ഫീൽഡായി വിവരിക്കുക, PadForge ആ ഗെയിമും വായിക്കും. ഓരോ വേരിയബിളും ഗെയിം ടെലിമെട്രി വരിയിലെ ഒരു ആക്സിസും ഇഷ്ടാനുസൃത എക്സ്പ്രഷൻ ട്രിഗറുകൾക്കുള്ള ഒരു ചാനലും ആകുന്നു. ഗെയിം പട്ടികയിൽ ഫോർമാറ്റ് പേരു നോക്കി തിരഞ്ഞെടുക്കുക, അല്ലെങ്കിൽ ഓട്ടോ-ഡിറ്റക്റ്റ് കണ്ടെത്താൻ അതിന് ഒരു നീളമോ കീയോ നൽകുക.</value></data>
+  <data name="Telemetry_Formats_Add" xml:space="preserve"><value>ഫോർമാറ്റ് ചേർക്കുക</value></data>
+  <data name="Telemetry_Formats_NewName_Format" xml:space="preserve"><value>ഫോർമാറ്റ് {0}</value></data>
+  <data name="Telemetry_Formats_Name" xml:space="preserve"><value>പേര്</value></data>
+  <data name="Telemetry_Formats_Kind" xml:space="preserve"><value>പാക്കറ്റുകൾ</value></data>
+  <data name="Telemetry_Formats_KindBinary" xml:space="preserve"><value>ബൈനറി</value></data>
+  <data name="Telemetry_Formats_KindJson" xml:space="preserve"><value>JSON</value></data>
+  <data name="Telemetry_Formats_Length" xml:space="preserve"><value>നീളം (ബൈറ്റുകൾ)</value></data>
+  <data name="Telemetry_Formats_Length_Tooltip" xml:space="preserve"><value>കൃത്യമായി ഇത്ര ബൈറ്റുകളുള്ള പാക്കറ്റുകൾ മാത്രമേ ഈ ഫോർമാറ്റിൽ വായിക്കൂ. 0 ആണെങ്കിൽ ഏത് പാക്കറ്റും വായിക്കും, ഓട്ടോ-ഡിറ്റക്റ്റ് ഈ ഫോർമാറ്റിനെ ഒഴിവാക്കും, അതിനാൽ പേരു നോക്കി തിരഞ്ഞെടുക്കുക.</value></data>
+  <data name="Telemetry_Formats_Key" xml:space="preserve"><value>ആവശ്യമായ കീ</value></data>
+  <data name="Telemetry_Formats_Key_Tooltip" xml:space="preserve"><value>ഈ കീ ഉള്ള JSON പാക്കറ്റുകൾ മാത്രമേ ഈ ഫോർമാറ്റിൽ വായിക്കൂ. ഒഴിച്ചിട്ടാൽ ഏത് പാക്കറ്റും വായിക്കും, ഓട്ടോ-ഡിറ്റക്റ്റ് ഈ ഫോർമാറ്റിനെ ഒഴിവാക്കും, അതിനാൽ പേരു നോക്കി തിരഞ്ഞെടുക്കുക.</value></data>
+  <data name="Telemetry_Formats_BigEndian" xml:space="preserve"><value>ബിഗ്-എൻഡിയൻ</value></data>
+  <data name="Telemetry_Formats_BigEndian_Tooltip" xml:space="preserve"><value>പാക്കറ്റ് ഓരോ സംഖ്യയും ഏറ്റവും പ്രധാനപ്പെട്ട ബൈറ്റ് ആദ്യം വരുന്ന രീതിയിൽ എഴുതുന്നു. PC-യിലെ ഗെയിമുകൾ മിക്കവാറും എപ്പോഴും ഏറ്റവും ചെറിയ പ്രാധാന്യമുള്ള ബൈറ്റാണ് ആദ്യം എഴുതുന്നത്.</value></data>
+  <data name="Telemetry_Formats_GearValues" xml:space="preserve"><value>ഗിയർ മൂല്യങ്ങൾ</value></data>
+  <data name="Telemetry_Formats_GearValues_Tooltip" xml:space="preserve"><value>Forza-യിലെ 0, 11 പോലെ, ഗിയർ ഫീൽഡിന് റിവേഴ്സിനും ന്യൂട്രലിനും സ്വന്തം സംഖ്യകളുണ്ട്. ഇത് ഓഫ് ആയിരിക്കുമ്പോൾ, നെഗറ്റീവ് ഗിയർ റിവേഴ്സും 0 ന്യൂട്രലും ആണ്.</value></data>
+  <data name="Telemetry_Formats_GearReverse" xml:space="preserve"><value>റിവേഴ്സ്</value></data>
+  <data name="Telemetry_Formats_GearNeutral" xml:space="preserve"><value>ന്യൂട്രൽ</value></data>
+  <data name="Telemetry_Formats_Fields" xml:space="preserve"><value>ഫീൽഡുകൾ</value></data>
+  <data name="Telemetry_Formats_FieldsHint" xml:space="preserve"><value>ഓരോ ഫീൽഡും അതിന്റെ ഓഫ്സെറ്റിൽ, അല്ലെങ്കിൽ JSON-ൽ അതിന്റെ കീയുടെ കീഴിൽ (ഡോട്ടുകൾ ഉള്ളിലെ ഒബ്ജക്റ്റുകളിലേക്ക് എത്തുന്നു) ഒരു സംഖ്യ വായിച്ച് സ്കെയിൽ കൊണ്ട് ഗുണിക്കുന്നു. സ്കെയിലിന് ശേഷം വേഗം km/h-ലും, പെഡലുകൾ 0 മുതൽ 1 വരെയും, സ്റ്റിയറിംഗ് പൂർണ്ണ ഇടത്ത് -1 മുതൽ പൂർണ്ണ വലത്ത് 1 വരെയും ആയിരിക്കും. ഒരു വേരിയബിളിന്റെ ആക്സിസ് വിശ്രമത്തിൽ അതിന്റെ കുറഞ്ഞത് മുതൽ പൂർണ്ണതയിൽ അതിന്റെ കൂടിയത് വരെ പോകുന്നു.</value></data>
+  <data name="Telemetry_Formats_ColTarget" xml:space="preserve"><value>വായിക്കുന്നത്</value></data>
+  <data name="Telemetry_Formats_ColName" xml:space="preserve"><value>വേരിയബിൾ പേര്</value></data>
+  <data name="Telemetry_Formats_ColOffset" xml:space="preserve"><value>ഓഫ്സെറ്റ്</value></data>
+  <data name="Telemetry_Formats_ColType" xml:space="preserve"><value>തരം</value></data>
+  <data name="Telemetry_Formats_ColKey" xml:space="preserve"><value>JSON കീ</value></data>
+  <data name="Telemetry_Formats_ColScale" xml:space="preserve"><value>സ്കെയിൽ</value></data>
+  <data name="Telemetry_Formats_ColMin" xml:space="preserve"><value>കുറഞ്ഞത്</value></data>
+  <data name="Telemetry_Formats_ColMax" xml:space="preserve"><value>കൂടിയത്</value></data>
+  <data name="Telemetry_Formats_AddField" xml:space="preserve"><value>ഫീൽഡ് ചേർക്കുക</value></data>
+  <data name="Telemetry_Formats_RemoveField" xml:space="preserve"><value>ഫീൽഡ് നീക്കം ചെയ്യുക</value></data>
+  <data name="Telemetry_Formats_ErrorName_Format" xml:space="preserve"><value>ഫോർമാറ്റ് {0}-ന് : അല്ലെങ്കിൽ | ഇല്ലാത്ത ഒരു പേര് വേണം.</value></data>
+  <data name="Telemetry_Formats_ErrorDuplicate_Format" xml:space="preserve"><value>രണ്ട് ഫോർമാറ്റുകൾക്ക് {0} എന്ന പേരാണ്.</value></data>
+  <data name="Telemetry_Formats_ErrorVariable_Format" xml:space="preserve"><value>{0}-ലെ ഒരു വേരിയബിളിന് : അല്ലെങ്കിൽ | ഇല്ലാത്ത ഒരു പേര് വേണം.</value></data>
+  <data name="Telemetry_Formats_ErrorOffset_Format" xml:space="preserve"><value>{0}-ലെ ഒരു ഫീൽഡ് അതിന്റെ {1}-ബൈറ്റ് പാക്കറ്റിന്റെ അവസാനത്തിനപ്പുറം വായിക്കുന്നു.</value></data>
+  <data name="Telemetry_Formats_ErrorKey_Format" xml:space="preserve"><value>{0}-ലെ ഒരു ഫീൽഡിന് JSON കീ വേണം.</value></data>
+  <data name="Telemetry_Target_Variable" xml:space="preserve"><value>വേരിയബിൾ</value></data>
+  <data name="Telemetry_Target_Speed" xml:space="preserve"><value>വേഗം (km/h)</value></data>
+  <data name="Telemetry_Target_Rpm" xml:space="preserve"><value>RPM</value></data>
+  <data name="Telemetry_Target_MaxRpm" xml:space="preserve"><value>പരമാവധി RPM</value></data>
+  <data name="Telemetry_Target_Gear" xml:space="preserve"><value>ഗിയർ</value></data>
+  <data name="Telemetry_Target_Throttle" xml:space="preserve"><value>ത്രോട്ടിൽ (0 മുതൽ 1 വരെ)</value></data>
+  <data name="Telemetry_Target_Brake" xml:space="preserve"><value>ബ്രേക്ക് (0 മുതൽ 1 വരെ)</value></data>
+  <data name="Telemetry_Target_Clutch" xml:space="preserve"><value>ക്ലച്ച് (0 മുതൽ 1 വരെ)</value></data>
+  <data name="Telemetry_Target_Handbrake" xml:space="preserve"><value>ഹാൻഡ്ബ്രേക്ക് (0 മുതൽ 1 വരെ)</value></data>
+  <data name="Telemetry_Target_Steering" xml:space="preserve"><value>സ്റ്റിയറിംഗ് (-1 മുതൽ 1 വരെ)</value></data>
+  <data name="Telemetry_Target_Driving" xml:space="preserve"><value>ഡ്രൈവിംഗ് (0 അല്ലാത്തത്)</value></data>
+  <data name="Macro_GameTelemetry" xml:space="preserve"><value>ഗെയിം ടെലിമെട്രി</value></data>
+  <data name="Telemetry_Channel_SpeedMph" xml:space="preserve"><value>വേഗം (mph)</value></data>
+  <data name="Telemetry_Channel_RpmPercent" xml:space="preserve"><value>RPM (പരമാവധിയുടെ %)</value></data>
+  <data name="Telemetry_Channel_Gear" xml:space="preserve"><value>ഗിയർ (-1 റിവേഴ്സ്, 0 ന്യൂട്രൽ)</value></data>
+  <data name="Telemetry_Channel_Throttle" xml:space="preserve"><value>ത്രോട്ടിൽ (%)</value></data>
+  <data name="Telemetry_Channel_Brake" xml:space="preserve"><value>ബ്രേക്ക് (%)</value></data>
+  <data name="Telemetry_Channel_Clutch" xml:space="preserve"><value>ക്ലച്ച് (%)</value></data>
+  <data name="Telemetry_Channel_Handbrake" xml:space="preserve"><value>ഹാൻഡ്ബ്രേക്ക് (%)</value></data>
+  <data name="Telemetry_Channel_Steering" xml:space="preserve"><value>സ്റ്റിയറിംഗ് (-100 ഇടത് മുതൽ 100 വലത് വരെ)</value></data>
+  <data name="Telemetry_Channel_Driving" xml:space="preserve"><value>ഡ്രൈവിംഗ് (1 അല്ലെങ്കിൽ 0)</value></data>
+  <data name="MacroAction_Type_TriggerEffect" xml:space="preserve"><value>അഡാപ്റ്റീവ് ട്രിഗർ ഇഫക്റ്റ്</value></data>
+  <data name="MacroAction_Type_TriggerEffectStop" xml:space="preserve"><value>അഡാപ്റ്റീവ് ട്രിഗർ ഇഫക്റ്റ് നിർത്തുക</value></data>
+  <data name="MacroAction_TriggerEffect_Tooltip" xml:space="preserve"><value>ഈ സ്ലോട്ടിന്റെ ട്രിഗറുകളിൽ DualSense അഡാപ്റ്റീവ് ട്രിഗർ ഇഫക്റ്റ് പ്ലേ ചെയ്യുന്നു. DSX-നുള്ള ഗെയിം മോഡുകൾ അയയ്ക്കുന്ന ഇഫക്റ്റുകളാണ് ഇവ.</value></data>
+  <data name="MacroAction_TriggerEffectStop_Tooltip" xml:space="preserve"><value>തിരഞ്ഞെടുത്ത ട്രിഗറിൽ ഒരു മാക്രോ പിടിച്ചുനിർത്തുന്ന അഡാപ്റ്റീവ് ട്രിഗർ ഇഫക്റ്റ് അവസാനിപ്പിക്കുന്നു. നിർത്തുന്നതുവരെ നിലനിൽക്കുന്ന ഒരു ഇഫക്റ്റിനൊപ്പം ഇത് ഉപയോഗിക്കുക.</value></data>
+  <data name="MacroAction_TriggerEffect_Side" xml:space="preserve"><value>ട്രിഗർ</value></data>
+  <data name="MacroAction_TriggerEffect_SideRight" xml:space="preserve"><value>വലത് (R2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideLeft" xml:space="preserve"><value>ഇടത് (L2)</value></data>
+  <data name="MacroAction_TriggerEffect_SideBoth" xml:space="preserve"><value>രണ്ടും (L2, R2)</value></data>
+  <data name="MacroAction_TriggerEffect_Effect" xml:space="preserve"><value>ഇഫക്റ്റ്</value></data>
+  <data name="MacroAction_TriggerEffect_Off" xml:space="preserve"><value>ഓഫ്</value></data>
+  <data name="MacroAction_TriggerEffect_Bow" xml:space="preserve"><value>വില്ല്</value></data>
+  <data name="MacroAction_TriggerEffect_Galloping" xml:space="preserve"><value>കുതിച്ചോട്ടം</value></data>
+  <data name="MacroAction_TriggerEffect_Machine" xml:space="preserve"><value>യന്ത്രം</value></data>
+  <data name="MacroAction_TriggerEffect_VerySoft" xml:space="preserve"><value>വളരെ മൃദു</value></data>
+  <data name="MacroAction_TriggerEffect_Soft" xml:space="preserve"><value>മൃദു</value></data>
+  <data name="MacroAction_TriggerEffect_Medium" xml:space="preserve"><value>ഇടത്തരം</value></data>
+  <data name="MacroAction_TriggerEffect_Hard" xml:space="preserve"><value>കഠിനം</value></data>
+  <data name="MacroAction_TriggerEffect_VeryHard" xml:space="preserve"><value>വളരെ കഠിനം</value></data>
+  <data name="MacroAction_TriggerEffect_Hardest" xml:space="preserve"><value>ഏറ്റവും കഠിനം</value></data>
+  <data name="MacroAction_TriggerEffect_Rigid" xml:space="preserve"><value>ദൃഢം</value></data>
+  <data name="MacroAction_TriggerEffect_Choppy" xml:space="preserve"><value>ഇടറിയത്</value></data>
+  <data name="MacroAction_TriggerEffect_VibratePulse" xml:space="preserve"><value>വൈബ്രേറ്റിംഗ് പൾസ്</value></data>
+  <data name="MacroAction_TriggerEffect_StartZone" xml:space="preserve"><value>ആരംഭ സോൺ</value></data>
+  <data name="MacroAction_TriggerEffect_EndZone" xml:space="preserve"><value>അവസാന സോൺ</value></data>
+  <data name="MacroAction_TriggerEffect_SnapStrength" xml:space="preserve"><value>സ്നാപ്പ് ശക്തി</value></data>
+  <data name="MacroAction_TriggerEffect_FirstFoot" xml:space="preserve"><value>ആദ്യ കാൽവയ്പ്</value></data>
+  <data name="MacroAction_TriggerEffect_SecondFoot" xml:space="preserve"><value>രണ്ടാം കാൽവയ്പ്</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthA" xml:space="preserve"><value>ശക്തി A</value></data>
+  <data name="MacroAction_TriggerEffect_StrengthB" xml:space="preserve"><value>ശക്തി B</value></data>
+  <data name="MacroAction_TriggerEffect_Period" xml:space="preserve"><value>ദൈർഘ്യം (സെക്കൻഡിന്റെ പത്തിലൊന്ന്)</value></data>
+  <data name="MacroAction_TriggerEffect_StartStrength" xml:space="preserve"><value>ആരംഭ ശക്തി</value></data>
+  <data name="MacroAction_TriggerEffect_EndStrength" xml:space="preserve"><value>അവസാന ശക്തി</value></data>
+  <data name="MacroAction_TriggerEffect_Zone_Format" xml:space="preserve"><value>സോൺ {0} ശക്തി</value></data>
+  <data name="MacroAction_TriggerEffect_Invalid" xml:space="preserve"><value>ഈ മൂല്യങ്ങൾ ഒരു ഇഫക്റ്റും ഉണ്ടാക്കുന്നില്ല, അതിനാൽ ഈ പ്രവർത്തനം ഒന്നും പ്ലേ ചെയ്യില്ല. അവസാന സോൺ ആരംഭ സോണിന് ശേഷവും, രണ്ടാം കാൽവയ്പ് ആദ്യത്തേതിന് ശേഷവും ആയിരിക്കണം.</value></data>
+  <data name="MacroAction_TriggerEffect_Hold" xml:space="preserve"><value>നിലനിൽക്കുന്നത്</value></data>
+  <data name="MacroAction_TriggerEffect_HoldRelease" xml:space="preserve"><value>മാക്രോയുടെ ട്രിഗർ അമർത്തിപ്പിടിക്കുമ്പോൾ</value></data>
+  <data name="MacroAction_TriggerEffect_HoldDuration" xml:space="preserve"><value>നിശ്ചിത സമയത്തേക്ക്</value></data>
+  <data name="MacroAction_TriggerEffect_HoldStopped" xml:space="preserve"><value>നിർത്തുന്നതുവരെ</value></data>
+  <data name="MacroAction_TriggerEffect_Duration" xml:space="preserve"><value>സമയം</value></data>
+  <data name="MacroAction_TriggerEffect_Hint" xml:space="preserve"><value>ഈ സ്ലോട്ടിലെ എല്ലാ DualSense, DualSense Edge കൺട്രോളറുകളിലും പ്ലേ ചെയ്യുന്നു. ഗെയിമിന്റെ സ്വന്തം ട്രിഗർ ഇഫക്റ്റിനും ഒരു ഗെയിം മോഡിന്റേതിനും മുൻഗണനയുണ്ട്, ഇഫക്റ്റ് അവസാനിക്കുമ്പോൾ അഡാപ്റ്റീവ് ട്രിഗറുകൾ ടാബിലെ ക്രമീകരണം തിരിച്ചുവരും. സോണുകൾ വിശ്രമത്തിൽ 0 മുതൽ പൂർണ്ണ വലിവിൽ 9 വരെയാണ്. വില്ല്, കുതിച്ചോട്ടം, യന്ത്രം എന്നിവ ഔദ്യോഗിക DualSense ഇഫക്റ്റുകളല്ല, ഒരു ഫേംവെയർ അപ്ഡേറ്റ് അവ നീക്കം ചെയ്തേക്കാം. അഡാപ്റ്റീവ് ട്രിഗർ വൈബ്രേഷനുകൾ പരിവർത്തനം ചെയ്യുക ഓണാക്കിയ Xbox കൺട്രോളറുകൾ വൈബ്രേറ്റ് ഇഫക്റ്റുകൾ ട്രിഗർ റംബിളായി അനുഭവിക്കുന്നു.</value></data>
+  <data name="MacroAction_TriggerEffect_Timed_Format" xml:space="preserve"><value>{1}-ൽ {0}, {2} ms-ന്</value></data>
+  <data name="MacroAction_TriggerEffect_Held_Format" xml:space="preserve"><value>{1}-ൽ {0}, അമർത്തിപ്പിടിക്കുമ്പോൾ</value></data>
+  <data name="MacroAction_TriggerEffect_Sticky_Format" xml:space="preserve"><value>{1}-ൽ {0}, നിർത്തുന്നതുവരെ</value></data>
+  <data name="MacroAction_TriggerEffectStop_Format" xml:space="preserve"><value>{0}-ലെ ട്രിഗർ ഇഫക്റ്റ് നിർത്തുക</value></data>
 </root>
